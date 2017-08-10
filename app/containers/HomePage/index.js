@@ -33,9 +33,6 @@ const router = {
   '#action': Action,
 }
 
-@connect(createStructuredSelector({
-  route: makeSelectLocationState(),
-}))
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
