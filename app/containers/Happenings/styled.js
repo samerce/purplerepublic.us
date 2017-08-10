@@ -21,13 +21,13 @@ export const Root = styled.div`
   width: 100%;
   background: repeat-y url('https://c2.staticflickr.com/4/3008/3042168853_58701fed37_b.jpg');
   background-size: cover;
-  padding: 140px 0 5px;
+  padding: 100px 0 5px;
   background-attachment: fixed;
-  margin-top: -120px;
+  margin-top: 0;
 
   @media(max-width: 544px) {
-    margin-top: -120px;
-    padding-top: 140px;
+    margin-top: 0;
+    padding-top: 0;
     overflow-x: hidden;
   }
 `

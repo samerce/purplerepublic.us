@@ -9,13 +9,13 @@ const {secondary} = Colors
 let navColor = 'rgba(255, 227, 251, 1)'
 
 export const Root = styled.div`
-  position: relative;
+  position: fixed;
   z-index: 5;
   width: 100%;
   height: ${rootHeight};
   line-height: ${rootHeight};
   border-bottom: 1px solid ${secondary};
-  background: rgba(87, 5, 76, .6);
+  background: rgba(87, 5, 76, .8);
   padding: 0 16px;
 
   @media(max-width: 670px) {
