@@ -48,7 +48,10 @@ module.exports = require('./webpack.base.babel')({
     // locally linked packages. This is an issue with babel and webpack.
     // See https://github.com/babel/babel-loader/issues/149 and
     // https://github.com/webpack/webpack/issues/1866
-    presets: ['babel-preset-react-hmre'].map(require.resolve),
+    presets: [
+      'babel-preset-react-hmre',
+      'babel-preset-decorators-legacy',
+    ].map(require.resolve),
   },
 
   // Emit a source map for easier debugging

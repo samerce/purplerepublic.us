@@ -19,34 +19,54 @@ export default function createRoutes(store) {
   return [
     {
       path: '/',
-      name: 'home',
       getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('home', reducer.default);
-          injectSagas(sagas.default);
-
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: '/features',
-      name: 'features',
-      getComponent(nextState, cb) {
-        import('containers/FeaturePage')
+        import('containers/HomePage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    }, {
+    },
+    // {
+    //   path: '/vision',
+    //   name: 'vision',
+    //   getComponent(nextState, cb) {
+    //     import('containers/Vision')
+    //       .then(loadModule(cb))
+    //       .catch(errorLoading);
+    //   },
+    // }, {
+    //   path: '/show',
+    //   name: 'show',
+    //   getComponent(nextState, cb) {
+    //     import('containers/Show')
+    //       .then(loadModule(cb))
+    //       .catch(errorLoading);
+    //   },
+    // }, {
+    //   path: '/bowling',
+    //   name: 'bowling',
+    //   getComponent(nextState, cb) {
+    //     import('containers/Bowling')
+    //       .then(loadModule(cb))
+    //       .catch(errorLoading);
+    //   },
+    // }, {
+    //   path: '/events',
+    //   name: 'events',
+    //   getComponent(nextState, cb) {
+    //     import('containers/Events')
+    //       .then(loadModule(cb))
+    //       .catch(errorLoading);
+    //   },
+    // }, {
+    //   path: '/getting-involved',
+    //   name: 'getting-involved',
+    //   getComponent(nextState, cb) {
+    //     import('containers/GettingInvolved')
+    //       .then(loadModule(cb))
+    //       .catch(errorLoading);
+    //   },
+    // },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

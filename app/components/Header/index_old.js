@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Title, Subtitle, Root, SocialMediaLinks, Icon,
-  NavDropdownButton, NavDropdown, NavLinkArea,
+  NavDropdownButton, NavDropdown
 } from './styled'
 import NavLink from '../NavLink'
 import {ACTIVE_NAV_LINK_DURATION} from '../../global/constants'
@@ -19,7 +19,6 @@ export default class Header extends React.Component { // eslint-disable-line rea
     this.state = {
       activeKey: 0,
       navDropdownOpen: false,
-      tickled: false,
     }
     window.onready = () => {
       window.location = '#happenings'
@@ -48,30 +47,21 @@ export default class Header extends React.Component { // eslint-disable-line rea
     const {
       activeKey,
       navDropdownOpen,
-      tickled,
     } = this.state;
     return (
       <Root routeKey={activeKey}>
         <Title routeKey={activeKey}>purple republic</Title>
         <Subtitle routeKey={activeKey}>is</Subtitle>
+        {this.renderNavLinks()}
 
-        <NavLinkArea
-          onMouseEnter={() => this.setState({tickled: true})}
-          onMouseLeave={() => this.setState({tickled: false})}>
-          {this.renderNavLinks()}
-          <NavDropdownButton
-            className={tickled && 'cower'}
-            onClick={this.onClickNavDropdownButton.bind(this)}>
-            <i className='fa fa-ellipsis-h' />
-          </NavDropdownButton>
-        </NavLinkArea>
-
-
+        <NavDropdownButton onClick={this.onClickNavDropdownButton.bind(this)}>
+          <i className='fa fa-ellipsis-h' />
+        </NavDropdownButton>
         <NavDropdown isOpen={navDropdownOpen}>
           {this.renderNavLinks(true)}
         </NavDropdown>
 
-        <SocialMediaLinks className={tickled && 'cower'}>
+        <SocialMediaLinks>
           <Icon
             href='mailto:rise@purplerepublic.us'
             title='email'
@@ -115,10 +105,8 @@ export default class Header extends React.Component { // eslint-disable-line rea
 
   renderNavLinks(isInMenu = false) {
     const route = window.location.hash || '#happenings'
-    const {tickled} = this.state
     return NAV_LINKS.map((linkData, key) => (
       <NavLink
-        className={tickled && 'tickled'}
         key={key}
         canHide={key > 2}
         isSelected={route === linkData.route}

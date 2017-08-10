@@ -1,4 +1,5 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components'
+import {EASE_OUT} from './global/constants'
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -6,6 +7,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    background: rgba(87, 5, 76, .8);
   }
 
   body {
@@ -27,4 +29,8 @@ injectGlobal`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
-`;
+
+  input {
+    transition: all .3s ${EASE_OUT};
+  }
+`
