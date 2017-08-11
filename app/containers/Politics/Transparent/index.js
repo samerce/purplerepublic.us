@@ -65,7 +65,7 @@ export default class Transparent extends React.Component {
             a government-sponsored, user-friendly tech infrastructure to ensure transparency and dialogue for our people, with real-time updates and a chance to chime in. voting matters, but active civil engagement saves a nation.
           </BodyCircle>
 
-          <MessageInputRight placeholder='What do you think?'/>
+          <MessageInput.right placeholder='What do you think?'/>
         </ContentArea>
       </Root>
     )

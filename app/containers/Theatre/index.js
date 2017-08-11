@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import {CatchLine} from '../../global/styled'
+import {
+  CatchLine,
+  SweetTalk,
+} from '../../global/styled'
 
 const Background = styled.div`
   background: no-repeat url('https://c1.staticflickr.com/3/2565/4096382636_7e7d9d5545_o.png');
@@ -17,8 +20,11 @@ export default class Theatre extends React.Component {
       <div>
         <Background />
         <CatchLine style={{margin: '20px'}}>
-          a chat with little bird
+          from performance art to president
         </CatchLine>
+        <SweetTalk>
+          a politically-charged meditation on ideas — on hope, fear, war, education, addiction, god, love, loss, and what it means to be alive today.
+        </SweetTalk>
       </div>
     )
   }
