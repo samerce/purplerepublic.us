@@ -26,8 +26,7 @@ export const Root = styled.div`
   margin-top: 0;
 
   @media(max-width: 544px) {
-    margin-top: 0;
-    padding-top: 0;
+    padding-top: 130px;
     overflow-x: hidden;
   }
 `
@@ -138,7 +137,7 @@ const SpecialText = `
 export const HookEm = styled(Text)`
   font-size: 34px;
   font-family: caveat;
-  background: rgba(164, 84, 154, 0.6);
+  background: rgba(94, 83, 163, 0.6);
   transform: rotate(-3deg);
   color: rgba(247, 219, 244, 1);
 

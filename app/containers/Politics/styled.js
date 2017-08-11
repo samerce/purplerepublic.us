@@ -62,38 +62,41 @@ export const Image = styled.img`
   left: 0;
 `
 
-const byLineMargin = '25%';
-const byLinePadding = '25px';
-export const ByLine = styled(StripedBackground)`
+const byLineMargin = '20%'
+const byLineMarginSmall = '10%'
+export const ByLine = styled.div`
+  background: rgba(40, 33, 82, .85);
   color: white;
-  font-family: averia sans libre, sans-serif;
-  margin: 0 ${byLineMargin} 0 0;
-  padding: 10px ${byLinePadding} 10px 10px;
+  font-family: 'averia sans libre', sans-serif;
+  margin-left: ${byLineMargin};
+  padding: 10px 25px;
   font-size: 24px;
   line-height: 32px;
   text-align: right;
   z-index: 1;
   position: relative;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
+  border-radius: 50px;
+  display: inline-block;
 
   @media(max-width: 544px) {
     font-size: 18px;
-    margin-right: 10%;
+    margin-left: ${byLineMarginSmall};
   }
 `
 
 export const ByLineRight = styled(ByLine)`
-  margin: 0 0 0 25%;
-  padding: 10px 10px 10px 25px;
-  border-radius: 0;
+  ${'' /* margin: 0 0 0 25%; */}
+  ${'' /* padding: 10px 10px 10px 25px; */}
+  ${'' /* border-radius: 0;
   border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-  background: ${stripedGradientDark};
+  border-bottom-left-radius: 40px; */}
+  background: rgba(162, 0, 86, 0.85);
   text-align: left;
+  margin-right: ${byLineMargin};
+  float: right;
 
   @media(max-width: 544px) {
-    margin: 0 0 0 10%;
+    margin-right: ${byLineMarginSmall};
   }
 `
 

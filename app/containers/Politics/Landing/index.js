@@ -36,21 +36,44 @@ export default class Landing extends React.PureComponent {
             blue thing
           </Subtitle>
 
-          <ByLine>
-            rise ye thinkers and dreamers, lovers and builders, creators and movers !
+          <ByLine style={{transform: 'rotateZ(2deg)'}}>
+            can love go viral? we're here to unify the human race.
           </ByLine>
           <br />
-          <ByLineRight>
-            this is the proletariat's protest--representative. playful. transparent.
+          <br />
+          <ByLineRight style={{transform: 'rotateZ(-1deg)'}}>
+            to perpetually empower a collectively-cultivated conversation
           </ByLineRight>
           <br />
-          <ByLine>
-            how do we get politicians who think like us?
+          <br />
+          <br />
+          <ByLine style={{transform: 'rotateZ(-1deg)'}}>
+            if not us, who? if not now, when?
           </ByLine>
           <br />
-          <ByLineRight>
+          <br />
+          <br />
+          <ByLineRight style={{transform: 'rotateZ(2deg)'}}>
+            rise ye thinkers & dreamers, lovers & builders, shakers & creators!
+          </ByLineRight>
+          <br />
+          <br />
+          <br />
+          <ByLine style={{transform: 'rotateZ(-1deg)'}}>
+            the proletariat's peaceful protest—representative. playful. transparent.
+          </ByLine>
+          <br />
+          <br />
+          <br />
+          <ByLineRight style={{transform: 'rotateZ(-3deg)'}}>
+            how do we get politicians who think, dream & act like us?
+          </ByLineRight>
+          <br />
+          <br />
+          <br />
+          <ByLine style={{transform: 'rotateZ(1deg)'}}>
             we run! a rebellion of velvet!
-          </ByLineRight>
+          </ByLine>
         </ContentArea>
       </Root>
     )
