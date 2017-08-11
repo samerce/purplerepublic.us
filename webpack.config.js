@@ -127,7 +127,7 @@ module.exports = {
       }
     }),
     new webpack.NamedModulesPlugin()
-  ]),
+  ],
   resolve: {
     modules: ['app', 'node_modules'],
     extensions: [
