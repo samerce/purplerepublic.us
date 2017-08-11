@@ -22,7 +22,7 @@
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress",
-    "build:clean": "npm run test:clean && rimraf ./build",
+    "build:clean": "npm run test:clean && rm -rf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
@@ -39,7 +39,7 @@
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "pretest": "npm run test:clean && npm run lint",
-    "test:clean": "rimraf ./coverage",
+    "test:clean": "rm -rf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
