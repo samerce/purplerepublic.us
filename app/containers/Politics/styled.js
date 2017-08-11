@@ -33,6 +33,7 @@ export const Page = styled.div`
 export const Root = styled.div`
   position: relative;
   width: 100%;
+  overflow: scroll;
 `
 
 export const EmphasisText = styled.div`

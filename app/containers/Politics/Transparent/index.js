@@ -22,22 +22,50 @@ export default class Transparent extends React.Component {
             real transparency
           </Header>
           <BodyCircle>
-            beyond the sound bites, beyond the rhetoric. politics and policy that we can understand, built by us.
+            perpetual empowerment through collectively-cultivated conversation
           </BodyCircle>
 
           <BodyCircleRight>
-            honesty requires acceptance of our ourselves—our racism, our bigotry, our intolerance. to do that, a new conversation must emerge. no more evasion: head-on acknowledgement of our current reality and inspired action to create the next one.
+            beyond the rhetoric, beyond the soundbite: politics and policy built by us, that works for us.
           </BodyCircleRight>
 
           <BodyCircle>
-            it's time to use technology to create healthy, fun, open lines of communication between politicians and their constituents. between the rich and famous and their ardent followers.
+            we must ask why. and then why again. no anticipatory obedience. blind acceptance kills. tyrants are installed. hate is learned.
           </BodyCircle>
 
           <BodyCircleRight>
-            a government-sponsored, user-friendly tech infrastructure to ensure transparency and dialogue for our people, with real-time updates and a chance to chime in. voting matters, but active civil engagement saves a nation.
+            so, too, is empathy, expansion, and embrace.
           </BodyCircleRight>
 
-          <MessageInput placeholder='What do you think?'/>
+          <BodyCircle>
+            we must come to terms with who we are as a nation. we must look straight at our bigotries, fears, and pursuits.
+          </BodyCircle>
+
+          <BodyCircleRight>
+            history doesn't repeat, it instructs. history warns and inspires.
+          </BodyCircleRight>
+
+          <BodyCircle>
+            our founding fathers were against parties and factions. we were to be the united states.
+          </BodyCircle>
+
+          <BodyCircleRight>
+            a nation of mindful collaboration over mindless competition.
+          </BodyCircleRight>
+
+          <BodyCircle>
+            the search for common good cannot be restrained by the demands and desires of the few.
+          </BodyCircle>
+
+          <BodyCircleRight>
+            it's time to use technology to create healthy, fun, open lines of communication between politicians and their constituents. between the rich and famous and their ardent followers.
+          </BodyCircleRight>
+
+          <BodyCircle>
+            a government-sponsored, user-friendly tech infrastructure to ensure transparency and dialogue for our people, with real-time updates and a chance to chime in. voting matters, but active civil engagement saves a nation.
+          </BodyCircle>
+
+          <MessageInputRight placeholder='What do you think?'/>
         </ContentArea>
       </Root>
     )
