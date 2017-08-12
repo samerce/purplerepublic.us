@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import {
   Root as aRoot,
+} from '../../../global/styled'
+import {
   Scribble as aScribble,
 } from '../styled'
 

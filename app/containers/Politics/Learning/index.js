@@ -1,8 +1,12 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, Background, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, BackgroundArea, ContentArea, MessageInput,
+  Root,
+  Header,
+  ContentArea,
+} from '../../../global/styled'
+import {
+  BodyCircle, BodyCircleRight, ByLineRight,
+  ByLine, MessageInput,
 } from '../styled'
 import {Scribble} from './styled'
 
@@ -11,7 +15,7 @@ import {Scribble} from './styled'
 export default class Learning extends React.Component {
   render() {
     return (
-      <Root style={{'background-image':
+      <Root style={{backgroundImage:
         'url("https://c1.staticflickr.com/5/4309/35476210014_92b08fa4a5_b.jpg")'
       }}>
         <ContentArea>

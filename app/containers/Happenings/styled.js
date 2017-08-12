@@ -88,6 +88,7 @@ export const When = styled(SweetTalk)`
   transform: translateX(-30px);
   display: flex;
   justify-content: center;
+  padding-right: 0;
 
   a {
     color: rgba(255, 210, 249, 1);

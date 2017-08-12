@@ -1,14 +1,18 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, ContentArea, MessageInput,
+  Root,
+  Header,
+  ContentArea,
+} from '../../../global/styled'
+import {
+  BodyCircle, BodyCircleRight, ByLineRight,
+  ByLine, MessageInput,
 } from '../styled'
 
 export default class Defense extends React.Component {
   render() {
     return (
-      <Root style={{'background-image':
+      <Root style={{backgroundImage:
          'url("https://c2.staticflickr.com/6/5086/13996426451_1903a4a0e0_b.jpg")'
        }}>
         <ContentArea>

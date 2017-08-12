@@ -1,15 +1,19 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, Background, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, BackgroundArea, ContentArea, MessageInput,
+  Root,
+  Header,
+  ContentArea,
+} from '../../../global/styled'
+import {
+  BodyCircle, BodyCircleRight, ByLineRight,
+  ByLine, MessageInput,
 } from '../styled'
 import {Scribble} from './styled'
 
 export default class Transparent extends React.Component {
   render() {
     return (
-      <Root style={{'background-image':
+      <Root style={{backgroundImage:
         'url("https://c2.staticflickr.com/4/3944/33856994871_16af0b3587_b.jpg")'
       }}>
         <ContentArea>

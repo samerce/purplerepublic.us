@@ -14,7 +14,6 @@ export default class NavLink extends React.Component {
       onClick,
       className,
     } = this.props;
-    console.log(children, ' hide ', canHide, ' selected ', isSelected, ' inmenu ', isInMenu)
     return (
       <Root
         className={className}

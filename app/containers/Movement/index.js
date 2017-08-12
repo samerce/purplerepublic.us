@@ -1,20 +1,32 @@
 import React from 'react'
-
 import styled from 'styled-components'
-const Background = styled.div`
-  background: no-repeat url('https://c2.staticflickr.com/4/3085/3157855996_093e35a377_b.jpg');
-  background-size: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-`
+import {
+  Root,
+  ContentArea,
+  Header,
+  SweetTalk,
+} from '../../global/styled'
+import {
+
+} from './styled'
+
+//https://cdn.pixabay.com/photo/2015/10/24/11/09/highspeed-photography-1004250_1280.jpg
+//https://cdn.pixabay.com/photo/2017/08/01/13/46/fire-2565561_1280.jpg
+//https://cdn.pixabay.com/photo/2017/06/09/18/55/long-exposure-2387965_1280.jpg
+//https://cdn.pixabay.com/photo/2017/05/04/19/08/steel-wool-2284869_1280.jpg
 
 export default class Movement extends React.Component {
   render() {
     return (
-      <Background />
+      <Root style={{backgroundImage:
+        'url("https://cdn.pixabay.com/photo/2017/05/04/19/08/steel-wool-2284869_1280.jpg")'
+      }}>
+        <ContentArea className='movement-main'>
+          <Header>
+            isness in motion
+          </Header>
+        </ContentArea>
+      </Root>
     )
   }
 }

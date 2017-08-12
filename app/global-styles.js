@@ -11,11 +11,11 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'averia sans libre', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'averia sans libre', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #app {

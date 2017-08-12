@@ -1,8 +1,11 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
+import {
+  CatchLine,
+  ContentArea,
+} from '../../../global/styled'
 import {
   BodyCircle, BodyCircleRight, ByLineRight,
-  Subtitle, ByLine, ContentArea,
+  Subtitle, ByLine,
 } from '../styled'
 import {
   Root,
@@ -12,7 +15,7 @@ import {
 export default class Landing extends React.PureComponent {
   render() {
     return (
-      <Root style={{'background-image':
+      <Root style={{backgroundImage:
         'url("http://payload225.cargocollective.com/1/10/350538/6810177/08-IDEO_670.jpg")'
       }}>
         <ContentArea>

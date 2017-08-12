@@ -1,8 +1,12 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
+import {
+  Root,
+  Header,
+  ContentArea,
+} from '../../../global/styled'
 import {
   Background, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, BackgroundArea, MessageInput, Root, ContentArea,
+  ByLine, BackgroundArea, MessageInput,
 } from '../styled'
 import {
   Scribble,
@@ -11,7 +15,7 @@ import {
 export default class Awakening extends React.Component {
   render() {
     return (
-      <Root style={{'background-image':
+      <Root style={{backgroundImage:
         'url("https://c2.staticflickr.com/6/5322/9637570811_997c74711e_b.jpg")'
       }}>
         <ContentArea>
@@ -34,7 +38,7 @@ export default class Awakening extends React.Component {
           </BodyCircle>
 
           <BodyCircleRight>
-            life is theatre where we are all cast lead roles in our own production—let's incubate 50+ candidates to go on the michigan ballot in 2018
+            it's time for a pause in the action. are we off course? let's recalibrate...
           </BodyCircleRight>
 
           <BodyCircle>

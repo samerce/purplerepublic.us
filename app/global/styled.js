@@ -12,6 +12,7 @@ export const Header = styled.div`
   text-shadow: 2px 1px rgba(130,39,90,1);
   margin: 0 auto 30px;
   display: table;
+  padding: 0 10px;
 
   @media(max-width: 544px) {
     font-size: 28px;
@@ -32,8 +33,25 @@ export const SweetTalk = styled.div`
   margin-bottom: 35px;
   margin-top: -5px;
   position: relative;
+  padding: 0 10px;
 
   @media(max-width: 544px) {
     font-size: 20px;
+  }
+`
+
+export const Root = styled.div`
+  position: relative;
+  background-size: cover;
+  background-attachment: fixed;
+`
+
+export const ContentArea = styled.div`
+  width: 100%;
+  padding: 20px 0;
+
+  @media(max-width: 544px) {
+    position: relative;
+    padding: 15px 0;
   }
 `

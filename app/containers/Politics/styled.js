@@ -30,22 +30,6 @@ export const Page = styled.div`
   background: rgba(87, 5, 76, .8);
 `
 
-export const Root = styled.div`
-  position: relative;
-  background-size: cover;
-  background-attachment: fixed;
-`
-
-export const ContentArea = styled.div`
-  width: 100%;
-  padding: 20px 0;
-
-  @media(max-width: 544px) {
-    position: relative;
-    padding: 15px 0;
-  }
-`
-
 export const EmphasisText = styled.div`
   font-family: reenie beanie;
   color: white;

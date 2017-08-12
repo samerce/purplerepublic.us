@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {
   Scribble as aScribble,
-  Root as aRoot,
   ContentArea as aContentArea,
 } from '../styled'
 
