@@ -1,8 +1,5 @@
 import styled, {injectGlobal} from 'styled-components'
 
-export const Root = styled.div`
-  padding: 100px 0 0;
-`
 export const Pitch = styled.div`
   font-family: averia sans libre, sans-serif;
   font-size: 24px;
@@ -22,7 +19,8 @@ injectGlobal`
   }
 
   .theatre-root {
-    height: 100%;
+    width: 100%;
+    position: absolute;
   }
 
   .theatre-tagline {

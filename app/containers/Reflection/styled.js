@@ -1,6 +1,11 @@
 import styled, {injectGlobal} from 'styled-components'
 
 injectGlobal`
+  .reflection-root {
+    width: 100%;
+    position: absolute;
+  }
+
   .reflection-main {
     padding: 100px 0 700px;
   }

@@ -18,7 +18,8 @@ import {} from './styled'
 export default class Reflection extends React.Component {
   render() {
     return (
-      <Root style={{backgroundImage:
+      <Root className={`reflection-root ${this.props.className}`}
+         style={{backgroundImage:
         'url("http://beautiful-lands.com/images/posts/AuraroBorealisNASA1_1.jpg")'
       }}>
         <ContentArea className='reflection-main'>

@@ -12,7 +12,8 @@ import {
 export default class Action extends React.Component {
   render() {
     return (
-      <Root style={{backgroundImage: 'url("https://c1.staticflickr.com/5/4140/4936872846_99c3856bfb_b.jpg")'}}>
+      <Root className={`action-root ${this.props.className}`}
+         style={{backgroundImage: 'url("https://c1.staticflickr.com/5/4140/4936872846_99c3856bfb_b.jpg")'}}>
         <ContentArea className='action-main'>
           <Header>
             get involved!

@@ -14,7 +14,7 @@ import Defense from './Defense'
 export default class Politics extends React.PureComponent {
   render() {
     return (
-      <Page>
+      <Page className={this.props.className}>
         <Landing />
         <Separator />
         <Awakening />

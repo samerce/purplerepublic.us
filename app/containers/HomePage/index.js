@@ -33,20 +33,57 @@ const router = {
   '#action': Action,
 }
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class HomePage extends React.PureComponent {
+
+  constructor() {
+    super()
+    this.state = {
+      prevRoute: null,
+      route: window.location.hash || Object.keys(router)[0],
+      transitionInit: false,
+      transitionActive: false,
+    }
+  }
 
   componentDidMount() {
-    window.onhashchange = () => this.forceUpdate()
+    window.onhashchange = () => this.setState({
+      route: window.location.hash,
+      prevRoute: this.state.route,
+    })
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    if (!this.state.transitionInit) {
+      this.setState({transitionInit: true})
+      setTimeout(() => this.setState({transitionActive: true}), 50)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.state.transitionActive) {
+      setTimeout(() => this.setState({
+        transitionInit: false,
+        transitionActive: false,
+        prevRoute: null,
+      }), 600)
+    }
   }
 
   render() {
-    const route = window.location.hash || Object.keys(router)[0]
+    const {route, prevRoute, transitionInit, transitionActive} = this.state
     const RouteComponent = router[route]
+    const PrevRouteComponent = prevRoute && router[prevRoute]
 
     return (
       <Root>
-        <RouteComponent />
+        {PrevRouteComponent &&
+          <PrevRouteComponent
+            className={`route ${transitionInit && 'exiting'} ${transitionActive && 'exiting-active'}`} />
+        }
+        <RouteComponent
+          className={`route ${transitionInit && 'entering'} ${transitionActive && 'entering-active'} ${!prevRoute && 'entered'}`} />
       </Root>
-    );
+    )
   }
+
 }

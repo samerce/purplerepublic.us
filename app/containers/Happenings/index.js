@@ -21,7 +21,7 @@ import {
 export default class Happenings extends React.Component {
   render() {
     return (
-      <Root>
+      <Root className={this.props.className}>
         <CatchLine>
           a purple rocket launch
         </CatchLine>

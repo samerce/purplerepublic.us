@@ -31,8 +31,7 @@ export default class Header extends React.Component { // eslint-disable-line rea
       }
     }
     document.body.onscroll = () => {
-      this.clearTimer()
-      this.forceUpdate()
+      this.stopAutoAdvance()
     }
     window.onhashchange = () => this.setActiveKeyForLocation()
 
@@ -150,6 +149,11 @@ export default class Header extends React.Component { // eslint-disable-line rea
   clearTimer() {
     clearInterval(timer)
     timer = null
+  }
+
+  stopAutoAdvance() {
+    this.clearTimer()
+    this.forceUpdate()
   }
 
   onClickNavDropdownButton() {

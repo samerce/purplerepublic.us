@@ -18,7 +18,8 @@ import {
 export default class Movement extends React.Component {
   render() {
     return (
-      <Root style={{backgroundImage:
+      <Root className={`movement-root ${this.props.className}`}
+         style={{backgroundImage:
         'url("https://cdn.pixabay.com/photo/2017/05/04/19/08/steel-wool-2284869_1280.jpg")'
       }}>
         <ContentArea className='movement-main'>

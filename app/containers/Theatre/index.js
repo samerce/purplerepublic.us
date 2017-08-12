@@ -13,7 +13,8 @@ import {
 export default class Theatre extends React.Component {
   render() {
     return (
-      <Root className='theatre-root' style={{backgroundImage:
+      <Root className={`theatre-root ${this.props.className}`}
+         style={{backgroundImage:
          'url("https://s3.amazonaws.com/purplerepublic/people-shadows.jpg")'
        }}>
        <ContentArea className='theatre-main'>

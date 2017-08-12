@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Root = styled.div`
   height: 100%;
+  position: relative;
 `
 
 export const Image = styled.img`

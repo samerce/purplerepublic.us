@@ -33,4 +33,34 @@ injectGlobal`
   input {
     transition: all .3s ${EASE_OUT};
   }
+
+  .route {
+    transition-timing-function: ${EASE_OUT};
+    position: absolute;
+
+    &.entering {
+      opacity: 0;
+      transform: translateX(40%);
+      transition: opacity .4s, transform .5s;
+      z-index: 3;
+
+      &.entering-active {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    &.entered {
+      opacity: 1;
+      z-index: 3;
+    }
+    &.exiting {
+      transform: none;
+      transition: transform .5s;
+      z-index: 2;
+
+      &.exiting-active {
+        transform: translateX(-200px);
+      }
+    }
+  }
 `
