@@ -21,13 +21,21 @@ export default class Header extends React.Component { // eslint-disable-line rea
       navDropdownOpen: false,
       tickled: false,
     }
-    window.onready = () => {
-      window.location = '#happenings'
+    document.onreadystatechange = () => {
+      if (document.readyState == "complete") {
+        if (window.location.hash) {
+          this.setActiveKeyForLocation()
+        }
+        window.location = window.location.hash || NAV_LINKS[0].route
+        this.forceUpdate()
+      }
+    }
+    document.body.onscroll = () => {
+      this.clearTimer()
       this.forceUpdate()
     }
-    window.onhashchange = () => {
-      this.setState({activeKey: this.getActiveRouteKey()})
-    }
+    window.onhashchange = () => this.setActiveKeyForLocation()
+
     document.body.onclick = () => {
       if (this.state.navDropdownOpen) {
         this.setState({navDropdownOpen: false})
@@ -36,12 +44,12 @@ export default class Header extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    // timer = setInterval(() => {
-    //   let newActiveKey = this.state.activeKey + 1
-    //   if (newActiveKey >= NAV_LINKS.length) newActiveKey = 0
-    //   this.setState({activeKey: newActiveKey})
-    //   window.location = NAV_LINKS[newActiveKey].route
-    // }, ACTIVE_NAV_LINK_DURATION)
+    timer = setInterval(() => {
+      let newActiveKey = this.state.activeKey + 1
+      if (newActiveKey >= NAV_LINKS.length) newActiveKey = 0
+      this.setState({activeKey: newActiveKey})
+      window.location = NAV_LINKS[newActiveKey].route
+    }, ACTIVE_NAV_LINK_DURATION)
   }
 
   render() {
@@ -114,7 +122,7 @@ export default class Header extends React.Component { // eslint-disable-line rea
   }
 
   renderNavLinks(isInMenu = false) {
-    const route = window.location.hash || '#happenings'
+    const route = window.location.hash || NAV_LINKS[0].route
     const {tickled} = this.state
     return NAV_LINKS.map((linkData, key) => (
       <NavLink
@@ -133,12 +141,15 @@ export default class Header extends React.Component { // eslint-disable-line rea
 
   onClickNavLink(route) {
     this.setState({navDropdownOpen: false})
-
-    clearInterval(timer)
-    timer = null
+    this.clearTimer()
 
     window.location = route
     setTimeout(() => this.setActiveKeyForLocation(), 300)
+  }
+
+  clearTimer() {
+    clearInterval(timer)
+    timer = null
   }
 
   onClickNavDropdownButton() {
@@ -152,10 +163,7 @@ export default class Header extends React.Component { // eslint-disable-line rea
   }
 
   setActiveKeyForLocation() {
-    this.setState({activeKey: NAV_LINKS.reduce((x, link, key) => {
-      if (link.route === window.location.hash) return key
-      return x
-    })})
+    this.setState({activeKey: this.getActiveRouteKey()})
   }
 
 }
