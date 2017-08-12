@@ -22,7 +22,6 @@ export default class Happenings extends React.Component {
   render() {
     return (
       <Root>
-
         <CatchLine>
           a purple rocket launch
         </CatchLine>

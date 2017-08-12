@@ -11,13 +11,9 @@ import {Scribble} from './styled'
 export default class Learning extends React.Component {
   render() {
     return (
-      <Root>
-        <BackgroundArea>
-          <Background
-            src='https://c1.staticflickr.com/5/4309/35476210014_92b08fa4a5_b.jpg'
-            alt='a purple republic dimension' />
-        </BackgroundArea>
-
+      <Root style={{'background-image':
+        'url("https://c1.staticflickr.com/5/4309/35476210014_92b08fa4a5_b.jpg")'
+      }}>
         <ContentArea>
           <Header>
             <Scribble>(lifelong)</Scribble>

@@ -4,25 +4,12 @@ import {
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
 
-export const BackgroundArea = styled.div`
-  width: 100%;
-`
-
-export const Background = styled.div`
-  background: repeat-y url('https://c2.staticflickr.com/4/3008/3042168853_58701fed37_b.jpg');
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`
-
 export const Root = styled.div`
   width: 100%;
-  background: repeat-y url('https://c2.staticflickr.com/4/3008/3042168853_58701fed37_b.jpg');
+  background: url('https://c2.staticflickr.com/4/3008/3042168853_58701fed37_b.jpg');
   background-size: cover;
-  padding: 100px 0 5px;
   background-attachment: fixed;
+  padding: 100px 0 5px;
   margin-top: 0;
 
   @media(max-width: 544px) {

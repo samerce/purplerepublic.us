@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import {
   Scribble as aScribble,
+  Root as aRoot,
+  ContentArea as aContentArea,
 } from '../styled'
 
 export const Scribble = styled(aScribble)`
-  top: -7px;
+  top: -3px;
   left: -10px;
   transform: rotateZ(-10deg);
   text-shadow: none;

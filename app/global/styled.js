@@ -10,11 +10,11 @@ export const Header = styled.div`
   text-align: center;
   color: white;
   text-shadow: 2px 1px rgba(130,39,90,1);
-  margin: 15px auto 30px;
+  margin: 0 auto 30px;
   display: table;
 
   @media(max-width: 544px) {
-    font-size: 34px;
+    font-size: 28px;
   }
 `
 

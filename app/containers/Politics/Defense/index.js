@@ -1,20 +1,16 @@
 import React from 'react';
 import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, Background, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, BackgroundArea, ContentArea, MessageInput,
+  Root, BodyCircle, BodyCircleRight, ByLineRight,
+  ByLine, ContentArea, MessageInput,
 } from '../styled'
 
 export default class Defense extends React.Component {
   render() {
     return (
-      <Root>
-        <BackgroundArea>
-          <Background
-            src='https://c2.staticflickr.com/6/5086/13996426451_1903a4a0e0_b.jpg'
-            alt='a purple republic dimension' />
-        </BackgroundArea>
-
+      <Root style={{'background-image':
+         'url("https://c2.staticflickr.com/6/5086/13996426451_1903a4a0e0_b.jpg")'
+       }}>
         <ContentArea>
           <Header>
             defense without fear

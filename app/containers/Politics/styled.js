@@ -32,24 +32,23 @@ export const Page = styled.div`
 
 export const Root = styled.div`
   position: relative;
+  background-size: cover;
+  background-attachment: fixed;
+`
+
+export const ContentArea = styled.div`
   width: 100%;
-  overflow: scroll;
+  padding: 20px 0;
+
+  @media(max-width: 544px) {
+    position: relative;
+    padding: 15px 0;
+  }
 `
 
 export const EmphasisText = styled.div`
   font-family: reenie beanie;
   color: white;
-`
-
-export const BackgroundArea = styled.div`
-  width: 100%;
-  @media(max-width: 544px) {
-    display: none;
-  }
-`
-
-export const Background = styled.img`
-  width: 100%;
 `
 
 export const StripedBackground = styled.div`
@@ -64,7 +63,7 @@ export const Image = styled.img`
 `
 
 const byLineMargin = '20%'
-const byLineMarginSmall = '10%'
+const byLineMarginSmall = '10px'
 export const ByLine = styled.div`
   background: rgba(40, 33, 82, .85);
   color: white;
@@ -86,11 +85,6 @@ export const ByLine = styled.div`
 `
 
 export const ByLineRight = styled(ByLine)`
-  ${'' /* margin: 0 0 0 25%; */}
-  ${'' /* padding: 10px 10px 10px 25px; */}
-  ${'' /* border-radius: 0;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px; */}
   background: rgba(162, 0, 86, 0.85);
   text-align: left;
   margin-right: ${byLineMargin};
@@ -98,18 +92,6 @@ export const ByLineRight = styled(ByLine)`
 
   @media(max-width: 544px) {
     margin-right: ${byLineMarginSmall};
-  }
-`
-
-export const ContentArea = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-
-  @media(max-width: 544px) {
-    position: relative;
-    padding: 15px 0;
   }
 `
 
@@ -121,10 +103,11 @@ const MessageStyle = `
   max-width: 85%;
   padding: 15px 30px;
   border-radius: ${dialogueBorderRadius};
-  margin: 12px 0 0 40px;
+  margin: 12px 0 0 10%;
+  max-width: 65%;
 `
 const MessageStyleRight = `
-  margin-right: 40px;
+  margin-right: 15%;
   margin-left: auto;
   background: ${stripedGradientDark};
 `
@@ -151,7 +134,7 @@ export const BodyCircleRight = styled(BodyCircle)`
 export const Separator = styled.div`
   width: 100%;
   height: 3px;
-  background: ${stripedGradientLight};
+  background: rgba(184, 95, 174, .8);
   position: relative;
   z-index: 2;
 `
@@ -180,12 +163,21 @@ export const MessageInput = styled.input`
     border-color: rgba(209, 113, 196, 1);
     outline: none;
   }
+  @media(max-width: 544px) {
+    width: 80%;
+    font-size: 18px;
+    margin-left: 15px;
+  }
 `
 MessageInput.right = styled(MessageInput)`
   ${MessageStyleRight}
   &:focus {
     box-shadow: 0 0 20px rgba(136, 93, 132, 0.8);
     border-color: rgba(129, 70, 122, 1);
+  }
+  @media(max-width: 670px) {
+    margin-right: 15px;
+    margin-left: auto;
   }
 `
 

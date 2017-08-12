@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 import {
-  ContentArea as aContentArea,
+  Root as aRoot,
   Scribble as aScribble,
-  BackgroundArea as aBackgroundArea
 } from '../styled'
 
-export const ContentArea = styled(aContentArea)`
-  margin-top: 90px;
+export const Root = styled(aRoot)`
+  margin-top: -80px;
+  padding: 170px 0 20px;
+
+  @media(max-width: 670px) {
+    margin-top: -120px;
+    padding: 250px 0 50px;
+  }
 `
 
 export const Scribble = styled(aScribble)`
@@ -14,12 +19,4 @@ export const Scribble = styled(aScribble)`
   left: -49px;
   transform: rotateZ(-26deg);
   text-shadow: none;
-`
-
-export const BackgroundArea = styled(aBackgroundArea)`
-  @media(max-width: 544px) {
-    display: block;
-    position: fixed;
-    transform: translateY(-120px);
-  }
 `

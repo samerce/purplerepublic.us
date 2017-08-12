@@ -9,13 +9,9 @@ import {Scribble} from './styled'
 export default class Transparent extends React.Component {
   render() {
     return (
-      <Root>
-        <BackgroundArea>
-          <Background
-            src='https://c2.staticflickr.com/4/3944/33856994871_16af0b3587_b.jpg'
-            alt='a purple republic dimension' />
-        </BackgroundArea>
-
+      <Root style={{'background-image':
+        'url("https://c2.staticflickr.com/4/3944/33856994871_16af0b3587_b.jpg")'
+      }}>
         <ContentArea>
           <Header>
             <Scribble>(no, really)</Scribble>

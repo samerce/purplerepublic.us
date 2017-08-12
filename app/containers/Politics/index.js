@@ -19,8 +19,6 @@ export default class Politics extends React.PureComponent {
         <Separator />
         <Awakening />
         <Separator />
-        <Exploration />
-        <Separator />
         <Transparent />
         <Separator />
         <Learning/>

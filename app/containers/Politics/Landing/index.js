@@ -1,25 +1,20 @@
 import React from 'react';
 import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, Background, BodyCircle, BodyCircleRight, ByLineRight,
-  Subtitle, ByLine,
+  BodyCircle, BodyCircleRight, ByLineRight,
+  Subtitle, ByLine, ContentArea,
 } from '../styled'
 import {
-  ContentArea,
+  Root,
   Scribble,
-  BackgroundArea,
 } from './styled'
 
 export default class Landing extends React.PureComponent {
   render() {
     return (
-      <Root>
-        <BackgroundArea>
-          <Background
-            src='http://payload225.cargocollective.com/1/10/350538/6810177/08-IDEO_670.jpg'
-            alt='a purple republic dimension' />
-        </BackgroundArea>
-
+      <Root style={{'background-image':
+        'url("http://payload225.cargocollective.com/1/10/350538/6810177/08-IDEO_670.jpg")'
+      }}>
         <ContentArea>
           <CatchLine>
             <Scribble>
