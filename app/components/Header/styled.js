@@ -33,7 +33,7 @@ export const Title = styled.div`
   display: inline-block;
 
   @media(max-width: 1220px) {
-    font-size: 32px;
+    font-size: 28px;
   }
 `
 export const Subtitle = styled(Title)`
@@ -110,6 +110,7 @@ export const Icon = styled.a`
   }
   @media(max-width: 544px) {
     transform: translateY(-10px);
+    font-size: 20px;
   }
   &:hover {
     ${Hover}
@@ -120,6 +121,7 @@ export const Icon = styled.a`
 `
 
 const expanderSizeBig = '50px'
+const expanderSizeSmall = '40px'
 export const NavDropdownButton = styled.div`
   font-size: 28px;
   width: ${expanderSizeBig};
@@ -149,6 +151,8 @@ export const NavDropdownButton = styled.div`
   @media(max-width: 670px) {
     height: ${navHeightSmall};
     line-height: 64px;
+    font-size: 24px;
+    width: ${expanderSizeSmall};
   }
   &:hover {
     ${Hover}

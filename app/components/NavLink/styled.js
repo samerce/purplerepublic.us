@@ -64,7 +64,7 @@ export const Text = styled.div`
   transition-timing-function: ${EASE_OUT};
 
   @media(max-width: 1220px) {
-    font-size: 32px;
+    font-size: 28px;
     padding: 0 7px;
   }
   @media(max-width: 856px) {

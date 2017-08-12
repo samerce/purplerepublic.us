@@ -164,7 +164,8 @@ export const MessageInput = styled.input`
     outline: none;
   }
   @media(max-width: 544px) {
-    width: 80%;
+    width: initial;
+    max-width: 90%;
     font-size: 18px;
     margin-left: 15px;
   }
