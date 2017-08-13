@@ -9,6 +9,7 @@ import {
   BodyCircle, BodyCircleRight, ByLineRight,
   ByLine, MessageInput,
 } from '../styled'
+import SlackInput from '../SlackInput'
 
 export default class Exploration extends React.Component {
   render() {
@@ -28,7 +29,7 @@ export default class Exploration extends React.Component {
             make the path to self-care attractive and easy and it will be hard to refuse. cater it to the person's journey instead of a generic formula for growth and success
           </BodyCircleRight>
 
-          <MessageInput placeholder='What do you think?'/>
+          <SlackInput channel='learning' />
         </ContentArea>
       </Root>
     )

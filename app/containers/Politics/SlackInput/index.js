@@ -11,29 +11,41 @@ export default class SlackInput extends React.Component {
     super()
     this.state = {
       input: '',
+      isSending: false,
+      justSent: false,
     }
   }
 
   render() {
     const {placeholder, isRight} = this.props
+    const {input, isSending, justSent} = this.state
+    const placeholderText = isSending? 'sending your thoughts...' :
+      justSent? 'got it! anything else? :)' : placeholder || 'what do you think?'
     return (
       <Input
-        className={isRight && 'right'}
-        value={this.state.input}
-        onChange={e => this.updateInput(e)}
-        onKeyPress={e => this.onSendMessage(e)}
-        placeholder={this.props.placeholder || 'What do you think?'} />
+        className={`${isRight && 'right'} ${isSending && 'sending'} ${justSent && 'justSent'}`}
+        value={input}
+        onChange={e => this.onChange(e)}
+        onKeyPress={e => this.onKeyPress(e)}
+        placeholder={placeholderText} />
     )
   }
 
-
-  updateInput(e) {
+  onChange(e) {
+    if (this.state.isSending) return
     this.setState({input: e.target.value})
   }
 
-  onSendMessage(e) {
-    if (e.which === 13) {
-      this.setState({input: ''})
+  onKeyPress(e) {
+    const {isSending, justSent, input} = this.state;
+    const target = e.target
+
+    if (isSending) return
+    if (justSent) this.setState({justSent: false})
+
+    if (input.trim().length > 0 && e.which === 13) {
+      target.blur()
+      this.setState({input: '', isSending: true})
 
       fetch(SLACK_WEBHOOK_URL, {
         method: 'POST',
@@ -41,9 +53,15 @@ export default class SlackInput extends React.Component {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          text: this.state.input,
+          text: input,
           channel: '#' + this.props.channel,
         })
+      }).then(() => {
+        setTimeout(() => {
+          target.focus()
+          this.setState({isSending: false, justSent: true})
+        }, 1000)
+        setTimeout(() => this.setState({justSent: false}), 4000)
       })
     }
   }

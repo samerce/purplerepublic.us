@@ -1,8 +1,19 @@
-import styled from 'styled-components'
+import styled, {injectGlobal} from 'styled-components'
 import {
   MessageStyle,
   MessageStyleRight,
 } from '../styled'
+import {
+  EASE_OUT,
+} from '../../../global/constants'
+
+injectGlobal`
+  @keyframes blinking {
+    0% { background: rgba(255, 190, 248, 0.8); }
+    50% { background: rgba(247, 151, 237, 0.8); }
+    100% { background: rgba(255, 190, 248, 0.8); }
+  }
+`
 
 export const Input = styled.input`
   ${MessageStyle}
@@ -10,6 +21,7 @@ export const Input = styled.input`
   width: 40%;
   height: 60px;
   font-weight: bold;
+  transition: all .2s ${EASE_OUT};
 
   &:focus {
     box-shadow: 0 0 20px rgba(199, 99, 185, 0.8);
@@ -36,4 +48,15 @@ export const Input = styled.input`
       margin-left: auto;
     }
   }
+
+  &.sending {
+    background: rgba(255, 190, 248, 0.8);
+    animation: .8s ${EASE_OUT} 0s blinking infinite;
+    color: rgba(71, 37, 67, .8);
+  }
+  &.justSent {
+    background: rgba(255, 190, 248, 0.8);
+    color: rgba(71, 37, 67, .8);
+  }
+
 `
