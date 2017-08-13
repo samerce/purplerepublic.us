@@ -11,11 +11,29 @@ export const Root = styled.div`
   background-attachment: fixed;
   padding: 100px 0 5px;
   margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    flex: 0 0 50%;
+  }
 
   @media(max-width: 544px) {
     padding-top: 130px;
     overflow-x: hidden;
   }
+
+  @media(max-width: 960px) {
+    flex-direction: column;
+  }
+`
+
+export const Invitation = styled.div`
+
+`
+
+export const GetInvolved = styled.div`
+
 `
 
 export const CatchLine = styled(aCatchLine)`
@@ -28,6 +46,16 @@ export const SweetTalk = styled(aSweetTalk)`
   text-align: left;
   margin: -10px 0 20px 30px;
   font-size: 30px;
+
+  &.blurb-area {
+    max-width: 670px;
+    margin: 40px auto 0;
+    font-size: 22px;
+
+    @media(max-width: 960px) {
+      margin: 20px auto;
+    }
+  }
 `
 
 export const WhenPart = styled.a`
@@ -97,6 +125,7 @@ export const When = styled(SweetTalk)`
     flex-direction: column;
     transform: none;
     border-radius: 0;
+    padding-left: 0;
   }
 `
 

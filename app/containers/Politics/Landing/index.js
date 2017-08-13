@@ -82,7 +82,7 @@ export default class Landing extends React.PureComponent {
               inspired action requires thought. the purple party wants to build invigorated policy through deliberate dialogues, the beginnings of which are below. take a look, add your thoughts, create new politics with us !
             </div>
             <div className='videoBlock'>
-              <div className='blurb'>
+              <div className='intro'>
                 a grassroots movement of vigilante journalism, rogue writers, revolutionary artists, & rational dialogue driven by curiosity, exploration, and love--starts with you!
                 we're here to help ! a little belief and follow through & this whole thing goes viral. . .
               </div>

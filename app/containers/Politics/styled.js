@@ -176,7 +176,7 @@ export const OurPolitics = styled.div`
     background: rgba(40, 33, 82, .85);
     padding: 10px 20px 20px;
 
-    .blurb {
+    .intro {
       padding: 0 0 10px;
     }
     iframe {

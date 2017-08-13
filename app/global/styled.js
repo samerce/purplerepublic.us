@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {injectGlobal} from 'styled-components'
 
 const whitePurple = 'rgba(255, 227, 251, 1)'
 
@@ -53,5 +53,15 @@ export const ContentArea = styled.div`
   @media(max-width: 544px) {
     position: relative;
     padding: 15px 0;
+  }
+`
+
+injectGlobal`
+  .blurb {
+    margin: 0 20px;
+    background: rgba(87, 5, 76, .5);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
   }
 `
