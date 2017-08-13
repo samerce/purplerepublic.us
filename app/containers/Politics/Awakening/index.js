@@ -12,7 +12,17 @@ import {
   Scribble,
 } from './styled'
 
+const SLACK_CHANNEL_URL = 'https://hooks.slack.com/services/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'
+
 export default class Awakening extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      awakenInput: '',
+    }
+  }
+
   render() {
     return (
       <Root style={{backgroundImage:
@@ -45,9 +55,32 @@ export default class Awakening extends React.Component {
             community counts — group processing — but that means we need to participate. we need our young, our disenfranchised, our artists, dreamers, and miracle makers to rally and rise !
           </BodyCircle>
 
-          <MessageInput.right placeholder='What do you think?'/>
+          <MessageInput.right
+            value={this.state.awakenInput}
+            onChange={e => this.updateInput(e)}
+            onKeyPress={e => this.onSendMessage(e)}
+            placeholder='What do you think?'/>
         </ContentArea>
       </Root>
     )
   }
+
+  updateInput(e) {
+    this.setState({awakenInput: e.target.value})
+  }
+
+  onSendMessage(e) {
+    if (e.which === 13) {
+      fetch(SLACK_CHANNEL_URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          text: this.state.awakenInput,
+        })
+      })
+    }
+  }
+
 }
