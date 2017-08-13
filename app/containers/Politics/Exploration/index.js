@@ -3,6 +3,7 @@ import {
   CatchLine,
   Root,
   ContentArea,
+  Header,
 } from '../../../global/styled'
 import {
   BodyCircle, BodyCircleRight, ByLineRight,
