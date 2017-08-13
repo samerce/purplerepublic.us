@@ -9,6 +9,7 @@ import {
   ByLine, MessageInput,
 } from '../styled'
 import {Scribble} from './styled'
+import SlackInput from '../SlackInput'
 
 export default class Transparent extends React.Component {
   render() {
@@ -65,7 +66,7 @@ export default class Transparent extends React.Component {
             a government-sponsored, user-friendly tech infrastructure to ensure transparency and dialogue for our people, with real-time updates and a chance to chime in. voting matters, but active civil engagement saves a nation.
           </BodyCircle>
 
-          <MessageInput.right placeholder='What do you think?'/>
+          <SlackInput channel='transparency' isRight />
         </ContentArea>
       </Root>
     )

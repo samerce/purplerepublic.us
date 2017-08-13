@@ -83,7 +83,7 @@ export const ByLineRight = styled(ByLine)`
   }
 `
 
-const MessageStyle = `
+export const MessageStyle = `
   display: table;
   font-family: averia sans libre;
   font-size: 20px;
@@ -94,7 +94,7 @@ const MessageStyle = `
   margin: 12px 0 0 10%;
   max-width: 65%;
 `
-const MessageStyleRight = `
+export const MessageStyleRight = `
   margin-right: 15%;
   margin-left: auto;
   background: ${stripedGradientDark};
@@ -139,37 +139,6 @@ export const Scribble = styled.div`
 
   @media(max-width: 544px) {
     font-size: 16px;
-  }
-`
-
-export const MessageInput = styled.input`
-  ${MessageStyle}
-  background: ${stripedGradientLight};
-  width: 40%;
-  height: 60px;
-  font-weight: bold;
-
-  &:focus {
-    box-shadow: 0 0 20px rgba(199, 99, 185, 0.8);
-    border-color: rgba(209, 113, 196, 1);
-    outline: none;
-  }
-  @media(max-width: 544px) {
-    width: initial;
-    max-width: 90%;
-    font-size: 18px;
-    margin-left: 15px;
-  }
-`
-MessageInput.right = styled(MessageInput)`
-  ${MessageStyleRight}
-  &:focus {
-    box-shadow: 0 0 20px rgba(136, 93, 132, 0.8);
-    border-color: rgba(129, 70, 122, 1);
-  }
-  @media(max-width: 670px) {
-    margin-right: 15px;
-    margin-left: auto;
   }
 `
 

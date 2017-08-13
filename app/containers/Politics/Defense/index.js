@@ -8,6 +8,7 @@ import {
   BodyCircle, BodyCircleRight, ByLineRight,
   ByLine, MessageInput,
 } from '../styled'
+import SlackInput from '../SlackInput'
 
 export default class Defense extends React.Component {
   render() {
@@ -47,7 +48,7 @@ export default class Defense extends React.Component {
             love can
           </BodyCircle>
 
-          <MessageInput.right placeholder='What do you think?'/>
+          <SlackInput channel='defense' isRight />
         </ContentArea>
       </Root>
     )

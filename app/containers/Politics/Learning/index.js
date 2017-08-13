@@ -9,6 +9,7 @@ import {
   ByLine, MessageInput,
 } from '../styled'
 import {Scribble} from './styled'
+import SlackInput from '../SlackInput'
 
 // other image: https://c1.staticflickr.com/5/4217/35492205630_2b63af4d4c_b.jpg
 
@@ -39,7 +40,7 @@ export default class Learning extends React.Component {
             the free and open pursuit of knowledge—of chasing our curiosities—should be a right.
           </BodyCircleRight>
 
-          <MessageInput placeholder='What do you think?'/>
+          <SlackInput channel='learning' />
         </ContentArea>
       </Root>
     )
