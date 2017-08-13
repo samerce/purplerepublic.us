@@ -23,13 +23,15 @@ export default class Action extends React.Component {
           </Header>
 
           <SweetTalk className='action-blurb'>
-            the time is now--we are the how.
+            <div className='blurb'>
+              the time is now--we are the how.
 
-            come to an event, add & share our social media, volunteer, donate, tell your friends, brainstorm with us,  host an event, canvass,  sign the petition to get the purple party officially on the ballot !
+              come to an event, add & share our social media, volunteer, donate, tell your friends, brainstorm with us,  host an event, canvass,  sign the petition to get the purple party officially on the ballot !
 
-            become a vigilante journalist, a rogue writer, a revolutionary artist,
+              become a vigilante journalist, a rogue writer, a revolutionary artist,
 
-            <div>RUN FOR OFFICE!!</div>
+              <div>RUN FOR OFFICE!!</div>
+            </div>
           </SweetTalk>
         </ContentArea>
       </Root>

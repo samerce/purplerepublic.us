@@ -32,7 +32,9 @@ export default class Movement extends React.Component {
           </Header>
 
           <SweetTalk className='movement-blurb'>
-            momentum in the body builds it in the mind. energy in the mind creates new realities. fresh perspectives offer inspiration and joy. embracing movement reveals the secrets of taking full advantage of the tool of our existence. even a rock moves if you get close enough.
+            <div>
+              momentum in the body builds it in the mind. energy in the mind creates new realities. fresh perspectives offer inspiration and joy. embracing movement reveals the secrets of taking full advantage of the tool of our existence. even a rock moves if you get close enough.
+            </div>
           </SweetTalk>
         </ContentArea>
       </Root>

@@ -25,7 +25,9 @@ export default class Theatre extends React.Component {
            a politically-charged queer little absurdist meditation on ideas — on hope, fear, war, education, addiction, god, love, loss, and what it means to be alive today.
          </SweetTalk>
          <SweetTalk className='theatre-tagline'>
-           . . . bernie sanders ripped the bandaid, donald trump is the seventy-one cent rubbing alcohol, the purple party is the salve to heal our collective wounds.
+          <div>
+             . . . bernie sanders ripped the bandaid, donald trump is the seventy-one cent rubbing alcohol, the purple party is the salve to heal our collective wounds.
+          </div>
          </SweetTalk>
 
          <Pitch>

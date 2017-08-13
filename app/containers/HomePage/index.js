@@ -52,14 +52,11 @@ export default class HomePage extends React.PureComponent {
     })
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    if (!this.state.transitionInit) {
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.transitionInit && !prevState.prevRoute && this.state.prevRoute) {
       this.setState({transitionInit: true})
       setTimeout(() => this.setState({transitionActive: true}), 50)
     }
-  }
-
-  componentDidUpdate(prevProps) {
     if (this.state.transitionActive) {
       setTimeout(() => this.setState({
         transitionInit: false,

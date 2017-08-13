@@ -25,11 +25,16 @@ injectGlobal`
 
   .theatre-tagline {
     max-width: 800px;
-    margin: 40px 20px 50px;
+    margin: 40px auto 50px;
     font-family: caveat;
-    background: rgba(87, 5, 76, .5);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
+
+
+    div {
+      margin: 0 20px;
+      background: rgba(87, 5, 76, .5);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
+    }
   }
 `

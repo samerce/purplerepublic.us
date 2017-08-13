@@ -26,11 +26,13 @@ export default class Reflection extends React.Component {
         <ContentArea className='reflection-main'>
           <Header>listen to alan watts</Header>
           <SweetTalk className='reflect-quote'>
-            <div>
-              “what we need to match the science of human health is ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.” -Bill Moyers
-            </div>
+            <div className='blurb'>
+              <div>
+                “what we need to match the science of human health is ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.” -Bill Moyers
+              </div>
 
-            <iframe src="https://www.youtube.com/embed/MBRqu0YOH14" frameBorder="0" allowFullScreen></iframe>
+              <iframe src="https://www.youtube.com/embed/MBRqu0YOH14" frameBorder="0" allowFullScreen></iframe>
+            </div>
           </SweetTalk>
         </ContentArea>
       </Root>
