@@ -40,8 +40,8 @@ injectGlobal`
 
     &.entering {
       opacity: 0;
-      transform: translateX(40%);
-      transition: opacity .4s, transform .5s;
+      transform: translateX(30%);
+      transition: opacity .3s, transform .4s;
       z-index: 3;
 
       &.entering-active {

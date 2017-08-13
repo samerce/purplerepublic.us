@@ -5,7 +5,7 @@ import {
 } from '../../../global/styled'
 import {
   BodyCircle, BodyCircleRight, ByLineRight,
-  Subtitle, ByLine,
+  Subtitle, ByLine, OurPolitics,
 } from '../styled'
 import {
   Root,
@@ -16,7 +16,7 @@ export default class Landing extends React.PureComponent {
   render() {
     return (
       <Root style={{backgroundImage:
-        'url("http://payload225.cargocollective.com/1/10/350538/6810177/08-IDEO_670.jpg")'
+        'url("https://s3.amazonaws.com/purplerepublic/broccoli.jpg")'
       }}>
         <ContentArea>
           <CatchLine>
@@ -72,6 +72,26 @@ export default class Landing extends React.PureComponent {
           <ByLine style={{transform: 'rotateZ(1deg)'}}>
             we run! a rebellion of velvet!
           </ByLine>
+          <br />
+          <ByLineRight style={{marginTop: '15px', transform: 'rotate(2deg)'}}>
+            we must act out our beliefs. ideas are preludes to creation. creation is action. let's act !
+          </ByLineRight>
+
+          <OurPolitics>
+            <div className='reassureBlock'>
+              inspired action requires thought. the purple party wants to build invigorated policy through deliberate dialogues, the beginnings of which are below. take a look, add your thoughts, create new politics with us !
+            </div>
+            <div className='videoBlock'>
+              <div className='blurb'>
+                a grassroots movement of vigilante journalism, rogue writers, revolutionary artists, & rational dialogue driven by curiosity, exploration, and love--starts with you!
+                we're here to help ! a little belief and follow through & this whole thing goes viral. . .
+              </div>
+              <div className='video'>
+                <iframe
+                   src="https://www.youtube.com/embed/fnnR-9JmAjE" frameBorder="0" allowFullScreen />
+              </div>
+            </div>
+          </OurPolitics>
         </ContentArea>
       </Root>
     )

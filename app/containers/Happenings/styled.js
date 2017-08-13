@@ -6,7 +6,7 @@ import {
 
 export const Root = styled.div`
   width: 100%;
-  background: url('https://c2.staticflickr.com/4/3008/3042168853_58701fed37_b.jpg');
+  background: url('https://s3.amazonaws.com/purplerepublic/purple-feather.jpg');
   background-size: cover;
   background-attachment: fixed;
   padding: 100px 0 5px;

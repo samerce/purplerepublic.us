@@ -8,11 +8,11 @@ import {
 
 export const Root = styled(aRoot)`
   margin-top: -80px;
-  padding: 170px 0 20px;
+  padding: 170px 0 60px;
 
   @media(max-width: 670px) {
     margin-top: -120px;
-    padding: 250px 0 50px;
+    padding: 250px 0 80px;
   }
 `
 
@@ -21,4 +21,10 @@ export const Scribble = styled(aScribble)`
   left: -49px;
   transform: rotateZ(-26deg);
   text-shadow: none;
+
+  @media(max-width: 544px) {
+    left: 6px;
+    top: -16px;
+    transform: rotateZ(-18deg);
+  }
 `

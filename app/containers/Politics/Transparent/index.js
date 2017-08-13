@@ -14,7 +14,7 @@ export default class Transparent extends React.Component {
   render() {
     return (
       <Root style={{backgroundImage:
-        'url("https://c2.staticflickr.com/4/3944/33856994871_16af0b3587_b.jpg")'
+        'url("https://s3.amazonaws.com/purplerepublic/open-book.jpg")'
       }}>
         <ContentArea>
           <Header>

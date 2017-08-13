@@ -33,17 +33,15 @@ export const Root = styled.div`
     }
   }
 
-  @media(max-width: 1220px) {
-    ${'' /* transform: ${p => p.isSelected? 'none' : 'scaleX(0)'}; */}
+  @media(min-width: 670px) and (max-width: 1220px) {
     max-width: ${p => p.isSelected? '150px' : '0'};
     opacity: ${p => p.isSelected? 1 : 0};
     &.tickled {
-      transform: none;
       max-width: 150px;
       opacity: 1;
     }
   }
-  @media(max-width: 856px) {
+  @media(max-width: 670px) {
     height: 60px;
     max-width: 100%;
     text-align: center;
@@ -67,7 +65,8 @@ export const Text = styled.div`
     font-size: 28px;
     padding: 0 7px;
   }
-  @media(max-width: 856px) {
+  @media(max-width: 520px) {
+    font-size: 24px;
     vertical-align: top;
     line-height: ${p => p.isInMenu? '58px' : ''};
   }
@@ -85,7 +84,7 @@ export const Timer = styled.div`
     width ${revealTimerDuration}s cubic-bezier(0.25, 0.1, 0.25, 1)`
     : 'none'};
 
-  @media(max-width: 856px) {
+  @media(max-width: 670px) {
     border: none;
   }
 `

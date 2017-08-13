@@ -1,20 +1,20 @@
 import React from 'react';
-import {Header, CatchLine} from '../../../global/styled'
 import {
-  Root, Background, BodyCircle, BodyCircleRight, ByLineRight,
-  ByLine, BackgroundArea, ContentArea, MessageInput,
+  CatchLine,
+  Root,
+  ContentArea,
+} from '../../../global/styled'
+import {
+  BodyCircle, BodyCircleRight, ByLineRight,
+  ByLine, MessageInput,
 } from '../styled'
 
 export default class Exploration extends React.Component {
   render() {
     return (
-      <Root>
-        <BackgroundArea>
-          <Background
-            src='https://c1.staticflickr.com/5/4321/35925547236_f2127b9002_b.jpg'
-            alt='a purple republic dimension' />
-        </BackgroundArea>
-
+      <Root style={{backgroundImage:
+         'url("https://c1.staticflickr.com/5/4321/35925547236_f2127b9002_b.jpg")'
+       }}>
         <ContentArea>
           <Header>
             explore to grow

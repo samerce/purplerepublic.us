@@ -22,7 +22,7 @@ export default class Theatre extends React.Component {
            from performance art to president
          </CatchLine>
          <SweetTalk style={{margin: '10px 0'}}>
-           a politically-charged absurdist meditation on ideas — on hope, fear, war, education, addiction, god, love, loss, and what it means to be alive today.
+           a politically-charged queer little absurdist meditation on ideas — on hope, fear, war, education, addiction, god, love, loss, and what it means to be alive today.
          </SweetTalk>
          <SweetTalk className='theatre-tagline'>
            . . . bernie sanders ripped the bandaid, donald trump is the seventy-one cent rubbing alcohol, the purple party is the salve to heal our collective wounds.

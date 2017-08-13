@@ -6,7 +6,8 @@ import {
   Header,
   SweetTalk,
 } from '../../global/styled'
-import {} from './styled'
+import {
+} from './styled'
 
 //https://cdn.pixabay.com/photo/2016/11/22/19/25/adult-1850177_1280.jpg
 // https://c2.staticflickr.com/6/5281/5362578387_0cbb0eec1e_b.jpg
@@ -20,13 +21,16 @@ export default class Reflection extends React.Component {
     return (
       <Root className={`reflection-root ${this.props.className}`}
          style={{backgroundImage:
-        'url("http://beautiful-lands.com/images/posts/AuraroBorealisNASA1_1.jpg")'
+        'url("https://s3.amazonaws.com/purplerepublic/aurora.jpg")'
       }}>
         <ContentArea className='reflection-main'>
           <Header>listen to alan watts</Header>
           <SweetTalk className='reflect-quote'>
-            “What we need to match the science of human health is what the ancient Israelites called ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.”
--Bill Moyers
+            <div>
+              “what we need to match the science of human health is ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.” -Bill Moyers
+            </div>
+
+            <iframe src="https://www.youtube.com/embed/MBRqu0YOH14" frameBorder="0" allowFullScreen></iframe>
           </SweetTalk>
         </ContentArea>
       </Root>

@@ -9,4 +9,11 @@ export const Scribble = styled(aScribble)`
   transform: rotateZ(20deg);
   text-shadow: none;
   font-size: 23px;
+
+  @media(max-width: 544px) {
+    font-size: 20px;
+    transform: rotate(26deg);
+    left: -28px;
+    bottom: -8px;
+  }
 `

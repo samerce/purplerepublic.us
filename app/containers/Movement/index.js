@@ -14,18 +14,26 @@ import {
 //https://cdn.pixabay.com/photo/2017/08/01/13/46/fire-2565561_1280.jpg
 //https://cdn.pixabay.com/photo/2017/06/09/18/55/long-exposure-2387965_1280.jpg
 //https://cdn.pixabay.com/photo/2017/05/04/19/08/steel-wool-2284869_1280.jpg
+//https://s3.amazonaws.com/purplerepublic/steel-wool.jpg
+//https://cdn.pixabay.com/photo/2016/12/31/21/24/light-graffiti-1943762_1280.jpg
+//https://cdn.pixabay.com/photo/2016/11/29/09/09/abstract-1868624_1280.jpg
+//https://cdn.pixabay.com/photo/2016/11/05/18/40/startrails-1800916_1280.jpg
 
 export default class Movement extends React.Component {
   render() {
     return (
       <Root className={`movement-root ${this.props.className}`}
          style={{backgroundImage:
-        'url("https://cdn.pixabay.com/photo/2017/05/04/19/08/steel-wool-2284869_1280.jpg")'
+        'url("https://s3.amazonaws.com/purplerepublic/motion-blur.jpg")'
       }}>
         <ContentArea className='movement-main'>
-          <Header>
+          <Header className='movement-header'>
             isness in motion
           </Header>
+
+          <SweetTalk className='movement-blurb'>
+            momentum in the body builds it in the mind. energy in the mind creates new realities. fresh perspectives offer inspiration and joy. embracing movement reveals the secrets of taking full advantage of the tool of our existence. even a rock moves if you get close enough.
+          </SweetTalk>
         </ContentArea>
       </Root>
     )

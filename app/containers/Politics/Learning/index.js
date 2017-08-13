@@ -16,7 +16,7 @@ export default class Learning extends React.Component {
   render() {
     return (
       <Root style={{backgroundImage:
-        'url("https://c1.staticflickr.com/5/4309/35476210014_92b08fa4a5_b.jpg")'
+        'url("https://s3.amazonaws.com/purplerepublic/curious.jpg")'
       }}>
         <ContentArea>
           <Header>
@@ -24,19 +24,19 @@ export default class Learning extends React.Component {
             boundless curiosity
           </Header>
           <BodyCircle>
-            many people aren’t ready for school when they are younger. many wake up at 21 or 31 wishing they had taken their education more seriously. only now they feel it is too late. now they may have children. now they work two jobs to keep food on the table. now they’ve been priced out of bettering themselves.
+            going back to school at any age should be a right. education is how we grow our minds and our hearts. education teaches us empathy. teaches us to be curious. life is an endless education. removing barriers of entry is pivotal to maximizing our collective human potential. perhaps modern einstein, picasso, shakespeare, or spinoza are three credit hours away from their breakthrough.
           </BodyCircle>
 
           <BodyCircleRight>
-            going back to school is a formidable foe. resentment and isolation and fear of a life of struggle settles into the bone. from here we learn to blame and hate.
+            helplessness is bred in hopelessness. from this comes blame, denial, and hate. we all arrive at a different pace. affording education to all of society--whether at ten, eighteen, or fifty-six--should be a top priority for our nation. an educated people create. an educated people get along. an educated people increase the wealth, dynamism, and happiness of a nation.
           </BodyCircleRight>
 
           <BodyCircle>
-            we can allow people to learn when their nature is ready to learn. we all arrive at things at a different pace. if you decide at 27 you are ready to go back to school, a free school should be there for you to go back to.
+            we are the richest nation in the history of the planet. the money is there. we have enough to ensure a successful, safe, educated, enlightened, joyous life for each of our citizens. we just have to believe what we know to be true and stop engaging the vacuous void of naysaying propaganda.  we mustn't be deterred from asking the tough questions. from demanding an honest reply. we mustn't be dettered from lifting each other to our god-given potential. not everyone is ready at eighteen to step into their light. we must be there to witness each other when the flower is in bloom.
           </BodyCircle>
 
           <BodyCircleRight>
-            the money is there. do not allow yourself to be fooled for a second longer. we are the richest nation. we have enough to ensure a successful, safe, educated, enlightened, joyous life for each of our citizens. we just have to believe what we know to be true and stop listening to politicians and media and naysayers who want to use shock doctrine, conditioning, and outright propoganda to deter us from asking tough questions.
+            the free and open pursuit of knowledge—of chasing our curiosities—should be a right.
           </BodyCircleRight>
 
           <MessageInput placeholder='What do you think?'/>

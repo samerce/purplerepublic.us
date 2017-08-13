@@ -19,8 +19,8 @@ export const Root = styled.div`
   padding: 0 16px;
 
   @media(max-width: 670px) {
-    height: 120px;
-    line-height: ${navHeightSmall};
+    height: 100px;
+    line-height: ${'50px'};
     text-align: center;
   }
 `
@@ -29,11 +29,13 @@ export const Title = styled.div`
   padding: 0 10px 0 0;
   color: rgba(219, 166, 212, 0.8);/*rgb(184, 95, 174);*/
   font-family: rancho;
-  text-shadow: 1px 1px rgba(166, 85, 157, .8);
   display: inline-block;
 
   @media(max-width: 1220px) {
     font-size: 28px;
+  }
+  @media(max-width: 520px) {
+    font-size: 24px;
   }
 `
 export const Subtitle = styled(Title)`
@@ -48,8 +50,11 @@ export const Subtitle = styled(Title)`
     font-size: 20px;
     line-height: 82px;
   }
+  @media(max-width: 856px) {
+    font-size: 14px;
+  }
   @media(max-width: 670px) {
-    line-height: 64px;
+    line-height: 52px;
   }
 `
 
@@ -62,7 +67,9 @@ export const SocialMediaLinks = styled.div`
   display: inline-block;
   float: right;
   transform: translateX(12px);
-  transition: all .1s ${EASE_OUT};
+  a {
+    transition: all .1s ${EASE_OUT} .1s;
+  }
 
   @media(max-width: 670px) {
     float: none;
@@ -71,10 +78,11 @@ export const SocialMediaLinks = styled.div`
     height: 50px;
     display: block;
   }
-  @media(max-width: 1060px) {
+  @media(min-width: 670px) and (max-width: 1060px) {
     &.cower a {
       opacity: 0;
       width: 0;
+      transition-delay: 0;
     }
   }
 `
@@ -135,22 +143,17 @@ export const NavDropdownButton = styled.div`
   position: relative;
   ${Transition}
 
-  @media(max-width: 1220px) {
+  @media(min-width: 670px) and (max-width: 1220px) {
     display: inline-block;
     &.cower {
       width: 0;
       opacity: 0;
     }
   }
-  @media(min-width: 1220px) {
-    &.cower {
-      width: 0;
-      opacity: 0;
-    }
-  }
   @media(max-width: 670px) {
+    display: inline-block;
     height: ${navHeightSmall};
-    line-height: 64px;
+    line-height: 54px;
     font-size: 24px;
     width: ${expanderSizeSmall};
   }
@@ -166,12 +169,10 @@ export const NavDropdown = styled.div`
   top: 100%;
   left: 0;
   margin-top: 1px;
-  display: flex;
+  display: none;
   flex-direction: column;
   background: rgba(87, 5, 76, .8);
   border-bottom: 1px solid ${secondary};
-  transform: ${p => p.isOpen? 'none' : 'scaleY(0)'};
-  opacity: ${p => p.isOpen? 1 : 0};
   transform-origin: 0px 0px;
   transition: transform .3s, opacity .25s;
   transition-timing-function: ${EASE_OUT};
@@ -179,7 +180,10 @@ export const NavDropdown = styled.div`
   & > * {
     flex: 0 0 60px;
   }
-  @media(max-width: 856px) {
+  @media(max-width: 670px) {
+    display: flex;
+    transform: ${p => p.isOpen? 'none' : 'scaleY(0)'};
+    opacity: ${p => p.isOpen? 1 : 0};
     width: 100%;
   }
 `

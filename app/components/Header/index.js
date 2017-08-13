@@ -30,9 +30,8 @@ export default class Header extends React.Component { // eslint-disable-line rea
         this.forceUpdate()
       }
     }
-    document.body.onscroll = () => {
-      this.stopAutoAdvance()
-    }
+    document.body.onscroll = () => this.stopAutoAdvance()
+    document.addEventListener('touchmove', () => this.stopAutoAdvance())
     window.onhashchange = () => this.setActiveKeyForLocation()
 
     document.body.onclick = () => {

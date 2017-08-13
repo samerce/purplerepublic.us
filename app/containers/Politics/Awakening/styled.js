@@ -16,4 +16,10 @@ Scribble.arrow = styled(Scribble)`
   top: 12px;
   left: 26px;
   transform: rotateZ(-7deg);
+
+  @media(max-width: 544px) {
+    top: 7px;
+    left: 22px;
+    font-size: 16px;
+  }
 `
