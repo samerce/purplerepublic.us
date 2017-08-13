@@ -20,7 +20,6 @@ export default class Header extends React.Component { // eslint-disable-line rea
       activeKey: 0,
       navDropdownOpen: false,
       tickled: false,
-      hasAdvancedOnce: window.location.hash !== NAV_LINKS[0].route,
     }
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
@@ -152,8 +151,6 @@ export default class Header extends React.Component { // eslint-disable-line rea
   }
 
   stopAutoAdvance() {
-    if (!this.state.hasAdvancedOnce) return
-
     this.clearTimer()
     this.forceUpdate()
   }
