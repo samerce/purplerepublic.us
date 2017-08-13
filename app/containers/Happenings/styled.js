@@ -52,8 +52,15 @@ export const SweetTalk = styled(aSweetTalk)`
     margin: 40px auto 0;
     font-size: 22px;
 
+    .blurb {
+      position: fixed;
+    }
+
     @media(max-width: 960px) {
       margin: 20px auto;
+      .blurb {
+        position: relative;
+      }
     }
   }
 `
