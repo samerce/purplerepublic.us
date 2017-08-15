@@ -13,7 +13,7 @@ injectGlobal`
   .reflect-quote {
     margin-left: auto;
     margin-right: auto;
-    max-width: 800px;
+    max-width: 860px;
 
     iframe {
       margin-top: 10px;

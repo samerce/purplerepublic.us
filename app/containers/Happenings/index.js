@@ -40,7 +40,7 @@ export default class Happenings extends React.Component {
             <TicketLink
               href='https://www.eventbrite.com/e/a-purple-rocket-launch-the-purple-party-kicks-off-tickets-36905907563?aff=es2'
               target='_blank'>
-              get tickets !
+              get free tickets !
             </TicketLink>
           </When>
 
@@ -87,7 +87,7 @@ export default class Happenings extends React.Component {
             <TicketLink
               href='https://www.eventbrite.com/e/a-purple-rocket-launch-the-purple-party-kicks-off-tickets-36905907563?aff=es2'
               target='_blank'>
-              get tickets !
+              get free tickets !
             </TicketLink>
           </When>
         </Invitation>

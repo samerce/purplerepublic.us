@@ -28,7 +28,7 @@ export default class Reflection extends React.Component {
           <SweetTalk className='reflect-quote'>
             <div className='blurb'>
               <div>
-                “what we need to match the science of human health is ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.” -Bill Moyers
+                “what we need to match the science of human health is ‘hocma’—the science of the heart. . . the capacity to see. . . to feel. . . and then to act. . . as if the future depended on you. Believe me, it does.” <div>-Bill Moyers</div>
               </div>
 
               <iframe src="https://www.youtube.com/embed/MBRqu0YOH14" frameBorder="0" allowFullScreen></iframe>

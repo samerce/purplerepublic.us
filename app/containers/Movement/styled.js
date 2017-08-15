@@ -16,11 +16,11 @@ injectGlobal`
   }
 
   .movement-blurb {
-    max-width: 670px;
+    max-width: 730px;
     margin-left: auto;
     margin-right: auto;
 
-    div {
+    .inner {
       margin: 0 20px;
       background: rgba(87, 5, 76, .5);
       border-radius: 20px;

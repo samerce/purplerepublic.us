@@ -51,6 +51,7 @@ export const SweetTalk = styled(aSweetTalk)`
     max-width: 670px;
     margin: 40px auto 0;
     font-size: 22px;
+    text-align: center;
 
     .blurb {
       position: fixed;

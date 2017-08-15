@@ -8,7 +8,7 @@ import {
 
 export const Root = styled(aRoot)`
   margin-top: -80px;
-  padding: 170px 0 60px;
+  padding: 170px 0 40px;
 
   @media(max-width: 670px) {
     margin-top: -120px;

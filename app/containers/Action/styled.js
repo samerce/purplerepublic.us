@@ -11,7 +11,7 @@ injectGlobal`
   }
 
   .action-blurb {
-    max-width: 670px;
+    max-width: 730px;
     margin-left: auto;
     margin-right: auto;
   }
