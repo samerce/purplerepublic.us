@@ -58,6 +58,10 @@ export default class Header extends React.Component { // eslint-disable-line rea
     } = this.state;
     return (
       <Root routeKey={activeKey}>
+        <div className='logo'>
+          <img src='https://s3.amazonaws.com/purplerepublic/purple+feather+solo+light.png' />
+        </div>
+
         <Title routeKey={activeKey}>purple republic</Title>
         <Subtitle routeKey={activeKey}>is</Subtitle>
 

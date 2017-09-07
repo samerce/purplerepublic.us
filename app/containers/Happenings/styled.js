@@ -199,8 +199,8 @@ export const ShakeEm = styled(Text)`
   font-family: caveat;
   transform: rotateZ(1deg);
   margin-top: 20px;
-  color: rgba(74, 10, 66, 1);
-  background: rgba(193, 118, 183, 0.5);
+  color: rgba(247, 219, 244, 1);/*rgba(74, 10, 66, 1);*/
+  background: rgba(94, 83, 163, 0.6);
   max-width: 330px;
 `
 
@@ -210,7 +210,7 @@ export const Jiggle = styled(Text)`
   transform: rotateZ(-2deg);
   margin-top: 25px;
   color: rgba(74, 10, 66, 1);
-  background: rgba(185, 93, 173, 0.7);
+  background: rgba(83,153,163, .6);
   max-width: 590px;
 
   div.sub {

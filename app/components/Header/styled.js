@@ -23,6 +23,18 @@ export const Root = styled.div`
     line-height: ${'50px'};
     text-align: center;
   }
+
+  .logo {
+    height: 100%;
+    display: inline-flex;
+    vertical-align: top;
+    align-items: center;
+    margin-right: 15px;
+
+    img {
+      height: 40px;
+    }
+  }
 `
 export const Title = styled.div`
   font-size: 36px;
