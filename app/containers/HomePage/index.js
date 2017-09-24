@@ -53,17 +53,17 @@ export default class HomePage extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.state.transitionInit && !prevState.prevRoute && this.state.prevRoute) {
-      this.setState({transitionInit: true})
-      setTimeout(() => this.setState({transitionActive: true}), 50)
-    }
-    if (this.state.transitionActive) {
-      setTimeout(() => this.setState({
-        transitionInit: false,
-        transitionActive: false,
-        prevRoute: null,
-      }), 600)
-    }
+    // if (!this.state.transitionInit && !prevState.prevRoute && this.state.prevRoute) {
+    //   this.setState({transitionInit: true})
+    //   setTimeout(() => this.setState({transitionActive: true}), 50)
+    // }
+    // if (this.state.transitionActive) {
+    //   setTimeout(() => this.setState({
+    //     transitionInit: false,
+    //     transitionActive: false,
+    //     prevRoute: null,
+    //   }), 600)
+    // }
   }
 
   render() {
@@ -73,12 +73,7 @@ export default class HomePage extends React.PureComponent {
 
     return (
       <Root>
-        {PrevRouteComponent &&
-          <PrevRouteComponent
-            className={`route ${transitionInit && 'exiting'} ${transitionActive && 'exiting-active'}`} />
-        }
-        <RouteComponent
-          className={`route ${transitionInit && 'entering'} ${transitionActive && 'entering-active'} ${!prevRoute && 'entered'}`} />
+        <RouteComponent className={`route entered`} />
       </Root>
     )
   }

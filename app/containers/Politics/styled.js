@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, {injectGlobal} from 'styled-components'
 import {secondary} from '../../global/colors'
+import {EASE_OUT, EASE_IN} from '../../global/constants'
 
 const whitePurple = 'rgba(255, 227, 251, 1)'
 const dialogueBorderRadius = '30px'
@@ -22,20 +23,239 @@ const stripedGradientDark = `repeating-linear-gradient(
   rgba(53, 47, 102, 0.8) 4px*/
 )`
 
+const getRand = range => `${Math.ceil(Math.random() * range)}px`
+
+injectGlobal`
+  @keyframes circleGrow {
+    from {
+      border-width: 5px;
+    }
+    to {
+      border-width: 3px;
+      width: 100px;
+      height: 100px;
+      top: 60px;
+      left: 0;
+    }
+  }
+
+  @keyframes jiggle2 {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    25% {
+      transform: translate(${getRand(-15)}, ${getRand(-11)});
+    }
+
+    50% {
+      transform: translate(${getRand(12)}, ${getRand(17)});
+    }
+
+    75% {
+      transform: translate(${getRand(-19)}, ${getRand(12)});
+    }
+
+    100% {
+      transform: translate(${getRand(14)}, ${getRand(-17)});
+    }
+  }
+`
+
 export const Page = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 100%;
   width: 100%;
-  background: rgba(87, 5, 76, .8);
   overflow: hidden;
 `
 
-export const EmphasisText = styled.div`
-  font-family: reenie beanie;
-  color: white;
+export const NowButtonMoverRoot = styled.div`
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
 `
 
+export const NowButtonRoot = styled.div`
+  font-family: annie use your telescope;
+  color: black;
+  font-size: 62px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  padding-top: 70px;
+
+  animation: 5s ${EASE_OUT} 5s jiggle2;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+  #now {
+    opacity: 0;
+    transition: opacity 7s ${EASE_OUT};
+  }
+
+  &.appeared {
+    #now {
+      opacity: 1;
+      transition-delay: 1s;
+    }
+  }
+`
+
+export const QuoteRoot = styled.div`
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 52px;
+  font-family: life savers;
+  z-index: 2;
+
+  #a, #b, #c {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 3s ${EASE_IN} .2s, transform 3s ${EASE_OUT};
+    margin-right: 15px;
+    display: inline-block;
+  }
+
+  &.show {
+    #a, #b, #c {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #b {
+      transition-delay: 1s;
+    }
+    #c {
+      transition-delay: 2s;
+    }
+  }
+`
+
+export const Quote = styled.div`
+
+`
+
+export const NowText = styled.div`
+  position: relative;
+  flex: 0 0 auto;
+  cursor: pointer;
+
+  #now {
+    position: relative;
+    z-index: 2;
+  }
+
+  #se {
+    position: absolute;
+    top: 12px;
+    left: -105px;
+    display: inline-block;
+    opacity: 0;
+    transform: rotate(180deg) translateX(10px);
+    transition: all .3s ${EASE_OUT};
+
+    span {
+      font-size: 18px;
+      margin-left: -19px;
+      display: inline-block;
+      transform: translateY(10px) rotate(28deg)
+    }
+  }
+  #k, #ledge, #words {
+    opacity: 0;
+    position: absolute;
+    transition: all .3s ${EASE_OUT};
+    z-index: 2;
+  }
+  #k {
+    left: -55px;
+    transform: translateX(-15px);
+  }
+  #ledge {
+    left: 115px;
+    transform: translateX(15px);
+  }
+  #words {
+    display: inline-block;
+    margin-left: 10px;
+    transform: translateX(10px);
+    width: 230px;
+  }
+  .click1 & {
+    #se {
+      opacity: 1;
+      transform: rotate(180deg);
+      transition: all 2s ${EASE_OUT} .7s;
+    }
+  }
+  .click2 & {
+    #k, #ledge {
+      opacity: 1;
+      transform: none;
+      transition: all 2s ${EASE_OUT} .7s;
+    }
+  }
+  .click3 & {
+    font-size: 26px;
+    transition: font-size .5s ${EASE_OUT};
+    cursor: default;
+
+    #words {
+      transform: none;
+      opacity: 1;
+      transition: transform 2s ${EASE_OUT} .2s, opacity 2s ${EASE_OUT} .5s;
+    }
+  }
+`
+
+export const NowCircle = styled.div`
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+  border: 3px solid black;
+  margin: 0 auto;
+  background: black;
+  box-shadow: 0 0 30px rgba(0,0,0,.1);
+  z-index: 1;
+`
+
+export const QuiltRoot = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+
+  &.quilted {
+    opacity: 1;
+    transition: opacity 4s ${EASE_OUT} 1s;
+  }
+
+  iframe {
+    position: relative;
+    z-index: 1;
+  }
+`
+
+export const Shade = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.1);
+  pointer-events: none;
+  z-index: 2;
+`
+
+export const EmphasisText = styled.div`
+  `
 export const StripedBackground = styled.div`
   background: ${stripedGradientLight};
 `

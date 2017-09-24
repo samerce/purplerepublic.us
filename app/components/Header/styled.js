@@ -10,13 +10,9 @@ let navColor = 'rgba(255, 227, 251, 1)'
 
 export const Root = styled.div`
   position: fixed;
+  bottom: 20px;
+  right: 20px;
   z-index: 5;
-  width: 100%;
-  height: ${rootHeight};
-  line-height: ${rootHeight};
-  border-bottom: 1px solid ${secondary};
-  background: rgba(87, 5, 76, .8);
-  padding: 0 16px;
 
   @media(max-width: 670px) {
     height: 100px;
@@ -36,6 +32,19 @@ export const Root = styled.div`
     }
   }
 `
+
+export const BlackHoleRoot = styled.div`
+
+`
+
+export const BlackHole = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  ${'' /* border: 1px solid rgba(87, 5, 76, .5); */}
+  background: radial-gradient(circle at center, rgba(87, 5, 76, .9) 0, rgba(87, 5, 76, .1) 70%, white 100%);
+`
+
 export const Title = styled.div`
   font-size: 36px;
   padding: 0 10px 0 0;

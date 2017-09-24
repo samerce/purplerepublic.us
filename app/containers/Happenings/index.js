@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  BackgroundArea,
+  BackgroundRoot,
   Background,
   Root,
   CatchLine,
@@ -13,100 +13,267 @@ import {
   Bounce,
   Jiggle,
   Pocky, Chortle, Koki, WhenPart, TicketLink,
-  Invitation, GetInvolved,
+  Invitation, GetInvolved, PlayButtonRoot, PlayButton,
+  PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
 } from './styled'
 import {
 
 } from '../../global/styled'
+import SineWaves from 'sine-waves'
+import {Motion, spring} from 'react-motion'
+
+const getRandInt = range => Math.ceil(Math.random() * range)
+const getRand = range => `${getRandInt(range)}px`
+const getStarPos = () => `-${getRandInt(60) + 20}px`
 
 export default class Happenings extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      collapsed: false,
+      hovered: false,
+    }
+  }
+
   render() {
+    const {collapsed, hovered} = this.state;
+    const defaultSpring = {stiffness: 70, damping: 9}
+    const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
+    const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
     return (
       <Root className={this.props.className}>
-        <Invitation>
-          <CatchLine>
-            a purple rocket launch
-          </CatchLine>
-          <SweetTalk>
-            the purple party kicks off&nbsp;
-          </SweetTalk>
-          <When>
-            <WhenPart href='https://goo.gl/maps/6EEfQ6szGBK2' target='_blank'>
-              <div>august 17th @ 6pm</div>
-              <div className='link'>
-                club above, heidelberg, ann arbor
-              </div>
-            </WhenPart>
-            <TicketLink
-              href='https://www.eventbrite.com/e/a-purple-rocket-launch-the-purple-party-kicks-off-tickets-36905907563?aff=es2'
-              target='_blank'>
-              get free tickets !
-            </TicketLink>
-          </When>
+        <BackgroundRoot>
+          <ShootingStars>
+            <StarRoot style={{
+              transform: 'rotate(0deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '3.5s',
+                animationDuration: '.5s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(145deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '2s',
+                animationDuration: '1.5s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(105deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '5s',
+                animationDuration: '2.5s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(25deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '8.5s',
+                animationDuration: '2s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(85deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '9.5s',
+                animationDuration: '3s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(195deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '7.5s',
+                animationDuration: '1s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(5deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '5s',
+                animationDuration: '3.5s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-15deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '2.5s',
+                animationDuration: '2s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(67deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '.5s',
+                animationDuration: '2.5s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-87deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '3.5s',
+                animationDuration: '1.7s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-130deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '4s',
+                animationDuration: '2.7s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-190deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '3s',
+                animationDuration: '2.2s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-110deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '6.7s',
+                animationDuration: '1.4s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-168deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '8.4s',
+                animationDuration: '3.2s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+            <StarRoot style={{
+              transform: 'rotate(-45deg)',
+            }}>
+              <StarWithTrail style={{
+                animationDelay: '4.5s',
+                animationDuration: '2s',
+              }}>
+                <Star />
+              </StarWithTrail>
+            </StarRoot>
+          </ShootingStars>
+          <Background className={collapsed && 'collapsed'} />
+        </BackgroundRoot>
 
-
-          <HookEm>
-            <div>greetings fellow comrades, lovers, friends !</div>
-            <div className='sub'>we are the purple people. & we want you !</div>
-            <div className='sub'>join us for an enchanting evening of reflective conversation & artistic exploration</div>
-          </HookEm>
-
-          <WooEm>
-            dialogues. art. community. performance. politics. music. movement.
-          </WooEm>
-
-          <Bounce>
-            curated space to think, play, and create
-          </Bounce>
-
-          <ShakeEm>
-            networking at the next level
-          </ShakeEm>
-
-          <Jiggle>
-            <div>dress how the mood strikes you — from jeans to drag !</div>
-            <div className='sub'>a fully stocked bar and food menu will be available for purchase</div>
-            <div className='tres'>this is a donation-based event — suggested donation $9.32 to $10,4365 to zero cents.</div>
-            <div className='quat'>
-              only 50 spaces available for the compelled & compelling — rsvp now !
-            </div>
-          </Jiggle>
-
-          <Pocky>
-            come create a paradigm with us.
-            <div>bring along an open mind, your inner child & a curious heart.</div>
-          </Pocky>
-
-          <When>
-            <WhenPart href='https://goo.gl/maps/6EEfQ6szGBK2' target='_blank'>
-              <div>august 17th @ 6pm</div>
-              <div className='link'>
-                club above, heidelberg, ann arbor
-              </div>
-            </WhenPart>
-            <TicketLink
-              href='https://www.eventbrite.com/e/a-purple-rocket-launch-the-purple-party-kicks-off-tickets-36905907563?aff=es2'
-              target='_blank'>
-              get free tickets !
-            </TicketLink>
-          </When>
-        </Invitation>
-
-        <GetInvolved>
-          <SweetTalk className='blurb-area'>
-            <div className='blurb'>
-              the time is now--we are the how.
-
-              come to an event, add & share our social media, volunteer, donate, tell your friends, brainstorm with us,  host an event, canvass,  sign the petition to get the purple party officially on the ballot !
-
-              become a vigilante journalist, a rogue writer, a revolutionary artist,
-
-              <div>RUN FOR OFFICE!!</div>
-            </div>
-          </SweetTalk>
-        </GetInvolved>
+        <PlayButtonRoot>
+          <Motion style={{scale: scaleVal, opacity: opacityVal}}>
+            {({scale, opacity}) => (
+              <PlayButtonHoverRoot
+                onClick={() => this.onLetsPlay()}
+                onMouseEnter={() => this.setState({hovered: true})}
+                onMouseLeave={() => this.setState({hovered: false})}
+                className={collapsed && 'collapsed'}
+                style={collapsed? {} : {transform: `scale(${scale})`}}>
+                <PlayButton>
+                  <span>let's</span><span>play!</span>
+                </PlayButton>
+              </PlayButtonHoverRoot>
+            )}
+          </Motion>
+        </PlayButtonRoot>
       </Root>
-
     )
+  }
+
+  onLetsPlay() {
+    this.setState({collapsed: true})
+    setTimeout(() => {
+      window.location = '#politics'
+    }, 2000)
+  }
+
+  getSineWave(id, rotate) {
+    new SineWaves({
+      el: document.getElementById(id),
+
+      speed: 1.5,
+
+      width: function() {
+        return 900;
+      },
+
+      height: function() {
+        return 80;
+      },
+
+      rotate: rotate? 200 : 120,
+
+      ease: 'SineInOut',
+
+      wavesWidth: '70%',
+
+      waves: [
+        {
+          timeModifier: 6,
+          lineWidth: 6,
+          amplitude: -15,
+          wavelength: 25,
+          segmentLength: 5
+        },
+      ],
+
+      // Called on window resize
+      resizeEvent: function() {
+        var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
+        gradient.addColorStop(0,"rgba(23, 210, 168, 0.2)");
+        gradient.addColorStop(0.5,"rgba(255, 255, 255, 0.5)");
+        gradient.addColorStop(1,"rgba(23, 210, 168, 0.2)");
+
+        var index = -1;
+        var length = this.waves.length;
+    	  while(++index < length){
+          this.waves[index].strokeStyle = gradient;
+        }
+
+        // Clean Up
+        index = void 0;
+        length = void 0;
+        gradient = void 0;
+      }
+    });
   }
 }

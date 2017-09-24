@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Title, Subtitle, Root, SocialMediaLinks, Icon,
   NavDropdownButton, NavDropdown, NavLinkArea,
+  BlackHoleRoot, BlackHole,
 } from './styled'
 import NavLink from '../NavLink'
 import {ACTIVE_NAV_LINK_DURATION} from '../../global/constants'
@@ -21,33 +22,33 @@ export default class Header extends React.Component { // eslint-disable-line rea
       navDropdownOpen: false,
       tickled: false,
     }
-    document.onreadystatechange = () => {
-      if (document.readyState == "complete") {
-        if (window.location.hash) {
-          this.setActiveKeyForLocation()
-        }
-        window.location = window.location.hash || NAV_LINKS[0].route
-        this.forceUpdate()
-      }
-    }
-    document.body.onscroll = () => this.stopAutoAdvance()
-    document.addEventListener('touchmove', () => this.stopAutoAdvance())
-    window.onhashchange = () => this.setActiveKeyForLocation()
-
-    document.body.onclick = () => {
-      if (this.state.navDropdownOpen) {
-        this.setState({navDropdownOpen: false})
-      }
-    }
+    // document.onreadystatechange = () => {
+    //   if (document.readyState == "complete") {
+    //     if (window.location.hash) {
+    //       this.setActiveKeyForLocation()
+    //     }
+    //     window.location = window.location.hash || NAV_LINKS[0].route
+    //     this.forceUpdate()
+    //   }
+    // }
+    // document.body.onscroll = () => this.stopAutoAdvance()
+    // document.addEventListener('touchmove', () => this.stopAutoAdvance())
+    // window.onhashchange = () => this.setActiveKeyForLocation()
+    //
+    // document.body.onclick = () => {
+    //   if (this.state.navDropdownOpen) {
+    //     this.setState({navDropdownOpen: false})
+    //   }
+    // }
   }
 
   componentDidMount() {
-    timer = setInterval(() => {
-      let newActiveKey = this.state.activeKey + 1
-      if (newActiveKey >= NAV_LINKS.length) newActiveKey = 0
-      this.setState({activeKey: newActiveKey, hasAdvancedOnce: true})
-      window.location = NAV_LINKS[newActiveKey].route
-    }, ACTIVE_NAV_LINK_DURATION)
+    // timer = setInterval(() => {
+    //   let newActiveKey = this.state.activeKey + 1
+    //   if (newActiveKey >= NAV_LINKS.length) newActiveKey = 0
+    //   this.setState({activeKey: newActiveKey, hasAdvancedOnce: true})
+    //   window.location = NAV_LINKS[newActiveKey].route
+    // }, ACTIVE_NAV_LINK_DURATION)
   }
 
   render() {
@@ -58,67 +59,9 @@ export default class Header extends React.Component { // eslint-disable-line rea
     } = this.state;
     return (
       <Root routeKey={activeKey}>
-        <div className='logo'>
-          <img src='https://s3.amazonaws.com/purplerepublic/purple+feather+solo+light.png' />
-        </div>
-
-        <Title routeKey={activeKey}>purple republic</Title>
-        <Subtitle routeKey={activeKey}>is</Subtitle>
-
-        <NavLinkArea
-          onMouseEnter={() => this.setState({tickled: true})}
-          onMouseLeave={() => this.setState({tickled: false})}>
-          {this.renderNavLinks()}
-          <NavDropdownButton
-            className={tickled && 'cower'}
-            onClick={this.onClickNavDropdownButton.bind(this)}>
-            <i className='fa fa-ellipsis-h' />
-          </NavDropdownButton>
-        </NavLinkArea>
-
-
-        <NavDropdown isOpen={navDropdownOpen}>
-          {this.renderNavLinks(true)}
-        </NavDropdown>
-
-        <SocialMediaLinks className={tickled && 'cower'}>
-          <Icon
-            href='mailto:rise@purplerepublic.us'
-            title='email'
-            target='_blank'>
-            <i className='fa fa-envelope' />
-          </Icon>
-          <Icon
-            href='https://www.facebook.com/purplerepublic.us'
-            title='facebook'
-            target='_blank'>
-            <i className='fa fa-facebook-square' />
-          </Icon>
-          <Icon
-            href='https://twitter.com/1PurpleRepublic'
-            title='twitter'
-            target='_blank'>
-            <i className='fa fa-twitter-square' />
-          </Icon>
-          <Icon
-            href='https://www.youtube.com/channel/UCESV_c8siQuX-Hl371lLvcg'
-            title='youtube'
-            target='_blank'>
-            <i className='fa fa-youtube-square' />
-          </Icon>
-          <Icon
-            href='https://www.instagram.com/1PurpleRepublic'
-            title='instagram'
-            target='_blank'>
-            <i className='fa fa-instagram' />
-          </Icon>
-          <Icon
-            href='https://medium.com/the-purple-republic'
-            title='medium'
-            target='_blank'>
-            <i className='fa fa-medium' />
-          </Icon>
-        </SocialMediaLinks>
+        <BlackHoleRoot>
+          <BlackHole />
+        </BlackHoleRoot>
       </Root>
     );
   }

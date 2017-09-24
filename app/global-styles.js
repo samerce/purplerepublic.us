@@ -7,7 +7,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
-    background: rgba(87, 5, 76, .8);
+    background: white;
   }
 
   body {
@@ -19,9 +19,14 @@ injectGlobal`
   }
 
   #app {
-    background-color: #fafafa;
+    height: 100%;
     min-height: 100%;
     min-width: 100%;
+    position: relative;
+  }
+
+  [data-reactroot] {
+    height: 100%;
   }
 
   p,

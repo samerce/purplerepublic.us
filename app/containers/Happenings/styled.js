@@ -1,30 +1,231 @@
-import styled from 'styled-components'
+import styled, {injectGlobal} from 'styled-components'
 import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
+import {EASE_OUT, EASE_IN} from '../../global/constants'
+
+const getRandInt = range => Math.ceil(Math.random() * range)
+const getRand = range => `${getRandInt(range)}px`
+
+injectGlobal`
+  @keyframes jiggle {
+    0% {
+      transform: translate(${getRand(17)}, ${getRand(13)}) rotate(-20deg);
+    }
+
+    25% {
+      transform: translate(${getRand(-15)}, ${getRand(-11)}) rotate(-20deg);
+    }
+
+    50% {
+      transform: translate(${getRand(12)}, ${getRand(17)}) rotate(-20deg);
+    }
+
+    75% {
+      transform: translate(${getRand(-19)}, ${getRand(12)}) rotate(-20deg);
+    }
+
+    100% {
+      transform: translate(${getRand(14)}, ${getRand(-17)}) rotate(-20deg);
+    }
+  }
+
+  @keyframes shootingStar {
+    0% {
+      transform: translate(500%, 500%);
+      opacity: 1;
+    }
+
+    95% {
+      opacity: 0;
+    }
+
+    100% {
+      transform: translate(-60%, -60%);
+      opacity: 0;
+    }
+  }
+
+  #waves {
+    position: absolute;
+    z-index: 2;
+    top: 230px;
+    right: 80px;
+  }
+  #waves1 {
+    position: absolute;
+    z-index: 2;
+    top: 180px;
+    left: 80px;
+  }
+  #waves2 {
+    position: absolute;
+    z-index: 2;
+    bottom: 220px;
+    left: 80px;
+    transform: rotate(180deg);
+  }
+  #waves3 {
+    position: absolute;
+    z-index: 2;
+    bottom: 170px;
+    right: 80px;
+    transform: rotate(180deg);
+  }
+
+  .pupil-circle {
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    background: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+`
 
 export const Root = styled.div`
+  height: 100%;
   width: 100%;
-  background: url('https://s3.amazonaws.com/purplerepublic/purple-feather.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 100px 0 5px;
-  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+`
+
+export const BackgroundRoot = styled.div`
+  position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`
 
-  & > * {
-    flex: 0 0 50%;
+export const Background = styled.div`
+  height: ${window.innerWidth}px;
+  width: ${window.innerWidth}px;
+  border-radius: 100%;
+  background: radial-gradient(circle at center, #00659D 0, #00ABBC 10%, #E2C58B 35%, #E47C82 60%, #AD5B7B 100%);
+  transition: all 4s ${EASE_OUT};
+  transform: scale(1.5);
+
+  &:not(.collapsed):hover {
+    transform: scale(1.2);
+    transition-duration: 3s;
+  }
+  &.collapsed {
+    opacity: 0;
+    transform: scale(3);
+    transition: all 2s ${EASE_IN};
+  }
+`
+
+export const ShootingStars = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+`
+
+export const StarRoot = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: rotate(-145deg);
+`
+
+export const StarWithTrail = styled.div`
+  width: 200px;
+  background: linear-gradient(to left, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%);
+  animation-name: shootingStar;
+  animation-iteration-count: infinite;
+  animation-timing-function: ${EASE_IN};
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(500%, 500%);
+`
+
+export const Star = styled.div`
+  width: 2px;
+  height: 2px;
+  border-radius: 100%;
+  background: rgba(229, 238, 244, 1);
+  box-shadow: 0 0 5px 2px rgba(255, 255, 255, .8);
+
+`
+
+export const PlayButtonRoot = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`
+
+export const PlayButton = styled.div`
+  display: flex;
+  height: 400px;
+  width: 400px;
+  color: white;
+  font-family: life savers;
+  border-radius: 100%;
+  flex-direction: column;
+  font-size: 90px;
+  justify-content: center;
+  text-align: center;
+  background: rgba(172, 90, 122, 0.4);
+  ${'' /* background: radial-gradient(circle at center, #AD5B7B 0%, rgba(87, 5, 76, 1) 50%, rgba(249, 208, 243, 1) 60%, rgba(249, 208, 243, 1) 70%, rgba(87, 5, 76, 1) 100%); */}
+  animation: 7s jiggle;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+  animation-timing-function: ${EASE_IN};
+  z-index: 3;
+  transition: all 1.5s ${EASE_IN}, background .3s ${EASE_IN};
+  ${'' /* border: 1px solid #AD5B7B; */}
+  box-shadow: 0px 0px 20px rgba(0,0,0,.4);
+  text-shadow: 1px 1px rgba(87, 5, 76, .2);
+
+  &:hover {
+    background: rgba(172, 90, 122, 0.6);
+    transition: background 1s ${EASE_OUT};
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
   }
 
-  @media(max-width: 544px) {
-    padding-top: 130px;
-    overflow-x: hidden;
-  }
+  span {
+    flex: 0 0 auto;
+    transition: all 1s ${EASE_IN};
 
-  @media(max-width: 960px) {
-    flex-direction: column;
+    &:first-child {
+      line-height: 70px;
+    }
+  }
+`
+
+export const PlayButtonHoverRoot = styled.div`
+  height: 400px;
+  width: 400px;
+  z-index: 4;
+
+  &.collapsed {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 1.5s ${EASE_IN};
+
+    span {
+      transform: rotate(-30deg);
+      opacity: 0;
+
+      &:first-child {
+        transform: rotate(30deg);
+      }
+    }
   }
 `
 

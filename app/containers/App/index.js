@@ -17,10 +17,7 @@ import Footer from 'components/Footer';
 import withProgressBar from 'components/ProgressBar';
 
 const AppWrapper = styled.div`
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-  background: rgba(87, 5, 76, .8);
+  height: 100%;
 `;
 const pageMeta = [
   {

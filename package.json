@@ -228,6 +228,7 @@
     "react-dom": "15.4.1",
     "react-helmet": "3.2.2",
     "react-intl": "2.1.5",
+    "react-motion": "^0.5.1",
     "react-redux": "4.4.6",
     "react-router": "3.0.0",
     "react-router-dom": "^4.1.2",
@@ -238,6 +239,7 @@
     "redux-saga": "0.14.0",
     "reselect": "2.5.4",
     "sanitize.css": "4.1.0",
+    "sine-waves": "^0.3.0",
     "styled-components": "1.1.2",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.1"
