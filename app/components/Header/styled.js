@@ -26,7 +26,7 @@ export const Root = styled.div`
 
   .logo {
     height: 100%;
-    display: inline-flex;
+    display: none;
     vertical-align: top;
     align-items: center;
     margin-right: 15px;

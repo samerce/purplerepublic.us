@@ -25,12 +25,12 @@ import Happenings from '../Happenings'
 import Action from '../Action'
 
 const router = {
-  '#happenings': Happenings,
   '#politics': Politics,
   '#theatre': Theatre,
   '#movement': Movement,
   '#reflection': Reflection,
   '#action': Action,
+  '#happenings': Happenings,
 }
 
 export default class HomePage extends React.PureComponent {

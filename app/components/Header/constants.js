@@ -1,11 +1,5 @@
 export const NAV_LINKS = [
   {
-    route: '#happenings',
-    text: 'happenings',
-    color: '#4B8016',
-    textShadowColor: '#3f730c',
-  },
-  {
     route: '#politics',
     text: 'politics',
     color: 'rgb(219, 166, 212)',
@@ -26,5 +20,11 @@ export const NAV_LINKS = [
   {
     route: '#action',
     text: 'action',
+  },
+  {
+    route: '#happenings',
+    text: 'happenings',
+    color: '#4B8016',
+    textShadowColor: '#3f730c',
   },
 ]
