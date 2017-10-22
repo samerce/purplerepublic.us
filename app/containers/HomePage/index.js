@@ -23,11 +23,12 @@ import Movement from '../Movement'
 import Reflection from '../Reflection'
 import Happenings from '../Happenings'
 import Action from '../Action'
+import QuarkArt from '../quarkart'
 
 const router = {
   '#happenings': Happenings,
   '#politics': Politics,
-  '#theatre': Theatre,
+  '#letsfocus': QuarkArt,
   '#movement': Movement,
   '#reflection': Reflection,
   '#action': Action,

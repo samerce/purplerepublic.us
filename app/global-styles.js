@@ -8,6 +8,7 @@ injectGlobal`
     height: 100%;
     width: 100%;
     background: white;
+    overflow: hidden;
   }
 
   body {
@@ -23,6 +24,7 @@ injectGlobal`
     min-height: 100%;
     min-width: 100%;
     position: relative;
+    overflow: hidden;
   }
 
   [data-reactroot] {

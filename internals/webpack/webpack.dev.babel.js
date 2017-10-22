@@ -50,7 +50,6 @@ module.exports = require('./webpack.base.babel')({
     // https://github.com/webpack/webpack/issues/1866
     presets: [
       'babel-preset-react-hmre',
-      'babel-preset-decorators-legacy',
     ].map(require.resolve),
   },
 

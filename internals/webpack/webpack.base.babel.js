@@ -16,7 +16,11 @@ module.exports = (options) => ({
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel-loader',
       exclude: /node_modules/,
-      query: options.babelQuery,
+      query: Object.assign(options.babelQuery ||  {}, {
+        plugins: ((options.babelQuery || {}).plugins || []).concat([
+          'transform-decorators-legacy',
+        ])
+      }),
     }, {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.

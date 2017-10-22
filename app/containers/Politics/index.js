@@ -3,7 +3,7 @@ import {Header, CatchLine} from '../../global/styled'
 import {
   Root, Background, NowCircle, NowButtonRoot, NowText, ByLineRight,
   ByLine, BackgroundArea, ContentArea, Page, Separator,
-  QuoteRoot, Quote, NowButtonMoverRoot, QuiltRoot, Shade,
+  QuoteRoot, Quote, NowButtonMoverRoot, QuiltRoot, Shade, Backdrop,
 } from './styled'
 import Landing from './Landing'
 import Awakening from './Awakening'
@@ -12,7 +12,9 @@ import Transparent from './Transparent'
 import Learning from './Learning'
 import Defense from './Defense'
 import {Motion, spring} from 'react-motion'
+import {Layer, Rect, Stage, Group, Image} from 'react-konva'
 
+const piSquared = Math.PI * 2
 const moveConfig = {stiffness: 70, damping: 13}
 const smooth = moveConfig
 const clickAnimations = [
@@ -48,6 +50,10 @@ export default class Politics extends React.PureComponent {
       showQuote: false,
       click: 0,
       quilted: false,
+      image: null,
+      hoveredX: [],
+      hoveredY: [],
+      didDraw: false,
     }
   }
 
@@ -55,6 +61,19 @@ export default class Politics extends React.PureComponent {
     setTimeout(() => this.setState({appeared: true, circleScale: .1}))
     setTimeout(() => this.setState({circleScale: 1}), 4000)
     setTimeout(() => this.setState({showQuote: true}), 4000)
+
+    const image = new window.Image();
+    image.src =
+      'https://s3.amazonaws.com/purplerepublic/unicorns+have+rights+too.jpg'
+    image.onload = () => this.setState({image})
+  }
+
+  componentDidUpdate(newProps, newState) {
+    if (this.state.click >= 3) {
+      // this.refs.backdrop.draw()
+      this.setState({didDraw: true})
+      setTimeout(() => window.location = '#letsfocus', 1500)
+    }
   }
 
   render() {
@@ -67,11 +86,31 @@ export default class Politics extends React.PureComponent {
       height: click === 3? spring(100) : 140,
       radius: click === 3? spring(10) : 100,
     }
+    const quiltClasses = [
+      quilted && 'quilted',
+    ].filter(val => !!val).join(' ')
+
     return (
-      <Page>
+      <Page onMouseMove={e => this.onMouseMove(e)}>
         {click === 3 &&
-          <QuiltRoot className={quilted && 'quilted'}>
-            <Shade />
+          <QuiltRoot className={quiltClasses}>
+            <Motion defaultStyle={{radius: 5}}
+              style={{radius: spring(1500, {stiffness: 1, damping: 35})}}>
+              {({radius}) => (
+                <Stage width={window.innerWidth} height={window.innerHeight}>
+                  <Layer>
+                    <Group clipFunc={this.backdropClipping(radius)} ref='backdrop'>
+                      <Image
+                        x={0}
+                        y={0}
+                        image={this.state.image}
+                        width={window.innerWidth}
+                        height={window.innerHeight} />
+                    </Group>
+                  </Layer>
+                </Stage>
+              )}
+            </Motion>
           </QuiltRoot>
         }
         <QuoteRoot className={showQuote && 'show'}>
@@ -123,5 +162,27 @@ export default class Politics extends React.PureComponent {
       click: this.state.click + 1,
       quilted: this.state.click === 2
     })
+  }
+
+  onMouseMove(e) {
+    if (this.state.click < 3) return
+
+    const {hoveredX, hoveredY} = this.state
+    hoveredX.push(e.clientX)
+    hoveredY.push(e.clientY)
+    this.setState({
+      hoveredX: [e.clientX],
+      hoveredY: [e.clientY],
+    })
+    this.refs.backdrop.draw()
+  }
+
+  backdropClipping(radius) {
+    return ctx => {
+      const {hoveredX, hoveredY} = this.state
+      hoveredX.forEach((x, i) => {
+        ctx.arc(x, hoveredY[i], radius, 0, piSquared, false)
+      })
+    }
   }
 }
