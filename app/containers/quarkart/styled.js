@@ -25,11 +25,14 @@ injectGlobal`
   }
 
   @keyframes spinning {
-    from {
-      transform: rotate(180deg);
+    0% {
+      transform: rotate(180deg) scale(1.1);
     }
-    to {
-      transform: rotate(360deg);
+    50% {
+      transform: rotate(270deg) scale(.9);
+    }
+    100% {
+      transform: rotate(360deg) scale(1.1);
     }
   }
 
@@ -68,13 +71,14 @@ injectGlobal`
   @keyframes pointPulsing {
     from {
       transform: scale(1.3);
-      background-color: ${lighten(.3, highlightColor)};
+      background-color: black;
     }
     to {
       transform: scale(1.6);
-      background-color: ${lighten(.8, highlightColor)};
+      background-color: white;
     }
   }
+
 `
 export const Page = styled.div`
   height: 100%;
@@ -90,12 +94,12 @@ export const Page = styled.div`
     left: 0;
   }
   .cropper-view-box {
-    outline-color: ${lighten(.3, highlightColor)};
+    outline-color: ${p => lighten(.3, p.themeColor)};
   }
   .cropper-point {
     animation-name: pointPulsing;
     animation-duration: 1s;
-    animation-timing-function: ${easeInOutSine};
+    animation-timing-function: ${EASE_OUT};
     animation-direction: alternate;
     animation-iteration-count: infinite;
   }
@@ -107,11 +111,11 @@ export const Page = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    text-shadow: 1px 1px ${darken(.2, highlightColor)};
+    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
     margin: 0;
     padding: 0 0 30px;
     width: 100%;
-    background: linear-gradient(to top, transparent 0%, ${alpha(.3, highlightColor)} 100%);
+    background: linear-gradient(to top, transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
     pointer-events: none;
     z-index: 3;
     opacity: 0;
@@ -165,7 +169,7 @@ const ToolBar = styled.div`
   text-align: center;
   font-family: annie use your telescope;
   overflow: hidden;
-  background: linear-gradient(to bottom, transparent 0%, ${highlightColor} 100%);
+  background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
   opacity: 0;
   transform: translateY(150px);
   pointer-events: none;
@@ -197,7 +201,7 @@ export const ToolBarItem = styled.div`
     position: relative;
     z-index: 3;
     transition: all .4s ${EASE_OUT};
-    text-shadow: 1px 1px ${darken(.2, highlightColor)};
+    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
     user-select: none;
   }
 
@@ -207,13 +211,13 @@ export const ToolBarItem = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, transparent 0%, ${highlightColorStrong} 50%, transparent 100%);
+    background: linear-gradient(to right, transparent 0%, ${p => alpha(.3, p.themeColor)} 50%, transparent 100%);
     transition: all .2s ${EASE_OUT};
     content: ' ';
     transform: translateY(10px);
     z-index: 1;
     opacity: 0;
-    border-top: 1px solid ${alpha(.2, highlightColor)};
+    border-top: 1px solid ${p => alpha(.2, p.themeColor)};
   }
 
   &:hover {
@@ -238,7 +242,7 @@ export const Choice = styled(ToolBarItem)`
 export const CropPrompt = styled(ToolBar)`
   font-size: 36px;
   padding: 30px 0 20px;
-  text-shadow: 1px 1px ${darken(.2, highlightColor)};
+  text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
   color: white;
 `
 
@@ -333,11 +337,11 @@ export const OutlineDescription = styled.div`
     outline: none;
     padding: 10px;
     border-radius: 3px;
-    background: ${alpha(.4, highlightColor)};
+    background: ${p => alpha(.4, p.themeColor)};
     resize: none;
     font-family: annie use your telescope;
     color: white;
-    text-shadow: 1px 1px alpha(.3, ${highlightColor});
+    text-shadow: 1px 1px alpha(.3, ${p => p.themeColor});
     transition: all .4s ${EASE_OUT};
     text-align: center;
 
@@ -347,7 +351,7 @@ export const OutlineDescription = styled.div`
                   -1px -1px 15px ${alpha(.8, 'white')},
                   -1px 1px 15px ${alpha(.8, 'white')},
                   1px -1px 15px ${alpha(.8, 'white')};
-      background: ${alpha(.1, highlightColor)};
+      background: ${p => alpha(.1, p.themeColor)};
     }
   }
 `
@@ -356,6 +360,7 @@ export const QuarkArtGallery = styled.div`
   position: absolute;
   top: 150px;
   left: 500px;
+  right: 0;
   pointer-events: none;
   opacity: 0;
   transition: all 1s ${easeInOutSine};
@@ -383,6 +388,8 @@ export const QuarkArtGallery = styled.div`
 export const GalleryItemList = styled.div`
   display: flex;
   z-index: 7;
+  width: 100%;
+  overflow-x: scroll;
 
   & > * {
     flex: 0 0 auto;
@@ -398,7 +405,7 @@ export const GalleryItem = styled.div`
   cursor: pointer;
 
   &:hover img {
-    box-shadow: 0 0 40px ${lighten(.3, highlightColor)};
+    box-shadow: 0 0 40px ${p => lighten(.3, p.themeColor)};
     transform: scale(1.02);
     transition: all .4s ${EASE_OUT};
   }
@@ -454,15 +461,34 @@ export const Spinner = styled.span`
     align-items: center;
     justify-content: center;
     z-index: 8;
+    color: white;
+    font-size: 20px;
+    opacity: 0;
+    transform: scale(2);
+    transition: all 1s ${EASE_OUT};
+    pointer-events: none;
+
+    &.big {
+      font-size: 52px;
+    }
+    &.opaque {
+      background: ${p => p.themeColor};
+    }
+    &.show {
+      opacity: 1;
+      transform: none;
+      transition: all 1s ${easeInOutSine};
+      pointer-events: all;
+    }
 
     i {
-      animation-duration: .5s;
+      animation-duration: 1s;
       animation-name: spinning;
       animation-iteration-count: infinite;
-      animation-timing-function: linear;
+      animation-timing-function: ${easeInOutSine};
       flex: 0 0 auto;
-      font-size: 20px;
-      color: white;
+      color: inherit;
+      font-size: inherit;
     }
     span {
       animation-duration: 1s;

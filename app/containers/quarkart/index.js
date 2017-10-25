@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {Header} from '../../global/styled'
 import {cx} from '../../utils/style'
 import {
@@ -7,13 +7,13 @@ import {
   Mask, QuarkArtGallery, GalleryItem, GalleryItemList, GalleryTools,
   GalleryTool, Spinner,
 } from './styled'
+import quarkMothers from './quarkMothers'
 
 import autobind from 'autobind-decorator'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 
 const SLACK_UPLOAD_URL = 'https://slack.com/api/files.upload'
-const QUARK_IMAGE = 'https://s3.amazonaws.com/purplerepublic/do+you+see+me.jpg'
 const MODES = [
   'multipleChoice',
   'crop',
@@ -27,16 +27,19 @@ const CROPPED_IMAGE_DISPLAY_WIDTH = 500
 const CROPPED_IMAGE_SIDE_SMALL = 400
 const CROPPED_IMAGE_GALLERY_TOP = 150
 const CROPPED_IMAGE_GALLERY_LEFT = 50
+const CROP_BOX_SIZE_DEFAULT = 200
+const BASE_IMAGE_URL = 'https://s3.amazonaws.com/purplerepublic/quark-art-mothers/'
 
 export default class QuarkArt extends React.PureComponent {
 
   constructor() {
     super()
+
     this.state = {
-      dragMode: 'crop',
+      dragMode: 'move',
       cropBoxVisible: false,
       mode: MODES.multipleChoice,
-      cropBox: {top: 0, left: 0, width: 0, height: 0},
+      cropBox: {},
       croppedImageData: null,
       croppedImageFullData: null,
       descriptionStyle: {},
@@ -44,11 +47,31 @@ export default class QuarkArt extends React.PureComponent {
       hasCroppedOnce: false,
       isUploadingImage: false,
       hasUploadedImage: false,
+      galleryItems: [],
+      quarkImageIndex: getQuarkImageIndex(),
+      isReady: false,
     }
+  }
+
+  componentDidMount() {
+    this.cropper.img.addEventListener('ready', this.onReady)
+
+    fetch('/quarkArt.list?maxObjects=5', {
+      method: 'GET',
+    }).then((responseRaw) => {
+      responseRaw.json().then(response => {
+        const galleryItems = []
+        for (let item in response.items) {
+          galleryItems.push(item)
+        }
+        this.setState({galleryItems: response.items})
+      })
+    })
   }
 
   render() {
     const {
+      isReady,
       dragMode,
       cropBoxVisible,
       mode,
@@ -57,12 +80,14 @@ export default class QuarkArt extends React.PureComponent {
       croppedImageStyle,
       hasCroppedOnce,
       selectedChoice,
+      quarkImageIndex,
     } = this.state
     const shouldShowCropPrompt = (mode === MODES.crop) && !cropBoxVisible
     const shouldShowCroppedImage = mode === MODES.performCrop ||
       mode === MODES.quarkArtGallery
     const shouldShowDescription = mode === MODES.describe ||
       mode === MODES.performCrop || mode === MODES.quarkArtGallery
+    const themeColor = quarkMothers[quarkImageIndex].color
 
     const pageCx = cx({
       cropping: dragMode === 'crop',
@@ -85,32 +110,22 @@ export default class QuarkArt extends React.PureComponent {
     })
 
     return (
-      <Page className={pageCx} onClick={(e) => {
-        const cropBoxSize = 200
-        if (mode === MODES.crop && !cropBoxVisible) {
-          const cropBox = {
-            top: e.clientY - (cropBoxSize / 2),
-            left: e.clientX - (cropBoxSize / 2),
-            width: cropBoxSize,
-            height: cropBoxSize,
-          }
-          this.refs.cropper.crop()
-          this.refs.cropper.setCropBoxData(cropBox)
-          this.onCropMove()
-          this.setState({cropBoxVisible: true})
-        }
-      }}>
-        <Header className={initialHeaderCx}>
+      <Page
+        className={pageCx}
+        onClick={this.onClickImage}
+        themeColor={themeColor}>
+        {this.renderSpinner('', `dark big opaque ${!isReady && 'show'}`)}
+        <Header className={initialHeaderCx} themeColor={themeColor}>
           what do you see?
         </Header>
-        <Header className={galleryHeaderCx}>
+        <Header className={galleryHeaderCx} themeColor={themeColor}>
           quark art gallery
         </Header>
         <Mask className={mode === MODES.quarkArtGallery && 'show'} />
 
         {this.renderMultipleChoiceTools()}
 
-        <CropPrompt className={shouldShowCropPrompt && 'show'}>
+        <CropPrompt className={shouldShowCropPrompt && 'show'} themeColor={themeColor}>
           <div>
             {!hasCroppedOnce && <span>{selectedChoice}. </span>}
             really, where?
@@ -121,14 +136,16 @@ export default class QuarkArt extends React.PureComponent {
         {this.renderDescribeTools()}
 
         <CroppedImage
+          themeColor={themeColor}
           className={croppedImageCx}
           src={croppedImageData}
           style={croppedImageStyle} />
         <OutlineDescription
+          themeColor={themeColor}
           className={descriptionCx}
           style={descriptionStyle}>
           <textarea
-            ref='outlineDescription'
+            ref={ref => this.outlineDescription = ref}
             placeholder='describe your discovery'
             onKeyDown={this.onKeyPressDescription}
             maxLength={140} />
@@ -138,39 +155,45 @@ export default class QuarkArt extends React.PureComponent {
         {this.renderGalleryTools()}
 
         <Cropper
+          themeColor={themeColor}
           className='quark-img-crop'
-          ref='cropper'
+          ref={ref => this.cropper = ref}
           guides={false}
           viewMode={3}
           dragMode={dragMode}
           autoCrop={false}
           highlight={false}
+          zoomable={false}
+          toggleDragModeOnDblclick={false}
           cropstart={this.onCropStart}
           cropmove={this.onCropMove}
           cropend={this.onCropEnd}
           crossOrigin='anonymous'
-          src={QUARK_IMAGE} />
+          src={this.getQuarkImageUrl()} />
       </Page>
     )
   }
 
   renderMultipleChoiceTools() {
-    const {mode} = this.state
+    const {mode, quarkImageIndex} = this.state
+    const quarkMother = quarkMothers[quarkImageIndex]
+    const themeColor = quarkMother.color
     return (
       <MultipleChoices
+        themeColor={themeColor}
         className={mode === MODES.multipleChoice && 'show'}>
-        {this.renderChoice('water')}
-        {this.renderChoice('chaos')}
-        {this.renderChoice('a wicked horse')}
-        {this.renderChoice('faces')}
-        {this.renderChoice('quantum soup')}
+        {quarkMother.multipleChoiceOptions.map(this.renderChoice)}
       </MultipleChoices>
     )
   }
 
+  @autobind
   renderChoice(text) {
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
     return (
-      <Choice onClick={this.onClickChoice.bind(this, text)}>
+      <Choice
+        themeColor={themeColor}
+        onClick={this.onClickChoice.bind(this, text)}>
         <div>{text}</div>
       </Choice>
     )
@@ -179,12 +202,16 @@ export default class QuarkArt extends React.PureComponent {
   renderCropTools() {
     const {mode, cropBoxVisible, dragMode} = this.state
     const shouldShowCropTools = (mode === MODES.crop) && cropBoxVisible
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
+
     return (
-      <CropTools className={shouldShowCropTools && 'show'}>
-        <CropTool onClick={this.onCancelOutline}>
+      <CropTools
+        themeColor={themeColor}
+        className={shouldShowCropTools && 'show'}>
+        <CropTool themeColor={themeColor} onClick={this.onCancelOutline}>
           <div>never mind</div>
         </CropTool>
-        <CropTool onClick={this.onEndCropping}>
+        <CropTool themeColor={themeColor} onClick={this.onEndCropping}>
           <div>describe what you see</div>
         </CropTool>
       </CropTools>
@@ -193,12 +220,16 @@ export default class QuarkArt extends React.PureComponent {
 
   renderDescribeTools() {
     const {mode} = this.state
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
+
     return (
-      <DescribeTools className={mode === MODES.describe && 'show'}>
-        <DescribeTool onClick={this.onOutlineChangeRequest}>
+      <DescribeTools
+        themeColor={themeColor}
+        className={mode === MODES.describe && 'show'}>
+        <DescribeTool themeColor={themeColor} onClick={this.onOutlineChangeRequest}>
           <div>change outline</div>
         </DescribeTool>
-        <DescribeTool onClick={this.onOutlineFinished}>
+        <DescribeTool themeColor={themeColor} onClick={this.onOutlineFinished}>
           <div>done</div>
         </DescribeTool>
       </DescribeTools>
@@ -206,68 +237,89 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   renderQuarkArtGallery() {
+    const delayInterval = .1
+    let delay = 0
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
+
     return (
-      <QuarkArtGallery className={this.shouldShowGallery() && 'show'}>
+      <QuarkArtGallery
+        themeColor={themeColor}
+        className={this.shouldShowGallery() && 'show'}>
         <div className='intro'>
           you just created your first piece of quark art!
           <br />
           see what other quarks people have found:
         </div>
-        <GalleryItemList>
-          {this.renderGalleryItem(.1)}
-          {this.renderGalleryItem(.2)}
-          {this.renderGalleryItem(.3)}
-          {this.renderGalleryItem(.4)}
-          {this.renderGalleryItem(.5)}
+        <GalleryItemList themeColor={themeColor}>
+          {this.state.galleryItems.map(item => {
+            delay = delay + delayInterval
+            return this.renderGalleryItem(item, delay)
+          })}
         </GalleryItemList>
       </QuarkArtGallery>
     )
   }
 
-  renderGalleryItem(delay) {
+  renderGalleryItem(item, delay) {
     const {croppedImageData, croppedImageStyle} = this.state
+    const style = getCroppedImageStyleGallery(item, 200)
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
+
     return (
       <GalleryItem
+        themeColor={themeColor}
+        key={item.url}
         delay={delay}
         onClick={e => this.onGalleryItemClick(e)}>
-        <img src={croppedImageData} style={{
-          width: 300,
-          height: 400,
+        <img src={item.url} style={{
+          width: style.width,
+          height: style.height,
         }} />
+        <div>{item.description}</div>
       </GalleryItem>
     )
   }
 
   renderGalleryTools() {
     const {isUploadingImage, hasUploadedImage} = this.state
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
+
     return (
-      <GalleryTools className={this.shouldShowGallery() && 'show'}>
+      <GalleryTools
+        themeColor={themeColor}
+        className={this.shouldShowGallery() && 'show'}>
         <GalleryTool
+          themeColor={themeColor}
           onClick={this.onEditFinishedOutline}>
           <div>edit your discovery</div>
         </GalleryTool>
         <GalleryTool
+          themeColor={themeColor}
           onClick={this.onDownload}>
           <div>download your quark</div>
         </GalleryTool>
         <GalleryTool
+          themeColor={themeColor}
           className={hasUploadedImage && 'gone'}
           disabled={isUploadingImage}
           onClick={this.onPublish}>
           {!isUploadingImage && !hasUploadedImage && <div>publish to gallery</div>}
           {hasUploadedImage && <div>published!</div>}
-          {isUploadingImage && this.renderSpinner()}
+          {isUploadingImage && this.renderSpinner('', 'show')}
         </GalleryTool>
-        <GalleryTool onClick={this.onDiscardQuark}>
+        <GalleryTool
+          themeColor={themeColor}
+          onClick={this.onDiscardQuark}>
           <div>find more quark!</div>
         </GalleryTool>
       </GalleryTools>
     )
   }
 
-  renderSpinner(text) {
+  renderSpinner(text, classNames = '') {
+    const themeColor = quarkMothers[this.state.quarkImageIndex].color
     return (
-      <Spinner>
+      <Spinner className={classNames} themeColor={themeColor}>
         <i className='fa fa-superpowers' />
         {text && <span>&nbsp; {text}</span>}
       </Spinner>
@@ -276,6 +328,11 @@ export default class QuarkArt extends React.PureComponent {
 
   shouldShowGallery() {
     return this.state.mode === MODES.quarkArtGallery
+  }
+
+  @autobind
+  onReady() {
+    setTimeout(() => this.setState({isReady: true}), 1000)
   }
 
   @autobind
@@ -288,8 +345,33 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   @autobind
+  onClickImage(e) {
+    const {mode, cropBoxVisible} = this.state;
+    if (mode === MODES.crop && !cropBoxVisible) {
+      const cropBox = {
+        top: e.clientY - (CROP_BOX_SIZE_DEFAULT / 2),
+        left: e.clientX - (CROP_BOX_SIZE_DEFAULT / 2),
+        width: CROP_BOX_SIZE_DEFAULT,
+        height: CROP_BOX_SIZE_DEFAULT,
+      }
+      this.cropper.crop()
+      this.cropper.setCropBoxData(cropBox)
+      this.onCropMove()
+      this.setState({cropBoxVisible: true})
+    }
+  }
+
+  @autobind
+  onCropStart() {
+    const cropBox = this.cropper.getCropBoxData()
+      if (!cropBox.width) {
+        this.setState({cropBoxVisible: true})
+      }
+  }
+
+  @autobind
   onCropMove() {
-    const cropBox = this.refs.cropper.getCropBoxData()
+    const cropBox = this.cropper.getCropBoxData()
     this.setState({
       cropBox,
       descriptionStyle: this.getDescriptionStyleDefault(cropBox),
@@ -313,8 +395,11 @@ export default class QuarkArt extends React.PureComponent {
 
   @autobind
   onCancelOutline() {
-    this.refs.cropper.clear()
-    this.setState({cropBoxVisible: false})
+    this.cropper.clear()
+    this.setState({
+      cropBox: {},
+      cropBoxVisible: false,
+    })
   }
 
   @autobind
@@ -322,7 +407,7 @@ export default class QuarkArt extends React.PureComponent {
     const {dragMode} = this.state
     const newDragMode = dragMode === 'crop'? 'move' : 'crop'
     this.setState({dragMode: newDragMode})
-    this.refs.cropper.setDragMode(newDragMode)
+    this.cropper.setDragMode(newDragMode)
   }
 
   @autobind
@@ -330,14 +415,14 @@ export default class QuarkArt extends React.PureComponent {
     this.setState({
       mode: 'describe',
     })
-    this.refs.outlineDescription.focus()
-    this.refs.cropper.disable()
+    this.outlineDescription.focus()
+    this.cropper.disable()
   }
 
   @autobind
   onOutlineChangeRequest() {
     this.setState({mode: 'crop', dragMode: 'crop'})
-    this.refs.cropper.enable()
+    this.cropper.enable()
   }
 
   @autobind
@@ -351,7 +436,7 @@ export default class QuarkArt extends React.PureComponent {
 
   @autobind
   onOutlineFinished() {
-    const {cropper, outlineDescription} = this.refs
+    const {cropper, outlineDescription} = this
 
     if (!outlineDescription.value.trim()) {
       return outlineDescription.focus()
@@ -366,13 +451,13 @@ export default class QuarkArt extends React.PureComponent {
     })
 
     setTimeout(() => {
-      this.refs.cropper.enable()
-      this.refs.cropper.clear()
-      this.refs.cropper.disable()
+      this.cropper.enable()
+      this.cropper.clear()
+      this.cropper.disable()
       this.setState({
         mode: MODES.quarkArtGallery,
         descriptionStyle: this.getDescriptionStyleGallery(this.state.cropBox),
-        croppedImageStyle: this.getCroppedImageStyleGallery(this.state.cropBox),
+        croppedImageStyle: getCroppedImageStyleGallery(this.state.cropBox),
       })
     }, 1000)
   }
@@ -388,7 +473,7 @@ export default class QuarkArt extends React.PureComponent {
     })
 
     setTimeout(() => {
-      const {cropper, outlineDescription} = this.refs
+      const {cropper, outlineDescription} = this
       outlineDescription.focus()
 
       cropper.enable()
@@ -404,14 +489,14 @@ export default class QuarkArt extends React.PureComponent {
   onDownload() {
     const a = document.createElement('a')
     a.href = this.state.croppedImageFullData
-    a.download = 'quark art - ' + this.refs.outlineDescription.value.trim() + '.jpg'
+    a.download = 'quark art - ' + this.outlineDescription.value.trim() + '.jpg'
     a.click()
   }
 
   @autobind
   onPublish() {
     const {cropBox, croppedImageFullData} = this.state
-    const description = encodeURIComponent(this.refs.outlineDescription.value.trim())
+    const description = encodeURIComponent(this.outlineDescription.value.trim())
     const imageData = encodeURIComponent(croppedImageFullData)
     this.setState({
       isUploadingImage: true,
@@ -433,19 +518,25 @@ export default class QuarkArt extends React.PureComponent {
 
   @autobind
   onDiscardQuark() {
-    this.refs.cropper.enable()
-    this.refs.outlineDescription.value = ''
+    this.cropper.enable()
+
+    const newImageIndex = getQuarkImageIndex()
+    const isSameImage = newImageIndex === this.state.quarkImageIndex
     this.setState({
-      dragMode: 'crop',
-      mode: MODES.crop,
+      dragMode: isSameImage? 'crop' : 'move',
+      mode: isSameImage? MODES.crop : MODES.multipleChoice,
       cropBoxVisible: false,
       hasCroppedOnce: true,
+      isReady: isSameImage
     })
+
     setTimeout(() => {
+      this.outlineDescription.value = ''
       this.setState({
         croppedImageData: null,
         croppedImageFullData: null,
         hasUploadedImage: false,
+        quarkImageIndex: newImageIndex,
       })
     }, 1000)
   }
@@ -457,7 +548,13 @@ export default class QuarkArt extends React.PureComponent {
     } else target.style.transform = activeTransform
   }
 
-  getDescriptionStyleDefault(cropBox) {
+  getDescriptionStyleDefault(cropBoxUnclean) {
+    const cropBox = {
+      top: cropBoxUnclean.top || 0,
+      left: cropBoxUnclean.left || 0,
+      width: cropBoxUnclean.width || 0,
+      height: cropBoxUnclean.height || 0,
+    }
     let top = (cropBox.top || 0) - 110
     if ((cropBox.top + cropBox.height) < window.innerHeight - 220) {
       top = cropBox.top + cropBox.height + 15
@@ -484,7 +581,7 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   getDescriptionStyleGallery(cropBox) {
-    const croppedImageStyle = this.getCroppedImageStyleGallery(cropBox)
+    const croppedImageStyle = getCroppedImageStyleGallery(cropBox)
     const width = Math.max(croppedImageStyle.width, MIN_DESC_WIDTH)
     const left = (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
     return {
@@ -495,25 +592,35 @@ export default class QuarkArt extends React.PureComponent {
     }
   }
 
-  getCroppedImageStyleGallery(cropBox) {
-    const {height, width} = cropBox
-    const isHeightBigger = height > width
-    const newWidth = isHeightBigger?
-      arCropSize(width, height) : CROPPED_IMAGE_SIDE_SMALL
-    const left = (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (newWidth / 2)
-
-
-    return {
-      top: CROPPED_IMAGE_GALLERY_TOP,
-      left,
-      width: newWidth,
-      height: isHeightBigger? CROPPED_IMAGE_SIDE_SMALL : arCropSize(height, width),
-    }
+  getQuarkImageUrl() {
+    const name = quarkMothers[this.state.quarkImageIndex].name.split(' ').join('+')
+    return BASE_IMAGE_URL + name + '.jpg'
   }
 
 }
 
+function getQuarkImageIndex() {
+  return Math.round(Math.random() * (quarkMothers.length - 1))
+}
+
+function getCroppedImageStyleGallery(cropBox, shrinkSize = CROPPED_IMAGE_SIDE_SMALL) {
+  const {height: cropHeight, width: cropWidth} = cropBox
+  const isHeightBigger = cropHeight > cropWidth
+  const width = isHeightBigger?
+    arCropSize(cropWidth, cropHeight, shrinkSize) : shrinkSize
+  const height = isHeightBigger?
+    shrinkSize : arCropSize(cropHeight, cropWidth, shrinkSize)
+  const left = (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
+
+  return {
+    top: CROPPED_IMAGE_GALLERY_TOP,
+    left,
+    width,
+    height,
+  }
+}
+
 // aspect ratio sizing
-function arCropSize(sideToShrink, sideToMatch) {
-  return sideToShrink / (sideToMatch / CROPPED_IMAGE_SIDE_SMALL)
+function arCropSize(sideToShrink, sideToMatch, shrinkSize) {
+  return sideToShrink / (sideToMatch / shrinkSize)
 }

@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 // If you need a backend API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
 app.post('/quarkArt.upload', quarkArt.upload)
+app.get('/quarkArt.list', quarkArt.list)
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
