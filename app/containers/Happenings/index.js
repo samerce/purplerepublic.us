@@ -15,6 +15,8 @@ import {
   Pocky, Chortle, Koki, WhenPart, TicketLink,
   Invitation, GetInvolved, PlayButtonRoot, PlayButton,
   PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
+  InfoRoot, InfoContentRoot, InfoIntroText, InfoIntroRoot, InfoDetailText,
+  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon,
 } from './styled'
 import {
 
@@ -215,6 +217,33 @@ export default class Happenings extends React.Component {
             )}
           </Motion>
         </PlayButtonRoot>
+
+        <InfoRoot>
+          <InfoContentRoot>
+            <InfoIntroRoot>
+              <i className='fa fa-info-circle' />
+              <InfoIntroText>let's explore henry miller</InfoIntroText>
+            </InfoIntroRoot>
+            <InfoDetailText className='detail'>
+              go on a journey with us. we all need a little bit more exploration in our lives. it's all a dream. anyway...
+            </InfoDetailText>
+          </InfoContentRoot>
+        </InfoRoot>
+
+        <SocialRoot>
+          <SocialButtonsRoot>
+            <SocialIcon className='fa fa-facebook-square i1' />
+            <SocialIcon className='fa fa-twitter-square i2' />
+            <SocialIcon className='fa fa-instagram i3' />
+            <SocialIcon className='fa fa-medium i4' />
+            <SocialIcon className='fa fa-youtube-square i5' />
+            <SocialIcon className='fa fa-envelope-o i6' />
+          </SocialButtonsRoot>
+
+          <SocialEntryButtonRoot>
+            <i className='fa fa-globe' />
+          </SocialEntryButtonRoot>
+        </SocialRoot>
       </Root>
     )
   }
@@ -222,8 +251,8 @@ export default class Happenings extends React.Component {
   onLetsPlay() {
     this.setState({collapsed: true})
     setTimeout(() => {
-      window.location = '#politics'
-    }, 2000)
+      window.location = '#hello'
+    }, 3000)
   }
 
   getSineWave(id, rotate) {

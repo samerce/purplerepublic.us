@@ -3,7 +3,7 @@ import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
-import {EASE_OUT, EASE_IN} from '../../global/constants'
+import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -228,6 +228,199 @@ export const PlayButtonHoverRoot = styled.div`
     }
   }
 `
+
+export const InfoRoot = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+export const InfoContentRoot = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  flex-direction: column;
+  border-radius: 3px;
+  transition: all .5s ${EASE_OUT};
+  padding: 10px;
+  transform: translateY(70px);
+
+  &:hover {
+    background: rgba(255, 255, 255, .1);
+    transform: none;
+    transition: all .5s ${EASE_IN_OUT_SINE};
+
+    .detail {
+      opacity: 1;
+      transition: all .5s ${EASE_IN_OUT_SINE};
+    }
+  }
+
+  & > * {
+    flex: 0 0 auto;
+  }
+  i {
+    font-size: 22px;
+    width: 30px;
+    height: 25px;
+    color: white;
+    vertical-align: middle;
+    line-height: 34px;
+  }
+`
+
+export const InfoIntroRoot = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const InfoText = styled.div`
+
+`
+
+export const InfoIntroText = styled(InfoText)`
+  font-size: 26px;
+  color: white;
+  font-family: life savers;
+`
+
+export const InfoDetailText = styled(InfoText)`
+  font-size: 22px;
+  color: white;
+  opacity: 0;
+  text-align: center;
+  transition: all .5s ${EASE_OUT};
+`
+
+export const SocialRoot = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 50px;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    padding: 300px 10px 10px;
+    i.fa {
+      opacity: 1;
+      transform: none;
+      transition-timing-function: ${EASE_IN_OUT_SINE};
+      transition: opacity .1s, transform .3s;
+
+      &.i1 {
+        bottom: 50px;
+        ${'' /* left: 0; */}
+        ${'' /* transition-delay: .3s; */}
+      }
+      &.i2 {
+        bottom: 90px;
+        ${'' /* left: 5px; */}
+        ${'' /* transition-delay: .25s; */}
+      }
+      &.i3 {
+        bottom: 130px;
+        ${'' /* left: 10px; */}
+        ${'' /* transition-delay: .2s; */}
+      }
+      &.i4 {
+        bottom: 170px;
+        ${'' /* left: 15px; */}
+        ${'' /* transition-delay: .15s; */}
+      }
+      &.i5 {
+        bottom: 210px;
+        ${'' /* left: 20px; */}
+        ${'' /* transition-delay: .1s; */}
+      }
+      &.i6 {
+        bottom: 250px;
+        ${'' /* left: 25px; */}
+        ${'' /* transition-delay: .05s; */}
+      }
+    }
+  }
+`
+
+export const SocialIcon = styled.i`
+  font-size: 38px;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity .3s, transform .4s;
+  transition-timing-function: ${EASE_OUT};
+  width: 30px;
+  text-align: center;
+
+  &.i1 {
+    bottom: 50px;
+    ${'' /* left: 0; */}
+    transform: translateY(50px) scale(.1);
+  }
+  &.i2 {
+    bottom: 90px;
+    ${'' /* left: 5px; */}
+    transform: translateY(90px) scale(.1);
+  }
+  &.i3 {
+    bottom: 130px;
+    ${'' /* left: 10px; */}
+    transform: translateY(130px) scale(.1);
+  }
+  &.i4 {
+    bottom: 170px;
+    ${'' /* left: 15px; */}
+    transform: translateY(170px) scale(.1);
+  }
+  &.i5 {
+    bottom: 210px;
+    ${'' /* left: 20px; */}
+    transform: translateY(210px) scale(.1);
+  }
+  &.i6 {
+    bottom: 250px;
+    ${'' /* left: 25px; */}
+    transform: translateY(250px) scale(.1);
+  }
+`
+
+export const SocialButtonsRoot = styled.div`
+  position: absolute;
+  bottom: 0;
+  z-index: 4;
+`
+
+export const SocialEntryButtonRoot = styled.div`
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  position: relative;
+
+  & > * {
+    flex: 0 0 auto;
+  }
+
+  i {
+    font-size: 32px;
+    color: white;
+    width: 30px;
+    height: 30px;
+  }
+
+`
+
+export const SocialEntryButtonContentRoot = styled.div`
+
+`
+
+export const SocialRoots = styled.div`
+
+`
+
+
 
 export const Invitation = styled.div`
 

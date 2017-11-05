@@ -7,7 +7,6 @@ import {
 import NavLink from '../NavLink'
 import {ACTIVE_NAV_LINK_DURATION} from '../../global/constants'
 import {createStructuredSelector} from 'reselect'
-import {makeSelectLocationState} from 'containers/App/selectors'
 import {connect} from 'react-redux'
 import {NAV_LINKS} from './constants'
 
@@ -117,11 +116,3 @@ export default class Header extends React.Component { // eslint-disable-line rea
   }
 
 }
-
-// Header.propTypes = {
-//   location: React.PropTypes.object,
-// }
-//
-// export default connect(createStructuredSelector({
-//   location: makeSelectLocationState(),
-// }))(Header)

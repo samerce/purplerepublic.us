@@ -15,6 +15,30 @@
  *    }
  */
 
+export const REQUEST_ROUTE_PRELOAD = 'route.requestPreload'
+export const CLEAR_PRELOAD_ROUTE = 'route.clearPreloadRoute'
+
+export function requestRoutePreload(preloadRoute) {
+  return {
+    type: REQUEST_ROUTE_PRELOAD,
+    preloadRoute,
+  }
+}
+
+export function clearPreloadRoute() {
+  return {
+    type: CLEAR_PRELOAD_ROUTE,
+  }
+}
+
+
+
+
+
+
+
+
+
 import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,

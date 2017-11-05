@@ -1,21 +1,5 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-
-import {makeSelectLocationState} from 'containers/App/selectors';
-import {Root, Image, CatchLine} from './styles'
-import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
-import messages from './messages';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+import React from 'react'
+import {connect} from 'react-redux'
 
 import Politics from '../Politics'
 import Theatre from '../Theatre'
@@ -24,59 +8,104 @@ import Reflection from '../Reflection'
 import Happenings from '../Happenings'
 import Action from '../Action'
 import QuarkArt from '../quarkart'
+import BitByBit from '../bitbybit'
+import Hello from '../hello'
+import Quote from '../quote'
+import {Root, RouteRoot} from './styles'
+
+import {clearPreloadRoute} from '../App/actions'
 
 const router = {
   '#happenings': Happenings,
+  '#hello': Hello,
+  '#quote': Quote,
   '#politics': Politics,
   '#letsfocus': QuarkArt,
+  '#letswrite': BitByBit,
   '#movement': Movement,
   '#reflection': Reflection,
   '#action': Action,
 }
 
+@connect(d => ({
+  preloadRoute: d.get('app').get('preloadRoute'),
+}))
 export default class HomePage extends React.PureComponent {
 
   constructor() {
     super()
+
+    const activeRoute = window.location.hash || Object.keys(router)[0]
     this.state = {
-      prevRoute: null,
-      route: window.location.hash || Object.keys(router)[0],
-      transitionInit: false,
-      transitionActive: false,
+      activeRoute,
+      aRoute: activeRoute,
+      bRoute: false,
     }
   }
 
   componentDidMount() {
-    window.onhashchange = () => this.setState({
-      route: window.location.hash,
-      prevRoute: this.state.route,
-    })
+    window.onhashchange = () => {
+      const activeRoute = window.location.hash
+      const {preloadRoute} = this.props
+      const {aRoute, bRoute} = this.state
+
+      if (preloadRoute && preloadRoute === activeRoute) {
+        this.props.dispatch(clearPreloadRoute())
+
+        if (preloadRoute === aRoute) {
+          this.setState({bRoute: null})
+        } else {
+          this.setState({aRoute: null})
+        }
+      } else {
+        this.setState({aRoute: activeRoute})
+      }
+
+      this.setState({
+        activeRoute: activeRoute || Object.keys(router)[0],
+      })
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // if (!this.state.transitionInit && !prevState.prevRoute && this.state.prevRoute) {
-    //   this.setState({transitionInit: true})
-    //   setTimeout(() => this.setState({transitionActive: true}), 50)
-    // }
-    // if (this.state.transitionActive) {
-    //   setTimeout(() => this.setState({
-    //     transitionInit: false,
-    //     transitionActive: false,
-    //     prevRoute: null,
-    //   }), 600)
-    // }
+  componentWillReceiveProps(nextProps) {
+    console.log('receving ', nextProps)
+    const {preloadRoute} = nextProps
+    if (preloadRoute) {
+      if (this.state.aRoute) {
+        this.setState({bRoute: preloadRoute})
+      } else {
+        this.setState({aRoute: preloadRoute})
+      }
+    }
   }
 
   render() {
-    const {route, prevRoute, transitionInit, transitionActive} = this.state
-    const RouteComponent = router[route]
-    const PrevRouteComponent = prevRoute && router[prevRoute]
+    const {aRoute, bRoute} = this.state
+    const RouteComponentA = aRoute && router[aRoute]
+    const RouteComponentB = bRoute && router[bRoute]
+    console.log(aRoute, ' ', bRoute)
 
     return (
       <Root>
-        <RouteComponent className={`route entered`} />
+        {aRoute &&
+          <RouteRoot className={this.routeCx(aRoute)}>
+            <RouteComponentA />
+          </RouteRoot>
+        }
+        {bRoute &&
+          <RouteRoot className={this.routeCx(bRoute)}>
+            <RouteComponentB />
+          </RouteRoot>
+        }
       </Root>
     )
+  }
+
+  routeCx(route) {
+    if (route === this.state.activeRoute) {
+      return 'enter'
+    }
+    return ''
   }
 
 }

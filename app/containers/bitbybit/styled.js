@@ -3,6 +3,7 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN} from '../../global/constants'
 
 const easeInOutSine = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
+const aColor = '#498359'
 
 injectGlobal`
   @keyframes spinning {
@@ -44,6 +45,7 @@ export const Page = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
+  background: ${aColor};
 
   .quark-img-crop {
     width: 100%;
@@ -53,7 +55,7 @@ export const Page = styled.div`
     left: 0;
   }
   .cropper-view-box {
-    outline-color: ${p => lighten(.3, p.themeColor)};
+    outline-color: ${lighten(.3, aColor)};
   }
   .cropper-point {
     animation-name: pointPulsing;
@@ -66,22 +68,22 @@ export const Page = styled.div`
     transition: opacity .5s ${easeInOutSine};
   }
 
-  .quarkHeader {
+  .bitHeader {
     position: absolute;
     top: 0;
     left: 0;
-    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
+    text-shadow: 1px 1px ${darken(.2, aColor)};
     margin: 0;
     padding: 0 0 30px;
     width: 100%;
-    background: linear-gradient(to top, transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
+    background: linear-gradient(to top, transparent 0%, ${alpha(.3, aColor)} 100%);
     pointer-events: none;
     z-index: 3;
-    opacity: 0;
-    transform: translateY(-250px);
+    ${'' /* opacity: 0;
+    transform: translateY(-250px); */}
     transition: all 1s ${easeInOutSine};
 
-    .enter &.show {
+    &.show {
       opacity: 1;
       transform: none;
       transition: all 1s ${EASE_OUT};
@@ -118,6 +120,20 @@ export const Page = styled.div`
   }
 `
 
+export const BitBox = styled.div`
+  width: 90%;
+  max-width: 800px;
+  max-height: 300px;
+  background: ${darken(.2, aColor)};
+  border-radius: 10px;
+  color: white;
+  margin: 10% auto 0;
+  padding: 20px;
+  font-size: 24px;
+  overflow: scroll;
+  font-family: american typewriter;
+`
+
 const ToolBar = styled.div`
   position: absolute;
   bottom: 0;
@@ -137,7 +153,7 @@ const ToolBar = styled.div`
   & > * {
     flex: 1 0 0;
   }
-  .enter &.show {
+  &.show {
     opacity: 1;
     transform: none;
     pointer-events: all;
