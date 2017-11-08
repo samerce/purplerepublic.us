@@ -1,8 +1,10 @@
 import {fromJS} from 'immutable'
-import {SELECT_NEW_QUARK_MOTHER} from './actions'
-import quarkMothers from './quarkMothers'
+import {SELECT_NEW_QUARK_MOTHER, SET_QUARK_MOTHER_IMAGE_INDEX} from './actions'
+import quarkMothers from '../../utils/quarkart/quarkMothers'
+import {getMotherImageIndex} from '../../utils/quarkart'
+import {S3_URL, SRC_URL} from '../../global/constants'
 
-const BASE_IMAGE_URL = 'https://s3.amazonaws.com/purplerepublic/quark-art-mothers/'
+const BASE_IMAGE_URL = SRC_URL + 'quark-art-mothers/'
 const initialImageIndex = getMotherImageIndex()
 const initialState = fromJS({
   motherImageIndex: initialImageIndex,
@@ -15,6 +17,8 @@ export default function quarkArtReducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_NEW_QUARK_MOTHER:
       return selectNewQuarkMother(state)
+    case SET_QUARK_MOTHER_IMAGE_INDEX:
+      return setQuarkMother(action.motherImageIndex, state)
     default:
       return state
   }
@@ -22,14 +26,14 @@ export default function quarkArtReducer(state = initialState, action) {
 
 function selectNewQuarkMother(state) {
   const imageIndex = getMotherImageIndex()
+  return setQuarkMother(imageIndex, state)
+}
+
+function setQuarkMother(imageIndex, state) {
   state.set('motherImageIndex', imageIndex)
   state.set('motherMultipleChoiceOptions', getMultipleChoiceOptions(imageIndex))
   state.set('themeColor', getThemeColor(imageIndex))
   return state.set('motherImageUrl', getQuarkImageUrl(imageIndex))
-}
-
-function getMotherImageIndex() {
-  return Math.round(Math.random() * (quarkMothers.length - 1))
 }
 
 function getQuarkImageUrl(imageIndex) {

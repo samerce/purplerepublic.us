@@ -77,15 +77,24 @@ export const Page = styled.div`
     background: linear-gradient(to top, transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
     pointer-events: none;
     z-index: 3;
-    opacity: 0;
-    transform: translateY(-250px);
-    transition: all 1s ${easeInOutSine};
+
+    &, .enter .quark-exit & {
+      opacity: 0;
+      transform: translateY(-250px);
+      transition: all 1s ${easeInOutSine};
+    }
 
     .enter &.show {
       opacity: 1;
       transform: none;
       transition: all 1s ${EASE_OUT};
     }
+  }
+
+  .enter &.quark-exit .quarkHeader.show {
+    opacity: 0;
+    transform: translateY(-250px);
+    transition: all 1s ${easeInOutSine};
   }
 
   &.mode-describe, &.mode-performCrop {
@@ -129,10 +138,14 @@ const ToolBar = styled.div`
   font-family: annie use your telescope;
   overflow: hidden;
   background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
-  opacity: 0;
-  transform: translateY(150px);
   pointer-events: none;
   transition: all 1s ${easeInOutSine};
+
+  &, .enter .quark-exit &.show {
+    opacity: 0;
+    transform: translateY(150px);
+    transition: all 1s ${easeInOutSine};
+  }
 
   & > * {
     flex: 1 0 0;
@@ -230,11 +243,14 @@ export const DescribeTool = styled(ToolBarItem)`
 `
 
 export const CroppedImage = styled.img`
-  opacity: 0;
   pointer-events: none;
   position: absolute;
   z-index: 6;
-  transition: all 1s ${easeInOutSine};
+
+  &, .quark-exit &.show {
+    opacity: 0;
+    transition: all 1s ${easeInOutSine};
+  }
 
   &.show {
     opacity: 1;
@@ -255,6 +271,11 @@ export const Mask = styled.div`
   pointer-events: none;
   transition: all 1.9s ${easeInOutSine};
 
+  .quark-exit &.show {
+    opacity: 0;
+    transition: all 1s ${easeInOutSine};
+  }
+
   &.show {
     opacity: .7;
     transition: all 1s ${easeInOutSine};
@@ -264,15 +285,17 @@ export const Mask = styled.div`
 export const OutlineDescription = styled.div`
   padding: 10px;
   position: absolute;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: transform .5s, opacity .4s;
-  transition-timing-function: ${easeInOutSine};
   pointer-events: none;
   z-index: 5;
   display: flex;
   flex-direction: column;
 
+  &, .quark-exit &.show {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: transform .5s, opacity .4s;
+    transition-timing-function: ${easeInOutSine};
+  }
   &.show {
     opacity: 1;
     transform: none;
@@ -321,10 +344,16 @@ export const QuarkArtGallery = styled.div`
   left: 500px;
   right: 0;
   pointer-events: none;
-  opacity: 0;
-  transition: all 1s ${easeInOutSine};
   z-index: 5;
 
+  &, .quark-exit &.show {
+    opacity: 0;
+    transition: all 1s ${easeInOutSine};
+
+    .intro {
+      opacity: 0;
+    }
+  }
   &.show {
     opacity: 1;
     pointer-events: all;

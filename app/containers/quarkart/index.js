@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {Header} from '../../global/styled'
 import {cx} from '../../utils/style'
 import {
@@ -7,8 +8,9 @@ import {
   Mask, QuarkArtGallery, GalleryItem, GalleryItemList, GalleryTools,
   GalleryTool, Spinner,
 } from './styled'
-import quarkMothers from './quarkMothers'
-import {selectNewQuarkMother} from './actions'
+
+import {getMotherImageIndex} from '../../utils/quarkart'
+import {selectNewQuarkMother, setQuarkMotherImageIndex} from './actions'
 
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator'
@@ -33,7 +35,7 @@ const CROP_BOX_SIZE_DEFAULT = 200
 @connect(d => ({
   motherImageUrl: d.get('quarkArt').get('motherImageUrl'),
   themeColor: d.get('quarkArt').get('themeColor'),
-  imageIndex: d.get('quarkArt').get('motherImageIndex'),
+  motherImageIndex: d.get('quarkArt').get('motherImageIndex'),
   multipleChoiceOptions: d.get('quarkArt').get('motherMultipleChoiceOptions'),
 }))
 export default class QuarkArt extends React.PureComponent {
@@ -41,6 +43,7 @@ export default class QuarkArt extends React.PureComponent {
   constructor() {
     super()
 
+    this.timers = []
     this.state = {
       dragMode: 'move',
       cropBoxVisible: false,
@@ -55,7 +58,13 @@ export default class QuarkArt extends React.PureComponent {
       hasUploadedImage: false,
       galleryItems: [],
       isReady: false,
+      willExit: false,
+      isRestarting: false,
     }
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout)
   }
 
   componentDidMount() {
@@ -74,6 +83,23 @@ export default class QuarkArt extends React.PureComponent {
     })
   }
 
+  componentDidUpdate(prevProps) {
+    if (!this.state.isRestarting) return
+
+   this.cropper.enable()
+   this.cropper.moveTo(0, 0)
+
+   setTimeout(() => {
+     this.outlineDescription.value = ''
+     this.setState({
+       croppedImageData: null,
+       croppedImageFullData: null,
+       hasUploadedImage: false,
+       isRestarting: false,
+     })
+   }, 1000)
+ }
+
   render() {
     const {
       isReady,
@@ -85,6 +111,7 @@ export default class QuarkArt extends React.PureComponent {
       croppedImageStyle,
       hasCroppedOnce,
       selectedChoice,
+      willExit,
     } = this.state
     const {
       motherImageUrl,
@@ -99,6 +126,7 @@ export default class QuarkArt extends React.PureComponent {
     const pageCx = cx({
       cropping: dragMode === 'crop',
       ['mode-' + mode]: true,
+      'quark-exit': willExit,
     })
     const initialHeaderCx = cx({
       quarkHeader: true,
@@ -196,6 +224,7 @@ export default class QuarkArt extends React.PureComponent {
   renderChoice(text) {
     return (
       <Choice
+        key={text}
         themeColor={this.props.themeColor}
         onClick={this.onClickChoice.bind(this, text)}>
         <div>{text}</div>
@@ -526,33 +555,23 @@ export default class QuarkArt extends React.PureComponent {
 
   @autobind
   onDiscardQuark() {
-    this.cropper.enable()
-
-    const oldImageIndex = this.props.motherImageIndex
-    this.props.dispatch(selectNewQuarkMother())
-    const isSameImage = this.props.motherImageIndex === oldImageIndex
-
+    const newImageIndex = getMotherImageIndex()
+    const isSameImage = newImageIndex === this.props.motherImageIndex
     this.setState({
       dragMode: isSameImage? 'crop' : 'move',
       mode: isSameImage? MODES.crop : MODES.multipleChoice,
+      isReady: isSameImage,
       cropBoxVisible: false,
       hasCroppedOnce: true,
-      isReady: isSameImage
+      isRestarting: true,
     })
-
-    setTimeout(() => {
-      this.outlineDescription.value = ''
-      this.setState({
-        croppedImageData: null,
-        croppedImageFullData: null,
-        hasUploadedImage: false,
-      })
-    }, 1000)
+    this.props.dispatch(setQuarkMotherImageIndex(newImageIndex))
   }
 
   @autobind
   onMoveOn() {
-    window.location = '#letswrite'
+    this.setState({willExit: true})
+    this.timers.push(setTimeout(() => window.location = '#letswrite', 2000))
   }
 
   onGalleryItemClick({target}) {

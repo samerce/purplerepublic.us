@@ -3,10 +3,10 @@ const imageConverter = require('base64-img')
 
 const REVIEW_BUCKET = 'quark-art'
 const GALLERY_BUCKET = 'quark-art-gallery'
-const GALLERY_BUCKET_BASE_URL = 'https://s3.us-east-2.amazonaws.com/quark-art-gallery/'
+const GALLERY_BUCKET_BASE_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
 
 aws.config.loadFromPath('aws.config.json')
-const s3 = new aws.S3({region: 'us-east-2'})
+const s3 = new aws.S3()
 
 module.exports = {
 
