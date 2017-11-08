@@ -81,7 +81,7 @@ export default class PurpleRouter extends React.PureComponent {
   }
 
   render() {
-    const {aRoute, bRoute} = this.state
+    const {aRoute, bRoute, activeRoute} = this.state
     const RouteComponentA = aRoute && router[aRoute]
     const RouteComponentB = bRoute && router[bRoute]
 
@@ -89,12 +89,12 @@ export default class PurpleRouter extends React.PureComponent {
       <Root>
         {aRoute &&
           <RouteRoot className={this.routeCx(aRoute)}>
-            <RouteComponentA />
+            <RouteComponentA isPreloading={aRoute !== activeRoute} />
           </RouteRoot>
         }
         {bRoute &&
           <RouteRoot className={this.routeCx(bRoute)}>
-            <RouteComponentB />
+            <RouteComponentB isPreloading={bRoute !== activeRoute} />
           </RouteRoot>
         }
       </Root>

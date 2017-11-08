@@ -50,10 +50,13 @@ export default class BitByBit extends React.Component {
   }
 
   componentDidMount() {
-    this.timers.push(setTimeout(() => this.setState({mode: MODES.bitEnter})))
-    this.timers.push(setTimeout(() => {
-      this.setState({mode: MODES.bitReview})
-    }, 4000))
+    if (!this.props.isPreloading) this.onEnter()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isPreloading && this.state.mode === MODES.willEnter) {
+      this.onEnter()
+    }
   }
 
   render() {
@@ -152,6 +155,13 @@ export default class BitByBit extends React.Component {
     )
   }
 
+  onEnter() {
+    this.timers.push(setTimeout(() => this.setState({mode: MODES.bitEnter})))
+    this.timers.push(setTimeout(() => {
+      this.setState({mode: MODES.bitReview})
+    }, 4000))
+  }
+
   reviewToolStyle(delay = 0) {
     const styles = {
       [MODES.bitEnter]: {},
@@ -188,7 +198,6 @@ export default class BitByBit extends React.Component {
   onDeleteBit() {
     const {bit} = this.state
     sentences.splice(bit.startIndex, bit.numSentences)
-    console.log(sentences)
 
     this.setState({
       mode: MODES.bitDelete,
@@ -215,9 +224,7 @@ export default class BitByBit extends React.Component {
   onEditBitFinished() {
     const {bit} = this.state
     const newSentences = splitSentences(this.bitTextArea.value)
-    console.log(bit, sentences)
     sentences.splice(bit.startIndex, bit.numSentences, ...newSentences)
-    console.log('split', sentences)
 
     this.onKeepBit()
   }
@@ -247,7 +254,7 @@ export default class BitByBit extends React.Component {
   onFinishedBitting() {
     this.setState({
       mode: MODES.readBitArticle,
-      bitArticle: sentences.join('. ') + sentences.join('. ') + sentences.join('. '),
+      bitArticle: sentences.join('. '),
     })
   }
 
@@ -270,9 +277,8 @@ export default class BitByBit extends React.Component {
     const MAX_SENTENCES = 4
     const numSentences = Math.round(Math.random() * MAX_SENTENCES) + 1
     const startIndex = Math.round(Math.random() * (sentences.length - MAX_SENTENCES - 2))
-    console.log(numSentences, startIndex)
     return {
-      text: sentences.slice(startIndex, startIndex + numSentences).join('. '),
+      text: sentences.slice(startIndex, startIndex + numSentences).join('. ') + '.',
       startIndex,
       numSentences,
     }

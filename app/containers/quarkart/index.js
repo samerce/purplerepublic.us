@@ -11,6 +11,7 @@ import {
 
 import {getMotherImageIndex} from '../../utils/quarkart'
 import {selectNewQuarkMother, setQuarkMotherImageIndex} from './actions'
+import {requestRoutePreload} from '../App/actions'
 
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator'
@@ -81,6 +82,8 @@ export default class QuarkArt extends React.PureComponent {
         this.setState({galleryItems: response.items})
       })
     })
+
+    this.props.dispatch(requestRoutePreload('#letswrite'))
   }
 
   componentDidUpdate(prevProps) {
@@ -571,7 +574,7 @@ export default class QuarkArt extends React.PureComponent {
   @autobind
   onMoveOn() {
     this.setState({willExit: true})
-    this.timers.push(setTimeout(() => window.location = '#letswrite', 2000))
+    this.timers.push(setTimeout(() => window.location = '#letswrite', 1000))
   }
 
   onGalleryItemClick({target}) {
