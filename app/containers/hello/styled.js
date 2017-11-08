@@ -12,25 +12,36 @@ export const Page = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  background: url('https://s3.us-east-2.amazonaws.com/purplerepublic.us/commons/watts.jpg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0;
-  transform: scale(1.3);
 
-  &.hello-enter {
-    opacity: 1;
-    transform: none;
-    transition: opacity 1s, transform 1s;
-    transition-timing-function: ${EASE_OUT};
-  }
-
-  &.hello-exit {
+  ${'' /* &.hello-exit {
     opacity: 0;
     transform: scale(2);
     transition: opacity 2s, transform 3s;
-    transition-timing-function: ${EASE_IN_OUT_SINE}
+    transition-timing-function: ${EASE_OUT};
+  } */}
+`
+
+export const Background = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('${p => p.src}');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 2;
+  transform: scale(1.3);
+  opacity: 0;
+
+  .hello-enter & {
+    opacity: 1;
+    transform: none;
+    transition: opacity 1s, transform 1s;
+    transition-timing-function: ${EASE_IN_OUT_SINE};
+  }
+  .hello-exit & {
+    transform: translateX(-100%);
+    transition: transform 3s linear .2s;
   }
 `
 
@@ -53,13 +64,36 @@ export const HeaderRoot = styled.div`
     padding: 50px 0 20px;
     margin: 0;
     background: linear-gradient(to top, ${alpha(.3, 'black')} 0%, transparent 100%);
-    opacity: 0;
-    transform: translateY(200px);
 
     .hello-enter & {
       opacity: 1;
       transform: none;
       transition: all 3s ${EASE_IN_OUT_SINE} 0s;
     }
+
+    &, .hello-exit & {
+      opacity: 0;
+      transform: translateY(200px);
+      transition: all 1s ${EASE_IN_OUT_SINE};
+    }
+  }
+`
+
+export const TransitionGif = styled.div`
+  z-index: 1;
+  position: absolute;
+  bottom: -90px;
+  left: 100%;
+  background: url('${p => p.src}');
+  height: 400px;
+  width: 700px;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  transform: translateX(-190px);
+
+  .hello-exit & {
+    left: -150px;
+    transition: all 3.3s linear .2s;
   }
 `
