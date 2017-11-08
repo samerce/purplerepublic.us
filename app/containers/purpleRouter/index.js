@@ -5,7 +5,7 @@ import Politics from '../Politics'
 import Theatre from '../Theatre'
 import Movement from '../Movement'
 import Reflection from '../Reflection'
-import Happenings from '../Happenings'
+import Start from '../start'
 import Action from '../Action'
 import QuarkArt from '../quarkart'
 import BitByBit from '../bitbybit'
@@ -15,8 +15,10 @@ import {Root, RouteRoot} from './styles'
 
 import {clearPreloadRoute} from '../App/actions'
 
+import {cx} from '../../utils/style'
+
 const router = {
-  '#happenings': Happenings,
+  '#start': Start,
   '#hello': Hello,
   '#quote': Quote,
   '#politics': Politics,
@@ -30,7 +32,7 @@ const router = {
 @connect(d => ({
   preloadRoute: d.get('app').get('preloadRoute'),
 }))
-export default class HomePage extends React.PureComponent {
+export default class PurpleRouter extends React.PureComponent {
 
   constructor() {
     super()
@@ -45,7 +47,7 @@ export default class HomePage extends React.PureComponent {
 
   componentDidMount() {
     window.onhashchange = () => {
-      const activeRoute = window.location.hash
+      const activeRoute = window.location.hash || Object.keys(router)[0]
       const {preloadRoute} = this.props
       const {aRoute, bRoute} = this.state
 
@@ -62,13 +64,12 @@ export default class HomePage extends React.PureComponent {
       }
 
       this.setState({
-        activeRoute: activeRoute || Object.keys(router)[0],
+        activeRoute,
       })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('receving ', nextProps)
     const {preloadRoute} = nextProps
     if (preloadRoute) {
       if (this.state.aRoute) {
@@ -83,7 +84,6 @@ export default class HomePage extends React.PureComponent {
     const {aRoute, bRoute} = this.state
     const RouteComponentA = aRoute && router[aRoute]
     const RouteComponentB = bRoute && router[bRoute]
-    console.log(aRoute, ' ', bRoute)
 
     return (
       <Root>
@@ -102,10 +102,9 @@ export default class HomePage extends React.PureComponent {
   }
 
   routeCx(route) {
-    if (route === this.state.activeRoute) {
-      return 'enter'
-    }
-    return ''
+    return cx({
+      enter: route === this.state.activeRoute,
+    })
   }
 
 }

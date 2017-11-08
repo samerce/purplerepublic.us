@@ -1,4 +1,5 @@
 import styled, {injectGlobal} from 'styled-components'
+import {transparentize as alpha} from 'polished'
 import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
@@ -235,6 +236,12 @@ export const InfoRoot = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+
+  .start-exit & {
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 1.5s ${EASE_IN_OUT_SINE};
+  }
 `
 
 export const InfoContentRoot = styled.div`
@@ -291,105 +298,86 @@ export const InfoDetailText = styled(InfoText)`
   color: white;
   opacity: 0;
   text-align: center;
-  transition: all .5s ${EASE_OUT};
+  transition: all .3s ${EASE_OUT};
 `
 
 export const SocialRoot = styled.div`
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 50%;
+  right: 20px;
   width: 50px;
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 10px 10px 50px;
+  transform: translateY(-50%);
 
-  &:hover {
-    padding: 300px 10px 10px;
-    i.fa {
+  .start-exit & {
+    opacity: 0;
+    transform: translate(100px, -50%);
+    transition: all 1.5s ${EASE_IN_OUT_SINE};
+  }
+
+  &:hover, &.show {
+    .i1, .i2, .i3, .i4, .i5, .i6 {
       opacity: 1;
       transform: none;
       transition-timing-function: ${EASE_IN_OUT_SINE};
       transition: opacity .1s, transform .3s;
-
-      &.i1 {
-        bottom: 50px;
-        ${'' /* left: 0; */}
-        ${'' /* transition-delay: .3s; */}
-      }
-      &.i2 {
-        bottom: 90px;
-        ${'' /* left: 5px; */}
-        ${'' /* transition-delay: .25s; */}
-      }
-      &.i3 {
-        bottom: 130px;
-        ${'' /* left: 10px; */}
-        ${'' /* transition-delay: .2s; */}
-      }
-      &.i4 {
-        bottom: 170px;
-        ${'' /* left: 15px; */}
-        ${'' /* transition-delay: .15s; */}
-      }
-      &.i5 {
-        bottom: 210px;
-        ${'' /* left: 20px; */}
-        ${'' /* transition-delay: .1s; */}
-      }
-      &.i6 {
-        bottom: 250px;
-        ${'' /* left: 25px; */}
-        ${'' /* transition-delay: .05s; */}
-      }
     }
   }
 `
 
 export const SocialIcon = styled.i`
-  font-size: 38px;
+  font-size: 48px;
   color: white;
   position: absolute;
   bottom: 0;
   opacity: 0;
   transition: opacity .3s, transform .4s;
   transition-timing-function: ${EASE_OUT};
-  width: 30px;
+  width: 60px;
   text-align: center;
+  right: -15px;
+  padding: 15px 5px;
 
   &.i1 {
-    bottom: 50px;
+    bottom: 35px;
     ${'' /* left: 0; */}
-    transform: translateY(50px) scale(.1);
+    transform: translate(5px, 35px) scale(.1);
   }
   &.i2 {
-    bottom: 90px;
+    bottom: 85px;
     ${'' /* left: 5px; */}
-    transform: translateY(90px) scale(.1);
+    transform: translate(5px, 85px) scale(.1);
   }
   &.i3 {
-    bottom: 130px;
+    bottom: 135px;
     ${'' /* left: 10px; */}
-    transform: translateY(130px) scale(.1);
+    transform: translate(5px, 135px) scale(.1);
   }
   &.i4 {
-    bottom: 170px;
+    bottom: -155px;
     ${'' /* left: 15px; */}
-    transform: translateY(170px) scale(.1);
+    transform: translate(5px, -155px) scale(.1);
+    font-size: 44px;
   }
   &.i5 {
-    bottom: 210px;
+    bottom: -110px;
     ${'' /* left: 20px; */}
-    transform: translateY(210px) scale(.1);
+    transform: translate(5px, -110px) scale(.1);
+    font-size: 50px;
   }
   &.i6 {
-    bottom: 250px;
+    bottom: -55px;
     ${'' /* left: 25px; */}
-    transform: translateY(250px) scale(.1);
+    transform: translate(5px, -55px) scale(.1);
+    font-size: 40px;
   }
 `
 
 export const SocialButtonsRoot = styled.div`
   position: absolute;
   bottom: 0;
+  right: 0;
   z-index: 4;
 `
 
@@ -405,7 +393,7 @@ export const SocialEntryButtonRoot = styled.div`
 
   i {
     font-size: 32px;
-    color: white;
+    color: ${alpha(.2, 'white')};
     width: 30px;
     height: 30px;
   }

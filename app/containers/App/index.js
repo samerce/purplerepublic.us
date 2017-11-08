@@ -1,20 +1,12 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
 import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import {Content} from './styled'
-import {Redirect} from 'react-router'
 
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import withProgressBar from 'components/ProgressBar';
+import Header from 'components/Header'
+import Footer from 'components/Footer'
+import PurpleRouter from 'containers/purpleRouter'
+import withProgressBar from 'components/ProgressBar'
 
 const AppWrapper = styled.div`
   height: 100%;
@@ -36,7 +28,7 @@ export function App(props) {
 
       <Content>
         <Header />
-        {React.Children.toArray(props.children)}
+        <PurpleRouter />
       </Content>
     </AppWrapper>
   );

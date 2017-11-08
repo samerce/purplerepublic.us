@@ -6,6 +6,7 @@ import {Header} from '../../global/styled'
 import {
   Page, QuoteRoot, TextRoot, BackgroundRoot
 } from './styled'
+import {EASE_IN_OUT_SINE} from '../../global/constants'
 
 import {connect} from 'react-redux'
 import {requestRoutePreload} from '../App/actions'
@@ -14,7 +15,6 @@ import {requestRoutePreload} from '../App/actions'
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
 }))
 export default class Quote extends React.Component {
-
   constructor() {
     super()
 
@@ -28,26 +28,27 @@ export default class Quote extends React.Component {
     this.props.dispatch(requestRoutePreload('#letsfocus'))
     this.timeouts.push(setTimeout(() => this.setState({isReady: true})))
     this.timeouts.push(setTimeout(() => this.setState({willExit: true}), 17000))
-    this.timeouts.push(setTimeout(() => window.location = '#letsfocus', 18000))
+    this.timeouts.push(setTimeout(() => window.location = '#letsfocus', 17500))
   }
 
   componentWillUnmount() {
-    this.timeouts.forEach(t => clearTimeout(t))
+    this.timeouts.forEach(clearTimeout)
   }
 
   render() {
-    const {
-      isReady,
-    } = this.state
-
     return (
       <Page className={this.pageCx()}>
         <QuoteRoot>
           <TextRoot>
             <Typist
-              startDelay={1000}
               avgTypingDelay={80}
-              stdTypingDelay={60}>
+              stdTypingDelay={60}
+              cursor={{
+                show: false,
+                blink: true,
+                hideWhenDone: true,
+                hideWhenDoneDelay: 0,
+              }}>
               the only way to make sense out of change is to plunge into it, move with it, and join the dance
             </Typist>
           </TextRoot>

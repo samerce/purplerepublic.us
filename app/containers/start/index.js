@@ -28,14 +28,20 @@ const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
 const getStarPos = () => `-${getRandInt(60) + 20}px`
 
-export default class Happenings extends React.Component {
+export default class Start extends React.Component {
 
   constructor() {
     super()
+
+    this.timeouts = []
     this.state = {
       collapsed: false,
       hovered: false,
     }
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach(clearTimeout)
   }
 
   render() {
@@ -44,7 +50,7 @@ export default class Happenings extends React.Component {
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
     return (
-      <Root className={this.props.className}>
+      <Root className={collapsed && 'start-exit'}>
         <BackgroundRoot>
           <ShootingStars>
             <StarRoot style={{
@@ -230,14 +236,26 @@ export default class Happenings extends React.Component {
           </InfoContentRoot>
         </InfoRoot>
 
-        <SocialRoot>
+        <SocialRoot onClick={() => this.setState({showSocial: !this.state.showSocial})} className={this.state.showSocial && 'show'}>
           <SocialButtonsRoot>
-            <SocialIcon className='fa fa-facebook-square i1' />
-            <SocialIcon className='fa fa-twitter-square i2' />
-            <SocialIcon className='fa fa-instagram i3' />
-            <SocialIcon className='fa fa-medium i4' />
-            <SocialIcon className='fa fa-youtube-square i5' />
-            <SocialIcon className='fa fa-envelope-o i6' />
+            <a href='https://www.facebook.com/purplerepublic.us' target='_blank'>
+              <SocialIcon className='fa fa-facebook-square i1' />
+            </a>
+            <a href='https://www.twitter.com/1purplerepublic' target='_blank'>
+              <SocialIcon className='fa fa-twitter-square i2' />
+            </a>
+            <a href='https://www.instagram.com/purple.republic' target='_blank'>
+              <SocialIcon className='fa fa-instagram i3' />
+            </a>
+            <a href='https://www.medium.com/the-purple-republic' target='_blank'>
+              <SocialIcon className='fa fa-medium i6' />
+            </a>
+            <a href='https://www.youtube.com/channel/UCHDkvhWZKjA6lnX1vcGvGPw' target='_blank'>
+              <SocialIcon className='fa fa-youtube-square i5' />
+            </a>
+            <a href='mailto:rise@purplerepublic.us' target='_blank'>
+              <SocialIcon className='fa fa-envelope-o i4' />
+            </a>
           </SocialButtonsRoot>
 
           <SocialEntryButtonRoot>
@@ -250,9 +268,9 @@ export default class Happenings extends React.Component {
 
   onLetsPlay() {
     this.setState({collapsed: true})
-    setTimeout(() => {
-      window.location = '#hello'
-    }, 3000)
+    this.timeouts.push(
+      setTimeout(() => window.location = '#hello', 3000)
+    )
   }
 
   getSineWave(id, rotate) {

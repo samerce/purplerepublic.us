@@ -4,6 +4,28 @@ import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
 
 const aColor = '#498359'
 
+injectGlobal`
+  @keyframes runAway {
+    0% {
+      transform: none;
+    }
+
+    30% {
+      transform: translateX(10px);
+      opacity: 1;
+    }
+
+    70% {
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(-2000px);
+      opacity: 0;
+    }
+  }
+`
+
 export const Page = styled.div`
   height: 100%;
   width: 100%;
@@ -27,18 +49,18 @@ export const QuoteRoot = styled.div`
 export const TextRoot = styled.div`
   border-radius: 5px;
   font-size: 36px;
-  font-family: american typewriter;
-  width: 630px;
+  font-family: quattrocento;
+  width: 605px;
   height: 200px;
   padding: 15px;
   text-align: center;
 
   .reveal & {
-    background-color: ${alpha(.3, 'white')};
+    background-color: ${alpha(.2, 'white')};
     transition: all 8s ${EASE_IN_OUT_SINE} 7s;
   }
   .exit & {
-    transform: scale(0);
+    transform: scale(.95);
     opacity: 0;
     transition: opacity .5s, transform 1s;
     transition-timing-function: ${EASE_OUT};

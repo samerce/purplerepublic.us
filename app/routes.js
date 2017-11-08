@@ -20,7 +20,7 @@ export default function createRoutes(store) {
     {
       path: '/',
       getComponent(nextState, cb) {
-        import('containers/HomePage')
+        import('containers/purpleRouter')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
