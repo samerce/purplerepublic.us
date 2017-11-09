@@ -1,10 +1,12 @@
 import React from 'react'
+import {Motion, spring} from 'react-motion'
 
 import {cx} from '../../utils/style'
 import {Header} from '../../global/styled'
 import {
   Page, Spinner, BitBoxRoot, BitBoxText, Background, ReviewTools, ReviewTool,
-  BitBoxTextRoot, EditTools, EditTool, FinishButton, BitArticle, BitArticleRoot,
+  BitBoxTextRoot, EditTools, EditTool, DoneEditingButton, BitArticle, BitArticleRoot,
+  MoreEditingButton, ContinueButton,
 } from './styled'
 import {transparentize, lighten, darken} from 'polished'
 
@@ -12,7 +14,7 @@ import writing from './writing'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import {Motion, spring} from 'react-motion'
+import {requestRoutePreload} from '../App/actions'
 
 const MODES = [
   'willEnter',
@@ -22,6 +24,7 @@ const MODES = [
   'bitDelete',
   'bitKeep',
   'readBitArticle',
+  'bitExit',
 ].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
 
 const SPLIT_TEST = /([.?!\n])+/
@@ -137,12 +140,12 @@ export default class BitByBit extends React.Component {
           )}
         </Motion>
 
-        <FinishButton
+        <DoneEditingButton
           onClick={this.onFinishedBitting}
           className={cx({show: hasEngaged})}
           themeColor={themeColor}>
           <div>done editing</div>
-        </FinishButton>
+        </DoneEditingButton>
 
         <BitArticleRoot>
           <BitArticle
@@ -151,6 +154,20 @@ export default class BitByBit extends React.Component {
             {bitArticle}
           </BitArticle>
         </BitArticleRoot>
+
+        <MoreEditingButton
+          onClick={this.onMoreEditing}
+          themeColor={themeColor}>
+          <i className='fa fa-cubes' />
+          <div>more bits!</div>
+        </MoreEditingButton>
+
+        <ContinueButton
+          onClick={this.onExit}
+          themeColor={themeColor}>
+          <div>now what?</div>
+          <i className='fa fa-compass' />
+        </ContinueButton>
       </Page>
     )
   }
@@ -160,6 +177,23 @@ export default class BitByBit extends React.Component {
     this.timers.push(setTimeout(() => {
       this.setState({mode: MODES.bitReview})
     }, 4000))
+
+    this.props.dispatch(requestRoutePreload('#letsimprov'))
+  }
+
+  @autobind
+  onMoreEditing() {
+    this.setState({
+      mode: MODES.bitReview,
+    })
+  }
+
+  @autobind
+  onExit() {
+    this.setState({
+      mode: MODES.bitExit,
+    })
+    this.timers.push(setTimeout(() => window.location = '#letsimprov', 2000))
   }
 
   reviewToolStyle(delay = 0) {

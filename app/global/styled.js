@@ -1,4 +1,6 @@
 import styled, {injectGlobal} from 'styled-components'
+import {EASE_IN_OUT_SINE, EASE_OUT} from './constants'
+import {darken, transparentize as trans} from 'polished'
 
 const whitePurple = 'rgba(255, 227, 251, 1)'
 
@@ -53,6 +55,71 @@ export const ContentArea = styled.div`
   @media(max-width: 544px) {
     position: relative;
     padding: 15px 0;
+  }
+`
+
+export const ToolBar = styled.div`
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
+  pointer-events: none;
+  transition: all 1s ${EASE_IN_OUT_SINE};
+
+  & > * {
+    flex: 1 0 0;
+  }
+`
+
+export const ToolBarItem = styled.div`
+  position: relative;
+  color: white;
+  padding: 20px 10px;
+  cursor: pointer;
+  font-size: 32px;
+  transition: all .4s ${EASE_OUT};
+  font-family: annie use your telescope;
+  text-align: center;
+
+  div {
+    position: relative;
+    z-index: 3;
+    transition: all .4s ${EASE_OUT};
+    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
+    user-select: none;
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, ${p => trans(.3, p.themeColor)} 50%, transparent 100%);
+    transition: all .2s ${EASE_OUT};
+    content: ' ';
+    transform: translateY(10px);
+    z-index: 1;
+    opacity: 0;
+    border-top: 1px solid ${p => trans(.2, p.themeColor)};
+  }
+
+  &:hover {
+    &:after {
+      transform: none;
+      opacity: 1;
+      transition-duration: .4s;
+    }
+    div {
+      transform: scale(1.05);
+      letter-spacing: 1px;
+      transition: all 5s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+
   }
 `
 

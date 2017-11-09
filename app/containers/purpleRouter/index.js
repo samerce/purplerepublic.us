@@ -11,6 +11,7 @@ import QuarkArt from '../quarkart'
 import BitByBit from '../bitbybit'
 import Hello from '../hello'
 import Quote from '../quote'
+import Video from '../video'
 import {Root, RouteRoot} from './styles'
 
 import {clearPreloadRoute} from '../App/actions'
@@ -24,7 +25,7 @@ const router = {
   '#politics': Politics,
   '#letsfocus': QuarkArt,
   '#letswrite': BitByBit,
-  '#movement': Movement,
+  '#letsimprov': Video,
   '#reflection': Reflection,
   '#action': Action,
 }

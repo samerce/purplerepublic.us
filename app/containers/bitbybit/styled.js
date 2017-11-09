@@ -85,7 +85,7 @@ export const Background = styled.div`
   background-size: cover;
   transition: all 1s ${EASE_IN_OUT_SINE};
 
-  .bitEnter &, .bitReview &, .bitEdit &, .bitDelete &, .bitKeep &, .readBitArticle & {
+  .bitEnter &, .bitReview &, .bitEdit &, .bitDelete &, .bitKeep &, .readBitArticle &, .bitExit & {
     filter: blur(50px);
     transform: scale(1.2);
     transition: all 4s linear;
@@ -133,6 +133,9 @@ export const BitBoxTextRoot = styled.div`
     transition: opacity .9s, transform 1s;
     transition-timing-function: ${EASE_IN_OUT_SINE};
     transition-delay: .5s;
+  }
+  .bitExit & {
+    opacity: 0;
   }
 `
 
@@ -243,7 +246,7 @@ export const EditTool = styled(ToolBarItem)`
   }
 `
 
-export const FinishButton = styled(ToolBarItem)`
+export const DoneEditingButton = styled(ToolBarItem)`
   text-align: center;
   font-family: annie use your telescope;
   bottom: 0;
@@ -272,7 +275,7 @@ export const BitArticleRoot = styled.div`
   display: flex;
   justify-content: center;
   pointer-events: none;
-  
+
   .readBitArticle & {
     pointer-events: all;
   }
@@ -281,7 +284,7 @@ export const BitArticleRoot = styled.div`
 export const BitArticle = styled.div`
   flex: 0 0 90%;
   max-width: 850px;
-  transform: translateY(200%);
+  transform: translateY(150%);
   border: 1px solid ${p => lighten(.2, p.themeColor)};
   border-radius: 5px;
   border-bottom-left-radius: 0;
@@ -296,11 +299,92 @@ export const BitArticle = styled.div`
   padding: 25px 30px 20px;
   margin-top: 100px;
   overflow: scroll;
+  transition: all 1s ${EASE_OUT};
 
   .readBitArticle & {
     opacity: 1;
     transform: none;
     transition: all 1s ${EASE_OUT} 1.2s;
+  }
+`
+
+const BitArticleButton = styled.div`
+  position: absolute;
+  z-index: 5;
+  font-family: annie use your telescope;
+  font-size: 32px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  transition: all .5s ${EASE_OUT};
+  width: 190px;
+  cursor: pointer;
+  opacity: 0;
+
+  i {
+    margin: 0 15px;
+    font-size: 26px;
+    transition: all .5s ${EASE_OUT};
+  }
+
+  &:after {
+    width: 190px;
+    height: 100%;
+    content: ' ';
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    transition: all .5s ${EASE_OUT};
+  }
+  div, i {
+    position: relative;
+    z-index: 4;
+  }
+
+  .readBitArticle & {
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE} 2s;
+
+    &:hover {
+      &:after {
+        width: 250px;
+        transition: all 1s ${EASE_IN_OUT_SINE};
+      }
+      i {
+        transition: all 1s ${EASE_IN_OUT_SINE};
+      }
+    }
+  }
+`
+
+export const MoreEditingButton = styled(BitArticleButton)`
+  transform: translateX(-100%);
+  left: 0;
+  top: 180px;
+
+  &:after {
+    background: linear-gradient(to right,
+      ${p => alpha(.2, p. themeColor)} 0%, transparent 100%);
+  }
+  &:hover i {
+    margin-right: 20px;
+  }
+`
+
+export const ContinueButton = styled(BitArticleButton)`
+  transform: translateX(100%);
+  right: 0;
+  bottom: 180px;
+
+  &:after {
+    background: linear-gradient(to left,
+      ${p => alpha(.2, p. themeColor)} 0%, transparent 100%);
+  }
+  &:hover i {
+    margin-left: 20px;
   }
 `
 
