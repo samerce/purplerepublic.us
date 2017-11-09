@@ -133,6 +133,7 @@ export const ScriptRoot = styled.div`
   justify-content: center;
   transform: translateY(500px);
   opacity: 0;
+  transition: all .5s ${EASE_OUT};
 
   .videoMakeScript & {
     opacity: 1;
