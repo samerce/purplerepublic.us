@@ -1,12 +1,9 @@
-const aws = require('aws-sdk')
 const imageConverter = require('base64-img')
+const {s3} = require('./purpleAWS')
 
 const REVIEW_BUCKET = 'quark-art'
 const GALLERY_BUCKET = 'quark-art-gallery'
 const GALLERY_BUCKET_BASE_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
-
-aws.config.loadFromPath('aws.config.json')
-const s3 = new aws.S3()
 
 module.exports = {
 
