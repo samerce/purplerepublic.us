@@ -131,9 +131,9 @@ export const ScriptRoot = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  transform: translateY(500px);
+  transform: translateY(400px);
   opacity: 0;
-  transition: all .5s ${EASE_OUT};
+  transition: all 1s ${EASE_OUT};
 
   .videoMakeScript & {
     opacity: 1;
@@ -166,9 +166,9 @@ export const ScriptTextInput = styled.textarea`
 `
 
 export const ScriptDoneButton = styled(ToolBarItem)`
-  z-index: 6;
+  z-index: 4;
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 230px;
+  width: 220px;
 `
