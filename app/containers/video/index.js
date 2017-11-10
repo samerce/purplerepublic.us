@@ -136,7 +136,7 @@ export default class Video extends React.Component {
   @autobind
   onMakeScript() {
     this.setState({mode: MODES.videoMakeScript})
-    this.timers.push(setTimeout(() => this.scriptInput.focus(), 2500))
+    this.timers.push(setTimeout(() => this.scriptInput.focus(), 1000))
   }
 
   @autobind
@@ -196,6 +196,7 @@ function getVideoOptions() {
       modestbranding: 1,
       playlist: [VIDEO_ID],
       color: 'white',
+      origin: window.location,
     },
   }
 }

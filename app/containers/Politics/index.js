@@ -72,7 +72,6 @@ export default class Politics extends React.PureComponent {
     if (this.state.click >= 3) {
       // this.refs.backdrop.draw()
       this.setState({didDraw: true})
-      setTimeout(() => window.location = '#letsfocus', 1500)
     }
   }
 

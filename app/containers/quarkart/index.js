@@ -81,6 +81,8 @@ export default class QuarkArt extends React.PureComponent {
         }
         this.setState({galleryItems: response.items})
       })
+    }).catch(e => {
+      console.warning('quark art list fetch failed', e)
     })
 
     this.props.dispatch(requestRoutePreload('#letswrite'))

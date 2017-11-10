@@ -131,14 +131,14 @@ export const ScriptRoot = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  transform: translateY(400px);
+  transform: translateY(300px);
   opacity: 0;
-  transition: all 1s ${EASE_OUT};
+  transition: all .8s ${EASE_OUT};
 
   .videoMakeScript & {
     opacity: 1;
     transform: translateY(10px);
-    transition: all 2s ${EASE_IN_OUT_SINE} .5s;
+    transition: all 1s ${EASE_IN_OUT_SINE} .3s;
   }
 `
 
@@ -158,7 +158,7 @@ export const ScriptTextInput = styled.textarea`
   background: ${p =>  p.themeColor};
   resize: none;
   outline: none;
-  transition: all 1s ${EASE_IN_OUT_SINE};
+  transition: all .5s ${EASE_IN_OUT_SINE};
 
   &:focus {
     background: ${p => darken(.1, p.themeColor)};
