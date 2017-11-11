@@ -154,7 +154,7 @@ export default class QuarkArt extends React.PureComponent {
         className={pageCx}
         onClick={this.onClickImage}
         themeColor={themeColor}>
-        {this.renderSpinner('', `dark big opaque ${!isReady && 'show'}`)}
+        <Spinner className='big opaque' show={!isReady} themeColor={themeColor} />
         <Header className={initialHeaderCx} themeColor={themeColor}>
           what do you see?
         </Header>
@@ -341,8 +341,8 @@ export default class QuarkArt extends React.PureComponent {
           disabled={isUploadingImage}
           onClick={this.onPublish}>
           {!isUploadingImage && !hasUploadedImage && <div>publish to gallery</div>}
+          <Spinner show={isUploadingImage} />
           {hasUploadedImage && <div>published!</div>}
-          {isUploadingImage && this.renderSpinner('', 'show')}
         </GalleryTool>
         <GalleryTool
           themeColor={themeColor}
@@ -355,15 +355,6 @@ export default class QuarkArt extends React.PureComponent {
           <div>move on</div>
         </GalleryTool>
       </GalleryTools>
-    )
-  }
-
-  renderSpinner(text, classNames = '') {
-    return (
-      <Spinner className={classNames} themeColor={this.props.themeColor}>
-        <i className='fa fa-superpowers' />
-        {text && <span>&nbsp; {text}</span>}
-      </Spinner>
     )
   }
 

@@ -1,7 +1,11 @@
 export const ACTIVE_NAV_LINK_DURATION = 5000; // ms
 
-export const SRC_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
+// google url is configured for cdn caching by default
+export const GOOGLE_URL = 'https://storage.googleapis.com/purple-republic/'
 export const S3_URL = 'https://s3.amazonaws.com/purplerepublic.us/'
+export const S3_CDN_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
+export const SRC_URL = S3_CDN_URL
+
 
 export const EASE_OUT = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
 export const EASE_IN = 'cubic-bezier(0.42, 0, 1, 1)';

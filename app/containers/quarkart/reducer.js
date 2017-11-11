@@ -2,9 +2,9 @@ import {fromJS} from 'immutable'
 import {SELECT_NEW_QUARK_MOTHER, SET_QUARK_MOTHER_IMAGE_INDEX} from './actions'
 import quarkMothers from '../../utils/quarkart/quarkMothers'
 import {getMotherImageIndex} from '../../utils/quarkart'
-import {S3_URL, SRC_URL} from '../../global/constants'
+import {SRC_URL} from '../../global/constants'
 
-const BASE_IMAGE_URL = SRC_URL + 'quark-art-mothers/'
+const BASE_IMAGE_URL = SRC_URL + 'quark-art/mothers/'
 const initialImageIndex = getMotherImageIndex()
 const initialState = fromJS({
   motherImageIndex: initialImageIndex,

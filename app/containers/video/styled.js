@@ -36,6 +36,7 @@ export const Background = styled.div`
   filter: blur(50px);
   transform: scale(1.2);
   transition: all 1s ${EASE_IN_OUT_SINE};
+  pointer-events: none;
 
   &:before {
     z-index: 3;
@@ -48,7 +49,8 @@ export const Background = styled.div`
     transition: all .5s ${EASE_OUT};
   }
 
-  .videoEnter &, .videoFocused &, .videoReview &, .videoMakeScript & {
+  .videoEnter &, .videoFocused &, .videoReview &, .videoMakeScript &,
+  .videoMakeAudioResponse &, .videoMakeVideoResponse & {
     &:before {
       opacity: 1;
       transition: all 4s linear;
@@ -95,13 +97,18 @@ export const VideoRoot = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
   opacity: 0;
+  transition: all .5s ${EASE_OUT};
 
-  .videoFocused &, .videoReview &, .videoMakeScript & {
+  .videoFocused & {
+    pointer-events: all;
     opacity: 1;
     transition: all 3s ${EASE_OUT};
   }
   .videoReview &, .videoMakeScript & {
+    pointer-events: all;
+    opacity: 1;
     transform: scale(.8) translateY(-50px);
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
@@ -171,4 +178,118 @@ export const ScriptDoneButton = styled(ToolBarItem)`
   bottom: 0;
   left: 0;
   width: 220px;
+`
+
+export const MediaRecorderRoot = styled.div`
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .media-recorder {
+    opacity: 0;
+    transform: scale(1.1) translateY(-50px);
+    pointer-events: none;
+  }
+  .videoMakeVideoResponse & {
+    .media-recorder {
+      pointer-events: all;
+      opacity: 1;
+      transform: translateY(-50px);
+      transition: all 1s ${EASE_IN_OUT_SINE} .3s;
+    }
+  }
+`
+
+export const MediaRecorderTools = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 60px;
+
+  .videoMakeVideoResponse & {
+    pointer-events: all;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE};
+  }
+`
+
+export const MediaRecorderTool = styled.div`
+  background: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all .5s ${EASE_OUT};
+  flex: 0 0 50px;
+  margin: 0 10px;
+  transform: scale(0);
+  opacity: 0;
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+  font-size: 24px;
+
+  .videoMakeVideoResponse & {
+    pointer-events: all;
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE};
+  }
+
+  &:hover {
+    background: red;
+    transition: all 1s ${EASE_OUT};
+
+    i {
+      color: white;
+      transition: all 1s ${EASE_OUT};
+    }
+  }
+  &.hide {
+    opacity: 0;
+    transform: scale(0);
+    transition: all .5s ${EASE_OUT};
+    pointer-events: none;
+  }
+
+  i {
+    position: absolute;
+    color: black;
+    transition: all .5s ${EASE_IN_OUT_SINE};
+
+    &.hide {
+      transform: rotate(90deg) scale(0);
+      opacity: 0;
+      transition: all .5s ${EASE_OUT};
+    }
+  }
+
+  .record-icon {
+    color: red;
+
+    &.hide {
+      transform: scale(0);
+    }
+  }
+`
+
+export const StartOverTool = styled(MediaRecorderTool)`
+  flex: 0 0 40px;
+  height: 40px;
+  font-size: 22px;
+
+  &:hover {
+    background: black;
+  }
+`
+
+export const EndRecordingTool = styled(StartOverTool)`
 `

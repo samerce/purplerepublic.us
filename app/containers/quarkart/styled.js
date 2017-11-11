@@ -1,32 +1,11 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN} from '../../global/constants'
+import aSpinner from '../../components/spinner'
 
 const easeInOutSine = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
 
 injectGlobal`
-  @keyframes spinning {
-    0% {
-      transform: rotate(180deg) scale(1.1);
-    }
-    50% {
-      transform: rotate(270deg) scale(.9);
-    }
-    100% {
-      transform: rotate(360deg) scale(1.1);
-    }
-  }
-
-  @keyframes blinking {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: .3;
-    }
-  }
-
   @keyframes pointPulsing {
     from {
       transform: scale(1.3);
@@ -37,7 +16,6 @@ injectGlobal`
       background-color: white;
     }
   }
-
 `
 export const Page = styled.div`
   height: 100%;
@@ -438,51 +416,11 @@ export const GalleryTool = styled(ToolBarItem)`
     }
   }
 `
-export const Spinner = styled.span`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    z-index: 8;
-    color: white;
-    font-size: 20px;
-    opacity: 0;
-    transform: scale(2);
-    transition: all 1s ${EASE_OUT};
-    pointer-events: none;
-
-    &.big {
-      font-size: 52px;
-    }
-    &.opaque {
-      background: ${p => p.themeColor};
-    }
-    &.show {
-      opacity: 1;
-      transform: none;
-      transition: all 1s ${easeInOutSine};
-      pointer-events: all;
-    }
-
-    i {
-      animation-duration: 1s;
-      animation-name: spinning;
-      animation-iteration-count: infinite;
-      animation-timing-function: ${easeInOutSine};
-      flex: 0 0 auto;
-      color: inherit;
-      font-size: inherit;
-    }
-    span {
-      animation-duration: 1s;
-      animation-name: blinking;
-      animation-iteration-count: infinite;
-      animation-timing-function: ${easeInOutSine};
-      animation-direction: alternate;
-    }
+export const Spinner = styled(aSpinner)`
+  &.big {
+    font-size: 52px;
+  }
+  &.opaque {
+    background: ${p => p.themeColor};
+  }
 `

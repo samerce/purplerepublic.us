@@ -1,4 +1,3 @@
-const imageConverter = require('base64-img')
 const {s3} = require('./purpleAWS')
 
 const REVIEW_BUCKET = 'quark-art'
