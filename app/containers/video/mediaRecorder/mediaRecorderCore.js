@@ -147,6 +147,7 @@ class ReactMediaRecorder extends Component {
 			return this.initialize(this.start)
 		}
 		if(!this.state.available) return;
+
 		if (this.mediaChunk.length > 0) {
 			this.mediaRecorder.resume()
 		} else {

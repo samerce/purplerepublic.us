@@ -1,6 +1,6 @@
 import React from 'react'
 import YouTubeVideo from 'react-youtube'
-import MediaRecorder, {RecordingState} from './mediaRecorder'
+import MediaRecorder from './mediaRecorder'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
@@ -39,7 +39,7 @@ export default class Video extends React.Component {
     this.state = {
       mode: MODES.videoWillEnter,
       hasMadeEntrance: false,
-      recordingState: RecordingState.stopped,
+      recordedVideoSrc: null,
     }
   }
 
@@ -62,7 +62,6 @@ export default class Video extends React.Component {
     const {
       mode,
       hasMadeEntrance,
-      recordingState,
     } = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
@@ -118,105 +117,26 @@ export default class Video extends React.Component {
           </ScriptDoneButton>
         </ScriptRoot>
 
-        <MediaRecorderRoot>
-          <MediaRecorder
-            className='media-recorder'
-            videoSize={{
-              width: getVideoWidth(),
-              height: getVideoHeight(),
-            }}
-            recordingState={recordingState} />
-        </MediaRecorderRoot>
+        <MediaRecorder
+          themeColor={themeColor}
+          videoSize={{
+            width: getVideoWidth(),
+            height: getVideoHeight(),
+          }}
+          isActive={mode === MODES.videoMakeVideoResponse}
+          onExit={this.onEndRecording} />
 
-        <MediaRecorderTools themeColor={themeColor}>
-          <StartOverTool
-            className={cx({
-              hide: recordingState !== RecordingState.paused
-            })}
-            onClick={this.onStartRecordingOver}
-            themeColor={themeColor}>
-            <i className={`fa fa-trash start-over-icon`} />
-          </StartOverTool>
-          <MediaRecorderTool
-            onClick={this.onClickRecordButton}
-            themeColor={themeColor}>
-            <i className={`fa fa-circle record-icon ${recordingState === RecordingState.started && 'hide'}`} />
-            <i className={`fa fa-square stop-icon ${recordingState !== RecordingState.started && 'hide'}`} />
-          </MediaRecorderTool>
-          <EndRecordingTool
-            className={cx({
-              hide: recordingState === RecordingState.started,
-            })}
-            onClick={this.onClickEndRecording}
-            themeColor={themeColor}>
-            <i className={cx({
-              fa: true,
-              'fa-times': true,
-              hide: recordingState !== RecordingState.stopped,
-            })} />
-            <i className={cx({
-              fa: true,
-              'fa-save': true,
-              hide: recordingState === RecordingState.stopped,
-            })} />
-          </EndRecordingTool>
-        </MediaRecorderTools>
       </Page>
     )
-  }
-
-  @autobind
-  onClickRecordButton() {
-    const {recordingState} = this.state
-    if (recordingState === RecordingState.started) {
-      this.setState({recordingState: RecordingState.paused})
-    } else {
-      this.setState({recordingState: RecordingState.started})
-    }
-  }
-
-  @autobind
-  onStartRecordingOver() {
-    this.setState({recordingState: RecordingState.stopped})
-  }
-
-  @autobind
-  onClickEndRecording() {
-    this.setState({
-      mode: MODES.videoReview,
-      recordingState: RecordingState.stopped,
-    })
   }
 
   onEnter() {
     this.timers.push(setTimeout(() => this.setState({mode: MODES.videoEnter})))
     if (this.player) {
       this.timers.push(
-        setTimeout(() => this.makeAnEntrance(this.player), 3000)
+        setTimeout(() => this.makeAnEntrance(this.player), 300)
       )
     }
-  }
-
-  @autobind
-  onRecordingStarted() {
-    this.setState({
-      recordingState: RecordingState.started,
-    })
-  }
-
-  @autobind
-  onRecordingPaused() {
-    this.setState({
-      recordingState: RecordingState.paused,
-    })
-  }
-
-  @autobind
-  onRecordingStopped() {
-    this.setState({
-      mode: MODES.videoReview,
-      recordingState: RecordingState.stopped,
-    })
   }
 
   @autobind
@@ -236,6 +156,14 @@ export default class Video extends React.Component {
   @autobind
   onCloseScript() {
     this.setState({mode: MODES.videoReview})
+  }
+
+  @autobind
+  onEndRecording(recordedVideoSrc) {
+    this.setState({
+      mode: MODES.videoReview,
+      recordedVideoSrc,
+    })
   }
 
   @autobind
@@ -261,7 +189,7 @@ export default class Video extends React.Component {
 
   makeAnEntrance(player) {
     player.setLoop(true)
-    player.playVideo()
+    // player.playVideo()
 
     this.setState({
       mode: MODES.videoFocused,
@@ -270,7 +198,7 @@ export default class Video extends React.Component {
       setTimeout(() => this.setState({
         mode: MODES.videoReview,
         hasMadeEntrance: true,
-      }), 15000)
+      }), 150)
     )
   }
 
@@ -280,6 +208,7 @@ function getVideoOptions() {
   return {
     width: getVideoWidth() + 'px',
     height: getVideoHeight() + 'px',
+    origin: window.location.origin,
     playerVars: {
       rel: 0,
       showinfo: 0,
@@ -290,7 +219,6 @@ function getVideoOptions() {
       modestbranding: 1,
       playlist: [VIDEO_ID],
       color: 'white',
-      origin: window.location,
     },
   }
 }
