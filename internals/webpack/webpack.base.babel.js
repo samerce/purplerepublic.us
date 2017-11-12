@@ -69,6 +69,9 @@ module.exports = (options) => ({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',
     }),
+    new webpack.ProvidePlugin({
+      WaveSurfer: 'wavesurfer.js'
+    }),
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
@@ -81,6 +84,9 @@ module.exports = (options) => ({
     new webpack.NamedModulesPlugin(),
   ]),
   resolve: {
+    alias: {
+      wavesurfer: require.resolve('wavesurfer.js')
+    },
     modules: ['app', 'node_modules'],
     extensions: [
       '.js',

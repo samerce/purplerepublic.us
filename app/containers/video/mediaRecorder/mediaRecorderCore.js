@@ -221,7 +221,7 @@ ReactMediaRecorder.propTypes = {
 	onPause: React.PropTypes.func,
 	onResume: React.PropTypes.func,
 	onError: React.PropTypes.func,
-	delayInitialization: React.PropTypes.boolean,
+	delayInitialization: React.PropTypes.bool,
 };
 ReactMediaRecorder.defaultProps = {
 	constraints: {

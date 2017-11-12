@@ -1,5 +1,9 @@
 import React from 'react'
-import Recorder from './mediaRecorderCore'
+import VideoRecorder from './mediaRecorderCore'
+import {ReactMic as AudioRecorder} from '../../../components/react-mic'
+
+require('wavesurfer.js')
+import Wavesurfer from 'react-wavesurfer'
 
 import autobind from 'autobind-decorator'
 
@@ -7,6 +11,7 @@ import {cx} from '../../../utils/style'
 import {
   Root, VideoRoot, MediaRecorderTools, MediaRecorderTool, StartOverTool, EndRecordingTool,
 } from './styled'
+import {lighten, darken, transparentize} from 'polished'
 
 const Mode = [
   'stopped',
@@ -20,25 +25,33 @@ export default class MediaRecorder extends React.Component {
     super()
     this.state = {
       mode: Mode.stopped,
+      audioBlob: null,
+      shouldAudioPlay: false,
+      pos: 0,
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.isActive && !prevProps.isActive) {
+    const {isActive, type} = this.props
+    if (isActive && !prevProps.isActive) {
       if (this.state.mode === Mode.paused) {
-        this.player.play()
+        this[type + 'WillAppear']()
       }
     }
   }
 
   render() {
-    const {videoSize, themeColor} = this.props
-    const {mode} = this.state
+    const {videoSize, themeColor, type} = this.props
+    const {mode, audioBlob, shouldAudioPlay} = this.state
 
     return (
       <Root>
-        <Recorder
-          ref={r => this.recorder = r}
+        <VideoRecorder
+          className={cx({
+            show: type === 'video',
+            recorder: true
+          })}
+          ref={r => this.videoRecorder = r}
           constraints={getMediaConstraints(videoSize)}
           delayInitialization={false}
           onGranted={this.onRecordingPermitted}
@@ -50,17 +63,44 @@ export default class MediaRecorder extends React.Component {
           onError={this.onRecordingError}
           render={this.renderMediaRecorder} />
 
+        <AudioRecorder
+          className={cx({
+            show: type === 'audio' && mode !== Mode.paused,
+            recorder: true,
+            audio: true,
+          })}
+          ref={r => this.audioRecorder = r}
+          strokeColor={lighten(.2, themeColor)}
+          backgroundColor={transparentize(.9, themeColor)} />
+
+        <div className={cx({
+          show: type === 'audio' && mode === Mode.paused,
+          wavesurfer: true,
+        })}>
+          <Wavesurfer
+            pos={this.state.pos}
+            onPosChange={e => console.log(e) && this.setState({pos: e.originalArgs[0]})}
+            onClick={this.onClickWavesurfer}
+            onFinish={() => this.setState({pos: 0})}
+            options={{
+              loopSelection: true, mediaControls: true, height: 390,
+            progressColor: lighten(.2, themeColor), waveColor: lighten(.3, themeColor), cursorColor: darken(.1, themeColor)}}
+            mediaControls={true}
+            audioFile={audioBlob}
+            playing={shouldAudioPlay} />
+        </div>
+
         <MediaRecorderTools themeColor={themeColor}>
           <StartOverTool
             className={cx({
               hide: mode !== Mode.paused
             })}
-            onClick={this.startRecordingOver}
+            onClick={this.trashRecording}
             themeColor={themeColor}>
             <i className={`fa fa-trash start-over-icon`} />
           </StartOverTool>
           <MediaRecorderTool
-            onClick={this.startOrResumeRecording}
+            onClick={this.startOrPauseRecording}
             themeColor={themeColor}>
             <i className={`fa fa-circle record-icon ${mode === Mode.recording && 'hide'}`} />
             <i className={`fa fa-square stop-icon ${mode !== Mode.recording && 'hide'}`} />
@@ -101,6 +141,7 @@ export default class MediaRecorder extends React.Component {
           onClick={this.onClickPlayerVideo}
           autoPlay
           loop={true}
+          controls={true}
           ref={r => this.player = r} />
         <video
           className={cx({
@@ -117,28 +158,29 @@ export default class MediaRecorder extends React.Component {
   }
 
   @autobind
-  startOrResumeRecording() {
+  startOrPauseRecording() {
     const {mode} = this.state
+    const {type} = this.props
+
     if (mode === Mode.recording) {
       this.setState({mode: Mode.paused})
-      this.recorder.pause()
-      this.player.play()
+      this[type + 'OnPauseRecording']()
     } else {
       this.setState({mode: Mode.recording})
-      this.recorder.start()
-      this.player.pause()
+      this[type + 'OnStartRecording']()
     }
   }
 
   @autobind
-  startRecordingOver() {
+  trashRecording() {
+    const {type} = this.props
     this.setState({mode: Mode.stopped})
-    this.recorder.stop()
-    this.player.pause()
+    this[type + 'OnTrashRecording']()
   }
 
   @autobind
   exit() {
+    this.setState({shouldAudioPlay: false})
     this.player.pause()
     this.props.onExit(this.player.src)
   }
@@ -164,6 +206,44 @@ export default class MediaRecorder extends React.Component {
     setVideoSource(this.streamer, stream)
   }
 
+  videoWillAppear() {
+    this.player.play()
+  }
+
+  videoOnStartRecording() {
+    this.videoRecorder.start()
+    this.player.pause()
+  }
+
+  videoOnPauseRecording() {
+    this.videoRecorder.pause()
+    this.player.play()
+  }
+
+  videoOnTrashRecording() {
+    this.videoRecorder.stop()
+    this.player.pause()
+  }
+
+  audioWillAppear() {
+    this.setState({shouldAudioPlay: true})
+  }
+
+  audioOnStartRecording() {
+    this.audioRecorder.start()
+  }
+
+  audioOnPauseRecording() {
+    this.setState({
+      audioBlob: this.audioRecorder.pause().blob,
+      shouldAudioPlay: true,
+    })
+  }
+
+  audioOnTrashRecording() {
+    this.audioRecorder.stop()
+  }
+
   @autobind
   onClickPlayerVideo() {
     if (this.player.paused) {
@@ -176,6 +256,14 @@ export default class MediaRecorder extends React.Component {
     if (this.streamer.paused) {
       this.streamer.play()
     } else this.streamer.pause()
+  }
+
+  @autobind
+  onClickWavesurfer() {
+    const {mode, shouldAudioPlay} = this.state
+    if (mode === Mode.paused) {
+      this.setState({shouldAudioPlay: !shouldAudioPlay})
+    }
   }
 
   isPlayingVideo() {

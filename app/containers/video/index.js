@@ -124,6 +124,10 @@ export default class Video extends React.Component {
             height: getVideoHeight(),
           }}
           isActive={mode === MODES.videoMakeVideoResponse}
+          type={
+            mode === MODES.videoMakeVideoResponse ? 'video' :
+            mode === MODES.videoMakeAudioResponse ? 'audio' : null
+          }
           onExit={this.onEndRecording} />
 
       </Page>

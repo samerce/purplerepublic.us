@@ -14,7 +14,7 @@ export const Root = styled.div`
   transform: scale(1.1) translateY(-50px);
   pointer-events: none;
 
-  .videoMakeVideoResponse & {
+  .videoMakeVideoResponse &, .videoMakeAudioResponse & {
     pointer-events: all;
     opacity: 1;
     transform: translateY(-50px);
@@ -27,6 +27,7 @@ export const Root = styled.div`
       transition: all 1s ${EASE_IN_OUT_SINE} .6s;
 
       &.hide {
+        pointer-events: none;
         opacity: 0;
         transform: scale(.9);
         transition: all 1s ${EASE_OUT};
@@ -37,6 +38,40 @@ export const Root = styled.div`
     opacity: 0;
     transform: scale(.9);
     transition: all .5s ${EASE_OUT};
+  }
+
+  .recorder {
+    opacity: 0;
+    pointer-events: none;
+    transition: all .5s ${EASE_OUT};
+    position: absolute;
+
+    &.show {
+      position: relative;
+      opacity: 1;
+      pointer-events: all;
+      transition: all 1s ${EASE_IN_OUT_SINE};
+    }
+
+    &.audio {
+      width: 100%;
+    }
+  }
+
+  .wavesurfer {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(.9);
+    transition: all .5s ${EASE_OUT};
+    position: absolute;
+    flex: 1 0 100%;
+
+    &.show {
+      position: relative;
+      opacity: 1;
+      transform: none;
+      transition: all 1s ${EASE_IN_OUT_SINE};
+    }
   }
 `
 
@@ -56,7 +91,7 @@ export const MediaRecorderTools = styled.div`
   bottom: 60px;
   transition: all .5s ${EASE_OUT};
 
-  .videoMakeVideoResponse & {
+  .videoMakeVideoResponse &, .videoMakeAudioResponse & {
     pointer-events: all;
     transform: none;
     transition: all 1s ${EASE_IN_OUT_SINE};
@@ -82,7 +117,7 @@ export const MediaRecorderTool = styled.div`
   pointer-events: none;
   font-size: 24px;
 
-  .videoMakeVideoResponse & {
+  .videoMakeVideoResponse &, .videoMakeAudioResponse & {
     pointer-events: all;
     opacity: 1;
     transform: none;
