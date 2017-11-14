@@ -112,6 +112,9 @@ export const VideoRoot = styled.div`
     transform: scale(.8) translateY(-50px);
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
+  #videoPlayer {
+    border-radius: 5px;
+  }
 `
 
 export const ReviewTools = styled(ToolBar)`

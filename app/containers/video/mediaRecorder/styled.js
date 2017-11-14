@@ -1,5 +1,17 @@
 import styled, {injectGlobal} from 'styled-components'
 import {EASE_IN_OUT_SINE, EASE_OUT} from '../../../global/constants'
+import {darken} from 'polished'
+
+injectGlobal`
+  @keyframes recordingBlink {
+    0% {
+      box-shadow: none;
+    }
+    100% {
+      box-shadow: 0 0 90px red;
+    }
+  }
+`
 
 export const Root = styled.div`
   opacity: 0;
@@ -25,12 +37,23 @@ export const Root = styled.div`
       transform: none;
       position: absolute;
       transition: all 1s ${EASE_IN_OUT_SINE} .6s;
+      border-radius: 5px;
 
       &.hide {
         pointer-events: none;
         opacity: 0;
         transform: scale(.9);
         transition: all 1s ${EASE_OUT};
+      }
+      &.recording {
+        animation-name: recordingBlink;
+        animation-duration: 1s;
+        animation-timing-function: ${EASE_IN_OUT_SINE};
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+      &.paused {
+        box-shadow: 0 0 20px ${p => p.themeColor};
       }
     }
   }

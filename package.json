@@ -50,7 +50,6 @@
   "lint-staged": {
     "*.js": "lint:eslint"
   },
-  "pre-commit": "lint:staged",
   "babel": {
     "presets": [
       [
@@ -239,7 +238,6 @@
     "react-helmet": "3.2.2",
     "react-intl": "2.1.5",
     "react-konva": "^1.1.5",
-    "react-mic": "^9.0.0",
     "react-motion": "^0.5.1",
     "react-redux": "4.4.6",
     "react-reveal-text": "^0.1.0",

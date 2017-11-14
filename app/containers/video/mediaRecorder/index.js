@@ -45,7 +45,7 @@ export default class MediaRecorder extends React.Component {
     const {mode, audioBlob, shouldAudioPlay} = this.state
 
     return (
-      <Root>
+      <Root themeColor={themeColor}>
         <VideoRecorder
           className={cx({
             show: type === 'video',
@@ -131,10 +131,12 @@ export default class MediaRecorder extends React.Component {
   renderMediaRecorder({start, stop, pause, resume}) {
     const isPlayingVideo = this.isPlayingVideo()
     const {mode} = this.state
+
     return (
       <VideoRoot>
         <video
           className={cx({
+            [mode]: true,
             hide: mode !== Mode.paused
           })}
           style={getMediaConstraints().video}
@@ -145,6 +147,7 @@ export default class MediaRecorder extends React.Component {
           ref={r => this.player = r} />
         <video
           className={cx({
+            [mode]: true,
             hide: mode === Mode.paused
           })}
           style={getMediaConstraints().video}
