@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import Preloadable from '../preloadable'
 import Politics from '../Politics'
 import Theatre from '../Theatre'
 import Movement from '../Movement'
@@ -95,11 +94,9 @@ export default class PurpleRouter extends React.PureComponent {
   renderRoute(route) {
     const RouteComponent = router[route]
     return (
-      <Preloadable isPreloading={route !== this.state.activeRoute}>
-        <RouteRoot className={this.routeCx(route)}>
-          <RouteComponent />
-        </RouteRoot>
-      </Preloadable>
+      <RouteRoot className={this.routeCx(route)}>
+        <RouteComponent isPreloading={route !== this.state.activeRoute} />
+      </RouteRoot>
     )
   }
 

@@ -25,7 +25,7 @@ export default class VideoRecorderPage extends React.Component {
     const {isActive} = this.props
     if (isActive && !prevProps.isActive) {
       if (this.state.mode === Mode.paused) {
-        willAppear()
+        this.willAppear()
       }
     }
   }

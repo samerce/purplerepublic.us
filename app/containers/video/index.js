@@ -46,6 +46,16 @@ export default class Video extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.isPreloading) this.onEnter()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isPreloading && this.state.mode === Mode.videoWillEnter) {
+      this.onEnter()
+    }
+  }
+
   componentWillUnmount() {
     this.timers.forEach(clearTimeout)
     this.player && this.player.stopVideo()
@@ -140,8 +150,6 @@ export default class Video extends React.Component {
   }
 
   onEnter() {
-    if (this.state.mode !== Mode.videoWillEnter) return
-
     this.timers.push(setTimeout(() => this.setState({mode: Mode.videoEnter})))
     if (this.player) {
       this.timers.push(

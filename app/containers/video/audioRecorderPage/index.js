@@ -29,7 +29,7 @@ export default class AudioRecorderPage extends React.Component {
     const {isActive, type} = this.props
     if (isActive && !prevProps.isActive) {
       if (this.state.mode === Mode.paused) {
-        willAppear()
+        this.willAppear()
       }
     }
   }

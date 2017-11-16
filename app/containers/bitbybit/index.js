@@ -48,6 +48,16 @@ export default class BitByBit extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.isPreloading) this.onEnter()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isPreloading && this.state.mode === MODES.willEnter) {
+      this.onEnter()
+    }
+  }
+
   componentWillUnmount() {
     this.timers.forEach(clearTimeout)
   }
@@ -163,8 +173,6 @@ export default class BitByBit extends React.Component {
   }
 
   onEnter() {
-    if (this.state.mode !== MODES.willEnter) return
-
     this.timers.push(setTimeout(() => this.setState({mode: MODES.bitEnter})))
     this.timers.push(setTimeout(() => {
       this.setState({mode: MODES.bitReview})
