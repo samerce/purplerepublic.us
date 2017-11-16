@@ -1,21 +1,23 @@
 import React from 'react'
 import YouTubeVideo from 'react-youtube'
-import MediaRecorder from './mediaRecorder'
+import VideoRecorderPage from './videoRecorderPage'
+import AudioRecorderPage from './audioRecorderPage'
+import ResponseSummary from './responseSummary'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import {makeEnum} from '../../utils/lang'
 
 import {cx} from '../../utils/style'
 import {Header} from '../../global/styled'
 import {
   Page, HeaderRoot, VideoRoot, Background, ReviewTools, ReviewTool,
-  ScriptRoot, ScriptTextInput, ScriptDoneButton, MediaRecorderRoot,
-  MediaRecorderTool, MediaRecorderTools, RecordButton, StartOverTool, EndRecordingTool,
+  ScriptRoot, ScriptTextInput, ScriptDoneButton,
 } from './styled'
 
 const PLAYER_ELEMENT_ID = 'videoPlayer'
 const VIDEO_ID = 's2gGuBA_acg' // youtube video's identifier
-const MODES = [
+const Mode = makeEnum([
   'videoWillEnter',
   'videoEnter',
   'videoFocused',
@@ -23,8 +25,9 @@ const MODES = [
   'videoMakeScript',
   'videoMakeVideoResponse',
   'videoMakeAudioResponse',
+  'videoResponseSummary',
   'videoExit',
-].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
+])
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -37,19 +40,9 @@ export default class Video extends React.Component {
 
     this.timers = []
     this.state = {
-      mode: MODES.videoWillEnter,
+      mode: Mode.videoWillEnter,
       hasMadeEntrance: false,
       recordedVideoSrc: null,
-    }
-  }
-
-  componentDidMount() {
-    if (!this.props.isPreloading) this.onEnter()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.isPreloading && this.state.mode === MODES.videoWillEnter) {
-      this.onEnter()
     }
   }
 
@@ -62,13 +55,16 @@ export default class Video extends React.Component {
     const {
       mode,
       hasMadeEntrance,
+      recordedVideoSrc,
+      scriptText,
+      audioUrl,
     } = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
       <Page className={mode}>
         <Background src={backgroundUrl} />
         <HeaderRoot themeColor={themeColor}>
-          <Header className='video-header'>
+          <Header className='video-header review'>
             who is the observer?
           </Header>
         </HeaderRoot>
@@ -90,17 +86,17 @@ export default class Video extends React.Component {
             <div>make script</div>
           </ReviewTool>
           <ReviewTool
-            onClick={() => this.setState({mode: MODES.videoMakeVideoResponse})}
+            onClick={() => this.setState({mode: Mode.videoMakeVideoResponse})}
             themeColor={themeColor}>
             <div>make video response</div>
           </ReviewTool>
           <ReviewTool
-            onClick={() => this.setState({mode: MODES.videoMakeAudioResponse})}
+            onClick={() => this.setState({mode: Mode.videoMakeAudioResponse})}
             themeColor={themeColor}>
             <div>make audio response</div>
           </ReviewTool>
           <ReviewTool
-            onClick={this.onExit}
+            onClick={this.onExitReviewMode}
             themeColor={themeColor}>
             <div>onward!</div>
           </ReviewTool>
@@ -109,6 +105,7 @@ export default class Video extends React.Component {
         <ScriptRoot>
           <ScriptTextInput
             themeColor={themeColor}
+            onChange={this.storeScriptText}
             innerRef={r => this.scriptInput = r} />
           <ScriptDoneButton
             onClick={this.onCloseScript}
@@ -117,25 +114,35 @@ export default class Video extends React.Component {
           </ScriptDoneButton>
         </ScriptRoot>
 
-        <MediaRecorder
+        <VideoRecorderPage
           themeColor={themeColor}
           videoSize={{
             width: getVideoWidth(),
             height: getVideoHeight(),
           }}
-          isActive={mode === MODES.videoMakeVideoResponse}
-          type={
-            mode === MODES.videoMakeVideoResponse ? 'video' :
-            mode === MODES.videoMakeAudioResponse ? 'audio' : null
-          }
-          onExit={this.onEndRecording} />
+          isActive={mode === Mode.videoMakeVideoResponse}
+          onExit={this.onEndVideoRecording} />
+
+        <AudioRecorderPage
+          themeColor={themeColor}
+          isActive={mode === Mode.videoMakeAudioResponse}
+          onExit={this.onEndAudioRecording} />
+
+        <ResponseSummary
+          themeColor={themeColor}
+          videoUrl={recordedVideoSrc}
+          audioUrl={audioUrl}
+          scriptText={scriptText}
+          goBack={this.returnFromSummary} />
 
       </Page>
     )
   }
 
   onEnter() {
-    this.timers.push(setTimeout(() => this.setState({mode: MODES.videoEnter})))
+    if (this.state.mode !== Mode.videoWillEnter) return
+
+    this.timers.push(setTimeout(() => this.setState({mode: Mode.videoEnter})))
     if (this.player) {
       this.timers.push(
         setTimeout(() => this.makeAnEntrance(this.player), 300)
@@ -153,42 +160,67 @@ export default class Video extends React.Component {
 
   @autobind
   onMakeScript() {
-    this.setState({mode: MODES.videoMakeScript})
+    this.setState({mode: Mode.videoMakeScript})
     this.timers.push(setTimeout(() => this.scriptInput.focus(), 1000))
   }
 
   @autobind
   onCloseScript() {
-    this.setState({mode: MODES.videoReview})
+    this.setState({mode: Mode.videoReview})
   }
 
   @autobind
-  onEndRecording(recordedVideoSrc) {
+  onEndVideoRecording(recordedVideoSrc) {
     this.setState({
-      mode: MODES.videoReview,
+      mode: Mode.videoReview,
       recordedVideoSrc,
     })
   }
 
   @autobind
+  onEndAudioRecording(audioUrl) {
+    this.setState({
+      mode: Mode.videoReview,
+      audioUrl,
+    })
+  }
+
+  @autobind
   onVideoMouseEnter() {
-    if (this.state.mode === MODES.videoReview) {
-      this.setState({mode: MODES.videoFocused})
+    if (this.state.mode === Mode.videoReview) {
+      this.setState({mode: Mode.videoFocused})
     }
   }
 
   @autobind
   onVideoMouseLeave() {
     const {mode, hasMadeEntrance} = this.state
-    if (hasMadeEntrance && mode === MODES.videoFocused) {
-      this.setState({mode: MODES.videoReview})
+    if (hasMadeEntrance && mode === Mode.videoFocused) {
+      this.setState({mode: Mode.videoReview})
     }
   }
 
   @autobind
+  onExitReviewMode() {
+    this.setState({mode: Mode.videoResponseSummary})
+  }
+
+  @autobind
+  returnFromSummary() {
+    this.setState({mode: Mode.videoReview})
+  }
+
+  @autobind
   onExit() {
-    this.setState({mode: MODES.videoExit})
+    this.setState({mode: Mode.videoExit})
     this.timers.push(setTimeout(() => window.location = '#politics', 2000))
+  }
+
+  @autobind
+  storeScriptText() {
+    this.setState({
+      scriptText: this.scriptInput.value
+    })
   }
 
   makeAnEntrance(player) {
@@ -196,11 +228,11 @@ export default class Video extends React.Component {
     // player.playVideo()
 
     this.setState({
-      mode: MODES.videoFocused,
+      mode: Mode.videoFocused,
     })
     this.timers.push(
       setTimeout(() => this.setState({
-        mode: MODES.videoReview,
+        mode: Mode.videoReview,
         hasMadeEntrance: true,
       }), 150)
     )

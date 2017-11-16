@@ -46,11 +46,11 @@ export const Background = styled.div`
     content: ' ';
     background: radial-gradient(circle at center, transparent 0%, black 100%);
     opacity: 0;
-    transition: all .5s ${EASE_OUT};
+    transition: all 1s ${EASE_OUT};
   }
 
   .videoEnter &, .videoFocused &, .videoReview &, .videoMakeScript &,
-  .videoMakeAudioResponse &, .videoMakeVideoResponse & {
+  .videoMakeAudioResponse &, .videoMakeVideoResponse &, .videoResponseSummary & {
     &:before {
       opacity: 1;
       transition: all 4s linear;
@@ -77,7 +77,7 @@ export const HeaderRoot = styled.div`
     margin: 0;
     background: linear-gradient(to bottom, ${p => alpha(.3, p.themeColor)} 0%, transparent 100%);
 
-    .videoReview &, .videoMakeScript &, {
+    .videoReview &, .videoMakeScript &, .videoResponseSummary &.summary {
       opacity: 1;
       transform: none;
       transition: all 1s ${EASE_IN_OUT_SINE};

@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'sanitize.css/sanitize.css';
 
+require('wavesurfer.js')
+
 import App from 'containers/App';
 
 // Load the favicon, the manifest.json file and the .htaccess file

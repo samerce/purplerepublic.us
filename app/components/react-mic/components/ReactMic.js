@@ -94,8 +94,11 @@ export default class ReactMic extends Component {
 
   stop() {
     const {microphoneRecorder} = this.state
-    if (microphoneRecorder) microphoneRecorder.stopRecording()
-    this.clear()
+    if (microphoneRecorder) {
+      const audioBlob = microphoneRecorder.stopRecording()
+      this.clear()
+      return audioBlob
+    }
   }
 
   render() {

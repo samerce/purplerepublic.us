@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import Preloadable from '../preloadable'
 import Politics from '../Politics'
 import Theatre from '../Theatre'
 import Movement from '../Movement'
@@ -82,23 +83,23 @@ export default class PurpleRouter extends React.PureComponent {
   }
 
   render() {
-    const {aRoute, bRoute, activeRoute} = this.state
-    const RouteComponentA = aRoute && router[aRoute]
-    const RouteComponentB = bRoute && router[bRoute]
-
+    const {aRoute, bRoute} = this.state
     return (
       <Root>
-        {aRoute &&
-          <RouteRoot className={this.routeCx(aRoute)}>
-            <RouteComponentA isPreloading={aRoute !== activeRoute} />
-          </RouteRoot>
-        }
-        {bRoute &&
-          <RouteRoot className={this.routeCx(bRoute)}>
-            <RouteComponentB isPreloading={bRoute !== activeRoute} />
-          </RouteRoot>
-        }
+        {aRoute && this.renderRoute(aRoute)}
+        {bRoute && this.renderRoute(bRoute)}
       </Root>
+    )
+  }
+
+  renderRoute(route) {
+    const RouteComponent = router[route]
+    return (
+      <Preloadable isPreloading={route !== this.state.activeRoute}>
+        <RouteRoot className={this.routeCx(route)}>
+          <RouteComponent />
+        </RouteRoot>
+      </Preloadable>
     )
   }
 
