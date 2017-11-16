@@ -83,7 +83,7 @@ export const HeaderRoot = styled.div`
       transition: all 1s ${EASE_IN_OUT_SINE};
     }
 
-    &, .videoExit & {
+    &, .videoExit &, &.summary {
       opacity: 0;
       transform: translateY(-200px);
       transition: all 1s ${EASE_IN_OUT_SINE};

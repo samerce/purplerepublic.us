@@ -8,11 +8,10 @@ export const ResponseSummaryRoot = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
 
   .videoResponseSummary & {
-    opacity: 1;
     pointer-events: all;
   }
 `
@@ -36,6 +35,16 @@ export const ContentRow = styled.div`
   align-items: center;
   display: flex;
   padding: 10px 0;
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all .5s ${EASE_OUT};
+
+  .videoResponseSummary & {
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition-delay: ${p => .8 + p.delay + 's'};
+  }
 `
 
 export const RichContent = styled.div`
@@ -74,6 +83,15 @@ export const ContentTool = styled.div`
 export const ResponseSummaryTools = styled(ToolBar)`
   z-index: 6;
   pointer-events: all;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all .5s ${EASE_OUT};
+
+  .videoResponseSummary & {
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE};
+  }
 `
 
 export const ResponseSummaryTool = styled(ToolBarItem)`

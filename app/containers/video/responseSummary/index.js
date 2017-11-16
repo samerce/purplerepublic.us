@@ -60,7 +60,7 @@ export default class ResponseSummary extends React.Component {
 
         <ContentRoot>
           {videoUrl &&
-            <ContentRow style={{flexBasis: rowBasis}}>
+            <ContentRow style={{flexBasis: rowBasis}} delay={0}>
               <RichContent className='video-content'>
                 <video
                   src={videoUrl}
@@ -74,7 +74,7 @@ export default class ResponseSummary extends React.Component {
             </ContentRow>
           }
           {audioUrl &&
-            <ContentRow style={{flexBasis: rowBasis}}>
+            <ContentRow style={{flexBasis: rowBasis}} delay={.2}>
               <RichContent>
                 <Wavesurfer
                   options={{
@@ -94,7 +94,7 @@ export default class ResponseSummary extends React.Component {
             </ContentRow>
           }
           {scriptText &&
-            <ContentRow style={{flexBasis: rowBasis}}>
+            <ContentRow style={{flexBasis: rowBasis}} delay={.4}>
               <RichContent>
                 <ScriptText
                   readOnly
