@@ -6,7 +6,8 @@ import {Header} from '../../global/styled'
 import {
   Page, Spinner, BitBoxRoot, BitBoxText, Background, ReviewTools, ReviewTool,
   BitBoxTextRoot, EditTools, EditTool, DoneEditingButton, BitArticle, BitArticleRoot,
-  MoreEditingButton, ContinueButton,
+  MoreEditingButton, ContinueButton, MoreBitsDialogue, MoreBitsContent,
+  MoreBitsContinue, MoreBitsNewText, MoreBitsTextEntry, BitBoxSubmit,
 } from './styled'
 import {transparentize, lighten, darken} from 'polished'
 
@@ -24,11 +25,13 @@ const MODES = [
   'bitDelete',
   'bitKeep',
   'readBitArticle',
+  'bitMorePrompt',
+  'bitMoreTextEntry',
   'bitExit',
 ].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
 
 const SPLIT_TEST = /([.?!\n])+/
-const sentences = splitSentences(writing)
+let sentences = splitSentences(writing)
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -168,8 +171,47 @@ export default class BitByBit extends React.Component {
           <div>now what?</div>
           <i className='fa fa-compass' />
         </ContinueButton>
+
+        <MoreBitsDialogue>
+          <MoreBitsContent themeColor={themeColor}>
+            <MoreBitsContinue onClick={this.onClickMoreBitsContinue}>
+              <div>keep editing</div>
+            </MoreBitsContinue>
+            <MoreBitsNewText onClick={this.onClickMoreBitsNewText}>
+              <div>edit new work</div>
+            </MoreBitsNewText>
+            <MoreBitsTextEntry themeColor={themeColor}>
+              <BitBoxText
+                className='newBitsInput'
+                placeholder='your new bits here'
+                innerRef={r => this.newBitsTextArea = r} />
+              <BitBoxSubmit onClick={this.onClickNewBitsSubmit}>
+                <div>edit this!</div>
+              </BitBoxSubmit>
+            </MoreBitsTextEntry>
+          </MoreBitsContent>
+        </MoreBitsDialogue>
       </Page>
     )
+  }
+
+  @autobind
+  onClickNewBitsSubmit() {
+    sentences = splitSentences(this.newBitsTextArea.value)
+    this.updateBit()
+    this.setState({
+      mode: MODES.bitReview,
+    })
+  }
+
+  @autobind
+  onClickMoreBitsContinue() {
+    this.setState({mode: MODES.bitReview})
+  }
+
+  @autobind
+  onClickMoreBitsNewText() {
+    this.setState({mode: MODES.bitMoreTextEntry})
   }
 
   onEnter() {
@@ -184,8 +226,9 @@ export default class BitByBit extends React.Component {
   @autobind
   onMoreEditing() {
     this.setState({
-      mode: MODES.bitReview,
+      mode: MODES.bitMorePrompt,
     })
+    this.newBitsTextArea.focus()
   }
 
   @autobind
@@ -293,8 +336,9 @@ export default class BitByBit extends React.Component {
   }
 
   updateBit() {
-    this.setState({bit: this.getBit()})
-    this.bitTextArea.value = this.state.bit.text
+    const bit = this.getBit()
+    this.setState({bit})
+    this.bitTextArea.value = bit.text
     resizeTextArea(this.bitTextArea)
   }
 
@@ -308,7 +352,7 @@ export default class BitByBit extends React.Component {
   }
 
   getBit() {
-    const MAX_SENTENCES = 4
+    const MAX_SENTENCES = Math.min(4, sentences.length)
     const numSentences = Math.round(Math.random() * MAX_SENTENCES) + 1
     const startIndex = Math.round(Math.random() * (sentences.length - MAX_SENTENCES - 2))
     return {

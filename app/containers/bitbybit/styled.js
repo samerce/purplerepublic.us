@@ -85,7 +85,7 @@ export const Background = styled.div`
   background-size: cover;
   transition: all 1s ${EASE_IN_OUT_SINE};
 
-  .bitEnter &, .bitReview &, .bitEdit &, .bitDelete &, .bitKeep &, .readBitArticle &, .bitExit & {
+  .bitEnter &, .bitReview &, .bitEdit &, .bitDelete &, .bitKeep &, .readBitArticle &, .bitExit &, .bitMorePrompt &, .bitMoreTextEntry & {
     filter: blur(50px);
     transform: scale(1.2);
     transition: all 4s linear;
@@ -127,7 +127,7 @@ export const BitBoxTextRoot = styled.div`
     transition-timing-function: ${EASE_IN_OUT_SINE};
     transition-delay: .5s;
   }
-  .bitKeep &, .readBitArticle & {
+  .bitKeep &, .readBitArticle &, .bitMorePrompt &, .bitMoreTextEntry & {
     transform: translateY(1000px);
     opacity: 0;
     transition: opacity .9s, transform 1s;
@@ -386,6 +386,92 @@ export const ContinueButton = styled(BitArticleButton)`
   &:hover i {
     margin-left: 20px;
   }
+`
+
+export const MoreBitsDialogue = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 8;
+
+  .bitMorePrompt &, .bitMoreTextEntry & {
+    pointer-events: all;
+  }
+`
+
+export const MoreBitsContent = styled.div`
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid ${p => lighten(.1, p.themeColor)};
+  background: ${p => p.themeColor};
+  opacity: 0;
+  transform: scale(0);
+  transition: all .5s ${EASE_IN_OUT_SINE};
+
+  .bitMorePrompt &, .bitMoreTextEntry & {
+    opacity: 1;
+    transform: none;
+  }
+`
+
+const MoreBitsButton = styled(BitArticleButton)`
+  position: relative;
+  .bitMorePrompt &, .bitMoreTextEntry & {
+    opacity: 1;
+  }
+`
+
+export const MoreBitsContinue = styled(MoreBitsButton)`
+  flex: 1 0 auto;
+  width: auto;
+  border-bottom: 1px solid white;
+`
+
+export const MoreBitsNewText = styled(MoreBitsButton)`
+  flex: 1 0 auto;
+  width: auto;
+
+  .bitMoreTextEntry & {
+    display: none;
+  }
+`
+
+export const MoreBitsTextEntry = styled.div`
+  flex: 1 0 auto;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+
+  .bitMorePrompt & {
+    display: none;
+  }
+
+  .newBitsInput {
+    background: ${p => lighten(.1, p.themeColor)};
+    font-size: 16px;
+    margin: 10px;
+    width: auto;
+    padding: 5px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    font-family: quattrocento;
+  }
+`
+
+export const BitBoxSubmit = styled(MoreBitsButton)`
+  width: auto;
 `
 
 export const Mask = styled.div`
