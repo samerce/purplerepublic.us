@@ -31,7 +31,9 @@ const MODES = [
 ].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
 
 const SPLIT_TEST = /([.?!\n])+/
-let sentences = splitSentences(writing)
+const STORE_KEY = 'purpleRepublicBitText'
+const storedWriting = window.localStorage.getItem(STORE_KEY)
+let sentences = splitSentences(storedWriting || writing)
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -275,6 +277,7 @@ export default class BitByBit extends React.Component {
   onDeleteBit() {
     const {bit} = this.state
     sentences.splice(bit.startIndex, bit.numSentences)
+    window.localStorage.setItem(STORE_KEY, sentences.join('. '))
 
     this.setState({
       mode: MODES.bitDelete,
@@ -303,6 +306,7 @@ export default class BitByBit extends React.Component {
     const newSentences = splitSentences(this.bitTextArea.value)
     sentences.splice(bit.startIndex, bit.numSentences, ...newSentences)
 
+    window.localStorage.setItem(STORE_KEY, sentences.join('. '))
     this.onKeepBit()
   }
 
