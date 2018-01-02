@@ -222,7 +222,7 @@ export default class BitByBit extends React.Component {
       this.setState({mode: MODES.bitReview})
     }, 4000))
 
-    this.props.dispatch(requestRoutePreload('#letsimprov'))
+    // this.props.dispatch(requestRoutePreload('#letsimprov'))
   }
 
   @autobind

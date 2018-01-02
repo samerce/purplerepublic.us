@@ -1,4 +1,6 @@
 import React from 'react'
+import Typist from 'react-typist'
+
 import styled from 'styled-components'
 import {
   BackgroundRoot,
@@ -11,7 +13,7 @@ import {
   ShakeEm,
   When,
   Bounce,
-  Jiggle,
+  Jiggle, IntroMask,
   Pocky, Chortle, Koki, WhenPart, TicketLink,
   Invitation, GetInvolved, PlayButtonRoot, PlayButton,
   PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
@@ -21,6 +23,8 @@ import {
 import {
 
 } from '../../global/styled'
+import {cx} from '../../utils/style'
+
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
 
@@ -28,16 +32,32 @@ const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
 const getStarPos = () => `-${getRandInt(60) + 20}px`
 
+const SHOW_INTRO_KEY = 'purpleRepublic_start_showIntro'
+const INTRO_DURATION = 45000
+const END_INTRO_DURATION = INTRO_DURATION + 2000
+
+const localStore = window.localStorage
+
 export default class Start extends React.Component {
 
   constructor() {
     super()
 
+    const showIntro = localStore.getItem(SHOW_INTRO_KEY) !== '0'
     this.timeouts = []
     this.state = {
       collapsed: false,
       hovered: false,
+      startIntro: showIntro,
+      endIntro: !showIntro,
     }
+  }
+
+  componentDidMount() {
+    this.timeouts.push(
+      setTimeout(() => this.setState({startIntro: false}), INTRO_DURATION),
+      setTimeout(() => this.setState({endIntro: true}), END_INTRO_DURATION),
+    )
   }
 
   componentWillUnmount() {
@@ -45,7 +65,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered} = this.state;
+    const {collapsed, hovered, startIntro, endIntro} = this.state;
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
@@ -224,14 +244,45 @@ export default class Start extends React.Component {
           </Motion>
         </PlayButtonRoot>
 
-        <InfoRoot>
+        <InfoRoot className={cx({startIntro, endIntro})}>
           <InfoContentRoot>
             <InfoIntroRoot>
               <i className='fa fa-info-circle' />
-              <InfoIntroText>let's explore henry miller</InfoIntroText>
+              <InfoIntroText>108 grains</InfoIntroText>
             </InfoIntroRoot>
             <InfoDetailText className='detail'>
-              go on a journey with us. we all need a little bit more exploration in our lives. it's all a dream. anyway...
+              {startIntro  &&
+                <Typist
+                  avgTypingDelay={60}
+                  stdTypingDelay={50}
+                  startDelay={1000}
+                  cursor={{
+                    show: false,
+                    blink: true,
+                    hideWhenDone: true,
+                    hideWhenDoneDelay: 0,
+                  }}>
+                  oh, hello there.<br />
+                  tickled you stopped by!<br /><br />
+
+                  welcome to 2018. we're glad you made it.<br />
+                  have you made your resolution yet? <br />
+                  (do you usually break it? because we do.)<br /><br />
+
+                  so we're trying something different. 108 grains. a way to hold ourselves accountable to live the good life. a one-hundred-eight day interactive dance through art & ideas. a chance to express over survive.<br /> do you have the resolve?<br /><br />
+
+                  you'll emerge on april 19th a more magical, smart, creative believer in life! share with your friends. come back daily.<br /><br />
+
+                  you are perfect. now and always.<br />
+                  namaste and wahooey!<br />
+                  -grain & tofu
+                  </Typist>
+                }
+                {!startIntro &&
+                  <div>
+                    a one-hundred-eight day interactive dance through art & ideas.<br />a chance to express over survive.<br /> do you have the resolve?
+                  </div>
+                }
             </InfoDetailText>
           </InfoContentRoot>
         </InfoRoot>
@@ -262,6 +313,8 @@ export default class Start extends React.Component {
             <i className='fa fa-globe' />
           </SocialEntryButtonRoot>
         </SocialRoot>
+
+        <IntroMask className={cx({startIntro})} />
       </Root>
     )
   }
@@ -271,6 +324,7 @@ export default class Start extends React.Component {
     this.timeouts.push(
       setTimeout(() => window.location = '#hello', 3000)
     )
+    localStore.setItem(SHOW_INTRO_KEY, '0')
   }
 
   getSineWave(id, rotate) {

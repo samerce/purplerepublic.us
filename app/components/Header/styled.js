@@ -34,6 +34,7 @@ export const Root = styled.div`
 `
 
 export const BlackHoleRoot = styled.div`
+  display: none;
 
 `
 

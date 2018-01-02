@@ -230,17 +230,45 @@ export const PlayButtonHoverRoot = styled.div`
   }
 `
 
+export const IntroMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 14;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 2s ${EASE_IN_OUT_SINE};
+
+  &.startIntro {
+    opacity: .75;
+    pointer-events: all;
+  }
+`
+
 export const InfoRoot = styled.div`
+  z-index: 15;
   position: absolute;
   bottom: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
+  transition: all 2s ${EASE_OUT};
+  pointer-events: none;
 
   .start-exit & {
     transform: translateY(100px);
     opacity: 0;
     transition: all 1.5s ${EASE_IN_OUT_SINE};
+  }
+  &.startIntro {
+    bottom: 40%;
+  }
+  &.endIntro {
+    pointer-events: all;
+    opacity: 1;
   }
 `
 
@@ -251,10 +279,10 @@ export const InfoContentRoot = styled.div`
   flex-direction: column;
   border-radius: 3px;
   transition: all .5s ${EASE_OUT};
-  padding: 10px;
-  transform: translateY(70px);
+  padding: 15px;
+  transform: translateY(80px);
 
-  &:hover {
+  &:hover, .startIntro & {
     background: rgba(255, 255, 255, .1);
     transform: none;
     transition: all .5s ${EASE_IN_OUT_SINE};
@@ -275,6 +303,12 @@ export const InfoContentRoot = styled.div`
     color: white;
     vertical-align: middle;
     line-height: 34px;
+    transition: all 2s ${EASE_IN_OUT_SINE} 1s;
+
+    .startIntro & {
+      opacity: 0;
+      width: 1px;
+    }
   }
 `
 
@@ -291,10 +325,15 @@ export const InfoIntroText = styled(InfoText)`
   font-size: 26px;
   color: white;
   font-family: life savers;
+  transition: all 2s ${EASE_OUT};
+
+  .startIntro & {
+    font-size: 40px;
+  }
 `
 
 export const InfoDetailText = styled(InfoText)`
-  font-size: 22px;
+  font-size: 18px;
   color: white;
   opacity: 0;
   text-align: center;

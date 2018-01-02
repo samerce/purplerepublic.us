@@ -74,6 +74,8 @@ export default class QuarkArt extends React.PureComponent {
     fetch('/quarkArt.list?maxObjects=5', {
       method: 'GET',
     }).then((responseRaw) => {
+      if (!responseRaw) return
+
       responseRaw.json().then(response => {
         const galleryItems = []
         for (let item in response.items) {
@@ -208,7 +210,6 @@ export default class QuarkArt extends React.PureComponent {
           cropstart={this.onCropStart}
           cropmove={this.onCropMove}
           cropend={this.onCropEnd}
-          crossOrigin='anonymous'
           src={this.props.motherImageUrl} />
       </Page>
     )
