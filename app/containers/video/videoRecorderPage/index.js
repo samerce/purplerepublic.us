@@ -120,7 +120,7 @@ export default class VideoRecorderPage extends React.Component {
   @autobind
   exit() {
     this.player.pause()
-    this.props.onExit(this.player.src)
+    this.exitWithVideo()
   }
 
   @autobind
@@ -131,18 +131,28 @@ export default class VideoRecorderPage extends React.Component {
 
   @autobind
   onRecordingPaused(blob) {
+    this.setState({blob})
     setVideoSource(this.player, blob)
   }
 
   @autobind
   onRecordingStopped(blob) {
-    this.props.onExit(URL.createObjectURL(blob))
+    this.setState({blob})
+    this.exitWithVideo()
     // save video locally?
   }
 
   @autobind
   onRecordingPermitted(stream) {
     setVideoSource(this.streamer, stream)
+  }
+
+  exitWithVideo() {
+    const {blob} = this.state
+    this.props.onExit({
+      url: URL.createObjectURL(blob),
+      blob: blob,
+    })
   }
 
   willAppear() {

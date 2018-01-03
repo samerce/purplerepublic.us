@@ -2,7 +2,7 @@ const aws = require('aws-sdk')
 
 loadConfig()
 
-module.export = {
+module.exports = {
   s3: new aws.S3(),
 }
 

@@ -42,7 +42,8 @@ export default class Video extends React.Component {
     this.state = {
       mode: Mode.videoWillEnter,
       hasMadeEntrance: false,
-      recordedVideoSrc: null,
+      recordedVideo: null,
+      audioBlob: null,
     }
   }
 
@@ -65,9 +66,9 @@ export default class Video extends React.Component {
     const {
       mode,
       hasMadeEntrance,
-      recordedVideoSrc,
+      recordedVideo,
       scriptText,
-      audioUrl,
+      audioBlob,
     } = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
@@ -140,8 +141,8 @@ export default class Video extends React.Component {
 
         <ResponseSummary
           themeColor={themeColor}
-          videoUrl={recordedVideoSrc}
-          audioUrl={audioUrl}
+          videoData={recordedVideo}
+          audioBlob={audioBlob}
           scriptText={scriptText}
           goBack={this.returnFromSummary} />
 
@@ -178,18 +179,18 @@ export default class Video extends React.Component {
   }
 
   @autobind
-  onEndVideoRecording(recordedVideoSrc) {
+  onEndVideoRecording(videoData) {
     this.setState({
       mode: Mode.videoReview,
-      recordedVideoSrc,
+      recordedVideo: videoData,
     })
   }
 
   @autobind
-  onEndAudioRecording(audioUrl) {
+  onEndAudioRecording(audioBlob) {
     this.setState({
       mode: Mode.videoReview,
-      audioUrl,
+      audioBlob,
     })
   }
 

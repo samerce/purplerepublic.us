@@ -1,6 +1,7 @@
 /* eslint consistent-return:0 */
 
 const quarkArt = require('./quarkArt')
+const submissions = require('./submissions')
 
 const express = require('express');
 const logger = require('./logger');
@@ -12,6 +13,13 @@ const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = process.env.ENABLE_TUNNEL || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
 const app = express();
+const multer = require('multer');
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 1073741824, // ~1GB
+  }
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -19,10 +27,12 @@ app.use(bodyParser.urlencoded({
   limit: '50mb',
 }));
 
-// If you need a backend API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
+// quark art
 app.post('/quarkArt.upload', quarkArt.upload)
 app.get('/quarkArt.list', quarkArt.list)
+
+// audio/video/writing submissions
+app.post('/submissions.upload', upload.single('blob'), submissions.upload)
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

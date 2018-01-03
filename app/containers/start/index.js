@@ -78,7 +78,7 @@ export default class Start extends React.Component {
             }}>
               <StarWithTrail style={{
                 animationDelay: '3.5s',
-                animationDuration: '.5s',
+                animationDuration: '2.5s',
               }}>
                 <Star />
               </StarWithTrail>

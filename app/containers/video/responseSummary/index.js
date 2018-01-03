@@ -1,5 +1,6 @@
 import React from 'react'
 import Wavesurfer from 'react-wavesurfer'
+import Spinner from '../../../components/Spinner'
 
 import {cx} from '../../../utils/style'
 import {Header} from '../../../global/styled'
@@ -12,7 +13,10 @@ import {
 } from '../styled'
 import {lighten, darken} from 'polished'
 
+import autobind from 'autobind-decorator'
 import {makeEnum} from '../../../utils/lang'
+
+const MAX_BLOB_SIZE = 1073741824 // ~1GB
 
 const Mode = makeEnum([
   'summaryPreEnter',
@@ -27,6 +31,7 @@ export default class ResponseSummary extends React.Component {
     this.state = {
       mode: Mode.summaryPreEnter,
       shouldAudioPlay: false,
+      submissions: {},
     }
   }
 
@@ -42,13 +47,13 @@ export default class ResponseSummary extends React.Component {
       mode
     } = this.state
     const {
-      audioUrl,
-      videoUrl,
+      audioBlob,
+      videoData,
       scriptText,
       themeColor,
       shouldAudioPlay,
     } = this.props
-    const rowBasis = 100 * (1 / (+!!audioUrl + +!!videoUrl + +!!scriptText)) + '%'
+    const rowBasis = 100 * (1 / (+!!audioBlob + +!!videoData + +!!scriptText)) + '%'
 
     return (
       <ResponseSummaryRoot className={mode}>
@@ -59,21 +64,21 @@ export default class ResponseSummary extends React.Component {
         </HeaderRoot>
 
         <ContentRoot>
-          {videoUrl &&
+          {videoData &&
             <ContentRow style={{flexBasis: rowBasis}} delay={0}>
               <RichContent className='video-content'>
                 <video
-                  src={videoUrl}
+                  src={videoData.url}
                   controls
                   autoPlay
                   muted
                   loop />
               </RichContent>
 
-              {this.renderContentTools()}
+              {this.renderContentTools(videoData.blob, 'video')}
             </ContentRow>
           }
-          {audioUrl &&
+          {audioBlob &&
             <ContentRow style={{flexBasis: rowBasis}} delay={.2}>
               <RichContent>
                 <Wavesurfer
@@ -86,11 +91,11 @@ export default class ResponseSummary extends React.Component {
                     cursorColor: darken(.1, themeColor)
                   }}
                   mediaControls={true}
-                  audioFile={audioUrl}
+                  audioFile={audioBlob}
                   playing={shouldAudioPlay} />
               </RichContent>
 
-              {this.renderContentTools()}
+              {this.renderContentTools(audioBlob, 'audio')}
             </ContentRow>
           }
           {scriptText &&
@@ -103,14 +108,14 @@ export default class ResponseSummary extends React.Component {
                   themeColor={themeColor} />
               </RichContent>
 
-              {this.renderContentTools()}
+              {this.renderContentTools(this.makeScriptTextBlob(), 'text')}
             </ContentRow>
           }
         </ContentRoot>
 
         <ResponseSummaryTools themeColor={themeColor}>
           <ResponseSummaryTool
-            onClick={this.props.goBack}
+            onClick={this.goBack}
             themeColor={themeColor}>
             <div>think more thoughts</div>
           </ResponseSummaryTool>
@@ -122,23 +127,107 @@ export default class ResponseSummary extends React.Component {
     )
   }
 
-  renderContentTools() {
+  @autobind
+  renderContentTools(data, type) {
+    const {submissions} = this.state
+    const pending = submissions[type] === 'pending'
+    const submitted = submissions[type] === 'submitted'
     return (
       <ContentTools>
-        <ContentTool>
-          <i className='fa fa-share' />
-          <div>share</div>
-        </ContentTool>
-        <ContentTool>
+        <ContentTool onClick={this[type + 'Download']}>
           <i className='fa fa-download' />
           <div>download</div>
         </ContentTool>
-        <ContentTool>
+        <ContentTool onClick={this.uploadBlob.bind(this, data, type)}>
           <i className='fa fa-globe' />
-          <div>submit</div>
+          {pending &&
+            <div style={{position: 'relative', margin: '0 10px'}}>
+              <Spinner show />
+            </div>
+          }
+          {submitted &&
+            <div>submitted!</div>
+          }
+          {!pending && !submitted &&
+            <div>submit</div>
+          }
         </ContentTool>
       </ContentTools>
     )
   }
 
+  @autobind
+  goBack() {
+    this.setState({submissions: {}})
+    this.props.goBack()
+  }
+
+  @autobind
+  videoDownload() {
+    const {url, blob} = this.props.videoData
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'purple republic video response.' + getBlobType(blob)
+    a.click()
+  }
+
+  @autobind
+  audioDownload() {
+    const {audioBlob} = this.props
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(audioBlob)
+    a.download = 'purple republic audio response.' + getBlobType(audioBlob)
+    a.click()
+  }
+
+  @autobind
+  textDownload() {
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(this.makeScriptTextBlob())
+    a.download = 'purple republic script response.txt'
+    a.click()
+  }
+
+  makeScriptTextBlob() {
+    return new Blob([this.props.scriptText], {type: 'text/plain'})
+  }
+
+  uploadBlob(blob, type) {
+    if (this.state.submissions[type]) return
+    if (blob.size > MAX_BLOB_SIZE) return showTooBigAlert()
+
+    this.setState({
+      submissions: {
+        ...this.state.submissions,
+        [type]: 'pending',
+      }
+    })
+
+    const body = new FormData()
+    body.append('blob', blob)
+
+    fetch('/submissions.upload', {
+      method: 'post',
+      body,
+    }).then(responseRaw => {
+      console.log('finished uploading ' + type, responseRaw)
+      this.setState({
+        submissions: {
+          ...this.state.submissions,
+          [type]: 'submitted',
+        }
+      })
+    }).catch(e => {
+      console.warning('failed uploading ' + type, e)
+    })
+  }
+
+}
+
+function getBlobType(blob) {
+  return blob.type.split('/')[1].split(';')[0]
+}
+
+function showTooBigAlert() {
+  alert('whoopsie-poopsie! we applaud your work, but the video is too big for us to handle. please go back and record a shorter one. <3')
 }

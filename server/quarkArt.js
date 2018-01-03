@@ -63,6 +63,7 @@ var uploadToS3 = ({imageData, description, sourceImage, cropBox}) => {
 function listGalleryItems({maxObjects, continuationToken}) {
   const params = {
     Bucket: GALLERY_BUCKET,
+    Prefix: 'quark-art/gallery/',
     ContinuationToken: continuationToken,
     EncodingType: 'url',
     MaxKeys: maxObjects,
