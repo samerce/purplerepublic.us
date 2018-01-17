@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN} from '../../global/constants'
-import aSpinner from '../../components/spinner'
+import aSpinner from '../../components/spinnie'
 
 const easeInOutSine = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
 

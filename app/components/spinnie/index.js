@@ -5,7 +5,7 @@ import {
   Root,
 } from './styled'
 
-export default class Spinner extends React.Component {
+export default class Spinnie extends React.Component {
 
   render() {
     const {text, show, className} = this.props

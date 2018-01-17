@@ -1,6 +1,6 @@
 import React from 'react'
 import Wavesurfer from 'react-wavesurfer'
-import Spinner from '../../../components/Spinner'
+import Spinner from '../../../components/spinnie'
 
 import {cx} from '../../../utils/style'
 import {Header} from '../../../global/styled'

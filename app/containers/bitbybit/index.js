@@ -4,7 +4,7 @@ import {Motion, spring} from 'react-motion'
 import {cx} from '../../utils/style'
 import {Header} from '../../global/styled'
 import {
-  Page, Spinner, BitBoxRoot, BitBoxText, Background, ReviewTools, ReviewTool,
+  Page, BitBoxRoot, BitBoxText, Background, ReviewTools, ReviewTool,
   BitBoxTextRoot, EditTools, EditTool, DoneEditingButton, BitArticle, BitArticleRoot,
   MoreEditingButton, ContinueButton, MoreBitsDialogue, MoreBitsContent,
   MoreBitsContinue, MoreBitsNewText, MoreBitsTextEntry, BitBoxSubmit,
@@ -344,15 +344,6 @@ export default class BitByBit extends React.Component {
     this.setState({bit})
     this.bitTextArea.value = bit.text
     resizeTextArea(this.bitTextArea)
-  }
-
-  renderSpinner(text, classNames = '') {
-    return (
-      <Spinner className={classNames}>
-        <i className='fa fa-superpowers' />
-        {text && <span>&nbsp; {text}</span>}
-      </Spinner>
-    )
   }
 
   getBit() {
