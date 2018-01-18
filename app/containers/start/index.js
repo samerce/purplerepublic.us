@@ -24,6 +24,7 @@ import {
 
 } from '../../global/styled'
 import {cx} from '../../utils/style'
+import {makeEnum} from '../../utils/lang'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
@@ -36,6 +37,10 @@ const SHOW_INTRO_KEY = 'purpleRepublic_start_showIntro'
 const INTRO_DURATION = 45000
 const END_INTRO_DURATION = INTRO_DURATION + 2000
 
+const Mode = makeEnum([
+  'enter',
+  'show',
+])
 const localStore = window.localStorage
 
 export default class Start extends React.Component {
@@ -46,6 +51,7 @@ export default class Start extends React.Component {
     const showIntro = localStore.getItem(SHOW_INTRO_KEY) !== '0'
     this.timeouts = []
     this.state = {
+      mode: Mode.enter,
       collapsed: false,
       hovered: false,
       startIntro: showIntro,
@@ -55,6 +61,7 @@ export default class Start extends React.Component {
 
   componentDidMount() {
     this.timeouts.push(
+      setTimeout(() => this.setState({mode: Mode.show})),
       setTimeout(() => this.setState({startIntro: false}), INTRO_DURATION),
       setTimeout(() => this.setState({endIntro: true}), END_INTRO_DURATION),
     )
@@ -65,12 +72,15 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, startIntro, endIntro} = this.state;
+    const {collapsed, hovered, startIntro, endIntro, mode} = this.state
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
     return (
-      <Root className={collapsed && 'start-exit'}>
+      <Root className={cx({
+        'start-exit': collapsed,
+        [`start-${mode}`]: true,
+      })}>
         <BackgroundRoot>
           <ShootingStars>
             <StarRoot style={{
@@ -287,10 +297,19 @@ export default class Start extends React.Component {
           </InfoContentRoot>
         </InfoRoot>
 
-        <SocialRoot onClick={() => this.setState({showSocial: !this.state.showSocial})} className={this.state.showSocial && 'show'}>
+        <SocialRoot>
           <SocialButtonsRoot>
             <a href='https://www.facebook.com/purplerepublic.us' target='_blank'>
               <SocialIcon className='fa fa-facebook-square i1' />
+            </a>
+            <a href='https://www.medium.com/the-purple-republic' target='_blank'>
+              <SocialIcon className='fa fa-medium i6' />
+            </a>
+            <a href='https://www.youtube.com/channel/UCHDkvhWZKjA6lnX1vcGvGPw' target='_blank'>
+              <SocialIcon className='fa fa-youtube-square i5' />
+            </a>            
+            <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
+              <SocialIcon className='fa fa-etsy i4' />
             </a>
             <a href='https://www.twitter.com/1purplerepublic' target='_blank'>
               <SocialIcon className='fa fa-twitter-square i2' />
@@ -298,20 +317,10 @@ export default class Start extends React.Component {
             <a href='https://www.instagram.com/purple.republic' target='_blank'>
               <SocialIcon className='fa fa-instagram i3' />
             </a>
-            <a href='https://www.medium.com/the-purple-republic' target='_blank'>
-              <SocialIcon className='fa fa-medium i6' />
-            </a>
-            <a href='https://www.youtube.com/channel/UCHDkvhWZKjA6lnX1vcGvGPw' target='_blank'>
-              <SocialIcon className='fa fa-youtube-square i5' />
-            </a>
             <a href='mailto:rise@purplerepublic.us' target='_blank'>
               <SocialIcon className='fa fa-envelope-o i4' />
             </a>
           </SocialButtonsRoot>
-
-          <SocialEntryButtonRoot>
-            <i className='fa fa-globe' />
-          </SocialEntryButtonRoot>
         </SocialRoot>
 
         <IntroMask className={cx({startIntro})} />

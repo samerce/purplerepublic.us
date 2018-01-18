@@ -14,7 +14,7 @@ const AppWrapper = styled.div`
 const pageMeta = [
   {
     name: 'description',
-    content: 'the purple party presents a new vision for america — a purple republic'
+    content: 'purple republic presents curated roots: (sm)art. isness with purpose. performance. politics. play.'
   },
 ]
 

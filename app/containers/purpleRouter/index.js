@@ -5,6 +5,7 @@ import Politics from '../Politics'
 import Theatre from '../Theatre'
 import Movement from '../Movement'
 import Reflection from '../Reflection'
+import Intro from '../intro'
 import Start from '../start'
 import Action from '../Action'
 import QuarkArt from '../quarkart'
@@ -19,6 +20,7 @@ import {clearPreloadRoute} from '../App/actions'
 import {cx} from '../../utils/style'
 
 const router = {
+  '#intro': Intro,
   '#start': Start,
   '#hello': Hello,
   '#quote': Quote,

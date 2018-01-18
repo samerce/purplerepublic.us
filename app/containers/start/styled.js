@@ -109,17 +109,23 @@ export const Background = styled.div`
   width: ${window.innerWidth}px;
   border-radius: 100%;
   background: radial-gradient(circle at center, #00659D 0, #00ABBC 10%, #E2C58B 35%, #E47C82 60%, #AD5B7B 100%);
-  transition: all 4s ${EASE_OUT};
-  transform: scale(1.5);
+  opacity: 0;
+  transform: scale(0);
 
-  &:not(.collapsed):hover {
-    transform: scale(1.2);
-    transition-duration: 3s;
-  }
-  &.collapsed {
-    opacity: 0;
-    transform: scale(3);
-    transition: all 2s ${EASE_IN};
+  .start-show & {
+    transition: all 4s ${EASE_OUT};
+    transform: scale(1.5);
+    opacity: 1;
+
+    &:not(.collapsed):hover {
+      transform: scale(1.2);
+      transition-duration: 3s;
+    }
+    &.collapsed {
+      opacity: 0;
+      transform: scale(3);
+      transition: all 2s ${EASE_IN};
+    }
   }
 `
 
@@ -167,6 +173,14 @@ export const PlayButtonRoot = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  opacity: 0;
+  transform: scale(0);
+
+  .start-show & {
+    opacity: 1;
+    transform: none;
+    transition: all .5s ${EASE_OUT} 1s;
+  }
 `
 
 export const PlayButton = styled.div`
@@ -242,10 +256,10 @@ export const IntroMask = styled.div`
   opacity: 0;
   transition: all 2s ${EASE_IN_OUT_SINE};
 
-  &.startIntro {
+  ${'' /* &.startIntro {
     opacity: .75;
     pointer-events: all;
-  }
+  } */}
 `
 
 export const InfoRoot = styled.div`
@@ -265,10 +279,12 @@ export const InfoRoot = styled.div`
   }
   &.startIntro {
     bottom: 40%;
+    display: none;
   }
   &.endIntro {
     pointer-events: all;
     opacity: 1;
+    display: none;
   }
 `
 
@@ -315,6 +331,7 @@ export const InfoContentRoot = styled.div`
 export const InfoIntroRoot = styled.div`
   display: flex;
   justify-content: center;
+  display: none;
 `
 
 export const InfoText = styled.div`
@@ -342,82 +359,73 @@ export const InfoDetailText = styled(InfoText)`
 
 export const SocialRoot = styled.div`
   position: absolute;
-  bottom: 50%;
-  right: 20px;
-  width: 50px;
+  bottom: 0;
+  right: 10px;
+  top: 0;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding: 10px 10px 10px 50px;
-  transform: translateY(-50%);
+  opacity: .5;
+  transition: all .5s ${EASE_IN_OUT_SINE};
 
   .start-exit & {
     opacity: 0;
-    transform: translate(100px, -50%);
+    transform: translateX(100px);
     transition: all 1.5s ${EASE_IN_OUT_SINE};
   }
 
-  &:hover, &.show {
+  &:hover {
+    opacity: 1;
+    transition: all .2s ${EASE_OUT};
     .i1, .i2, .i3, .i4, .i5, .i6 {
-      opacity: 1;
       transform: none;
       transition-timing-function: ${EASE_IN_OUT_SINE};
       transition: opacity .1s, transform .3s;
     }
   }
+
+  a {
+    transition: all .5s ${EASE_OUT};
+
+    &:hover {
+      transform: scale(1.1);
+      transition: transform .5s ${EASE_OUT};
+    }
+    &:active {
+      transform: scale(.9);
+      transition: transform .1s ${EASE_OUT};
+    }
+  }
 `
 
 export const SocialIcon = styled.i`
-  font-size: 48px;
+  font-size: 40px;
   color: white;
-  position: absolute;
-  bottom: 0;
-  opacity: 0;
-  transition: opacity .3s, transform .4s;
-  transition-timing-function: ${EASE_OUT};
-  width: 60px;
+  width: 50px;
   text-align: center;
-  right: -15px;
-  padding: 15px 5px;
+  padding: 5px 5px;
 
   &.i1 {
-    bottom: 35px;
-    ${'' /* left: 0; */}
-    transform: translate(5px, 35px) scale(.1);
   }
   &.i2 {
-    bottom: 85px;
-    ${'' /* left: 5px; */}
-    transform: translate(5px, 85px) scale(.1);
   }
   &.i3 {
-    bottom: 135px;
-    ${'' /* left: 10px; */}
-    transform: translate(5px, 135px) scale(.1);
   }
   &.i4 {
-    bottom: -155px;
-    ${'' /* left: 15px; */}
-    transform: translate(5px, -155px) scale(.1);
-    font-size: 44px;
+    font-size: 34px;
   }
   &.i5 {
-    bottom: -110px;
-    ${'' /* left: 20px; */}
-    transform: translate(5px, -110px) scale(.1);
-    font-size: 50px;
+    font-size: 40px;
   }
   &.i6 {
-    bottom: -55px;
-    ${'' /* left: 25px; */}
-    transform: translate(5px, -55px) scale(.1);
-    font-size: 40px;
+    font-size: 30px;
   }
 `
 
 export const SocialButtonsRoot = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
 `
 
 export const SocialEntryButtonRoot = styled.div`
@@ -431,10 +439,10 @@ export const SocialEntryButtonRoot = styled.div`
   }
 
   i {
-    font-size: 32px;
+    font-size: 38px;
     color: ${alpha(.2, 'white')};
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
   }
 
 `
