@@ -33,15 +33,16 @@ let dualitySentinel = 1
 const DUALITY_WORD_PADDING = 10
 const EV_FUDGE = 150
 
-const DURATION_YOU_ARE = 1//4500
-const DURATION_ENOUGH = 1//DURATION_YOU_ARE + 5000
-const DURATION_NOW = 1//DURATION_ENOUGH + 8000
-const DURATION_WHAT = 1//DURATION_NOW + 4000
-const DURATION_DUALITY = 1//DURATION_WHAT + 2000
-const DURATION_LIFE_EVERYTHING = 1//DURATION_DUALITY + 7000
-const DURATION_LIFE_NOTHING = 1//DURATION_LIFE_EVERYTHING + 2000
-const DURATION_YOU_NOTHING = 1//DURATION_LIFE_NOTHING + 2000
-const DURATION_YOU_EVERYTHING = 1//DURATION_YOU_NOTHING + 2000
+const DURATION_YOU_ARE = 4500
+const DURATION_ENOUGH = DURATION_YOU_ARE + 5000
+const DURATION_NOW = DURATION_ENOUGH + 8000
+const DURATION_WHAT = DURATION_NOW + 4000
+const DURATION_GANJA = DURATION_WHAT + 4000
+const DURATION_LIFE_EVERYTHING = DURATION_GANJA + 7000
+const DURATION_LIFE_NOTHING = DURATION_LIFE_EVERYTHING + 2000
+const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2000
+const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
+const DURATION_DUALITY = DURATION_YOU_EVERYTHING + 17000
 const DURATION_EXIT = DURATION_DUALITY + 700
 
 const Mode = makeEnum([
@@ -87,7 +88,7 @@ export default class Intro extends React.Component {
       }, DURATION_WHAT),
       setTimeout(() => this.setState({
         mode: Mode.lifeEverything
-      }), DURATION_DUALITY),
+      }), DURATION_GANJA),
       setTimeout(() => this.setState({
         mode: Mode.lifeNothing
       }), DURATION_LIFE_EVERYTHING),
@@ -105,23 +106,23 @@ export default class Intro extends React.Component {
             ...style,
             left: style.left - 160,
           }})
-        }, 500)
+        }, 700)
 
-        let advanceInterval = 1000
+        let advanceInterval = 700
         const advance = () => {
           this.advanceDuality()
           if (this.state.dualityIndex === dualitySentinel) {
             clearInterval(this.dualityInterval)
 
             dualitySentinel += dualitySentinel
-            advanceInterval -= 100
+            advanceInterval = Math.max(5, advanceInterval - 80)
             this.dualityInterval = setInterval(advance, advanceInterval)
           }
         }
         this.dualityInterval = setInterval(advance, advanceInterval)
       }, DURATION_YOU_EVERYTHING),
-      // setTimeout(() => this.setState({mode: Mode.exit}), DURATION_LIFE_NOTHING),
-      // setTimeout(() => window.location = '#start', DURATION_EXIT),
+      setTimeout(() => this.setState({mode: Mode.exit}), DURATION_DUALITY),
+      setTimeout(() => window.location = '#start', DURATION_EXIT),
     )
   }
 
@@ -130,7 +131,8 @@ export default class Intro extends React.Component {
   }
 
   render() {
-    const {mode, everythingStyle} = this.state;
+    const {mode, everythingStyle, dualityIndex} = this.state;
+    const ganjaIndex = Math.floor(Math.random() * (dualityImages.length-1))
     return (
       <Root className={'intro-' + mode}>
         <BackgroundRoot />
@@ -172,8 +174,9 @@ export default class Intro extends React.Component {
           </What>
         </TypingRoot>
 
-        <DualityRoot style={{display: 'none'}}>
-          <Duality>
+        <DualityRoot>
+          <img src={require('../../drag.gif')} />
+          <Duality style={{display: 'none'}}>
             {dualityImages.map((key, i) => (
               <img
                 key={key}
@@ -188,8 +191,8 @@ export default class Intro extends React.Component {
           </Duality>
         </DualityRoot>
 
-        <DualityImages show={this.state.image}>
-          <img src={dualityImages[3]} />
+        <DualityImages show={false}>
+          <img src={dualityImages[ganjaIndex]} />
         </DualityImages>
 
         <TypingRoot>
@@ -229,13 +232,13 @@ export default class Intro extends React.Component {
       yang: i === dualityIndex,
       stacked: i < dualityIndex - 1,
     })
-    const styleFn = this[type + 'Style']
+    const styleFn = this[type + 'Style'] || this.yangStyle
 
     return (
       <DualityText
         key={word}
         className={'isness duality-half ' + type}
-        style={styleFn && styleFn(word, i)}>
+        style={styleFn(word, i)}>
         <div
           className='intro-text'
           ref={r => this.dualityWordElements[word] = r}>
@@ -284,14 +287,14 @@ export default class Intro extends React.Component {
 
   yangStyle() {
     return {
-      transform: `translateX(150px)`
+      transform: `translateX(100px)`
     }
   }
 
   @autobind
   advanceDuality() {
     let {dualityIndex} = this.state
-    if (dualityIndex === dualityWords.length + 1) {
+    if (dualityIndex === dualityWords.length + 2) {
       return clearInterval(this.dualityInterval)
     }
     this.setState({

@@ -155,6 +155,15 @@ export const DualityRoot = styled.div`
   top: 0;
   bottom: 0;
   width: 100%;
+  opacity: 0;
+
+  .intro-ganja & {
+    opacity: 1;
+  }
+
+  img {
+    width: 100%;
+  }
 `
 
 export const Duality = styled.div`
@@ -226,7 +235,7 @@ export const Everything = styled.div`
   .intro-duality & {
     opacity: 1;
     transform: translateX(-260px);
-    transition: all .5s ${EASE_IN_OUT_SINE} .5s;
+    transition: all .5s ${EASE_IN_OUT_SINE};
 
     span {
       opacity: 1;
@@ -292,7 +301,7 @@ export const DualityText = styled.div`
 
     &.ying, &.yang, &.stacked {
       opacity: 1;
-      transition: all .5s ${EASE_IN_OUT_SINE};
+      transition: all .3s ${EASE_IN_OUT_SINE};
     }
 
     .intro-text {
