@@ -13,6 +13,7 @@ import BitByBit from '../bitbybit'
 import Hello from '../hello'
 import Quote from '../quote'
 import Video from '../video'
+import Outro from '../outro'
 import {Root, RouteRoot} from './styles'
 
 import {clearPreloadRoute} from '../App/actions'
@@ -30,6 +31,7 @@ const router = {
   '#letsimprov': Video,
   '#reflection': Reflection,
   '#action': Action,
+  '#outro': Outro,
 }
 
 @connect(d => ({

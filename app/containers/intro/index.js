@@ -115,7 +115,7 @@ export default class Intro extends React.Component {
             clearInterval(this.dualityInterval)
 
             dualitySentinel += dualitySentinel
-            advanceInterval = Math.max(5, advanceInterval - 80)
+            advanceInterval = Math.max(10, advanceInterval - 90)
             this.dualityInterval = setInterval(advance, advanceInterval)
           }
         }
