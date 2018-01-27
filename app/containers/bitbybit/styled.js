@@ -114,7 +114,6 @@ export const BitBoxTextRoot = styled.div`
   padding: 20px 20px 15px;
   font-size: 24px;
   overflow: scroll;
-  pointer-events: none;
   transition: all 1s ${EASE_IN_OUT_SINE};
 
   .bitEdit &, .bitReview & {

@@ -31,12 +31,6 @@ injectGlobal`
     height: 100%;
   }
 
-  p,
-  label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
-    line-height: 1.5em;
-  }
-
   input {
     transition: all .3s ${EASE_OUT};
   }

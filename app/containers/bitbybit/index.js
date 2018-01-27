@@ -11,7 +11,7 @@ import {
 } from './styled'
 import {transparentize, lighten, darken} from 'polished'
 
-import writing from './writing'
+import originalWriting from './writing'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
@@ -30,10 +30,10 @@ const MODES = [
   'bitExit',
 ].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
 
-const SPLIT_TEST = /([.?!\n])+/
-const STORE_KEY = 'purpleRepublicBitText'
-const storedWriting = window.localStorage.getItem(STORE_KEY)
-let sentences = splitSentences(storedWriting || writing)
+const MAX_CHUNK_LENGTH = 324 // characters
+const SPLIT_TEST = /([.?!])+/
+const STORE_KEY = 'purpleRepublic.bitText.bb680453da2ecfba3f645623d04d85092'
+const writing = window.localStorage.getItem(STORE_KEY) || originalWriting
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -47,9 +47,9 @@ export default class BitByBit extends React.Component {
     this.timers = []
     this.state = {
       mode: MODES.willEnter,
-      bit: this.getBit(),
+      bit: this.getBit(writing),
       hasEngaged: false,
-      bitArticle: '',
+      bitArticle: '' + writing,
     }
   }
 
@@ -155,8 +155,8 @@ export default class BitByBit extends React.Component {
         <BitArticleRoot>
           <BitArticle
             height={(window.scrollHeight - 100) + 'px'}
-            themeColor={themeColor}>
-            {bitArticle}
+            themeColor={themeColor}
+            dangerouslySetInnerHTML={{__html: bitArticle}}>
           </BitArticle>
         </BitArticleRoot>
 
@@ -199,7 +199,9 @@ export default class BitByBit extends React.Component {
 
   @autobind
   onClickNewBitsSubmit() {
-    sentences = splitSentences(this.newBitsTextArea.value)
+    this.setState({
+      bitArticle: this.newBitsTextArea.value,
+    })
     this.updateBit()
     this.setState({
       mode: MODES.bitReview,
@@ -275,9 +277,15 @@ export default class BitByBit extends React.Component {
 
   @autobind
   onDeleteBit() {
-    const {bit} = this.state
-    sentences.splice(bit.startIndex, bit.numSentences)
-    window.localStorage.setItem(STORE_KEY, sentences.join('. '))
+    const {bit, bitArticle} = this.state
+    const {startIndex, endIndex} = bit
+
+    const newArticleChars = bitArticle.split('')
+    newArticleChars.splice(startIndex, endIndex - startIndex)
+
+    const newArticle = newArticleChars.join('')
+    this.setState({bitArticle: newArticle})
+    window.localStorage.setItem(STORE_KEY, newArticle)
 
     this.setState({
       mode: MODES.bitDelete,
@@ -302,11 +310,17 @@ export default class BitByBit extends React.Component {
 
   @autobind
   onEditBitFinished() {
-    const {bit} = this.state
-    const newSentences = splitSentences(this.bitTextArea.value)
-    sentences.splice(bit.startIndex, bit.numSentences, ...newSentences)
+    const {bit, bitArticle} = this.state
+    const {startIndex, endIndex} = bit
 
-    window.localStorage.setItem(STORE_KEY, sentences.join('. '))
+    const articleChars = bitArticle.split('')
+    const newTextChars = this.bitTextArea.value.split('')
+    articleChars.splice(startIndex, endIndex - startIndex, ...newTextChars)
+
+    const newArticle = articleChars.join('')
+    this.setState({bitArticle: newArticle})
+    window.localStorage.setItem(STORE_KEY, newArticle)
+
     this.onKeepBit()
   }
 
@@ -335,7 +349,6 @@ export default class BitByBit extends React.Component {
   onFinishedBitting() {
     this.setState({
       mode: MODES.readBitArticle,
-      bitArticle: sentences.join('. '),
     })
   }
 
@@ -346,14 +359,44 @@ export default class BitByBit extends React.Component {
     resizeTextArea(this.bitTextArea)
   }
 
-  getBit() {
-    const MAX_SENTENCES = Math.min(4, sentences.length)
-    const numSentences = Math.round(Math.random() * MAX_SENTENCES) + 1
-    const startIndex = Math.round(Math.random() * (sentences.length - MAX_SENTENCES - 2))
+  @autobind
+  getBit(article) {
+    const bitArticle = (article || this.state.bitArticle)
+    const startIndexSeed = Math.round(Math.random() * (bitArticle.length - 1))
+    let startIndex = 0
+    for (let i = startIndexSeed; i > 0; i--) {
+      if (writing[i] === '.') {
+        startIndex = i + 1
+        break
+      }
+    }
+
+    let text = []
+    let shouldQuitAfterNextPeriod = false
+    let endIndex = writing.length - 1
+    for (let i = startIndex; i < writing.length - 1; i++) {
+      text.push(writing[i])
+      if (writing[i] === '.' && shouldQuitAfterNextPeriod) {
+        endIndex = i
+        break
+      }
+      if (text.length === MAX_CHUNK_LENGTH) {
+        shouldQuitAfterNextPeriod = true
+        if (writing[i] === '.') {
+          endIndex = i
+          break
+        }
+      }
+    }
+
+    while (!!text[0].match(/\s/g)) {
+      text.splice(0, 1)
+    }
+
     return {
-      text: sentences.slice(startIndex, startIndex + numSentences).join('. ') + '.',
+      text: text.join('').replace(/(<p \/>)/g, '').replace(/(<br \/>)/g, ''),
       startIndex,
-      numSentences,
+      endIndex,
     }
   }
 
@@ -403,5 +446,5 @@ function splitSentences(text) {
     .trim()
     .split(SPLIT_TEST)
     .map(s => s.trim())
-    .filter(s => !!s && !s.match(SPLIT_TEST))
+    .filter(s => !!s && !s.match(SPLIT_TEST) && s !== '.')
 }

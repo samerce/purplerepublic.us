@@ -75,6 +75,10 @@ export const Page = styled.div`
       transform: translateX(200px);
     }
   }
+
+  .paypal-link {
+    display: none;
+  }
 `
 
 export const Background = styled.div`
@@ -129,7 +133,7 @@ export const Product = styled.div`
   width: 100px;
   position: absolute;
   top: 140px;
-  z-index: 3;
+  z-index: 4;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ${EASE_IN};
@@ -157,7 +161,7 @@ export const Callout = styled.div`
   width: 150px;
   top: 110px;
   left: 180px;
-  font-family: life savers;
+  font-family: annie use your telescope;
   font-size: 18px;
   color: white;
   animation-name: pointingLeft;
@@ -174,8 +178,11 @@ export const Callout = styled.div`
   }
 
   &.callout-right {
+    top: 165px;
     right: 140px;
     left: initial;
+    animation-duration: 1.3s;
+
     span {
       transform: rotate(-10deg);
     }
@@ -196,7 +203,7 @@ export const SocialNetworksRoot = styled.div`
 
   .i8 {
     height: 60px;
-    padding: 0 0 0 11px;
+    padding: 0 0 0 15px;
   }
 
   img {
@@ -254,6 +261,9 @@ export const SocialIcon = styled.i`
   &.i7 {
     font-size: 46px;
   }
+  &.i9 {
+    margin-left: 12px;
+  }
 `
 
 const IconRoot = styled.div`
@@ -266,10 +276,10 @@ const IconRoot = styled.div`
 const SocialText = styled.div`
   font-size: 28px;
   font-family: life savers;
-  color: ${p => darken(.2, p.themeColor)};
+  background: ${p => alpha(.3, p.themeColor)};
+  color: white;
   font-weight: bold;
   flex: 0 0 auto;
-  background: rgba(255,255,255,.5);
   padding: 5px 10px;
   border-radius: 3px;
 `
@@ -279,7 +289,7 @@ export const ShopText = styled(SocialText)`
 `
 
 export const ShopIcons = styled(IconRoot)`
-  padding-left: 30px;
+  padding-left: 15px;
 `
 
 export const ReachText = styled(SocialText)`
@@ -287,6 +297,19 @@ export const ReachText = styled(SocialText)`
 `
 
 export const ReachIcons = styled(IconRoot)`
+`
+
+export const FundText = styled(SocialText)`
+  margin: 0 24px 0 30px;
+`
+
+export const FundIcons = styled(IconRoot)`
+  cursor: pointer;
+
+  object {
+    width: 50px;
+    pointer-events: none;
+  }
 `
 
 export const KeepPlayingToolbar = styled(ToolBar)`
@@ -306,9 +329,9 @@ export const KeepPlayingToolbarItem = styled(ToolBarItem)`
 
 export const Finality = styled.div`
   position: relative;
-  margin: 300px auto 0;
   width: 100%;
   z-index: 3;
+  margin: 300px 0 0;
   font-family: quattrocento;
   font-size: 20px;
   opacity: 0;
@@ -325,12 +348,31 @@ export const FinalWord = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 290px;
+  position: relative;
 
-  div {
+  .final-word-content {
+    overflow: scroll;
+    height: 100%;
     width: 60%;
-    background: rgba(255, 255, 255, .6);
+    background: ${p => alpha(.3, p.themeColor)};
     border-radius: 3px;
     padding: 15px 20px;
+    color: white;
+  }
+  .read-more-indicator {
+    position: absolute;
+    right: 20%;
+    bottom: 10px;
+    width: 20px;
+    height: 20px;
+
+    i {
+      position: absolute;
+      font-size: 18px;
+      opacity: .6;
+      color: white;
+    }
   }
 `
 
@@ -340,19 +382,20 @@ export const FinalFeedback = styled.div`
   margin-top: 20px;
 
   textarea {
-    background: rgba(255, 255, 255, .4);
+    background: ${p => alpha(.5, p.themeColor)};
     outline: none;
     border-radius: 3px;
-    border: 1px solid ${p => p.themeColor};
+    border: 1px solid ${alpha(.2, 'white')};
     display: inline-block;
     width: 100%;
     padding: 15px 80px 15px 15px;
     font-family: inherit;
     transition: all .2s ${EASE_OUT};
+    color: white;
 
     &:focus {
       box-shadow: 2px 2px 10px rgba(0,0,0,.3);
-      background: rgba(255, 255, 255, .9);
+      background: ${p => alpha(.1, p.themeColor)} !important;
     }
   }
 `
@@ -363,7 +406,7 @@ export const FeedbackArea = styled.div`
 
   &:hover textarea {
     box-shadow: 2px 2px 20px rgba(0,0,0,.3);
-    background: rgba(255, 255, 255, .8);
+    background: ${p => alpha(.3, p.themeColor)};
   }
 `
 
@@ -372,7 +415,7 @@ export const SendFeedback = styled.div`
   position: absolute;
   right: 15px;
   top: 50%;
-  transform: translateY(-65%);
+  transform: translateY(-64%);
   padding: 5px 15px;
   font-size: 20px;
   font-family: annie use your telescope;
@@ -381,12 +424,14 @@ export const SendFeedback = styled.div`
   border: 1px solid transparent;
   transition: all .3s ${EASE_OUT};
   user-select: none;
+  font-weight: bold;
+  color: white;
 
   &:hover {
-    border-color: ${p => p.themeColor};
+    border-color: white;
   }
   &:active {
-    background: ${p => p.themeColor};
-    color: white;
+    background: white;
+    color: black;
   }
 `

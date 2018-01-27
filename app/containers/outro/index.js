@@ -6,7 +6,7 @@ import {
   Page, HeaderRoot, Background, Product, SocialNetworksRoot, SocialIcon,
   KeepPlayingToolbar, KeepPlayingToolbarItem, FinalWord, Finality, FinalFeedback,
   FeedbackArea, SendFeedback, ReachUs, ShopUs, ReachText, ReachIcons, ShopText,
-  ShopIcons, Callout,
+  ShopIcons, Callout, ScrollRoot, FundText, FundIcons,
 } from './styled'
 
 import {SRC_URL} from '../../global/constants'
@@ -18,6 +18,8 @@ const Mode = makeEnum([
   'enter',
   'exit',
 ])
+
+let paypalLink;
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -66,7 +68,7 @@ export default class Outro extends React.Component {
         </a>
         <a className='product-link right' href='https://www.redbubble.com/people/purplerepublic/works/28398513-cosmic-diversity-abstract-modern-art-tiny-worlds?p=tote-bag' target='__blank'>
           <Callout className='callout-right'>
-            purple paraphrenelia<span>⤵</span>
+            purple paraphernalia<span>⤵</span>
           </Callout>
           <Product className='product-right'>
             <img src={BASE_URL + 'tote.png'} />
@@ -94,7 +96,7 @@ export default class Outro extends React.Component {
               <a href='https://www.instagram.com/purple.republic' target='_blank'>
                 <SocialIcon className='fa fa-instagram i3' />
               </a>
-              <a href='mailto:rise@purplerepublic.us' target='_blank'>
+              <a href='mailto:rise@purplerepublic.us'>
                 <SocialIcon className='fa fa-envelope-o i7' />
               </a>
             </ReachIcons>
@@ -107,38 +109,51 @@ export default class Outro extends React.Component {
               <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
                 <SocialIcon className='fa fa-etsy i4' />
               </a>
-              <a href='https://www.redbubble.com/people/purplerepublic/works' target='_blank'>
+              <a href='https://www.redbubble.com/people/purplerepublic/portfolio' target='_blank'>
                 <img src={BASE_URL + 'redbubble.png'} className='i8' />
               </a>
             </ShopIcons>
+            <FundText themeColor={themeColor}>
+              fund us
+            </FundText>
+            <FundIcons>
+              <a href='https://www.patreon.com/purplerepublic' target='_blank'>
+                <object data={require('../../patreon.svg')} type="image/svg+xml" />
+              </a>
+              <a onClick={() => paypalLink.click()}>
+                <SocialIcon className='fa fa-paypal i9' />
+                {renderPaypalLink()}
+              </a>
+            </FundIcons>
           </ShopUs>
         </SocialNetworksRoot>
 
         <Finality>
-          <FinalWord>
-            <div>
-            we're here to share the magic. because life is special. & we sometimes need reminders.
-  you pick the price. profits go to projects aimed at healing the divide and promoting dialogue over dogma, creation over destruction, love over fear and division.
+          <FinalWord themeColor={themeColor}>
+            <div className='final-word-content'>
+              we're here to share the magic. because life is special. & we sometimes need reminders.
 
-  purple republic is a movement of performance, politics, & play. of radical expression & rebellion.
+              <p>you pick the price. profits go to projects aimed at healing the divide and promoting dialogue over dogma, creation over destruction, love over fear and division.</p>
 
-  let's celebrate life, chase curiosities, & play with this gift of breath. WE ARE ALIVE!
+              <p>purple republic is a movement of performance, politics, & play. of radical expression & rebellion. of art. just for the sake of it.</p>
 
-  maybe free will isn't real--but at least we get to choose where to focus.
-  art saves lives. our mission is to share ourselves however it comes out.
+              <p>let's celebrate life, chase curiosities, & play with this gift of breath. WE ARE ALIVE!</p>
 
-  art has societal worth. & here, being a patron means you choose the value: community meet commodity. mindful capitalism led by radical expression could save our planet.
+              <p>maybe free will isn't real--but at least we get to choose where to focus. art saves lives. our mission is to share ourselves however it comes out.</p>
 
-  our dream is that one day everyone will know how perfect they already are.
+              <p>art has societal worth. & here, being a patron means you choose the value: community meet commodity. mindful capitalism led by radical expression could save our planet.</p>
 
-  check us out: purplerepublic.us
+              <p>our dream is that one day everyone will know how perfect they already are.</p>
 
-  namaste, beautiful !
+              namaste, beautiful !
+            </div>
+            <div className='read-more-indicator'>
+              <i className='fa fa-arrows-v' />
             </div>
           </FinalWord>
 
           <FinalFeedback themeColor={themeColor}>
-            <FeedbackArea>
+            <FeedbackArea themeColor={themeColor}>
               <textarea defaultValue='reeeeead us, hennie!'
                 ref={r => this.feedbackInput = r} />
               <SendFeedback themeColor={themeColor}>
@@ -164,6 +179,11 @@ export default class Outro extends React.Component {
             themeColor={themeColor}>
             <div>more video</div>
           </KeepPlayingToolbarItem>
+          <KeepPlayingToolbarItem
+            onClick={() => window.location = ''}
+            themeColor={themeColor}>
+            <div>eat my own tail</div>
+          </KeepPlayingToolbarItem>
         </KeepPlayingToolbar>
 
       </Page>
@@ -171,4 +191,19 @@ export default class Outro extends React.Component {
   }
 
 
+}
+
+function renderPaypalLink() {
+  return (
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" className='paypal-link'>
+      <input type="hidden" name="cmd" value="_donations" />
+      <input type="hidden" name="business" value="FCJ9J82PKPDVY" />
+      <input type="hidden" name="lc" value="US" />
+      <input type="hidden" name="item_name" value="purple republic" />
+      <input type="hidden" name="item_number" value="love, art, revolution" />
+      <input type="hidden" name="currency_code" value="USD" />
+      <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest" />
+      <input type="image" ref={r => paypalLink = r} src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" />
+    </form>
+  )
 }
