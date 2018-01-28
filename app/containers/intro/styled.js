@@ -4,10 +4,19 @@ import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S as SCREEN_WIDTH_S_RAW,
+  SCREEN_WIDTH_M as SCREEN_WIDTH_M_RAW,
+  SCREEN_WIDTH_L as SCREEN_WIDTH_L_RAW,
+} from '../../global/constants'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
+
+const SCREEN_WIDTH_S = SCREEN_WIDTH_S_RAW + 'px'
+const SCREEN_WIDTH_M = SCREEN_WIDTH_M_RAW + 'px'
+const SCREEN_WIDTH_L = SCREEN_WIDTH_L_RAW + 'px'
 
 injectGlobal`
   @keyframes fromHeaven {
@@ -29,6 +38,16 @@ injectGlobal`
     100% {
       font-size: 30px;
       line-height: 82px;
+    }
+  }
+  @keyframes shrinkIsSmall {
+    0% {
+      font-size: inherit;
+      line-height: inherit;
+    }
+    100% {
+      font-size: 14px;
+      line-height: 42px;
     }
   }
 `
@@ -53,6 +72,12 @@ export const Root = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    .intro-text {
+      font-size: 42px;
+    }
   }
 `
 
@@ -134,6 +159,10 @@ export const Sneaky = styled.div`
     animation-iteration-count: 2;
     animation-fill-mode: both;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_S}) {
+    font-size: 22px;
+  }
 `
 
 export const What = styled.div`
@@ -163,6 +192,12 @@ export const DualityRoot = styled.div`
 
   img {
     width: 100%;
+
+    @media (max-width: ${SCREEN_WIDTH_S}) {
+      width: initial;
+      height: 100%;
+      transform: translateX(-100px);
+    }
   }
 `
 
@@ -176,6 +211,11 @@ export const Life = styled.div`
   .intro-lifeEverything &, .intro-lifeNothing &, .intro-youNothing &, .intro-youEverything &, .intro-duality &, .intro-welcome & {
     opacity: 1;
   }
+  @media (max-width: ${SCREEN_WIDTH_S}) {
+    .intro-text {
+      font-size: 28px;
+    }
+  }
 `
 
 const DURATION_IS = 4
@@ -188,11 +228,19 @@ export const Is = styled.div`
     transform: translateX(-150px);
     transition: opacity 3s ${EASE_IN_OUT_SINE},
       transform 1s ${EASE_IN_OUT_SINE} ${DURATION_IS}s;
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(-60px);
+    }
   }
   .intro-lifeNothing & {
     opacity: 1;
     transform: translateX(-120px);
     transition: transform .5s ${EASE_IN_OUT_SINE} .5s;
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(-45px);
+    }
   }
   .intro-youNothing & {
     opacity: 1;
@@ -231,11 +279,19 @@ export const Everything = styled.div`
     opacity: 1;
     transform: translateX(34px);
     transition: all 1s ${EASE_IN_OUT_SINE};
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(20px);
+    }
   }
   .intro-duality &, .intro-welcome & {
     opacity: 1;
     transform: translateX(-260px);
     transition: all .5s ${EASE_IN_OUT_SINE};
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(-110px);
+    }
 
     span {
       opacity: 1;
@@ -247,6 +303,10 @@ export const Everything = styled.div`
       animation-delay: .5s;
       animation-fill-mode: both;
       animation-timing-function: ${EASE_IN_OUT_SINE};
+
+      @media(max-width: ${SCREEN_WIDTH_S}) {
+        animation-name: shrinkIsSmall;
+      }
     }
   }
 `
@@ -283,10 +343,18 @@ export const YouAreToo = styled.div`
     opacity: 1;
     transform: translateX(-145px);
     transition: all 1s ${EASE_IN_OUT_SINE} .5s;
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(-55px);
+    }
   }
   .intro-youEverything & {
     opacity: 1;
     transform: translateX(-145px);
+
+    @media(max-width: ${SCREEN_WIDTH_S}) {
+      transform: translateX(-55px);
+    }
   }
   .intro-duality &, .intro-welcome & {
     opacity: 0;
@@ -296,6 +364,12 @@ export const YouAreToo = styled.div`
 `
 
 export const DualityText = styled.div`
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    .intro-text {
+      font-size: 28px;
+    }
+  }
+
   &.duality-half {
     opacity: 0;
 
@@ -317,6 +391,11 @@ export const DualityText = styled.div`
     &.stacked span {
       font-size: 30px;
       line-height: 82px;
+
+      @media(max-width: ${SCREEN_WIDTH_S}) {
+        font-size: 14px;
+        line-height: 42px;
+      }
     }
 
     span {
@@ -382,6 +461,10 @@ export const Brand = styled.div`
     transition: all 3s ${EASE_IN_OUT_SINE} 3.5s;
   }
 
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    font-size: 32px;
+    margin-top: 550px;
+  }
 `
 
 export const Tagline = styled.div`
@@ -395,6 +478,10 @@ export const Tagline = styled.div`
   position: relative;
   z-index: 5;
 
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    font-size: 22px;
+  }
+
   &.extra-tag {
     margin-top: 10px;
   }
@@ -404,7 +491,7 @@ export const Tagline = styled.div`
     transition: all 3s ${EASE_IN_OUT_SINE} 6s;
 
     &.extra-tag {
-      transition-delay: 7s;
+      transition-delay: 6.5s;
     }
   }
 `
@@ -414,11 +501,16 @@ export const SkipButtonRoot = styled.div`
   right: 15px;
   position: absolute;
   z-index: 6;
+
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    top: 10px;
+    right: 10px;
+  }
 `
 
 const purple = '#956C95'
 export const SkipButton = styled.div`
-  padding: 10px 15px;
+  padding: 5px 20px;
   font-family: annie use your telescope;
   font-size: 26px;
   color: ${purple};
@@ -426,7 +518,7 @@ export const SkipButton = styled.div`
   border: 1px solid transparent;
   opacity: 0;
   transform: scale(0);
-  transition: all .3s ${EASE_OUT};
+  transition: all .3s ${EASE_OUT} .2s;
   cursor: pointer;
   user-select: none;
 
@@ -443,5 +535,9 @@ export const SkipButton = styled.div`
     background: ${purple};
     color: white;
     transition: all .2s ${EASE_OUT};
+  }
+
+  @media(max-width: ${SCREEN_WIDTH_S}) {
+    font-size: 18px;
   }
 `

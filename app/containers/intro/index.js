@@ -12,7 +12,7 @@ import {
 } from './styled'
 import {cx} from '../../utils/style'
 
-import {SRC_URL} from '../../global/constants'
+import {SRC_URL, SCREEN_WIDTH_S} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
 import dualityConfig from './dualityConfig'
 import autobind from 'autobind-decorator'
@@ -51,7 +51,8 @@ const DURATION_LIFE_EVERYTHING = DURATION_GANJA + 7000
 const DURATION_LIFE_NOTHING = DURATION_LIFE_EVERYTHING + 2000
 const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2500
 const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
-const DURATION_DUALITY = DURATION_YOU_EVERYTHING + 16000
+const DURATION_DUALITY = DURATION_YOU_EVERYTHING +
+  ((window.innerWidth <= SCREEN_WIDTH_S)? 13000 : 16000)
 const DURATION_WELCOME = DURATION_DUALITY + 14000
 const DURATION_EXIT = DURATION_WELCOME + 1000
 
@@ -115,7 +116,7 @@ export default class Intro extends React.Component {
           const style = this.stackedStyle('everything');
           this.setState({everythingStyle: {
             ...style,
-            left: 159,
+            left: this.getEverythingLeft(),
           }})
         }, 700)
 
@@ -139,6 +140,12 @@ export default class Intro extends React.Component {
         window.location = '#start'
       }, DURATION_EXIT),
     )
+  }
+
+  getEverythingLeft() {
+    if (window.innerWidth <= SCREEN_WIDTH_S) {
+      return 15
+    } else return 159
   }
 
   componentWillUnmount() {
@@ -260,13 +267,14 @@ export default class Intro extends React.Component {
       yang: i === dualityIndex,
       stacked: i < dualityIndex - 1,
     })
+    const nextWord = (i !== dualityWords.length - 1) && dualityWords[i + 1]
     const styleFn = this[type + 'Style'] || this.yangStyle
 
     return (
       <DualityText
         key={word}
         className={'isness duality-half ' + type}
-        style={styleFn(word, i)}>
+        style={styleFn(word, i, nextWord)}>
         <div
           className='intro-text'
           ref={r => this.dualityWordElements[word] = r}>
@@ -284,13 +292,13 @@ export default class Intro extends React.Component {
 
     let numRows = 0
     let top = DUALITY_WORD_PADDING
-    let left = dualityWordElements['everything'].clientWidth - 80
+    let left = this.getDualityLeft()
     for (let i = 0; i < index; i++) {
       left += dualityWordElements[dualityWords[i]].clientWidth + DUALITY_WORD_PADDING
-      if (left >= window.innerWidth - 200) {
+      if (left >= window.innerWidth - this.getRightEdgeFactor()) {
         numRows++
         left = DUALITY_WORD_PADDING
-        top = numRows * 70
+        top = numRows * this.getRowSpacing()
       }
     }
 
@@ -304,12 +312,32 @@ export default class Intro extends React.Component {
     return style
   }
 
+  getDualityLeft() {
+    const {dualityWordElements} = this
+    if (window.innerWidth <= SCREEN_WIDTH_S) {
+        return dualityWordElements['everything'].clientWidth - 80
+    } else return dualityWordElements['everything'].clientWidth - 80
+  }
+
+  getRowSpacing() {
+    if (window.innerWidth <= SCREEN_WIDTH_S) {
+      return 35
+    } else return 70
+  }
+
+  getRightEdgeFactor() {
+    if (window.innerWidth <= SCREEN_WIDTH_S) {
+      return 100
+    } else return 200
+  }
+
   @autobind
-  yingStyle(word) {
+  yingStyle(word, i, nextWord) {
     const ref = this.dualityWordElements[word]
-    if (!ref) return {}
+    const nextWordRef = this.dualityWordElements[nextWord]
+    if (!ref || !nextWordRef) return {}
     return {
-      transform: `translateX(-${ref.clientWidth - 10}px)`
+      transform: `translateX(-${nextWordRef.clientWidth - 40}px)`
     }
   }
 
