@@ -48,6 +48,15 @@ injectGlobal`
     }
   }
 
+  @keyframes makeTouchable {
+    0% {
+      pointer-events: none;
+    }
+    100% {
+      pointer-events: all;
+    }
+  }
+
   #waves {
     position: absolute;
     z-index: 2;
@@ -116,6 +125,10 @@ export const Background = styled.div`
     transition: all 4s ${EASE_OUT};
     transform: scale(1.5);
     opacity: 1;
+    animation-name: makeTouchable;
+    animation-duration: .1s;
+    animation-fill-mode: both;
+    animation-delay: 4s;
 
     &:not(.collapsed):hover {
       transform: scale(1.2);

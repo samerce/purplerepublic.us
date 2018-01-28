@@ -1,18 +1,22 @@
 import React from 'react'
 import Typist from 'react-typist'
+import 'react-typist/dist/Typist.css'
 
 import styled from 'styled-components'
 import {
   BackgroundRoot,
   Root, TypingRoot, YouAre, Enough, Now, Sneaky, What,
   DualityRoot, Duality, Life, Is, Everything, Nothing, YouAreToo,
-  DualityText, DualityImages,
+  DualityText, DualityImages, WelcomeRoot, Brand, Tagline, WelcomeBackdrop,
 } from './styled'
 import {cx} from '../../utils/style'
+
+import {SRC_URL} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
-import 'react-typist/dist/Typist.css'
 import dualityConfig from './dualityConfig'
 import autobind from 'autobind-decorator'
+
+const BASE_URL = SRC_URL + 'intro/'
 
 var ganjaConfigRaw = {
   1: 1000,
@@ -23,9 +27,9 @@ var ganjaConfigRaw = {
   6: 1500,
 }
 const ganjaConfig = {}
-Object.keys(ganjaConfigRaw).forEach(key => {
-  ganjaConfig[require(`../../${key}.jpg`)] = ganjaConfigRaw[key]
-})
+// Object.keys(ganjaConfigRaw).forEach(key => {
+//   ganjaConfig[require(`../../${key}.jpg`)] = ganjaConfigRaw[key]
+// })
 const dualityImages = Object.keys(ganjaConfig)
 const dualityWords = Object.keys(dualityConfig)
 let dualitySentinel = 1
@@ -34,16 +38,17 @@ const DUALITY_WORD_PADDING = 10
 const EV_FUDGE = 150
 
 const DURATION_YOU_ARE = 4500
-const DURATION_ENOUGH = DURATION_YOU_ARE + 5000
-const DURATION_NOW = DURATION_ENOUGH + 8000
-const DURATION_WHAT = DURATION_NOW + 4000
+const DURATION_ENOUGH = DURATION_YOU_ARE + 3500
+const DURATION_NOW = DURATION_ENOUGH + 7500
+const DURATION_WHAT = DURATION_NOW + 2500
 const DURATION_GANJA = DURATION_WHAT + 4000
 const DURATION_LIFE_EVERYTHING = DURATION_GANJA + 7000
 const DURATION_LIFE_NOTHING = DURATION_LIFE_EVERYTHING + 2000
-const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2000
+const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2500
 const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
-const DURATION_DUALITY = DURATION_YOU_EVERYTHING + 17000
-const DURATION_EXIT = DURATION_DUALITY + 700
+const DURATION_DUALITY = DURATION_YOU_EVERYTHING + 16000
+const DURATION_WELCOME = DURATION_DUALITY + 14000
+const DURATION_EXIT = DURATION_WELCOME + 1000
 
 const Mode = makeEnum([
   'enter',
@@ -57,6 +62,7 @@ const Mode = makeEnum([
   'youNothing',
   'youEverything',
   'duality',
+  'welcome',
   'exit',
 ])
 
@@ -108,20 +114,21 @@ export default class Intro extends React.Component {
           }})
         }, 700)
 
-        let advanceInterval = 700
+        let advanceInterval = 800
         const advance = () => {
           this.advanceDuality()
           if (this.state.dualityIndex === dualitySentinel) {
             clearInterval(this.dualityInterval)
 
             dualitySentinel += dualitySentinel
-            advanceInterval = Math.max(10, advanceInterval - 90)
+            advanceInterval = Math.max(10, advanceInterval - 100)
             this.dualityInterval = setInterval(advance, advanceInterval)
           }
         }
         this.dualityInterval = setInterval(advance, advanceInterval)
       }, DURATION_YOU_EVERYTHING),
-      setTimeout(() => this.setState({mode: Mode.exit}), DURATION_DUALITY),
+      setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
+      setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
       setTimeout(() => window.location = '#start', DURATION_EXIT),
     )
   }
@@ -141,8 +148,8 @@ export default class Intro extends React.Component {
           <YouAre>
             <Typist avgTypingDelay={110} className='intro-text'
                startDelay={700}>
-              you are<Typist.Delay ms={1000} />.
-              <Typist.Backspace count={1} delay={1300} />
+              you are<Typist.Delay ms={500} />.
+              <Typist.Backspace count={1} delay={1700} />
             </Typist>
           </YouAre>
         </TypingRoot>
@@ -163,7 +170,7 @@ export default class Intro extends React.Component {
             </Sneaky>
             <Typist avgTypingDelay={110} className='intro-text'
               startDelay={DURATION_ENOUGH + 1000}>
-              now.<Typist.Backspace count={1} delay={6000} />
+              now.<Typist.Backspace count={1} delay={5500} />
             </Typist>
           </Now>
         </TypingRoot>
@@ -175,8 +182,8 @@ export default class Intro extends React.Component {
         </TypingRoot>
 
         <DualityRoot>
-          <img src={require('../../drag.gif')} />
-          <Duality style={{display: 'none'}}>
+          <img src={BASE_URL + 'absurd-queens.gif'} />
+          {/* <Duality style={{display: 'none'}}>
             {dualityImages.map((key, i) => (
               <img
                 key={key}
@@ -188,7 +195,7 @@ export default class Intro extends React.Component {
                   opacity: +this.state[key]
                 }} />
             ))}
-          </Duality>
+          </Duality> */}
         </DualityRoot>
 
         <DualityImages show={false}>
@@ -220,6 +227,15 @@ export default class Intro extends React.Component {
         </TypingRoot>
 
         {dualityWords.map((word, i) => this.renderHalf(word, i))}
+
+        <WelcomeRoot>
+          <WelcomeBackdrop />
+          <Brand>
+            purple republic
+          </Brand>
+          <Tagline>isness with purpose</Tagline>
+          <Tagline className='extra-tag'>performance. politics. play.</Tagline>
+        </WelcomeRoot>
 
       </Root>
     )
@@ -299,7 +315,7 @@ export default class Intro extends React.Component {
     }
     this.setState({
       dualityIndex: dualityIndex + 1,
-      image: dualityConfig[dualityWords[dualityIndex]].image,
+      // image: dualityConfig[dualityWords[dualityIndex]].image,
     })
   }
 

@@ -173,7 +173,7 @@ export const Duality = styled.div`
 export const Life = styled.div`
   opacity: 0;
 
-  .intro-lifeEverything &, .intro-lifeNothing &, .intro-youNothing &, .intro-youEverything &, .intro-duality & {
+  .intro-lifeEverything &, .intro-lifeNothing &, .intro-youNothing &, .intro-youEverything &, .intro-duality &, .intro-welcome & {
     opacity: 1;
   }
 `
@@ -196,7 +196,7 @@ export const Is = styled.div`
   }
   .intro-youNothing & {
     opacity: 1;
-    transform: translateX(-2000px);
+    transform: translateX(-1000px);
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
 `
@@ -232,7 +232,7 @@ export const Everything = styled.div`
     transform: translateX(34px);
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
-  .intro-duality & {
+  .intro-duality &, .intro-welcome & {
     opacity: 1;
     transform: translateX(-260px);
     transition: all .5s ${EASE_IN_OUT_SINE};
@@ -277,7 +277,7 @@ export const Nothing = styled.div`
 
 export const YouAreToo = styled.div`
   opacity: 0;
-  transform: translateX(-2000px);
+  transform: translateX(-1000px);
 
   .intro-youNothing & {
     opacity: 1;
@@ -288,7 +288,7 @@ export const YouAreToo = styled.div`
     opacity: 1;
     transform: translateX(-145px);
   }
-  .intro-duality & {
+  .intro-duality &, .intro-welcome & {
     opacity: 0;
     transform: translateX(-145px);
     transition: all .5s ${EASE_IN_OUT_SINE};
@@ -323,6 +323,11 @@ export const DualityText = styled.div`
       opacity: 0;
       transform: translateX(-10px);
     }
+
+    .intro-exit & {
+      opacity: 0;
+      transition: all .2s ${EASE_OUT};
+    }
   }
 `
 
@@ -331,4 +336,75 @@ export const DualityImages = styled.div`
   width: 100%;
   height: 100%;
   opacity: ${p => p.show? 1 : 0};
+`
+
+export const WelcomeRoot = styled.div`
+  position: absolute;
+  height: ${window.innerHeight + 1000}px;
+  width: 100%;
+  z-index: 5;
+  transform: translateY(100%);
+
+  .intro-welcome & {
+    transform: translateY(-400px);
+    transition: all 4s ${EASE_OUT};
+  }
+  .intro-exit & {
+    opacity: 0;
+    transform: translateY(-400px);
+    transition: all .5s ${EASE_IN_OUT_SINE} .2s;
+  }
+`
+
+export const WelcomeBackdrop = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, white 0%, white 70%, transparent 100%);
+  ${'' /* background: linear-gradient(to top, #956C95 0%, #956C95 70%, transparent 100%); */}
+`
+
+export const Brand = styled.div`
+  margin: 600px auto 0;
+  text-align: center;
+  font-size: 80px;
+  font-family: life savers;
+  opacity: 0;
+  color: #956C95;
+  position: relative;
+  z-index: 5;
+
+  .intro-welcome &, .intro-exit & {
+    opacity: 1;
+    letter-spacing: 2px;
+    transition: all 3s ${EASE_IN_OUT_SINE} 3.5s;
+  }
+
+`
+
+export const Tagline = styled.div`
+  font-size: 48px;
+  font-family: rancho;
+  text-align: center;
+  color: #956C95;
+  margin: 50px auto 0;
+  transform: translateY(30px);
+  opacity: 0;
+  position: relative;
+  z-index: 5;
+
+  &.extra-tag {
+    margin-top: 10px;
+  }
+  .intro-welcome &, .intro-exit & {
+    opacity: 1;
+    transform: none;
+    transition: all 3s ${EASE_IN_OUT_SINE} 6s;
+
+    &.extra-tag {
+      transition-delay: 7s;
+    }
+  }
 `

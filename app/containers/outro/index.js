@@ -118,7 +118,7 @@ export default class Outro extends React.Component {
             </FundText>
             <FundIcons>
               <a href='https://www.patreon.com/purplerepublic' target='_blank'>
-                <object data={require('../../patreon.svg')} type="image/svg+xml" />
+                <object data={BASE_URL + 'patreon.svg'} type='image/svg+xml' />
               </a>
               <a onClick={() => paypalLink.click()}>
                 <SocialIcon className='fa fa-paypal i9' />

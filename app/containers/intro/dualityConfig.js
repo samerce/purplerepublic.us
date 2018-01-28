@@ -8,16 +8,12 @@ export default {
   effort: {
   },
   christian: {
-    image: true,
   },
   muslim: {
-    image: true,
   },
   gay: {
-    image: true,
   },
   straight: {
-    image: true,
   },
   white: {},
   black: {},
@@ -56,4 +52,57 @@ export default {
   breath: {},
   everything: {},
   'everything.': {},
+  theatre1: {
+  },
+  play1: {
+  },
+  meditation1: {
+  },
+  effort1: {
+  },
+  christian1: {
+  },
+  muslim1: {
+  },
+  gay1: {
+  },
+  straight1: {
+  },
+  white1: {},
+  black1: {},
+  joy1: {},
+  hitler1: {},
+  trump1: {},
+  obama1: {},
+  hilary1: {},
+  bernie1: {},
+  hope1: {},
+  despair1: {},
+  freedom1: {},
+  chains1: {},
+  boy1: {},
+  girl1: {},
+  drag1: {},
+  jeans1: {},
+  protest1: {},
+  jesus1: {},
+  mohammed1: {},
+  bahalluh1: {},
+  krishna1: {},
+  yoga1: {},
+  twinkies1: {},
+  trucks1: {},
+  zen1: {},
+  tao1: {},
+  capitalism1: {},
+  fami11e: {},
+  paradise1: {},
+  suffer1ing: {},
+  heav1en: {},
+  ear1th: {},
+  hu1nger: {},
+  he1ll: {},
+  br1eath: {},
+  ev1erything: {},
+  'ev1erything.': {},
 }
