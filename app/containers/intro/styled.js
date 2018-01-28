@@ -244,7 +244,7 @@ export const Everything = styled.div`
 
       animation-name: shrinkIs;
       animation-duration: .5s;
-      animation-delay: .7s;
+      animation-delay: .5s;
       animation-fill-mode: both;
       animation-timing-function: ${EASE_IN_OUT_SINE};
     }
@@ -326,7 +326,7 @@ export const DualityText = styled.div`
 
     .intro-exit & {
       opacity: 0;
-      transition: all .2s ${EASE_OUT};
+      transition: all .3s ${EASE_OUT};
     }
   }
 `

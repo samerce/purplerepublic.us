@@ -1,6 +1,6 @@
 import React from 'react'
 import Typist from 'react-typist'
-import PayPalLink from '../../components/PayPalLink'
+import PayPalLink from '../../components/payPalLink'
 
 import styled from 'styled-components'
 import {

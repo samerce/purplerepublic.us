@@ -30,7 +30,6 @@ export default class Outro extends React.Component {
   constructor() {
     super()
 
-    this.paypalLink = null
     this.timers = []
     this.state = {
       mode: '',

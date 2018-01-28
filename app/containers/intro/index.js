@@ -115,7 +115,7 @@ export default class Intro extends React.Component {
           const style = this.stackedStyle('everything');
           this.setState({everythingStyle: {
             ...style,
-            left: style.left - 160,
+            left: 159,
           }})
         }, 700)
 
@@ -284,7 +284,7 @@ export default class Intro extends React.Component {
 
     let numRows = 0
     let top = DUALITY_WORD_PADDING
-    let left = dualityWordElements['everything'].clientWidth - 90
+    let left = dualityWordElements['everything'].clientWidth - 80
     for (let i = 0; i < index; i++) {
       left += dualityWordElements[dualityWords[i]].clientWidth + DUALITY_WORD_PADDING
       if (left >= window.innerWidth - 200) {

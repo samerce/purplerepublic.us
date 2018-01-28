@@ -19,7 +19,7 @@ export default class PayPalLink extends React.Component {
         <input type="hidden" name="item_number" value="love, art, revolution" />
         <input type="hidden" name="currency_code" value="USD" />
         <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest" />
-        <input type="image" ref={r => this.link = r} src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" />
+        <input type="image" ref={r => this.link = r} src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" name="submit" />
       </form>
     )
   }
