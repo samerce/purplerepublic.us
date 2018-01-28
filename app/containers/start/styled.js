@@ -4,7 +4,12 @@ import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+} from '../../global/constants'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -130,9 +135,17 @@ export const Background = styled.div`
     animation-fill-mode: both;
     animation-delay: 4s;
 
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      transform: scale(2.5);
+    }
+
     &:not(.collapsed):hover {
       transform: scale(1.2);
       transition-duration: 3s;
+
+      @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+        transform: scale(2.2);
+      }
     }
     &.collapsed {
       opacity: 0;
@@ -198,8 +211,8 @@ export const PlayButtonRoot = styled.div`
 
 export const PlayButton = styled.div`
   display: flex;
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
   color: white;
   font-family: life savers;
   border-radius: 100%;
@@ -234,12 +247,28 @@ export const PlayButton = styled.div`
       line-height: 70px;
     }
   }
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    font-size: 38px;
+
+    span:first-child {
+      line-height: 38px;
+    }
+  }
 `
 
 export const PlayButtonHoverRoot = styled.div`
   height: 400px;
   width: 400px;
   z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    height: 150px;
+    width: 150px;
+  }
 
   &.collapsed {
     opacity: 0;
@@ -297,6 +326,10 @@ export const InfoRoot = styled.div`
     opacity: 0;
     transition: all 1.5s ${EASE_IN_OUT_SINE};
   }
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    bottom: 0;
+  }
   ${'' /* &.startIntro {
     bottom: 40%;
     display: none;
@@ -314,18 +347,24 @@ export const InfoContentRoot = styled.div`
   width: 600px;
   flex-direction: column;
   border-radius: 3px;
-  transition: all .5s ${EASE_OUT};
+  transition: all .3s ${EASE_OUT};
   padding: 15px;
   transform: translateY(80px);
+  color: white;
 
-  &:hover, .startIntro & {
+  &:hover, &.infoHover, .startIntro & {
     background: rgba(255, 255, 255, .1);
     transform: none;
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE_OUT};
 
     .detail {
       opacity: 1;
-      transition: all .5s ${EASE_IN_OUT_SINE};
+      transition: all .2s ${EASE_OUT};
+    }
+
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      background: white;
+      color: black;
     }
   }
 
@@ -336,9 +375,7 @@ export const InfoContentRoot = styled.div`
     font-size: 22px;
     width: 30px;
     height: 25px;
-    color: white;
     vertical-align: middle;
-    transition: all 2s ${EASE_IN_OUT_SINE} 1s;
 
     .startIntro & {
       opacity: 0;
@@ -352,10 +389,6 @@ export const InfoIntroRoot = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  span {
-    ${'' /* font-family: quattrocento;
-    font-weight: 100; */}
-  }
 `
 
 export const InfoText = styled.div`
@@ -364,21 +397,21 @@ export const InfoText = styled.div`
 
 export const InfoIntroText = styled(InfoText)`
   font-size: 26px;
-  color: white;
   font-family: annie use your telescope;
-  transition: all 2s ${EASE_OUT};
 
   .startIntro & {
     font-size: 40px;
+  }
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    font-size: 22px;
   }
 `
 
 export const InfoDetailText = styled(InfoText)`
   font-size: 18px;
-  color: white;
   opacity: 0;
   text-align: center;
-  transition: all .3s ${EASE_OUT};
   font-family: quattrocento;
 `
 
@@ -392,6 +425,10 @@ export const SocialRoot = styled.div`
   cursor: pointer;
   opacity: .5;
   transition: all .5s ${EASE_IN_OUT_SINE};
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    right: 10px;
+  }
 
   .start-exit & {
     opacity: 0;
@@ -428,7 +465,11 @@ export const SocialIcon = styled.i`
   color: white;
   width: 50px;
   text-align: center;
-  padding: 5px 5px;
+  padding: 10px;
+
+  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+    font-size: 30px;
+  }
 
   &.i1 {
   }
@@ -438,12 +479,21 @@ export const SocialIcon = styled.i`
   }
   &.i4 {
     font-size: 34px;
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      font-size: 24px;
+    }
   }
   &.i5 {
     font-size: 40px;
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+     font-size: 30px;
+    }
   }
   &.i6 {
     font-size: 30px;
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      font-size: 22px;
+    }
   }
 `
 
@@ -465,11 +515,23 @@ export const SocialButtonsRoot = styled.div`
     margin: 10px 0 10px 4px;
     width: 42px;
     height: 42px;
+
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      width: 28px;
+      height: 28px;
+      margin-left: 10px;
+    }
   }
   .i10 {
     width: 35px;
     height: 35px;
     margin: 10px 0 10px 9px;
+
+    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      width: 26px;
+      height: 26px;
+      margin-left: 13px;
+    }
   }
 `
 

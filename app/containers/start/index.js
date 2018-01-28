@@ -51,6 +51,7 @@ export default class Start extends React.Component {
       mode: Mode.enter,
       collapsed: false,
       hovered: false,
+      infoHover: false,
     }
   }
 
@@ -248,7 +249,9 @@ export default class Start extends React.Component {
         </PlayButtonRoot>
 
         <InfoRoot>
-          <InfoContentRoot>
+          <InfoContentRoot
+            className={cx({infoHover: this.state.infoHover})}
+            onClick={() => console.log(this.state.infoHover) && this.setState({infoHover: !this.state.infoHover})}>
             <InfoIntroRoot>
               <i className='fa fa-info-circle' />
               <InfoIntroText>journey <span>001</span></InfoIntroText>

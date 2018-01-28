@@ -14,3 +14,7 @@ export const EASE_IN_OUT_SINE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
 export const SCREEN_WIDTH_S = 420
 export const SCREEN_WIDTH_M = 768
 export const SCREEN_WIDTH_L = 1200
+
+export const SCREEN_WIDTH_S_PX = SCREEN_WIDTH_S + 'px'
+export const SCREEN_WIDTH_M_PX = SCREEN_WIDTH_M + 'px'
+export const SCREEN_WIDTH_L_PX = SCREEN_WIDTH_L + 'px'
