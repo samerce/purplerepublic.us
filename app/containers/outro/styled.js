@@ -75,10 +75,6 @@ export const Page = styled.div`
       transform: translateX(200px);
     }
   }
-
-  .paypal-link {
-    display: none;
-  }
 `
 
 export const Background = styled.div`

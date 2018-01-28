@@ -408,3 +408,40 @@ export const Tagline = styled.div`
     }
   }
 `
+export const SkipButtonRoot = styled.div`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  position: absolute;
+  z-index: 6;
+`
+
+const purple = '#956C95'
+export const SkipButton = styled.div`
+  padding: 10px 15px;
+  font-family: annie use your telescope;
+  font-size: 26px;
+  color: ${purple};
+  border-radius: 3px;
+  border: 1px solid transparent;
+  opacity: 0;
+  transform: scale(0);
+  transition: all .3s ${EASE_OUT};
+  cursor: pointer;
+  user-select: none;
+
+  .intro-enough &, .intro-now &, .intro-what &, .intro-lifeEverything &, .intro-lifeNothing &, .intro-youNothing &, .intro-youEverything & {
+    opacity: 1;
+    transform: none;
+    transition: all .3s ${EASE_OUT};
+  }
+  &:hover {
+    border-color: ${purple};
+    transition: all .3s ${EASE_IN_OUT_SINE};
+  }
+  &:active {
+    background: ${purple};
+    color: white;
+    transition: all .2s ${EASE_OUT};
+  }
+`

@@ -1,4 +1,5 @@
 import React from 'react'
+import PayPalLink from '../../components/payPalLink'
 
 import {cx} from '../../utils/style'
 import {Header} from '../../global/styled'
@@ -14,12 +15,11 @@ import {connect} from 'react-redux'
 import {makeEnum} from '../../utils/lang'
 
 const BASE_URL = SRC_URL + 'outro/'
+const ICON_URL = SRC_URL + 'icons/'
 const Mode = makeEnum([
   'enter',
   'exit',
 ])
-
-let paypalLink;
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -30,6 +30,7 @@ export default class Outro extends React.Component {
   constructor() {
     super()
 
+    this.paypalLink = null
     this.timers = []
     this.state = {
       mode: '',
@@ -110,7 +111,7 @@ export default class Outro extends React.Component {
                 <SocialIcon className='fa fa-etsy i4' />
               </a>
               <a href='https://www.redbubble.com/people/purplerepublic/portfolio' target='_blank'>
-                <img src={BASE_URL + 'redbubble.png'} className='i8' />
+                <object data={ICON_URL + 'redbubble.svg'} className='i8' />
               </a>
             </ShopIcons>
             <FundText themeColor={themeColor}>
@@ -118,11 +119,11 @@ export default class Outro extends React.Component {
             </FundText>
             <FundIcons>
               <a href='https://www.patreon.com/purplerepublic' target='_blank'>
-                <object data={BASE_URL + 'patreon.svg'} type='image/svg+xml' />
+                <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
               </a>
-              <a onClick={() => paypalLink.click()}>
+              <a onClick={() => this.payPalLink.click()}>
                 <SocialIcon className='fa fa-paypal i9' />
-                {renderPaypalLink()}
+                <PayPalLink ref={r => this.payPalLink = r} />
               </a>
             </FundIcons>
           </ShopUs>
@@ -191,19 +192,4 @@ export default class Outro extends React.Component {
   }
 
 
-}
-
-function renderPaypalLink() {
-  return (
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" className='paypal-link'>
-      <input type="hidden" name="cmd" value="_donations" />
-      <input type="hidden" name="business" value="FCJ9J82PKPDVY" />
-      <input type="hidden" name="lc" value="US" />
-      <input type="hidden" name="item_name" value="purple republic" />
-      <input type="hidden" name="item_number" value="love, art, revolution" />
-      <input type="hidden" name="currency_code" value="USD" />
-      <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest" />
-      <input type="image" ref={r => paypalLink = r} src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" />
-    </form>
-  )
 }

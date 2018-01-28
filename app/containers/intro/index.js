@@ -8,6 +8,7 @@ import {
   Root, TypingRoot, YouAre, Enough, Now, Sneaky, What,
   DualityRoot, Duality, Life, Is, Everything, Nothing, YouAreToo,
   DualityText, DualityImages, WelcomeRoot, Brand, Tagline, WelcomeBackdrop,
+  SkipButtonRoot, SkipButton,
 } from './styled'
 import {cx} from '../../utils/style'
 
@@ -17,6 +18,10 @@ import dualityConfig from './dualityConfig'
 import autobind from 'autobind-decorator'
 
 const BASE_URL = SRC_URL + 'intro/'
+const KEY_IS_REPEAT_VISITOR = 'purpleRepublic.intro.isRepeatVisitor'
+
+const localStorage = window.localStorage
+const isRepeatVisitor = localStorage.getItem(KEY_IS_REPEAT_VISITOR)
 
 var ganjaConfigRaw = {
   1: 1000,
@@ -129,7 +134,10 @@ export default class Intro extends React.Component {
       }, DURATION_YOU_EVERYTHING),
       setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
       setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
-      setTimeout(() => window.location = '#start', DURATION_EXIT),
+      setTimeout(() => {
+        localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
+        window.location = '#start'
+      }, DURATION_EXIT),
     )
   }
 
@@ -143,6 +151,10 @@ export default class Intro extends React.Component {
     return (
       <Root className={'intro-' + mode}>
         <BackgroundRoot />
+
+        <SkipButtonRoot onClick={this.skip}>
+          <SkipButton>skip</SkipButton>
+        </SkipButtonRoot>
 
         <TypingRoot>
           <YouAre>
@@ -317,6 +329,11 @@ export default class Intro extends React.Component {
       dualityIndex: dualityIndex + 1,
       // image: dualityConfig[dualityWords[dualityIndex]].image,
     })
+  }
+
+  @autobind
+  skip() {
+    window.location = '#start'
   }
 
   playDualityImageReel() {

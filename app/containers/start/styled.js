@@ -283,14 +283,21 @@ export const InfoRoot = styled.div`
   display: flex;
   justify-content: center;
   transition: all 2s ${EASE_OUT};
-  pointer-events: none;
+  transform: translateY(100px);
+  opacity: 0;
+
+  .start-show & {
+    transform: none;
+    opacity: 1;
+    transition: .5s ${EASE_IN_OUT_SINE} 1s;
+  }
 
   .start-exit & {
     transform: translateY(100px);
     opacity: 0;
     transition: all 1.5s ${EASE_IN_OUT_SINE};
   }
-  &.startIntro {
+  ${'' /* &.startIntro {
     bottom: 40%;
     display: none;
   }
@@ -298,7 +305,7 @@ export const InfoRoot = styled.div`
     pointer-events: all;
     opacity: 1;
     display: none;
-  }
+  } */}
 `
 
 export const InfoContentRoot = styled.div`
@@ -331,7 +338,6 @@ export const InfoContentRoot = styled.div`
     height: 25px;
     color: white;
     vertical-align: middle;
-    line-height: 34px;
     transition: all 2s ${EASE_IN_OUT_SINE} 1s;
 
     .startIntro & {
@@ -344,7 +350,12 @@ export const InfoContentRoot = styled.div`
 export const InfoIntroRoot = styled.div`
   display: flex;
   justify-content: center;
-  display: none;
+  align-items: center;
+  margin-bottom: 10px;
+  span {
+    ${'' /* font-family: quattrocento;
+    font-weight: 100; */}
+  }
 `
 
 export const InfoText = styled.div`
@@ -354,7 +365,7 @@ export const InfoText = styled.div`
 export const InfoIntroText = styled(InfoText)`
   font-size: 26px;
   color: white;
-  font-family: life savers;
+  font-family: annie use your telescope;
   transition: all 2s ${EASE_OUT};
 
   .startIntro & {
@@ -368,12 +379,13 @@ export const InfoDetailText = styled(InfoText)`
   opacity: 0;
   text-align: center;
   transition: all .3s ${EASE_OUT};
+  font-family: quattrocento;
 `
 
 export const SocialRoot = styled.div`
   position: absolute;
   bottom: 0;
-  right: 10px;
+  right: 15px;
   top: 0;
   display: flex;
   align-items: center;
@@ -439,6 +451,26 @@ export const SocialButtonsRoot = styled.div`
   z-index: 4;
   display: flex;
   flex-direction: column;
+
+  #document svg {
+    cursor: pointer;
+  }
+
+  object {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .i8 {
+    margin: 10px 0 10px 4px;
+    width: 42px;
+    height: 42px;
+  }
+  .i10 {
+    width: 35px;
+    height: 35px;
+    margin: 10px 0 10px 9px;
+  }
 `
 
 export const SocialEntryButtonRoot = styled.div`

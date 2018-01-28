@@ -1,5 +1,6 @@
 import React from 'react'
 import Typist from 'react-typist'
+import PayPalLink from '../../components/PayPalLink'
 
 import styled from 'styled-components'
 import {
@@ -25,45 +26,37 @@ import {
 } from '../../global/styled'
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
+import {SRC_URL} from '../../global/constants'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
 
+const ICON_URL = SRC_URL + 'icons/'
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
 const getStarPos = () => `-${getRandInt(60) + 20}px`
-
-const SHOW_INTRO_KEY = 'purpleRepublic_start_showIntro'
-const INTRO_DURATION = 45000
-const END_INTRO_DURATION = INTRO_DURATION + 2000
 
 const Mode = makeEnum([
   'enter',
   'show',
 ])
-const localStore = window.localStorage
 
 export default class Start extends React.Component {
 
   constructor() {
     super()
 
-    const showIntro = localStore.getItem(SHOW_INTRO_KEY) !== '0'
     this.timeouts = []
     this.state = {
       mode: Mode.enter,
       collapsed: false,
       hovered: false,
-      startIntro: showIntro,
-      endIntro: !showIntro,
     }
   }
 
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => this.setState({startIntro: false}), INTRO_DURATION),
-      setTimeout(() => this.setState({endIntro: true}), END_INTRO_DURATION),
     )
   }
 
@@ -72,7 +65,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, startIntro, endIntro, mode} = this.state
+    const {collapsed, hovered, mode} = this.state
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
@@ -254,45 +247,14 @@ export default class Start extends React.Component {
           </Motion>
         </PlayButtonRoot>
 
-        <InfoRoot className={cx({startIntro, endIntro})}>
+        <InfoRoot>
           <InfoContentRoot>
             <InfoIntroRoot>
               <i className='fa fa-info-circle' />
-              <InfoIntroText>108 grains</InfoIntroText>
+              <InfoIntroText>journey <span>001</span></InfoIntroText>
             </InfoIntroRoot>
             <InfoDetailText className='detail'>
-              {startIntro  &&
-                <Typist
-                  avgTypingDelay={60}
-                  stdTypingDelay={50}
-                  startDelay={1000}
-                  cursor={{
-                    show: false,
-                    blink: true,
-                    hideWhenDone: true,
-                    hideWhenDoneDelay: 0,
-                  }}>
-                  oh, hello there.<br />
-                  tickled you stopped by!<br /><br />
-
-                  welcome to 2018. we're glad you made it.<br />
-                  have you made your resolution yet? <br />
-                  (do you usually break it? because we do.)<br /><br />
-
-                  so we're trying something different. 108 grains. a way to hold ourselves accountable to live the good life. a one-hundred-eight day interactive dance through art & ideas. a chance to express over survive.<br /> do you have the resolve?<br /><br />
-
-                  you'll emerge on april 19th a more magical, smart, creative believer in life! share with your friends. come back daily.<br /><br />
-
-                  you are perfect. now and always.<br />
-                  namaste and wahooey!<br />
-                  -grain & tofu
-                  </Typist>
-                }
-                {!startIntro &&
-                  <div>
-                    a one-hundred-eight day interactive dance through art & ideas.<br />a chance to express over survive.<br /> do you have the resolve?
-                  </div>
-                }
+              go on a journey with us. we all need a little bit more exploration in our lives. it's all a dream. anyway...
             </InfoDetailText>
           </InfoContentRoot>
         </InfoRoot>
@@ -307,9 +269,12 @@ export default class Start extends React.Component {
             </a>
             <a href='https://www.youtube.com/channel/UCHDkvhWZKjA6lnX1vcGvGPw' target='_blank'>
               <SocialIcon className='fa fa-youtube-square i5' />
-            </a>            
+            </a>
             <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
               <SocialIcon className='fa fa-etsy i4' />
+            </a>
+            <a href='https://www.redbubble.com/people/purplerepublic/portfolio' target='_blank' className='i8'>
+              <object data={ICON_URL + 'redbubble.svg'} type='image/svg+xml' />
             </a>
             <a href='https://www.twitter.com/1purplerepublic' target='_blank'>
               <SocialIcon className='fa fa-twitter-square i2' />
@@ -320,10 +285,16 @@ export default class Start extends React.Component {
             <a href='mailto:rise@purplerepublic.us' target='_blank'>
               <SocialIcon className='fa fa-envelope-o i4' />
             </a>
+            <a href='https://www.patreon.com/purplerepublic' target='_blank' className='i10'>
+              <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
+            </a>
+            <a onClick={() => this.payPalLink.click()}>
+              <SocialIcon className='fa fa-paypal i9' />
+              <PayPalLink ref={r => this.payPalLink = r} />
+            </a>
           </SocialButtonsRoot>
         </SocialRoot>
 
-        <IntroMask className={cx({startIntro})} />
       </Root>
     )
   }
@@ -333,7 +304,6 @@ export default class Start extends React.Component {
     this.timeouts.push(
       setTimeout(() => window.location = '#hello', 3000)
     )
-    localStore.setItem(SHOW_INTRO_KEY, '0')
   }
 
   getSineWave(id, rotate) {
