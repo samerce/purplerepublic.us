@@ -90,7 +90,7 @@ export default class BitByBit extends React.Component {
           what are your thoughts?
         </Header>
         <Header className='bit-article-header'>
-          paint away your tears
+          what the hell is this, anyhow?
         </Header>
 
         <Motion

@@ -18,6 +18,12 @@ import autobind from 'autobind-decorator'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 
+import {
+  SCREEN_WIDTH_S,
+  SCREEN_WIDTH_M,
+  SCREEN_WIDTH_L,
+} from '../../global/constants'
+
 const MODES = [
   'multipleChoice',
   'crop',
@@ -25,12 +31,14 @@ const MODES = [
   'performCrop',
   'quarkArtGallery',
 ].reduce((modeMap, mode) => (modeMap[mode] = mode) && modeMap, {})
+
+const screenWidth = window.innerWidth
 const MIN_CROP_SIDE_LENGTH = 10
-const MIN_DESC_WIDTH = 300
-const CROPPED_IMAGE_DISPLAY_WIDTH = 500
-const CROPPED_IMAGE_SIDE_SMALL = 400
-const CROPPED_IMAGE_GALLERY_TOP = 150
-const CROPPED_IMAGE_GALLERY_LEFT = 50
+const MIN_DESC_WIDTH = screenWidth <= SCREEN_WIDTH_M ? 200 : 300
+const CROPPED_IMAGE_DISPLAY_WIDTH = screenWidth <= SCREEN_WIDTH_M ? 200 : 500
+const CROPPED_IMAGE_SIDE_SMALL = screenWidth <= SCREEN_WIDTH_M ? 200 : 400
+const CROPPED_IMAGE_GALLERY_TOP = screenWidth <= SCREEN_WIDTH_M ? 80 : 150
+const CROPPED_IMAGE_GALLERY_LEFT = screenWidth <= SCREEN_WIDTH_M ? 20 : 50
 const CROP_BOX_SIZE_DEFAULT = 200
 
 @connect(d => ({

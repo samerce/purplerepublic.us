@@ -9,6 +9,7 @@ import {
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
 } from '../../global/constants'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
@@ -135,15 +136,27 @@ export const Background = styled.div`
     animation-fill-mode: both;
     animation-delay: 4s;
 
-    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-      transform: scale(2.5);
+    @media (max-width: ${SCREEN_WIDTH_L_PX}) {
+      transform: scale(1.7);
+    }
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      transform: scale(2.1);
+    }
+    @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+      transform: scale(2.6);
     }
 
     &:not(.collapsed):hover {
       transform: scale(1.2);
       transition-duration: 3s;
 
-      @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+      @media (max-width: ${SCREEN_WIDTH_L_PX}) {
+        transform: scale(1.4);
+      }
+      @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+        transform: scale(1.8);
+      }
+      @media (max-width: ${SCREEN_WIDTH_S_PX}) {
         transform: scale(2.2);
       }
     }

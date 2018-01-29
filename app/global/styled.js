@@ -1,5 +1,11 @@
 import styled, {injectGlobal} from 'styled-components'
-import {EASE_IN_OUT_SINE, EASE_OUT} from './constants'
+import {
+  EASE_IN_OUT_SINE, EASE_OUT,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from './constants'
 import {darken, transparentize as trans} from 'polished'
 
 const whitePurple = 'rgba(255, 227, 251, 1)'
@@ -16,8 +22,9 @@ export const Header = styled.div`
   display: table;
   padding: 0 10px;
 
-  @media(max-width: 544px) {
-    font-size: 28px;
+  @media(max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 32px;
+    padding-top: 15px;
   }
 `
 
@@ -69,9 +76,14 @@ export const ToolBar = styled.div`
   background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
   pointer-events: none;
   transition: all 1s ${EASE_IN_OUT_SINE};
+  font-family: annie use your telescope;
 
   & > * {
     flex: 1 0 0;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex-direction: column-reverse;
   }
 `
 
@@ -119,7 +131,11 @@ export const ToolBarItem = styled.div`
       letter-spacing: 1px;
       transition: all 5s cubic-bezier(0.39, 0.575, 0.565, 1);
     }
+  }
 
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 24px;
+    padding: 10px;
   }
 `
 

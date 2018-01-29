@@ -1,7 +1,17 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
 import aSpinner from '../../components/spinnie'
+import {
+  ToolBar as ToolBarRaw,
+  ToolBarItem as ToolBarItemRaw,
+} from '../../global/styled'
 
 const easeInOutSine = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
 
@@ -67,6 +77,10 @@ export const Page = styled.div`
       transform: none;
       transition: all 1s ${EASE_OUT};
     }
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      padding-top: 10px;
+    }
   }
 
   .enter &.quark-exit .quarkHeader.show {
@@ -105,84 +119,27 @@ export const Page = styled.div`
   }
 `
 
-const ToolBar = styled.div`
-  position: absolute;
-  bottom: 0;
-  z-index: 3;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  text-align: center;
-  font-family: annie use your telescope;
-  overflow: hidden;
-  background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
-  pointer-events: none;
-  transition: all 1s ${easeInOutSine};
-
+const ToolBar = styled(ToolBarRaw)`
   &, .enter .quark-exit &.show {
     opacity: 0;
     transform: translateY(150px);
     transition: all 1s ${easeInOutSine};
   }
 
-  & > * {
-    flex: 1 0 0;
-  }
   .enter &.show {
     opacity: 1;
     transform: none;
-    pointer-events: all;
     transition: all 1s ${EASE_OUT};
   }
 `
 
 export const MultipleChoices = styled(ToolBar)`
+  .mode-multipleChoice & {
+    pointer-events: all;
+  }
 `
 
-export const ToolBarItem = styled.div`
-  position: relative;
-  color: white;
-  padding: 20px 10px;
-  cursor: pointer;
-  font-size: 32px;
-  transition: all .4s ${EASE_OUT};
-
-  div {
-    position: relative;
-    z-index: 3;
-    transition: all .4s ${EASE_OUT};
-    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
-    user-select: none;
-  }
-
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, transparent 0%, ${p => alpha(.3, p.themeColor)} 50%, transparent 100%);
-    transition: all .2s ${EASE_OUT};
-    content: ' ';
-    transform: translateY(10px);
-    z-index: 1;
-    opacity: 0;
-    border-top: 1px solid ${p => alpha(.2, p.themeColor)};
-  }
-
-  &:hover {
-    &:after {
-      transform: none;
-      opacity: 1;
-      transition-duration: .4s;
-    }
-    div {
-      transform: scale(1.05);
-      letter-spacing: 1px;
-      transition: all 5s cubic-bezier(0.39, 0.575, 0.565, 1);
-    }
-
-  }
+export const ToolBarItem = styled(ToolBarItemRaw)`
 `
 
 export const Choice = styled(ToolBarItem)`
@@ -194,6 +151,16 @@ export const CropPrompt = styled(ToolBar)`
   padding: 30px 0 20px;
   text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
   color: white;
+  text-align: center;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 24px;
+    width: 100%;
+  }
+
+  .mode-crop & {
+    pointer-events: all;
+  }
 `
 
 export const CropTools = styled(ToolBar)`
@@ -202,7 +169,7 @@ export const CropTools = styled(ToolBar)`
   pointer-events: none;
   transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
-  &.show {
+  .mode-crop &.show {
     opacity: 1;
     transform: none;
     pointer-events: all;
@@ -215,6 +182,9 @@ export const CropTool = styled(ToolBarItem)`
 `
 
 export const DescribeTools = styled(ToolBar)`
+  .mode-describe & {
+    pointer-events: all;
+  }
 `
 
 export const DescribeTool = styled(ToolBarItem)`
@@ -349,6 +319,10 @@ export const QuarkArtGallery = styled.div`
     opacity: 0;
     transition: all 1s ${EASE_OUT};
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    display: none;
+  }
 `
 
 export const GalleryItemList = styled.div`
@@ -390,10 +364,14 @@ export const GalleryItem = styled.div`
 
 export const GalleryTools = styled(ToolBar)`
   z-index: 5;
+
+  .mode-quarkArtGallery & {
+    pointer-events: all;
+  }
 `
 
 export const GalleryTool = styled(ToolBarItem)`
-  pointer-events: ${p => p.disabled? 'none' : 'all'};
+  ${p => p.disabled && 'pointer-events: none'};
   cursor: ${p => p.disabled? 'default' : 'cursor'};
 
   &.gone {

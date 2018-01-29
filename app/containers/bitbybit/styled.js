@@ -1,6 +1,15 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
+import {
+  ToolBar as ToolBarRaw, ToolBarItem as ToolBarItemRaw,
+} from '../../global/styled'
 
 const easeInOutSine = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
 const aColor = '#498359'
@@ -72,6 +81,11 @@ export const Page = styled.div`
 
   &.readBitArticle .bit-article-header {
     transition-delay: 1.5s;
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      font-size: 24px;
+      padding-top: 15px;
+    }
   }
 `
 
@@ -102,6 +116,12 @@ export const BitBoxRoot = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 100px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: ${window.innerWidth + 20}px;
+    margin: 120px 0 0 -15px;
+    padding-bottom: 60px;
+  }
 `
 
 export const BitBoxTextRoot = styled.div`
@@ -136,6 +156,11 @@ export const BitBoxTextRoot = styled.div`
   .bitExit & {
     opacity: 0;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    padding: 20px 30px 15px;
+    max-height: 400px;
+  }
 `
 
 export const BitBoxText = styled.textarea`
@@ -150,22 +175,11 @@ export const BitBoxText = styled.textarea`
   }
 `
 
-const ToolBar = styled.div`
-  position: absolute;
-  bottom: 0;
-  z-index: 3;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  text-align: center;
-  font-family: annie use your telescope;
-  overflow: hidden;
-  opacity: 1;
-  pointer-events: none;
-  padding-top: 10px;
+export const ToolBar = styled(ToolBarRaw)`
+  background: none;
 
-  & > * {
-    flex: 1 0 0;
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex-direction: row;
   }
 `
 
@@ -181,51 +195,19 @@ export const EditTools = styled(ToolBar)`
   }
 `
 
-export const ToolBarItem = styled.div`
-  position: relative;
-  color: white;
-  padding: 20px 10px;
-  cursor: pointer;
-  font-size: 32px;
-  transition: all .4s ${EASE_OUT};
+export const ToolBarItem = styled(ToolBarItemRaw)`
   opacity: 0;
   transform: translateY(-70px);
   z-index: 3;
 
   div {
-    position: relative;
     z-index: 6;
-    transition: all .4s ${EASE_OUT};
-    text-shadow: 1px 1px ${p => darken(.2, p.themeColor)};
-    user-select: none;
   }
 
   &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, transparent 0%, ${p => alpha(.3, p.themeColor)} 50%, transparent 100%);
-    transition: all .2s ${EASE_OUT};
-    content: ' ';
     transform: scale(.9);
     z-index: 5;
-    opacity: 0;
-    border-radius: 20px;
-  }
-
-  &:hover {
-    &:after {
-      transform: none;
-      opacity: 1;
-      transition-duration: .4s;
-    }
-    div {
-      transform: scale(1.05);
-      letter-spacing: 1px;
-      transition: all 5s cubic-bezier(0.39, 0.575, 0.565, 1);
-    }
+    border: none;
   }
 `
 
@@ -259,9 +241,6 @@ export const DoneEditingButton = styled(ToolBarItem)`
     opacity: 1;
     transform: none;
     transition: all 1s ${EASE_IN_OUT_SINE} .4s;
-  }
-  &:after {
-    background: linear-gradient(to right, transparent 0%, ${p => alpha(.1, p.themeColor)} 50%, transparent 100%);
   }
 `
 
@@ -304,6 +283,15 @@ export const BitArticle = styled.div`
     opacity: 1;
     transform: none;
     transition: all 1s ${EASE_OUT} 1.2s;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    margin: 150px 0 0 -5px;
+    padding:  15px 20px;
+    flex: 0 0 ${window.innerWidth + 10}px;
+    font-size: 16px;
+    line-height: 24px;
+    max-width: none;
   }
 `
 
@@ -357,6 +345,16 @@ const BitArticleButton = styled.div`
       }
     }
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 125px;
+    font-size: 20px;
+    height: 50px;
+
+    i {
+      font-size: 20px;
+    }
+  }
 `
 
 export const MoreEditingButton = styled(BitArticleButton)`
@@ -371,6 +369,10 @@ export const MoreEditingButton = styled(BitArticleButton)`
   &:hover i {
     margin-right: 20px;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    top: 70px;
+  }
 `
 
 export const ContinueButton = styled(BitArticleButton)`
@@ -384,6 +386,10 @@ export const ContinueButton = styled(BitArticleButton)`
   }
   &:hover i {
     margin-left: 20px;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    top: 70px;
   }
 `
 
