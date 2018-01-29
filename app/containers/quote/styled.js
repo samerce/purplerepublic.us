@@ -1,6 +1,12 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
 
 const aColor = '#498359'
 
@@ -64,6 +70,12 @@ export const TextRoot = styled.div`
     opacity: 0;
     transition: opacity .5s, transform 1s;
     transition-timing-function: ${EASE_OUT};
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 22px;
+    width: ${window.innerWidth - 20}px;
+    height: 170px;
   }
 `
 
