@@ -414,6 +414,10 @@ export const KeepPlayingToolbar = styled(ToolBar)`
       pointer-events: all;
     `}
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    padding-top: 350px;
+  }
 `
 
 export const KeepPlayingToolbarItem = styled(ToolBarItem)`

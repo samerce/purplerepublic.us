@@ -150,7 +150,7 @@ export default class VideoRecorderPage extends React.Component {
   exitWithVideo() {
     const {blob} = this.state
     this.props.onExit({
-      url: URL.createObjectURL(blob),
+      url: blob && URL.createObjectURL(blob),
       blob: blob,
     })
   }

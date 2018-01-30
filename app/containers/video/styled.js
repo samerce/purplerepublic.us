@@ -1,6 +1,12 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
 import {ToolBar, ToolBarItem} from '../../global/styled'
 
 const aColor = '#498359'
@@ -127,6 +133,10 @@ export const ReviewTools = styled(ToolBar)`
     transform: none;
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex-direction: column;
+  }
 `
 
 export const ReviewTool = styled(ToolBarItem)`
@@ -149,6 +159,14 @@ export const ScriptRoot = styled.div`
     opacity: 1;
     transform: translateY(10px);
     transition: all 1s ${EASE_IN_OUT_SINE} .3s;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    .videoMakeScript & {
+      position: fixed;
+      top: 60px;
+      height: 320px;
+    }
   }
 `
 
@@ -173,6 +191,11 @@ export const ScriptTextInput = styled.textarea`
   &:focus {
     background: ${p => darken(.1, p.themeColor)};
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 95%;
+    font-size: 18px;
+  }
 `
 
 export const ScriptDoneButton = styled(ToolBarItem)`
@@ -181,4 +204,10 @@ export const ScriptDoneButton = styled(ToolBarItem)`
   bottom: 0;
   left: 0;
   width: 220px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
+    bottom: -5px;
+    z-index: 10;
+  }
 `

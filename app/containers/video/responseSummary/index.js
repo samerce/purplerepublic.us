@@ -13,6 +13,10 @@ import {
 } from '../styled'
 import {lighten, darken} from 'polished'
 
+import {
+  SCREEN_WIDTH_M,
+} from '../../../global/constants'
+
 import autobind from 'autobind-decorator'
 import {makeEnum} from '../../../utils/lang'
 
@@ -80,7 +84,7 @@ export default class ResponseSummary extends React.Component {
           }
           {audioBlob &&
             <ContentRow style={{flexBasis: rowBasis}} delay={.2}>
-              <RichContent>
+              <RichContent className='audio-content'>
                 <Wavesurfer
                   options={{
                     loopSelection: true,
@@ -103,7 +107,11 @@ export default class ResponseSummary extends React.Component {
               <RichContent>
                 <ScriptText
                   readOnly
-                  style={{height: window.innerHeight * .6 + 'px'}}
+                  style={{
+                    height: (window.innerWidth > SCREEN_WIDTH_M)?
+                      window.innerHeight * .6 + 'px' :
+                      '100%'
+                  }}
                   value={scriptText}
                   themeColor={themeColor} />
               </RichContent>

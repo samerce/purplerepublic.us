@@ -1,6 +1,12 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../../global/constants'
 import {ToolBar, ToolBarItem} from '../../../global/styled'
 import {ScriptTextInput} from '../styled'
 
@@ -25,6 +31,13 @@ export const ContentRoot = styled.div`
   position: relative;
   z-index: 5;
   padding: 120px 30px 100px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    overflow: scroll;
+    height: ${window.innerHeight - 200}px;
+    padding: 20px 10px;
+    margin: 80px 0 120px;
+  }
 `
 
 export const ContentRow = styled.div`
@@ -45,6 +58,11 @@ export const ContentRow = styled.div`
     transition: all 1s ${EASE_IN_OUT_SINE};
     transition-delay: ${p => .8 + p.delay + 's'};
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    margin-bottom: 15px;
+    flex-direction: column;
+  }
 `
 
 export const RichContent = styled.div`
@@ -57,6 +75,12 @@ export const RichContent = styled.div`
       width: 100%;
       height: 100%;
       border-radius: 5px;
+    }
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    &.audio-content {
+      width: 100%;
     }
   }
 `
@@ -92,6 +116,10 @@ export const ResponseSummaryTools = styled(ToolBar)`
     transform: none;
     transition: all 1s ${EASE_IN_OUT_SINE};
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex-direction: column;
+  }
 `
 
 export const ResponseSummaryTool = styled(ToolBarItem)`
@@ -109,5 +137,16 @@ export const ScriptText = styled(ScriptTextInput)`
   }
   &:focus {
     background: ${p => p.themeColor};
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    &:hover {
+      transform: none;
+      position: fixed;
+      top: 100px;
+      bottom: 120px;
+      height: ${window.innerHeight - 300}px !important;
+      left: 10px;
+    }
   }
 `

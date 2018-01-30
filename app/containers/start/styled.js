@@ -402,6 +402,7 @@ export const InfoIntroRoot = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  user-select: none;
 `
 
 export const InfoText = styled.div`
