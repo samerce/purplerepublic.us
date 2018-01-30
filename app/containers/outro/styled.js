@@ -339,6 +339,7 @@ const SocialText = styled.div`
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     pointer-events: all;
     border-radius: 0;
+    font-family: annie use your telescope;
 
     &.hidden {
       color: ${p => p.themeColor};
@@ -372,7 +373,6 @@ export const ReachText = styled(SocialText)`
 
 export const ReachIcons = styled(IconRoot)`
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    width: initial;
     padding: 0 5px;
   }
 `
@@ -402,7 +402,7 @@ export const FundIcons = styled(IconRoot)`
 `
 
 export const KeepPlayingToolbar = styled(ToolBar)`
-  pointer-events: all;
+  pointer-events: none;
   opacity: 0;
   transform: translateY(200px);
   z-index: 6;
@@ -411,6 +411,7 @@ export const KeepPlayingToolbar = styled(ToolBar)`
     ${p => p.visible && `
       opacity: 1;
       transform: none;
+      pointer-events: all;
     `}
   }
 `
@@ -434,19 +435,21 @@ transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
   padding: 0;
   opacity: 0;
   transform: translateY(100px);
-  transition: all .3s ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
   position: relative;
   z-index: 6;
 
-  &.hidden {
-    opacity: 0;
-    transform: translateY(100px);
-    pointer-events: none;
-  }
   .outro-enter & {
     opacity: 1;
     transform: none;
-    transition-delay: 2s;
+    transition-delay: 1.5s;
+
+    &.hidden {
+      opacity: 0;
+      transform: translateY(100px);
+      pointer-events: none;
+      transition-delay: 0s;
+    }
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -507,6 +510,8 @@ export const FinalWord = styled.div`
       overflow: unset;
       flex: 1 0 auto;
       margin-left: 10px;
+      padding-right: 25px;
+      font-size: 18px;
     }
   }
   .read-more-indicator {
@@ -527,6 +532,10 @@ export const FinalWord = styled.div`
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     flex: 0 0 auto;
     height: initial;
+
+    .read-more-indicator {
+      display: none;
+    }
   }
 `
 

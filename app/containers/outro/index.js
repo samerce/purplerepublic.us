@@ -34,12 +34,10 @@ export default class Outro extends React.Component {
     this.timers = []
     this.state = {
       mode: '',
-      toggles: {
-        menu: false,
-        share: false,
-        shop: false,
-        fund: false,
-      }
+      menuOpen: false,
+      shareOpen: false,
+      shopOpen: false,
+      fundOpen: false,
     }
   }
 
@@ -54,7 +52,7 @@ export default class Outro extends React.Component {
   }
 
   render() {
-    const {mode, toggles} = this.state
+    const {mode, menuOpen, shareOpen, shopOpen, fundOpen} = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
       <Page className={'outro-' + mode}>
@@ -87,12 +85,12 @@ export default class Outro extends React.Component {
             <ReachText
               onClick={() => this.toggle('share')}
               className={cx({
-                hidden: toggles.share
+                hidden: shareOpen
               })}
               themeColor={themeColor}>
               reach us
             </ReachText>
-            <ReachIcons visible={toggles.share}>
+            <ReachIcons visible={shareOpen}>
               <a href='https://www.facebook.com/purplerepublic.us' target='_blank'>
                 <SocialIcon className='fa fa-facebook-square i1' />
               </a>
@@ -116,13 +114,13 @@ export default class Outro extends React.Component {
           <ShopUs>
             <ShopText
               className={cx({
-                hidden: toggles.shop
+                hidden: shopOpen
               })}
               onClick={() => this.toggle('shop')}
               themeColor={themeColor}>
               shop us
             </ShopText>
-            <ShopIcons visible={toggles.shop}>
+            <ShopIcons visible={shopOpen}>
               <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
                 <SocialIcon className='fa fa-etsy i4' />
               </a>
@@ -133,12 +131,12 @@ export default class Outro extends React.Component {
             <FundText
               onClick={() => this.toggle('fund')}
               className={cx({
-                hidden: toggles.fund
+                hidden: fundOpen
               })}
               themeColor={themeColor}>
               fund us
             </FundText>
-            <FundIcons visible={toggles.fund}>
+            <FundIcons visible={fundOpen}>
               <a href='https://www.patreon.com/purplerepublic' target='_blank'>
                 <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' className='i11' />
               </a>
@@ -186,10 +184,10 @@ export default class Outro extends React.Component {
         </Finality>
 
         <KeepPlayingToolbar
-          visible={toggles.menu}
+          visible={this.state.menuOpen}
           themeColor={themeColor}>
           <KeepPlayingToolbarItem
-            onClick={() => this.toggle('menu')}
+            onClick={this.toggle.bind(this, 'menu')}
             className='never-mind-button'
             themeColor={themeColor}>
             <div>never mind</div>
@@ -218,7 +216,7 @@ export default class Outro extends React.Component {
 
       <KeepPlayingButton
         onClick={this.toggle.bind(this, 'menu')}
-        className={this.state.toggles.menu && 'hidden'}
+        className={this.state.menuOpen && 'hidden'}
         themeColor={themeColor}>
         <div>keep playing</div>
       </KeepPlayingButton>
@@ -229,12 +227,9 @@ export default class Outro extends React.Component {
 
   @autobind
   toggle(item) {
-    console.log(item, this.state, this.state[item])
+    const key = `${item}Open`
     this.setState(prevState => ({
-      toggles: {
-        ...prevState.toggles,
-        [item]: !prevState[item],
-      },
+      [key]: !prevState[key],
     }))
   }
 
