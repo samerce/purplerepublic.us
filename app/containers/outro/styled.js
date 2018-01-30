@@ -1,6 +1,12 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
 import {ToolBar, ToolBarItem} from '../../global/styled'
 
 const aColor = '#498359'
@@ -149,6 +155,18 @@ export const Product = styled.div`
     animation-duration: 7s;
     transform: translateX(200px);
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    top: 10px;
+    width: 50px;
+
+    &.product-left {
+      left: 10px;
+    }
+    &.product-right {
+      right: 10px;
+    }
+  }
 `
 
 export const Callout = styled.div`
@@ -182,6 +200,10 @@ export const Callout = styled.div`
     span {
       transform: rotate(-10deg);
     }
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    display: none;
   }
 `
 
@@ -222,17 +244,38 @@ export const SocialNetworksRoot = styled.div`
       transform: scale(.9);
     }
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
+
+    .i8, .i11 {
+      height: 40px;
+      padding: 0 0 0 8px;
+      vertical-align: middle;
+    }
+  }
 `
 
-export const ReachUs = styled.div`
+const SocialSectionRoot = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
+    text-align: center;
+  }
 `
 
-export const ShopUs = styled.div`
-  display: flex;
-  align-items: center;
+export const ReachUs = styled(SocialSectionRoot)`
+
+`
+
+export const ShopUs = styled(SocialSectionRoot)`
   width: 530px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
+  }
 `
 
 export const SocialIcon = styled.i`
@@ -240,14 +283,7 @@ export const SocialIcon = styled.i`
   padding: 15px;
   color: inherit;
 
-  &.i1 {
-   font-size: 50px;
- }
- &.i5 {
-   font-size: 50px;
- }
   &.i4 {
-    font-size: 50px;
     line-height: 50px;
     padding: 10px;
   }
@@ -260,6 +296,18 @@ export const SocialIcon = styled.i`
   &.i9 {
     margin-left: 12px;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 40px;
+    padding: 8px;
+
+    &.i6, &.i7 {
+      font-size: 38px;
+    }
+    &.i4 {
+      font-size: 34px;
+    }
+  }
 `
 
 const IconRoot = styled.div`
@@ -268,6 +316,14 @@ const IconRoot = styled.div`
   align-items: center;
   justify-self: center;
   flex: 1 0 auto;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    position: absolute;
+    pointer-events: ${p => p.visible? 'all' : 'none'};
+    opacity: ${p => p.visible? 1 : 0};
+    transition: all .5s ${EASE_OUT};
+    width: 100%;
+  }
 `
 const SocialText = styled.div`
   font-size: 28px;
@@ -278,25 +334,56 @@ const SocialText = styled.div`
   flex: 0 0 auto;
   padding: 5px 10px;
   border-radius: 3px;
+  pointer-events: none;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    pointer-events: all;
+    border-radius: 0;
+
+    &.hidden {
+      color: ${p => p.themeColor};
+    }
+  }
 `
 
 export const ShopText = styled(SocialText)`
   margin-left: -12px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex: 1 0 50%;
+  }
 `
 
 export const ShopIcons = styled(IconRoot)`
   padding-left: 15px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 50%;
+    padding: 0 5px;
+  }
 `
 
 export const ReachText = styled(SocialText)`
   margin-right: 10px;
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex: 1 0 100%;
+  }
 `
 
 export const ReachIcons = styled(IconRoot)`
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: initial;
+    padding: 0 5px;
+  }
 `
 
 export const FundText = styled(SocialText)`
   margin: 0 24px 0 30px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex: 1 0 50%;
+    margin: 0;
+  }
 `
 
 export const FundIcons = styled(IconRoot)`
@@ -306,28 +393,77 @@ export const FundIcons = styled(IconRoot)`
     width: 50px;
     pointer-events: none;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 50%;
+    padding: 0 5px;
+    margin-left: 50%;
+  }
 `
 
 export const KeepPlayingToolbar = styled(ToolBar)`
   pointer-events: all;
   opacity: 0;
   transform: translateY(200px);
+  z-index: 6;
 
   .outro-enter & {
-    opacity: 1;
-    transform: none;
+    ${p => p.visible && `
+      opacity: 1;
+      transform: none;
+    `}
   }
 `
 
 export const KeepPlayingToolbarItem = styled(ToolBarItem)`
-
+  @media (min-width: ${SCREEN_WIDTH_M_PX}){
+    &.never-mind-button {
+      display: none;
+    }
+  }
 `
 
+export const KeepPlayingButton = styled(ToolBarItem)`
+  background: linear-gradient(to bottom,
+transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all .3s ${EASE_OUT};
+  position: relative;
+  z-index: 6;
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(100px);
+    pointer-events: none;
+  }
+  .outro-enter & {
+    opacity: 1;
+    transform: none;
+    transition-delay: 2s;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    padding: 0;
+  }
+
+  @media (min-width: ${SCREEN_WIDTH_M_PX}) {
+    display: none;
+  }
+`
+
+const FINAL_WORD_MARGIN_TOP = 240
 export const Finality = styled.div`
   position: relative;
   width: 100%;
-  z-index: 3;
-  margin: 300px 0 0;
+  z-index: 6;
+  margin: ${FINAL_WORD_MARGIN_TOP}px 0 0;
   font-family: quattrocento;
   font-size: 20px;
   opacity: 0;
@@ -338,6 +474,14 @@ export const Finality = styled.div`
     opacity: 1;
     transition: all .7s ${EASE_IN_OUT_SINE} 1.3s;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    overflow: scroll;
+    height: ${window.innerHeight - FINAL_WORD_MARGIN_TOP - 80}px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const FinalWord = styled.div`
@@ -346,6 +490,7 @@ export const FinalWord = styled.div`
   align-items: center;
   height: 290px;
   position: relative;
+  flex-direction: column;
 
   .final-word-content {
     overflow: scroll;
@@ -355,6 +500,14 @@ export const FinalWord = styled.div`
     border-radius: 3px;
     padding: 15px 20px;
     color: white;
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      width: ${window.innerWidth + 20}px;
+      height: initial;
+      overflow: unset;
+      flex: 1 0 auto;
+      margin-left: 10px;
+    }
   }
   .read-more-indicator {
     position: absolute;
@@ -369,6 +522,11 @@ export const FinalWord = styled.div`
       opacity: .6;
       color: white;
     }
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex: 0 0 auto;
+    height: initial;
   }
 `
 
@@ -394,6 +552,22 @@ export const FinalFeedback = styled.div`
       background: ${p => alpha(.1, p.themeColor)} !important;
     }
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex: 0 0 auto;
+
+    textarea {
+      width: ${window.innerWidth - 20}px;
+    }
+
+    textarea:focus {
+      position: fixed;
+      top: 100px;
+      left: 10px;
+      height: 200px;
+      z-index: 10;
+    }
+  }
 `
 
 export const FeedbackArea = styled.div`
@@ -403,6 +577,10 @@ export const FeedbackArea = styled.div`
   &:hover textarea {
     box-shadow: 2px 2px 20px rgba(0,0,0,.3);
     background: ${p => alpha(.3, p.themeColor)};
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
   }
 `
 

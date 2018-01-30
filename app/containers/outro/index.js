@@ -7,12 +7,13 @@ import {
   Page, HeaderRoot, Background, Product, SocialNetworksRoot, SocialIcon,
   KeepPlayingToolbar, KeepPlayingToolbarItem, FinalWord, Finality, FinalFeedback,
   FeedbackArea, SendFeedback, ReachUs, ShopUs, ReachText, ReachIcons, ShopText,
-  ShopIcons, Callout, ScrollRoot, FundText, FundIcons,
+  ShopIcons, Callout, ScrollRoot, FundText, FundIcons, KeepPlayingButton,
 } from './styled'
 
 import {SRC_URL} from '../../global/constants'
 import {connect} from 'react-redux'
 import {makeEnum} from '../../utils/lang'
+import autobind from 'autobind-decorator'
 
 const BASE_URL = SRC_URL + 'outro/'
 const ICON_URL = SRC_URL + 'icons/'
@@ -33,6 +34,12 @@ export default class Outro extends React.Component {
     this.timers = []
     this.state = {
       mode: '',
+      toggles: {
+        menu: false,
+        share: false,
+        shop: false,
+        fund: false,
+      }
     }
   }
 
@@ -47,7 +54,7 @@ export default class Outro extends React.Component {
   }
 
   render() {
-    const {mode} = this.state
+    const {mode, toggles} = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
       <Page className={'outro-' + mode}>
@@ -77,10 +84,15 @@ export default class Outro extends React.Component {
 
         <SocialNetworksRoot themeColor={themeColor}>
           <ReachUs>
-            <ReachText themeColor={themeColor}>
+            <ReachText
+              onClick={() => this.toggle('share')}
+              className={cx({
+                hidden: toggles.share
+              })}
+              themeColor={themeColor}>
               reach us
             </ReachText>
-            <ReachIcons>
+            <ReachIcons visible={toggles.share}>
               <a href='https://www.facebook.com/purplerepublic.us' target='_blank'>
                 <SocialIcon className='fa fa-facebook-square i1' />
               </a>
@@ -102,10 +114,15 @@ export default class Outro extends React.Component {
             </ReachIcons>
           </ReachUs>
           <ShopUs>
-            <ShopText themeColor={themeColor}>
+            <ShopText
+              className={cx({
+                hidden: toggles.shop
+              })}
+              onClick={() => this.toggle('shop')}
+              themeColor={themeColor}>
               shop us
             </ShopText>
-            <ShopIcons>
+            <ShopIcons visible={toggles.shop}>
               <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
                 <SocialIcon className='fa fa-etsy i4' />
               </a>
@@ -113,12 +130,17 @@ export default class Outro extends React.Component {
                 <object data={ICON_URL + 'redbubble.svg'} className='i8' />
               </a>
             </ShopIcons>
-            <FundText themeColor={themeColor}>
+            <FundText
+              onClick={() => this.toggle('fund')}
+              className={cx({
+                hidden: toggles.fund
+              })}
+              themeColor={themeColor}>
               fund us
             </FundText>
-            <FundIcons>
+            <FundIcons visible={toggles.fund}>
               <a href='https://www.patreon.com/purplerepublic' target='_blank'>
-                <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
+                <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' className='i11' />
               </a>
               <a onClick={() => this.payPalLink.click()}>
                 <SocialIcon className='fa fa-paypal i9' />
@@ -163,7 +185,15 @@ export default class Outro extends React.Component {
           </FinalFeedback>
         </Finality>
 
-        <KeepPlayingToolbar themeColor={themeColor}>
+        <KeepPlayingToolbar
+          visible={toggles.menu}
+          themeColor={themeColor}>
+          <KeepPlayingToolbarItem
+            onClick={() => this.toggle('menu')}
+            className='never-mind-button'
+            themeColor={themeColor}>
+            <div>never mind</div>
+          </KeepPlayingToolbarItem>
           <KeepPlayingToolbarItem
             onClick={() => window.location = '#letsfocus'}
             themeColor={themeColor}>
@@ -186,8 +216,26 @@ export default class Outro extends React.Component {
           </KeepPlayingToolbarItem>
         </KeepPlayingToolbar>
 
+      <KeepPlayingButton
+        onClick={this.toggle.bind(this, 'menu')}
+        className={this.state.toggles.menu && 'hidden'}
+        themeColor={themeColor}>
+        <div>keep playing</div>
+      </KeepPlayingButton>
+
       </Page>
     )
+  }
+
+  @autobind
+  toggle(item) {
+    console.log(item, this.state, this.state[item])
+    this.setState(prevState => ({
+      toggles: {
+        ...prevState.toggles,
+        [item]: !prevState[item],
+      },
+    }))
   }
 
 
