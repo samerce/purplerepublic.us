@@ -368,11 +368,17 @@ export const GalleryTools = styled(ToolBar)`
   .mode-quarkArtGallery & {
     pointer-events: all;
   }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 180px;
+  }
 `
 
 export const GalleryTool = styled(ToolBarItem)`
   ${p => p.disabled && 'pointer-events: none'};
-  cursor: ${p => p.disabled? 'default' : 'cursor'};
+  cursor: ${p => p.disabled? 'default' : 'pointer'};
 
   &.gone {
     flex: 0 0 0;
@@ -382,7 +388,7 @@ export const GalleryTool = styled(ToolBarItem)`
     transform: translate(-50px, 160px);
     transition: opacity .5s, flex 1s, padding .7s, transform 1s;
     transition-timing-function: ${easeInOutSine};
-    transition-delay: .2s;
+    transition-delay: 1s;
     overflow: hidden;
 
     div {
