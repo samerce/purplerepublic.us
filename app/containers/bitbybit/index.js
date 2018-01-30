@@ -5,7 +5,7 @@ import {cx} from '../../utils/style'
 import {Header} from '../../global/styled'
 import {
   Page, BitBoxRoot, BitBoxText, Background, ReviewTools, ReviewTool,
-  BitBoxTextRoot, EditTools, EditTool, DoneEditingButton, BitArticle, BitArticleRoot,
+  BitBoxTextRoot, EditTools, EditTool, DoneEditingButton, BitArticle, BitArticleRoot, SubmitButton,
   MoreEditingButton, ContinueButton, MoreBitsDialogue, MoreBitsContent,
   MoreBitsContinue, MoreBitsNewText, MoreBitsTextEntry, BitBoxSubmit,
 } from './styled'
@@ -50,6 +50,7 @@ export default class BitByBit extends React.Component {
       bit: this.getBit(writing),
       hasEngaged: false,
       bitArticle: '' + writing,
+      submitState: 'idle',
     }
   }
 
@@ -73,6 +74,7 @@ export default class BitByBit extends React.Component {
       bit,
       hasEngaged,
       bitArticle,
+      submitState,
     } = this.state
     const {
       backgroundUrl,
@@ -160,6 +162,16 @@ export default class BitByBit extends React.Component {
           </BitArticle>
         </BitArticleRoot>
 
+        <SubmitButton
+          disabled={submitState !== 'idle'}
+          onClick={this.submitArticle}
+          themeColor={themeColor}>
+          {submitState === 'idle' && <div>submit it!</div>}
+          {submitState === 'pending' && <div>submitting</div>}
+          {submitState === 'done' && <div>done!</div>}
+          <i className='fa fa-arrow-up' />
+        </SubmitButton>
+
         <MoreEditingButton
           onClick={this.onMoreEditing}
           themeColor={themeColor}>
@@ -171,7 +183,6 @@ export default class BitByBit extends React.Component {
           onClick={this.onExit}
           themeColor={themeColor}>
           <div>now what?</div>
-          <i className='fa fa-compass' />
         </ContinueButton>
 
         <MoreBitsDialogue>
@@ -231,6 +242,7 @@ export default class BitByBit extends React.Component {
   onMoreEditing() {
     this.setState({
       mode: MODES.bitMorePrompt,
+      submitState: 'idle',
     })
     this.newBitsTextArea.focus()
   }
@@ -241,6 +253,24 @@ export default class BitByBit extends React.Component {
       mode: MODES.bitExit,
     })
     this.timers.push(setTimeout(() => window.location = '#letsimprov', 2000))
+  }
+
+  @autobind
+  submitArticle() {
+    const body = new FormData()
+    body.append('blob', new Blob([this.state.bitArticle], {type: 'text/plain'}))
+
+    this.setState({submitState: 'pending'})
+
+    fetch('/submissions.upload', {
+      method: 'post',
+      body,
+    }).then(responseRaw => {
+      console.info('finished uploading bit article', responseRaw)
+      this.setState({submitState: 'done'})
+    }).catch(e => {
+      console.warning('failed uploading ' + type, e)
+    })
   }
 
   reviewToolStyle(delay = 0) {

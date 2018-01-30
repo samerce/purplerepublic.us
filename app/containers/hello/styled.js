@@ -1,6 +1,12 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  SCREEN_WIDTH_S_PX,
+  SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_L_PX,
+  SCREEN_WIDTH_XL_PX,
+} from '../../global/constants'
 
 const aColor = '#498359'
 
@@ -64,6 +70,9 @@ export const HeaderRoot = styled.div`
     padding: 50px 0 20px;
     margin: 0;
     background: linear-gradient(to top, ${alpha(.3, 'black')} 0%, transparent 100%);
+    opacity: 0;
+    transform: translateY(200px);
+    transition: all 1s ${EASE_IN_OUT_SINE};
 
     .hello-enter & {
       opacity: 1;
@@ -71,10 +80,13 @@ export const HeaderRoot = styled.div`
       transition: all 3s ${EASE_IN_OUT_SINE} 0s;
     }
 
-    &, .hello-exit & {
-      opacity: 0;
-      transform: translateY(200px);
-      transition: all 1s ${EASE_IN_OUT_SINE};
+    .hello-exit & {
+      transform: translateX(-100%);
+      transition: transform 3s linear .2s;
+    }
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      padding: 50px 5px 20px;
     }
   }
 `
@@ -95,5 +107,12 @@ export const TransitionGif = styled.div`
   .hello-exit & {
     left: -150px;
     transition: all 3.3s linear .2s;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    .hello-exit & {
+      left: -150px;
+      transition-duration: 4.2s;
+    }
   }
 `

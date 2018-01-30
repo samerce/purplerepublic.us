@@ -119,7 +119,7 @@ export const BitBoxRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     width: ${window.innerWidth + 20}px;
-    margin: 120px 0 0 -15px;
+    margin: 110px 0 0 -15px;
     padding-bottom: 60px;
   }
 `
@@ -137,7 +137,7 @@ export const BitBoxTextRoot = styled.div`
   transition: all 1s ${EASE_IN_OUT_SINE};
 
   .bitEdit &, .bitReview & {
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE_OUT};
   }
   .bitDelete & {
     transform: scale(0);
@@ -169,6 +169,7 @@ export const BitBoxText = styled.textarea`
   font-family: quattrocento;
   padding: 0;
   outline: none;
+  pointer-events: none;
 
   .bitEdit & {
     pointer-events: all;
@@ -229,7 +230,6 @@ export const EditTool = styled(ToolBarItem)`
 
 export const DoneEditingButton = styled(ToolBarItem)`
   text-align: center;
-  font-family: annie use your telescope;
   bottom: 0;
   position: absolute;
   width: 100%;
@@ -286,12 +286,15 @@ export const BitArticle = styled.div`
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    margin: 150px 0 0 -5px;
+    margin: 70px 0 150px -5px;
     padding:  15px 20px;
     flex: 0 0 ${window.innerWidth + 10}px;
     font-size: 16px;
     line-height: 24px;
     max-width: none;
+    .bitExit & {
+      z-index: 6;
+    }
   }
 `
 
@@ -357,6 +360,25 @@ const BitArticleButton = styled.div`
   }
 `
 
+export const ContinueButton = styled(ToolBarItem)`
+  text-align: center;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  transform: translateY(100px);
+  background: linear-gradient(to bottom,
+  transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
+  pointer-events: none;
+  z-index: 5;
+
+  .readBitArticle & {
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_IN_OUT_SINE} 1.5s;
+    pointer-events: all;
+  }
+`
+
 export const MoreEditingButton = styled(BitArticleButton)`
   transform: translateX(-100%);
   left: 0;
@@ -371,14 +393,16 @@ export const MoreEditingButton = styled(BitArticleButton)`
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    top: 70px;
+    top: initial;
+    bottom: 80px;
   }
 `
 
-export const ContinueButton = styled(BitArticleButton)`
+export const SubmitButton = styled(BitArticleButton)`
   transform: translateX(100%);
   right: 0;
   bottom: 180px;
+  ${p => p.disabled && 'pointer-events: none'};
 
   &:after {
     background: linear-gradient(to left,
@@ -389,7 +413,7 @@ export const ContinueButton = styled(BitArticleButton)`
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    top: 70px;
+    bottom: 80px;
   }
 `
 
@@ -430,21 +454,23 @@ export const MoreBitsContent = styled.div`
 
 const MoreBitsButton = styled(BitArticleButton)`
   position: relative;
+  flex: 1 0 auto;
+  width: auto;
+
   .bitMorePrompt &, .bitMoreTextEntry & {
     opacity: 1;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
   }
 `
 
 export const MoreBitsContinue = styled(MoreBitsButton)`
-  flex: 1 0 auto;
-  width: auto;
   border-bottom: 1px solid white;
 `
 
 export const MoreBitsNewText = styled(MoreBitsButton)`
-  flex: 1 0 auto;
-  width: auto;
-
   .bitMoreTextEntry & {
     display: none;
   }
@@ -457,6 +483,7 @@ export const MoreBitsTextEntry = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100px;
+  align-items: center;
 
   .bitMorePrompt & {
     display: none;
@@ -472,6 +499,14 @@ export const MoreBitsTextEntry = styled.div`
     border-radius: 5px;
     color: white;
     font-family: quattrocento;
+
+    .bitMoreTextEntry & {
+      pointer-events: all;
+    }
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      width: ${window.innerWidth - 20}px;
+    }
   }
 `
 

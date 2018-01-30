@@ -587,12 +587,21 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   getDescriptionStyleDefault(cropBoxUnclean) {
+    if (window.innerWidth <= SCREEN_WIDTH_L) {
+      return {
+        top: 200,
+        left: 10,
+        width: window.innerWidth - 20,
+      }
+    }
+
     const cropBox = {
       top: cropBoxUnclean.top || 0,
       left: cropBoxUnclean.left || 0,
       width: cropBoxUnclean.width || 0,
       height: cropBoxUnclean.height || 0,
     }
+
     let top = (cropBox.top || 0) - 110
     if ((cropBox.top + cropBox.height) < window.innerHeight - 220) {
       top = cropBox.top + cropBox.height + 15
@@ -613,19 +622,23 @@ export default class QuarkArt extends React.PureComponent {
     return {
       top,
       left,
-      transform: `translate(-${offset}px)`,
+      transform: `translateX(-${offset}px)`,
       width: newWidth,
     }
   }
 
   getDescriptionStyleGallery(cropBox) {
+    const isAtMostLargeScreen = (window.innerWidth <= SCREEN_WIDTH_L)
     const croppedImageStyle = getCroppedImageStyleGallery(cropBox)
     const width = Math.max(croppedImageStyle.width, MIN_DESC_WIDTH)
-    const left = (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
+    const left = isAtMostLargeScreen?
+      (window.innerWidth - width) / 2 :
+      (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
+    const top = CROPPED_IMAGE_GALLERY_TOP + croppedImageStyle.height
     return {
       left,
       width,
-      top: CROPPED_IMAGE_GALLERY_TOP + croppedImageStyle.height,
+      top,
       transform: 'none',
     }
   }
@@ -633,13 +646,17 @@ export default class QuarkArt extends React.PureComponent {
 }
 
 function getCroppedImageStyleGallery(cropBox, shrinkSize = CROPPED_IMAGE_SIDE_SMALL) {
+  const isAtMostLargeScreen = (window.innerWidth <= SCREEN_WIDTH_L)
+
   const {height: cropHeight, width: cropWidth} = cropBox
   const isHeightBigger = cropHeight > cropWidth
   const width = isHeightBigger?
     arCropSize(cropWidth, cropHeight, shrinkSize) : shrinkSize
   const height = isHeightBigger?
     shrinkSize : arCropSize(cropHeight, cropWidth, shrinkSize)
-  const left = (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
+  const left = isAtMostLargeScreen?
+    (window.innerWidth - width) / 2 :
+    (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
 
   return {
     top: CROPPED_IMAGE_GALLERY_TOP,

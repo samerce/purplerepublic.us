@@ -26,7 +26,7 @@ export default class Hello extends React.Component {
   componentWillMount() {
     this.timers.push(setTimeout(() => this.setState({isReady: true})))
     this.timers.push(setTimeout(() => this.setState({willExit: true}), 6000))
-    this.timers.push(setTimeout(() => window.location = '#quote', 10000))
+    this.timers.push(setTimeout(() => window.location = '#quote', 11000))
   }
 
   componentWillUnmount() {
