@@ -6,6 +6,7 @@ import {
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
   SCREEN_WIDTH_XL_PX,
+  SCREEN_WIDTH_M,
 } from '../../global/constants'
 import {ToolBar, ToolBarItem} from '../../global/styled'
 
@@ -138,7 +139,7 @@ export const Product = styled.div`
   z-index: 4;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  animation-timing-function: ${EASE_IN};
+  animation-timing-function: ${EASE_IN_OUT_SINE};
 
   img {
     width: 100%;
@@ -346,7 +347,7 @@ const SocialText = styled.div`
     &.hidden {
       color: ${p => p.themeColor};
     } */}
-    color: ${p => p.themeColor};
+    color: ${p => alpha(.3, p.themeColor)};
   }
 `
 
@@ -411,7 +412,7 @@ export const KeepPlayingToolbar = styled(ToolBar)`
   z-index: 6;
 
   .outro-enter & {
-    ${p => p.visible && `
+    ${p => (p.visible || window.innerWidth > SCREEN_WIDTH_M) && `
       opacity: 1;
       transform: none;
       pointer-events: all;
@@ -468,7 +469,7 @@ transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
   }
 `
 
-const FINAL_WORD_MARGIN_TOP = 240
+const FINAL_WORD_MARGIN_TOP = 290
 export const Finality = styled.div`
   position: relative;
   width: 100%;

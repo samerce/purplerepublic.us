@@ -396,9 +396,9 @@ export default class QuarkArt extends React.PureComponent {
   @autobind
   onCropStart() {
     const cropBox = this.cropper.getCropBoxData()
-      if (!cropBox.width) {
-        this.setState({cropBoxVisible: true})
-      }
+    if (cropBox.width > CROP_BOX_SIZE_DEFAULT) {
+      this.setState({cropBoxVisible: true})
+    }
   }
 
   @autobind
@@ -550,9 +550,8 @@ export default class QuarkArt extends React.PureComponent {
 
   @autobind
   onDiscardQuark() {
-    const newImageIndex = getMotherImageIndex()
-    const isSameImage = newImageIndex === this.props.motherImageIndex
-    console.log('issame', isSameImage)
+    // const newImageIndex = getMotherImageIndex()
+    const isSameImage = true//newImageIndex === this.props.motherImageIndex
     this.setState({
       dragMode: isSameImage? 'crop' : 'move',
       mode: isSameImage? MODES.crop : MODES.multipleChoice,
@@ -572,6 +571,7 @@ export default class QuarkArt extends React.PureComponent {
   @autobind
   restart() {
     this.cropper.enable()
+    this.cropper.clear()
     this.cropper.moveTo(0, 0)
 
     setTimeout(() => {
@@ -581,8 +581,9 @@ export default class QuarkArt extends React.PureComponent {
         croppedImageFullData: null,
         hasUploadedImage: false,
         isRestarting: false,
+        cropBox: {},
       })
-    }, 2000)
+    }, 1000)
   }
 
   @autobind

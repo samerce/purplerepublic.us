@@ -279,7 +279,7 @@ export const BitArticle = styled.div`
   font-family: quattrocento;
   font-size: 22px;
   line-height: 30px;
-  padding: 25px 30px 20px;
+  padding: 25px 30px 70px;
   margin-top: 100px;
   overflow: scroll;
   transition: all 1s ${EASE_OUT};
