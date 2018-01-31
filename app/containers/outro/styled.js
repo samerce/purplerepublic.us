@@ -319,10 +319,12 @@ const IconRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     position: absolute;
-    pointer-events: ${p => p.visible? 'all' : 'none'};
-    opacity: ${p => p.visible? 1 : 0};
     transition: all .5s ${EASE_OUT};
     width: 100%;
+    ${'' /* pointer-events: ${p => p.visible? 'all' : 'none'};
+    opacity: ${p => p.visible? 1 : 0}; */}
+    pointer-events: all;
+    opacity: 1;
   }
 `
 const SocialText = styled.div`
@@ -337,13 +339,14 @@ const SocialText = styled.div`
   pointer-events: none;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    pointer-events: all;
+    ${'' /* pointer-events: all;
     border-radius: 0;
     font-family: annie use your telescope;
 
     &.hidden {
       color: ${p => p.themeColor};
-    }
+    } */}
+    color: ${p => p.themeColor};
   }
 `
 

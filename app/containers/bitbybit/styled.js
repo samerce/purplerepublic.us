@@ -70,6 +70,11 @@ export const Page = styled.div`
     opacity: 0;
     transform: translateY(-250px);
     transition: all 1s ${easeInOutSine};
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      padding-top: 15px;
+      font-size: 28px;
+    }
   }
 
   &.bitReview .bit-header, &.bitEdit .bit-header, &.bitDelete .bit-header,
@@ -84,7 +89,6 @@ export const Page = styled.div`
 
     @media (max-width: ${SCREEN_WIDTH_M_PX}) {
       font-size: 24px;
-      padding-top: 15px;
     }
   }
 `
@@ -119,7 +123,7 @@ export const BitBoxRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     width: ${window.innerWidth + 20}px;
-    margin: 110px 0 0 -15px;
+    margin: 90px 0 0 -15px;
     padding-bottom: 60px;
   }
 `
@@ -159,7 +163,8 @@ export const BitBoxTextRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 20px 30px 15px;
-    max-height: 400px;
+    max-height: 370px;
+    font-size: 18px;
   }
 `
 

@@ -169,7 +169,7 @@ export default class BitByBit extends React.Component {
           {submitState === 'idle' && <div>submit it!</div>}
           {submitState === 'pending' && <div>submitting</div>}
           {submitState === 'done' && <div>done!</div>}
-          <i className='fa fa-arrow-up' />
+          <i className='fa fa-cloud-upload' />
         </SubmitButton>
 
         <MoreEditingButton
