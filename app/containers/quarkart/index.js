@@ -77,7 +77,7 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.cropper.img.addEventListener('ready', this.onReady)
+    this.cropper.img.addEventListener('load', this.onReady)
 
     fetch('/quarkArt.list?maxObjects=5', {
       method: 'GET',
@@ -99,21 +99,11 @@ export default class QuarkArt extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.state.isRestarting) return
-
-   this.cropper.enable()
-   this.cropper.moveTo(0, 0)
-
-   setTimeout(() => {
-     this.outlineDescription.value = ''
-     this.setState({
-       croppedImageData: null,
-       croppedImageFullData: null,
-       hasUploadedImage: false,
-       isRestarting: false,
-     })
-   }, 1000)
- }
+    const imageHasChanged = prevProps.motherImageUrl !== this.props.motherImageUrl
+    if (this.state.isRestarting && imageHasChanged) {
+      this.restart()
+    }
+  }
 
   render() {
     const {
@@ -562,6 +552,7 @@ export default class QuarkArt extends React.PureComponent {
   onDiscardQuark() {
     const newImageIndex = getMotherImageIndex()
     const isSameImage = newImageIndex === this.props.motherImageIndex
+    console.log('issame', isSameImage)
     this.setState({
       dragMode: isSameImage? 'crop' : 'move',
       mode: isSameImage? MODES.crop : MODES.multipleChoice,
@@ -569,8 +560,29 @@ export default class QuarkArt extends React.PureComponent {
       cropBoxVisible: false,
       hasCroppedOnce: true,
       isRestarting: true,
+    }, () => {
+      if (isSameImage) {
+        this.restart()
+      } else {
+        this.props.dispatch(setQuarkMotherImageIndex(newImageIndex))
+      }
     })
-    this.props.dispatch(setQuarkMotherImageIndex(newImageIndex))
+  }
+
+  @autobind
+  restart() {
+    this.cropper.enable()
+    this.cropper.moveTo(0, 0)
+
+    setTimeout(() => {
+      this.outlineDescription.value = ''
+      this.setState({
+        croppedImageData: null,
+        croppedImageFullData: null,
+        hasUploadedImage: false,
+        isRestarting: false,
+      })
+    }, 2000)
   }
 
   @autobind
@@ -589,7 +601,7 @@ export default class QuarkArt extends React.PureComponent {
   getDescriptionStyleDefault(cropBoxUnclean) {
     if (window.innerWidth <= SCREEN_WIDTH_L) {
       return {
-        top: 200,
+        top: 130,
         left: 10,
         width: window.innerWidth - 20,
       }
@@ -630,7 +642,9 @@ export default class QuarkArt extends React.PureComponent {
   getDescriptionStyleGallery(cropBox) {
     const isAtMostLargeScreen = (window.innerWidth <= SCREEN_WIDTH_L)
     const croppedImageStyle = getCroppedImageStyleGallery(cropBox)
-    const width = Math.max(croppedImageStyle.width, MIN_DESC_WIDTH)
+    const width = isAtMostLargeScreen?
+      window.innerWidth - 20 :
+      Math.max(croppedImageStyle.width, MIN_DESC_WIDTH)
     const left = isAtMostLargeScreen?
       (window.innerWidth - width) / 2 :
       (CROPPED_IMAGE_DISPLAY_WIDTH / 2) - (width / 2)
