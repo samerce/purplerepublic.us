@@ -151,17 +151,21 @@ export default class Outro extends React.Component {
         <Finality>
           <FinalWord themeColor={themeColor}>
             <div className='final-word-content'>
-              we're here to share the magic. because life is special. & we sometimes need reminders.
+              thanks for playing with us ! we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to share the magic. because life is special. & we sometimes need reminders.
 
-              <p>you pick the price. profits go to projects aimed at healing the divide and promoting dialogue over dogma, creation over destruction, love over fear and division.</p>
+              <p>through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution.</p>
 
-              <p>purple republic is a movement of performance, politics, & play. of radical expression & rebellion. of art. just for the sake of it.</p>
+              <p>if you like what we do, consider supporting our endeavors. you pick the price. funds go to projects aimed at healing the divide and promoting dialogue over dogma, creation over destruction, love over fear and division.</p>
+
+              <p>come back for a new journey soon. life is a sandcastle built too close to the shore.</p>
+
+              <hr />
+
+              <p>purple republic is a movement of performance, politics, & play. of radical expression & rebellion. of art. just for the sake of it. of perpetual empowerment.</p>
 
               <p>let's celebrate life, chase curiosities, & play with this gift of breath. WE ARE ALIVE!</p>
 
-              <p>maybe free will isn't real--but at least we get to choose where to focus. art saves lives. our mission is to share ourselves however it comes out.</p>
-
-              <p>art has societal worth. & here, being a patron means you choose the value: community meet commodity. mindful capitalism led by radical expression could save our planet.</p>
+              <p>maybe free will isn't real—but at least we get to choose where to focus. art saves lives. our mission is to share ourselves however it comes out.</p>
 
               <p>our dream is that one day everyone will know how perfect they already are.</p>
 
@@ -174,7 +178,7 @@ export default class Outro extends React.Component {
 
           <FinalFeedback themeColor={themeColor}>
             <FeedbackArea themeColor={themeColor}>
-              <textarea defaultValue='reeeeead us, hennie!'
+              <textarea placeholder='comments, feedback, collaborations, funny stories (the library is open)...'
                 ref={r => this.feedbackInput = r} />
               <SendFeedback themeColor={themeColor}>
                 send

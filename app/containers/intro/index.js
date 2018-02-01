@@ -89,7 +89,7 @@ export default class Intro extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('load', () => {
+    window.addEventListener('DOMContentLoaded', () => {
       this.timeouts.push(
         setTimeout(() => this.setState({mode: Mode.youAre})),
         setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),

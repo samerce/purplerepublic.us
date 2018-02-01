@@ -130,7 +130,7 @@ export default class ResponseSummary extends React.Component {
           <ResponseSummaryTool
             onClick={() => window.location = '#outro'}
             themeColor={themeColor}>
-            <div>nosedive</div>
+            <div>get me out of here</div>
           </ResponseSummaryTool>
         </ResponseSummaryTools>
       </ResponseSummaryRoot>
