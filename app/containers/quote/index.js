@@ -6,11 +6,13 @@ import {Header} from '../../global/styled'
 import {
   Page, QuoteRoot, TextRoot, BackgroundRoot
 } from './styled'
-import {EASE_IN_OUT_SINE} from '../../global/constants'
+import {SRC_URL} from '../../global/constants'
 
 import {connect} from 'react-redux'
 import {requestRoutePreload} from '../App/actions'
 import autobind from 'autobind-decorator'
+
+const ART_PROCESSION = SRC_URL + 'commons/art-procession.gif'
 
 @connect(d => ({
   backgroundUrl: d.get('quarkArt').get('motherImageUrl'),
@@ -22,14 +24,19 @@ export default class Quote extends React.Component {
     this.timeouts = []
     this.state = {
       isReady: false,
+      endGif: false,
+      willExit: false,
     }
   }
 
   componentWillMount() {
     this.props.dispatch(requestRoutePreload('#letsfocus'))
-    this.timeouts.push(setTimeout(() => this.setState({isReady: true})))
-    this.timeouts.push(setTimeout(() => this.setState({willExit: true}), 17000))
-    this.timeouts.push(setTimeout(() => window.location = '#letsfocus', 18000))
+    this.timeouts.push([
+      setTimeout(() => this.setState({isReady: true})),
+      setTimeout(() => this.setState({endGif: true}), 14000),
+      setTimeout(() => this.setState({willExit: true}), 17000),
+      setTimeout(() => window.location = '#letsfocus', 18000),
+    ])
   }
 
   componentWillUnmount() {
@@ -37,6 +44,9 @@ export default class Quote extends React.Component {
   }
 
   render() {
+    const backgroundUrl = this.state.endGif?
+      this.props.backgroundUrl :
+      ART_PROCESSION
     return (
       <Page className={this.pageCx()}>
         <QuoteRoot>
@@ -57,7 +67,8 @@ export default class Quote extends React.Component {
           </TextRoot>
         </QuoteRoot>
 
-        <BackgroundRoot src={this.props.backgroundUrl} />
+        <BackgroundRoot src={backgroundUrl} />
+        <img src={this.props.backgroundUrl} className='img-loader' />
       </Page>
     )
   }

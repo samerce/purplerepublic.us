@@ -53,7 +53,7 @@ const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2500
 const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
 const DURATION_DUALITY = DURATION_YOU_EVERYTHING +
   ((window.innerWidth <= SCREEN_WIDTH_S)? 13000 : 16000)
-const DURATION_WELCOME = DURATION_DUALITY + 14000
+const DURATION_WELCOME = DURATION_DUALITY + 13000
 const DURATION_EXIT = DURATION_WELCOME + 1000
 
 const Mode = makeEnum([
@@ -89,59 +89,57 @@ export default class Intro extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('DOMContentLoaded', () => {
-      this.timeouts.push(
-        setTimeout(() => this.setState({mode: Mode.youAre})),
-        setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
-        setTimeout(() => this.setState({mode: Mode.now}), DURATION_ENOUGH),
-        setTimeout(() => this.setState({mode: Mode.what}), DURATION_NOW),
+    this.timeouts.push(
+      setTimeout(() => this.setState({mode: Mode.youAre})),
+      setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
+      setTimeout(() => this.setState({mode: Mode.now}), DURATION_ENOUGH),
+      setTimeout(() => this.setState({mode: Mode.what}), DURATION_NOW),
+      setTimeout(() => {
+        this.setState({mode: Mode.ganja})
+        this.playDualityImageReel()
+      }, DURATION_WHAT),
+      setTimeout(() => this.setState({
+        mode: Mode.lifeEverything
+      }), DURATION_GANJA),
+      setTimeout(() => this.setState({
+        mode: Mode.lifeNothing
+      }), DURATION_LIFE_EVERYTHING),
+      setTimeout(() => this.setState({
+        mode: Mode.youNothing
+      }), DURATION_LIFE_NOTHING),
+      setTimeout(() => this.setState({
+        mode: Mode.youEverything
+      }), DURATION_YOU_NOTHING),
+      setTimeout(() => {
+        this.setState({mode: Mode.duality, dualityIndex: 0})
         setTimeout(() => {
-          this.setState({mode: Mode.ganja})
-          this.playDualityImageReel()
-        }, DURATION_WHAT),
-        setTimeout(() => this.setState({
-          mode: Mode.lifeEverything
-        }), DURATION_GANJA),
-        setTimeout(() => this.setState({
-          mode: Mode.lifeNothing
-        }), DURATION_LIFE_EVERYTHING),
-        setTimeout(() => this.setState({
-          mode: Mode.youNothing
-        }), DURATION_LIFE_NOTHING),
-        setTimeout(() => this.setState({
-          mode: Mode.youEverything
-        }), DURATION_YOU_NOTHING),
-        setTimeout(() => {
-          this.setState({mode: Mode.duality, dualityIndex: 0})
-          setTimeout(() => {
-            const style = this.stackedStyle('everything');
-            this.setState({everythingStyle: {
-              ...style,
-              left: this.getEverythingLeft(),
-            }})
-          }, 700)
+          const style = this.stackedStyle('everything');
+          this.setState({everythingStyle: {
+            ...style,
+            left: this.getEverythingLeft(),
+          }})
+        }, 700)
 
-          let advanceInterval = 800
-          const advance = () => {
-            this.advanceDuality()
-            if (this.state.dualityIndex === dualitySentinel) {
-              clearInterval(this.dualityInterval)
+        let advanceInterval = 800
+        const advance = () => {
+          this.advanceDuality()
+          if (this.state.dualityIndex === dualitySentinel) {
+            clearInterval(this.dualityInterval)
 
-              dualitySentinel += dualitySentinel
-              advanceInterval = Math.max(10, advanceInterval - 100)
-              this.dualityInterval = setInterval(advance, advanceInterval)
-            }
+            dualitySentinel += dualitySentinel
+            advanceInterval = Math.max(10, advanceInterval - 100)
+            this.dualityInterval = setInterval(advance, advanceInterval)
           }
-          this.dualityInterval = setInterval(advance, advanceInterval)
-        }, DURATION_YOU_EVERYTHING),
-        setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
-        setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
-        setTimeout(() => {
-          localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
-          window.location = '#start'
-        }, DURATION_EXIT),
-      )
-    })
+        }
+        this.dualityInterval = setInterval(advance, advanceInterval)
+      }, DURATION_YOU_EVERYTHING),
+      setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
+      setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
+      setTimeout(() => {
+        localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
+        window.location = '#start'
+      }, DURATION_EXIT),
+    )
   }
 
   getEverythingLeft() {

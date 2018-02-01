@@ -37,6 +37,11 @@ export const Page = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
+
+  .img-loader {
+    opacity: 0;
+    pointer-events: none;
+  }
 `
 
 export const QuoteRoot = styled.div`
@@ -104,7 +109,7 @@ export const BackgroundRoot = styled.div`
   .reveal & {
     opacity: 1;
     transform: none;
-    transition: opacity 10s ${EASE_IN_OUT_SINE} 4s,
-                transform 9.5s ${EASE_IN_OUT_SINE} 4.5s;
+    transition: opacity 10s ${EASE_IN_OUT_SINE} 3s,
+                transform 9.5s ${EASE_IN_OUT_SINE} 3.5s;
   }
 `
