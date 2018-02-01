@@ -185,6 +185,7 @@ export default class BitByBit extends React.Component {
               onClick={this.onExit}
               themeColor={themeColor}>
               <div>now what?</div>
+              <i className='fa fa-compass' />
             </ContinueButton>
 
             <MoreBitsDialogue>

@@ -193,6 +193,7 @@ export default class QuarkArt extends React.PureComponent {
                 ref={ref => this.outlineDescription = ref}
                 placeholder='describe your discovery'
                 onKeyDown={this.onKeyPressDescription}
+                disabled={mode !== MODES.describe}
                 maxLength={140} />
             </OutlineDescription>
 
@@ -452,9 +453,8 @@ export default class QuarkArt extends React.PureComponent {
   @autobind
   onEndCropping() {
     this.setState({
-      mode: 'describe',
-    })
-    this.outlineDescription.focus()
+      mode: MODES.describe,
+    }, () => this.outlineDescription.focus())
     this.cropper.disable()
   }
 

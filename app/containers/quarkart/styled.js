@@ -257,25 +257,22 @@ export const OutlineDescription = styled.div`
   }
   &.gallery {
     transition: all 1s ${easeInOutSine};
-    textarea {
-      pointer-events: none;
-    }
   }
 
   textarea {
-    flex: 0 0 auto;
+    flex: 0 0 80px;
     position: relative;
     z-index: 5;
     width: 100%;
-    font-size: 22px;
+    font-size: 18px;
     outline: none;
     padding: 10px;
     border-radius: 3px;
     background: ${p => alpha(.4, p.themeColor)};
     resize: none;
-    font-family: annie use your telescope;
+    font-family: life savers;
     color: white;
-    text-shadow: 1px 1px alpha(.3, ${p => p.themeColor});
+    text-shadow: 1px 1px ${p => alpha(.3, p.themeColor)};
     transition: all .4s ${EASE_OUT};
     text-align: center;
 

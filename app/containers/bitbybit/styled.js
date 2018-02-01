@@ -163,7 +163,7 @@ export const BitBoxTextRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 20px 30px 15px;
-    max-height: 370px;
+    max-height: 250px;
     font-size: 18px;
   }
 `
@@ -317,6 +317,7 @@ const BitArticleButton = styled.div`
   width: 190px;
   cursor: pointer;
   opacity: 0;
+  user-select: none;
 
   i {
     margin: 0 15px;
@@ -365,22 +366,23 @@ const BitArticleButton = styled.div`
   }
 `
 
-export const ContinueButton = styled(ToolBarItem)`
-  text-align: center;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  transform: translateY(100px);
-  background: linear-gradient(to bottom,
-  transparent 0%, ${p => alpha(.3, p.themeColor)} 100%);
-  pointer-events: none;
+export const ContinueButton = styled(BitArticleButton)`
   z-index: 5;
+  transform: translateX(100%);
+  right: 0;
+  bottom: 100px;
 
-  .readBitArticle & {
-    opacity: 1;
-    transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} 1.5s;
-    pointer-events: all;
+  &:after {
+    background: linear-gradient(to left,
+      ${p => alpha(.2, p. themeColor)} 0%, transparent 100%);
+  }
+  &:hover i {
+    margin-left: 20px;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    width: 100%;
+    bottom: 0;
   }
 `
 
