@@ -6,7 +6,7 @@ export default class PayPalLink extends React.Component {
 
   @autobind
   click() {
-    this.link = r
+    this.link.click()
   }
 
   render() {

@@ -319,7 +319,7 @@ export const IntroMask = styled.div`
 `
 
 export const InfoRoot = styled.div`
-  z-index: 15;
+  z-index: 4;
   position: absolute;
   bottom: 20px;
   width: 100%;
@@ -441,6 +441,7 @@ export const SocialRoot = styled.div`
   cursor: pointer;
   opacity: .5;
   transition: all .5s ${EASE_IN_OUT_SINE};
+  z-index: 7;
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;
@@ -514,7 +515,7 @@ export const SocialIcon = styled.i`
 `
 
 export const SocialButtonsRoot = styled.div`
-  z-index: 4;
+  z-index: 7;
   display: flex;
   flex-direction: column;
 
@@ -526,6 +527,7 @@ export const SocialButtonsRoot = styled.div`
     width: 100%;
     height: 100%;
     cursor: pointer;
+    pointer-events: none;
   }
   .i8 {
     margin: 10px 0 10px 4px;

@@ -60,28 +60,6 @@ export const Page = styled.div`
     transition: opacity 2s, transform 3s;
     transition-timing-function: ${EASE_OUT};
   } */}
-
-  &.outro-enter {
-    .product-link {
-      &.left, &.right {
-        opacity: 1;
-        transform: none;
-        transition: all .5s ${EASE_IN_OUT_SINE} 1.5s;
-      }
-    }
-  }
-
-  .product-link {
-    opacity: 0;
-    transition: all .5s ${EASE_IN_OUT_SINE} 1.5s;
-
-    &.left {
-      transform: translateX(-200px);
-    }
-    &.right {
-      transform: translateX(200px);
-    }
-  }
 `
 
 export const Background = styled.div`
@@ -140,21 +118,30 @@ export const Product = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ${EASE_IN_OUT_SINE};
+  transition: all 1s ${EASE_IN_OUT_SINE} 1.5s;
 
   img {
     width: 100%;
   }
 
   &.product-left {
-    left: 50px;
+    left: -250px;
     animation-name: vying1;
     animation-duration: 5s;
+
+    .outro-enter & {
+      left: 50px;
+    }
   }
   &.product-right {
-    right: 50px;
+    right: -250px;
     animation-name: vying2;
     animation-duration: 7s;
     transform: translateX(200px);
+
+    .outro-enter & {
+      right: 50px;
+    }
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -185,6 +172,12 @@ export const Callout = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
   text-shadow: 1px 1px rgba(0,0,0,.5);
+  opacity: 0;
+
+  .outro-enter & {
+    opacity: 1;
+    transition: opacity .5s ${EASE_IN_OUT_SINE} 2s;
+  }
 
   span {
     display: inline-block;
@@ -318,6 +311,10 @@ const IconRoot = styled.div`
   justify-self: center;
   flex: 1 0 auto;
 
+  object {
+    pointer-events: none;
+  }
+
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     position: absolute;
     transition: all .5s ${EASE_OUT};
@@ -395,7 +392,6 @@ export const FundIcons = styled(IconRoot)`
 
   object {
     width: 50px;
-    pointer-events: none;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
