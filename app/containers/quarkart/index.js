@@ -167,34 +167,39 @@ export default class QuarkArt extends React.PureComponent {
 
         {this.renderMultipleChoiceTools()}
 
-        <CropPrompt className={shouldShowCropPrompt && 'show'} themeColor={themeColor}>
+        {!this.props.isPreloading &&
           <div>
-            {!hasCroppedOnce && <span>{selectedChoice}. </span>}
-            really, where?
+            <CropPrompt className={shouldShowCropPrompt && 'show'}
+                themeColor={themeColor}>
+              <div>
+                {!hasCroppedOnce && <span>{selectedChoice}. </span>}
+                really, where?
+              </div>
+            </CropPrompt>
+
+            {this.renderCropTools()}
+            {this.renderDescribeTools()}
+
+            <CroppedImage
+              themeColor={themeColor}
+              className={croppedImageCx}
+              src={croppedImageData}
+              style={croppedImageStyle} />
+            <OutlineDescription
+              themeColor={themeColor}
+              className={descriptionCx}
+              style={descriptionStyle}>
+              <textarea
+                ref={ref => this.outlineDescription = ref}
+                placeholder='describe your discovery'
+                onKeyDown={this.onKeyPressDescription}
+                maxLength={140} />
+            </OutlineDescription>
+
+            {this.renderQuarkArtGallery()}
+            {this.renderGalleryTools()}
           </div>
-        </CropPrompt>
-
-        {this.renderCropTools()}
-        {this.renderDescribeTools()}
-
-        <CroppedImage
-          themeColor={themeColor}
-          className={croppedImageCx}
-          src={croppedImageData}
-          style={croppedImageStyle} />
-        <OutlineDescription
-          themeColor={themeColor}
-          className={descriptionCx}
-          style={descriptionStyle}>
-          <textarea
-            ref={ref => this.outlineDescription = ref}
-            placeholder='describe your discovery'
-            onKeyDown={this.onKeyPressDescription}
-            maxLength={140} />
-        </OutlineDescription>
-
-        {this.renderQuarkArtGallery()}
-        {this.renderGalleryTools()}
+        }
 
         <Cropper
           themeColor={themeColor}

@@ -154,56 +154,60 @@ export default class BitByBit extends React.Component {
           <div>done editing</div>
         </DoneEditingButton>
 
-        <BitArticleRoot>
-          <BitArticle
-            height={(window.scrollHeight - 100) + 'px'}
-            themeColor={themeColor}
-            dangerouslySetInnerHTML={{__html: bitArticle}}>
-          </BitArticle>
-        </BitArticleRoot>
+        {!this.props.isPreloading &&
+          <div>
+            <BitArticleRoot>
+              <BitArticle
+                height={(window.scrollHeight - 100) + 'px'}
+                themeColor={themeColor}
+                dangerouslySetInnerHTML={{__html: bitArticle}}>
+              </BitArticle>
+            </BitArticleRoot>
 
-        <SubmitButton
-          disabled={submitState !== 'idle'}
-          onClick={this.submitArticle}
-          themeColor={themeColor}>
-          {submitState === 'idle' && <div>submit it!</div>}
-          {submitState === 'pending' && <div>submitting</div>}
-          {submitState === 'done' && <div>done!</div>}
-          <i className='fa fa-cloud-upload' />
-        </SubmitButton>
+            <SubmitButton
+              disabled={submitState !== 'idle'}
+              onClick={this.submitArticle}
+              themeColor={themeColor}>
+              {submitState === 'idle' && <div>submit it!</div>}
+              {submitState === 'pending' && <div>submitting</div>}
+              {submitState === 'done' && <div>done!</div>}
+              <i className='fa fa-cloud-upload' />
+            </SubmitButton>
 
-        <MoreEditingButton
-          onClick={this.onMoreEditing}
-          themeColor={themeColor}>
-          <i className='fa fa-cubes' />
-          <div>more bits!</div>
-        </MoreEditingButton>
+            <MoreEditingButton
+              onClick={this.onMoreEditing}
+              themeColor={themeColor}>
+              <i className='fa fa-cubes' />
+              <div>more bits!</div>
+            </MoreEditingButton>
 
-        <ContinueButton
-          onClick={this.onExit}
-          themeColor={themeColor}>
-          <div>now what?</div>
-        </ContinueButton>
+            <ContinueButton
+              onClick={this.onExit}
+              themeColor={themeColor}>
+              <div>now what?</div>
+            </ContinueButton>
 
-        <MoreBitsDialogue>
-          <MoreBitsContent themeColor={themeColor}>
-            <MoreBitsContinue onClick={this.onClickMoreBitsContinue}>
-              <div>keep editing</div>
-            </MoreBitsContinue>
-            <MoreBitsNewText onClick={this.onClickMoreBitsNewText}>
-              <div>edit new work</div>
-            </MoreBitsNewText>
-            <MoreBitsTextEntry themeColor={themeColor}>
-              <BitBoxText
-                className='newBitsInput'
-                placeholder='your new bits here'
-                innerRef={r => this.newBitsTextArea = r} />
-              <BitBoxSubmit onClick={this.onClickNewBitsSubmit}>
-                <div>edit this!</div>
-              </BitBoxSubmit>
-            </MoreBitsTextEntry>
-          </MoreBitsContent>
-        </MoreBitsDialogue>
+            <MoreBitsDialogue>
+              <MoreBitsContent themeColor={themeColor}>
+                <MoreBitsContinue onClick={this.onClickMoreBitsContinue}>
+                  <div>keep editing</div>
+                </MoreBitsContinue>
+                <MoreBitsNewText onClick={this.onClickMoreBitsNewText}>
+                  <div>edit new work</div>
+                </MoreBitsNewText>
+                <MoreBitsTextEntry themeColor={themeColor}>
+                  <BitBoxText
+                    className='newBitsInput'
+                    placeholder='your new bits here'
+                    innerRef={r => this.newBitsTextArea = r} />
+                  <BitBoxSubmit onClick={this.onClickNewBitsSubmit}>
+                    <div>edit this!</div>
+                  </BitBoxSubmit>
+                </MoreBitsTextEntry>
+              </MoreBitsContent>
+            </MoreBitsDialogue>
+          </div>
+        }
       </Page>
     )
   }
@@ -235,7 +239,7 @@ export default class BitByBit extends React.Component {
       this.setState({mode: MODES.bitReview})
     }, 4000))
 
-    // this.props.dispatch(requestRoutePreload('#letsimprov'))
+    this.props.dispatch(requestRoutePreload('#letsimprov'))
   }
 
   @autobind
