@@ -172,8 +172,9 @@ export default class Video extends React.Component {
 
   @autobind
   onVideoReady({target: player}) {
+    this.player = player
     if (this.state.hasMadeEntrance || this.props.isPreloading) {
-      return this.player = player
+      return 
     }
     this.makeAnEntrance(player)
   }
@@ -222,6 +223,7 @@ export default class Video extends React.Component {
 
   @autobind
   onExitReviewMode() {
+    this.player && this.player.stopVideo()
     this.setState({mode: Mode.videoResponseSummary})
   }
 
