@@ -38,6 +38,7 @@ export default class Video extends React.Component {
   constructor() {
     super()
 
+    this.noRecording = !window.MediaRecorder
     this.timers = []
     this.state = {
       mode: Mode.videoWillEnter,
@@ -97,12 +98,14 @@ export default class Video extends React.Component {
             <div>make script</div>
           </ReviewTool>
           <ReviewTool
-            onClick={() => this.setState({mode: Mode.videoMakeVideoResponse})}
+            className={this.noRecording && 'bad-apple'}
+            onClick={() => this.showMediaRecorder('Video')}
             themeColor={themeColor}>
             <div>make video response</div>
           </ReviewTool>
           <ReviewTool
-            onClick={() => this.setState({mode: Mode.videoMakeAudioResponse})}
+            className={this.noRecording && 'bad-apple'}
+            onClick={() => this.showMediaRecorder('Audio')}
             themeColor={themeColor}>
             <div>make audio response</div>
           </ReviewTool>
@@ -148,6 +151,14 @@ export default class Video extends React.Component {
 
       </Page>
     )
+  }
+
+  @autobind
+  showMediaRecorder(type) {
+    if (this.noRecording) {
+      return alert('your browser doesn\'t support recording experiences. :(\nuse google chrome instead!')
+    }
+    this.setState({mode: Mode[`videoMake${type}Response`]})
   }
 
   onEnter() {

@@ -136,6 +136,10 @@ const ToolBar = styled(ToolBarRaw)`
 export const MultipleChoices = styled(ToolBar)`
   .mode-multipleChoice & {
     pointer-events: all;
+
+    .enter &.show {
+      transition-delay: .2s;
+    }
   }
 `
 

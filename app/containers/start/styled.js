@@ -245,6 +245,7 @@ export const PlayButton = styled.div`
   ${'' /* border: 1px solid #AD5B7B; */}
   box-shadow: 0px 0px 20px rgba(0,0,0,.4);
   text-shadow: 1px 1px rgba(87, 5, 76, .2);
+  user-select: none;
 
   &:hover {
     background: rgba(172, 90, 122, 0.6);
@@ -368,7 +369,8 @@ export const InfoContentRoot = styled.div`
   &:hover, &.infoHover, .startIntro & {
     background: rgba(255, 255, 255, .1);
     transform: none;
-    transition: all .5s ${EASE_OUT};
+    transition: background .5s, color .2s, transform .5s;
+    transition-timing-function: ${EASE_OUT};
 
     .detail {
       opacity: 1;

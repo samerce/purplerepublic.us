@@ -489,9 +489,10 @@ export const MoreBitsTextEntry = styled.div`
   width: 100%;
   height: 100px;
   align-items: center;
+  display: none;
 
-  .bitMorePrompt & {
-    display: none;
+  .bitMoreTextEntry & {
+    display: initial;
   }
 
   .newBitsInput {

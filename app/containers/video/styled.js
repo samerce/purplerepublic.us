@@ -140,7 +140,10 @@ export const ReviewTools = styled(ToolBar)`
 `
 
 export const ReviewTool = styled(ToolBarItem)`
-
+  &.bad-apple {
+    text-decoration: line-through;
+    opacity: .5;
+  }
 `
 
 export const ScriptRoot = styled.div`
