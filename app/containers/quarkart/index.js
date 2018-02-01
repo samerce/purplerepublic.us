@@ -78,6 +78,9 @@ export default class QuarkArt extends React.PureComponent {
 
   componentDidMount() {
     this.cropper.img.addEventListener('load', this.onReady)
+    this.cropper.img.addEventListener('error', () => {
+      this.cropper.img.src = this.props.motherImageUrl + '?' + new Date().getTime()
+    })
 
     fetch('/quarkArt.list?maxObjects=5', {
       method: 'GET',
