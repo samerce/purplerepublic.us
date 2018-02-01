@@ -94,11 +94,13 @@ export default class QuarkArt extends React.PureComponent {
     }).catch(e => {
       console.warning('quark art list fetch failed', e)
     })
-
-    this.props.dispatch(requestRoutePreload('#letswrite'))
   }
 
   componentDidUpdate(prevProps) {
+    if (prevProps.isPreloading && !this.props.isPreloading) {
+      this.props.dispatch(requestRoutePreload('#letswrite'))
+    }
+
     const imageHasChanged = prevProps.motherImageUrl !== this.props.motherImageUrl
     if (this.state.isRestarting && imageHasChanged) {
       this.restart()
@@ -364,7 +366,7 @@ export default class QuarkArt extends React.PureComponent {
   @autobind
   onReady() {
     setTimeout(() => this.setState({isReady: true}), 1000)
-    this.cropper.moveTo(0, 0)
+    this.timers.push(setTimeout(() => this.cropper.moveTo(0, 0), 500))
   }
 
   @autobind

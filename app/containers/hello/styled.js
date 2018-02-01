@@ -36,12 +36,12 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 2;
-  transform: scale(1.3);
+  transform: scale(1.01);
   opacity: 0;
 
   .hello-enter & {
     opacity: 1;
-    transform: none;
+    transform: scale(1.05);
     transition: opacity 1s, transform 1s;
     transition-timing-function: ${EASE_IN_OUT_SINE};
   }

@@ -45,7 +45,6 @@ export const QuoteRoot = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,14 +55,23 @@ export const TextRoot = styled.div`
   border-radius: 5px;
   font-size: 36px;
   font-family: quattrocento;
-  width: 605px;
-  height: 200px;
+  width: ${window.innerWidth - 20}px;
+  max-width: 605px;
   padding: 15px;
   text-align: center;
+  cursor: pointer;
+
 
   .reveal & {
     background-color: ${alpha(.2, 'white')};
-    transition: all 8s ${EASE_IN_OUT_SINE} 7s;
+    transition: background-color 8s ${EASE_IN_OUT_SINE} 7s,
+    transform .3s ${EASE_OUT}, box-shadow .3s ${EASE_OUT};
+
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: 3px 5px 20px rgba(0,0,0,.3);
+      transition: all .5s ${EASE_IN_OUT_SINE};
+    }
   }
   .exit & {
     transform: scale(.95);
@@ -74,8 +82,10 @@ export const TextRoot = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     font-size: 22px;
-    width: ${window.innerWidth - 20}px;
-    height: 170px;
+  }
+
+  & > * {
+    pointer-events: none;
   }
 `
 
@@ -89,6 +99,7 @@ export const BackgroundRoot = styled.div`
   height: 100%;
   width: 100%;
   transform: scale(1.2);
+  pointer-events: none;
 
   .reveal & {
     opacity: 1;

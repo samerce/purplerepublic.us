@@ -362,7 +362,7 @@ export const InfoContentRoot = styled.div`
   border-radius: 3px;
   transition: all .3s ${EASE_OUT};
   padding: 15px;
-  transform: translateY(80px);
+  transform: translateY(120px);
   color: white;
 
   &:hover, &.infoHover, .startIntro & {

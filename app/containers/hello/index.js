@@ -39,7 +39,7 @@ export default class Hello extends React.Component {
         <Background src={BACKGROUND_URL} />
         <HeaderRoot>
           <Header className='hello-header'>
-            alan watts & mystical experience
+            perpetual empowerment
           </Header>
         </HeaderRoot>
         <TransitionGif src={TRANSITION_URL} />

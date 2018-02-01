@@ -5,7 +5,7 @@ import {getMotherImageIndex} from '../../utils/quarkart'
 import {SRC_URL} from '../../global/constants'
 
 const BASE_IMAGE_URL = SRC_URL + 'quark-art/mothers/'
-const initialImageIndex = getMotherImageIndex()
+const initialImageIndex = 2//getMotherImageIndex()
 const initialState = fromJS({
   motherImageIndex: initialImageIndex,
   motherImageUrl: getQuarkImageUrl(initialImageIndex),

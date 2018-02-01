@@ -257,7 +257,7 @@ export default class Start extends React.Component {
               <InfoIntroText>journey <span>001</span></InfoIntroText>
             </InfoIntroRoot>
             <InfoDetailText className='detail'>
-              go on a journey with us. we all need a little bit more exploration in our lives. it's all a dream. anyway...
+              welcome to purple republic! we're here to think, make art and celebrate living. through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. 
             </InfoDetailText>
           </InfoContentRoot>
         </InfoRoot>
