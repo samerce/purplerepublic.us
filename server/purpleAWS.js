@@ -8,6 +8,7 @@ const s3 = new aws.S3()
 module.exports = {
   s3,
   uploadFileToS3,
+  BUCKET,
 }
 
 function uploadFileToS3({key, fileData}) {

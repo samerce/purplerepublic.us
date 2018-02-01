@@ -1,7 +1,7 @@
-const {s3} = require('./purpleAWS')
+const {s3, BUCKET} = require('./purpleAWS')
 
-const REVIEW_BUCKET = 'quark-art'
-const GALLERY_BUCKET = 'quark-art-gallery'
+const REVIEW_PATH = 'quark-art/submissions/'
+const GALLERY_PATH = 'quark-art/gallery/'
 const GALLERY_BUCKET_BASE_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
 
 module.exports = {
@@ -35,8 +35,8 @@ var uploadToS3 = ({imageData, description, sourceImage, cropBox}) => {
     'base64'
   )
   const params = {
-    Bucket: REVIEW_BUCKET,
-    Key: new Date().getTime() + '.jpg',
+    Bucket: BUCKET,
+    Key: REVIEW_PATH + new Date().getTime() + '.jpg',
     ACL: 'public-read',
     Body: imageBuffer,
     ContentEncoding: 'base64',
@@ -62,7 +62,7 @@ var uploadToS3 = ({imageData, description, sourceImage, cropBox}) => {
 
 function listGalleryItems({maxObjects, continuationToken}) {
   const params = {
-    Bucket: GALLERY_BUCKET,
+    Bucket: BUCKET,
     Prefix: 'quark-art/gallery/',
     ContinuationToken: continuationToken,
     EncodingType: 'url',
@@ -107,7 +107,7 @@ function listGalleryItems({maxObjects, continuationToken}) {
 function getGalleryItem(itemPtr) {
   return new Promise((resolve, reject) => {
     s3.getObject({
-      Bucket: GALLERY_BUCKET,
+      Bucket: GALLERY_PATH,
       Key: itemPtr.Key,
     }, (err, item) => {
       if (err) {
