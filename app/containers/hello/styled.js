@@ -44,10 +44,23 @@ export const Background = styled.div`
     transform: scale(1.05);
     transition: opacity 1s, transform 1s;
     transition-timing-function: ${EASE_IN_OUT_SINE};
+
+    @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+      transform: scale(1.05) translateX(-150px);
+    }
   }
   .hello-exit & {
     transform: translateX(-100%);
     transition: transform 3s linear .2s;
+
+    @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+      transition-duration: 4.5s;
+    }
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+    width: ${window.innerHeight * 1.2}px;
+    transform: scale(1.01) translateX(-150px);
   }
 `
 
@@ -83,9 +96,14 @@ export const HeaderRoot = styled.div`
     .hello-exit & {
       transform: translateX(-100%);
       transition: transform 3s linear .2s;
+
+      @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+        transform: translateY(200px);
+        transition: all .5s ${EASE_OUT};
+      }
     }
 
-    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    @media (max-width: ${SCREEN_WIDTH_S_PX}) {
       padding: 50px 5px 20px;
     }
   }
@@ -109,10 +127,11 @@ export const TransitionGif = styled.div`
     transition: all 3.3s linear .2s;
   }
 
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
     .hello-exit & {
-      left: -150px;
-      transition-duration: 4.2s;
+      left: -200px;
+      transition-duration: 3.8s;
+      transition-delay: .7s;
     }
   }
 `

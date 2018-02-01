@@ -6,9 +6,14 @@ import {
   Page, HeaderRoot, TransitionGif, Background,
 } from './styled'
 
-import {SRC_URL} from '../../global/constants'
+import {
+  SRC_URL,
+  SCREEN_WIDTH_S,
+  SCREEN_WIDTH_M,
+  SCREEN_WIDTH_L,
+} from '../../global/constants'
 
-const BACKGROUND_URL = SRC_URL + 'commons/watts.jpg'
+const BACKGROUND_URL = SRC_URL + 'commons/' + ((window.innerWidth <= SCREEN_WIDTH_M)? 'grandma-bubbles-mobile.jpg' : 'grandma-bubbles.jpg')
 const TRANSITION_URL = SRC_URL + 'commons/paris-walking.gif'
 
 export default class Hello extends React.Component {
