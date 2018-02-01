@@ -16,7 +16,7 @@ import {
 } from './styled'
 
 const PLAYER_ELEMENT_ID = 'videoPlayer'
-const VIDEO_ID = 's2gGuBA_acg' // youtube video's identifier
+const VIDEO_ID = 'GKvrUeSVnWQ' // youtube video's identifier
 const Mode = makeEnum([
   'videoWillEnter',
   'videoEnter',

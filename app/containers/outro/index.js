@@ -97,7 +97,7 @@ export default class Outro extends React.Component {
               <a href='https://www.medium.com/the-purple-republic' target='_blank'>
                 <SocialIcon className='fa fa-medium i6' />
               </a>
-              <a href='https://www.youtube.com/channel/UCHDkvhWZKjA6lnX1vcGvGPw' target='_blank'>
+              <a href='https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw' target='_blank'>
                 <SocialIcon className='fa fa-youtube-square i5' />
               </a>
               <a href='https://www.twitter.com/1purplerepublic' target='_blank'>
