@@ -214,7 +214,7 @@ export default class Outro extends React.Component {
           <KeepPlayingToolbarItem
             onClick={() => window.location = ''}
             themeColor={themeColor}>
-            <div>eat my own tail</div>
+            <div>eat your own tail</div>
           </KeepPlayingToolbarItem>
         </KeepPlayingToolbar>
 

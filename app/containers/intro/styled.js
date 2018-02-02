@@ -46,6 +46,14 @@ injectGlobal`
       line-height: 42px;
     }
   }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `
 
 export const Root = styled.div`
@@ -96,6 +104,29 @@ export const TypingRoot = styled.div`
   align-items: center;
   justify-content: center;
   background: transparent;
+`
+
+export const Disclaimer = styled.div`
+  margin: 0 15px;
+  max-width: 600px;
+  font-family: quattrocento;
+  font-size: 24px;
+  opacity: 0;
+  text-align: center;
+
+  .intro-disclaimer & {
+    opacity: 1;
+    transition: all 2s ${EASE_IN_OUT_SINE};
+    animation-name: fadeOut;
+    animation-duration: 3s;
+    animation-fill-mode: both;
+    animation-delay: 9s;
+    animation-timing-function: ${EASE_IN_OUT_SINE};
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 20px;
+  }
 `
 
 export const YouAre = styled.div`
@@ -214,7 +245,7 @@ export const Life = styled.div`
   }
 `
 
-const DURATION_IS = 4
+const DURATION_IS = 3
 
 export const Is = styled.div`
   opacity: 0;

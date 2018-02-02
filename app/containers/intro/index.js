@@ -8,7 +8,7 @@ import {
   Root, TypingRoot, YouAre, Enough, Now, Sneaky, What,
   DualityRoot, Duality, Life, Is, Everything, Nothing, YouAreToo,
   DualityText, DualityImages, WelcomeRoot, Brand, Tagline, WelcomeBackdrop,
-  SkipButtonRoot, SkipButton,
+  SkipButtonRoot, SkipButton, Disclaimer,
 } from './styled'
 import {cx} from '../../utils/style'
 
@@ -42,22 +42,24 @@ let dualitySentinel = 1
 const DUALITY_WORD_PADDING = 10
 const EV_FUDGE = 150
 
-const DURATION_YOU_ARE = 4500
+const DURATION_DISCLAIMER = 12000
+const DURATION_YOU_ARE = DURATION_DISCLAIMER + 4500
 const DURATION_ENOUGH = DURATION_YOU_ARE + 3500
 const DURATION_NOW = DURATION_ENOUGH + 7500
 const DURATION_WHAT = DURATION_NOW + 2500
-const DURATION_GANJA = DURATION_WHAT + 4000
+const DURATION_GANJA = DURATION_WHAT + 3000
 const DURATION_LIFE_EVERYTHING = DURATION_GANJA + 7000
 const DURATION_LIFE_NOTHING = DURATION_LIFE_EVERYTHING + 2000
 const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2500
 const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
 const DURATION_DUALITY = DURATION_YOU_EVERYTHING +
-  ((window.innerWidth <= SCREEN_WIDTH_S)? 13000 : 16000)
+  ((window.innerWidth <= SCREEN_WIDTH_S)? 17000 : 20000)
 const DURATION_WELCOME = DURATION_DUALITY + 12000
 const DURATION_EXIT = DURATION_WELCOME + 1000
 
 const Mode = makeEnum([
   'enter',
+  'disclaimer',
   'youAre',
   'enough',
   'now',
@@ -90,7 +92,8 @@ export default class Intro extends React.Component {
 
   componentDidMount() {
     this.timeouts.push(
-      setTimeout(() => this.setState({mode: Mode.youAre})),
+      setTimeout(() => this.setState({mode: Mode.disclaimer})),
+      setTimeout(() => this.setState({mode: Mode.youAre}), DURATION_DISCLAIMER),
       setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
       setTimeout(() => this.setState({mode: Mode.now}), DURATION_ENOUGH),
       setTimeout(() => this.setState({mode: Mode.what}), DURATION_NOW),
@@ -164,9 +167,17 @@ export default class Intro extends React.Component {
         </SkipButtonRoot>
 
         <TypingRoot>
+          <Disclaimer>
+            we live in a world of labels & to-do.<br />
+            we entreat you to let that all go and play with us.<br />
+            life isn't a passive activity, technology isn't something that happens to you, let's have a back & forth...
+          </Disclaimer>
+        </TypingRoot>
+
+        <TypingRoot>
           <YouAre>
             <Typist avgTypingDelay={110} className='intro-text'
-               startDelay={700}>
+               startDelay={DURATION_DISCLAIMER + 700}>
               you are<Typist.Delay ms={500} />.
               <Typist.Backspace count={1} delay={1700} />
             </Typist>

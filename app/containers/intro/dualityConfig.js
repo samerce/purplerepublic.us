@@ -1,9 +1,10 @@
 export default {
+  life: {},
   theatre: {
   },
+  meditation: {},
+  ego: {},
   play: {
-  },
-  meditation: {
   },
   effort: {
   },
@@ -33,10 +34,8 @@ export default {
   schopenhauer: {},
   competition: {},
   collaboration: {},
-  ego: {},
   dance: {},
   mania: {},
-  depression: {},
   addiction: {},
   drugs: {},
   sin: {},
