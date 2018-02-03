@@ -38,6 +38,7 @@ export default class Outro extends React.Component {
       shareOpen: false,
       shopOpen: false,
       fundOpen: false,
+      sendText: 'send'
     }
   }
 
@@ -52,7 +53,7 @@ export default class Outro extends React.Component {
   }
 
   render() {
-    const {mode, menuOpen, shareOpen, shopOpen, fundOpen} = this.state
+    const {mode, menuOpen, shareOpen, shopOpen, fundOpen, sendText} = this.state
     const {backgroundUrl, themeColor} = this.props
     return (
       <Page className={'outro-' + mode}>
@@ -178,10 +179,13 @@ export default class Outro extends React.Component {
 
           <FinalFeedback themeColor={themeColor}>
             <FeedbackArea themeColor={themeColor}>
-              <textarea placeholder='comments, feedback, collaborations, funny stories (the library is open)...'
+              <textarea
+                placeholder='comments, feedback, collaborations, funny stories (the library is open)...'
                 ref={r => this.feedbackInput = r} />
-              <SendFeedback themeColor={themeColor}>
-                send
+              <SendFeedback
+                themeColor={themeColor}
+                onClick={this.sendFeedback}>
+                {sendText}
               </SendFeedback>
             </FeedbackArea>
           </FinalFeedback>
@@ -237,5 +241,28 @@ export default class Outro extends React.Component {
     }))
   }
 
+  @autobind
+  sendFeedback() {
+    const blob = new Blob(
+      ['outro-feedback: ' + this.feedbackInput.value],
+      {type: 'text/plain'})
+    const body = new FormData()
+    body.append('blob', blob)
+
+    this.setState({sendText: 'sending'})
+
+    fetch('/submissions.upload', {
+      method: 'post',
+      body,
+    }).then(responseRaw => {
+      console.log('finished uploading feedback', responseRaw)
+      this.setState({sendText: 'sent!'})
+      this.timers.push(
+        setTimeout(() => this.setState({sendText: 'send'}), 3000)
+      )
+    }).catch(e => {
+      console.warn('failed uploading feedback', e)
+    })
+  }
 
 }

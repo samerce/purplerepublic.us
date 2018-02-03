@@ -263,7 +263,7 @@ export default class BitByBit extends React.Component {
   @autobind
   submitArticle() {
     const body = new FormData()
-    body.append('blob', new Blob([this.state.bitArticle], {type: 'text/plain'}))
+    body.append('blob', new Blob(['bit-by-bit: ' + this.state.bitArticle], {type: 'text/plain'}))
 
     this.setState({submitState: 'pending'})
 

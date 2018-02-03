@@ -108,7 +108,7 @@ export const TypingRoot = styled.div`
 
 export const Disclaimer = styled.div`
   margin: 0 15px;
-  max-width: 600px;
+  max-width: 660px;
   font-family: quattrocento;
   font-size: 24px;
   opacity: 0;

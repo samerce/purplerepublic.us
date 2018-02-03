@@ -169,7 +169,7 @@ export default class Intro extends React.Component {
         <TypingRoot>
           <Disclaimer>
             we live in a world of labels & to-do.<br />
-            we entreat you to let that all go and play with us.<br />
+            we entreat you to slow down, let that all go and play with us!<br />
             life isn't a passive activity, technology isn't something that happens to you, let's have a back & forth...
           </Disclaimer>
         </TypingRoot>
