@@ -120,7 +120,7 @@ export const Disclaimer = styled.div`
     animation-name: fadeOut;
     animation-duration: 3s;
     animation-fill-mode: both;
-    animation-delay: 9s;
+    animation-delay: 11s;
     animation-timing-function: ${EASE_IN_OUT_SINE};
   }
 

@@ -42,7 +42,7 @@ let dualitySentinel = 1
 const DUALITY_WORD_PADDING = 10
 const EV_FUDGE = 150
 
-const DURATION_DISCLAIMER = 12000
+const DURATION_DISCLAIMER = 14000
 const DURATION_YOU_ARE = DURATION_DISCLAIMER + 4500
 const DURATION_ENOUGH = DURATION_YOU_ARE + 3500
 const DURATION_NOW = DURATION_ENOUGH + 7500
@@ -168,9 +168,12 @@ export default class Intro extends React.Component {
 
         <TypingRoot>
           <Disclaimer>
-            we live in a world of labels & to-do.<br />
-            we entreat you to slow down, let that all go and play with us!<br />
-            life isn't a passive activity, technology isn't something that happens to you, let's have a back & forth...
+            if you are alive you are political.<br />
+            you are an activist, artist, & <strong>creator</strong>.<br />
+            we are in this together, unicorns!<br /><br />
+            let's <strong>slow down</strong>—play, challenge, create, & inspire.<br />
+            let's wig the system. <strong>perpetually empower</strong> all races, genders, classes—all beings—to step into the light. <br />
+            dialogue over dogma, <strong>express over survive</strong>.
           </Disclaimer>
         </TypingRoot>
 
