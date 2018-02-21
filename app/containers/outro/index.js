@@ -92,7 +92,7 @@ export default class Outro extends React.Component {
               reach us
             </ReachText>
             <ReachIcons visible={shareOpen}>
-              <a href='https://www.facebook.com/purplerepublic.us' target='_blank'>
+              <a href='https://www.facebook.com/purplerepublic' target='_blank'>
                 <SocialIcon className='fa fa-facebook-square i1' />
               </a>
               <a href='https://www.medium.com/the-purple-republic' target='_blank'>
