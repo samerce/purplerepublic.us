@@ -42,7 +42,7 @@ let dualitySentinel = 1
 const DUALITY_WORD_PADDING = 10
 const EV_FUDGE = 150
 
-const DURATION_DISCLAIMER = 14000
+const DURATION_DISCLAIMER = 12000
 const DURATION_YOU_ARE = DURATION_DISCLAIMER + 4500
 const DURATION_ENOUGH = DURATION_YOU_ARE + 3500
 const DURATION_NOW = DURATION_ENOUGH + 7500
@@ -168,12 +168,14 @@ export default class Intro extends React.Component {
 
         <TypingRoot>
           <Disclaimer>
-            if you are alive you are political.<br />
-            you are an activist, artist, & <strong>creator</strong>.<br />
-            we are in this together, unicorns!<br /><br />
-            let's <strong>slow down</strong>—play, challenge, create, & inspire.<br />
-            let's wig the system. <strong>perpetually empower</strong> all races, genders, classes—all beings—to step into the light. <br />
-            dialogue over dogma, <strong>express over survive</strong>.
+            hi, unicorn ! want to change the world with us?<br />
+            democracy is stale so we’re here to give her a facelift.<br />
+            <br />
+            less rich white guys in ugly suits<br />
+            more powerful women, fabulous drag queens, and vital people of color<br />
+            <br />
+            sound too good to be true? we don’t think so.<br />
+            welcome to the revolution, baby !
           </Disclaimer>
         </TypingRoot>
 
