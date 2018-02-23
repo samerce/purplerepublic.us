@@ -1,5 +1,5 @@
 import styled, {injectGlobal} from 'styled-components'
-import {transparentize as alpha} from 'polished'
+import {transparentize as alpha, darken} from 'polished'
 import {
   CatchLine as aCatchLine,
   SweetTalk as aSweetTalk,
@@ -98,34 +98,71 @@ export const BackgroundRoot = styled.div`
 export const TypingRoot = styled.div`
   position: absolute;
   top: 0;
-  bottom: 0;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
+
+  &.first {
+    z-index: 6;
+    overflow-y: scroll;
+  }
 `
 
 export const Disclaimer = styled.div`
   margin: 0 15px;
-  max-width: 660px;
+  max-width: 700px;
   font-family: quattrocento;
-  font-size: 24px;
+  font-size: 20px;
   opacity: 0;
   text-align: center;
+  height: 100%;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 
   .intro-disclaimer & {
     opacity: 1;
     transition: all 2s ${EASE_IN_OUT_SINE};
-    animation-name: fadeOut;
+    ${'' /* animation-name: fadeOut;
     animation-duration: 3s;
     animation-fill-mode: both;
     animation-delay: 11s;
-    animation-timing-function: ${EASE_IN_OUT_SINE};
+    animation-timing-function: ${EASE_IN_OUT_SINE}; */}
+  }
+  .intro-exit & {
+    transform: scale(0);
+    opacity: 0;
+    transition: opacity .7s, transform 1s;
+    transition-timing-function: ${EASE_IN_OUT_SINE};
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    font-size: 20px;
+    font-size: 17px;
+
+    div.offering {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+    div.offering {
+      font-size: 18px;
+    }
+  }
+
+  .offering {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  hr {
+    margin: 20px 0;
   }
 `
 
@@ -566,5 +603,72 @@ export const SkipButton = styled.div`
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     font-size: 18px;
+  }
+`
+
+export const QuestionRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const Prompt = styled.div`
+  font-size: 24px;
+  margin-bottom: 20px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    font-size: 22px;
+  }
+  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+    font-size: 20px;
+  }
+`
+
+export const Question = styled.div`
+  margin-bottom: 30px;
+`
+
+export const QuestionPrompt = styled.div`
+
+`
+
+export const Answer = styled.div`
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid ${purple};
+  text-align: center;
+  padding: 10px 0;
+  margin: 15px 10px 0 0;
+  display: inline-block;
+  cursor: pointer;
+  color: ${purple};
+  user-select: none;
+
+  &:hover {
+    background: ${purple};
+    color: white;
+  }
+
+  &.selected {
+    background: ${darken(.2, purple)};
+    color: white;
+  }
+  &.next {
+    display: block;
+    margin: 15px auto 20px;
+  }
+
+`
+
+export const Results = styled.div`
+  margin-bottom: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+    transform: none;
+    transition: all .5s ${EASE_IN_OUT_SINE};
   }
 `

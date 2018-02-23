@@ -8,7 +8,8 @@ import {
   Root, TypingRoot, YouAre, Enough, Now, Sneaky, What,
   DualityRoot, Duality, Life, Is, Everything, Nothing, YouAreToo,
   DualityText, DualityImages, WelcomeRoot, Brand, Tagline, WelcomeBackdrop,
-  SkipButtonRoot, SkipButton, Disclaimer,
+  SkipButtonRoot, SkipButton, Disclaimer, QuestionRoot, Prompt, QuestionPrompt, Answer,
+  Results, Question,
 } from './styled'
 import {cx} from '../../utils/style'
 
@@ -86,62 +87,69 @@ export default class Intro extends React.Component {
       mode: Mode.enter,
       dualityIndex: -1000,
       everythingStyle: {},
+      answers: [null, null],
       ...ganjaConfig,
     }
   }
 
   componentDidMount() {
     this.timeouts.push(
-      setTimeout(() => this.setState({mode: Mode.disclaimer})),
-      setTimeout(() => this.setState({mode: Mode.youAre}), DURATION_DISCLAIMER),
-      setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
-      setTimeout(() => this.setState({mode: Mode.now}), DURATION_ENOUGH),
-      setTimeout(() => this.setState({mode: Mode.what}), DURATION_NOW),
       setTimeout(() => {
-        this.setState({mode: Mode.ganja})
-        this.playDualityImageReel()
-      }, DURATION_WHAT),
-      setTimeout(() => this.setState({
-        mode: Mode.lifeEverything
-      }), DURATION_GANJA),
-      setTimeout(() => this.setState({
-        mode: Mode.lifeNothing
-      }), DURATION_LIFE_EVERYTHING),
-      setTimeout(() => this.setState({
-        mode: Mode.youNothing
-      }), DURATION_LIFE_NOTHING),
-      setTimeout(() => this.setState({
-        mode: Mode.youEverything
-      }), DURATION_YOU_NOTHING),
-      setTimeout(() => {
-        this.setState({mode: Mode.duality, dualityIndex: 0})
-        setTimeout(() => {
-          const style = this.stackedStyle('everything');
-          this.setState({everythingStyle: {
-            ...style,
-            left: this.getEverythingLeft(),
-          }})
-        }, 700)
-
-        let advanceInterval = 800
-        const advance = () => {
-          this.advanceDuality()
-          if (this.state.dualityIndex === dualitySentinel) {
-            clearInterval(this.dualityInterval)
-
-            dualitySentinel += dualitySentinel
-            advanceInterval = Math.max(10, advanceInterval - 100)
-            this.dualityInterval = setInterval(advance, advanceInterval)
-          }
+        if (isRepeatVisitor) {
+          window.location = '#start'
+        } else {
+          this.setState({mode: Mode.disclaimer})
         }
-        this.dualityInterval = setInterval(advance, advanceInterval)
-      }, DURATION_YOU_EVERYTHING),
-      setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
-      setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
-      setTimeout(() => {
-        localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
-        window.location = '#start'
-      }, DURATION_EXIT),
+      }),
+      // setTimeout(() => this.setState({mode: Mode.youAre}), DURATION_DISCLAIMER),
+      // setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
+      // setTimeout(() => this.setState({mode: Mode.now}), DURATION_ENOUGH),
+      // setTimeout(() => this.setState({mode: Mode.what}), DURATION_NOW),
+      // setTimeout(() => {
+      //   this.setState({mode: Mode.ganja})
+      //   this.playDualityImageReel()
+      // }, DURATION_WHAT),
+      // setTimeout(() => this.setState({
+      //   mode: Mode.lifeEverything
+      // }), DURATION_GANJA),
+      // setTimeout(() => this.setState({
+      //   mode: Mode.lifeNothing
+      // }), DURATION_LIFE_EVERYTHING),
+      // setTimeout(() => this.setState({
+      //   mode: Mode.youNothing
+      // }), DURATION_LIFE_NOTHING),
+      // setTimeout(() => this.setState({
+      //   mode: Mode.youEverything
+      // }), DURATION_YOU_NOTHING),
+      // setTimeout(() => {
+      //   this.setState({mode: Mode.duality, dualityIndex: 0})
+      //   setTimeout(() => {
+      //     const style = this.stackedStyle('everything');
+      //     this.setState({everythingStyle: {
+      //       ...style,
+      //       left: this.getEverythingLeft(),
+      //     }})
+      //   }, 700)
+      //
+      //   let advanceInterval = 800
+      //   const advance = () => {
+      //     this.advanceDuality()
+      //     if (this.state.dualityIndex === dualitySentinel) {
+      //       clearInterval(this.dualityInterval)
+      //
+      //       dualitySentinel += dualitySentinel
+      //       advanceInterval = Math.max(10, advanceInterval - 100)
+      //       this.dualityInterval = setInterval(advance, advanceInterval)
+      //     }
+      //   }
+      //   this.dualityInterval = setInterval(advance, advanceInterval)
+      // }, DURATION_YOU_EVERYTHING),
+      // setTimeout(() => this.setState({mode: Mode.welcome}), DURATION_DUALITY),
+      // setTimeout(() => this.setState({mode: Mode.exit}), DURATION_WELCOME),
+      // setTimeout(() => {
+      //   localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
+      //   window.location = '#start'
+      // }, DURATION_EXIT),
     )
   }
 
@@ -156,7 +164,7 @@ export default class Intro extends React.Component {
   }
 
   render() {
-    const {mode, everythingStyle, dualityIndex} = this.state;
+    const {mode, everythingStyle, dualityIndex, answers} = this.state
     const ganjaIndex = Math.floor(Math.random() * (dualityImages.length-1))
     return (
       <Root className={'intro-' + mode}>
@@ -166,16 +174,37 @@ export default class Intro extends React.Component {
           <SkipButton>skip</SkipButton>
         </SkipButtonRoot>
 
-        <TypingRoot>
+        <TypingRoot className='first'>
           <Disclaimer>
-            hi, unicorn ! want to change the world with us?<br />
-            democracy is stale so we’re here to give her a facelift.<br />
-            <br />
-            less rich white guys in ugly suits<br />
-            more powerful women, fabulous drag queens, and vital people of color<br />
-            <br />
-            sound too good to be true? we don’t think so.<br />
-            welcome to the revolution, baby !
+            <div className='offering'>
+              hi, unicorn !<br />
+              democracy is stale so we’re here to give her a facelift.<br />
+              <strong>want to change the world with us?</strong><br />
+            </div>
+            <QuestionRoot>
+              <hr />
+              <Prompt>two questions first:</Prompt>
+              <Question>
+                <QuestionPrompt>
+                  does it bother you that 80% of congress are <strong>rich white men</strong> in ill-fitting suits?
+                </QuestionPrompt>
+                {this.renderAnswer('yes', 0)}
+                {this.renderAnswer('no', 0)}
+              </Question>
+              <Question>
+                <QuestionPrompt>
+                  do you want to see more powerful <strong>women</strong>, fabulous <strong>drag queens</strong>, and vital <strong>people of color</strong> in office?
+                </QuestionPrompt>
+                {this.renderAnswer('yes', 1)}
+                {this.renderAnswer('no', 1)}
+              </Question>
+              <Results className={answers[0] && answers[1] && 'show'} id='results'>
+                <hr />
+                congratulations. you completed your purple preliminary.<br />
+                <strong>welcome to the revolution, baby !</strong>
+                <Answer className='next' onClick={this.letsGo}>let's go!</Answer>
+              </Results>
+            </QuestionRoot>
           </Disclaimer>
         </TypingRoot>
 
@@ -217,7 +246,7 @@ export default class Intro extends React.Component {
         </TypingRoot>
 
         <DualityRoot>
-          <img src={BASE_URL + 'absurd-queens.gif'} />
+          {/* <img src={BASE_URL + 'absurd-queens.gif'} /> */}
           {/* <Duality style={{display: 'none'}}>
             {dualityImages.map((key, i) => (
               <img
@@ -234,7 +263,7 @@ export default class Intro extends React.Component {
         </DualityRoot>
 
         <DualityImages show={false}>
-          <img src={dualityImages[ganjaIndex]} />
+          {/* <img src={dualityImages[ganjaIndex]} /> */}
         </DualityImages>
 
         <TypingRoot>
@@ -274,6 +303,36 @@ export default class Intro extends React.Component {
 
       </Root>
     )
+  }
+
+  @autobind
+  letsGo() {
+    ga('set', 'metric1', +(this.state.answers[0] === 'yes'))
+    localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
+    this.setState({mode: Mode.exit})
+    this.timeouts.push(setTimeout(() => window.location = '#start', 1000))
+  }
+
+  @autobind
+  renderAnswer(text, index) {
+    return (
+      <Answer
+        onClick={() => this.onAnswerHit(text, index)}
+        className={this.state.answers[index] === text && 'selected'}>
+        {text}
+      </Answer>
+    )
+  }
+
+  @autobind
+  onAnswerHit(text, index) {
+    const answers = Array.from(this.state.answers)
+    answers[index] = text
+    this.setState({answers}, () => {
+      if (this.state.answers[0] && this.state.answers[1]) {
+        document.getElementById('results').scrollIntoView({behavior: 'smooth', block: 'end'})
+      }
+    })
   }
 
   renderHalf(word, i) {
