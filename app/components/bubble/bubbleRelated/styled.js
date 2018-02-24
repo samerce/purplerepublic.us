@@ -1,0 +1,50 @@
+import styled, {injectGlobal} from 'styled-components'
+import {transparentize as alpha, darken, lighten} from 'polished'
+import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../../global/constants'
+
+const aColor = '#498359'
+
+injectGlobal`
+`
+
+export const Root = styled.span`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 8;
+    color: white;
+    font-size: 20px;
+    opacity: 0;
+    transform: scale(2);
+    transition: all 1s ${EASE_OUT};
+    pointer-events: none;
+
+    &.show {
+      opacity: 1;
+      transform: none;
+      transition: all 1s ${EASE_IN_OUT_SINE};
+    }
+
+    i {
+      animation-duration: 1s;
+      animation-name: spinning;
+      animation-iteration-count: infinite;
+      animation-timing-function: ${EASE_IN_OUT_SINE};
+      flex: 0 0 auto;
+      color: inherit;
+      font-size: inherit;
+    }
+    span {
+      animation-duration: 1s;
+      animation-name: blinking;
+      animation-iteration-count: infinite;
+      animation-timing-function: ${EASE_IN_OUT_SINE};
+      animation-direction: alternate;
+    }
+`

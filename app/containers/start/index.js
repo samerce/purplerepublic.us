@@ -19,8 +19,10 @@ import {
   Invitation, GetInvolved, PlayButtonRoot, PlayButton,
   PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
   InfoRoot, InfoContentRoot, InfoIntroText, InfoIntroRoot, InfoDetailText,
-  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon,
+  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon, Foreground, Logo,
+  LogoRoot, LogoJiggle, LogoHover,
 } from './styled'
+import Bubble from '../../components/bubble'
 import {
 
 } from '../../global/styled'
@@ -58,6 +60,7 @@ export default class Start extends React.Component {
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
+      setTimeout(() => this.bubble.click(), 3000),
     )
   }
 
@@ -229,6 +232,10 @@ export default class Start extends React.Component {
             </StarRoot>
           </ShootingStars>
           <Background className={collapsed && 'collapsed'} />
+          <Foreground
+            className={cx({show: this.state.foregroundLoaded})}
+            src={SRC_URL + 'intro/inky-glass.png'}
+            onLoad={() => this.setState({foregroundLoaded: true})} />
         </BackgroundRoot>
 
         <PlayButtonRoot>
@@ -247,6 +254,15 @@ export default class Start extends React.Component {
             )}
           </Motion>
         </PlayButtonRoot>
+
+        <Bubble ref={r => this.bubble = r} />
+        <LogoRoot>
+          <LogoHover>
+            <LogoJiggle>
+              <Logo className='logo' data={SRC_URL + 'commons/logo.svg'} type='image/svg+xml' />
+            </LogoJiggle>
+          </LogoHover>
+        </LogoRoot>
 
         <InfoRoot>
           <InfoContentRoot

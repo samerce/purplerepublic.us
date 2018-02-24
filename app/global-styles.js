@@ -1,6 +1,9 @@
 import { injectGlobal } from 'styled-components'
 import {EASE_OUT} from './global/constants'
 
+const getRandInt = range => Math.ceil(Math.random() * range)
+const getRand = range => `${getRandInt(range)}px`
+
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html,
@@ -12,11 +15,11 @@ injectGlobal`
   }
 
   body {
-    font-family: 'averia sans libre', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: quattrocento, 'Helvetica Neue', Helvetica, sans-serif;
   }
 
   body.fontLoaded {
-    font-family: 'averia sans libre', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: quattrocento, 'Open Sans', 'Helvetica Neue', Helvetica, serif;
   }
 
   #app {
@@ -62,6 +65,28 @@ injectGlobal`
       &.exiting-active {
         transform: translateX(-200px);
       }
+    }
+  }
+
+  @keyframes jiggle {
+    0% {
+      transform: translate(${getRand(17)}, ${getRand(13)});
+    }
+
+    25% {
+      transform: translate(${getRand(-15)}, ${getRand(-11)});
+    }
+
+    50% {
+      transform: translate(${getRand(12)}, ${getRand(17)});
+    }
+
+    75% {
+      transform: translate(${getRand(-19)}, ${getRand(12)});
+    }
+
+    100% {
+      transform: translate(${getRand(14)}, ${getRand(-17)});
     }
   }
 `

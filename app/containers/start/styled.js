@@ -10,33 +10,18 @@ import {
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
   SCREEN_WIDTH_XL_PX,
+  SRC_URL,
 } from '../../global/constants'
 
-const getRandInt = range => Math.ceil(Math.random() * range)
-const getRand = range => `${getRandInt(range)}px`
+const addJiggle = (duration = 7) => `
+  animation: ${duration}s jiggle;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+  animation-timing-function: ${EASE_IN_OUT_SINE};
+`
 
 injectGlobal`
-  @keyframes jiggle {
-    0% {
-      transform: translate(${getRand(17)}, ${getRand(13)}) rotate(-20deg);
-    }
-
-    25% {
-      transform: translate(${getRand(-15)}, ${getRand(-11)}) rotate(-20deg);
-    }
-
-    50% {
-      transform: translate(${getRand(12)}, ${getRand(17)}) rotate(-20deg);
-    }
-
-    75% {
-      transform: translate(${getRand(-19)}, ${getRand(12)}) rotate(-20deg);
-    }
-
-    100% {
-      transform: translate(${getRand(14)}, ${getRand(-17)}) rotate(-20deg);
-    }
-  }
 
   @keyframes shootingStar {
     0% {
@@ -119,6 +104,20 @@ export const BackgroundRoot = styled.div`
   width: 100%;
 `
 
+export const Foreground = styled.img`
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+
+  &.show {
+    opacity: .3;
+    transition: all 10s ${EASE_OUT} 1s;
+  }
+`
+
 export const Background = styled.div`
   height: ${window.innerWidth}px;
   width: ${window.innerWidth}px;
@@ -126,6 +125,7 @@ export const Background = styled.div`
   background: radial-gradient(circle at center, #00659D 0, #00ABBC 10%, #E2C58B 35%, #E47C82 60%, #AD5B7B 100%);
   opacity: 0;
   transform: scale(0);
+  z-index: 1;
 
   .start-show & {
     transition: all 4s ${EASE_OUT};
@@ -147,7 +147,7 @@ export const Background = styled.div`
     }
 
     &:not(.collapsed):hover {
-      transform: scale(1.2);
+      transform: scale(1.3);
       transition-duration: 3s;
 
       @media (max-width: ${SCREEN_WIDTH_L_PX}) {
@@ -172,7 +172,7 @@ export const ShootingStars = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 4;
   pointer-events: none;
 `
 
@@ -233,7 +233,7 @@ export const PlayButton = styled.div`
   font-size: 90px;
   justify-content: center;
   text-align: center;
-  background: rgba(172, 90, 122, 0.4);
+  background: rgba(172, 90, 122, .9);
   ${'' /* background: radial-gradient(circle at center, #AD5B7B 0%, rgba(87, 5, 76, 1) 50%, rgba(249, 208, 243, 1) 60%, rgba(249, 208, 243, 1) 70%, rgba(87, 5, 76, 1) 100%); */}
   animation: 7s jiggle;
   animation-iteration-count: infinite;
@@ -248,7 +248,7 @@ export const PlayButton = styled.div`
   user-select: none;
 
   &:hover {
-    background: rgba(172, 90, 122, 0.6);
+    background: rgba(172, 90, 122, 1);
     transition: background 1s ${EASE_OUT};
     box-shadow: 0 0 10px rgba(0,0,0,.5);
   }
@@ -800,4 +800,60 @@ export const Koki = styled(Text)`
   font-size: 20px;
   margin-top: 15px;
   color: rgba(255, 210, 249, 1);
+`
+
+export const LogoRoot = styled.div`
+  position: absolute;
+  z-index: 7;
+  top: 30px;
+  left: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  transition: all .3s ${EASE_OUT};
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0);
+
+  .start-show & {
+    opacity: 1;
+    transform: none;
+    transition: all 1s ${EASE_OUT} 1.5s;
+  }
+`
+
+export const LogoHover = styled.div`
+  width: 100%;
+  height: 100%;
+  transition: all .7s ${EASE_OUT};
+
+  &:hover {
+    transform: scale(.9);
+    transition: all .5s ${EASE_OUT};
+  }
+`
+
+export const LogoJiggle = styled.div`
+  ${addJiggle(9)}
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: white;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+
+  &:hover {
+    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
+    transition: all .5s ${EASE_OUT};
+  }
+`
+
+export const Logo = styled.object`
+  width: 100px;
+  transform: rotate(-20deg);
+  cursor: pointer;
+  svg {
+    cursor: pointer;
+  }
 `
