@@ -5,7 +5,7 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 const VIDEO_ID = '0kfwMU7HmzE'
-const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+const IMAGE = SRC_URL + `bubbles/god-loves-fags.jpg`
 
 module.exports = {
   className: 'bubbleButton-godLovesFags',
@@ -13,6 +13,7 @@ module.exports = {
   subtitle: 'god is for everyone',
   renderButtonContent,
   renderDescription,
+  size: 'small',
 }
 
 function renderButtonContent() {

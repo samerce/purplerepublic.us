@@ -8,9 +8,16 @@ import {
 } from '../../../global/constants'
 
 const aColor = '#498359'
-const CIRCLE_SIZE = 150
-const CIRCLE_SIZE_SMALL = 80
-const CIRCLE_SIZE_MOBILE = 80
+let CIRCLE_SIZE_SMALL = 60
+let CIRCLE_SIZE_MEDIUM = 80
+let CIRCLE_SIZE_LARGE = 150
+let CIRCLE_SIZE_FOCUSED = CIRCLE_SIZE_SMALL
+
+if (window.innerWidth <= SCREEN_WIDTH_M_PX) {
+  CIRCLE_SIZE_SMALL = 40
+  CIRCLE_SIZE_MEDIUM = 60
+  CIRCLE_SIZE_LARGE = 110
+}
 
 injectGlobal`
 `
@@ -41,10 +48,11 @@ const bubbleButtonStyle = `
   border: 1px solid white;
   border-radius: 100%;
   overflow: hidden;
-  width: ${CIRCLE_SIZE}px;
-  height: ${CIRCLE_SIZE}px;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   transition: all .3s ${EASE_OUT};
+
+    width: ${CIRCLE_SIZE_LARGE}px;
+    height: ${CIRCLE_SIZE_LARGE}px;
 
   .defocused &:hover {
     box-shadow: 1px 1px 15px rgba(0,0,0,.3);
@@ -56,17 +64,12 @@ const bubbleButtonStyle = `
   }
 
   .focused &, .expanded & {
-    width: ${CIRCLE_SIZE_SMALL}px;
-    height: ${CIRCLE_SIZE_SMALL}px;
+    width: ${CIRCLE_SIZE_FOCUSED}px;
+    height: ${CIRCLE_SIZE_FOCUSED}px;
     box-shadow: none;
     transform: translateY(10px);
     cursor: default;
     transition: all .7s ${EASE_OUT};
-  }
-
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    width: ${CIRCLE_SIZE_MOBILE}px;
-    height: ${CIRCLE_SIZE_MOBILE}px;
   }
 `
 export const BubbleButtonImage = styled.div`
@@ -74,6 +77,7 @@ export const BubbleButtonImage = styled.div`
 
   background-image: url('${p => p.src}');
   background-position: center;
+  background-size: cover;
 `
 
 export const BubbleButtonSVG = styled.object`

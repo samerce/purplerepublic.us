@@ -13,7 +13,8 @@ module.exports = {
   renderExpandedContent,
   actions: [
     {text: 'get tickets!'}
-  ]
+  ],
+  size: 'large',
 }
 
 function renderButtonContent() {
@@ -23,9 +24,21 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      a drag queen's rise to senate! drag. music. poetry. food. drink. art. dialogue. dance. democracy!<br />
-      get your tickets today!<br />
-      <strong>cafe istanbul — march 29th — 6pm</strong>
+      it's time to #wigthesystem !<br /><br />
+
+      from cabaret to congress—a drag queen's rise to senate. join us for an enchanting evening of performance, politics, & play. <br /><br />
+
+      dialogue. dance. democracy. <br />
+      poetry. music. art.<br />
+       food. drink. drag. <br />
+
+      <span style={{textDecoration: 'underline'}}>attire</span>: purple (wigs encouraged)<br /><br />
+
+      <strong style={{fontSize: '22px'}}>cafe istanbul — march 29th — 6pm</strong><br /><br />
+
+      <span style={{fontStyle: 'italic', fontSize: '14px'}}>
+        proceeds go towards the efforts of the purple republic. to support women, minorities, and queers to run for office. to encourage new national values of expression over survival.
+      </span>
     </div>
   )
 }

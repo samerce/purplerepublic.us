@@ -13,6 +13,7 @@ module.exports = {
   subtitle: 'little bird talks',
   renderButtonContent,
   renderDescription,
+  renderExpandedContent,
   size: 'medium',
 }
 
@@ -30,6 +31,11 @@ function renderDescription() {
         opts={getVideoOptions()} />
     </div>
   )
+}
+
+function renderExpandedContent() {
+  return <div id="eventbrite-widget-container-43379695838"
+              className='event-brite-checkout' />
 }
 
 function getVideoOptions() {

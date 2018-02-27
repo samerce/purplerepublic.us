@@ -259,6 +259,7 @@ export default class Start extends React.Component {
                 onClick={this.onClickBubble.bind(this, index)}
                 onClose={this.onCloseBubble}
                 className={data.className}
+                size={data.size || 'medium'}
                 focused={focusedBubble === index}
                 title={data.title}
                 subtitle={data.subtitle}

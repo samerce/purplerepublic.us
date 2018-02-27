@@ -1,5 +1,5 @@
 import React from 'react'
-import {BubbleButtonSVG} from '../bubbleButton/styled'
+import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 
@@ -9,6 +9,7 @@ module.exports = {
   subtitle: 'mission',
   renderButtonContent,
   renderDescription,
+  size: 'large',
   actions: [{
     text: 'read more',
     onClick: () => {

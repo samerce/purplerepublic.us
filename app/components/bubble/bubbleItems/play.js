@@ -13,7 +13,8 @@ module.exports = {
     onClick: () => {
       window.location = '#hello'
     },
-  }]
+  }],
+  size: 'medium',
 }
 
 function renderButtonContent() {

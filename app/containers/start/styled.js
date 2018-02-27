@@ -848,7 +848,7 @@ export const BubbleGridItem = styled.div`
   flex: 0 0 ${ITEM_SIZE}px;
   height: ${ITEM_SIZE}px;
   position: relative;
-  transition: all 1s ${EASE_OUT};
+  ${'' /* transition: all 1s ${EASE_OUT}; */}
 
   &.focused {
     flex: 0 0 100%;

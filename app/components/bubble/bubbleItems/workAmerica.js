@@ -5,7 +5,7 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 const VIDEO_ID = 'y_CX3yzMCF8'
-const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+const IMAGE = SRC_URL + `bubbles/workAmerica.jpg`
 
 module.exports = {
   className: 'bubbleButton-nolaMarch',
@@ -13,6 +13,7 @@ module.exports = {
   subtitle: 'little bird talks',
   renderButtonContent,
   renderDescription,
+  size: 'small',
 }
 
 function renderButtonContent() {

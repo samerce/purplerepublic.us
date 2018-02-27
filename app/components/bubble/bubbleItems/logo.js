@@ -1,4 +1,6 @@
 import React from 'react'
+import styled, {injectGlobal} from 'styled-components'
+
 import {BubbleButtonSVG} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
@@ -9,14 +11,9 @@ module.exports = {
   subtitle: 'you may be asking',
   renderButtonContent,
   renderDescription,
+  renderExpandedContent,
   actions: [{
     text: 'read more',
-    onClick: () => {
-      const a = document.createElement('a')
-      a.href = 'https://medium.com/the-purple-republic/what-the-hell-is-this-anyhow-65700351727c'
-      a.target = '_blank'
-      a.click()
-    },
   }]
 }
 
@@ -34,22 +31,55 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      i’m not waking at 70 full of regret. i’m alive. and im the most sane person i know. after years of feeling insane, i’ve come to see it straight.<br /><br />
+      welcome to purple republic. we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
 
-      who cares if we win? we’re running a campaign for the marginalized and voiceless, elliott. for those who never get a seat at the table. for the next generation who we hope will grow up on a more peaceful planet. a planet with a celebratory climate and culture of embrace. we’re running a campaign so future generations will know bigotry and hunger as a dirty thing of the past, now only recounted in the history books. history has its eye on you. on all of us.<br /><br />
+      through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
 
-      a groundswell of playful, energetic, empathetic, exciting people to run. 2018 can welcome in the sexiest fleet of politicians history has ever known. laws and legislation doesn’t have to be a stuffy, suited affair. democracy can be alive again. we can kick the dried-out corpse to the curb and throw the biggest love celebration this planet has ever known.<br /><br />
-
-      a movement rooted in rationality. if you refuse to think, get out of our way. if you’re settled into your dogma and stuck in your ways, then this isn’t your jam. and we’re sorry for your loss.<br /><br />
-
-      our target constituency are 1. the queers, our LGBT family are the heart of this movement. 2. millennials. they are the largest potential voter group in this coming election. we’ve got to get them inspired and registered. 3. minorities of every stripe. (who aren’t crazy about jesus)  4. women (especially ones who wish they had a more exciting life / hate their husbands / resent their kids, etc.) 5. hippies 6. artists, philosophers, scientists
-<br /><br />
-      fuck the uber conservative christians. i never liked them anyhow. we’ve got our eyes set elsewhere.<br /><br />
-
-      if any one of us do it alone, we’ll be killed. if the neo-nazis don’t get us, the secret service will. our power must be in numbers.<br /><br />
-
-      if we do this right, they’ll be swept up in glittery oratory.
+      purple — because democracy is a red AND blue thing.
     </div>
   )
-
 }
+
+function renderExpandedContent() {
+  return (
+    <ExpandedContent>
+      <hr />
+      from cabaret to congress — we’re here to unify the human race.<br /><br />
+
+      to perpetually empower a collectively-cultivated conversation<br /><br />
+
+      to inspire women, minorities, and queer candidates to run for office and support them on their journey.<br /><br />
+
+      if not us, who? if not now, when?<br /><br />
+
+      clearly wearing stuffy suits and preaching doesn't work. maybe what congress needs is heels, a paintbrush, yoga mat, and some glitter.  <br /><br />
+
+      the burden of freedom is heavy so we're here to lighten the load.<br /><br />
+
+      let's routinely recalibrate our ethical compass. <br />
+      let's jolt the system and unify the human race. <br />
+      let's spark dialogue. create theatre. & play... drag the world up a bit.<br />
+      let's support candidates to run in 2018 and beyond.<br /><br />
+
+      if not us, who? if not now, when?<br /><br />
+      <hr />
+      to do nothing is to do something quite dramatic indeed.<br /><br />
+
+      purple republic aims at unflinching honesty in conscious life. a commitment to finding your authentic expression in every moment. perpetual empowerment to think for & against self, others, and the very structure that holds society together.<br /><br />
+
+      dialogue over dogma. creation over destruction. <br /><br />
+
+      our campaign will combine politics and play, journalism and art, social commentary, spirituality, and the messy celebration of being a human fully awake in the world today.<br /><br />
+
+      it’s time to perpetually empower the human race. to celebrate living; to fearlessly question; to investigate and witness... and play! to radically express over survive. <br /><br />
+
+      life is theatre. cast yourself well.
+    </ExpandedContent>
+  )
+}
+
+var ExpandedContent = styled.div`
+  padding: 0 20px 20px;
+  color: white;
+  font-size: 18px;
+`

@@ -5,7 +5,7 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 const VIDEO_ID = '0iAe2JrH4ck'
-const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+const IMAGE = SRC_URL + `bubbles/senateWin.jpg`
 
 module.exports = {
   className: 'bubbleButton-senateWin',
@@ -13,6 +13,7 @@ module.exports = {
   subtitle: 'surprise landslide victory',
   renderButtonContent,
   renderDescription,
+  size: 'small',
 }
 
 function renderButtonContent() {

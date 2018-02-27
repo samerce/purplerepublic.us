@@ -9,10 +9,16 @@ import autobind from 'autobind-decorator'
 
 export default class BubbleDetails extends React.Component {
 
+  constructor() {
+    super()
+    this.state = {
+      actionClicked: false,
+    }
+  }
+
   render() {
     const {
       actions,
-      onClose,
       className,
       renderDescription,
       renderExpandedContent,
@@ -28,13 +34,13 @@ export default class BubbleDetails extends React.Component {
           <Description>
             {renderDescription()}
           </Description>
-          {renderExpandedContent && 
+          {renderExpandedContent &&
             <ExpandedContent>
               {renderExpandedContent()}
             </ExpandedContent>
           }
           <ActionsRoot>
-            <Action onClick={onClose}>
+            <Action onClick={this.close}>
               <div>close</div>
             </Action>
             {actions.length > 1 &&
@@ -44,7 +50,7 @@ export default class BubbleDetails extends React.Component {
                 <div>{actions[1].text}</div>
               </Action>
             }
-            {actions.length > 0 &&
+            {actions.length > 0 && !this.state.actionClicked &&
               <Action
                 className={actions[0].className}
                 onClick={() => this.onClickAction(actions[0])}>
@@ -60,6 +66,11 @@ export default class BubbleDetails extends React.Component {
   @autobind
   onClickAction(action) {
     action.onClick()
+  }
+
+  @autobind
+  close() {
+    this.props.onClose()
   }
 
 }

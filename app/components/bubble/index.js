@@ -55,6 +55,7 @@ export default class Bubble extends React.Component {
       title,
       subtitle,
       className,
+      size,
     } = this.props
 
     // HACK
@@ -64,7 +65,7 @@ export default class Bubble extends React.Component {
       <Root className={'bubble-' + mode + ' ' + className}>
         <BubbleButton
           onClick={this.onClickBubble}
-          className={mode}>
+          className={mode + ' ' + size}>
           {renderButtonContent()}
         </BubbleButton>
         <BubbleDetails

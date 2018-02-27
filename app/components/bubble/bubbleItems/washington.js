@@ -4,13 +4,13 @@ import YouTubeVideo from 'react-youtube'
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
-const VIDEO_ID = '89KE9NknQ8c'
-const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+const VIDEO_ID = 'GKvrUeSVnWQ'
+const IMAGE = SRC_URL + `bubbles/washington.jpg`
 
 module.exports = {
-  className: 'bubbleButton-nolaMarch',
-  title: 'drugs, drag queens, guns, & corruption',
-  subtitle: 'little bird talks',
+  className: 'bubbleButton-washington',
+  title: 'visit washington DC',
+  subtitle: 'little bird & bubbles',
   renderButtonContent,
   renderDescription,
   size: 'medium',

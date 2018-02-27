@@ -13,6 +13,7 @@ module.exports = {
   subtitle: 'little bird',
   renderButtonContent,
   renderDescription,
+  size: 'small',
 }
 
 function renderButtonContent() {
