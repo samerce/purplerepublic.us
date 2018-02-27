@@ -19,9 +19,12 @@ import {
   Invitation, GetInvolved, PlayButtonRoot, PlayButton,
   PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
   InfoRoot, InfoContentRoot, InfoIntroText, InfoIntroRoot, InfoDetailText,
-  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon, Foreground, Logo,
-  LogoRoot, LogoJiggle, LogoHover,
+  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon, Foreground,
+  BubbleGrid, BubbleGridItem,
 } from './styled'
+import {
+  BubbleButtonImage, BubbleButtonSVG,
+} from '../../components/bubble/bubbleButton/styled'
 import Bubble from '../../components/bubble'
 import {
 
@@ -29,11 +32,15 @@ import {
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {SRC_URL} from '../../global/constants'
+import bubbles from '../../components/bubble/bubbles'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
+import autobind from 'autobind-decorator'
 
 const ICON_URL = SRC_URL + 'icons/'
+const INKY = SRC_URL + 'intro/inky.jpg'
+
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
 const getStarPos = () => `-${getRandInt(60) + 20}px`
@@ -49,18 +56,20 @@ export default class Start extends React.Component {
     super()
 
     this.timeouts = []
+    this.bubbles = []
     this.state = {
       mode: Mode.enter,
       collapsed: false,
       hovered: false,
       infoHover: false,
+      focusedBubble: null,
     }
   }
 
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => this.bubble.click(), 3000),
+      setTimeout(() => this.bubbles[1].click(), 3000),
     )
   }
 
@@ -69,7 +78,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, mode} = this.state
+    const {collapsed, hovered, mode, focusedBubble} = this.state
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
@@ -238,45 +247,30 @@ export default class Start extends React.Component {
             onLoad={() => this.setState({foregroundLoaded: true})} />
         </BackgroundRoot>
 
-        <PlayButtonRoot>
-          <Motion style={{scale: scaleVal, opacity: opacityVal}}>
-            {({scale, opacity}) => (
-              <PlayButtonHoverRoot
-                onClick={() => this.onLetsPlay()}
-                onMouseEnter={() => this.setState({hovered: true})}
-                onMouseLeave={() => this.setState({hovered: false})}
-                className={collapsed && 'collapsed'}
-                style={collapsed? {} : {transform: `scale(${scale})`}}>
-                <PlayButton>
-                  <span>let's</span><span>play!</span>
-                </PlayButton>
-              </PlayButtonHoverRoot>
-            )}
-          </Motion>
-        </PlayButtonRoot>
-
-        <Bubble ref={r => this.bubble = r} />
-        <LogoRoot>
-          <LogoHover>
-            <LogoJiggle>
-              <Logo className='logo' data={SRC_URL + 'commons/logo.svg'} type='image/svg+xml' />
-            </LogoJiggle>
-          </LogoHover>
-        </LogoRoot>
-
-        <InfoRoot>
-          <InfoContentRoot
-            className={cx({infoHover: this.state.infoHover})}
-            onClick={() => console.log(this.state.infoHover) && this.setState({infoHover: !this.state.infoHover})}>
-            <InfoIntroRoot>
-              <i className='fa fa-info-circle' />
-              <InfoIntroText>journey <span>001</span></InfoIntroText>
-            </InfoIntroRoot>
-            <InfoDetailText className='detail'>
-              welcome to purple republic! we're here to think, make art and celebrate living. through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution.
-            </InfoDetailText>
-          </InfoContentRoot>
-        </InfoRoot>
+        <BubbleGrid>
+          {bubbles.map((data, index) => (
+            <BubbleGridItem
+              key={index}
+              className={cx({
+                focused: focusedBubble === index,
+                collapsed: focusedBubble !== null && focusedBubble !== index,
+              })}>
+              <Bubble
+                onClick={this.onClickBubble.bind(this, index)}
+                onClose={this.onCloseBubble}
+                className={data.className}
+                focused={focusedBubble === index}
+                title={data.title}
+                subtitle={data.subtitle}
+                renderButtonContent={data.renderButtonContent}
+                renderDescription={data.renderDescription}
+                renderExpandedContent={data.renderExpandedContent}
+                actions={data.actions}
+                ref={r => this.bubbles.push(r)}
+              />
+            </BubbleGridItem>
+          ))}
+        </BubbleGrid>
 
         <SocialRoot>
           <SocialButtonsRoot>
@@ -316,6 +310,22 @@ export default class Start extends React.Component {
 
       </Root>
     )
+  }
+
+  @autobind
+  onClickBubble(index) {
+    const {focusedBubble} = this.state
+    if (focusedBubble !== null) {
+      this.bubbles[focusedBubble].defocusIt()
+    }
+    this.setState({
+      focusedBubble: index,
+    })
+  }
+
+  @autobind
+  onCloseBubble() {
+    this.setState({focusedBubble: null})
   }
 
   onLetsPlay() {

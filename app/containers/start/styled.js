@@ -22,6 +22,33 @@ const addJiggle = (duration = 7) => `
 `
 
 injectGlobal`
+  div.bubbleButton-logo {
+    z-index: 7;
+    top: 20px;
+    left: 0;
+    border-radius: 100%;
+    transition: all .3s ${EASE_OUT};
+    opacity: 0;
+    transform: scale(0);
+
+    .start-show & {
+      opacity: 1;
+      transform: none;
+      transition: all 1s ${EASE_OUT} 1.5s;
+    }
+  }
+  object.bubbleButton-logo-svg {
+    width: 90%;
+    transform: rotate(-20deg);
+    overflow: visible;
+    box-shadow: none;
+    border: none;
+  }
+
+  div.bubbleButton-nolaMarch {
+    top: 40px;
+    left: 10px;
+  }
 
   @keyframes shootingStar {
     0% {
@@ -802,58 +829,30 @@ export const Koki = styled(Text)`
   color: rgba(255, 210, 249, 1);
 `
 
-export const LogoRoot = styled.div`
-  position: absolute;
-  z-index: 7;
-  top: 30px;
-  left: 20px;
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  transition: all .3s ${EASE_OUT};
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0);
-
-  .start-show & {
-    opacity: 1;
-    transform: none;
-    transition: all 1s ${EASE_OUT} 1.5s;
-  }
-`
-
-export const LogoHover = styled.div`
-  width: 100%;
-  height: 100%;
-  transition: all .7s ${EASE_OUT};
-
-  &:hover {
-    transform: scale(.9);
-    transition: all .5s ${EASE_OUT};
-  }
-`
-
-export const LogoJiggle = styled.div`
-  ${addJiggle(9)}
+export const BubbleGrid = styled.div`
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
   width: 100%;
   height: 100%;
-  border-radius: 100%;
-  background: white;
-  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
-
-  &:hover {
-    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
-    transition: all .5s ${EASE_OUT};
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 80px;
 `
 
-export const Logo = styled.object`
-  width: 100px;
-  transform: rotate(-20deg);
-  cursor: pointer;
-  svg {
-    cursor: pointer;
+const ITEM_SIZE = 200
+export const BubbleGridItem = styled.div`
+  flex: 0 0 ${ITEM_SIZE}px;
+  height: ${ITEM_SIZE}px;
+  position: relative;
+  transition: all 1s ${EASE_OUT};
+
+  &.focused {
+    flex: 0 0 100%;
+    z-index: 50;
   }
+
 `

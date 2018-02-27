@@ -29,10 +29,15 @@ export default class Bubble extends React.Component {
     }
   }
 
+  @autobind
+  click() {
+    this.onClickBubble()
+  }
+
   componentDidMount() {
     this.timers.push(
       setTimeout(() => this.setState({mode: Mode.enter})),
-      setTimeout(() => this.setState({mode: Mode.defocused}), 2700)
+      setTimeout(() => this.setState({mode: Mode.defocused}), 700)
     )
   }
 
@@ -40,24 +45,36 @@ export default class Bubble extends React.Component {
     this.timers.forEach(clearTimeout)
   }
 
-  @autobind
-  click() {
-    this.onClickBubble()
-  }
-
   render() {
     const {mode} = this.state
+    const {
+      renderButtonContent,
+      renderExpandedContent,
+      renderDescription,
+      actions,
+      title,
+      subtitle,
+      className,
+    } = this.props
+
+    // HACK
+    if (actions && !actions[0].onClick) actions[0].onClick = this.expand
+
     return (
-      <Root className={'bubble-' + mode}>
+      <Root className={'bubble-' + mode + ' ' + className}>
         <BubbleButton
-          className={mode}
-          onClick={this.onClickBubble} />
+          onClick={this.onClickBubble}
+          className={mode}>
+          {renderButtonContent()}
+        </BubbleButton>
         <BubbleDetails
           className={mode}
-          onClose={this.defocus}
-          actions={[
-            {text: 'get tickets!', onClick: this.expand}
-          ]} />
+          onClose={this.defocusIt}
+          subtitle={subtitle}
+          title={title}
+          renderDescription={renderDescription}
+          renderExpandedContent={renderExpandedContent}
+          actions={actions} />
         <BubbleRelated />
       </Root>
     )
@@ -65,17 +82,27 @@ export default class Bubble extends React.Component {
 
   @autobind
   onClickBubble() {
+    if (this.state.focused) {
+      this.defocusIt()
+    } else {
+      this.focusIt()
+    }
+  }
+
+  focusIt() {
+    this.props.onClick()
     this.setState({mode: Mode.focused})
   }
 
   @autobind
-  defocus() {
+  defocusIt() {
+    this.props.onClose()
     this.setState({mode: Mode.defocused})
   }
 
   @autobind
   expand() {
-      this.setState({mode: Mode.expanded})
+    this.setState({mode: Mode.expanded})
   }
 
   @autobind

@@ -11,12 +11,21 @@ import {
 const aColor = '#956C95'
 
 injectGlobal`
+  .logo-svg-root {
+    background: white;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 export const Root = styled.div`
   position: absolute;
   top: 50px;
-  left: 100px;
+  left: 10px;
   z-index: 10;
   animation-name: jiggle;
   animation-duration: 10s;
@@ -27,15 +36,15 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;
-  transition: .7s ${EASE_OUT};
+  transition: all .7s ${EASE_OUT};
   width: 100%;
   height: 100%;
+  pointer-events: none;
 
   &.bubble-focused, &.bubble-expanded {
     left: 0;
-    top: ${window.innerHeight / 2 / 2};
-    transition: .5s ${EASE_OUT};
+    top: 0;
+    transition: 1s ${EASE_OUT};
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

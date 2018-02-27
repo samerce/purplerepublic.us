@@ -20,6 +20,7 @@ export const Root = styled.div`
   display: inline-block;
   z-index: 8;
   pointer-events: all;
+  cursor: pointer;
 
   .bubble-willEnter & {
     transform: scale(0);
@@ -36,15 +37,12 @@ export const Root = styled.div`
   }
 `
 
-export const ContentRoot = styled.div`
+const bubbleButtonStyle = `
   border: 1px solid white;
   border-radius: 100%;
-  background-image: url('${p => p.background}');
-  background-position: center;
   overflow: hidden;
   width: ${CIRCLE_SIZE}px;
   height: ${CIRCLE_SIZE}px;
-  cursor: pointer;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   transition: all .3s ${EASE_OUT};
 
@@ -70,4 +68,16 @@ export const ContentRoot = styled.div`
     width: ${CIRCLE_SIZE_MOBILE}px;
     height: ${CIRCLE_SIZE_MOBILE}px;
   }
+`
+export const BubbleButtonImage = styled.div`
+  ${bubbleButtonStyle}
+
+  background-image: url('${p => p.src}');
+  background-position: center;
+`
+
+export const BubbleButtonSVG = styled.object`
+  ${bubbleButtonStyle}
+
+  pointer-events: none;
 `

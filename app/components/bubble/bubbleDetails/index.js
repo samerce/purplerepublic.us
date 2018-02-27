@@ -10,21 +10,29 @@ import autobind from 'autobind-decorator'
 export default class BubbleDetails extends React.Component {
 
   render() {
-    let {actions, onClose, className} = this.props
+    const {
+      actions,
+      onClose,
+      className,
+      renderDescription,
+      renderExpandedContent,
+      subtitle,
+      title,
+    } = this.props
     return (
       <Root className={className}>
         <ContentRoot>
-          <Subtitle>our next event</Subtitle>
-          <Title>they'll tell the story of tonight</Title>
+          <Subtitle>{subtitle}</Subtitle>
+          <Title>{title}</Title>
           <hr />
           <Description>
-            a drag queen's rise to senate! drag. music. poetry. food. drink. art. dialogue. dance. democracy!<br />
-            get your tickets today!<br />
-            <strong>cafe istanbul — march 29th — 6pm</strong>
+            {renderDescription()}
           </Description>
-          <ExpandedContent>
-            <EventBriteCheckout />
-          </ExpandedContent>
+          {renderExpandedContent && 
+            <ExpandedContent>
+              {renderExpandedContent()}
+            </ExpandedContent>
+          }
           <ActionsRoot>
             <Action onClick={onClose}>
               <div>close</div>
@@ -59,7 +67,3 @@ export default class BubbleDetails extends React.Component {
 BubbleDetails.defaultProps = {
   actions: [],
 }
-
-var EventBriteCheckout = () => (
-  <div id="eventbrite-widget-container-43379695838" className='event-brite-checkout'></div>
-)
