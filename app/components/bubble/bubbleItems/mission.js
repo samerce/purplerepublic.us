@@ -24,7 +24,7 @@ module.exports = {
 function renderButtonContent() {
   return (
     <BubbleButtonImage
-      src={SRC_URL + 'commons/grandma-bubbles-mobile.jpg'} />
+      src={SRC_URL + 'bubbles/mission.jpg'} />
   )
 }
 
