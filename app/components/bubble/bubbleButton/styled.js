@@ -5,6 +5,7 @@ import {
   EASE_IN,
   EASE_IN_OUT_SINE,
   SCREEN_WIDTH_M_PX,
+  SCREEN_WIDTH_M,
 } from '../../../global/constants'
 
 const aColor = '#498359'
@@ -13,10 +14,10 @@ let CIRCLE_SIZE_MEDIUM = 80
 let CIRCLE_SIZE_LARGE = 150
 let CIRCLE_SIZE_FOCUSED = CIRCLE_SIZE_SMALL
 
-if (window.innerWidth <= SCREEN_WIDTH_M_PX) {
+if (window.innerWidth <= SCREEN_WIDTH_M) {
   CIRCLE_SIZE_SMALL = 40
   CIRCLE_SIZE_MEDIUM = 60
-  CIRCLE_SIZE_LARGE = 110
+  CIRCLE_SIZE_LARGE = 80
 }
 
 injectGlobal`
@@ -35,7 +36,7 @@ export const Root = styled.div`
   }
 
   .bubble-enter & {
-    transition: all .7s ${EASE_OUT} 2s;
+    transition: all .7s ${EASE_OUT} 3s;
   }
 
   &.defocused:hover {

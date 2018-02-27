@@ -840,7 +840,6 @@ export const BubbleGrid = styled.div`
   left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-right: 80px;
 `
 
 const ITEM_SIZE = 200
@@ -853,6 +852,10 @@ export const BubbleGridItem = styled.div`
   &.focused {
     flex: 0 0 100%;
     z-index: 50;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    height: 130px;
   }
 
 `

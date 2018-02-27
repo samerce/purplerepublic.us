@@ -69,7 +69,7 @@ export default class Start extends React.Component {
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => this.bubbles[1].click(), 3000),
+      setTimeout(() => this.bubbles[1].click(), 4000),
     )
   }
 

@@ -38,7 +38,7 @@ export const ContentRoot = styled.div`
   background: ${aColor};
   box-shadow: 2px 2px 30px rgba(0,0,0,.3);
   padding-top: 20px;
-  width: ${window.innerWidth * .9}px;
+  width: ${window.innerWidth}px;
 
   hr {
     width: 150px;
