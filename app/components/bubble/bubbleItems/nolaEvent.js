@@ -10,9 +10,17 @@ module.exports = {
   subtitle: 'our next event',
   renderButtonContent,
   renderDescription,
-  renderExpandedContent,
+  // renderExpandedContent,
   actions: [
-    {text: 'get tickets!'}
+    {
+      text: 'get tickets!',
+      onClick: () => {
+        const a = document.createElement('a')
+        a.href = 'https://www.eventbrite.com/e/theyll-tell-the-story-of-tonight-tickets-43379695838'
+        a.target = '_blank'
+        a.click()
+      },
+    },
   ],
   size: 'large',
 }
