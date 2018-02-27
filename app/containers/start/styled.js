@@ -43,6 +43,10 @@ injectGlobal`
     overflow: visible;
     box-shadow: none;
     border: none;
+
+    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+      width: 60%;
+    }
   }
 
   div.bubbleButton-nolaMarch {
@@ -832,7 +836,7 @@ export const Koki = styled(Text)`
 export const BubbleGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-content: center;
   width: 100%;
   height: 100%;
   position: absolute;
