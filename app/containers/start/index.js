@@ -1,4 +1,5 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
 import Typist from 'react-typist'
 import PayPalLink from '../../components/payPalLink'
 
@@ -247,7 +248,7 @@ export default class Start extends React.Component {
             onLoad={() => this.setState({foregroundLoaded: true})} />
         </BackgroundRoot>
 
-        <BubbleGrid>
+        <BubbleGrid ref={r => this.bubbleGrid = r}>
           {bubbles.map((data, index) => (
             <BubbleGridItem
               key={index}
@@ -258,15 +259,8 @@ export default class Start extends React.Component {
               <Bubble
                 onClick={this.onClickBubble.bind(this, index)}
                 onClose={this.onCloseBubble}
-                className={data.className}
-                size={data.size || 'medium'}
+                nucleus={data}
                 focused={focusedBubble === index}
-                title={data.title}
-                subtitle={data.subtitle}
-                renderButtonContent={data.renderButtonContent}
-                renderDescription={data.renderDescription}
-                renderExpandedContent={data.renderExpandedContent}
-                actions={data.actions}
                 ref={r => this.bubbles.push(r)}
               />
             </BubbleGridItem>
@@ -315,12 +309,31 @@ export default class Start extends React.Component {
 
   @autobind
   onClickBubble(index) {
-    const {focusedBubble} = this.state
-    if (focusedBubble !== null) {
-      this.bubbles[focusedBubble].defocusIt()
+    const {focusedBubble: currentFocusedBubble} = this.state
+    if (currentFocusedBubble !== null) {
+      this.bubbles[currentFocusedBubble].defocusIt()
     }
+
+    const isClosingBubble = (currentFocusedBubble === index)
     this.setState({
-      focusedBubble: index,
+      focusedBubble: isClosingBubble? null : index,
+    }, () => {
+      if (isClosingBubble) return
+      setTimeout(() => {
+        const bubbleTop = findDOMNode(this.bubbles[index]).getBoundingClientRect().top
+        const sign = (bubbleTop/bubbleTop)
+        const scrollAmount = sign * 10
+
+        let intervalScroll = null
+        let totalScroll = 0
+        intervalScroll = setInterval(() => {
+          findDOMNode(this.bubbleGrid).scrollBy(0, scrollAmount)
+          totalScroll += scrollAmount
+          if (totalScroll >= (bubbleTop)) {
+            clearInterval(intervalScroll)
+          }
+        }, 5)
+      }, 200)
     })
   }
 

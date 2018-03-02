@@ -7,6 +7,8 @@ import {SRC_URL} from '../../../global/constants'
 const VIDEO_ID = '89KE9NknQ8c'
 const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
 
+let player
+
 module.exports = {
   className: 'bubbleButton-nolaMarch',
   title: 'drugs, drag queens, guns, & corruption',
@@ -15,6 +17,7 @@ module.exports = {
   renderDescription,
   renderExpandedContent,
   size: 'medium',
+  onClose: () => player && player.pauseVideo(),
 }
 
 function renderButtonContent() {
@@ -22,7 +25,6 @@ function renderButtonContent() {
 }
 
 function renderDescription() {
-  const onVideoReady = () => {}
   return (
     <div style={{textAlign: 'center'}}>
       <YouTubeVideo
@@ -36,6 +38,10 @@ function renderDescription() {
 function renderExpandedContent() {
   return <div id="eventbrite-widget-container-43379695838"
               className='event-brite-checkout' />
+}
+
+function onVideoReady({target}) {
+  player = target
 }
 
 function getVideoOptions() {

@@ -48,10 +48,11 @@ export const Root = styled.div`
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    left: 40px;
+    ${'' /* left: 40px; */}
 
     &.bubble-focused {
       top: 20px;
+      ${'' /* left: 40px; */}
     }
     &.bubble-expanded {
       top: -180px;

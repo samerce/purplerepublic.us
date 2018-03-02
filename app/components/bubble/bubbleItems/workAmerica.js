@@ -7,6 +7,8 @@ import {SRC_URL} from '../../../global/constants'
 const VIDEO_ID = 'y_CX3yzMCF8'
 const IMAGE = SRC_URL + `bubbles/workAmerica.jpg`
 
+let player
+
 module.exports = {
   className: 'bubbleButton-nolaMarch',
   title: 'we\'ll work for you america',
@@ -14,6 +16,7 @@ module.exports = {
   renderButtonContent,
   renderDescription,
   size: 'small',
+  onClose: () => player && player.pauseVideo()
 }
 
 function renderButtonContent() {
@@ -21,7 +24,6 @@ function renderButtonContent() {
 }
 
 function renderDescription() {
-  const onVideoReady = () => {}
   return (
     <div style={{textAlign: 'center'}}>
       <YouTubeVideo
@@ -30,6 +32,10 @@ function renderDescription() {
         opts={getVideoOptions()} />
     </div>
   )
+}
+
+function onVideoReady({target}) {
+  player = target
 }
 
 function getVideoOptions() {

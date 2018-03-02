@@ -122,7 +122,7 @@ injectGlobal`
 export const Root = styled.div`
   height: 100%;
   width: 100%;
-  position: relative;
+  position: fixed;
   overflow: hidden;
 `
 
@@ -146,6 +146,12 @@ export const Foreground = styled.img`
   &.show {
     opacity: .3;
     transition: all 10s ${EASE_OUT} 1s;
+  }
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    top: 0;
+    height: 100%;
+    width: initial;
   }
 `
 
@@ -855,7 +861,7 @@ export const BubbleGridItem = styled.div`
 
   &.focused {
     flex: 0 0 100%;
-    z-index: 50;
+    z-index: 20;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

@@ -55,8 +55,8 @@ export default class Bubble extends React.Component {
       title,
       subtitle,
       className,
-      size,
-    } = this.props
+      size = 'medium',
+    } = this.props.nucleus
 
     // HACK
     if (actions && !actions[0].onClick) actions[0].onClick = this.expand
@@ -98,6 +98,7 @@ export default class Bubble extends React.Component {
   @autobind
   defocusIt() {
     this.props.onClose()
+    this.props.nucleus.onClose && this.props.nucleus.onClose()
     this.setState({mode: Mode.defocused})
   }
 

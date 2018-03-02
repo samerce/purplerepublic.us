@@ -7,6 +7,8 @@ import {SRC_URL} from '../../../global/constants'
 const VIDEO_ID = 'ZPkcFPn_Eb8'
 const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
 
+let player
+
 module.exports = {
   className: 'bubbleButton-nolaMarch',
   title: 'purple stump',
@@ -14,6 +16,7 @@ module.exports = {
   renderButtonContent,
   renderDescription,
   size: 'small',
+  onClose: () => player && player.pauseVideo()
 }
 
 function renderButtonContent() {
@@ -21,7 +24,6 @@ function renderButtonContent() {
 }
 
 function renderDescription() {
-  const onVideoReady = () => {}
   return (
     <div style={{textAlign: 'center'}}>
       <YouTubeVideo
@@ -30,6 +32,10 @@ function renderDescription() {
         opts={getVideoOptions()} />
     </div>
   )
+}
+
+function onVideoReady({target}) {
+  player = target
 }
 
 function getVideoOptions() {

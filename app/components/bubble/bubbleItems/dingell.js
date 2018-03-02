@@ -7,6 +7,8 @@ import {SRC_URL} from '../../../global/constants'
 const VIDEO_ID = 'fnnR-9JmAjE'
 const IMAGE = SRC_URL + `bubbles/dingell.jpg`
 
+let player
+
 module.exports = {
   className: 'bubbleButton-dingell',
   title: 'congresswoman dingell',
@@ -14,6 +16,7 @@ module.exports = {
   renderButtonContent,
   renderDescription,
   size: 'small',
+  onClose: () => player && player.pauseVideo(),
 }
 
 function renderButtonContent() {
@@ -21,7 +24,6 @@ function renderButtonContent() {
 }
 
 function renderDescription() {
-  const onVideoReady = () => {}
   return (
     <div style={{textAlign: 'center'}}>
       <YouTubeVideo
@@ -30,6 +32,10 @@ function renderDescription() {
         opts={getVideoOptions()} />
     </div>
   )
+}
+
+function onVideoReady({target}) {
+  player = target
 }
 
 function getVideoOptions() {
@@ -43,7 +49,6 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
-      playlist: [VIDEO_ID],
       color: 'white',
     },
   }
