@@ -42,7 +42,7 @@ function renderDescription() {
 
       our target constituency:
       <ol>
-        <li>the queers. our LGBT family are one of the many beating hearts of this movement.<br /></li>
+        <li>the queers. our LGBTQ family are one of the many beating hearts of this movement.<br /></li>
         <li>millennials. they are the largest potential voter group in this coming election. we’ve got to get them inspired and registered.<br /></li>
         <li>minorities of every stripe. (who are crazy about more than just jesus)<br /></li>
         <li>women (especially ones who wish they had a more exciting life / hate their husbands / resent their kids, etc.)<br /></li>

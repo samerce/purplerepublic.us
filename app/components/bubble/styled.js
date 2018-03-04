@@ -27,10 +27,10 @@ injectGlobal`
   }
   .nolaEvent-venue {
     font-size: 24px;
-    color: ${darken(.4, aColor)};
+    color: ${darken(.3, aColor)};
   }
   .nolaEvent-attire {
-    color: ${darken(.4, aColor)};
+    color: ${darken(.3, aColor)};
   }
 `
 

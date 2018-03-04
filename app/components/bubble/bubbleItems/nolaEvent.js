@@ -6,7 +6,7 @@ const INKY = SRC_URL + 'intro/inky.jpg'
 
 module.exports = {
   className: 'bubbleButton-nolaEvent',
-  title: "they'll tell the story of tonight",
+  title: "#wigthesystem",
   subtitle: 'our next event',
   renderButtonContent,
   renderDescription,
@@ -32,8 +32,6 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      it's time to <span style={{fontWeight: 'bold'}}>#wigthesystem</span> !<br /><br />
-
       from cabaret to congress—a drag queen's rise to senate. join us for an enchanting evening of performance, politics, & play. <br /><br />
 
       <span className='nolaEvent-emphasis'>
