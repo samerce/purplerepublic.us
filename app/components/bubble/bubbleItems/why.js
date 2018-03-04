@@ -38,14 +38,22 @@ function renderDescription() {
 
       a groundswell of playful, energetic, empathetic, exciting people to run. 2018 can welcome in the sexiest fleet of politicians history has ever known. laws and legislation doesn’t have to be a stuffy, suited affair. democracy can be alive again. we can kick the dried-out corpse to the curb and throw the biggest love celebration this planet has ever known.<br /><br />
 
-      a movement rooted in rationality. if you refuse to think, get out of our way. if you’re settled into your dogma and stuck in your ways, then this isn’t your jam. and we’re sorry for your loss.<br /><br />
+      a movement rooted in rationality. if you refuse to think, get out of our way. if you’re settled into your dogma and stuck in your ways, then this isn’t your jam.<br /><br />
 
-      our target constituency are 1. the queers, our LGBT family are one of the many beating hearts of this movement. 2. millennials. they are the largest potential voter group in this coming election. we’ve got to get them inspired and registered. 3. minorities of every stripe. (who aren’t crazy about jesus)  4. women (especially ones who wish they had a more exciting life / hate their husbands / resent their kids, etc.) 5. hippies 6. artists, philosophers, scientists
-<br /><br />
+      our target constituency:
+      <ol>
+        <li>the queers. our LGBT family are one of the many beating hearts of this movement.<br /></li>
+        <li>millennials. they are the largest potential voter group in this coming election. we’ve got to get them inspired and registered.<br /></li>
+        <li>minorities of every stripe. (who are crazy about more than just jesus)<br /></li>
+        <li>women (especially ones who wish they had a more exciting life / hate their husbands / resent their kids, etc.)<br /></li>
+        <li>hippies<br /></li>
+        <li>artists, philosophers, scientists</li>
+        <br />
+      </ol>
 
       if any one of us do it alone, we’ll be killed. if the neo-nazis don’t get us, the secret service will. our power must be in numbers.<br /><br />
 
-      if we do this right, we'll all be swept up in glittery oratory.
+      if we do this right, we'll all be swept up in glittery oratory!
     </div>
   )
 

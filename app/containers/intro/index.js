@@ -177,7 +177,7 @@ export default class Intro extends React.Component {
         <TypingRoot className='first'>
           <Disclaimer>
             <div className='offering'>
-              hi, unicorn !<br />
+              hi friends, comrades, revolutionaries & unicorns !<br />
               democracy is stale so we’re here to give her a facelift.<br />
               <strong>want to change the world with us?</strong><br />
             </div>

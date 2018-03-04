@@ -31,7 +31,8 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      welcome to purple republic. we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
+      welcome to purple republic.<br /><br />
+      we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
 
       through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
 

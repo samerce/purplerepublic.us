@@ -13,6 +13,8 @@ import {
   SRC_URL,
 } from '../../global/constants'
 
+const aColor = '#956C95'
+
 const addJiggle = (duration = 7) => `
   animation: ${duration}s jiggle;
   animation-iteration-count: infinite;
@@ -493,6 +495,8 @@ export const SocialRoot = styled.div`
   &:hover {
     opacity: 1;
     transition: all .2s ${EASE_OUT};
+    z-index: 25;
+
     .i1, .i2, .i3, .i4, .i5, .i6 {
       transform: none;
       transition-timing-function: ${EASE_IN_OUT_SINE};
@@ -586,6 +590,43 @@ export const SocialButtonsRoot = styled.div`
       width: 26px;
       height: 26px;
       margin-left: 13px;
+    }
+  }
+
+  a {
+    position: relative;
+    .tooltip {
+      position: absolute;
+      height: 40px;
+      line-height: 30px;
+      vertical-align: middle;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: white;
+      background: ${aColor};
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+      opacity: 0;
+      transform: translate(5px, -50%);
+      transition: all .2s ${EASE_OUT};
+      z-index: 7;
+      right: 100%;
+      top: 50%;
+      pointer-events: none;
+    }
+    &:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-50%);
+      transition: .3s ${EASE_IN_OUT_SINE} .4s;
+    }
+    &.i10 .tooltip {
+      width: 131px;
+    }
+    &.i11 .tooltip {
+      width: 125px;
+    }
+    &.i8 .tooltip {
+      width: 80px;
     }
   }
 `
@@ -858,6 +899,7 @@ export const BubbleGridItem = styled.div`
   height: ${ITEM_SIZE}px;
   position: relative;
   ${'' /* transition: all 1s ${EASE_OUT}; */}
+  pointer-events: none;
 
   &.focused {
     flex: 0 0 100%;

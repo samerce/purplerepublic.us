@@ -31,13 +31,13 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      can love go viral?
+      can love go viral?<br /><br />
 
       from cabaret to congress — we’re here to unify the human race.
 
-      to perpetually empower a collectively-cultivated conversation
+      to perpetually empower a collectively-cultivated conversation.
 
-      to inspire women, minorities, and queer candidates to run for office and support them on their journey
+      to inspire women, minorities, and queer candidates to run for office and support them on their journey.<br /><br />
 
       if not us, who? if not now, when?
     </div>
