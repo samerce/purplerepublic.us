@@ -20,6 +20,18 @@ injectGlobal`
     align-items: center;
     justify-content: center;
   }
+
+  .nolaEvent-emphasis {
+    font-family: gloria Hallelujah;
+    font-size: 22px;
+  }
+  .nolaEvent-venue {
+    font-size: 24px;
+    color: ${darken(.4, aColor)};
+  }
+  .nolaEvent-attire {
+    color: ${darken(.4, aColor)};
+  }
 `
 
 export const Root = styled.div`

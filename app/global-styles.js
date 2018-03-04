@@ -70,23 +70,23 @@ injectGlobal`
 
   @keyframes jiggle {
     0% {
-      transform: translate(${getRand(10)}, ${getRand(9)});
+      transform: translate(${getRand(5)}, ${getRand(4)});
     }
 
     25% {
-      transform: translate(${getRand(-10)}, ${getRand(-8)});
+      transform: translate(${getRand(-5)}, ${getRand(-3)});
     }
 
     50% {
-      transform: translate(${getRand(8)}, ${getRand(-10)});
+      transform: translate(${getRand(3)}, ${getRand(-5)});
     }
 
     75% {
-      transform: translate(${getRand(-10)}, ${getRand(6)});
+      transform: translate(${getRand(-5)}, ${getRand(1)});
     }
 
     100% {
-      transform: translate(${getRand(9)}, ${getRand(-9)});
+      transform: translate(${getRand(4)}, ${getRand(-4)});
     }
   }
 `

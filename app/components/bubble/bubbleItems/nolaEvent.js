@@ -32,20 +32,24 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      it's time to #wigthesystem !<br /><br />
+      it's time to <span style={{fontWeight: 'bold'}}>#wigthesystem</span> !<br /><br />
 
       from cabaret to congress—a drag queen's rise to senate. join us for an enchanting evening of performance, politics, & play. <br /><br />
 
-      dialogue. dance. democracy. <br />
-      poetry. music. art.<br />
-       food. drink. drag. <br />
+      <span className='nolaEvent-emphasis'>
+        drink. drag. democracy.<br />
+        art. music. poetry.<br />
+        dialogue. dance. diatribes.<br />
+        + appetizers, auction, & surprises.<br />
+      </span><br />
 
-      <span style={{textDecoration: 'underline'}}>attire</span>: purple (wigs encouraged)<br /><br />
+      <strong className='nolaEvent-venue'>cafe istanbul — march 29th — 6pm</strong><br />
+      <span className='nolaEvent-attire'>ATTIRE: <span style={{textDecoration: 'underline'}}>purple & fabulous</span> (wigs encouraged)<br /><br /></span>
 
-      <strong style={{fontSize: '22px'}}>cafe istanbul — march 29th — 6pm</strong><br /><br />
+      <hr />
 
       <span style={{fontStyle: 'italic', fontSize: '14px'}}>
-        proceeds go towards the efforts of the purple republic. to support women, minorities, and queers to run for office. to encourage new national values of expression over survival.
+        pick-your-price tickets. proceeds go towards the efforts of the purple republic. to support women, minorities, and queers to run for office. to encourage new cultural values of expression over survival.
       </span>
     </div>
   )
