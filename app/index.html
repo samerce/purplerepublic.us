@@ -36,21 +36,20 @@
     <!-- event brite checkout -->
     <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
     <script type="text/javascript">
-      window.onEventBriteOrderComplete = function() {
-        console.log('Order complete!');
-      };
-
-      console.log('creating widget')
-      window.EBWidgets.createWidget({
-        // Required
-        widgetType: 'checkout',
-        eventId: '43379695838',
-        iframeContainerId: 'eventbrite-widget-container-43379695838',
-
-        // Optional
-        iframeContainerHeight: 425,
-        onOrderComplete: window.onEventBriteOrderComplete
-      });
+      // window.onEventBriteOrderComplete = function() {
+      //   console.log('Order complete!');
+      // };
+      //
+      // window.EBWidgets.createWidget({
+      //   // Required
+      //   widgetType: 'checkout',
+      //   eventId: '43379695838',
+      //   iframeContainerId: 'eventbrite-widget-container-43379695838',
+      //
+      //   // Optional
+      //   iframeContainerHeight: 425,
+      //   onOrderComplete: window.onEventBriteOrderComplete
+      // });
     </script>
 
     <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out the webpack config files in internals/webpack for details) -->
