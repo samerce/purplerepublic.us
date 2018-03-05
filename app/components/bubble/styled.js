@@ -39,7 +39,6 @@ export const Root = styled.div`
   top: 50px;
   left: 10px;
   z-index: 10;
-  animation-name: jiggle;
   animation-duration: 10s;
   animation-fill-mode: both;
   animation-timing-function: ${EASE_IN_OUT_SINE};

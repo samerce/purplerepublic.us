@@ -10,6 +10,7 @@ import {
 
 import {makeEnum} from '../../utils/lang'
 import autobind from 'autobind-decorator'
+import {makeJiggler} from '../../global-styles'
 
 const Mode = makeEnum([
   'willEnter',
@@ -62,7 +63,9 @@ export default class Bubble extends React.Component {
     if (actions && !actions[0].onClick) actions[0].onClick = this.expand
 
     return (
-      <Root className={'bubble-' + mode + ' ' + className}>
+      <Root
+        style={{animationName: makeJiggler()}}
+        className={'bubble-' + mode + ' ' + className}>
         <BubbleButton
           onClick={this.onClickBubble}
           className={mode + ' ' + size}>

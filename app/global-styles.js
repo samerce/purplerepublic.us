@@ -4,6 +4,36 @@ import {EASE_OUT} from './global/constants'
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
 
+let jiggleIndex = 0
+export const makeJiggler = () => {
+  const name = 'jiggle' + jiggleIndex
+  injectGlobal`
+    @keyframes ${name} {
+      0% {
+        transform: translate(${getRand(6)}, ${getRand(5)});
+      }
+
+      25% {
+        transform: translate(${getRand(-6)}, ${getRand(-4)});
+      }
+
+      50% {
+        transform: translate(${getRand(4)}, ${getRand(-6)});
+      }
+
+      75% {
+        transform: translate(${getRand(-6)}, ${getRand(2)});
+      }
+
+      100% {
+        transform: translate(${getRand(5)}, ${getRand(-5)});
+      }
+    }
+  `
+  jiggleIndex++
+  return name
+}
+
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html,
@@ -89,4 +119,5 @@ injectGlobal`
       transform: translate(${getRand(5)}, ${getRand(-5)});
     }
   }
+
 `

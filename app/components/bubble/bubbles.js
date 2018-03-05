@@ -8,6 +8,7 @@ export default [
   require('./bubbleItems/toughQuestion'),
   require('./bubbleItems/washington'),
   require('./bubbleItems/mission'),
+  require('./bubbleItems/dragVote'),
   require('./bubbleItems/lampshade'),
   require('./bubbleItems/dragChurch'),
   require('./bubbleItems/guns'),
