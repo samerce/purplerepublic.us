@@ -3,6 +3,7 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 const INKY = SRC_URL + 'intro/inky.jpg'
+const FLYER = SRC_URL + 'intro/nolaFlyer.jpg'
 
 module.exports = {
   className: 'bubbleButton-nolaEvent',
@@ -32,23 +33,15 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      from cabaret to congress—a drag queen's rise to senate. join us for an enchanting evening of performance, politics, & play. <br /><br />
+      from cabaret to congress—a drag queen's rise to senate. join us for an enchanting evening of performance, politics, & play! <br /><br />
 
-      <span className='nolaEvent-emphasis'>
-        drink. drag. democracy.<br />
-        art. music. poetry.<br />
-        dialogue. dance. diatribes.<br />
-        + appetizers, auction, & surprises.<br />
-      </span><br />
+      <a style={{width: '100%'}} href={FLYER} target='_blank'>
+        <img src={FLYER} style={{width: '100%'}} />
+      </a>
 
-      <strong className='nolaEvent-venue'>cafe istanbul — march 29th — 6pm</strong><br />
-      <span className='nolaEvent-attire'>ATTIRE: <span style={{textDecoration: 'underline'}}>purple & fabulous</span> (wigs encouraged)<br /><br /></span>
-
-      <hr />
-
-      <span style={{fontStyle: 'italic', fontSize: '14px'}}>
-        pick-your-price tickets. proceeds go towards the efforts of the purple republic. to support women, minorities, and queers to run for office. to encourage new cultural values of expression over survival.
-      </span>
+      <div style={{fontStyle: 'italic', fontSize: '16px', marginTop: '20px'}}>
+        <strong>pick-your-price tickets.</strong> proceeds go towards the efforts of the purple republic. to support women, minorities, and queers to run for office. to encourage new cultural values of expression over survival.
+      </div>
     </div>
   )
 }
