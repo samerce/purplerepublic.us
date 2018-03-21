@@ -11,6 +11,7 @@ export default class BubbleButton extends React.Component {
     const {onClick, className} = this.props
     return (
       <Root
+        delay={Math.random() * .5}
         className={className}
         onClick={onClick}>
         {this.props.children}

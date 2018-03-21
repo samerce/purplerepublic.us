@@ -30,6 +30,8 @@ import Bubble from '../../components/bubble'
 import {
 
 } from '../../global/styled'
+import LogoBubble from '../../components/logoBubble'
+
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {SRC_URL} from '../../global/constants'
@@ -48,6 +50,8 @@ const getStarPos = () => `-${getRandInt(60) + 20}px`
 
 const Mode = makeEnum([
   'enter',
+  'intro',
+  'loadBubbles',
   'show',
 ])
 
@@ -64,13 +68,24 @@ export default class Start extends React.Component {
       hovered: false,
       infoHover: false,
       focusedBubble: null,
+      isFullscreen: false,
     }
   }
 
   componentDidMount() {
+    const onFullscreenChange = () => this.setState({
+      isFullscreen: !this.state.isFullscreen
+    })
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange, false)
+    document.addEventListener('mozfullscreenchange', onFullscreenChange, false)
+    document.addEventListener('msfullscreenchange', onFullscreenChange, false)
+    document.addEventListener('fullscreenchange', onFullscreenChange, false)
+
     this.timeouts.push(
-      setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => this.bubbles[1].click(), 4000),
+      setTimeout(() => this.setState({mode: Mode.intro})),
+      setTimeout(() => this.setState({mode: Mode.loadBubbles}), 8300),
+      setTimeout(() => this.setState({mode: Mode.show}), 8600),
+      setTimeout(() => this.bubbles[7].click(), 12000),
     )
   }
 
@@ -79,7 +94,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, mode, focusedBubble} = this.state
+    const {collapsed, hovered, mode, focusedBubble, isFullscreen} = this.state
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
@@ -248,24 +263,35 @@ export default class Start extends React.Component {
             onLoad={() => this.setState({foregroundLoaded: true})} />
         </BackgroundRoot>
 
-        <BubbleGrid ref={r => this.bubbleGrid = r}>
-          {bubbles.map((data, index) => (
-            <BubbleGridItem
-              key={index}
-              className={cx({
-                focused: focusedBubble === index,
-                collapsed: focusedBubble !== null && focusedBubble !== index,
-              })}>
-              <Bubble
-                onClick={this.onClickBubble.bind(this, index)}
-                onClose={this.onCloseBubble}
-                nucleus={data}
-                focused={focusedBubble === index}
-                ref={r => this.bubbles.push(r)}
-              />
-            </BubbleGridItem>
-          ))}
-        </BubbleGrid>
+        <LogoBubble>
+          <Bubble
+            onClose={this.onCloseBubble}
+            nucleus={bubbles[0]}
+            focused={focusedBubble === 0}
+            ref={r => this.logo = r} />
+        </LogoBubble>
+
+        {(mode === Mode.loadBubbles || mode === Mode.show) &&
+          <BubbleGrid ref={r => this.bubbleGrid = r}>
+            {bubbles.map((data, index) => (
+              <BubbleGridItem
+                key={index}
+                className={cx({
+                  focused: focusedBubble === index,
+                  collapsed: focusedBubble !== null && focusedBubble !== index,
+                })}>
+                <Bubble
+                  onClick={this.onClickBubble.bind(this, index)}
+                  onClose={this.onCloseBubble}
+                  nucleus={data}
+                  isFullscreen={isFullscreen && focusedBubble === index}
+                  focused={focusedBubble === index}
+                  ref={r => this.bubbles.push(r)}
+                />
+              </BubbleGridItem>
+            ))}
+          </BubbleGrid>
+        }
 
         <SocialRoot>
           <SocialButtonsRoot>

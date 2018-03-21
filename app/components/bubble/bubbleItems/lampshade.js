@@ -6,7 +6,7 @@ import {SRC_URL} from '../../../global/constants'
 const IMAGE = SRC_URL + `bubbles/lampshade.jpg`
 
 module.exports = {
-  className: 'bubbleButton-nolaMarch',
+  className: 'bubbleButton-lampshade',
   title: 'lampshade',
   subtitle: 'our first project',
   renderButtonContent,

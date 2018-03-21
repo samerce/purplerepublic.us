@@ -4,7 +4,7 @@ import {SRC_URL} from '../../../global/constants'
 
 
 module.exports = {
-  className: 'bubbleButton-logo',
+  className: 'bubbleButton-mission',
   title: 'mission',
   subtitle: 'purple republic\'s',
   renderButtonContent,

@@ -7,9 +7,12 @@ export const S3_CDN_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
 export const SRC_URL = S3_CDN_URL
 
 
-export const EASE_OUT = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
-export const EASE_IN = 'cubic-bezier(0.42, 0, 1, 1)';
-export const EASE_IN_OUT_SINE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
+export const EASE_OUT_SINE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+export const EASE_IN_SINE = 'cubic-bezier(0.42, 0, 1, 1)';
+export const EASE_SINE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
+export const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+export const EASE_IN = 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
+export const EASE = 'cubic-bezier(0.86, 0, 0.07, 1)';
 
 export const SCREEN_WIDTH_S = 425
 export const SCREEN_WIDTH_M = 768

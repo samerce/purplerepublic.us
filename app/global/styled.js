@@ -1,6 +1,6 @@
 import styled, {injectGlobal} from 'styled-components'
 import {
-  EASE_IN_OUT_SINE, EASE_OUT,
+  EASE, EASE_OUT,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -76,7 +76,7 @@ export const ToolBar = styled.div`
   overflow: hidden;
   background: linear-gradient(to bottom, transparent 0%, ${p => p.themeColor} 100%);
   pointer-events: none;
-  transition: all 1s ${EASE_IN_OUT_SINE};
+  transition: all 1s ${EASE};
   font-family: annie use your telescope;
 
   & > * {

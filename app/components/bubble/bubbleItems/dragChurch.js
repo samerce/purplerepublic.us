@@ -10,7 +10,7 @@ const IMAGE = SRC_URL + `bubbles/drag-church.jpg`
 let player
 
 module.exports = {
-  className: 'bubbleButton-dingell',
+  className: 'bubbleButton-dragChurch',
   title: '(drag queen) church',
   subtitle: 'take me to',
   renderButtonContent,
@@ -49,7 +49,6 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
-      playlist: [VIDEO_ID],
       color: 'white',
     },
   }

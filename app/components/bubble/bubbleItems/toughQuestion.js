@@ -49,7 +49,6 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
-      playlist: [VIDEO_ID],
       color: 'white',
     },
   }

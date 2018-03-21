@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -69,13 +69,13 @@ export const TextRoot = styled.div`
 
   .reveal & {
     background-color: ${alpha(.2, 'white')};
-    transition: background-color 8s ${EASE_IN_OUT_SINE} 7s,
+    transition: background-color 8s ${EASE} 7s,
     transform .3s ${EASE_OUT}, box-shadow .3s ${EASE_OUT};
 
     &:hover {
       transform: scale(1.01);
       box-shadow: 3px 5px 20px rgba(0,0,0,.3);
-      transition: all .5s ${EASE_IN_OUT_SINE};
+      transition: all .5s ${EASE};
     }
   }
   .exit & {
@@ -109,7 +109,7 @@ export const BackgroundRoot = styled.div`
   .reveal & {
     opacity: 1;
     transform: none;
-    transition: opacity 10s ${EASE_IN_OUT_SINE} 3s,
-                transform 9.5s ${EASE_IN_OUT_SINE} 3.5s;
+    transition: opacity 10s ${EASE} 3s,
+                transform 9.5s ${EASE} 3.5s;
   }
 `

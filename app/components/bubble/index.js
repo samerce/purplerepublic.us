@@ -25,6 +25,7 @@ export default class Bubble extends React.Component {
   constructor() {
     super()
     this.timers = []
+    this.animationName = makeJiggler()
     this.state = {
       mode: Mode.willEnter,
     }
@@ -58,13 +59,14 @@ export default class Bubble extends React.Component {
       className,
       size = 'medium',
     } = this.props.nucleus
+    const {isFullscreen} = this.props
 
     // HACK
     if (actions && !actions[0].onClick) actions[0].onClick = this.expand
 
     return (
       <Root
-        style={{animationName: makeJiggler()}}
+        style={isFullscreen? {} : {animationName: this.animationName}}
         className={'bubble-' + mode + ' ' + className}>
         <BubbleButton
           onClick={this.onClickBubble}

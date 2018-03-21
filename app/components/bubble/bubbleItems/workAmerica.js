@@ -10,7 +10,7 @@ const IMAGE = SRC_URL + `bubbles/workAmerica.jpg`
 let player
 
 module.exports = {
-  className: 'bubbleButton-nolaMarch',
+  className: 'bubbleButton-workAmerica',
   title: 'we\'ll work for you america',
   subtitle: 'little bird talks',
   renderButtonContent,
@@ -49,7 +49,6 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
-      playlist: [VIDEO_ID],
       color: 'white',
     },
   }

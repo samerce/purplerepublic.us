@@ -10,7 +10,7 @@ const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
 let player
 
 module.exports = {
-  className: 'bubbleButton-nolaMarch',
+  className: 'bubbleButton-purpleStump',
   title: 'purple stump',
   subtitle: 'little bird presents',
   renderButtonContent,
@@ -49,7 +49,6 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
-      playlist: [VIDEO_ID],
       color: 'white',
     },
   }

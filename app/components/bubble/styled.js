@@ -3,7 +3,8 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT,
   EASE_IN,
-  EASE_IN_OUT_SINE,
+  EASE,
+  EASE_SINE,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_S_PX,
 } from '../../global/constants'
@@ -41,7 +42,7 @@ export const Root = styled.div`
   z-index: 10;
   animation-duration: 10s;
   animation-fill-mode: both;
-  animation-timing-function: ${EASE_IN_OUT_SINE};
+  animation-timing-function: ${EASE_SINE};
   animation-iteration-count: infinite;
   animation-direction: alternate;
   display: flex;

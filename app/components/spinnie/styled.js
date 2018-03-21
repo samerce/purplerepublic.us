@@ -1,6 +1,6 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE_IN_OUT_SINE} from '../../global/constants'
+import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 
 const aColor = '#498359'
 
@@ -49,14 +49,14 @@ export const Root = styled.span`
     &.show {
       opacity: 1;
       transform: none;
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
 
     i {
       animation-duration: 1s;
       animation-name: spinning;
       animation-iteration-count: infinite;
-      animation-timing-function: ${EASE_IN_OUT_SINE};
+      animation-timing-function: ${EASE};
       flex: 0 0 auto;
       color: inherit;
       font-size: inherit;
@@ -65,7 +65,7 @@ export const Root = styled.span`
       animation-duration: 1s;
       animation-name: blinking;
       animation-iteration-count: infinite;
-      animation-timing-function: ${EASE_IN_OUT_SINE};
+      animation-timing-function: ${EASE};
       animation-direction: alternate;
     }
 `

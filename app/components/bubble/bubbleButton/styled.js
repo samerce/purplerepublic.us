@@ -3,7 +3,7 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT,
   EASE_IN,
-  EASE_IN_OUT_SINE,
+  EASE,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
@@ -31,12 +31,13 @@ export const Root = styled.div`
   cursor: pointer;
 
   .bubble-willEnter & {
-    transform: scale(0);
-    opacity: 0;
+    transform: translate(-1000px, -1000px);
+    ${'' /* transform: scale(0); */}
+    ${'' /* opacity: 0; */}
   }
 
   .bubble-enter & {
-    transition: all .7s ${EASE_OUT} 3s;
+    transition: all .7s ${EASE_OUT} ${p => p.delay}s;
   }
 
   &.defocused:hover {
@@ -85,4 +86,6 @@ export const BubbleButtonSVG = styled.object`
   ${bubbleButtonStyle}
 
   pointer-events: none;
+  width: 300px;
+  height: 65px;
 `

@@ -1,5 +1,5 @@
 import styled, {injectGlobal} from 'styled-components'
-import {EASE_IN_OUT_SINE, EASE_OUT} from '../../../global/constants'
+import {EASE, EASE_OUT} from '../../../global/constants'
 import {darken} from 'polished'
 
 export const Root = styled.div`
@@ -14,7 +14,7 @@ export const Root = styled.div`
   &.show {
     pointer-events: all;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 `
 
@@ -41,7 +41,7 @@ export const MediaRecorderTool = styled.div`
     pointer-events: all;
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 
   &:hover {
@@ -64,7 +64,7 @@ export const MediaRecorderTool = styled.div`
   i {
     position: absolute;
     color: black;
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
 
     &.hide {
       transform: rotate(90deg) scale(0);

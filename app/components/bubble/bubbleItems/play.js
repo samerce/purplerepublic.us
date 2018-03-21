@@ -3,7 +3,7 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
 module.exports = {
-  className: 'bubbleButton-logo',
+  className: 'bubbleButton-play',
   title: 'wanna play?',
   subtitle: 'hey there',
   renderButtonContent,

@@ -3,7 +3,7 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT,
   EASE_IN,
-  EASE_IN_OUT_SINE,
+  EASE,
   SCREEN_WIDTH_M_PX,
 } from '../../../global/constants'
 

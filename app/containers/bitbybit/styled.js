@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -81,7 +81,7 @@ export const Page = styled.div`
   &.bitKeep .bit-header, &.readBitArticle .bit-article-header {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} .5s;
+    transition: all 1s ${EASE} .5s;
   }
 
   &.readBitArticle .bit-article-header {
@@ -101,7 +101,7 @@ export const Background = styled.div`
   background: url('${p => p.src}');
   background-attachment: fixed;
   background-size: cover;
-  transition: all 1s ${EASE_IN_OUT_SINE};
+  transition: all 1s ${EASE};
 
   .bitEnter &, .bitReview &, .bitEdit &, .bitDelete &, .bitKeep &, .readBitArticle &, .bitExit &, .bitMorePrompt &, .bitMoreTextEntry & {
     filter: blur(50px);
@@ -138,7 +138,7 @@ export const BitBoxTextRoot = styled.div`
   padding: 20px 20px 15px;
   font-size: 24px;
   overflow: scroll;
-  transition: all 1s ${EASE_IN_OUT_SINE};
+  transition: all 1s ${EASE};
 
   .bitEdit &, .bitReview & {
     transition: all 1s ${EASE_OUT};
@@ -147,14 +147,14 @@ export const BitBoxTextRoot = styled.div`
     transform: scale(0);
     opacity: 0;
     transition: opacity .5s, transform 1s;
-    transition-timing-function: ${EASE_IN_OUT_SINE};
+    transition-timing-function: ${EASE};
     transition-delay: .5s;
   }
   .bitKeep &, .readBitArticle &, .bitMorePrompt &, .bitMoreTextEntry & {
     transform: translateY(1000px);
     opacity: 0;
     transition: opacity .9s, transform 1s;
-    transition-timing-function: ${EASE_IN_OUT_SINE};
+    transition-timing-function: ${EASE};
     transition-delay: .5s;
   }
   .bitExit & {
@@ -221,7 +221,7 @@ export const ReviewTool = styled(ToolBarItem)`
   .bitReview & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} .4s;
+    transition: all 1s ${EASE} .4s;
   }
 `
 
@@ -229,7 +229,7 @@ export const EditTool = styled(ToolBarItem)`
   .bitEdit & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} .4s;
+    transition: all 1s ${EASE} .4s;
   }
 `
 
@@ -245,7 +245,7 @@ export const DoneEditingButton = styled(ToolBarItem)`
   .bitReview &.show {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} .4s;
+    transition: all 1s ${EASE} .4s;
   }
 `
 
@@ -342,15 +342,15 @@ const BitArticleButton = styled.div`
   .readBitArticle & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE} 2s;
+    transition: all 1s ${EASE} 2s;
 
     &:hover {
       &:after {
         width: 250px;
-        transition: all 1s ${EASE_IN_OUT_SINE};
+        transition: all 1s ${EASE};
       }
       i {
-        transition: all 1s ${EASE_IN_OUT_SINE};
+        transition: all 1s ${EASE};
       }
     }
   }
@@ -451,7 +451,7 @@ export const MoreBitsContent = styled.div`
   background: ${p => p.themeColor};
   opacity: 0;
   transform: scale(0);
-  transition: all .5s ${EASE_IN_OUT_SINE};
+  transition: all .5s ${EASE};
 
   .bitMorePrompt &, .bitMoreTextEntry & {
     opacity: 1;

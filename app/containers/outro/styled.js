@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -99,13 +99,13 @@ export const HeaderRoot = styled.div`
     .outro-enter & {
       opacity: 1;
       transform: none;
-      transition: all 1s ${EASE_IN_OUT_SINE} 0s;
+      transition: all 1s ${EASE} 0s;
     }
 
     &, .outro-exit & {
       opacity: 0;
       transform: translateY(-200px);
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
   }
 `
@@ -117,8 +117,8 @@ export const Product = styled.div`
   z-index: 4;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  animation-timing-function: ${EASE_IN_OUT_SINE};
-  transition: all 1s ${EASE_IN_OUT_SINE} 1.5s;
+  animation-timing-function: ${EASE};
+  transition: all 1s ${EASE} 1.5s;
 
   img {
     width: 100%;
@@ -168,7 +168,7 @@ export const Callout = styled.div`
   color: white;
   animation-name: pointingLeft;
   animation-duration: 1s;
-  animation-timing-function: ${EASE_IN_OUT_SINE};
+  animation-timing-function: ${EASE};
   animation-iteration-count: infinite;
   animation-direction: alternate;
   text-shadow: 1px 1px rgba(0,0,0,.5);
@@ -176,7 +176,7 @@ export const Callout = styled.div`
 
   .outro-enter & {
     opacity: 1;
-    transition: opacity .5s ${EASE_IN_OUT_SINE} 2s;
+    transition: opacity .5s ${EASE} 2s;
   }
 
   span {
@@ -479,7 +479,7 @@ export const Finality = styled.div`
   .outro-enter & {
     transform: none;
     opacity: 1;
-    transition: all .7s ${EASE_IN_OUT_SINE} 1.3s;
+    transition: all .7s ${EASE} 1.3s;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

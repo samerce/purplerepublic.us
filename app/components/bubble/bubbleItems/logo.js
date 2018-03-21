@@ -19,11 +19,7 @@ module.exports = {
 
 function renderButtonContent() {
   return (
-    <div className='logo-svg-root'>
-      <BubbleButtonSVG
-        className='bubbleButton-logo-svg'
-        data={SRC_URL + 'commons/logo.svg'}
-        type='image/svg+xml' />
+    <div>
     </div>
   )
 }

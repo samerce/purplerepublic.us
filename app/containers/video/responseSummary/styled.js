@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -55,7 +55,7 @@ export const ContentRow = styled.div`
   .videoResponseSummary & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
     transition-delay: ${p => .8 + p.delay + 's'};
   }
 
@@ -114,7 +114,7 @@ export const ResponseSummaryTools = styled(ToolBar)`
   .videoResponseSummary & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -133,7 +133,7 @@ export const ScriptText = styled(ScriptTextInput)`
 
   &:hover {
     transform: translate(100px, -200px);
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
   }
   &:focus {
     background: ${p => p.themeColor};

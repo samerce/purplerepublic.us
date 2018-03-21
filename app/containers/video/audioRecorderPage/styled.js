@@ -1,5 +1,5 @@
 import styled, {injectGlobal} from 'styled-components'
-import {EASE_IN_OUT_SINE, EASE_OUT} from '../../../global/constants'
+import {EASE, EASE_OUT} from '../../../global/constants'
 import {darken} from 'polished'
 
 injectGlobal`
@@ -30,12 +30,12 @@ export const Root = styled.div`
     pointer-events: all;
     opacity: 1;
     transform: translateY(-50px);
-    transition: all 1s ${EASE_IN_OUT_SINE} .3s;
+    transition: all 1s ${EASE} .3s;
 
     &.recording {
       animation-name: recordingBlink;
       animation-duration: 1s;
-      animation-timing-function: ${EASE_IN_OUT_SINE};
+      animation-timing-function: ${EASE};
       animation-iteration-count: infinite;
       animation-direction: alternate;
     }
@@ -52,7 +52,7 @@ export const Root = styled.div`
       position: relative;
       opacity: 1;
       pointer-events: all;
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
   }
 
@@ -68,7 +68,7 @@ export const Root = styled.div`
       position: relative;
       opacity: 1;
       transform: none;
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
   }
 `

@@ -5,7 +5,7 @@ import {
   SweetTalk as aSweetTalk,
 } from '../../global/styled'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -127,18 +127,18 @@ export const Disclaimer = styled.div`
 
   .intro-disclaimer & {
     opacity: 1;
-    transition: all 2s ${EASE_IN_OUT_SINE};
+    transition: all 2s ${EASE};
     ${'' /* animation-name: fadeOut;
     animation-duration: 3s;
     animation-fill-mode: both;
     animation-delay: 11s;
-    animation-timing-function: ${EASE_IN_OUT_SINE}; */}
+    animation-timing-function: ${EASE}; */}
   }
   .intro-exit & {
     transform: scale(0);
     opacity: 0;
     transition: opacity .7s, transform 1s;
-    transition-timing-function: ${EASE_IN_OUT_SINE};
+    transition-timing-function: ${EASE};
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -191,7 +191,7 @@ export const Enough = styled.div`
   .intro-now & {
     opacity: 0;
     transform: translateX(800px);
-    transition-timing-function: ${EASE_IN_OUT_SINE};
+    transition-timing-function: ${EASE};
     transition: opacity 2s, transform 2s;
   }
 `
@@ -239,7 +239,7 @@ export const What = styled.div`
   .intro-exit & {
     opacity: 0;
     transform: scale(0);
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
   }
 `
 
@@ -290,8 +290,8 @@ export const Is = styled.div`
   .intro-lifeEverything & {
     opacity: 1;
     transform: translateX(-150px);
-    transition: opacity 3s ${EASE_IN_OUT_SINE},
-      transform 1s ${EASE_IN_OUT_SINE} ${DURATION_IS}s;
+    transition: opacity 3s ${EASE},
+      transform 1s ${EASE} ${DURATION_IS}s;
 
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: translateX(-60px);
@@ -300,7 +300,7 @@ export const Is = styled.div`
   .intro-lifeNothing & {
     opacity: 1;
     transform: translateX(-120px);
-    transition: transform .5s ${EASE_IN_OUT_SINE} .5s;
+    transition: transform .5s ${EASE} .5s;
 
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: translateX(-45px);
@@ -309,7 +309,7 @@ export const Is = styled.div`
   .intro-youNothing & {
     opacity: 1;
     transform: translateX(-1000px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 `
 
@@ -329,12 +329,12 @@ export const Everything = styled.div`
 
   .intro-lifeEverything & {
     opacity: 1;
-    transition: all 1.5s ${EASE_IN_OUT_SINE} ${DURATION_IS + .5}s;
+    transition: all 1.5s ${EASE} ${DURATION_IS + .5}s;
   }
   .intro-lifeNothing & {
     opacity: 0;
     transform: translateY(-2000px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
   .intro-youNothing & {
     transform: translateX(2000px);
@@ -342,7 +342,7 @@ export const Everything = styled.div`
   .intro-youEverything & {
     opacity: 1;
     transform: translateX(34px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
 
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: translateX(20px);
@@ -351,7 +351,7 @@ export const Everything = styled.div`
   .intro-duality &, .intro-welcome & {
     opacity: 1;
     transform: translateX(-260px);
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
 
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: translateX(-110px);
@@ -360,13 +360,13 @@ export const Everything = styled.div`
     span {
       opacity: 1;
       transform: none;
-      transition: all .5s ${EASE_IN_OUT_SINE} .5s;
+      transition: all .5s ${EASE} .5s;
 
       animation-name: shrinkIs;
       animation-duration: .5s;
       animation-delay: .5s;
       animation-fill-mode: both;
-      animation-timing-function: ${EASE_IN_OUT_SINE};
+      animation-timing-function: ${EASE};
 
       @media(max-width: ${SCREEN_WIDTH_S_PX}) {
         animation-name: shrinkIsSmall;
@@ -386,7 +386,7 @@ export const Nothing = styled.div`
   .intro-lifeNothing & {
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
   .intro-youNothing & {
     opacity: 1;
@@ -395,7 +395,7 @@ export const Nothing = styled.div`
   .intro-youEverything & {
     opacity: 0;
     transform: translateX(2000px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 `
 
@@ -406,7 +406,7 @@ export const YouAreToo = styled.div`
   .intro-youNothing & {
     opacity: 1;
     transform: translateX(-145px);
-    transition: all 1s ${EASE_IN_OUT_SINE} .5s;
+    transition: all 1s ${EASE} .5s;
 
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: translateX(-55px);
@@ -423,7 +423,7 @@ export const YouAreToo = styled.div`
   .intro-duality &, .intro-welcome & {
     opacity: 0;
     transform: translateX(-145px);
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
   }
 `
 
@@ -439,7 +439,7 @@ export const DualityText = styled.div`
 
     &.ying, &.yang, &.stacked {
       opacity: 1;
-      transition: all .3s ${EASE_IN_OUT_SINE};
+      transition: all .3s ${EASE};
     }
 
     .intro-text {
@@ -449,7 +449,7 @@ export const DualityText = styled.div`
     &.ying span, &.stacked span {
       opacity: 1
       transform: none;
-      transition: all .3s ${EASE_IN_OUT_SINE};
+      transition: all .3s ${EASE};
     }
 
     &.stacked span {
@@ -495,7 +495,7 @@ export const WelcomeRoot = styled.div`
   .intro-exit & {
     opacity: 0;
     transform: translateY(-400px);
-    transition: all .5s ${EASE_IN_OUT_SINE} .2s;
+    transition: all .5s ${EASE} .2s;
   }
 `
 
@@ -522,7 +522,7 @@ export const Brand = styled.div`
   .intro-welcome &, .intro-exit & {
     opacity: 1;
     letter-spacing: 2px;
-    transition: all 3s ${EASE_IN_OUT_SINE} 3.5s;
+    transition: all 3s ${EASE} 3.5s;
   }
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
@@ -552,7 +552,7 @@ export const Tagline = styled.div`
   .intro-welcome &, .intro-exit & {
     opacity: 1;
     transform: none;
-    transition: all 3s ${EASE_IN_OUT_SINE} 6s;
+    transition: all 3s ${EASE} 6s;
 
     &.extra-tag {
       transition-delay: 6.5s;
@@ -593,7 +593,7 @@ export const SkipButton = styled.div`
   }
   &:hover {
     border-color: ${purple};
-    transition: all .3s ${EASE_IN_OUT_SINE};
+    transition: all .3s ${EASE};
   }
   &:active {
     background: ${purple};
@@ -669,6 +669,6 @@ export const Results = styled.div`
     opacity: 1;
     pointer-events: all;
     transform: none;
-    transition: all .5s ${EASE_IN_OUT_SINE};
+    transition: all .5s ${EASE};
   }
 `

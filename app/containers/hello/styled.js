@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -43,7 +43,7 @@ export const Background = styled.div`
     opacity: 1;
     transform: scale(1.05);
     transition: opacity 1s, transform 1s;
-    transition-timing-function: ${EASE_IN_OUT_SINE};
+    transition-timing-function: ${EASE};
 
     @media (max-width: ${SCREEN_WIDTH_S_PX}) {
       transform: scale(1.05) translateX(-150px);
@@ -85,12 +85,12 @@ export const HeaderRoot = styled.div`
     background: linear-gradient(to top, ${alpha(.3, 'black')} 0%, transparent 100%);
     opacity: 0;
     transform: translateY(200px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
 
     .hello-enter & {
       opacity: 1;
       transform: none;
-      transition: all 3s ${EASE_IN_OUT_SINE} 0s;
+      transition: all 3s ${EASE} 0s;
     }
 
     .hello-exit & {

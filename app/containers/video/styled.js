@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE_IN_OUT_SINE,
+  EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -41,7 +41,7 @@ export const Background = styled.div`
   background-size: cover;
   filter: blur(50px);
   transform: scale(1.2);
-  transition: all 1s ${EASE_IN_OUT_SINE};
+  transition: all 1s ${EASE};
   pointer-events: none;
 
   &:before {
@@ -86,13 +86,13 @@ export const HeaderRoot = styled.div`
     .videoReview &, .videoMakeScript &, .videoResponseSummary &.summary {
       opacity: 1;
       transform: none;
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
 
     &, .videoExit &, &.summary {
       opacity: 0;
       transform: translateY(-200px);
-      transition: all 1s ${EASE_IN_OUT_SINE};
+      transition: all 1s ${EASE};
     }
   }
 `
@@ -116,7 +116,7 @@ export const VideoRoot = styled.div`
     pointer-events: all;
     opacity: 1;
     transform: scale(.8) translateY(-50px);
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
   #videoPlayer {
     border-radius: 5px;
@@ -131,7 +131,7 @@ export const ReviewTools = styled(ToolBar)`
     pointer-events: all;
     opacity: 1;
     transform: none;
-    transition: all 1s ${EASE_IN_OUT_SINE};
+    transition: all 1s ${EASE};
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -161,7 +161,7 @@ export const ScriptRoot = styled.div`
   .videoMakeScript & {
     opacity: 1;
     transform: translateY(10px);
-    transition: all 1s ${EASE_IN_OUT_SINE} .3s;
+    transition: all 1s ${EASE} .3s;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
@@ -189,7 +189,7 @@ export const ScriptTextInput = styled.textarea`
   background: ${p =>  p.themeColor};
   resize: none;
   outline: none;
-  transition: all .5s ${EASE_IN_OUT_SINE};
+  transition: all .5s ${EASE};
 
   &:focus {
     background: ${p => darken(.1, p.themeColor)};
