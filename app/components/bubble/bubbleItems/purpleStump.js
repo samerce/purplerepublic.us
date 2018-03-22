@@ -15,7 +15,7 @@ module.exports = {
   subtitle: 'little bird presents',
   renderButtonContent,
   renderDescription,
-  size: 'small',
+  size: 'xlarge',
   onClose: () => player && player.pauseVideo()
 }
 

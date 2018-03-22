@@ -102,11 +102,13 @@ export default class Bubble extends React.Component {
       this.defocusIt()
     } else {
       const boundingRect = findDOMNode(this.root).getBoundingClientRect()
+      const {size: sizeName} = this.props.nucleus
+      const size = (sizeName === 'medium')? 210 : (sizeName === 'xlarge')? 310 : 160
       this.setState({
         mode: Mode.willFocus,
         bubbleRect: {
           top: boundingRect.top,
-          left: boundingRect.left - (window.innerWidth / 2) + 100,
+          left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
         },
       })
       setTimeout(() => this.focusIt())
@@ -114,7 +116,7 @@ export default class Bubble extends React.Component {
   }
 
   focusIt() {
-    this.props.onClick()
+    this.props.onOpen()
     this.setState({
       mode: Mode.focused,
       bubbleRect: {
@@ -154,8 +156,8 @@ export default class Bubble extends React.Component {
 
   getNewBubbleRect() {
     return {
-      top: 50,//Math.round(Math.random() * 50) + 25,
-      left: 10,//Math.round(Math.random() * 20) + 10,
+      top: 50,//Math.round(Math.random() * 75) + 25,
+      left: 10,//Math.round(Math.random() * 40) + 10,
     }
   }
 

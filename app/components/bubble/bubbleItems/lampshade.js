@@ -11,7 +11,7 @@ module.exports = {
   subtitle: 'our first project',
   renderButtonContent,
   renderDescription,
-  size: 'large',
+  size: 'medium',
 }
 
 function renderButtonContent() {

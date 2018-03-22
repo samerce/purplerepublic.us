@@ -37,8 +37,6 @@ injectGlobal`
 
 export const Root = styled.div`
   position: absolute;
-  top: 50px;
-  left: 10px;
   z-index: 10;
   animation-duration: 10s;
   animation-fill-mode: both;
@@ -54,12 +52,14 @@ export const Root = styled.div`
   pointer-events: none;
 
   &.bubble-focused, &.bubble-expanded {
-    transition: all .5s ${EASE_OUT};
+    transition: top .5s, left .5s, background .5s ${EASE} .3s;
+    transition-timing-function: ${EASE_OUT};
     position: fixed;
     height: 100%;
     pointer-events: all;
     overflow-y: scroll;
     overflow-x: hidden;
+    background: rgba(0,0,0,.3);
   }
   &.bubble-willFocus {
     transition: none;
@@ -69,6 +69,8 @@ export const Root = styled.div`
   &.bubble-willDefocus {
     position: fixed;
     height: 100%;
+    transition: top .7s, left .7s;
+    transition-timing-function: ${EASE_OUT};
   }
   &.bubble-defocused {
     transition: none;

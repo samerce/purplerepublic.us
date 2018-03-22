@@ -15,7 +15,7 @@ module.exports = {
   subtitle: 'surprise landslide victory',
   renderButtonContent,
   renderDescription,
-  size: 'small',
+  size: 'xlarge',
   onClose: () => player && player.pauseVideo()
 }
 

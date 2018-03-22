@@ -16,7 +16,7 @@ module.exports = {
   renderButtonContent,
   renderDescription,
   renderExpandedContent,
-  size: 'medium',
+  size: 'xlarge',
   onClose: () => player && player.pauseVideo(),
 }
 

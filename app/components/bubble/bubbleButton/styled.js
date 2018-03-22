@@ -56,6 +56,16 @@ const bubbleButtonStyle = `
   width: ${CIRCLE_SIZE_LARGE}px;
   height: ${CIRCLE_SIZE_LARGE}px;
 
+  .xlarge & {
+    width: ${300}px;
+    height: ${300}px;
+  }
+
+  .medium & {
+    width: 200px;
+    height: 200px;
+  }
+
   .defocused &:hover {
     box-shadow: 1px 1px 15px rgba(0,0,0,.3);
     transition: all .5s ${EASE_OUT};

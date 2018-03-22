@@ -4,19 +4,19 @@ import YouTubeVideo from 'react-youtube'
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
-const VIDEO_ID = '8xExiMisNsc'
-const IMAGE = SRC_URL + `bubbles/dragVote.jpg`
+const VIDEO_ID = 's2gGuBA_acg'
+const IMAGE = SRC_URL + `bubbles/self-not-actor.jpg`
 
 let player
 
 module.exports = {
-  className: 'bubbleButton-dragVote',
-  title: 'would you vote for a drag queen?',
-  subtitle: 'we took to the streets asking',
+  className: 'bubbleButton-selfNotActor',
+  title: 'the self is not the actor',
+  subtitle: 'power is in focus',
   renderButtonContent,
   renderDescription,
   size: 'medium',
-  onClose: () => player && player.pauseVideo(),
+  onClose: () => player && player.pauseVideo()
 }
 
 function renderButtonContent() {

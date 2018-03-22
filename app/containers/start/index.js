@@ -85,7 +85,7 @@ export default class Start extends React.Component {
       setTimeout(() => this.setState({mode: Mode.intro})),
       setTimeout(() => this.setState({mode: Mode.loadBubbles}), 8300),
       setTimeout(() => this.setState({mode: Mode.show}), 8600),
-      setTimeout(() => this.bubbles[7].click(), 10000),
+      setTimeout(() => this.bubbles[3].click(), 9600),
     )
   }
 
@@ -277,11 +277,12 @@ export default class Start extends React.Component {
               <BubbleGridItem
                 key={index}
                 className={cx({
+                  [data.size]: true,
                   focused: focusedBubble === index,
                   collapsed: focusedBubble !== null && focusedBubble !== index,
                 })}>
                 <Bubble
-                  onClick={this.onClickBubble.bind(this, index)}
+                  onOpen={this.onOpenBubble.bind(this, index)}
                   onClose={this.onCloseBubble}
                   nucleus={data}
                   isFullscreen={isFullscreen && focusedBubble === index}
@@ -344,16 +345,8 @@ export default class Start extends React.Component {
   }
 
   @autobind
-  onClickBubble(index) {
-    const {focusedBubble: currentFocusedBubble} = this.state
-    if (currentFocusedBubble !== null) {
-      this.bubbles[currentFocusedBubble].defocusIt()
-    }
-
-    const isClosingBubble = (currentFocusedBubble === index)
-    this.setState({
-      focusedBubble: isClosingBubble? null : index,
-    })
+  onOpenBubble(index) {
+    this.setState({focusedBubble: index})
   }
 
   @autobind

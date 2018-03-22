@@ -14,7 +14,8 @@ module.exports = {
   renderExpandedContent,
   actions: [{
     text: 'read more',
-  }]
+  }],
+  size: 'medium',
 }
 
 function renderButtonContent() {

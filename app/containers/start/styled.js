@@ -576,9 +576,14 @@ export const BubbleGrid = styled.div`
   left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-right: 50px;
+
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    padding: 0;
+  }
 `
 
-const ITEM_SIZE = 200
+const ITEM_SIZE = 160
 export const BubbleGridItem = styled.div`
   flex: 0 0 ${ITEM_SIZE}px;
   height: ${ITEM_SIZE}px;
@@ -587,6 +592,15 @@ export const BubbleGridItem = styled.div`
 
   &.focused {
     z-index: 20;
+  }
+
+  &.xlarge {
+    flex: 0 0 310px;
+    height: 310px;
+  }
+  &.medium {
+    flex: 0 0 210px;
+    height: 210px;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
