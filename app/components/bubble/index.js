@@ -1,4 +1,6 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
+
 import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'
 import BubbleRelated from './bubbleRelated'
@@ -16,7 +18,9 @@ const Mode = makeEnum([
   'willEnter',
   'enter',
   'defocused',
+  'willFocus',
   'focused',
+  'willDefocus',
   'expanded',
 ])
 
@@ -28,6 +32,8 @@ export default class Bubble extends React.Component {
     this.animationName = makeJiggler()
     this.state = {
       mode: Mode.willEnter,
+      bubbleRect: this.getNewBubbleRect(),
+      originalBubbleRect: {},
     }
   }
 
@@ -48,7 +54,7 @@ export default class Bubble extends React.Component {
   }
 
   render() {
-    const {mode} = this.state
+    const {mode, bubbleRect} = this.state
     const {
       renderButtonContent,
       renderExpandedContent,
@@ -66,7 +72,10 @@ export default class Bubble extends React.Component {
 
     return (
       <Root
-        style={isFullscreen? {} : {animationName: this.animationName}}
+        ref={r => this.root = r}
+        style={isFullscreen?
+          bubbleRect :
+          {animationName: this.animationName, ...bubbleRect}}
         className={'bubble-' + mode + ' ' + className}>
         <BubbleButton
           onClick={this.onClickBubble}
@@ -88,23 +97,49 @@ export default class Bubble extends React.Component {
 
   @autobind
   onClickBubble() {
-    if (this.state.focused) {
+    const {focused, bubbleRect} = this.state
+    if (focused) {
       this.defocusIt()
     } else {
-      this.focusIt()
+      const boundingRect = findDOMNode(this.root).getBoundingClientRect()
+      console.log(boundingRect)
+      this.setState({
+        mode: Mode.willFocus,
+        bubbleRect: {
+          top: boundingRect.top,
+          left: boundingRect.left - (window.innerWidth / 2) + 100,
+        },
+      })
+      setTimeout(() => this.focusIt())
     }
   }
 
   focusIt() {
     this.props.onClick()
-    this.setState({mode: Mode.focused})
+    this.setState({
+      mode: Mode.focused,
+      bubbleRect: {
+        top: 0,
+        left: 0,
+      },
+      originalBubbleRect: this.state.bubbleRect,
+    })
   }
 
   @autobind
   defocusIt() {
     this.props.onClose()
     this.props.nucleus.onClose && this.props.nucleus.onClose()
-    this.setState({mode: Mode.defocused})
+    this.setState({
+      mode: Mode.willDefocus,
+      bubbleRect: this.state.originalBubbleRect,
+    })
+    setTimeout(() => {
+      this.setState({
+        mode: Mode.defocused,
+        bubbleRect: this.getNewBubbleRect(),
+      })
+    }, 700)
   }
 
   @autobind
@@ -116,6 +151,13 @@ export default class Bubble extends React.Component {
   shouldShowDetails() {
     const {mode} = this.state
     return mode === Mode.focused || mode === Mode.expanded
+  }
+
+  getNewBubbleRect() {
+    return {
+      top: 50,//Math.round(Math.random() * 50) + 25,
+      left: 10,//Math.round(Math.random() * 20) + 10,
+    }
   }
 
 }

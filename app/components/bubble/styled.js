@@ -54,9 +54,23 @@ export const Root = styled.div`
   pointer-events: none;
 
   &.bubble-focused, &.bubble-expanded {
-    left: 0;
-    top: 0;
-    transition: 1s ${EASE_OUT};
+    transition: all .6s ${EASE};
+    position: fixed;
+    height: 100%;
+    pointer-events: all;
+    overflow-y: scroll;
+  }
+  &.bubble-willFocus {
+    transition: none;
+    position: fixed;
+    height: 100%;
+  }
+  &.bubble-willDefocus {
+    position: fixed;
+    height: 100%;
+  }
+  &.bubble-defocused {
+    transition: none;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

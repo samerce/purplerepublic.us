@@ -51,10 +51,10 @@ const bubbleButtonStyle = `
   border-radius: 100%;
   overflow: hidden;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
-  transition: all .3s ${EASE_OUT};
+  transition: all .7s ${EASE_OUT};
 
-    width: ${CIRCLE_SIZE_LARGE}px;
-    height: ${CIRCLE_SIZE_LARGE}px;
+  width: ${CIRCLE_SIZE_LARGE}px;
+  height: ${CIRCLE_SIZE_LARGE}px;
 
   .defocused &:hover {
     box-shadow: 1px 1px 15px rgba(0,0,0,.3);

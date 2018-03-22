@@ -586,7 +586,6 @@ export const BubbleGridItem = styled.div`
   pointer-events: none;
 
   &.focused {
-    flex: 0 0 100%;
     z-index: 20;
   }
 

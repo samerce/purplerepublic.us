@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE,
+  EASE_SINE, EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -117,8 +117,8 @@ export const Product = styled.div`
   z-index: 4;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  animation-timing-function: ${EASE};
-  transition: all 1s ${EASE} 1.5s;
+  animation-timing-function: ${EASE_SINE};
+  transition: all 1s ${EASE_SINE} 1.5s;
 
   img {
     width: 100%;
@@ -168,7 +168,7 @@ export const Callout = styled.div`
   color: white;
   animation-name: pointingLeft;
   animation-duration: 1s;
-  animation-timing-function: ${EASE};
+  animation-timing-function: ${EASE_SINE};
   animation-iteration-count: infinite;
   animation-direction: alternate;
   text-shadow: 1px 1px rgba(0,0,0,.5);
@@ -176,7 +176,7 @@ export const Callout = styled.div`
 
   .outro-enter & {
     opacity: 1;
-    transition: opacity .5s ${EASE} 2s;
+    transition: opacity .5s ${EASE_SINE} 2s;
   }
 
   span {

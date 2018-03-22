@@ -353,28 +353,12 @@ export default class Start extends React.Component {
     const isClosingBubble = (currentFocusedBubble === index)
     this.setState({
       focusedBubble: isClosingBubble? null : index,
-    }, () => {
-      if (isClosingBubble) return
-      setTimeout(() => {
-        const bubbleTop = findDOMNode(this.bubbles[index]).getBoundingClientRect().top
-        const sign = (bubbleTop/bubbleTop)
-        const scrollAmount = sign * 10
-
-        let intervalScroll = null
-        let totalScroll = 0
-        intervalScroll = setInterval(() => {
-          findDOMNode(this.bubbleGrid).scrollBy(0, scrollAmount)
-          totalScroll += scrollAmount
-          if (totalScroll >= (bubbleTop)) {
-            clearInterval(intervalScroll)
-          }
-        }, 5)
-      }, 200)
     })
   }
 
   @autobind
   onCloseBubble() {
+    findDOMNode(this.bubbles[this.state.focusedBubble]).scrollTo(0, 0)
     this.setState({focusedBubble: null})
   }
 
