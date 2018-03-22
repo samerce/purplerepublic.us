@@ -102,7 +102,6 @@ export default class Bubble extends React.Component {
       this.defocusIt()
     } else {
       const boundingRect = findDOMNode(this.root).getBoundingClientRect()
-      console.log(boundingRect)
       this.setState({
         mode: Mode.willFocus,
         bubbleRect: {

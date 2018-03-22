@@ -54,11 +54,12 @@ export const Root = styled.div`
   pointer-events: none;
 
   &.bubble-focused, &.bubble-expanded {
-    transition: all .6s ${EASE};
+    transition: all .5s ${EASE_OUT};
     position: fixed;
     height: 100%;
     pointer-events: all;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
   &.bubble-willFocus {
     transition: none;

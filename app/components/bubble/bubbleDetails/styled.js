@@ -28,7 +28,7 @@ export const Root = styled.div`
     opacity: 1;
     transform: none;
     pointer-events: all;
-    transition: all .7s ${EASE_OUT};
+    transition: all .7s ${EASE_OUT} .05s;
   }
 `
 
