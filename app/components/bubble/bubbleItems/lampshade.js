@@ -8,7 +8,7 @@ const IMAGE = SRC_URL + `bubbles/lampshade.jpg`
 module.exports = {
   className: 'bubbleButton-lampshade',
   title: 'lampshade',
-  subtitle: 'our first project',
+  subtitle: 'our last project',
   renderButtonContent,
   renderDescription,
   size: 'medium',
