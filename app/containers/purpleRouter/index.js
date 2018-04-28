@@ -42,7 +42,7 @@ export default class PurpleRouter extends React.PureComponent {
   constructor() {
     super()
 
-    const activeRoute = window.location.hash || Object.keys(router)[0]
+    const activeRoute = getCurrentRoute()
     this.state = {
       activeRoute,
       aRoute: activeRoute,
@@ -52,7 +52,7 @@ export default class PurpleRouter extends React.PureComponent {
 
   componentDidMount() {
     window.onhashchange = () => {
-      const activeRoute = window.location.hash || Object.keys(router)[0]
+      const activeRoute = getCurrentRoute()
       const {preloadRoute} = this.props
       const {aRoute, bRoute} = this.state
 
@@ -110,4 +110,10 @@ export default class PurpleRouter extends React.PureComponent {
     })
   }
 
+}
+
+function getCurrentRoute() {
+  const hash = window.location.hash
+  const route = hash && hash.split('?')[0]
+  return route || Object.keys(router)[0]
 }

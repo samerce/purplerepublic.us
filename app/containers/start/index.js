@@ -35,7 +35,7 @@ import LogoBubble from '../../components/logoBubble'
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {SRC_URL} from '../../global/constants'
-import bubbles from '../../components/bubble/bubbles'
+import {bubbles, bubbleKeys} from '../../components/bubble/bubbles'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
@@ -85,7 +85,7 @@ export default class Start extends React.Component {
       setTimeout(() => this.setState({mode: Mode.intro})),
       setTimeout(() => this.setState({mode: Mode.loadBubbles}), 8300),
       setTimeout(() => this.setState({mode: Mode.show}), 8600),
-      setTimeout(() => this.bubbles[3].click(), 9600),
+      setTimeout(this.activateSpotlight, 9600),
     )
   }
 
@@ -360,6 +360,23 @@ export default class Start extends React.Component {
     this.timeouts.push(
       setTimeout(() => window.location = '#hello', 3000)
     )
+  }
+
+  @autobind
+  activateSpotlight() {
+    let spotlightIndex = 3
+
+    const {hash} = window.location
+    const hashParts = hash? hash.split('?') : []
+    if (hashParts.length > 1) {
+      const queryParts = hashParts[1].split('=')
+      if (queryParts[0] === 'spotlight') {
+        const index = bubbleKeys.findIndex(k => k === queryParts[1])
+        if (index >= 0) spotlightIndex = index
+      }
+    }
+
+    this.bubbles[spotlightIndex].click()
   }
 
   getSineWave(id, rotate) {
