@@ -1,36 +1,49 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Loadable from 'react-loadable'
+import Spinner from '../../components/spinnie'
 
-import Politics from '../Politics'
-import Theatre from '../Theatre'
-import Movement from '../Movement'
-import Reflection from '../Reflection'
 import Intro from '../intro'
 import Start from '../start'
-import Action from '../Action'
-import QuarkArt from '../quarkart'
-import BitByBit from '../bitbybit'
-import Hello from '../hello'
-import Quote from '../quote'
-import Video from '../video'
-import Outro from '../outro'
+
+const QuarkArt = Loadable({
+  loader: () => import('../quarkart'),
+  loading: Spinner,
+})
+const BitByBit = Loadable({
+  loader: () => import('../bitbybit'),
+  loading: Spinner,
+})
+const Hello = Loadable({
+  loader: () => import('../hello'),
+  loading: Spinner,
+})
+const Quote = Loadable({
+  loader: () => import('../quote'),
+  loading: Spinner,
+})
+const Video = Loadable({
+  loader: () => import('../video'),
+  loading: Spinner,
+})
+const Outro = Loadable({
+  loader: () => import('../outro'),
+  loading: Spinner,
+})
+
 import {Root, RouteRoot} from './styles'
+import {cx} from '../../utils/style'
 
 import {clearPreloadRoute} from '../App/actions'
-
-import {cx} from '../../utils/style'
 
 const router = {
   '#intro': Intro,
   '#start': Start,
   '#hello': Hello,
   '#quote': Quote,
-  '#politics': Politics,
   '#letsfocus': QuarkArt,
   '#letswrite': BitByBit,
   '#letsimprov': Video,
-  '#reflection': Reflection,
-  '#action': Action,
   '#outro': Outro,
 }
 
