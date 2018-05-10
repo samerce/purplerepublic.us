@@ -24,6 +24,7 @@ export default class BubbleDetails extends React.Component {
       renderExpandedContent,
       subtitle,
       title,
+      focused,
     } = this.props
     return (
       <Root className={className}>
@@ -32,7 +33,7 @@ export default class BubbleDetails extends React.Component {
           <Title>{title}</Title>
           <hr />
           <Description>
-            {renderDescription()}
+            {renderDescription(focused)}
           </Description>
           {renderExpandedContent &&
             <ExpandedContent>

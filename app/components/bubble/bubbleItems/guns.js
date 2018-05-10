@@ -24,13 +24,15 @@ function renderButtonContent() {
   return <BubbleButtonImage src={IMAGE} />
 }
 
-function renderDescription() {
+function renderDescription(focused) {
   return (
     <div style={{textAlign: 'center'}}>
-      <YouTubeVideo
-        videoId={VIDEO_ID}
-        onReady={onVideoReady}
-        opts={getVideoOptions()} />
+      {focused &&
+        <YouTubeVideo
+          videoId={VIDEO_ID}
+          onReady={onVideoReady}
+          opts={getVideoOptions()} />
+      }
     </div>
   )
 }
@@ -46,7 +48,7 @@ function onVideoReady({target}) {
 
 function getVideoOptions() {
   return {
-    width: '90%',
+    width: '100%',
     origin: window.location.origin,
     playerVars: {
       rel: 0,

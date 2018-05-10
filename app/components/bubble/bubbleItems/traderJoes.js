@@ -4,18 +4,18 @@ import YouTubeVideo from 'react-youtube'
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
-const VIDEO_ID = 'y_CX3yzMCF8'
-const IMAGE = SRC_URL + `bubbles/workAmerica.jpg`
+const VIDEO_ID = 'rmXjuF1GLK0'
+const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
 
 let player
 
 module.exports = {
-  className: 'bubbleButton-workAmerica',
-  title: 'we\'ll work for you america',
-  subtitle: 'little bird talks',
+  className: 'bubbleButton-traderJoes',
+  title: 'wig trader joe\'s!',
+  subtitle: 'little bird & bubbles',
   renderButtonContent,
   renderDescription,
-  size: 'small',
+  size: 'xlarge',
   onClose: () => player && player.pauseVideo()
 }
 
@@ -51,6 +51,7 @@ function getVideoOptions() {
       allowfullscreen: 1,
       controls: 1,
       modestbranding: 1,
+      playlist: [VIDEO_ID],
       color: 'white',
     },
   }

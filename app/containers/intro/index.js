@@ -95,11 +95,11 @@ export default class Intro extends React.Component {
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => {
-        if (isRepeatVisitor) {
-          window.location = '#start'
-        } else {
+        // if (isRepeatVisitor) {
+        //   window.location = '#start'
+        // } else {
           this.setState({mode: Mode.disclaimer})
-        }
+        // }
       }),
       // setTimeout(() => this.setState({mode: Mode.youAre}), DURATION_DISCLAIMER),
       // setTimeout(() => this.setState({mode: Mode.enough}), DURATION_YOU_ARE),
@@ -177,11 +177,13 @@ export default class Intro extends React.Component {
         <TypingRoot className='first'>
           <Disclaimer>
             <div className='offering'>
-              hi friends, comrades, revolutionaries & unicorns !<br />
-              democracy is stale so we’re here to give her a facelift.<br />
-              <strong>want to change the world with us?</strong><br />
+              reality is rough if you look at it head on.<br />
+              here's a shred of something decent amidst the noise and fuckery.<br />
+              welcome to the glamour gutter.<br />
+              <strong>art. ideas. revolution. nonsense.</strong><br />
+              <Answer className='next' onClick={this.letsGo}>let's go!</Answer>
             </div>
-            <QuestionRoot>
+            {/* <QuestionRoot>
               <hr />
               <Prompt>two questions first:</Prompt>
               <Question>
@@ -202,9 +204,8 @@ export default class Intro extends React.Component {
                 <hr />
                 congratulations. you completed your purple preliminary.<br />
                 <strong>welcome to the revolution, baby !</strong>
-                <Answer className='next' onClick={this.letsGo}>let's go!</Answer>
               </Results>
-            </QuestionRoot>
+            </QuestionRoot> */}
           </Disclaimer>
         </TypingRoot>
 

@@ -87,6 +87,7 @@ export default class Bubble extends React.Component {
           onClose={this.defocusIt}
           subtitle={subtitle}
           title={title}
+          focused={mode === Mode.focused}
           renderDescription={renderDescription}
           renderExpandedContent={renderExpandedContent}
           actions={actions} />

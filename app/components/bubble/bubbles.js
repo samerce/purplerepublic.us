@@ -1,5 +1,6 @@
 export const bubbleKeys = [
   'logo',
+  'traderJoes',
   'equilibrium',
   'selfNotActor',
   'mission',

@@ -364,7 +364,7 @@ export default class Start extends React.Component {
 
   @autobind
   activateSpotlight() {
-    let spotlightIndex = 3
+    let spotlightIndex = 1
 
     const {hash} = window.location
     const hashParts = hash? hash.split('?') : []
