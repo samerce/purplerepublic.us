@@ -72,9 +72,12 @@
           "transform-react-constant-elements",
           "transform-react-inline-elements",
           "syntax-dynamic-import",
-          ["import-inspector", {
-            "serverSideRequirePath": true
-          }]
+          [
+            "import-inspector",
+            {
+              "serverSideRequirePath": true
+            }
+          ]
         ]
       },
       "test": {
@@ -216,6 +219,7 @@
   "dependencies": {
     "autobind-decorator": "^2.1.0",
     "aws-sdk": "^2.138.0",
+    "babel-plugin-import-inspector": "^2.0.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
