@@ -233,6 +233,7 @@
     "fontfaceobserver": "2.0.7",
     "history": "3.0.0",
     "immutable": "3.8.1",
+    "import-inspector": "^2.0.0",
     "intl": "1.2.5",
     "invariant": "2.2.2",
     "ip": "1.1.4",
