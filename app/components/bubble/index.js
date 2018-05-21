@@ -98,8 +98,8 @@ export default class Bubble extends React.Component {
 
   @autobind
   onClickBubble() {
-    const {focused, bubbleRect} = this.state
-    if (focused) {
+    const {mode, bubbleRect} = this.state
+    if (mode === Mode.focused) {
       this.defocusIt()
     } else {
       const boundingRect = findDOMNode(this.root).getBoundingClientRect()

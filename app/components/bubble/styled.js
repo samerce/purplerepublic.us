@@ -60,6 +60,7 @@ export const Root = styled.div`
     overflow-y: scroll;
     overflow-x: hidden;
     background: rgba(0,0,0,.3);
+    z-index: 30;
   }
   &.bubble-willFocus {
     transition: none;

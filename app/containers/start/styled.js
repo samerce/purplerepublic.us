@@ -590,10 +590,6 @@ export const BubbleGridItem = styled.div`
   position: relative;
   pointer-events: none;
 
-  &.focused {
-    z-index: 20;
-  }
-
   &.xlarge {
     flex: 0 0 310px;
     height: 310px;

@@ -62,12 +62,12 @@ export default class Start extends React.Component {
 
     this.timeouts = []
     this.bubbles = []
+    this.focusedBubble = null
     this.state = {
       mode: Mode.enter,
       collapsed: false,
       hovered: false,
       infoHover: false,
-      focusedBubble: null,
       isFullscreen: false,
     }
   }
@@ -94,7 +94,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, mode, focusedBubble, isFullscreen} = this.state
+    const {collapsed, hovered, mode, isFullscreen} = this.state
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
@@ -263,30 +263,19 @@ export default class Start extends React.Component {
             onLoad={() => this.setState({foregroundLoaded: true})} />
         </BackgroundRoot>
 
-        <LogoBubble>
-          <Bubble
-            onClose={this.onCloseBubble}
-            nucleus={bubbles[0]}
-            focused={focusedBubble === 0}
-            ref={r => this.logo = r} />
-        </LogoBubble>
+        <LogoBubble />
 
         {(mode === Mode.loadBubbles || mode === Mode.show) &&
           <BubbleGrid ref={r => this.bubbleGrid = r}>
             {bubbles.map((data, index) => (
               <BubbleGridItem
                 key={index}
-                className={cx({
-                  [data.size]: true,
-                  focused: focusedBubble === index,
-                  collapsed: focusedBubble !== null && focusedBubble !== index,
-                })}>
+                className={data.size}>
                 <Bubble
                   onOpen={this.onOpenBubble.bind(this, index)}
                   onClose={this.onCloseBubble}
                   nucleus={data}
-                  isFullscreen={isFullscreen && focusedBubble === index}
-                  focused={focusedBubble === index}
+                  isFullscreen={isFullscreen && this.focusedBubble === index}
                   ref={r => this.bubbles.push(r)}
                 />
               </BubbleGridItem>
@@ -346,13 +335,12 @@ export default class Start extends React.Component {
 
   @autobind
   onOpenBubble(index) {
-    this.setState({focusedBubble: index})
+    this.focusedBubble = index
   }
 
   @autobind
   onCloseBubble() {
-    findDOMNode(this.bubbles[this.state.focusedBubble]).scrollTo(0, 0)
-    this.setState({focusedBubble: null})
+    findDOMNode(this.bubbles[this.focusedBubble]).scrollTo(0, 0)
   }
 
   onLetsPlay() {
