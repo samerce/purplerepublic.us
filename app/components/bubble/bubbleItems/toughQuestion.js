@@ -8,6 +8,7 @@ const VIDEO_ID = 'OzH2G27qxhs'
 const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
 
 let player
+let shouldRenderVideo = false
 
 module.exports = {
   className: 'bubbleButton-toughQuestions',
@@ -24,9 +25,10 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}

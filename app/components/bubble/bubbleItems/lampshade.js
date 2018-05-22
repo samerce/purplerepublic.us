@@ -1,9 +1,14 @@
 import React from 'react'
+import YouTubeVideo from 'react-youtube'
 
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {SRC_URL} from '../../../global/constants'
 
-const IMAGE = SRC_URL + `bubbles/lampshade.jpg`
+const VIDEO_ID = 'ljrsFO7VZro'
+const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+
+let player
+let shouldRenderVideo = false
 
 module.exports = {
   className: 'bubbleButton-lampshade',
@@ -12,17 +17,51 @@ module.exports = {
   renderButtonContent,
   renderDescription,
   size: 'medium',
+  onClose: () => player && player.pauseVideo()
 }
 
 function renderButtonContent() {
   return <BubbleButtonImage src={IMAGE} />
 }
 
-function renderDescription() {
-  const onVideoReady = () => {}
+function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
   return (
     <div style={{textAlign: 'center'}}>
-      <iframe src="https://cdnapisec.kaltura.com/p/2031091/sp/203109100/embedIframeJs/uiconf_id/36217991/partner_id/2031091?iframeembed=true&playerId=media-preview_0_0_xnyyzux7&entry_id=0_xnyyzux7&flashvars[streamerType]=auto" width={'90%'} height='400px' allowFullScreen frameBorder="0"></iframe>
+      {shouldRenderVideo &&
+        <YouTubeVideo
+          videoId={VIDEO_ID}
+          onReady={onVideoReady}
+          opts={getVideoOptions()} />
+      }
     </div>
   )
+}
+
+function onVideoReady({target}) {
+  player = target
+}
+
+function getVideoOptions() {
+  return {
+    width: '100%',
+    origin: window.location.origin,
+    playerVars: {
+      rel: 0,
+      showinfo: 0,
+      frameborder: 0,
+      allowfullscreen: 1,
+      controls: 1,
+      modestbranding: 1,
+      color: 'white',
+    },
+  }
+}
+
+function getVideoWidth() {
+  return window.innerWidth * .8
+}
+
+function getVideoHeight() {
+  return getVideoWidth() / (16/9)
 }

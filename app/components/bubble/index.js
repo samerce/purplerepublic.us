@@ -24,6 +24,9 @@ const Mode = makeEnum([
   'expanded',
 ])
 
+const DURATION_WILL_ENTER = 700
+const DURATION_ENTER = DURATION_WILL_ENTER + 700
+
 export default class Bubble extends React.Component {
 
   constructor() {
@@ -44,8 +47,8 @@ export default class Bubble extends React.Component {
 
   componentDidMount() {
     this.timers.push(
-      setTimeout(() => this.setState({mode: Mode.enter})),
-      setTimeout(() => this.setState({mode: Mode.defocused}), 700)
+      setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
+      setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
     )
   }
 
@@ -102,20 +105,27 @@ export default class Bubble extends React.Component {
     if (mode === Mode.focused) {
       this.defocusIt()
     } else {
-      const boundingRect = findDOMNode(this.root).getBoundingClientRect()
-      const {size: sizeName} = this.props.nucleus
-      const size = (sizeName === 'medium')? 210 : (sizeName === 'xlarge')? 310 : 160
-      this.setState({
-        mode: Mode.willFocus,
-        bubbleRect: {
-          top: boundingRect.top,
-          left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
-        },
-      })
-      setTimeout(() => this.focusIt())
+      requestAnimationFrame(this.setWillFocusState)
+      requestAnimationFrame(() => setTimeout(this.focusIt))
     }
   }
 
+  @autobind
+  setWillFocusState() {
+    const boundingRect = findDOMNode(this.root).getBoundingClientRect()
+    const {size: sizeName} = this.props.nucleus
+    const size = (sizeName === 'medium')? 210 : (sizeName === 'xlarge')? 310 : 160
+
+    this.setState({
+      mode: Mode.willFocus,
+      bubbleRect: {
+        top: boundingRect.top,
+        left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
+      },
+    })
+  }
+
+  @autobind
   focusIt() {
     this.props.onOpen()
     this.setState({
@@ -132,21 +142,30 @@ export default class Bubble extends React.Component {
   defocusIt() {
     this.props.onClose()
     this.props.nucleus.onClose && this.props.nucleus.onClose()
+
+    requestAnimationFrame(this.setWillDefocusState)
+    requestAnimationFrame(() => setTimeout(this.setDefocusedState, 700))
+  }
+
+  @autobind
+  setWillDefocusState() {
     this.setState({
       mode: Mode.willDefocus,
       bubbleRect: this.state.originalBubbleRect,
     })
-    setTimeout(() => {
-      this.setState({
-        mode: Mode.defocused,
-        bubbleRect: this.getNewBubbleRect(),
-      })
-    }, 700)
+  }
+
+  @autobind
+  setDefocusedState() {
+    this.setState({
+      mode: Mode.defocused,
+      bubbleRect: this.getNewBubbleRect(),
+    })
   }
 
   @autobind
   expand() {
-    this.setState({mode: Mode.expanded})
+    requestAnimationFrame(() => this.setState({mode: Mode.expanded}))
   }
 
   @autobind

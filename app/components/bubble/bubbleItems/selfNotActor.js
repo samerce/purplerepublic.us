@@ -8,6 +8,7 @@ const VIDEO_ID = 's2gGuBA_acg'
 const IMAGE = SRC_URL + `bubbles/self-not-actor.jpg`
 
 let player
+let shouldRenderVideo
 
 module.exports = {
   className: 'bubbleButton-selfNotActor',
@@ -24,9 +25,10 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}

@@ -8,6 +8,7 @@ const VIDEO_ID = 'S5LiwweHd1w'
 const IMAGE = SRC_URL + `bubbles/seeing-grace.jpg`
 
 let player
+let shouldRenderVideo = false
 
 module.exports = {
   className: 'bubbleButton-seeingGrace',
@@ -24,9 +25,10 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}

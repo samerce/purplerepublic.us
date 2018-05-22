@@ -8,6 +8,7 @@ const VIDEO_ID = '8xExiMisNsc'
 const IMAGE = SRC_URL + `bubbles/dragVote.jpg`
 
 let player
+let shouldRenderVideo = false
 
 module.exports = {
   className: 'bubbleButton-dragVote',
@@ -24,9 +25,11 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
+
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}

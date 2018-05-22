@@ -1,35 +1,15 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
-import Typist from 'react-typist'
 import PayPalLink from '../../components/payPalLink'
+import Backdrop from './backdrop'
 
 import styled from 'styled-components'
 import {
-  BackgroundRoot,
-  Background,
   Root,
-  CatchLine,
-  SweetTalk,
-  HookEm,
-  WooEm,
-  ShakeEm,
-  When,
-  Bounce,
-  Jiggle, IntroMask,
-  Pocky, Chortle, Koki, WhenPart, TicketLink,
-  Invitation, GetInvolved, PlayButtonRoot, PlayButton,
-  PlayButtonHoverRoot, ShootingStars, Star, StarRoot, StarWithTrail,
-  InfoRoot, InfoContentRoot, InfoIntroText, InfoIntroRoot, InfoDetailText,
-  SocialRoot, SocialButtonsRoot, SocialEntryButtonRoot, SocialIcon, Foreground,
+  SocialRoot, SocialButtonsRoot, SocialIcon,
   BubbleGrid, BubbleGridItem,
 } from './styled'
-import {
-  BubbleButtonImage, BubbleButtonSVG,
-} from '../../components/bubble/bubbleButton/styled'
 import Bubble from '../../components/bubble'
-import {
-
-} from '../../global/styled'
 import LogoBubble from '../../components/logoBubble'
 
 import {cx} from '../../utils/style'
@@ -42,7 +22,6 @@ import {Motion, spring} from 'react-motion'
 import autobind from 'autobind-decorator'
 
 const ICON_URL = SRC_URL + 'icons/'
-const INKY = SRC_URL + 'intro/inky.jpg'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -83,9 +62,9 @@ export default class Start extends React.Component {
 
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.intro})),
-      setTimeout(() => this.setState({mode: Mode.loadBubbles}), 8300),
+      setTimeout(() => this.setState({mode: Mode.loadBubbles}), 7300),
       setTimeout(() => this.setState({mode: Mode.show}), 8600),
-      setTimeout(this.activateSpotlight, 9600),
+      setTimeout(this.activateSpotlight, 9700),
     )
   }
 
@@ -103,165 +82,7 @@ export default class Start extends React.Component {
         'start-exit': collapsed,
         [`start-${mode}`]: true,
       })}>
-        <BackgroundRoot>
-          <ShootingStars>
-            <StarRoot style={{
-              transform: 'rotate(0deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '3.5s',
-                animationDuration: '2.5s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(145deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '2s',
-                animationDuration: '1.5s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(105deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '5s',
-                animationDuration: '2.5s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(25deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '8.5s',
-                animationDuration: '2s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(85deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '9.5s',
-                animationDuration: '3s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(195deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '7.5s',
-                animationDuration: '1s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(5deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '5s',
-                animationDuration: '3.5s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-15deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '2.5s',
-                animationDuration: '2s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(67deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '.5s',
-                animationDuration: '2.5s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-87deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '3.5s',
-                animationDuration: '1.7s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-130deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '4s',
-                animationDuration: '2.7s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-190deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '3s',
-                animationDuration: '2.2s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-110deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '6.7s',
-                animationDuration: '1.4s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-168deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '8.4s',
-                animationDuration: '3.2s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-            <StarRoot style={{
-              transform: 'rotate(-45deg)',
-            }}>
-              <StarWithTrail style={{
-                animationDelay: '4.5s',
-                animationDuration: '2s',
-              }}>
-                <Star />
-              </StarWithTrail>
-            </StarRoot>
-          </ShootingStars>
-          <Background className={collapsed && 'collapsed'} />
-          <Foreground
-            className={cx({show: this.state.foregroundLoaded})}
-            src={SRC_URL + 'intro/inky-glass.png'}
-            onLoad={() => this.setState({foregroundLoaded: true})} />
-        </BackgroundRoot>
+        <Backdrop />
 
         <LogoBubble />
 

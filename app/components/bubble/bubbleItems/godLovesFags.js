@@ -8,6 +8,7 @@ const VIDEO_ID = '0kfwMU7HmzE'
 const IMAGE = SRC_URL + `bubbles/god-loves-fags.jpg`
 
 let player
+let shouldRenderVideo = false
 
 module.exports = {
   className: 'bubbleButton-godLovesFags',
@@ -24,9 +25,11 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
+
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}

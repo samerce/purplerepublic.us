@@ -8,6 +8,7 @@ const VIDEO_ID = '0iAe2JrH4ck'
 const IMAGE = SRC_URL + `bubbles/senateWin.jpg`
 
 let player
+let shouldRenderVideo
 
 module.exports = {
   className: 'bubbleButton-senateWin',
@@ -24,9 +25,10 @@ function renderButtonContent() {
 }
 
 function renderDescription(focused) {
+  shouldRenderVideo = shouldRenderVideo || focused
   return (
     <div style={{textAlign: 'center'}}>
-      {focused &&
+      {shouldRenderVideo &&
         <YouTubeVideo
           videoId={VIDEO_ID}
           onReady={onVideoReady}
