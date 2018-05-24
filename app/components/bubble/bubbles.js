@@ -7,7 +7,7 @@ export const bubbleKeys = [
   'washington',
   'purpleStump',
   'play',
-  'why',
+  // 'why',
   'guns',
   'toughQuestion',
   'lampshade',

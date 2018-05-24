@@ -26,7 +26,7 @@ function renderButtonContent() {
 function renderDescription() {
   return (
     <div>
-      let's take a ride together
+      explore a new way to engage with the internet. come experiment with transcending habit in favor of deep thinking as instinct.
     </div>
   )
 

@@ -37,7 +37,7 @@ function renderDescription() {
 
       to perpetually empower a collectively-cultivated conversation.
 
-      to inspire women, minorities, and queer candidates to run for office and support them on their journey.<br /><br />
+      to inspire women, minorities, and queer candidates to find leadership roles and support them on their journey.<br /><br />
 
       if not us, who? if not now, when?
     </div>
