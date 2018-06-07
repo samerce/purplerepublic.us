@@ -178,9 +178,10 @@ export default class Intro extends React.Component {
           <Disclaimer>
             <div className='offering'>
               reality is rough if you look at it head on.<br />
-              here's a shred of something decent amidst the noise and fuckery.<br />
+              here's a shred of something decent amidst the noise.<br />
               welcome to the glamour gutter.<br />
               <strong>art. ideas. revolution. nonsense.</strong><br />
+              <strong>love.</strong><br />
               <Answer className='next' onClick={this.letsGo}>let's go!</Answer>
             </div>
             {/* <QuestionRoot>
