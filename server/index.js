@@ -35,6 +35,7 @@ app.get('/quarkArt.list', quarkArt.list)
 app.post('/submissions.upload', upload.single('blob'), submissions.upload)
 
 // In production we need to pass these values in instead of relying on webpack
+app.set('subdomain offset', 0);
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
