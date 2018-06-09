@@ -173,7 +173,7 @@ export default class Start extends React.Component {
 
   @autobind
   activateSpotlight() {
-    let spotlightIndex = 1
+    let spotlightIndex = -1
 
     const {hash} = window.location
     const hashParts = hash? hash.split('?') : []
@@ -185,6 +185,9 @@ export default class Start extends React.Component {
       }
     }
 
+    if (spotlightIndex < 0) {
+      spotlightIndex = bubbleKeys.findIndex(k => k === 'lampshade')
+    }
     this.bubbles[spotlightIndex].click()
   }
 
