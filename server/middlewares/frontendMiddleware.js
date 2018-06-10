@@ -33,16 +33,7 @@ const addDevMiddlewares = (app, webpackConfig) => {
   }
 
   app.get('*', (req, res) => {
-    if (isRedBubble(req)) {
-      return redirectToRedBubble(res)
-    }
-    fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-      if (err) {
-        res.sendStatus(404);
-      } else {
-        res.send(file.toString());
-      }
-    });
+    redirectToRedBubble(res)
   });
 };
 
@@ -58,8 +49,7 @@ const addProdMiddlewares = (app, options) => {
   app.use(publicPath, express.static(outputPath));
 
   app.get('*', (req, res) => {
-    if (isRedBubble(req)) redirectToRedBubble(res)
-    else res.sendFile(path.resolve(outputPath, 'index.html'))
+    redirectToRedBubble(res)
   });
 };
 
@@ -85,7 +75,7 @@ function isRedBubble(req) {
 }
 
 function redirectToRedBubble(res) {
-  res.redirect('https://www.redbubble.com/people/purplerepublic')
+
 }
 
 function setupSubdomains(app) {
