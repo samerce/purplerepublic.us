@@ -79,9 +79,7 @@ module.exports = (app, options) => {
 };
 
 function isRedBubble(req) {
-  console.log('is it?', req.subdomains.includes('redbubble'))
-  console.log('domains', req.subdomains)
-  return req.subdomains.includes('redbubble')
+  return req.get('host').includes('redbubble.purplerepublic')
 }
 
 function redirectToRedBubble(res) {
