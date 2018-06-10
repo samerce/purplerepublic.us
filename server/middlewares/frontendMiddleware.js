@@ -33,6 +33,9 @@ const addDevMiddlewares = (app, webpackConfig) => {
   }
 
   app.get('*', (req, res) => {
+    if (isRedBubble(req)) {
+      return redirectToRedBubble(res)
+    }
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {
         res.sendStatus(404);
@@ -55,7 +58,8 @@ const addProdMiddlewares = (app, options) => {
   app.use(publicPath, express.static(outputPath));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(outputPath, 'index.html'))
+    if (isRedBubble(req)) redirectToRedBubble(res)
+    else res.sendFile(path.resolve(outputPath, 'index.html'))
   });
 };
 
@@ -65,7 +69,7 @@ const addProdMiddlewares = (app, options) => {
 module.exports = (app, options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
-  setupSubdomains(app);
+  // setupSubdomains(app);
   if (isProd) {
     addProdMiddlewares(app, options);
   } else {
@@ -77,7 +81,7 @@ module.exports = (app, options) => {
 };
 
 function isRedBubble(req) {
-  return req.hostname.includes('redbubble.purplerepublic')
+  return req.host.includes('redbubble')
 }
 
 function redirectToRedBubble(res) {
