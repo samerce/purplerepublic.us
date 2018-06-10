@@ -23,7 +23,7 @@ const upload = multer({
 
 // In production we need to pass these values in instead of relying on webpack
 app.get('*', (req, res) => {
-  res.redirect('https://www.redbubble.com/people/purplerepublic');
+  res.redirect('https://www.redbubble.com/people/purplerepublic/portfolio');
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
