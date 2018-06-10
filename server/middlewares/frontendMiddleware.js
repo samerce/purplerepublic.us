@@ -81,7 +81,7 @@ module.exports = (app, options) => {
 };
 
 function isRedBubble(req) {
-  return req.host.includes('redbubble')
+  return req.get('host').includes('redbubble')
 }
 
 function redirectToRedBubble(res) {
