@@ -21,24 +21,9 @@ const upload = multer({
   }
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true,
-  limit: '50mb',
-}));
-
-// quark art
-app.post('/quarkArt.upload', quarkArt.upload)
-app.get('/quarkArt.list', quarkArt.list)
-
-// audio/video/writing submissions
-app.post('/submissions.upload', upload.single('blob'), submissions.upload)
-
 // In production we need to pass these values in instead of relying on webpack
-app.set('subdomain offset', 0);
-setup(app, {
-  outputPath: resolve(process.cwd(), 'build'),
-  publicPath: '/',
+app.get('*', (req, res) => {
+  res.redirect('https://www.redbubble.com/people/purplerepublic');
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
