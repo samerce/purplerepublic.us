@@ -75,15 +75,5 @@ function isRedBubble(req) {
 }
 
 function redirectToRedBubble(res) {
-
-}
-
-function setupSubdomains(app) {
-  const router = express.Router();
-
-  router.get('/', function(req, res) {
-      res.redirect('https://www.redbubble.com/people/purplerepublic');
-  });
-
-  app.use(subdomain('redbubble', router));
+  res.redirect('https://www.redbubble.com/people/purplerepublic');
 }
