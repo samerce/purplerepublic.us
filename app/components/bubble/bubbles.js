@@ -18,6 +18,7 @@ export const bubbleKeys = [
   'seeingGrace',
   'workAmerica',
   'senatorWins',
-  'godLovesFags'
+  'godLovesFags',
+  'gallery',
 ]
 export const bubbles = bubbleKeys.map(key => require('./bubbleItems/' + key))
