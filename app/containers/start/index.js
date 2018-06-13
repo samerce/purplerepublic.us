@@ -15,13 +15,14 @@ import LogoBubble from '../../components/logoBubble'
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {SRC_URL} from '../../global/constants'
-import {bubbles, bubbleKeys} from '../../components/bubble/bubbles'
+import bubbles from '../../components/bubble/bubbles'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
 import autobind from 'autobind-decorator'
 
 const ICON_URL = SRC_URL + 'icons/'
+const bubbleKeys = Object.keys(bubbles)
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -88,14 +89,14 @@ export default class Start extends React.Component {
 
         {(mode === Mode.loadBubbles || mode === Mode.show) &&
           <BubbleGrid ref={r => this.bubbleGrid = r}>
-            {bubbles.map((data, index) => (
+            {bubbleKeys.map((key, index) => (
               <BubbleGridItem
                 key={index}
-                className={data.size}>
+                className={bubbles[key].size}>
                 <Bubble
                   onOpen={this.onOpenBubble.bind(this, index)}
                   onClose={this.onCloseBubble}
-                  nucleus={data}
+                  nucleus={bubbles[key]}
                   isFullscreen={isFullscreen && this.focusedBubble === index}
                   ref={r => this.bubbles.push(r)}
                 />
@@ -173,72 +174,22 @@ export default class Start extends React.Component {
 
   @autobind
   activateSpotlight() {
-    let spotlightIndex = -1
+    let spotlight = 'lampshade'
 
     const {hash} = window.location
     const hashParts = hash? hash.split('?') : []
     if (hashParts.length > 1) {
       const queryParts = hashParts[1].split('=')
       if (queryParts[0] === 'spotlight') {
-        const index = bubbleKeys.findIndex(k => k === queryParts[1])
-        if (index >= 0) spotlightIndex = index
+        const spotlightParam = queryParts[1]
+        if (bubbleKeys.includes(spotlightParam)) {
+          spotlight = spotlightParam
+        }
       }
     }
 
-    if (spotlightIndex < 0) {
-      spotlightIndex = bubbleKeys.findIndex(k => k === 'lampshade')
-    }
+    const spotlightIndex = bubbleKeys.findIndex(k => k === spotlight)
     this.bubbles[spotlightIndex].click()
   }
 
-  getSineWave(id, rotate) {
-    new SineWaves({
-      el: document.getElementById(id),
-
-      speed: 1.5,
-
-      width: function() {
-        return 900;
-      },
-
-      height: function() {
-        return 80;
-      },
-
-      rotate: rotate? 200 : 120,
-
-      ease: 'SineInOut',
-
-      wavesWidth: '70%',
-
-      waves: [
-        {
-          timeModifier: 6,
-          lineWidth: 6,
-          amplitude: -15,
-          wavelength: 25,
-          segmentLength: 5
-        },
-      ],
-
-      // Called on window resize
-      resizeEvent: function() {
-        var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
-        gradient.addColorStop(0,"rgba(23, 210, 168, 0.2)");
-        gradient.addColorStop(0.5,"rgba(255, 255, 255, 0.5)");
-        gradient.addColorStop(1,"rgba(23, 210, 168, 0.2)");
-
-        var index = -1;
-        var length = this.waves.length;
-    	  while(++index < length){
-          this.waves[index].strokeStyle = gradient;
-        }
-
-        // Clean Up
-        index = void 0;
-        length = void 0;
-        gradient = void 0;
-      }
-    });
-  }
 }
