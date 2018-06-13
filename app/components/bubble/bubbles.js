@@ -1,5 +1,6 @@
 import BubbleVideo from './bubbleItems/video'
 import BubbleGallery from './bubbleItems/gallery'
+import BubbleMedium from './bubbleItems/medium'
 
 import {SRC_URL} from '../../global/constants'
 const PIC_SRC = SRC_URL + 'quark-art/mothers/'
@@ -20,6 +21,14 @@ export default {
     size: 'small',
     videoId: 'RTmW_nTDuXk',
   }),
+  whatIsThis: new BubbleMedium({
+    className: 'bubbleButton-whatIsThis',
+    title: 'what the hell is this, anyhow?',
+    subtitle: 'you may be wondering',
+    size: 'medium',
+    mediumLink: 'https://medium.com/the-purple-republic/what-the-hell-is-this-anyhow-65700351727c',
+    teaserText: 'when contemplating the exact moment each of us shot out of our mother’s love canal & into this shared sensory world, we must ask ourselves: did we sprout from the same infinity (that may or may not exist outside of space-time as we’ve come to know it)?',
+  }),
   selfNotActor: new BubbleVideo({
     className: 'bubbleButton-selfNotActor',
     title: 'the self is not the actor',
@@ -35,6 +44,14 @@ export default {
     size: 'medium',
     videoId: 'GKvrUeSVnWQ',
   }),
+  onTheIssues: new BubbleMedium({
+    className: 'bubbleButton-onTheIssues',
+    title: 'on the issues',
+    subtitle: 'a jumping off point',
+    size: 'small',
+    mediumLink: 'https://medium.com/the-purple-republic/25-issue-overview-1f0ab2812036',
+    teaserText: 'life is exploration. we must be willing to continually edit our perspective. here are some jumping off points for dialogue. together we’ll create our platform.',
+  }),
   purpleStump: new BubbleVideo({
     className: 'bubbleButton-purpleStump',
     title: 'purple stump',
@@ -49,6 +66,14 @@ export default {
     subtitle: 'little bird talks',
     size: 'xlarge',
     videoId: '89KE9NknQ8c',
+  }),
+  proTip: new BubbleMedium({
+    className: 'bubbleButton-proTip',
+    title: 'feeling like a million bucks',
+    subtitle: 'a pro tip',
+    size: 'small',
+    mediumLink: 'https://medium.com/@purpleperson/pro-tip-to-feel-like-a-million-bucks-on-a-nickel-budget-98f6aa572dbd',
+    teaserText: 'go to the sexiest, swankiest most chic hotels and have a beer in their bar. it never gets old. i’ve done it hundreds of times. i’ll be on a road trip in australia',
   }),
   toughQuestion: new BubbleVideo({
     className: 'bubbleButton-toughQuestions',
