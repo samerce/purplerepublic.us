@@ -68,7 +68,7 @@ injectGlobal`
 
     .focused & {
       transition-delay: 0s;
-      opacity: 0;
+      display: none;
     }
 
     span {
