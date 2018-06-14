@@ -7,6 +7,7 @@ const PIC_SRC = SRC_URL + 'quark-art/mothers/'
 
 export default {
   logo: require('./bubbleItems/logo'),
+  shop: require('./bubbleItems/shop'),
   traderJoes: new BubbleVideo({
     className: 'bubbleButton-traderJoes',
     title: 'wig trader joe\'s!',

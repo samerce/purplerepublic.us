@@ -15,6 +15,7 @@ import {cx} from '../../utils/style'
 
 import {SRC_URL, SCREEN_WIDTH_S} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
+import {openInNewTab} from '../../utils/nav'
 import dualityConfig from './dualityConfig'
 import autobind from 'autobind-decorator'
 
@@ -179,10 +180,11 @@ export default class Intro extends React.Component {
             <div className='offering'>
               reality is rough if you look at it head on.<br />
               here's a shred of something decent amidst the noise.<br />
-              welcome to the glamour gutter.<br />
-              <strong>art. ideas. revolution. nonsense.</strong><br />
+              welcome to the glamour gutter.<br /><br />
+              <strong>art. ideas.<br /> revolution. nonsense.</strong><br />
               <strong>love.</strong><br />
-              <Answer className='next' onClick={this.letsGo}>let's go!</Answer>
+              <Answer className='next' onClick={this.shop}>painting, photography</Answer>
+              <Answer className='next' onClick={this.letsGo}>videos, writing, ideas</Answer>
             </div>
             {/* <QuestionRoot>
               <hr />
@@ -313,6 +315,11 @@ export default class Intro extends React.Component {
     localStorage.setItem(KEY_IS_REPEAT_VISITOR, 'true')
     this.setState({mode: Mode.exit})
     this.timeouts.push(setTimeout(() => window.location = '#start', 1000))
+  }
+
+  @autobind
+  shop() {
+    openInNewTab('https://etsy.com/shop/purplerepublic')
   }
 
   @autobind

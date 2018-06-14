@@ -632,7 +632,7 @@ export const QuestionPrompt = styled.div`
 `
 
 export const Answer = styled.div`
-  width: 100px;
+  width: 300px;
   border-radius: 5px;
   border: 1px solid ${purple};
   text-align: center;
