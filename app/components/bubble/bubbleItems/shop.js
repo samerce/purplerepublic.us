@@ -65,10 +65,11 @@ injectGlobal`
   .bubbleShopText {
     transition-delay: .2s;
     text-shadow: 2px 2px black;
+    pointer-events: none;
 
     .focused & {
       transition-delay: 0s;
-      display: none;
+      opacity: 0;
     }
 
     span {
