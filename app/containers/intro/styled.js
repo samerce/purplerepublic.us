@@ -642,10 +642,18 @@ export const Answer = styled.div`
   cursor: pointer;
   color: ${purple};
   user-select: none;
+  transition: all .2s ${EASE_OUT};
 
   &:hover {
     background: ${purple};
     color: white;
+    transform: scale(1.1);
+    transition: all .5s ${EASE_OUT};
+  }
+
+  &:active {
+    transform: scale(.9);
+    background: ${darken(.1, purple)};
   }
 
   &.selected {

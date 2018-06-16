@@ -180,10 +180,10 @@ export default class Backdrop extends React.Component {
         </ShootingStars>
 
         <Background />
-        <Foreground
+        {/* <Foreground
           className={cx({show: this.state.foregroundLoaded})}
           src={INKY}
-          onLoad={() => this.setState({foregroundLoaded: true})} />
+          onLoad={() => this.setState({foregroundLoaded: true})} /> */}
       </Root>
     )
   }

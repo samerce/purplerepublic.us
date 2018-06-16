@@ -185,6 +185,7 @@ export default class Intro extends React.Component {
               <strong>love.</strong><br />
               <Answer className='next' onClick={this.shop}>painting, photography</Answer>
               <Answer className='next' onClick={this.letsGo}>videos, writing, ideas</Answer>
+              <Answer className='next' onClick={this.emailUs}>talk to us, hennie</Answer>
             </div>
             {/* <QuestionRoot>
               <hr />
@@ -320,6 +321,11 @@ export default class Intro extends React.Component {
   @autobind
   shop() {
     openInNewTab('https://etsy.com/shop/purplerepublic')
+  }
+
+  @autobind
+  emailUs() {
+    openInNewTab('mailto:rise@purplerepublic.us')
   }
 
   @autobind
