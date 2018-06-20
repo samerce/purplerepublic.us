@@ -13,54 +13,84 @@ export default class BubbleDetails extends React.Component {
     super()
     this.state = {
       actionClicked: false,
+      isEditingNewAction: false,
     }
   }
 
   render() {
     const {
-      actions,
       className,
-      renderDescription,
-      renderExpandedContent,
       subtitle,
       title,
-      focused,
+      children,
     } = this.props
+
     return (
       <Root className={className}>
         <ContentRoot>
-          <Subtitle>{subtitle}</Subtitle>
-          <Title>{title}</Title>
+          <Subtitle
+            onBlur={e => this.props.onEditingChange({subtitle: e.target.value})}
+            onKeyPress={this.onInputKeyPress}
+            defaultValue={subtitle}
+          />
+          <Title
+            onBlur={e => this.props.onEditingChange({title: e.target.value})}
+            onKeyPress={this.onInputKeyPress}
+            defaultValue={title}
+          />
           <hr />
-          <Description>
-            {renderDescription(focused)}
-          </Description>
-          {renderExpandedContent &&
-            <ExpandedContent>
-              {renderExpandedContent()}
-            </ExpandedContent>
-          }
-          <ActionsRoot>
-            <Action onClick={this.close}>
-              <div>close</div>
-            </Action>
-            {actions.length > 1 &&
-              <Action
-                className={actions[1].className}
-                onClick={() => this.onClickAction(actions[1])}>
-                <div>{actions[1].text}</div>
-              </Action>
-            }
-            {actions.length > 0 && !this.state.actionClicked &&
-              <Action
-                className={actions[0].className}
-                onClick={() => this.onClickAction(actions[0])}>
-                <div>{actions[0].text || 'explore'}</div>
-              </Action>
-            }
-          </ActionsRoot>
+          {children}
+          {this.renderActions()}
         </ContentRoot>
       </Root>
+    )
+  }
+
+  renderActions() {
+    const {
+      isEditingNewAction,
+      shouldShowLinkInput,
+      isLinkInputFocused
+    } = this.state
+    const {
+      actions,
+      editing,
+    } = this.props
+
+    return (
+      <ActionsRoot>
+        <Action onClick={this.close}>
+          <div>close</div>
+        </Action>
+        {editing &&
+          <Action className='addAction' onClick={this.addAction}>
+            {isEditingNewAction?
+              <input
+                defaultValue='explore' type='text' /> :
+              <i className='fa fa-plus' />
+            }
+            {isEditingNewAction &&
+              <input
+                className='linkInput'
+                defaultValue='link goes here' type='text' />
+            }
+          </Action>
+        }
+        {actions.length > 1 &&
+          <Action
+            className={actions[1].className}
+            onClick={() => this.onClickAction(actions[1])}>
+            <div>{actions[1].text}</div>
+          </Action>
+        }
+        {actions.length > 0 && !this.state.actionClicked &&
+          <Action
+            className={actions[0].className}
+            onClick={() => this.onClickAction(actions[0])}>
+            <div>{actions[0].text || 'explore'}</div>
+          </Action>
+        }
+      </ActionsRoot>
     )
   }
 
@@ -70,8 +100,20 @@ export default class BubbleDetails extends React.Component {
   }
 
   @autobind
+  addAction() {
+    this.setState({
+      isEditingNewAction: true,
+    })
+  }
+
+  @autobind
   close() {
     this.props.onClose()
+  }
+
+  @autobind
+  onInputKeyPress(e) {
+    if (e.key === 'Enter') e.target.blur(e)
   }
 
 }

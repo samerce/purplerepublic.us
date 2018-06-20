@@ -3,37 +3,65 @@ import YouTubeVideo from 'react-youtube'
 
 import autobind from 'autobind-decorator'
 
-import {BubbleButtonImage} from '../bubbleButton/styled'
+import {
+  VideoRoot, LinkInput, LinkRoot, ChangeLinkButton,
+} from './styled'
+
 import {SRC_URL} from '../../../global/constants'
 
-export default class BubbleVideo {
+export default class BubbleVideo extends React.Component {
 
   constructor(props) {
-    Object.keys(props).forEach(k => this[k] = props[k])
+    super(props)
 
     this.player = null
-    this.shouldRenderVideo = false
-    this.buttonImageSrc = SRC_URL + `bubbles/${this.videoId}.jpg`
+    this.videoUrl = null
+    this.state = {
+      shouldRenderVideo: props.focused && props.videoId,
+      videoId: props.videoId,
+    }
   }
 
-  @autobind
-  renderButtonContent() {
-   return <BubbleButtonImage src={this.buttonImageSrc} />
- }
+  componentWillReceiveProps(nextProps, nextState) {
+    // const {shouldRenderVideo, videoId} = nextState
+    // const {focused} = nextProps
+    // this.setState({
+    //   shouldRenderVideo: (shouldRenderVideo || focused) && videoId,
+    // })
+  }
 
-  @autobind
-  renderDescription(focused) {
-    this.shouldRenderVideo = this.shouldRenderVideo || focused
+  render() {
+    const {
+      videoId,
+      shouldRenderVideo,
+    } = this.state
+    const {
+      focused,
+      editing,
+    } = this.props
 
     return (
-      <div style={{textAlign: 'center'}}>
-        {this.shouldRenderVideo &&
+      <VideoRoot>
+        {editing && videoId &&
+          <ChangeLinkButton onClick={this.onLinkChange}>
+            change link
+          </ChangeLinkButton>
+        }
+        {shouldRenderVideo &&
           <YouTubeVideo
-            videoId={this.videoId}
+            videoId={videoId}
             onReady={this.onVideoReady}
             opts={getVideoOptions()} />
         }
-      </div>
+        {editing && !videoId &&
+          <LinkRoot>
+            <LinkInput
+              onKeyPress={this.onVideoLinkInputKeyPress}
+              defaultValue={this.videoUrl}
+              placeholder={'youtube link here!'} />
+          </LinkRoot>
+        }
+      </VideoRoot>
     )
   }
 
@@ -45,6 +73,28 @@ export default class BubbleVideo {
   @autobind
   onVideoReady({target}) {
     this.player = target
+  }
+
+  @autobind
+  onLinkSet({target}) {
+    this.videoUrl = target.value
+
+    const videoId = target.value.split('/').pop().split('=').pop()
+    this.setState({
+      videoId,
+      shouldRenderVideo: true,
+    })
+    this.props.onEditingChange({videoId})
+  }
+
+  @autobind
+  onLinkChange() {
+    this.setState({videoId: null})
+  }
+
+  @autobind
+  onVideoLinkInputKeyPress(e) {
+    if (e.key === 'Enter') this.onLinkSet(e)
   }
 
 }
@@ -64,3 +114,9 @@ function getVideoOptions() {
     },
   }
 }
+
+BubbleVideo.makeNucleus = props => ({
+  ...props,
+  Component: BubbleVideo,
+  buttonImageUrl: SRC_URL + `bubbles/${props.videoId}.jpg`,
+})

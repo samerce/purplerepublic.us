@@ -2,27 +2,13 @@ import React from 'react'
 import Gallery from 'react-grid-gallery'
 
 import styled, {injectGlobal} from 'styled-components'
-import {BubbleButtonImage} from '../bubbleButton/styled'
 
-import autobind from 'autobind-decorator'
 import {SRC_URL} from '../../../global/constants'
 
-const VIDEO_ID = '89KE9NknQ8c'
-const IMAGE = SRC_URL + `commons/${VIDEO_ID}.jpg`
+export default class BubbleGallery extends React.Component {
 
-export default class BubbleGallery {
-
-  constructor(props) {
-    Object.keys(props).forEach(k => this[k] = props[k])
-  }
-
-  @autobind
-  renderButtonContent() {
-   return <BubbleButtonImage src={IMAGE} />
- }
-
-  @autobind
-  renderDescription() {
+  render() {
+    const {images} = this.props
     return (
       <div>
         <Gallery
@@ -30,7 +16,7 @@ export default class BubbleGallery {
           imageCountSeparator='/'
           showLightboxThumbnails={true}
           backdropClosesModal={false}
-          images={this.images} />
+          images={images} />
       </div>
     )
   }
@@ -42,3 +28,13 @@ injectGlobal`
       color: white;
   }
 `
+
+BubbleGallery.defaultProps = {
+  images: [],
+}
+
+BubbleGallery.makeNucleus = props => ({
+  ...props,
+  Component: BubbleGallery,
+  buttonImageUrl: SRC_URL + `bubbles/0iAe2JrH4ck.jpg`,
+})

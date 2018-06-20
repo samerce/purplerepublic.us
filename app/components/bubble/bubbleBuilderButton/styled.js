@@ -21,6 +21,29 @@ if (window.innerWidth <= SCREEN_WIDTH_M) {
 }
 
 injectGlobal`
+  .bubbleBuilderButton {
+    z-index: 30;
+    position: relative;
+    top: 210px;
+    left: 40px;
+
+    i {
+      font-size: 40px;
+      color: white;
+      border-radius: 100%;
+      border: 1px solid white;
+      width: 108px;
+      height: 108px;
+      text-align: center;
+      line-height: 108px;
+      background: ${aColor};
+      transition: all 1s ${EASE_OUT};
+
+      &:hover {
+        transform: scale(.9);
+      }
+    }
+  }
 `
 
 export const Root = styled.div`
@@ -75,7 +98,7 @@ const bubbleButtonStyle = `
     transition: all .7s ${EASE_OUT};
   }
 
-  .focused &, .expanded &, .editing & {
+  .focused &, .expanded & {
     width: ${CIRCLE_SIZE_FOCUSED}px;
     height: ${CIRCLE_SIZE_FOCUSED}px;
     box-shadow: none;

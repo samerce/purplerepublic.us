@@ -4,25 +4,26 @@ import BubbleMedium from './bubbleItems/medium'
 
 import {SRC_URL} from '../../global/constants'
 const PIC_SRC = SRC_URL + 'quark-art/mothers/'
+const BUBBLE_IMAGE_SRC = SRC_URL + 'bubbles/'
 
 export default {
   logo: require('./bubbleItems/logo'),
   shop: require('./bubbleItems/shop'),
-  traderJoes: new BubbleVideo({
+  traderJoes: BubbleVideo.makeNucleus({
     className: 'bubbleButton-traderJoes',
     title: 'wig trader joe\'s!',
     subtitle: 'little bird & bubbles',
     size: 'xlarge',
     videoId: 'rmXjuF1GLK0',
   }),
-  equilibrium: new BubbleVideo({
+  equilibrium: BubbleVideo.makeNucleus({
     className: 'bubbleButton-equilibrium',
     title: 'equilibrium',
     subtitle: 'an endless chase',
     size: 'small',
     videoId: 'RTmW_nTDuXk',
   }),
-  whatIsThis: new BubbleMedium({
+  whatIsThis: BubbleMedium.makeNucleus({
     className: 'bubbleButton-whatIsThis',
     title: 'what the hell is this, anyhow?',
     subtitle: 'you may be wondering',
@@ -30,7 +31,7 @@ export default {
     mediumLink: 'https://medium.com/the-purple-republic/what-the-hell-is-this-anyhow-65700351727c',
     teaserText: 'when contemplating the exact moment each of us shot out of our mother’s love canal & into this shared sensory world, we must ask ourselves: did we sprout from the same infinity (that may or may not exist outside of space-time as we’ve come to know it)?',
   }),
-  selfNotActor: new BubbleVideo({
+  selfNotActor: BubbleVideo.makeNucleus({
     className: 'bubbleButton-selfNotActor',
     title: 'the self is not the actor',
     subtitle: 'power is in focus',
@@ -38,14 +39,14 @@ export default {
     videoId: 's2gGuBA_acg',
   }),
   mission: require('./bubbleItems/mission'),
-  washington: new BubbleVideo({
+  washington: BubbleVideo.makeNucleus({
     className: 'bubbleButton-washington',
     title: 'visit washington DC',
     subtitle: 'little bird & bubbles',
     size: 'medium',
     videoId: 'GKvrUeSVnWQ',
   }),
-  onTheIssues: new BubbleMedium({
+  onTheIssues: BubbleMedium.makeNucleus({
     className: 'bubbleButton-onTheIssues',
     title: 'on the issues',
     subtitle: 'a jumping off point',
@@ -53,7 +54,7 @@ export default {
     mediumLink: 'https://medium.com/the-purple-republic/25-issue-overview-1f0ab2812036',
     teaserText: 'life is exploration. we must be willing to continually edit our perspective. here are some jumping off points for dialogue. together we’ll create our platform.',
   }),
-  purpleStump: new BubbleVideo({
+  purpleStump: BubbleVideo.makeNucleus({
     className: 'bubbleButton-purpleStump',
     title: 'purple stump',
     subtitle: 'little bird presents',
@@ -61,14 +62,14 @@ export default {
     videoId: 'ZPkcFPn_Eb8',
   }),
   play: require('./bubbleItems/play'),
-  guns: new BubbleVideo({
+  guns: BubbleVideo.makeNucleus({
     className: 'bubbleButton-guns',
     title: 'drugs, drag queens, guns, & corruption',
     subtitle: 'little bird talks',
     size: 'xlarge',
     videoId: '89KE9NknQ8c',
   }),
-  proTip: new BubbleMedium({
+  proTip: BubbleMedium.makeNucleus({
     className: 'bubbleButton-proTip',
     title: 'feeling like a million bucks',
     subtitle: 'a pro tip',
@@ -76,77 +77,77 @@ export default {
     mediumLink: 'https://medium.com/@purpleperson/pro-tip-to-feel-like-a-million-bucks-on-a-nickel-budget-98f6aa572dbd',
     teaserText: 'go to the sexiest, swankiest most chic hotels and have a beer in their bar. it never gets old. i’ve done it hundreds of times. i’ll be on a road trip in australia',
   }),
-  toughQuestion: new BubbleVideo({
+  toughQuestion: BubbleVideo.makeNucleus({
     className: 'bubbleButton-toughQuestions',
     title: 'handling the tough questions',
     subtitle: 'little bird',
     size: 'small',
     videoId: 'OzH2G27qxhs',
   }),
-  lampshade: new BubbleVideo({
+  lampshade: BubbleVideo.makeNucleus({
     className: 'bubbleButton-lampshade',
     title: 'lampshade',
     subtitle: 'our last project',
     size: 'medium',
     videoId: 'ljrsFO7VZro',
   }),
-  takingUpCollection: new BubbleVideo({
+  takingUpCollection: BubbleVideo.makeNucleus({
     className: 'bubbleButton-takingUpCollection',
     title: 'taking up collection',
     subtitle: 'always find myself',
     size: 'small',
     videoId: 'C59QSCVpSuY',
   }),
-  dragVote: new BubbleVideo({
+  dragVote: BubbleVideo.makeNucleus({
     className: 'bubbleButton-dragVote',
     title: 'would you vote for a drag queen?',
     subtitle: 'we took to the streets asking',
     size: 'medium',
     videoId: '8xExiMisNsc',
   }),
-  dingell: new BubbleVideo({
+  dingell: BubbleVideo.makeNucleus({
     className: 'bubbleButton-dingell',
     title: 'congresswoman dingell',
     subtitle: 'a chat with',
     size: 'small',
     videoId: 'fnnR-9JmAjE',
   }),
-  dragChurch: new BubbleVideo({
+  dragChurch: BubbleVideo.makeNucleus({
     className: 'bubbleButton-dragChurch',
     title: '(drag queen) church',
     subtitle: 'take me to',
     size: 'medium',
     videoId: 'a9FHAUAqyDA',
   }),
-  seeingGrace: new BubbleVideo({
+  seeingGrace: BubbleVideo.makeNucleus({
     className: 'bubbleButton-seeingGrace',
     title: 'seeing grace',
     subtitle: 'surrender to',
     size: 'small',
     videoId: 'S5LiwweHd1w',
   }),
-  workAmerica: new BubbleVideo({
+  workAmerica: BubbleVideo.makeNucleus({
     className: 'bubbleButton-workAmerica',
     title: 'we\'ll work for you america',
     subtitle: 'little bird talks',
     size: 'small',
     videoId: 'y_CX3yzMCF8',
   }),
-  senatorWins: new BubbleVideo({
+  senatorWins: BubbleVideo.makeNucleus({
     className: 'bubbleButton-senateWin',
     title: 'drag queen wins senate seat!',
     subtitle: 'surprise landslide victory',
     size: 'xlarge',
     videoId: '0iAe2JrH4ck',
   }),
-  godLovesFags: new BubbleVideo({
+  godLovesFags: BubbleVideo.makeNucleus({
     className: 'bubbleButton-godLovesFags',
     title: 'god loves fags',
     subtitle: 'god is for everyone',
     size: 'small',
     videoId: '0kfwMU7HmzE',
   }),
-  gallery: new BubbleGallery({
+  gallery: BubbleGallery.makeNucleus({
     className: 'merman-gallery',
     title: 'merman',
     subtitle: 'little bird finds',
@@ -172,5 +173,5 @@ export default {
         thumbnailHeight: 220,
       },
     ],
-  })
+  }),
 }

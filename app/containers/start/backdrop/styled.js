@@ -76,7 +76,7 @@ export const Background = styled.div`
   transform: scale(0);
   z-index: 1;
 
-  .start-intro &, .start-show &, .start-loadBubbles & {
+  .start-intro &, .start-show &, .start-loadBubbles &, .start-buildBubble & {
     transition: all 4s ${EASE_OUT};
     transform: scale(1.5);
     opacity: 1;

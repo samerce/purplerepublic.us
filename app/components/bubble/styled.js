@@ -51,7 +51,7 @@ export const Root = styled.div`
   height: 100%;
   pointer-events: none;
 
-  &.bubble-focused, &.bubble-expanded {
+  &.bubble-focused, &.bubble-expanded, &.bubble-editing {
     transition: top .5s, left .5s, background .5s ${EASE} .3s;
     transition-timing-function: ${EASE_OUT};
     position: fixed;
@@ -75,6 +75,10 @@ export const Root = styled.div`
   }
   &.bubble-defocused {
     transition: none;
+  }
+  &.bubble-editing {
+    padding-top: 190px;
+    padding-left: 250px;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

@@ -23,8 +23,9 @@ export const Root = styled.div`
   transition: opacity .4s, transform .5s;
   transition-timing-function: ${EASE_OUT};
   z-index: 7;
+  position: relative;
 
-  &.focused, &.expanded {
+  &.focused, &.expanded, &.editing {
     opacity: 1;
     transform: none;
     pointer-events: all;
@@ -46,19 +47,25 @@ export const ContentRoot = styled.div`
 `
 
 
-export const Title = styled.div`
+export const Title = styled.input`
   font-size: 26px;
   font-family: life savers;
   color: white;
   text-align: center;
   font-weight: bold;
+  pointer-events: none;
+  width: 100%;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     font-size: 24px;
   }
+
+  .editing & {
+    pointer-events: all;
+  }
 `
 
-export const Subtitle = styled.div`
+export const Subtitle = styled.input`
   font-family: life savers;
   font-size: 12px;
   opacity: .7;
@@ -66,9 +73,15 @@ export const Subtitle = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
+  width: 100%;
+  pointer-events: none;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
    font-size: 10px;
+ }
+
+ .editing & {
+   pointer-events: all;
  }
 `
 
@@ -120,6 +133,33 @@ export const Action = styled.div`
     background: white;
     color: ${darken(.05, aColor)};
     transition: all .2s ${EASE_OUT};
+  }
+
+  &.addAction {
+    text-align: center;
+    border-left: 1px solid white;
+    position: relative;
+    flex: 0 0 auto;
+    padding: 0 20px;
+
+    &:not(:last-child) {
+      border-right: 1px solid white;
+    }
+
+    i {
+      font-size: 20px;
+    }
+    input {
+      width: 100%;
+      text-align: center;
+      font-family: inherit;
+      height: 100%;
+    }
+    .linkInput {
+      position: absolute;
+      top: 100%;
+      background: ${aColor};
+    }
   }
 `
 

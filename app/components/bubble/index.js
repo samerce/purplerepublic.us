@@ -4,6 +4,7 @@ import {findDOMNode} from 'react-dom'
 import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'
 import BubbleRelated from './bubbleRelated'
+import {BubbleButtonImage} from './bubbleButton/styled'
 
 import {cx} from '../../utils/style'
 import {
@@ -20,6 +21,7 @@ const Mode = makeEnum([
   'defocused',
   'willFocus',
   'focused',
+  'editing',
   'willDefocus',
   'expanded',
 ])
@@ -29,8 +31,8 @@ const DURATION_ENTER = DURATION_WILL_ENTER + 700
 
 export default class Bubble extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.timers = []
     this.animationName = makeJiggler()
     this.state = {
@@ -43,6 +45,16 @@ export default class Bubble extends React.Component {
   @autobind
   click() {
     this.onClickBubble()
+  }
+
+  edit() {
+    this.setState({
+      mode: Mode.editing,
+      bubbleRect: {
+        top: 0,
+        left: 0,
+      },
+    })
   }
 
   componentDidMount() {
@@ -58,20 +70,14 @@ export default class Bubble extends React.Component {
 
   render() {
     const {mode, bubbleRect} = this.state
+    const {isFullscreen, nucleus} = this.props
     const {
-      renderButtonContent,
-      renderExpandedContent,
-      renderDescription,
-      actions,
-      title,
-      subtitle,
       className,
+      buttonImageUrl,
       size = 'medium',
-    } = this.props.nucleus
-    const {isFullscreen} = this.props
-
-    // HACK
-    if (actions && !actions[0].onClick) actions[0].onClick = this.expand
+      renderButtonContent,
+      Component: BubbleComponent,
+    } = nucleus
 
     return (
       <Root
@@ -83,17 +89,22 @@ export default class Bubble extends React.Component {
         <BubbleButton
           onClick={this.onClickBubble}
           className={mode + ' ' + size}>
-          {renderButtonContent()}
+          {renderButtonContent?
+            renderButtonContent() :
+            <BubbleButtonImage src={buttonImageUrl} />
+          }
         </BubbleButton>
         <BubbleDetails
+          {...nucleus}
           className={mode}
           onClose={this.defocusIt}
-          subtitle={subtitle}
-          title={title}
-          focused={mode === Mode.focused}
-          renderDescription={renderDescription}
-          renderExpandedContent={renderExpandedContent}
-          actions={actions} />
+          editing={mode === Mode.editing}>
+            <BubbleComponent
+              {...nucleus}
+              editing={mode === Mode.editing}
+              focused={mode === Mode.focused || mode === Mode.editing}
+            />
+          </BubbleDetails>
         <BubbleRelated />
       </Root>
     )
@@ -127,7 +138,7 @@ export default class Bubble extends React.Component {
 
   @autobind
   focusIt() {
-    this.props.onOpen()
+    this.props.onOpen && this.props.onOpen()
     this.setState({
       mode: Mode.focused,
       bubbleRect: {
@@ -140,7 +151,9 @@ export default class Bubble extends React.Component {
 
   @autobind
   defocusIt() {
-    this.props.onClose()
+    if (this.state.mode === Mode.editing) return
+
+    this.props.onClose && this.props.onClose()
     this.props.nucleus.onClose && this.props.nucleus.onClose()
 
     requestAnimationFrame(this.setWillDefocusState)
@@ -163,20 +176,9 @@ export default class Bubble extends React.Component {
     })
   }
 
-  @autobind
-  expand() {
-    requestAnimationFrame(() => this.setState({mode: Mode.expanded}))
-  }
-
-  @autobind
-  shouldShowDetails() {
-    const {mode} = this.state
-    return mode === Mode.focused || mode === Mode.expanded
-  }
-
   getNewBubbleRect() {
     return {
-      top: 50,//Math.round(Math.random() * 75) + 25,
+      top: Math.round(Math.random() * 20) + 50,
       left: 10,//Math.round(Math.random() * 40) + 10,
     }
   }

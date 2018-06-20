@@ -4,24 +4,19 @@ import styled, {injectGlobal} from 'styled-components'
 import {openInNewTab} from '../../../utils/nav'
 
 import {BubbleButtonImage} from '../bubbleButton/styled'
+import {Description} from './styled'
 import {SRC_URL} from '../../../global/constants'
-
 
 module.exports = {
   className: 'bubbleButton-shop-art',
   title: 'isness with purpose',
   subtitle: 'vive la revolution',
-  renderButtonContent,
-  renderDescription,
+  size: 'medium',
   actions: [{
     text: 'shop art',
-    onClick: () => openInNewTab('https://etsy.com/shop/purplerepublic')
+    onClick: openInNewTab.bind(this, 'https://etsy.com/shop/purplerepublic')
   }],
-  size: 'medium',
-}
-
-function renderButtonContent() {
-  return (
+  renderButtonContent: () => (
     <div>
       <BubbleButtonImage src={SRC_URL + 'commons/shop-art.jpg'} />
       <div style={shopStyle} className='bubbleShopText'>
@@ -29,19 +24,16 @@ function renderButtonContent() {
         <span>with purpose</span>
       </div>
     </div>
-  )
-}
-
-function renderDescription() {
-  return (
-    <div>
+  ),
+  Component: () => (
+    <Description>
       welcome to purple republic.<br /><br />
       we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
 
       through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
 
       click below to shop our art and spread the love!
-    </div>
+    </Description>
   )
 }
 

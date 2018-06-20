@@ -1,8 +1,11 @@
 import { injectGlobal } from 'styled-components'
+import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT} from './global/constants'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
+
+const aColor = '#956C95'
 
 let jiggleIndex = 0
 export const makeJiggler = () => {
@@ -42,6 +45,9 @@ injectGlobal`
     width: 100%;
     background: white;
     overflow: hidden;
+    span, div, input, textarea {
+      outline-color: ${lighten(.4, aColor)} !important;
+    }
   }
 
   body {

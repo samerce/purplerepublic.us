@@ -458,6 +458,10 @@ export const BubbleGridItem = styled.div`
     flex: 0 0 210px;
     height: 210px;
   }
+  &:first-child {
+    visibility: hidden;
+    pointer-events: none;
+  }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     height: 130px;

@@ -11,6 +11,8 @@ import {
 } from './styled'
 import Bubble from '../../components/bubble'
 import LogoBubble from '../../components/logoBubble'
+import BubbleBuilderButton from '../../components/bubble/bubbleBuilderButton'
+import BubbleBuilder from '../../components/bubble/bubbleBuilder'
 
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
@@ -33,6 +35,7 @@ const Mode = makeEnum([
   'intro',
   'loadBubbles',
   'show',
+  'buildBubble',
 ])
 
 export default class Start extends React.Component {
@@ -78,6 +81,7 @@ export default class Start extends React.Component {
     const defaultSpring = {stiffness: 70, damping: 9}
     const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
     const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
+
     return (
       <Root className={cx({
         'start-exit': collapsed,
@@ -86,6 +90,16 @@ export default class Start extends React.Component {
         <Backdrop />
 
         <LogoBubble />
+
+        {mode !== Mode.buildBubble && this.canShowEditingTools() &&
+          <BubbleBuilderButton onClick={this.openBubbleBuilder} />
+        }
+        {this.canShowEditingTools() &&
+          <BubbleBuilder
+            ref={r => this.bubbleBuilder = r}
+            onClose={() => this.setState({mode: Mode.show})}
+            visible={mode === Mode.buildBubble} />
+        }
 
         {(mode === Mode.loadBubbles || mode === Mode.show) &&
           <BubbleGrid ref={r => this.bubbleGrid = r}>
@@ -131,7 +145,7 @@ export default class Start extends React.Component {
               <SocialIcon className='fa fa-twitter-square i2' />
               <div className='tooltip'>twitter</div>
             </a>
-            <a href='https://www.instagram.com/purple.republic' target='_blank'>
+            <a href='https://www.instagram.com/expressyourmess' target='_blank'>
               <SocialIcon className='fa fa-instagram i3' />
               <div className='tooltip'>instagram</div>
             </a>
@@ -155,6 +169,18 @@ export default class Start extends React.Component {
     )
   }
 
+  canShowEditingTools() {
+    return true//window.origin.includes('edit.')
+  }
+
+  @autobind
+  openBubbleBuilder() {
+    this.setState({
+      mode: Mode.buildBubble,
+    })
+    this.bubbleBuilder.show()
+  }
+
   @autobind
   onOpenBubble(index) {
     this.focusedBubble = index
@@ -174,22 +200,22 @@ export default class Start extends React.Component {
 
   @autobind
   activateSpotlight() {
-    let spotlight = 'lampshade'
-
-    const {hash} = window.location
-    const hashParts = hash? hash.split('?') : []
-    if (hashParts.length > 1) {
-      const queryParts = hashParts[1].split('=')
-      if (queryParts[0] === 'spotlight') {
-        const spotlightParam = queryParts[1]
-        if (bubbleKeys.includes(spotlightParam)) {
-          spotlight = spotlightParam
-        }
-      }
-    }
-
-    const spotlightIndex = bubbleKeys.findIndex(k => k === spotlight)
-    this.bubbles[spotlightIndex].click()
+    // let spotlight = 'lampshade'
+    //
+    // const {hash} = window.location
+    // const hashParts = hash? hash.split('?') : []
+    // if (hashParts.length > 1) {
+    //   const queryParts = hashParts[1].split('=')
+    //   if (queryParts[0] === 'spotlight') {
+    //     const spotlightParam = queryParts[1]
+    //     if (bubbleKeys.includes(spotlightParam)) {
+    //       spotlight = spotlightParam
+    //     }
+    //   }
+    // }
+    //
+    // const spotlightIndex = bubbleKeys.findIndex(k => k === spotlight)
+    // this.bubbles[spotlightIndex].click()
   }
 
 }
