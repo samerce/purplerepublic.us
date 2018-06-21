@@ -11,8 +11,8 @@ const FilterOptions = [
   },
   {
     name: 'writing',
-    Component: require('./medium').default,
-    componentName: 'BubbleMedium',
+    Component: require('./writing').default,
+    componentName: 'BubbleWriting',
   },
   // {
   //   name: 'music',

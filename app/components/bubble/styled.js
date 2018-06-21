@@ -77,7 +77,7 @@ export const Root = styled.div`
     transition: none;
   }
   &.bubble-editing {
-    padding-top: 190px;
+    padding-top: 120px;
     padding-left: 250px;
   }
 

@@ -1,11 +1,20 @@
 import React from 'react'
 import Gallery from 'react-grid-gallery'
 
-import styled, {injectGlobal} from 'styled-components'
+import {injectGlobal} from 'styled-components'
 
 import {SRC_URL} from '../../../global/constants'
 
 export default class BubbleGallery extends React.Component {
+
+  static defaultProps = {
+    images: [],
+  }
+
+  static getButtonImageUrl() {
+    return SRC_URL + `bubbles/0iAe2JrH4ck.jpg`
+  }
+  static getActions() { return [] }
 
   render() {
     const {images} = this.props
@@ -28,13 +37,3 @@ injectGlobal`
       color: white;
   }
 `
-
-BubbleGallery.defaultProps = {
-  images: [],
-}
-
-BubbleGallery.makeNucleus = props => ({
-  ...props,
-  Component: BubbleGallery,
-  buttonImageUrl: SRC_URL + `bubbles/0iAe2JrH4ck.jpg`,
-})

@@ -2,10 +2,12 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 import Spinnie from '../../spinnie'
 import UnoSelectPill from '../../unoSelectPill'
+import uuid from 'uuid/v1'
 
 import Bubble from '..'
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {Description} from '../bubbleItems/styled'
+import {BubbleType, BubbleComponents} from '../bubbles'
 
 import {cx} from '../../../utils/style'
 import {
@@ -35,13 +37,16 @@ const DURATION_WILL_ENTER = 700
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 const INITIAL_FILTER = 0 //video
 
-const InitialNucleusProps = {
+const InitialNucleus = {
   title: 'i am a cosmic title waiting to happen',
   subtitle: 'click! make me pretty',
   size: 'xlarge',
 }
-const InitialNucleusBuilder = BubbleNuclei.All[INITIAL_FILTER]
-const InitialNucleus = InitialNucleusBuilder.Component.makeNucleus(InitialNucleusProps)
+const FilterOptionList = [
+  // BubbleType.gallery,
+  BubbleType.video,
+  BubbleType.writing,
+]
 
 export default class BubbleBuilder extends React.Component {
 
@@ -49,11 +54,8 @@ export default class BubbleBuilder extends React.Component {
     super(props)
 
     this.timers = []
-    this.nucleiInProgress = {
-      [InitialNucleusBuilder.name]: InitialNucleus,
-    }
-    this.filterOptions = BubbleNuclei.All.map(opt => ({
-      ...opt,
+    this.filterOptions = FilterOptionList.map(opt => ({
+      name: opt,
       onClick: this.onSelectFilter.bind(this, opt)
     }))
 
@@ -61,7 +63,7 @@ export default class BubbleBuilder extends React.Component {
       mode: Mode.willEnter,
       isUploadingImage: false,
       imageUrl: '',
-      nucleus: InitialNucleus,
+      nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
       editedProps: {},
     }
   }
@@ -82,8 +84,12 @@ export default class BubbleBuilder extends React.Component {
   }
 
   render() {
-    const {mode, imageUrl, isUploadingImage} = this.state
+    const {mode, imageUrl, isUploadingImage, nucleus} = this.state
     const {visible} = this.props
+
+    if (imageUrl) {
+      nucleus.Component.getButtonImageUrl = () => imageUrl
+    }
 
     return (
       <Root
@@ -110,19 +116,18 @@ export default class BubbleBuilder extends React.Component {
         </BubbleButtonRoot>
 
         <Bubble
-          editing={true}
+          ref={r => this.bubble = r}
           nucleus={{
-            ...this.state.nucleus,
+            ...nucleus,
             onEditingChange: this.onEditingChange,
           }}
-          ref={r => this.bubble = r}
         />
 
         <ToolBar themeColor={'#956C95'} style={{zIndex: 50, pointerEvents: 'all'}}>
           <ToolBarItem themeColor={'#956C95'} onClick={this.props.onClose}>
             <div>quit building</div>
           </ToolBarItem>
-          <ToolBarItem themeColor={'#956C95'}>
+          <ToolBarItem themeColor={'#956C95'} onClick={this.publish}>
             <div>publish bubble!</div>
           </ToolBarItem>
         </ToolBar>
@@ -143,14 +148,6 @@ export default class BubbleBuilder extends React.Component {
         isUploadingImage: false,
         image: file,
         imageUrl: reader.result,
-        nucleus: {
-          ...this.state.nucleus,
-          buttonImageUrl: reader.result,
-        },
-        editedProps: {
-          ...this.state.editedProps,
-          buttonImageUrl: reader.result,
-        },
       })
     }
     reader.readAsDataURL(file)
@@ -158,28 +155,49 @@ export default class BubbleBuilder extends React.Component {
 
   @autobind
   onSelectFilter(opt) {
-    if (opt.Component === this.state.nucleus.Component) return
+    if (opt === this.state.nucleus.type) return
 
-    const nucleus = opt.Component.makeNucleus({
-      ...InitialNucleusProps,
+    this.setState({
+      nucleus: getNewNucleus(opt)
     })
-    this.setState({nucleus})
-    this.nucleiInProgress[opt.name] = nucleus
   }
 
   @autobind
   onEditingChange(props) {
-    const editedProps = {
-      ...this.state.editedProps,
-      ...props,
-    }
     this.setState({
-      editedProps,
-      nucleus: this.state.nucleus.Component.makeNucleus({
-        ...InitialNucleusProps,
-        ...editedProps,
-      })
+      nucleus: {
+        ...InitialNucleus,
+        ...this.state.nucleus,
+        ...props,
+      },
     })
   }
 
+  @autobind
+  publish() {
+    const {nucleus, imageUrl} = this.state
+    const imageData = encodeURIComponent(imageUrl)
+    const bubbleProps = JSON.stringify({
+      ...nucleus,
+      Component: undefined,
+      id: uuid(),
+    })
+
+    fetch('/bubbles.upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: `imageData=${imageData}&bubbleProps=${bubbleProps}`,
+    })
+  }
+
+}
+
+function getNewNucleus(type) {
+  return {
+    ...InitialNucleus,
+    type,
+    Component: BubbleComponents[type],
+  }
 }

@@ -2,6 +2,7 @@
 
 const quarkArt = require('./quarkArt')
 const submissions = require('./submissions')
+const bubbles = require('./bubbles')
 
 const express = require('express');
 const logger = require('./logger');
@@ -33,6 +34,10 @@ app.get('/quarkArt.list', quarkArt.list)
 
 // audio/video/writing submissions
 app.post('/submissions.upload', upload.single('blob'), submissions.upload)
+
+// bubbles
+app.get('/bubbleStageDirection.js', bubbles.getStageDirectionScript)
+app.post('/bubbles.upload', bubbles.upload)
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

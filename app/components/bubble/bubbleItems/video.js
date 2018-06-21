@@ -26,7 +26,7 @@ export default class BubbleVideo extends React.Component {
     // const {shouldRenderVideo, videoId} = nextState
     // const {focused} = nextProps
     // this.setState({
-    //   shouldRenderVideo: (shouldRenderVideo || focused) && videoId,
+    //   shouldRenderVideo: (shouldRenderVideo || focused || editing) && videoId,
     // })
   }
 
@@ -115,8 +115,5 @@ function getVideoOptions() {
   }
 }
 
-BubbleVideo.makeNucleus = props => ({
-  ...props,
-  Component: BubbleVideo,
-  buttonImageUrl: SRC_URL + `bubbles/${props.videoId}.jpg`,
-})
+BubbleVideo.getButtonImageUrl = ({videoId}) => SRC_URL + `bubbles/${videoId}.jpg`
+BubbleVideo.getActions = () => []

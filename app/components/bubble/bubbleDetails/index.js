@@ -53,9 +53,10 @@ export default class BubbleDetails extends React.Component {
       isLinkInputFocused
     } = this.state
     const {
-      actions,
       editing,
+      Component,
     } = this.props
+    const actions = Component.getActions(this.props)
 
     return (
       <ActionsRoot>

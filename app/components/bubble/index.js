@@ -73,11 +73,10 @@ export default class Bubble extends React.Component {
     const {isFullscreen, nucleus} = this.props
     const {
       className,
-      buttonImageUrl,
       size = 'medium',
-      renderButtonContent,
       Component: BubbleComponent,
     } = nucleus
+    const {renderButtonContent} = BubbleComponent
 
     return (
       <Root
@@ -91,7 +90,9 @@ export default class Bubble extends React.Component {
           className={mode + ' ' + size}>
           {renderButtonContent?
             renderButtonContent() :
-            <BubbleButtonImage src={buttonImageUrl} />
+            <BubbleButtonImage
+              src={BubbleComponent.getButtonImageUrl(nucleus)}
+            />
           }
         </BubbleButton>
         <BubbleDetails
@@ -102,7 +103,7 @@ export default class Bubble extends React.Component {
             <BubbleComponent
               {...nucleus}
               editing={mode === Mode.editing}
-              focused={mode === Mode.focused || mode === Mode.editing}
+              focused={mode === Mode.focused}
             />
           </BubbleDetails>
         <BubbleRelated />

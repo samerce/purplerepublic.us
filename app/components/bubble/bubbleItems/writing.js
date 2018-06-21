@@ -9,7 +9,7 @@ import {
 
 import {SRC_URL} from '../../../global/constants'
 
-export default class BubbleMedium extends React.Component {
+export default class BubbleWriting extends React.Component {
 
   constructor(props) {
     super(props)
@@ -86,16 +86,17 @@ export default class BubbleMedium extends React.Component {
 
 }
 
-BubbleMedium.makeNucleus = props => ({
-  Component: BubbleMedium,
+BubbleWriting.getActions = ({blogLink}) => (blogLink? [
+  {
+    text: 'continue reading',
+    onClick: openInNewTab.bind(this, blogLink),
+  }
+] : [])
+
+BubbleWriting.getButtonImageUrl = ({blogLink}) => blogLink?
+  SRC_URL + `bubbles/${blogLink.split('/').pop()}.jpg` :
+  ''
+
+BubbleWriting.defaultProps = {
   teaserText: 'fill me up with a little teaser, dahling',
-  actions: props.mediumLink? [
-    {
-      text: 'continue reading',
-      onClick: openInNewTab.bind(this, props.mediumLink),
-    },
-  ] : [],
-  buttonImageUrl: SRC_URL +
-    `bubbles/${props.mediumLink && props.mediumLink.split('/').pop()}.jpg`,
-  ...props,
-})
+}

@@ -19,7 +19,7 @@ export const Root = styled.div`
   transition: all .7s ${EASE_OUT};
   width: 100%;
   height: 100%;
-
+  align-items: flex-start;
 `
 
 export const BubbleButtonRoot = styled.div`

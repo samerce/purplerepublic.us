@@ -17,7 +17,7 @@ import BubbleBuilder from '../../components/bubble/bubbleBuilder'
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {SRC_URL} from '../../global/constants'
-import bubbles from '../../components/bubble/bubbles'
+import {BubbleComponents} from '../../components/bubble/bubbles'
 
 import SineWaves from 'sine-waves'
 import {Motion, spring} from 'react-motion'
@@ -70,6 +70,8 @@ export default class Start extends React.Component {
       setTimeout(() => this.setState({mode: Mode.show}), 8600),
       setTimeout(this.activateSpotlight, 9700),
     )
+
+    processBubbles()
   }
 
   componentWillUnmount() {
@@ -218,4 +220,11 @@ export default class Start extends React.Component {
     // this.bubbles[spotlightIndex].click()
   }
 
+}
+
+function processBubbles() {
+  // bubbles is a global loaded in index.html
+  Object.keys(bubbles).forEach(k => {
+    bubbles[k].Component = BubbleComponents[bubbles[k].type]
+  })
 }

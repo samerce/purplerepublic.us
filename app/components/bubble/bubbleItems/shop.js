@@ -7,34 +7,42 @@ import {BubbleButtonImage} from '../bubbleButton/styled'
 import {Description} from './styled'
 import {SRC_URL} from '../../../global/constants'
 
-module.exports = {
-  className: 'bubbleButton-shop-art',
-  title: 'isness with purpose',
-  subtitle: 'vive la revolution',
-  size: 'medium',
-  actions: [{
-    text: 'shop art',
-    onClick: openInNewTab.bind(this, 'https://etsy.com/shop/purplerepublic')
-  }],
-  renderButtonContent: () => (
-    <div>
-      <BubbleButtonImage src={SRC_URL + 'commons/shop-art.jpg'} />
-      <div style={shopStyle} className='bubbleShopText'>
-        <div style={{lineHeight: '40px'}}>SHOP<br /></div>
-        <span>with purpose</span>
+export default class ShopBubble extends React.Component {
+
+  static getActions() {
+    return [{
+      text: 'shop art',
+      onClick: openInNewTab.bind(this, 'https://etsy.com/shop/purplerepublic')
+    }]
+  }
+  static getButtonImageUrl() {
+    return ''
+  }
+
+  static renderButtonContent() {
+    return (
+      <div>
+        <BubbleButtonImage src={SRC_URL + 'commons/shop-art.jpg'} />
+        <div style={shopStyle} className='bubbleShopText'>
+          <div style={{lineHeight: '40px'}}>SHOP<br /></div>
+          <span>with purpose</span>
+        </div>
       </div>
-    </div>
-  ),
-  Component: () => (
-    <Description>
-      welcome to purple republic.<br /><br />
-      we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
+    )
+  }
 
-      through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
+  render() {
+    return (
+      <Description>
+        welcome to purple republic.<br /><br />
+        we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
 
-      click below to shop our art and spread the love!
-    </Description>
-  )
+        through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
+
+        click below to shop our art and spread the love!
+      </Description>
+    )
+  }
 }
 
 var shopStyle = {
