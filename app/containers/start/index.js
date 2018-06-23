@@ -68,7 +68,7 @@ export default class Start extends React.Component {
       setTimeout(() => this.setState({mode: Mode.intro})),
       setTimeout(() => this.setState({mode: Mode.loadBubbles}), 5400),
       setTimeout(() => this.setState({mode: Mode.show}), 5700),
-      setTimeout(this.activateSpotlight, 9700),
+      setTimeout(this.activateSpotlight, 9000),
     )
 
     processBubbles()

@@ -437,7 +437,7 @@ export const BubbleGrid = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 50px;
-  z-index: 2;
+  z-index: 6;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 0;

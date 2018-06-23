@@ -19,7 +19,7 @@ const Mode = makeEnum([
 const DURATION_INTRO = 200
 const DURATION_BREATHE_IN = DURATION_INTRO + 3000
 const DURATION_BREATHE_OUT = DURATION_BREATHE_IN + 1500
-const DURATION_HANGIN = DURATION_BREATHE_OUT + 4500
+const DURATION_HANGIN = DURATION_BREATHE_OUT + 4000
 
 export default class LogoBubble extends React.Component {
 
