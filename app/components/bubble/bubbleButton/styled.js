@@ -28,7 +28,8 @@ export const Root = styled.div`
   cursor: pointer;
 
   .bubble-willEnter & {
-    transform: translate(-1000px, -1000px);
+    transition: none;
+    ${'' /* transform: translate(-1000px, -1000px); */}
     ${'' /* transform: scale(0); */}
     ${'' /* opacity: 0; */}
   }

@@ -115,6 +115,7 @@ export default class Bubble extends React.Component {
               {...nucleus}
               editing={isEditing}
               focused={isFocused}
+              ref={r => this.bubbleComponentRef = r}
             />
         </BubbleDetails>
         {/* <BubbleRelated /> */}
@@ -165,7 +166,10 @@ export default class Bubble extends React.Component {
     if (this.state.mode === Mode.editing) return
 
     this.props.onClose && this.props.onClose()
-    this.props.nucleus.onClose && this.props.nucleus.onClose()
+
+    const {bubbleComponentRef} = this
+    bubbleComponentRef && bubbleComponentRef.onClose &&
+      bubbleComponentRef.onClose()
 
     requestAnimationFrame(this.setWillDefocusState)
     requestAnimationFrame(() => setTimeout(this.setDefocusedState, 700))

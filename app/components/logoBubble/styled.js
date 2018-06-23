@@ -12,7 +12,7 @@ injectGlobal`
   .bubbleButton-logo-svg {
     fill: white;
     z-index: 10;
-    width: 190px;
+    width: 150px;
   }
 `
 
@@ -24,12 +24,16 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 50;
+  z-index: 40;
   pointer-events: none;
 
   &.logo-hangin {
     z-index: 5;
-    transition: all .01s linear .2s;
+    transition: all 1s ${EASE_OUT};
+    transform: translate(
+      -${-100 + (window.innerWidth / 2)}px,
+      -${-100 + (window.innerHeight / 2)}px
+    );
   }
 `
 
@@ -53,30 +57,42 @@ export const CircleRoot = styled.div`
 
 export const CircleBill = styled.div`
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   background: #AA4DAF;
   border-radius: 100%;
   transform: scale(0);
+  transition: all 2s ${EASE_OUT};
+  box-shadow: 2px 2px 20px rgba(0,0,0,.2);
 
-  .logo-intro & {
-    ${'' /* transform: scale(1); */}
+  .logo-intro &, .logo-breatheOut & {
+    transform: scale(1.8);
     ${'' /* opacity: 1;
     transition: all 3s ${EASE_OUT};
     transition-delay: .6s; */}
   }
+  .logo-breatheIn & {
+    transform: scale(.7);
+    transition: all 3s ${EASE_OUT};
+  }
+  .logo-breatheOut &, .logo-hangin & {
+    transform: scale(1);
+    transition: all 1.5s ${EASE_OUT};
+  }
 `
 
 export const CirclePaul = styled(CircleBill)`
-  width: 275px;
-  height: 275px;
+  width: 225px;
+  height: 225px;
   background: #8536AE;
-  ${'' /* transition-delay: .3s; */}
+  transition-delay: .3s;
+  ${'' /* box-shadow: none; */}
 `
 
 export const CircleSami = styled(CirclePaul)`
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   background: #6324A9;
-  ${'' /* transition-delay: 0; */}
+  transition-delay: .6s;
+  ${'' /* box-shadow: none; */}
 `

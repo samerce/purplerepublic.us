@@ -134,8 +134,8 @@ export default class BubbleBuilder extends React.Component {
         />
 
         <ToolBar themeColor={'#956C95'} style={{position: 'fixed', zIndex: 50, pointerEvents: 'all'}}>
-          <ToolBarItem themeColor={'#956C95'} onClick={this.props.onClose}>
-            <div>quit building</div>
+          <ToolBarItem themeColor={'#956C95'} onClick={this.close}>
+            <div>quit bubble builder</div>
           </ToolBarItem>
           <ToolBarItem themeColor={'#956C95'} onClick={this.publish}>
             <div>publish bubble!</div>
@@ -208,6 +208,13 @@ export default class BubbleBuilder extends React.Component {
         )}
       </BubbleBuilderToolsRoot>
     )
+  }
+
+  @autobind
+  close() {
+    if (confirm('erase all your work on this bubble?')) {
+      this.props.onClose()
+    }
   }
 
   @autobind

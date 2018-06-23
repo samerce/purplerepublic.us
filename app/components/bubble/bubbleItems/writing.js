@@ -16,7 +16,7 @@ export default function BubbleWriting({
         contentEditable={editing}
         onBlur={onChange}
         dangerouslySetInnerHTML={{__html: detailText}}>
-      </span>. . .
+      </span>
     </Description>
   )
 }
