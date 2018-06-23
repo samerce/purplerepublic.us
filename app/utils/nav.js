@@ -4,3 +4,7 @@ export function openInNewTab(url) {
   a.target = '_blank'
   a.click()
 }
+
+export function canShowEditingTools() {
+  return true//window.origin.includes('edit.')
+}

@@ -4,16 +4,20 @@ import {findDOMNode} from 'react-dom'
 import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'
 import BubbleRelated from './bubbleRelated'
-import {BubbleButtonImage} from './bubbleButton/styled'
 
 import {cx} from '../../utils/style'
 import {
   Root,
 } from './styled'
+import {BubbleButtonImage} from './bubbleButton/styled'
 
 import {makeEnum} from '../../utils/lang'
 import autobind from 'autobind-decorator'
 import {makeJiggler} from '../../global-styles'
+
+import {SRC_URL} from '../../global/constants'
+
+const getButtonImageUrl = id => SRC_URL + `bubbles/buttonImages/${id}.jpg`
 
 const Mode = makeEnum([
   'willEnter',
@@ -70,10 +74,13 @@ export default class Bubble extends React.Component {
 
   render() {
     const {mode, bubbleRect} = this.state
-    const {isFullscreen, nucleus} = this.props
+    const {isFullscreen, unsavedImageUrl, nucleus, onNext} = this.props
+    const isEditing = mode === Mode.editing
+    const isFocused = mode === Mode.focused
+
     const {
-      className,
-      size = 'medium',
+      id,
+      size = 200,
       Component: BubbleComponent,
     } = nucleus
     const {renderButtonContent} = BubbleComponent
@@ -84,29 +91,33 @@ export default class Bubble extends React.Component {
         style={isFullscreen?
           bubbleRect :
           {animationName: this.animationName, ...bubbleRect}}
-        className={'bubble-' + mode + ' ' + className}>
+        className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
           onClick={this.onClickBubble}
-          className={mode + ' ' + size}>
+          className={mode}>
           {renderButtonContent?
-            renderButtonContent() :
+            renderButtonContent(nucleus) :
             <BubbleButtonImage
-              src={BubbleComponent.getButtonImageUrl(nucleus)}
+              src={
+                isEditing? unsavedImageUrl: getButtonImageUrl(id)
+              }
+              size={size}
             />
           }
         </BubbleButton>
         <BubbleDetails
           {...nucleus}
           className={mode}
+          onNext={onNext}
           onClose={this.defocusIt}
-          editing={mode === Mode.editing}>
+          editing={isEditing}>
             <BubbleComponent
               {...nucleus}
-              editing={mode === Mode.editing}
-              focused={mode === Mode.focused}
+              editing={isEditing}
+              focused={isFocused}
             />
-          </BubbleDetails>
-        <BubbleRelated />
+        </BubbleDetails>
+        {/* <BubbleRelated /> */}
       </Root>
     )
   }
@@ -125,8 +136,7 @@ export default class Bubble extends React.Component {
   @autobind
   setWillFocusState() {
     const boundingRect = findDOMNode(this.root).getBoundingClientRect()
-    const {size: sizeName} = this.props.nucleus
-    const size = (sizeName === 'medium')? 210 : (sizeName === 'xlarge')? 310 : 160
+    const {size} = this.props.nucleus
 
     this.setState({
       mode: Mode.willFocus,

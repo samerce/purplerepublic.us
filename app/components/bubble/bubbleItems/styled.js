@@ -37,32 +37,6 @@ export const LinkInput = styled.input`
   }
 `
 
-export const ChangeLinkButton = styled.div`
-  border-radius: 30px;
-  border: 1px solid white;
-  padding: 10px;
-  opacity: .5;
-  color: white;
-  position: absolute;
-  transition: all .3s ${EASE_OUT};
-  cursor: pointer;
-  user-select: none;
-  bottom: -80px;
-  width: 100%;
-  left: 0;
-  text-align: center;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:active {
-    background: white;
-    color: ${aColor};
-    transform: scale(.97);
-  }
-`
-
 export const Description = styled.div`
   font-size: 18px;
   color: white;

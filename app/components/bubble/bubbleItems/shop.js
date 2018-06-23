@@ -1,29 +1,20 @@
 import React from 'react'
-import styled, {injectGlobal} from 'styled-components'
 
-import {openInNewTab} from '../../../utils/nav'
-
+import {injectGlobal} from 'styled-components'
 import {BubbleButtonImage} from '../bubbleButton/styled'
 import {Description} from './styled'
+
 import {SRC_URL} from '../../../global/constants'
 
 export default class ShopBubble extends React.Component {
 
-  static getActions() {
-    return [{
-      text: 'shop art',
-      onClick: openInNewTab.bind(this, 'https://etsy.com/shop/purplerepublic')
-    }]
-  }
-  static getButtonImageUrl() {
-    return ''
-  }
-
-  static renderButtonContent() {
+  static renderButtonContent(nucleus) {
     return (
       <div>
-        <BubbleButtonImage src={SRC_URL + 'commons/shop-art.jpg'} />
-        <div style={shopStyle} className='bubbleShopText'>
+        <BubbleButtonImage
+          size={nucleus.size}
+          src={SRC_URL + 'commons/shop-art.jpg'} />
+        <div className='bubbleShopText'>
           <div style={{lineHeight: '40px'}}>SHOP<br /></div>
           <span>with purpose</span>
         </div>
@@ -43,29 +34,26 @@ export default class ShopBubble extends React.Component {
       </Description>
     )
   }
-}
 
-var shopStyle = {
-  fontFamily: 'annie use your telescope',
-  fontSize: 62,
-  textAlign: 'center',
-  position: 'absolute',
-  width: '100%',
-  color: 'white',
-  top: 0,
-  userSelect: 'none',
-  textShadow: '1px 1px rgba(0,0,0,.3)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  height: '100%',
 }
 
 injectGlobal`
   .bubbleShopText {
-    transition-delay: .2s;
-    text-shadow: 2px 2px black;
+    transition: all .01s linear .2s;
     pointer-events: none;
+    font-family: annie use your telescope;
+    font-size: 62px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    color: white;
+    top: 0;
+    user-select: none;
+    text-shadow: 1px 1px rgba(0,0,0,.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 
     .focused & {
       transition-delay: 0s;

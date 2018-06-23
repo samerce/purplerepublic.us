@@ -20,9 +20,6 @@ if (window.innerWidth <= SCREEN_WIDTH_M) {
   CIRCLE_SIZE_LARGE = 80
 }
 
-injectGlobal`
-`
-
 export const Root = styled.div`
   transition: all .3s ${EASE_OUT};
   display: inline-block;
@@ -46,25 +43,15 @@ export const Root = styled.div`
   }
 `
 
-const bubbleButtonStyle = `
+export const BubbleButtonImage = styled.div`
   border: 1px solid white;
   border-radius: 100%;
   overflow: hidden;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   transition: all .7s ${EASE_OUT};
 
-  width: ${CIRCLE_SIZE_LARGE}px;
-  height: ${CIRCLE_SIZE_LARGE}px;
-
-  .xlarge & {
-    width: ${300}px;
-    height: ${300}px;
-  }
-
-  .medium & {
-    width: 200px;
-    height: 200px;
-  }
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
 
   .defocused &:hover {
     box-shadow: 1px 1px 15px rgba(0,0,0,.3);
@@ -83,9 +70,11 @@ const bubbleButtonStyle = `
     cursor: default;
     transition: all .7s ${EASE_OUT};
   }
-`
-export const BubbleButtonImage = styled.div`
-  ${bubbleButtonStyle}
+
+  @media(max-width: SCREEN_WIDTH_M_PX) {
+    width: ${p => p.size * (2/3)}px;
+    height: ${p => p.size * (2/3)}px;
+  }
 
   background-image: url('${p => p.src}');
   background-position: center;
@@ -93,8 +82,6 @@ export const BubbleButtonImage = styled.div`
 `
 
 export const BubbleButtonSVG = styled.object`
-  ${bubbleButtonStyle}
-
   pointer-events: none;
   width: 300px;
   height: 65px;

@@ -437,34 +437,25 @@ export const BubbleGrid = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 50px;
+  z-index: 2;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 0;
   }
 `
 
-const ITEM_SIZE = 160
 export const BubbleGridItem = styled.div`
-  flex: 0 0 ${ITEM_SIZE}px;
-  height: ${ITEM_SIZE}px;
   position: relative;
   pointer-events: none;
+  flex: 0 0 ${p => p.size}px;
+  height: ${p => p.size}px;
 
-  &.xlarge {
-    flex: 0 0 310px;
-    height: 310px;
-  }
-  &.medium {
-    flex: 0 0 210px;
-    height: 210px;
-  }
   &:first-child {
     visibility: hidden;
     pointer-events: none;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    height: 130px;
+    height: ${p => p.size * (2/3)}px;
   }
-
 `

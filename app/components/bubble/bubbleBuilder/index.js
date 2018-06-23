@@ -1,8 +1,11 @@
 import React from 'react'
-import {findDOMNode} from 'react-dom'
 import Spinnie from '../../spinnie'
 import UnoSelectPill from '../../unoSelectPill'
-import uuid from 'uuid/v1'
+import {
+  BubbleBuilderNameTool,
+  BubbleBuilderButtonTool,
+  BubbleBuilderJourneyTool,
+} from '../bubbleBuilderTools'
 
 import Bubble from '..'
 import {BubbleButtonImage} from '../bubbleButton/styled'
@@ -11,7 +14,8 @@ import {BubbleType, BubbleComponents} from '../bubbles'
 
 import {cx} from '../../../utils/style'
 import {
-  Root, BubbleButtonRoot,
+  Root, BubbleButtonRoot, BubbleBuilderToolsRoot, BubbleButtonContent,
+  BubbleButtonSizeSlider, PublishMask,
 } from './styled'
 import {
   ToolBar, ToolBarItem,
@@ -19,8 +23,6 @@ import {
 
 import {makeEnum} from '../../../utils/lang'
 import autobind from 'autobind-decorator'
-
-import BubbleNuclei from '../bubbleItems'
 
 const Mode = makeEnum([
   'willEnter',
@@ -33,6 +35,8 @@ const Mode = makeEnum([
   'expanded',
 ])
 
+const LOCAL_NUCLEUS_KEY = 'purple.republic.editingBubbleNucleus.'
+
 const DURATION_WILL_ENTER = 700
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 const INITIAL_FILTER = 0 //video
@@ -40,7 +44,7 @@ const INITIAL_FILTER = 0 //video
 const InitialNucleus = {
   title: 'i am a cosmic title waiting to happen',
   subtitle: 'click! make me pretty',
-  size: 'xlarge',
+  size: 200,
 }
 const FilterOptionList = [
   // BubbleType.gallery,
@@ -62,13 +66,21 @@ export default class BubbleBuilder extends React.Component {
     this.state = {
       mode: Mode.willEnter,
       isUploadingImage: false,
+      isPublishing: false,
       imageUrl: '',
       nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
-      editedProps: {},
     }
   }
 
   componentDidMount() {
+    // const localNucleus = getStoredNucleus(this.state.nucleus.type)
+    // if (localNucleus) this.setState({
+    //   nucleus: {
+    //     ...this.state.nucleus,
+    //     ...localNucleus,
+    //   },
+    // })
+
     this.timers.push(
       setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
       setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
@@ -79,17 +91,18 @@ export default class BubbleBuilder extends React.Component {
     this.timers.forEach(clearTimeout)
   }
 
+  componentDidUpdate() {
+    // storeNucleus(this.state.nucleus)
+  }
+
   show() {
     this.bubble.edit()
   }
 
   render() {
-    const {mode, imageUrl, isUploadingImage, nucleus} = this.state
+    const {mode, imageUrl, nucleus, isPublishing} = this.state
     const {visible} = this.props
-
-    if (imageUrl) {
-      nucleus.Component.getButtonImageUrl = () => imageUrl
-    }
+    const {Component: BubbleComponent} = nucleus
 
     return (
       <Root
@@ -97,33 +110,30 @@ export default class BubbleBuilder extends React.Component {
         ref={r => this.root = r}
         className={'bubbleBuilder-' + mode}>
 
+        {isPublishing &&
+          <PublishMask>
+            <Spinnie show={true} />
+          </PublishMask>
+        }
+
         <UnoSelectPill
           options={this.filterOptions}
           initialSelected={INITIAL_FILTER}
         />
 
-        <BubbleButtonRoot onClick={() => this.fileInput.click()}>
-          {isUploadingImage?
-            <Spinnie show={true} /> :
-
-            imageUrl?
-            <img src={imageUrl} className='buttonContent' /> :
-            <i className='buttonContent fa fa-image' />
-          }
-          <input type='file' style={{visibility: 'hidden'}}
-            onChange={this.onChangeFileInput}
-            ref={r => this.fileInput = r}/>
-        </BubbleButtonRoot>
+        {this.renderBubbleButtonBuilder()}
+        {this.renderBubbleBuilderTools()}
 
         <Bubble
           ref={r => this.bubble = r}
+          unsavedImageUrl={imageUrl}
           nucleus={{
             ...nucleus,
             onEditingChange: this.onEditingChange,
           }}
         />
 
-        <ToolBar themeColor={'#956C95'} style={{zIndex: 50, pointerEvents: 'all'}}>
+        <ToolBar themeColor={'#956C95'} style={{position: 'fixed', zIndex: 50, pointerEvents: 'all'}}>
           <ToolBarItem themeColor={'#956C95'} onClick={this.props.onClose}>
             <div>quit building</div>
           </ToolBarItem>
@@ -133,6 +143,80 @@ export default class BubbleBuilder extends React.Component {
         </ToolBar>
       </Root>
     )
+  }
+
+  renderBubbleButtonBuilder() {
+    const {isUploadingImage, imageUrl, nucleus} = this.state
+    return (
+      <BubbleButtonRoot>
+        <BubbleButtonSizeSlider
+          value={nucleus.size}
+          type='range' min='150' max='300' step='6'
+          onChange={e => this.setState({
+            nucleus: {
+              ...nucleus,
+              size: e.target.value,
+            }
+          })}
+        />
+
+        <BubbleButtonContent
+          onClick={() => this.fileInput.click()}
+          style={{
+            width: +nucleus.size,
+            height: +nucleus.size,
+          }}>
+          {isUploadingImage?
+            <Spinnie show={true} /> :
+
+            imageUrl?
+              <img src={imageUrl} className='buttonContent' /> :
+              <i className='fa fa-image' />
+          }
+          <input
+            type='file' style={{visibility: 'hidden', position: 'absolute'}}
+            onChange={this.onChangeFileInput}
+            ref={r => this.fileInput = r}
+          />
+        </BubbleButtonContent>
+      </BubbleButtonRoot>
+    )
+  }
+
+  renderBubbleBuilderTools() {
+    const {nucleus} = this.state
+    const {renderCustomBuilderTools} = nucleus.Component
+    return (
+      <BubbleBuilderToolsRoot>
+        <BubbleBuilderNameTool
+          nucleus={nucleus}
+          onChangeNucleus={this.onChangeNucleus}
+        />
+
+        <BubbleBuilderJourneyTool
+          nucleus={nucleus}
+          onChangeNucleus={this.onChangeNucleus}
+        />
+
+        <BubbleBuilderButtonTool
+          nucleus={nucleus}
+          onChangeNucleus={this.onChangeNucleus} />
+
+        {renderCustomBuilderTools && renderCustomBuilderTools(
+          nucleus,
+          this.onChangeNucleus,
+        )}
+      </BubbleBuilderToolsRoot>
+    )
+  }
+
+  @autobind
+  onChangeNucleus(nucleus) {
+    this.setState({
+      nucleus: {
+        ...nucleus,
+      }
+    })
   }
 
   @autobind
@@ -157,8 +241,10 @@ export default class BubbleBuilder extends React.Component {
   onSelectFilter(opt) {
     if (opt === this.state.nucleus.type) return
 
+    // const localNucleus = getStoredNucleus(opt)
     this.setState({
-      nucleus: getNewNucleus(opt)
+      nucleus: getNewNucleus(opt),
+      // ...localNucleus,
     })
   }
 
@@ -176,11 +262,20 @@ export default class BubbleBuilder extends React.Component {
   @autobind
   publish() {
     const {nucleus, imageUrl} = this.state
+
+    if (!nucleus.id) {
+      alert('your new bubble gotsta have a name!')
+      return document.getElementById('bubbleBuilderNameToolInput').focus()
+    }
+
     const imageData = encodeURIComponent(imageUrl)
     const bubbleProps = JSON.stringify({
       ...nucleus,
-      Component: undefined,
-      id: uuid(),
+      Component: undefined, // delete Component property
+    })
+
+    this.setState({
+      isPublishing: true,
     })
 
     fetch('/bubbles.upload', {
@@ -189,6 +284,17 @@ export default class BubbleBuilder extends React.Component {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
       body: `imageData=${imageData}&bubbleProps=${bubbleProps}`,
+    }).then(() => {
+      // window.localStorage.removeItem(LOCAL_NUCLEUS_KEY + nucleus.type)
+      window.bubbles[nucleus.id] = nucleus
+      window.location = '/#start?spotlight=' + nucleus.id
+      this.setState({
+        nucleus: getNewNucleus(nucleus.type),
+        image: null,
+        imageData: null,
+        isPublishing: false,
+      })
+      this.props.onClose()
     })
   }
 
@@ -200,4 +306,19 @@ function getNewNucleus(type) {
     type,
     Component: BubbleComponents[type],
   }
+}
+
+function getStoredNucleus(type) {
+  const rawNucleus = window.localStorage.getItem(LOCAL_NUCLEUS_KEY + type)
+  return JSON.parse(rawNucleus)
+}
+
+function storeNucleus(nucleus) {
+  window.localStorage.setItem(
+    LOCAL_NUCLEUS_KEY + nucleus.type,
+    JSON.stringify({
+      ...nucleus,
+      Component: undefined,
+    })
+  )
 }

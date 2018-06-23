@@ -6,15 +6,12 @@ import {makeEnum} from '../../utils/lang'
 
 import {SRC_URL} from '../../global/constants'
 const PIC_SRC = SRC_URL + 'quark-art/mothers/'
-const BUBBLE_IMAGE_SRC = SRC_URL + 'bubbles/'
 
 export const BubbleType = makeEnum([
   'gallery',
   'video',
   'writing',
-  'logo',
   'shop',
-  'play',
   // 'music',
 ])
 

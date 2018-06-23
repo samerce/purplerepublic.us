@@ -2,10 +2,14 @@ import React from 'react'
 
 import {cx} from '../../../utils/style'
 import {
-  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent
+  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent, JourneyButtonRoot, BubbleName,
 } from './styled'
 
+import {canShowEditingTools} from '../../../utils/nav'
+
 import autobind from 'autobind-decorator'
+
+import {BubbleButtonActions} from '../actions'
 
 export default class BubbleDetails extends React.Component {
 
@@ -13,7 +17,6 @@ export default class BubbleDetails extends React.Component {
     super()
     this.state = {
       actionClicked: false,
-      isEditingNewAction: false,
     }
   }
 
@@ -23,6 +26,8 @@ export default class BubbleDetails extends React.Component {
       subtitle,
       title,
       children,
+      nextBubbleId,
+      editing,
     } = this.props
 
     return (
@@ -39,44 +44,32 @@ export default class BubbleDetails extends React.Component {
             defaultValue={title}
           />
           <hr />
+
           {children}
+
           {this.renderActions()}
+
+          {nextBubbleId && this.renderJourneyButton()}
+
+          {canShowEditingTools() && !editing &&
+            <BubbleName><strong>bubble name:</strong> {this.props.id}</BubbleName>
+          }
         </ContentRoot>
+
       </Root>
     )
   }
 
   renderActions() {
     const {
-      isEditingNewAction,
-      shouldShowLinkInput,
-      isLinkInputFocused
-    } = this.state
-    const {
-      editing,
-      Component,
+      actions,
     } = this.props
-    const actions = Component.getActions(this.props)
 
     return (
       <ActionsRoot>
         <Action onClick={this.close}>
           <div>close</div>
         </Action>
-        {editing &&
-          <Action className='addAction' onClick={this.addAction}>
-            {isEditingNewAction?
-              <input
-                defaultValue='explore' type='text' /> :
-              <i className='fa fa-plus' />
-            }
-            {isEditingNewAction &&
-              <input
-                className='linkInput'
-                defaultValue='link goes here' type='text' />
-            }
-          </Action>
-        }
         {actions.length > 1 &&
           <Action
             className={actions[1].className}
@@ -95,16 +88,22 @@ export default class BubbleDetails extends React.Component {
     )
   }
 
-  @autobind
-  onClickAction(action) {
-    action.onClick()
+  renderJourneyButton() {
+    const {onNext, nextBubbleId} = this.props
+    return (
+      <JourneyButtonRoot onClick={() => {
+        this.close()
+        setTimeout(() => onNext(nextBubbleId), 500)
+      }}>
+        <div>continue journey...</div>
+        <i className='fa fa-caret-right' />
+      </JourneyButtonRoot>
+    )
   }
 
   @autobind
-  addAction() {
-    this.setState({
-      isEditingNewAction: true,
-    })
+  onClickAction(action) {
+    BubbleButtonActions[action.type](action.props)
   }
 
   @autobind

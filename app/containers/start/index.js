@@ -16,6 +16,7 @@ import BubbleBuilder from '../../components/bubble/bubbleBuilder'
 
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
+import {canShowEditingTools} from '../../utils/nav'
 import {SRC_URL} from '../../global/constants'
 import {BubbleComponents} from '../../components/bubble/bubbles'
 
@@ -24,7 +25,6 @@ import {Motion, spring} from 'react-motion'
 import autobind from 'autobind-decorator'
 
 const ICON_URL = SRC_URL + 'icons/'
-const bubbleKeys = Object.keys(bubbles)
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -44,7 +44,7 @@ export default class Start extends React.Component {
     super()
 
     this.timeouts = []
-    this.bubbles = []
+    this.bubbles = {}
     this.focusedBubble = null
     this.state = {
       mode: Mode.enter,
@@ -93,28 +93,34 @@ export default class Start extends React.Component {
 
         <LogoBubble />
 
-        {mode !== Mode.buildBubble && this.canShowEditingTools() &&
+        {mode !== Mode.buildBubble && canShowEditingTools() &&
           <BubbleBuilderButton onClick={this.openBubbleBuilder} />
         }
-        {this.canShowEditingTools() &&
+        {canShowEditingTools() &&
           <BubbleBuilder
             ref={r => this.bubbleBuilder = r}
-            onClose={() => this.setState({mode: Mode.show})}
+            onClose={() => {
+              this.setState({mode: Mode.show})
+              this.forceUpdate(() => setTimeout(this.activateSpotlight, 1000))
+            }}
             visible={mode === Mode.buildBubble} />
         }
 
         {(mode === Mode.loadBubbles || mode === Mode.show) &&
           <BubbleGrid ref={r => this.bubbleGrid = r}>
-            {bubbleKeys.map((key, index) => (
+            {Object.keys(bubbles).map((key, index) => (
               <BubbleGridItem
                 key={index}
-                className={bubbles[key].size}>
+                size={bubbles[key].size}>
                 <Bubble
-                  onOpen={this.onOpenBubble.bind(this, index)}
+                  onOpen={this.onOpenBubble.bind(this, key)}
+                  onNext={bubbleId => {
+                    this.bubbles[bubbleId].click()
+                  }}
                   onClose={this.onCloseBubble}
                   nucleus={bubbles[key]}
-                  isFullscreen={isFullscreen && this.focusedBubble === index}
-                  ref={r => this.bubbles.push(r)}
+                  isFullscreen={isFullscreen && this.focusedBubble === key}
+                  ref={r => this.bubbles[key] = r}
                 />
               </BubbleGridItem>
             ))}
@@ -171,10 +177,6 @@ export default class Start extends React.Component {
     )
   }
 
-  canShowEditingTools() {
-    return true//window.origin.includes('edit.')
-  }
-
   @autobind
   openBubbleBuilder() {
     this.setState({
@@ -184,8 +186,8 @@ export default class Start extends React.Component {
   }
 
   @autobind
-  onOpenBubble(index) {
-    this.focusedBubble = index
+  onOpenBubble(bubbleId) {
+    this.focusedBubble = bubbleId
   }
 
   @autobind
@@ -202,22 +204,21 @@ export default class Start extends React.Component {
 
   @autobind
   activateSpotlight() {
-    // let spotlight = 'lampshade'
-    //
-    // const {hash} = window.location
-    // const hashParts = hash? hash.split('?') : []
-    // if (hashParts.length > 1) {
-    //   const queryParts = hashParts[1].split('=')
-    //   if (queryParts[0] === 'spotlight') {
-    //     const spotlightParam = queryParts[1]
-    //     if (bubbleKeys.includes(spotlightParam)) {
-    //       spotlight = spotlightParam
-    //     }
-    //   }
-    // }
-    //
-    // const spotlightIndex = bubbleKeys.findIndex(k => k === spotlight)
-    // this.bubbles[spotlightIndex].click()
+    let spotlight = 'lampshade'
+
+    const {hash} = window.location
+    const hashParts = hash? hash.split('?') : []
+    if (hashParts.length > 1) {
+      const queryParts = hashParts[1].split('=')
+      if (queryParts[0] === 'spotlight') {
+        const spotlightParam = queryParts[1]
+        if (bubbles[spotlightParam]) {
+          spotlight = spotlightParam
+        }
+      }
+    }
+
+    this.bubbles[spotlight].click()
   }
 
 }

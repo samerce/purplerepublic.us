@@ -77,8 +77,7 @@ export const Root = styled.div`
     transition: none;
   }
   &.bubble-editing {
-    padding-top: 120px;
-    padding-left: 250px;
+    padding: 120px 0 120px 250px;
   }
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {

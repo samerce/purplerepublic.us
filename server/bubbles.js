@@ -15,7 +15,7 @@ module.exports = {
     const bubbleProps = JSON.parse(bubblePropsJSONString)
     const {id} = bubbleProps
 
-    const imageUpload = uploadJPEG(imageData, `bubbles/${id}`)
+    const imageUpload = uploadJPEG(imageData, id)
 
     const newStageDirection = {
       ...bubbleStageDirection,
@@ -77,7 +77,7 @@ function uploadJPEG(imageData, key, metadata = {}) {
   )
   const params = {
     ...getDefaultS3Params(),
-    Key: key + '.jpg',
+    Key: `bubbles/buttonImages/${key}.jpg`,
     ContentEncoding: 'base64',
     ContentType: 'image/jpeg',
     Body: imageBuffer,

@@ -45,6 +45,7 @@ export const Root = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  pointer-events: none;
 `
 
 export const Foreground = styled.img`

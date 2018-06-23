@@ -9,6 +9,7 @@ import {
 
 const aColor = '#956C95'
 const borderRadius = 10
+const kBoxShadow = '2px 2px 30px rgba(0,0,0,.3)'
 
 injectGlobal`
   .event-brite-checkout {
@@ -37,7 +38,7 @@ export const ContentRoot = styled.div`
   border-radius: ${borderRadius}px;
   max-width: 640px;
   background: ${aColor};
-  box-shadow: 2px 2px 30px rgba(0,0,0,.3);
+  box-shadow: ${kBoxShadow};
   padding-top: 20px;
   width: ${window.innerWidth}px;
 
@@ -128,6 +129,9 @@ export const Action = styled.div`
   &:last-child {
     border-bottom-right-radius: ${borderRadius}px;
   }
+  &:not(:first-child) {
+    border-left: 1px solid white;
+  }
 
   &:hover {
     background: white;
@@ -176,4 +180,52 @@ export const ExpandedContent = styled.div`
     pointer-events: all;
     transition: all .5s ${EASE_OUT};
   }
+`
+
+export const JourneyButtonRoot = styled.div`
+  position: absolute;
+  top: 100%;
+  margin-top: 20px;
+  z-index: 50;
+  background: ${aColor};
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  text-align: center;
+  transition: all .3s ${EASE_OUT};
+  border-radius: ${borderRadius}px;
+  color: white;
+  font-size: 26px;
+  font-family: annie use your telescope;
+  cursor: pointer;
+  box-shadow: ${kBoxShadow};
+
+  &:hover {
+    background: white;
+    color: ${aColor};
+  }
+
+  i {
+    width: 30px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
+`
+
+export const BubbleName = styled.div`
+  background: ${aColor};
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  padding: 0 10px;
+  color: white;
+  position: absolute;
+  top: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
 `
