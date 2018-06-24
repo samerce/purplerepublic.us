@@ -228,4 +228,21 @@ export const BubbleName = styled.div`
   top: 100%;
   margin-top: 20px;
   border-radius: 10px;
+  transition: all .3s ${EASE_OUT};
+  cursor: pointer;
+
+  &:hover {
+    background: white;
+    color: ${aColor};
+  }
+`
+
+export const BubbleDeleteButton = styled(BubbleName)`
+  background: red;
+  right: 0;
+
+  &:hover {
+    background: white;
+    color: red;
+  }
 `

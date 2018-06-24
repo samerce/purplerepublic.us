@@ -1,6 +1,6 @@
 const {s3, BUCKET} = require('./purpleAWS')
 
-const KEY_BUBBLE_STAGE_DIRECTION = 'bubbles/stageDirection/latest'
+const KEY_BUBBLE_STAGE_DIRECTION_ROOT = 'bubbles/stageDirection/'
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
@@ -24,13 +24,24 @@ module.exports = {
       }
     }
     const bubbleUpload =
-      uploadJSON(newStageDirection, KEY_BUBBLE_STAGE_DIRECTION)
+      uploadJSON(newStageDirection, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
         .then(() => bubbleStageDirection = newStageDirection)
 
     Promise.all([imageUpload, bubbleUpload]).then(() => {
       res.status(200).end()
     }).catch((err) => {
       res.status(500).end('upload failed: ' + err)
+    })
+  },
+
+  delete: (req, res) => {
+    uploadJSON(
+      bubbleStageDirection,
+      KEY_BUBBLE_STAGE_DIRECTION_ROOT + new Date().toISOString()
+    ).then(() => {
+      delete bubbleStageDirection[req.body.bubbleId]
+      uploadJSON(bubbleStageDirection, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
+        .then(() => res.status(200).end())
     })
   },
 
@@ -43,7 +54,7 @@ module.exports = {
 function fetchBubbleStageDirection() {
   s3.getObject({
     Bucket: BUCKET,
-    Key: KEY_BUBBLE_STAGE_DIRECTION + '.json',
+    Key: KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest.json',
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
     else bubbleStageDirection = JSON.parse(data.Body.toString())

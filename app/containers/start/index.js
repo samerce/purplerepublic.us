@@ -107,7 +107,8 @@ export default class Start extends React.Component {
         }
 
         {(mode === Mode.loadBubbles || mode === Mode.show) &&
-          <BubbleGrid ref={r => this.bubbleGrid = r}>
+          <BubbleGrid
+            ref={r => this.bubbleGrid = r}>
             {Object.keys(bubbles).map((key, index) => (
               <BubbleGridItem
                 key={index}
@@ -193,6 +194,7 @@ export default class Start extends React.Component {
   @autobind
   onCloseBubble() {
     findDOMNode(this.bubbles[this.focusedBubble]).scrollTo(0, 0)
+    this.focusedBubble = null
   }
 
   onLetsPlay() {

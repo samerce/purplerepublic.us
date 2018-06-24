@@ -274,7 +274,7 @@ export const SocialRoot = styled.div`
   cursor: pointer;
   opacity: .5;
   transition: all .5s ${EASE};
-  z-index: 7;
+  z-index: 6;
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;
@@ -350,7 +350,7 @@ export const SocialIcon = styled.i`
 `
 
 export const SocialButtonsRoot = styled.div`
-  z-index: 7;
+  z-index: 5;
   display: flex;
   flex-direction: column;
 
@@ -437,7 +437,6 @@ export const BubbleGrid = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 50px;
-  z-index: 6;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 0;

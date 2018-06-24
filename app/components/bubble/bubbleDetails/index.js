@@ -1,8 +1,9 @@
 import React from 'react'
+import Spinnie from '../../spinnie'
 
 import {cx} from '../../../utils/style'
 import {
-  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent, JourneyButtonRoot, BubbleName,
+  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent, JourneyButtonRoot, BubbleName, BubbleDeleteButton,
 } from './styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
@@ -17,6 +18,7 @@ export default class BubbleDetails extends React.Component {
     super()
     this.state = {
       actionClicked: false,
+      isDeleting: false,
     }
   }
 
@@ -52,12 +54,40 @@ export default class BubbleDetails extends React.Component {
           {nextBubbleId && this.renderJourneyButton()}
 
           {canShowEditingTools() && !editing &&
-            <BubbleName><strong>bubble name:</strong> {this.props.id}</BubbleName>
+            <div>
+              <BubbleName onClick={this.copyBubbleName}>
+                <strong>bubble name: </strong>{this.props.id}
+              </BubbleName>
+              <BubbleDeleteButton onClick={this.deleteBubble}>
+                <div hidden={this.state.isDeleting}>delete bubble</div>
+                <Spinnie show={this.state.isDeleting} />
+              </BubbleDeleteButton>
+            </div>
           }
         </ContentRoot>
 
       </Root>
     )
+  }
+
+  @autobind
+  deleteBubble() {
+    if (!confirm(
+      'the bubble will be gone forever!\n\n click OK to destroy it. D:'
+    )) return
+    if (this.state.isDeleting) return
+
+    this.setState({isDeleting: true})
+    fetch('/bubbles.delete', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        bubbleId: this.props.id,
+      }),
+    }).then(() => window.location.reload())
   }
 
   renderActions() {
