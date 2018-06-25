@@ -187,7 +187,7 @@ export const JourneyButtonRoot = styled.div`
   top: 100%;
   margin-top: 20px;
   z-index: 50;
-  background: ${aColor};
+  background: ${darken(.05, aColor)};
   height: 60px;
   line-height: 60px;
   width: 100%;

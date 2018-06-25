@@ -47,8 +47,13 @@ export default class Bubble extends React.Component {
   }
 
   @autobind
-  click() {
+  open() {
     this.onClickBubble()
+  }
+
+  @autobind
+  close() {
+    this.defocusIt()
   }
 
   edit() {
@@ -125,13 +130,10 @@ export default class Bubble extends React.Component {
 
   @autobind
   onClickBubble() {
+    if (mode === Mode.focused) return
     const {mode, bubbleRect} = this.state
-    if (mode === Mode.focused) {
-      this.defocusIt()
-    } else {
-      requestAnimationFrame(this.setWillFocusState)
-      requestAnimationFrame(() => setTimeout(this.focusIt))
-    }
+    requestAnimationFrame(this.setWillFocusState)
+    requestAnimationFrame(() => setTimeout(this.focusIt))
   }
 
   @autobind

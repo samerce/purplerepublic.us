@@ -20,7 +20,8 @@ export default class Backdrop extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !this.state.foregroundLoaded && nextState.foregroundLoaded
+    return false
+    // return !this.state.foregroundLoaded && nextState.foregroundLoaded
   }
 
   render() {

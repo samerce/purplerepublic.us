@@ -20,7 +20,6 @@ import autobind from 'autobind-decorator'
 
 const Mode = makeEnum([
   'enter',
-  'intro',
   'show',
   'buildBubble',
 ])
@@ -34,7 +33,7 @@ export default class Start extends React.Component {
 
     this.timeouts = []
     this.bubbles = {}
-    this.focusedBubble = null
+    this.focusedBubbleId = null
     this.state = {
       mode: Mode.enter,
       hovered: false,
@@ -54,33 +53,39 @@ export default class Start extends React.Component {
     document.addEventListener('fullscreenchange', onFullscreenChange, false)
 
     this.timeouts.push(
-      setTimeout(() => this.setState({mode: Mode.intro})),
-      setTimeout(() => this.setState({mode: Mode.show}), 5500),
-      setTimeout(this.activateSpotlight, 5500),
+      setTimeout(() => this.setState({mode: Mode.show})),
       setTimeout(() => this.setState({
         bubblePods: Object.keys(bubbles).map(k => bubbles[k])
-      }), 2000)
+      }), 2000),
+      setTimeout(this.startUrlWatcher, 5000),
     )
 
     processBubbles()
+  }
 
-    // let bubbleLoadInterval
-    // bubbleLoadInterval = setInterval(() => {
-    //   if (this.state.bubblePods.length + kBubbleChunkAmount >= Object.keys(bubbles).length) {
-    //     clearInterval(bubbleLoadInterval)
-    //   }
-    //
-    //   this.setState({
-    //     bubblePods: [
-    //       ...this.state.bubblePods,
-    //       ...getNextBubbleChunk(this.state.bubblePods.length),
-    //     ],
-    //   })
-    // }, 500)
+  @autobind
+  startUrlWatcher() {
+    if (!getBubbleIdFromUrl()) {
+      this.bubbles['lampshade'].open()
+    }
+
+    this.urlWatcher = setInterval(() => {
+      if (this.isFocusLocked) return
+
+      const {focusedBubbleId} = this
+      const bubbleIdFromUrl = getBubbleIdFromUrl()
+      if (bubbleIdFromUrl && bubbleIdFromUrl !== focusedBubbleId) {
+        this.openBubble(bubbleIdFromUrl)
+      }
+      if (!bubbleIdFromUrl && focusedBubbleId) {
+        this.bubbles[focusedBubbleId].close()
+      }
+    }, 500)
   }
 
   componentWillUnmount() {
     this.timeouts.forEach(clearTimeout)
+    clearInterval(this.urlWatcher)
   }
 
   render() {
@@ -113,13 +118,11 @@ export default class Start extends React.Component {
               key={bubble.id}
               size={bubble.size}>
               <Bubble
-                onOpen={this.onOpenBubble.bind(this, bubble.id)}
-                onNext={bubbleId => {
-                  this.bubbles[bubbleId].click()
-                }}
-                onClose={this.onCloseBubble}
+                onOpen={this.onBubbleOpened.bind(this, bubble.id)}
+                onNext={this.openBubble}
+                onClose={this.onBubbleClosed}
                 nucleus={bubble}
-                isFullscreen={isFullscreen && this.focusedBubble === bubble.id}
+                isFullscreen={isFullscreen && this.focusedBubbleId === bubble.id}
                 ref={r => this.bubbles[bubble.id] = r}
               />
             </BubbleGridItem>
@@ -140,40 +143,27 @@ export default class Start extends React.Component {
   }
 
   @autobind
-  onOpenBubble(bubbleId) {
-    this.focusedBubble = bubbleId
+  onBubbleOpened(bubbleId) {
+    this.isFocusLocked = true
+    this.focusedBubbleId = bubbleId
+    window.location.hash = '#start?bubble=' + bubbleId
+    this.isFocusLocked = false
   }
 
   @autobind
-  onCloseBubble() {
-    findDOMNode(this.bubbles[this.focusedBubble]).scrollTo(0, 0)
-    this.focusedBubble = null
-  }
-
-  onLetsPlay() {
-    this.setState({collapsed: true})
-    this.timeouts.push(
-      setTimeout(() => window.location = '#hello', 3000)
-    )
+  onBubbleClosed() {
+    this.isFocusLocked = true
+    this.focusedBubbleId = null
+    window.location.hash = '#start'
+    this.isFocusLocked = false
   }
 
   @autobind
-  activateSpotlight() {
-    let spotlight = 'lampshade'
-
-    const {hash} = window.location
-    const hashParts = hash? hash.split('?') : []
-    if (hashParts.length > 1) {
-      const queryParts = hashParts[1].split('=')
-      if (queryParts[0] === 'spotlight') {
-        const spotlightParam = queryParts[1]
-        if (bubbles[spotlightParam]) {
-          spotlight = spotlightParam
-        }
-      }
+  openBubble(bubbleId) {
+    if (this.focusedBubbleId) {
+      this.bubbles[this.focusedBubbleId].close()
     }
-
-    this.bubbles[spotlight].click()
+    this.bubbles[bubbleId].open()
   }
 
 }
@@ -185,11 +175,18 @@ function processBubbles() {
   })
 }
 
-function getNextBubbleChunk(numLoadedBubbles) {
-  return Object.keys(bubbles)
-    .slice(numLoadedBubbles, numLoadedBubbles + kBubbleChunkAmount)
-    .reduce((chunk, key) => {
-      chunk.push(bubbles[key])
-      return chunk
-    }, [])
+function getBubbleIdFromUrl() {
+  const {hash} = window.location
+  const hashParts = hash? hash.split('?') : []
+
+  if (hashParts.length > 1) {
+    const queryParts = hashParts[1].split('=')
+    if (queryParts[0] === 'bubble') {
+
+      const spotlightParam = queryParts[1]
+      if (bubbles[spotlightParam]) {
+        return spotlightParam
+      }
+    }
+  }
 }

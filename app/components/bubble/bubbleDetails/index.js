@@ -121,10 +121,7 @@ export default class BubbleDetails extends React.Component {
   renderJourneyButton() {
     const {onNext, nextBubbleId} = this.props
     return (
-      <JourneyButtonRoot onClick={() => {
-        this.close()
-        setTimeout(() => onNext(nextBubbleId), 500)
-      }}>
+      <JourneyButtonRoot onClick={() => onNext(nextBubbleId)}>
         <div>continue journey...</div>
         <i className='fa fa-caret-right' />
       </JourneyButtonRoot>
