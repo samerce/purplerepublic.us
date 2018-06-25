@@ -55,7 +55,7 @@ export default class Start extends React.Component {
 
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.intro})),
-      setTimeout(() => this.setState({mode: Mode.show}), 1000),
+      setTimeout(() => this.setState({mode: Mode.show}), 5500),
       setTimeout(this.activateSpotlight, 5500),
       setTimeout(() => this.setState({
         bubblePods: Object.keys(bubbles).map(k => bubbles[k])
@@ -106,6 +106,7 @@ export default class Start extends React.Component {
         }
 
         <BubbleGrid
+          hidden={mode === Mode.buildBubble}
           ref={r => this.bubbleGrid = r}>
           {this.state.bubblePods.map(bubble => (
             <BubbleGridItem

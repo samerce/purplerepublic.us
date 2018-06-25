@@ -13,7 +13,7 @@ const aColor = '#956C95'
 
 export const Root = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
   transition: all .7s ${EASE_OUT};
@@ -23,6 +23,7 @@ export const Root = styled.div`
   flex-direction: column;
   margin-bottom: 90px;
   overflow: scroll;
+  pointer-events: all;
 `
 
 export const BubbleButtonRoot = styled.div`

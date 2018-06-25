@@ -31,6 +31,11 @@ export const Root = styled.div`
   width: 100%;
   position: fixed;
   overflow: hidden;
+  pointer-events: none;
+
+  &.start-show {
+    pointer-events: all;
+  }
 `
 
 export const PlayButtonRoot = styled.div`
@@ -261,7 +266,7 @@ export const InfoDetailText = styled(InfoText)`
 `
 
 export const BubbleGrid = styled.div`
-  display: flex;
+  display: ${p => p.hidden? 'none' : 'flex'};
   flex-wrap: wrap;
   align-content: flex-start;
   width: 100%;
@@ -272,6 +277,7 @@ export const BubbleGrid = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 50px;
+  pointer-events: all;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     padding: 0;

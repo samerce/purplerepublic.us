@@ -49,7 +49,7 @@ export const ContentRoot = styled.div`
 
 
 export const Title = styled.input`
-  font-size: 26px;
+  font-size: 30px;
   font-family: life savers;
   color: white;
   text-align: center;
@@ -58,7 +58,7 @@ export const Title = styled.input`
   width: 100%;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .editing & {
@@ -68,7 +68,7 @@ export const Title = styled.input`
 
 export const Subtitle = styled.input`
   font-family: life savers;
-  font-size: 12px;
+  font-size: 16px;
   opacity: .7;
   color: white;
   text-align: center;
@@ -78,7 +78,7 @@ export const Subtitle = styled.input`
   pointer-events: none;
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-   font-size: 10px;
+   font-size: 14px;
  }
 
  .editing & {
