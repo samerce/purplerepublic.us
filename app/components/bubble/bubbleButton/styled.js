@@ -32,7 +32,7 @@ export const Root = styled.div`
   }
 
   .bubble-enter & {
-    transition: all .7s ${EASE_OUT} ${p => p.delay}s;
+    transition: all 1s ${EASE_OUT} ${p => p.delay}s;
   }
 
   &.defocused:hover {

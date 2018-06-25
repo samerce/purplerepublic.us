@@ -6,45 +6,14 @@ import {
 } from './styled'
 import {cx} from '../../utils/style'
 
-import {SRC_URL, SCREEN_WIDTH_S} from '../../global/constants'
+import {SRC_URL, SCREEN_WIDTH_M} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
 import {openInNewTab} from '../../utils/nav'
 import autobind from 'autobind-decorator'
 
-const BASE_URL = SRC_URL + 'intro/'
-
-const DUALITY_WORD_PADDING = 10
-const EV_FUDGE = 150
-
-const DURATION_DISCLAIMER = 12000
-const DURATION_YOU_ARE = DURATION_DISCLAIMER + 4500
-const DURATION_ENOUGH = DURATION_YOU_ARE + 3500
-const DURATION_NOW = DURATION_ENOUGH + 7500
-const DURATION_WHAT = DURATION_NOW + 2500
-const DURATION_GANJA = DURATION_WHAT + 3000
-const DURATION_LIFE_EVERYTHING = DURATION_GANJA + 7000
-const DURATION_LIFE_NOTHING = DURATION_LIFE_EVERYTHING + 2000
-const DURATION_YOU_NOTHING = DURATION_LIFE_NOTHING + 2500
-const DURATION_YOU_EVERYTHING = DURATION_YOU_NOTHING + 2000
-const DURATION_DUALITY = DURATION_YOU_EVERYTHING +
-  ((window.innerWidth <= SCREEN_WIDTH_S)? 17000 : 20000)
-const DURATION_WELCOME = DURATION_DUALITY + 12000
-const DURATION_EXIT = DURATION_WELCOME + 1000
-
 const Mode = makeEnum([
   'willEnter',
   'enter',
-  'youAre',
-  'enough',
-  'now',
-  'what',
-  'ganja',
-  'lifeEverything',
-  'lifeNothing',
-  'youNothing',
-  'youEverything',
-  'duality',
-  'welcome',
   'exit',
 ])
 
@@ -96,7 +65,10 @@ export default class Intro extends React.Component {
           </PathOption>
           <PathOption onClick={this.shop}>
             <PathOptionButton>
-              painting.<br />photography.<br /> shopping!
+              {window.innerWidth <= SCREEN_WIDTH_M?
+                <div>painting. photography. shopping!</div> :
+                <div>painting.<br />photography.<br />shopping!</div>
+              }
             </PathOptionButton>
           </PathOption>
         </PickYourPath>

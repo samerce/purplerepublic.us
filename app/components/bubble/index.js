@@ -30,7 +30,7 @@ const Mode = makeEnum([
   'expanded',
 ])
 
-const DURATION_WILL_ENTER = 1700
+const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 
 export default class Bubble extends React.Component {
