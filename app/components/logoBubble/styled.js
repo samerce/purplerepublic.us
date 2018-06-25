@@ -45,6 +45,19 @@ export const LogoSVG = styled.object`
   }
 `
 
+export const LogoTextRoot = styled.div`
+  position: relative;
+  z-index: 10;
+  .logo-breatheIn & {
+    transform: scale(0);
+    transition: all .7s ${EASE_IN};
+  }
+  .logo-hangin & {
+    transform: scale(.6);
+    transition: all 1.5s ${EASE_OUT};
+  }
+`
+
 export const CircleRoot = styled.div`
   position: absolute;
   width: 100%;
@@ -72,8 +85,8 @@ export const CircleBill = styled.div`
     transition-delay: .6s; */}
   }
   .logo-breatheIn & {
-    transform: scale(.7);
-    transition: all 3s ${EASE_OUT};
+    transform: scale(0);
+    transition: all 1s ${EASE_IN};
   }
   .logo-breatheOut &, .logo-hangin & {
     transform: scale(1);
@@ -86,7 +99,9 @@ export const CirclePaul = styled(CircleBill)`
   height: 225px;
   background: #8536AE;
   transition-delay: .3s;
-  ${'' /* box-shadow: none; */}
+  .logo-breatheIn & {
+    transition-duration: .9s;
+  }
 `
 
 export const CircleSami = styled(CirclePaul)`
@@ -94,5 +109,7 @@ export const CircleSami = styled(CirclePaul)`
   height: 200px;
   background: #6324A9;
   transition-delay: .6s;
-  ${'' /* box-shadow: none; */}
+  .logo-breatheIn & {
+    transition-duration: .8s;
+  }
 `

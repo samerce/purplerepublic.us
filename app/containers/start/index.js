@@ -1,42 +1,31 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
-import PayPalLink from '../../components/payPalLink'
 import Backdrop from './backdrop'
-
-import styled from 'styled-components'
-import {
-  Root,
-  SocialRoot, SocialButtonsRoot, SocialIcon,
-  BubbleGrid, BubbleGridItem,
-} from './styled'
 import Bubble from '../../components/bubble'
 import LogoBubble from '../../components/logoBubble'
 import BubbleBuilderButton from '../../components/bubble/bubbleBuilderButton'
 import BubbleBuilder from '../../components/bubble/bubbleBuilder'
+import GetSocialWithUs from '../../components/getSocialWithUs'
+
+import styled from 'styled-components'
+import {
+  Root, BubbleGrid, BubbleGridItem,
+} from './styled'
 
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
-import {SRC_URL} from '../../global/constants'
 import {BubbleComponents} from '../../components/bubble/bubbles'
-
-import SineWaves from 'sine-waves'
-import {Motion, spring} from 'react-motion'
 import autobind from 'autobind-decorator'
-
-const ICON_URL = SRC_URL + 'icons/'
-
-const getRandInt = range => Math.ceil(Math.random() * range)
-const getRand = range => `${getRandInt(range)}px`
-const getStarPos = () => `-${getRandInt(60) + 20}px`
 
 const Mode = makeEnum([
   'enter',
   'intro',
-  'loadBubbles',
   'show',
   'buildBubble',
 ])
+
+const kBubbleChunkAmount = 5
 
 export default class Start extends React.Component {
 
@@ -48,10 +37,10 @@ export default class Start extends React.Component {
     this.focusedBubble = null
     this.state = {
       mode: Mode.enter,
-      collapsed: false,
       hovered: false,
       infoHover: false,
       isFullscreen: false,
+      bubblePods: [],
     }
   }
 
@@ -66,12 +55,28 @@ export default class Start extends React.Component {
 
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.intro})),
-      setTimeout(() => this.setState({mode: Mode.loadBubbles}), 5400),
-      setTimeout(() => this.setState({mode: Mode.show}), 5700),
-      setTimeout(this.activateSpotlight, 9000),
+      setTimeout(() => this.setState({mode: Mode.show}), 1000),
+      setTimeout(this.activateSpotlight, 5500),
+      setTimeout(() => this.setState({
+        bubblePods: Object.keys(bubbles).map(k => bubbles[k])
+      }), 2000)
     )
 
     processBubbles()
+
+    // let bubbleLoadInterval
+    // bubbleLoadInterval = setInterval(() => {
+    //   if (this.state.bubblePods.length + kBubbleChunkAmount >= Object.keys(bubbles).length) {
+    //     clearInterval(bubbleLoadInterval)
+    //   }
+    //
+    //   this.setState({
+    //     bubblePods: [
+    //       ...this.state.bubblePods,
+    //       ...getNextBubbleChunk(this.state.bubblePods.length),
+    //     ],
+    //   })
+    // }, 500)
   }
 
   componentWillUnmount() {
@@ -79,23 +84,17 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {collapsed, hovered, mode, isFullscreen} = this.state
-    const defaultSpring = {stiffness: 70, damping: 9}
-    const scaleVal = collapsed? spring(0, {stiffness: 70, damping: 30}) : hovered? spring(.9,  defaultSpring) : spring(1, defaultSpring)
-    const opacityVal = collapsed? spring(0, {stiffness: 70, damping: 60}) : 1
+    const {mode, isFullscreen, bubblePods} = this.state
 
     return (
-      <Root className={cx({
-        'start-exit': collapsed,
-        [`start-${mode}`]: true,
-      })}>
+      <Root className={`start-${mode}`}>
         <Backdrop />
-
         <LogoBubble />
 
         {mode !== Mode.buildBubble && canShowEditingTools() &&
           <BubbleBuilderButton onClick={this.openBubbleBuilder} />
         }
+
         {canShowEditingTools() &&
           <BubbleBuilder
             ref={r => this.bubbleBuilder = r}
@@ -106,74 +105,27 @@ export default class Start extends React.Component {
             visible={mode === Mode.buildBubble} />
         }
 
-        {(mode === Mode.loadBubbles || mode === Mode.show) &&
-          <BubbleGrid
-            ref={r => this.bubbleGrid = r}>
-            {Object.keys(bubbles).map((key, index) => (
-              <BubbleGridItem
-                key={index}
-                size={bubbles[key].size}>
-                <Bubble
-                  onOpen={this.onOpenBubble.bind(this, key)}
-                  onNext={bubbleId => {
-                    this.bubbles[bubbleId].click()
-                  }}
-                  onClose={this.onCloseBubble}
-                  nucleus={bubbles[key]}
-                  isFullscreen={isFullscreen && this.focusedBubble === key}
-                  ref={r => this.bubbles[key] = r}
-                />
-              </BubbleGridItem>
-            ))}
-          </BubbleGrid>
-        }
+        <BubbleGrid
+          ref={r => this.bubbleGrid = r}>
+          {this.state.bubblePods.map(bubble => (
+            <BubbleGridItem
+              key={bubble.id}
+              size={bubble.size}>
+              <Bubble
+                onOpen={this.onOpenBubble.bind(this, bubble.id)}
+                onNext={bubbleId => {
+                  this.bubbles[bubbleId].click()
+                }}
+                onClose={this.onCloseBubble}
+                nucleus={bubble}
+                isFullscreen={isFullscreen && this.focusedBubble === bubble.id}
+                ref={r => this.bubbles[bubble.id] = r}
+              />
+            </BubbleGridItem>
+          ))}
+        </BubbleGrid>
 
-        <SocialRoot>
-          <SocialButtonsRoot>
-            <a href='https://www.facebook.com/purplerepublic' target='_blank'>
-              <SocialIcon className='fa fa-facebook-square i1' />
-              <div className='tooltip'>facebook</div>
-            </a>
-            <a href='https://www.medium.com/the-purple-republic' target='_blank'>
-              <SocialIcon className='fa fa-medium i6' />
-              <div className='tooltip'>medium</div>
-            </a>
-            <a href='https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw' target='_blank'>
-              <SocialIcon className='fa fa-youtube-square i5' />
-              <div className='tooltip'>youtube</div>
-            </a>
-            <a href='https://www.etsy.com/shop/purplerepublic' target='_blank'>
-              <SocialIcon className='fa fa-etsy i4' />
-              <div className='tooltip'>etsy</div>
-            </a>
-            <a href='https://www.redbubble.com/people/purplerepublic/portfolio' target='_blank' className='i8'>
-              <object data={ICON_URL + 'redbubble.svg'} type='image/svg+xml' />
-              <div className='tooltip'>red bubble</div>
-            </a>
-            <a href='https://www.twitter.com/1purplerepublic' target='_blank'>
-              <SocialIcon className='fa fa-twitter-square i2' />
-              <div className='tooltip'>twitter</div>
-            </a>
-            <a href='https://www.instagram.com/expressyourmess' target='_blank'>
-              <SocialIcon className='fa fa-instagram i3' />
-              <div className='tooltip'>instagram</div>
-            </a>
-            <a href='mailto:rise@purplerepublic.us' target='_blank'>
-              <SocialIcon className='fa fa-envelope-o i4' />
-              <div className='tooltip'>email</div>
-            </a>
-            <a href='https://www.patreon.com/purplerepublic' target='_blank' className='i10'>
-              <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
-              <div className='tooltip'>donate with patreon</div>
-            </a>
-            <a onClick={() => this.payPalLink.click()} className='i11'>
-              <SocialIcon className='fa fa-paypal i9' />
-              <PayPalLink ref={r => this.payPalLink = r} />
-              <div className='tooltip'>donate with paypal</div>
-            </a>
-          </SocialButtonsRoot>
-        </SocialRoot>
-
+        <GetSocialWithUs />
       </Root>
     )
   }
@@ -230,4 +182,13 @@ function processBubbles() {
   Object.keys(bubbles).forEach(k => {
     bubbles[k].Component = BubbleComponents[bubbles[k].type]
   })
+}
+
+function getNextBubbleChunk(numLoadedBubbles) {
+  return Object.keys(bubbles)
+    .slice(numLoadedBubbles, numLoadedBubbles + kBubbleChunkAmount)
+    .reduce((chunk, key) => {
+      chunk.push(bubbles[key])
+      return chunk
+    }, [])
 }

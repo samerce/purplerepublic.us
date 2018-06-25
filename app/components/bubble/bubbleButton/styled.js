@@ -21,7 +21,7 @@ if (window.innerWidth <= SCREEN_WIDTH_M) {
 }
 
 export const Root = styled.div`
-  transition: all .3s ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
   display: inline-block;
   z-index: 8;
   pointer-events: all;
@@ -29,9 +29,6 @@ export const Root = styled.div`
 
   .bubble-willEnter & {
     transition: none;
-    ${'' /* transform: translate(-1000px, -1000px); */}
-    ${'' /* transform: scale(0); */}
-    ${'' /* opacity: 0; */}
   }
 
   .bubble-enter & {
@@ -40,7 +37,6 @@ export const Root = styled.div`
 
   &.defocused:hover {
     transform: scale(.9);
-    transition: all .5s ${EASE_OUT};
   }
 `
 

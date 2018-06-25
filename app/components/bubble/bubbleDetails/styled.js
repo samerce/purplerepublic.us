@@ -36,7 +36,7 @@ export const Root = styled.div`
 
 export const ContentRoot = styled.div`
   border-radius: ${borderRadius}px;
-  max-width: 640px;
+  max-width: 700px;
   background: ${aColor};
   box-shadow: ${kBoxShadow};
   padding-top: 20px;
