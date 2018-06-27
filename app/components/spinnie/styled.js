@@ -7,13 +7,13 @@ const aColor = '#498359'
 injectGlobal`
   @keyframes spinning {
     0% {
-      transform: rotate(180deg) scale(1.1);
+      transform: rotate(180deg) scale(1.5);
     }
     50% {
       transform: rotate(270deg) scale(.9);
     }
     100% {
-      transform: rotate(360deg) scale(1.1);
+      transform: rotate(360deg) scale(1.5);
     }
   }
 
@@ -56,7 +56,7 @@ export const Root = styled.span`
       animation-duration: 1s;
       animation-name: spinning;
       animation-iteration-count: infinite;
-      animation-timing-function: ${EASE};
+      animation-timing-function: linear;
       flex: 0 0 auto;
       color: inherit;
       font-size: inherit;

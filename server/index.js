@@ -39,6 +39,7 @@ app.post('/submissions.upload', upload.single('blob'), submissions.upload)
 app.get('/bubbleStageDirection.js', bubbles.getStageDirectionScript)
 app.post('/bubbles.upload', bubbles.upload)
 app.post('/bubbles.delete', bubbles.delete)
+app.post('/bubbles.update.arrangement', bubbles.updateArrangement)
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

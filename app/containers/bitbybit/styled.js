@@ -27,16 +27,6 @@ injectGlobal`
     }
   }
 
-  @keyframes blinking {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: .3;
-    }
-  }
-
   @keyframes pointPulsing {
     from {
       transform: scale(1.3);

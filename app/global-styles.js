@@ -126,4 +126,14 @@ injectGlobal`
     }
   }
 
+  @keyframes blinking {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: .3;
+    }
+  }
+
 `

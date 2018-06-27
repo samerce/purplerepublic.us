@@ -3,14 +3,19 @@ import {findDOMNode} from 'react-dom'
 import Backdrop from './backdrop'
 import Bubble from '../../components/bubble'
 import LogoBubble from '../../components/logoBubble'
-import BubbleBuilderButton from '../../components/bubble/bubbleBuilderButton'
 import BubbleBuilder from '../../components/bubble/bubbleBuilder'
 import GetSocialWithUs from '../../components/getSocialWithUs'
+import {
+  BubbleAddButton,
+  BubbleArrangeButton,
+} from '../../components/bubble/bubbleBuilderButton'
+import Spinnie from '../../components/spinnie'
 
 import styled from 'styled-components'
 import {
-  Root, BubbleGrid, BubbleGridItem,
+  Root, BubbleGrid, BubbleGridItem, ArrangeButton, BubbleEditingButtonsRoot,
 } from './styled'
+import {PublishMask} from '../../global/styled'
 
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
@@ -22,6 +27,7 @@ const Mode = makeEnum([
   'enter',
   'show',
   'buildBubble',
+  'arrange',
 ])
 
 const kBubbleChunkAmount = 5
@@ -36,10 +42,9 @@ export default class Start extends React.Component {
     this.focusedBubbleId = null
     this.state = {
       mode: Mode.enter,
-      hovered: false,
-      infoHover: false,
       isFullscreen: false,
       bubblePods: [],
+      savingNewArrangement: false,
     }
   }
 
@@ -55,7 +60,7 @@ export default class Start extends React.Component {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
       setTimeout(() => this.setState({
-        bubblePods: Object.keys(bubbles).map(k => bubbles[k])
+        bubblePods: [...bubbles],
       }), 2000),
       setTimeout(this.startUrlWatcher, 5000),
     )
@@ -80,7 +85,7 @@ export default class Start extends React.Component {
       if (!bubbleIdFromUrl && focusedBubbleId) {
         this.bubbles[focusedBubbleId].close()
       }
-    }, 500)
+    }, 250)
   }
 
   componentWillUnmount() {
@@ -89,7 +94,7 @@ export default class Start extends React.Component {
   }
 
   render() {
-    const {mode, isFullscreen, bubblePods} = this.state
+    const {mode, isFullscreen, bubblePods, arrangeSourceIndex} = this.state
 
     return (
       <Root className={`start-${mode}`}>
@@ -97,7 +102,13 @@ export default class Start extends React.Component {
         <LogoBubble />
 
         {mode !== Mode.buildBubble && canShowEditingTools() &&
-          <BubbleBuilderButton onClick={this.openBubbleBuilder} />
+          <BubbleEditingButtonsRoot>
+            <BubbleAddButton
+              onClick={this.openBubbleBuilder} />
+            <BubbleArrangeButton
+              isArranging={mode === Mode.arrange}
+              onClick={this.toggleArrangeMode} />
+          </BubbleEditingButtonsRoot>
         }
 
         {canShowEditingTools() &&
@@ -113,11 +124,21 @@ export default class Start extends React.Component {
         <BubbleGrid
           hidden={mode === Mode.buildBubble}
           ref={r => this.bubbleGrid = r}>
-          {this.state.bubblePods.map(bubble => (
+          {this.state.bubblePods.map((bubble, index) => (
             <BubbleGridItem
               key={bubble.id}
               size={bubble.size}>
+
+              {mode === Mode.arrange && (index !== 0) &&
+                <ArrangeButton onClick={this.onArrange.bind(this, index)}>
+                  <i className={`fa
+                    ${arrangeSourceIndex? 'fa-map-pin' : 'fa-bullseye'}`
+                  } />
+                </ArrangeButton>
+              }
+
               <Bubble
+                disabled={mode === Mode.arrange}
                 onOpen={this.onBubbleOpened.bind(this, bubble.id)}
                 onNext={this.openBubble}
                 onClose={this.onBubbleClosed}
@@ -130,6 +151,10 @@ export default class Start extends React.Component {
         </BubbleGrid>
 
         <GetSocialWithUs />
+
+        <PublishMask show={this.state.savingNewArrangement}>
+          <Spinnie show={true} />
+        </PublishMask>
       </Root>
     )
   }
@@ -138,6 +163,7 @@ export default class Start extends React.Component {
   openBubbleBuilder() {
     this.setState({
       mode: Mode.buildBubble,
+      arrangeSourceIndex: null,
     })
     this.bubbleBuilder.show()
   }
@@ -166,12 +192,55 @@ export default class Start extends React.Component {
     this.bubbles[bubbleId].open()
   }
 
+  @autobind
+  toggleArrangeMode() {
+    this.setState({
+      mode: (this.state.mode === Mode.arrange)? Mode.show : Mode.arrange,
+      arrangeSourceIndex: null,
+    })
+  }
+
+  @autobind
+  onArrange(index) {
+    const {arrangeSourceIndex} = this.state
+
+    if (arrangeSourceIndex) {
+      this.rearrangeBubbles(arrangeSourceIndex, index)
+    } else {
+      this.setState({arrangeSourceIndex:  index})
+    }
+  }
+
+  rearrangeBubbles(sourceIndex, destIndex) {
+    const sourceBubble = bubbles[sourceIndex]
+    const destBubble = bubbles.splice(destIndex, 1, sourceBubble)[0]
+    bubbles.splice(sourceIndex, 1, destBubble)
+
+    this.setState({
+      savingNewArrangement: true,
+    })
+
+    fetch('/bubbles.update.arrangement', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bubbles),
+    }).then(() => {
+      this.setState({
+        bubblePods: [...bubbles],
+        arrangeSourceIndex: null,
+        savingNewArrangement: false
+      })
+    })
+  }
+
 }
 
 function processBubbles() {
   // bubbles is a global loaded in index.html
-  Object.keys(bubbles).forEach(k => {
-    bubbles[k].Component = BubbleComponents[bubbles[k].type]
+  bubbles.forEach(bubbleProps => {
+    bubbleProps.Component = BubbleComponents[bubbleProps.type]
   })
 }
 
@@ -184,7 +253,7 @@ function getBubbleIdFromUrl() {
     if (queryParts[0] === 'bubble') {
 
       const spotlightParam = queryParts[1]
-      if (bubbles[spotlightParam]) {
+      if (bubbles.find(b => b.id === spotlightParam)) {
         return spotlightParam
       }
     }

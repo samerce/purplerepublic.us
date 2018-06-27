@@ -13,25 +13,22 @@ module.exports = {
       bubbleProps: bubblePropsJSONString,
     } = req.body
     const bubbleProps = JSON.parse(bubblePropsJSONString)
-    const {id} = bubbleProps
 
-    const imageUpload = uploadJPEG(imageData, id)
-
-    const newStageDirection = {
-      ...bubbleStageDirection,
-      [id]: {
-        ...bubbleProps,
-      }
-    }
-    const bubbleUpload =
-      uploadJSON(newStageDirection, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
-        .then(() => bubbleStageDirection = newStageDirection)
-
-    Promise.all([imageUpload, bubbleUpload]).then(() => {
-      res.status(200).end()
-    }).catch((err) => {
-      res.status(500).end('upload failed: ' + err)
-    })
+    const imageUpload = uploadJPEG(imageData, bubbleProps.id)
+      .then(() => {
+        const newStageDirection = [
+          ...bubbleStageDirection,
+          bubbleProps,
+        ]
+        uploadJSON(
+          newStageDirection,
+          KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest'
+        ).then(() => {
+          bubbleStageDirection = newStageDirection
+          res.status(200).end()
+        })
+        .catch(e => res.status(500).end('json upload failed: ' + e))
+      }).catch(e => res.status(500).end('image upload failed: ' + e))
   },
 
   delete: (req, res) => {
@@ -39,10 +36,22 @@ module.exports = {
       bubbleStageDirection,
       KEY_BUBBLE_STAGE_DIRECTION_ROOT + new Date().toISOString()
     ).then(() => {
-      delete bubbleStageDirection[req.body.bubbleId]
+      bubbleStageDirection = bubbleStageDirection.filter(
+        bubbleProps => bubbleProps.id !== req.body.bubbleId
+      )
       uploadJSON(bubbleStageDirection, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
         .then(() => res.status(200).end())
-    })
+        .catch((e) => res.status(500).end(e))
+    }).catch((e) => res.status(500).end(e))
+  },
+
+  updateArrangement: ({body: newBubbles}, res) => {
+    uploadJSON(newBubbles, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
+      .then(() => {
+        bubbleStageDirection = newBubbles
+        res.status(200).end()
+      })
+      .catch((e) => res.status(500).end('update failed: ' + e))
   },
 
   getStageDirectionScript(req, res) {

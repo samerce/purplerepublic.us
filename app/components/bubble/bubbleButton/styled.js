@@ -24,7 +24,7 @@ export const Root = styled.div`
   transition: all .5s ${EASE_OUT};
   display: inline-block;
   z-index: 8;
-  pointer-events: all;
+  pointer-events: ${p => p.disabled? 'none' : 'all'};
   cursor: pointer;
 
   .bubble-willEnter & {

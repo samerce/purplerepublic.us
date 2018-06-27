@@ -15,10 +15,10 @@ import {BubbleType, BubbleComponents} from '../bubbles'
 import {cx} from '../../../utils/style'
 import {
   Root, BubbleButtonRoot, BubbleBuilderToolsRoot, BubbleButtonContent,
-  BubbleButtonSizeSlider, PublishMask,
+  BubbleButtonSizeSlider,
 } from './styled'
 import {
-  ToolBar, ToolBarItem,
+  ToolBar, ToolBarItem, PublishMask,
 } from '../../../global/styled'
 
 import {makeEnum} from '../../../utils/lang'
@@ -93,6 +93,11 @@ export default class BubbleBuilder extends React.Component {
 
   componentDidUpdate() {
     // storeNucleus(this.state.nucleus)
+    if (this.props.visible) {
+      window.onbeforeunload = () => true
+    } else {
+      window.onbeforeunload = null
+    }
   }
 
   show() {
@@ -110,11 +115,9 @@ export default class BubbleBuilder extends React.Component {
         ref={r => this.root = r}
         className={'bubbleBuilder-' + mode}>
 
-        {isPublishing &&
-          <PublishMask>
-            <Spinnie show={true} />
-          </PublishMask>
-        }
+        <PublishMask show={isPublishing}>
+          <Spinnie show={true} />
+        </PublishMask>
 
         <UnoSelectPill
           options={this.filterOptions}

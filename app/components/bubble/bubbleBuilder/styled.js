@@ -85,20 +85,3 @@ export const BubbleButtonSizeSlider = styled.input`
   background: ${aColor};
   outline: none;
 `
-
-export const PublishMask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,.5);
-  z-index: 200;
-
-  i {
-    font-size: 100px;
-  }
-`

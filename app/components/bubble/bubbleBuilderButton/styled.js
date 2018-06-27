@@ -24,101 +24,33 @@ injectGlobal`
   .bubbleBuilderButton {
     z-index: 30;
     position: relative;
-    top: 210px;
-    left: 40px;
+    width: initial;
+    height: initial;
+    margin: 0 10px;
 
     i {
       font-size: 40px;
       color: white;
       border-radius: 100%;
       border: 1px solid white;
-      width: 108px;
-      height: 108px;
+      width: 70px;
+      height: 70px;
+      line-height: 70px;
       text-align: center;
-      line-height: 108px;
       background: ${aColor};
       transition: all 1s ${EASE_OUT};
 
       &:hover {
         transform: scale(.9);
+        background: ${darken(.05, aColor)};
+      }
+      &:active {
+        transform: scale(.85);
+        background: ${darken(.1, aColor)};
+      }
+      .bubbleArrangeActive & {
+        background: ${darken(.1, aColor)};
       }
     }
   }
-`
-
-export const Root = styled.div`
-  transition: all .3s ${EASE_OUT};
-  display: inline-block;
-  z-index: 8;
-  pointer-events: all;
-  cursor: pointer;
-
-  .bubble-willEnter & {
-    transform: translate(-1000px, -1000px);
-    ${'' /* transform: scale(0); */}
-    ${'' /* opacity: 0; */}
-  }
-
-  .bubble-enter & {
-    transition: all .7s ${EASE_OUT} ${p => p.delay}s;
-  }
-
-  &.defocused:hover {
-    transform: scale(.9);
-    transition: all .5s ${EASE_OUT};
-  }
-`
-
-const bubbleButtonStyle = `
-  border: 1px solid white;
-  border-radius: 100%;
-  overflow: hidden;
-  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
-  transition: all .7s ${EASE_OUT};
-
-  width: ${CIRCLE_SIZE_LARGE}px;
-  height: ${CIRCLE_SIZE_LARGE}px;
-
-  .xlarge & {
-    width: ${300}px;
-    height: ${300}px;
-  }
-
-  .medium & {
-    width: 200px;
-    height: 200px;
-  }
-
-  .defocused &:hover {
-    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
-    transition: all .5s ${EASE_OUT};
-  }
-
-  .defocused & {
-    transition: all .7s ${EASE_OUT};
-  }
-
-  .focused &, .expanded & {
-    width: ${CIRCLE_SIZE_FOCUSED}px;
-    height: ${CIRCLE_SIZE_FOCUSED}px;
-    box-shadow: none;
-    transform: translateY(10px);
-    cursor: default;
-    transition: all .7s ${EASE_OUT};
-  }
-`
-export const BubbleButtonImage = styled.div`
-  ${bubbleButtonStyle}
-
-  background-image: url('${p => p.src}');
-  background-position: center;
-  background-size: cover;
-`
-
-export const BubbleButtonSVG = styled.object`
-  ${bubbleButtonStyle}
-
-  pointer-events: none;
-  width: 300px;
-  height: 65px;
 `

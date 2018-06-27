@@ -11,18 +11,28 @@ import {
 
 const aColor = '#956C95'
 
-const addJiggle = (duration = 7) => `
-  animation: ${duration}s jiggle;
-  animation-iteration-count: infinite;
-  animation-fill-mode: both;
-  animation-direction: alternate;
-  animation-timing-function: ${EASE};
-`
-
 injectGlobal`
   div.bubbleButton-nolaMarch {
     top: 40px;
     left: 10px;
+  }
+
+  @keyframes fastBlink {
+    0% {
+      opacity: 1;
+    }
+
+    30% {
+      opacity: .5
+    }
+
+    70% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 `
 
@@ -33,236 +43,9 @@ export const Root = styled.div`
   overflow: hidden;
   pointer-events: none;
 
-  &.start-show {
+  &.start-show, &.start-arrange {
     pointer-events: all;
   }
-`
-
-export const PlayButtonRoot = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0);
-
-  .start-show & {
-    opacity: 1;
-    transform: none;
-    transition: all .5s ${EASE_OUT} 1s;
-  }
-`
-
-export const PlayButton = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  color: white;
-  font-family: life savers;
-  border-radius: 100%;
-  flex-direction: column;
-  font-size: 90px;
-  justify-content: center;
-  text-align: center;
-  background: rgba(172, 90, 122, .9);
-  ${'' /* background: radial-gradient(circle at center, #AD5B7B 0%, rgba(87, 5, 76, 1) 50%, rgba(249, 208, 243, 1) 60%, rgba(249, 208, 243, 1) 70%, rgba(87, 5, 76, 1) 100%); */}
-  animation: 7s jiggle;
-  animation-iteration-count: infinite;
-  animation-fill-mode: both;
-  animation-direction: alternate;
-  animation-timing-function: ${EASE_IN};
-  z-index: 3;
-  transition: all 1.5s ${EASE_IN}, background .3s ${EASE_IN};
-  ${'' /* border: 1px solid #AD5B7B; */}
-  box-shadow: 0px 0px 20px rgba(0,0,0,.4);
-  text-shadow: 1px 1px rgba(87, 5, 76, .2);
-  user-select: none;
-
-  &:hover {
-    background: rgba(172, 90, 122, 1);
-    transition: background 1s ${EASE_OUT};
-    box-shadow: 0 0 10px rgba(0,0,0,.5);
-  }
-
-  span {
-    flex: 0 0 auto;
-    transition: all 1s ${EASE_IN};
-
-    &:first-child {
-      line-height: 70px;
-    }
-  }
-
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-    font-size: 38px;
-
-    span:first-child {
-      line-height: 38px;
-    }
-  }
-`
-
-export const PlayButtonHoverRoot = styled.div`
-  height: 400px;
-  width: 400px;
-  z-index: 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-    height: 150px;
-    width: 150px;
-  }
-
-  &.collapsed {
-    opacity: 0;
-    transform: scale(0);
-    transition: all 1.5s ${EASE_IN};
-
-    span {
-      transform: rotate(-30deg);
-      opacity: 0;
-
-      &:first-child {
-        transform: rotate(30deg);
-      }
-    }
-  }
-`
-
-export const IntroMask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  z-index: 14;
-  pointer-events: none;
-  opacity: 0;
-  transition: all 2s ${EASE};
-
-  ${'' /* &.startIntro {
-    opacity: .75;
-    pointer-events: all;
-  } */}
-`
-
-export const InfoRoot = styled.div`
-  z-index: 4;
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  transition: all 2s ${EASE_OUT};
-  transform: translateY(100px);
-  opacity: 0;
-
-  .start-show & {
-    transform: none;
-    opacity: 1;
-    transition: .5s ${EASE} 1s;
-  }
-
-  .start-exit & {
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 1.5s ${EASE};
-  }
-
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-    bottom: 0;
-  }
-  ${'' /* &.startIntro {
-    bottom: 40%;
-    display: none;
-  }
-  &.endIntro {
-    pointer-events: all;
-    opacity: 1;
-    display: none;
-  } */}
-`
-
-export const InfoContentRoot = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 600px;
-  flex-direction: column;
-  border-radius: 3px;
-  transition: all .3s ${EASE_OUT};
-  padding: 15px;
-  transform: translateY(120px);
-  color: white;
-
-  &:hover, &.infoHover, .startIntro & {
-    background: rgba(255, 255, 255, .1);
-    transform: none;
-    transition: background .5s, color .2s, transform .5s;
-    transition-timing-function: ${EASE_OUT};
-
-    .detail {
-      opacity: 1;
-      transition: all .2s ${EASE_OUT};
-    }
-
-    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-      background: white;
-      color: black;
-    }
-  }
-
-  & > * {
-    flex: 0 0 auto;
-  }
-  i {
-    font-size: 22px;
-    width: 30px;
-    height: 25px;
-    vertical-align: middle;
-
-    .startIntro & {
-      opacity: 0;
-      width: 1px;
-    }
-  }
-`
-
-export const InfoIntroRoot = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  user-select: none;
-`
-
-export const InfoText = styled.div`
-
-`
-
-export const InfoIntroText = styled(InfoText)`
-  font-size: 26px;
-  font-family: annie use your telescope;
-
-  .startIntro & {
-    font-size: 40px;
-  }
-
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-    font-size: 22px;
-  }
-`
-
-export const InfoDetailText = styled(InfoText)`
-  font-size: 18px;
-  opacity: 0;
-  text-align: center;
-  font-family: quattrocento;
 `
 
 export const BubbleGrid = styled.div`
@@ -297,5 +80,57 @@ export const BubbleGridItem = styled.div`
 
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     height: ${p => p.size * (2/3)}px;
+  }
+`
+
+export const BubbleEditingButtonsRoot = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  height: 80px;
+
+`
+
+export const ArrangeButton = styled.div`
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-name: fastBlink;
+  animation-duration: 1s;
+  ${'' /* animation-fill-mode: both; */}
+  animation-timing-function: ${EASE_OUT};
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  visibility: hidden;
+  z-index: 50;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  pointer-events: all;
+
+  .start-arrange & {
+    visibility: visible;
+    ${'' /* animation-play-state: running; */}
+  }
+
+  &:hover i {
+    background: white;
+    color: ${aColor};
+  }
+
+  i {
+    font-size: 30px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    border-radius: 100%;
+    background: ${aColor};
+    transition: all .5s ${EASE_OUT};
+    color: white;
+    text-align: center;
   }
 `

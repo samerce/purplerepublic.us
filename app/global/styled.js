@@ -140,6 +140,24 @@ export const ToolBarItem = styled.div`
   }
 `
 
+export const PublishMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: ${p => p.show? 'flex' : 'none'};
+  justify-content: center;
+  align-items: center;
+  background: ${trans(.3, darken(.7, whitePurple))};
+  z-index: 200;
+  pointer-events: all;
+
+  i {
+    font-size: 100px;
+  }
+`
+
 injectGlobal`
   .blurb {
     margin: 0 20px;
