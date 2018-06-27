@@ -22,13 +22,10 @@ export const Root = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  & > * {
-    flex: 0 0 50%;
-  }
 `
 
 export const HelloThere = styled.div`
+  flex: 0 0 64%;
   width: 100%;
   font-family: quattrocento;
   font-size: 20px;
@@ -75,9 +72,13 @@ export const HelloThere = styled.div`
   hr {
     margin: 20px 0;
   }
+  @media (max-width: 647px) {
+    flex: 0 0 50%;
+  }
 `
 
 export const PickYourPath = styled.div`
+  flex: 0 0 36%;
   width: 100%;
   display: flex;
   transform: translateY(150%);
@@ -96,6 +97,9 @@ export const PickYourPath = styled.div`
   }
   .intro-exit & {
     transition: all 1s ${EASE};
+  }
+  @media (max-width: 647px) {
+    flex: 0 0 50%;
   }
 `
 

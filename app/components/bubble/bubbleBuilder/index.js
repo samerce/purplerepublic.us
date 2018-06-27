@@ -127,7 +127,7 @@ export default class BubbleBuilder extends React.Component {
 
         <UnoSelectPill
           options={this.filterOptions}
-          initialSelected={INITIAL_FILTER}
+          selectedIndex={FilterOptionList.findIndex(o => o === nucleus.type)}
         />
 
         {this.renderBubbleButtonBuilder()}

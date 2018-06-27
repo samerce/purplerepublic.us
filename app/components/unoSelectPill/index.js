@@ -12,8 +12,14 @@ export default class UnoSelectPill extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedIndex: props.initialSelected,
+      selectedIndex: props.selectedIndex,
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedIndex: nextProps.selectedIndex,
+    })
   }
 
   render() {
