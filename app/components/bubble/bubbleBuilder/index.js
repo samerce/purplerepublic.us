@@ -24,6 +24,8 @@ import {
 import {makeEnum} from '../../../utils/lang'
 import autobind from 'autobind-decorator'
 
+import {SRC_URL} from '../../../global/constants'
+
 const Mode = makeEnum([
   'willEnter',
   'enter',
@@ -36,6 +38,7 @@ const Mode = makeEnum([
 ])
 
 const LOCAL_NUCLEUS_KEY = 'purple.republic.editingBubbleNucleus.'
+const BUBBLE_IMAGE_URL = SRC_URL + 'bubbles/buttonImages/'
 
 const DURATION_WILL_ENTER = 700
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
@@ -73,14 +76,6 @@ export default class BubbleBuilder extends React.Component {
   }
 
   componentDidMount() {
-    // const localNucleus = getStoredNucleus(this.state.nucleus.type)
-    // if (localNucleus) this.setState({
-    //   nucleus: {
-    //     ...this.state.nucleus,
-    //     ...localNucleus,
-    //   },
-    // })
-
     this.timers.push(
       setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
       setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
@@ -100,8 +95,19 @@ export default class BubbleBuilder extends React.Component {
     }
   }
 
-  show() {
-    this.bubble.edit()
+  @autobind
+  show(existingBubble, existingBubbleIndex) {
+    if (existingBubble) {
+      this.setState({
+        nucleus: {
+          ...existingBubble,
+        },
+        existingBubbleIndex,
+        imageUrl: BUBBLE_IMAGE_URL + existingBubble.id + '.jpg',
+      }, () => this.bubble.edit())
+    } else {
+      this.bubble.edit()
+    }
   }
 
   render() {
@@ -187,12 +193,13 @@ export default class BubbleBuilder extends React.Component {
   }
 
   renderBubbleBuilderTools() {
-    const {nucleus} = this.state
+    const {nucleus, existingBubbleIndex} = this.state
     const {renderCustomBuilderTools} = nucleus.Component
     return (
       <BubbleBuilderToolsRoot>
         <BubbleBuilderNameTool
           nucleus={nucleus}
+          isExistingBubble={existingBubbleIndex}
           onChangeNucleus={this.onChangeNucleus}
         />
 
@@ -216,6 +223,9 @@ export default class BubbleBuilder extends React.Component {
   @autobind
   close() {
     if (confirm('erase all your work on this bubble?')) {
+      if (this.state.existingBubbleIndex) {
+        this.reset()
+      }
       this.props.onClose()
     }
   }
@@ -240,7 +250,6 @@ export default class BubbleBuilder extends React.Component {
     reader.onloadend = () => {
       this.setState({
         isUploadingImage: false,
-        image: file,
         imageUrl: reader.result,
       })
     }
@@ -251,10 +260,8 @@ export default class BubbleBuilder extends React.Component {
   onSelectFilter(opt) {
     if (opt === this.state.nucleus.type) return
 
-    // const localNucleus = getStoredNucleus(opt)
     this.setState({
       nucleus: getNewNucleus(opt),
-      // ...localNucleus,
     })
   }
 
@@ -271,18 +278,24 @@ export default class BubbleBuilder extends React.Component {
 
   @autobind
   publish() {
-    const {nucleus, imageUrl} = this.state
+    const {nucleus, imageUrl, existingBubbleIndex} = this.state
 
     if (!nucleus.id) {
       alert('your new bubble gotsta have a name!')
       return document.getElementById('bubbleBuilderNameToolInput').focus()
     }
 
-    const imageData = encodeURIComponent(imageUrl)
     const bubbleProps = JSON.stringify({
       ...nucleus,
       Component: undefined, // delete Component property
     })
+    let body = `bubbleProps=${bubbleProps}`
+    if (imageUrl.includes('base64')) {
+      body += '&imageData=' + encodeURIComponent(imageUrl)
+    }
+    if (existingBubbleIndex) {
+      body += '&existingBubbleIndex=' + existingBubbleIndex
+    }
 
     this.setState({
       isPublishing: true,
@@ -293,18 +306,25 @@ export default class BubbleBuilder extends React.Component {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
-      body: `imageData=${imageData}&bubbleProps=${bubbleProps}`,
+      body,
     }).then(() => {
-      // window.localStorage.removeItem(LOCAL_NUCLEUS_KEY + nucleus.type)
-      window.bubbles[nucleus.id] = nucleus
-      window.location = '/#start?spotlight=' + nucleus.id
-      this.setState({
-        nucleus: getNewNucleus(nucleus.type),
-        image: null,
-        imageData: null,
-        isPublishing: false,
-      })
-      this.props.onClose()
+      if (existingBubbleIndex) {
+        window.bubbles[existingBubbleIndex] = nucleus
+      } else {
+        window.bubbles.push(nucleus)
+      }
+
+      this.reset()
+      this.props.onClose(nucleus.id)
+    })
+  }
+
+  reset() {
+    this.setState({
+      nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
+      imageUrl: null,
+      existingBubbleIndex: null,
+      isPublishing: false,
     })
   }
 

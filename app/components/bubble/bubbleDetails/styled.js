@@ -216,33 +216,60 @@ export const JourneyButtonRoot = styled.div`
     transform: translateY(-50%);
   }
 `
+const bubbleOptionsBorderRadius = '10px'
+
+export const BubbleOptions = styled.div`
+  display: flex;
+  position: absolute;
+  top: 100%;
+  margin-top: 20px;
+  width: 100%;
+  border-radius: ${bubbleOptionsBorderRadius};
+`
 
 export const BubbleName = styled.div`
-  background: ${aColor};
+  background: ${darken(.05, aColor)};
   height: 40px;
   line-height: 40px;
   font-size: 18px;
   padding: 0 10px;
   color: white;
-  position: absolute;
-  top: 100%;
-  margin-top: 20px;
-  border-radius: 10px;
   transition: all .3s ${EASE_OUT};
   cursor: pointer;
+  text-align: center;
+  flex: 1 0 auto;
 
   &:hover {
     background: white;
     color: ${aColor};
+  }
+  &:not(:first-child) {
+    border-left: 1px solid white;
+  }
+  &:first-child {
+    border-top-left-radius: ${bubbleOptionsBorderRadius};
+    border-bottom-left-radius: ${bubbleOptionsBorderRadius}
+  }
+  &:last-child {
+    border-top-right-radius: ${bubbleOptionsBorderRadius};
+    border-bottom-right-radius: ${bubbleOptionsBorderRadius};
+  }
+  span {
+    color: ${lighten(.3, aColor)};
+    font-size: 14px;
   }
 `
 
 export const BubbleDeleteButton = styled(BubbleName)`
   background: red;
   right: 0;
+  position: relative;
 
   &:hover {
     background: white;
     color: red;
   }
+`
+
+export const BubbleEditButton = styled(BubbleName)`
 `

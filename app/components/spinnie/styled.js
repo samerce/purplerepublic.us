@@ -56,7 +56,7 @@ export const Root = styled.span`
       animation-duration: 1s;
       animation-name: spinning;
       animation-iteration-count: infinite;
-      animation-timing-function: linear;
+      animation-timing-function: ${EASE};
       flex: 0 0 auto;
       color: inherit;
       font-size: inherit;

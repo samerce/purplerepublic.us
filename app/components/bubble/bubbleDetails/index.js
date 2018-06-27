@@ -4,6 +4,7 @@ import Spinnie from '../../spinnie'
 import {cx} from '../../../utils/style'
 import {
   Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent, JourneyButtonRoot, BubbleName, BubbleDeleteButton,
+  BubbleEditButton, BubbleOptions,
 } from './styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
@@ -14,19 +15,27 @@ import {BubbleButtonActions} from '../actions'
 
 export default class BubbleDetails extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       actionClicked: false,
       isDeleting: false,
+      title: props.title,
+      subtitle: props.subtitle,
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      subtitle: nextProps.subtitle,
+      title: nextProps.title,
+    })
+  }
+
   render() {
+    const {title, subtitle} = this.state
     const {
       className,
-      subtitle,
-      title,
       children,
       nextBubbleId,
       editing,
@@ -38,12 +47,14 @@ export default class BubbleDetails extends React.Component {
           <Subtitle
             onBlur={e => this.props.onEditingChange({subtitle: e.target.value})}
             onKeyPress={this.onInputKeyPress}
-            defaultValue={subtitle}
+            onChange={e => this.setState({subtitle: e.target.value})}
+            value={subtitle}
           />
           <Title
             onBlur={e => this.props.onEditingChange({title: e.target.value})}
             onKeyPress={this.onInputKeyPress}
-            defaultValue={title}
+            onChange={e => this.setState({title: e.target.value})}
+            value={title}
           />
           <hr />
 
@@ -54,15 +65,20 @@ export default class BubbleDetails extends React.Component {
           {nextBubbleId && this.renderJourneyButton()}
 
           {canShowEditingTools() && !editing &&
-            <div>
+            <BubbleOptions style={{
+              marginTop: nextBubbleId? 100 : 20,
+            }}>
               <BubbleName onClick={this.copyBubbleName}>
-                <strong>bubble name: </strong>{this.props.id}
+                <span>name: </span>{this.props.id}
               </BubbleName>
+              <BubbleEditButton onClick={this.props.onEdit}>
+                edit bubble
+              </BubbleEditButton>
               <BubbleDeleteButton onClick={this.deleteBubble}>
                 <div hidden={this.state.isDeleting}>delete bubble</div>
                 <Spinnie show={this.state.isDeleting} />
               </BubbleDeleteButton>
-            </div>
+            </BubbleOptions>
           }
         </ContentRoot>
 
@@ -119,9 +135,8 @@ export default class BubbleDetails extends React.Component {
   }
 
   renderJourneyButton() {
-    const {onNext, nextBubbleId} = this.props
     return (
-      <JourneyButtonRoot onClick={() => onNext(nextBubbleId)}>
+      <JourneyButtonRoot onClick={this.onClickJourneyButton}>
         <div>continue journey...</div>
         <i className='fa fa-caret-right' />
       </JourneyButtonRoot>
@@ -131,6 +146,12 @@ export default class BubbleDetails extends React.Component {
   @autobind
   onClickAction(action) {
     BubbleButtonActions[action.type](action.props)
+  }
+
+  @autobind
+  onClickJourneyButton() {
+    const {editing, onNext, nextBubbleId} = this.props
+    if (!this.editing) onNext(nextBubbleId)
   }
 
   @autobind

@@ -11,24 +11,17 @@ module.exports = {
     const {
       imageData,
       bubbleProps: bubblePropsJSONString,
+      existingBubbleIndex,
     } = req.body
     const bubbleProps = JSON.parse(bubblePropsJSONString)
 
-    const imageUpload = uploadJPEG(imageData, bubbleProps.id)
-      .then(() => {
-        const newStageDirection = [
-          ...bubbleStageDirection,
-          bubbleProps,
-        ]
-        uploadJSON(
-          newStageDirection,
-          KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest'
-        ).then(() => {
-          bubbleStageDirection = newStageDirection
-          res.status(200).end()
-        })
-        .catch(e => res.status(500).end('json upload failed: ' + e))
+    if (imageData) {
+      uploadJPEG(imageData, bubbleProps.id).then(() => {
+        updateStageDirection(bubbleProps, existingBubbleIndex, res)
       }).catch(e => res.status(500).end('image upload failed: ' + e))
+    } else {
+      updateStageDirection(bubbleProps, existingBubbleIndex, res)
+    }
   },
 
   delete: (req, res) => {
@@ -58,6 +51,23 @@ module.exports = {
     return res.send('window.bubbles=' + JSON.stringify(bubbleStageDirection))
   },
 
+}
+
+function updateStageDirection(bubble, existingBubbleIndex, res) {
+  const newStageDirection = [...bubbleStageDirection]
+  if (existingBubbleIndex) {
+    newStageDirection[existingBubbleIndex] = bubble
+  } else {
+    newStageDirection.push(bubble)
+  }
+
+  uploadJSON(
+    newStageDirection,
+    KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest'
+  ).then(() => {
+    bubbleStageDirection = newStageDirection
+    res.status(200).end()
+  }).catch(e => res.status(500).end('json upload failed: ' + e))
 }
 
 function fetchBubbleStageDirection() {

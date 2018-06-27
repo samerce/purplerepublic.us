@@ -144,10 +144,18 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
   )
 }
 
-export const BubbleBuilderNameTool = ({nucleus, onChangeNucleus}) => {
-
+export const BubbleBuilderNameTool = ({
+  nucleus,
+  onChangeNucleus,
+  isExistingBubble
+}) => {
   const onChange = ({key, target: nameInput}) => {
-    if (bubbles[nameInput.value]) {
+    if (isExistingBubble) {
+      return alert(
+        "you can't change the name of an existing bubble.\nsorry, love :("
+      )
+    }
+    if (bubbles.find(b => b.id === nameInput.value) >= 0) {
       return alert('that name is taken. :0\nget more creative!')
     }
     onChangeNucleus({
@@ -191,7 +199,7 @@ export function BubbleBuilderYouTubeTool({nucleus, onChangeNucleus}) {
   return (
     <Root>
       <BuilderInput
-        defaultValue={linkValue || ''}
+        value={linkValue || ''}
         placeholder='youtube linky here'
         onKeyPress={onKeyPress}
         onBlur={onBlur}

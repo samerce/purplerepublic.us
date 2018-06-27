@@ -104,7 +104,7 @@ export default class Start extends React.Component {
         {mode !== Mode.buildBubble && canShowEditingTools() &&
           <BubbleEditingButtonsRoot>
             <BubbleAddButton
-              onClick={this.openBubbleBuilder} />
+              onClick={() => this.openBubbleBuilder()} />
             <BubbleArrangeButton
               isArranging={mode === Mode.arrange}
               onClick={this.toggleArrangeMode} />
@@ -114,10 +114,7 @@ export default class Start extends React.Component {
         {canShowEditingTools() &&
           <BubbleBuilder
             ref={r => this.bubbleBuilder = r}
-            onClose={() => {
-              this.setState({mode: Mode.show})
-              this.forceUpdate(() => setTimeout(this.activateSpotlight, 1000))
-            }}
+            onClose={this.closeBubbleBuilder}
             visible={mode === Mode.buildBubble} />
         }
 
@@ -142,6 +139,7 @@ export default class Start extends React.Component {
                 onOpen={this.onBubbleOpened.bind(this, bubble.id)}
                 onNext={this.openBubble}
                 onClose={this.onBubbleClosed}
+                onEdit={this.openBubbleBuilder.bind(this, bubble, index)}
                 nucleus={bubble}
                 isFullscreen={isFullscreen && this.focusedBubbleId === bubble.id}
                 ref={r => this.bubbles[bubble.id] = r}
@@ -160,12 +158,25 @@ export default class Start extends React.Component {
   }
 
   @autobind
-  openBubbleBuilder() {
+  openBubbleBuilder(bubbleToEdit, index) {
+    if (this.focusedBubbleId) {
+      this.bubbles[this.focusedBubbleId].close()
+    }
     this.setState({
       mode: Mode.buildBubble,
       arrangeSourceIndex: null,
     })
-    this.bubbleBuilder.show()
+    this.bubbleBuilder.show(bubbleToEdit, index)
+  }
+
+  @autobind
+  closeBubbleBuilder(bubbleId) {
+    this.setState({
+      mode: Mode.show,
+      bubblePods: [...bubbles],
+    }, () => setTimeout(() => {
+      bubbleId && this.openBubble(bubbleId)
+    }, 250))
   }
 
   @autobind
@@ -252,9 +263,9 @@ function getBubbleIdFromUrl() {
     const queryParts = hashParts[1].split('=')
     if (queryParts[0] === 'bubble') {
 
-      const spotlightParam = queryParts[1]
-      if (bubbles.find(b => b.id === spotlightParam)) {
-        return spotlightParam
+      const bubbleId = queryParts[1]
+      if (bubbles.find(b => b.id === bubbleId)) {
+        return bubbleId
       }
     }
   }

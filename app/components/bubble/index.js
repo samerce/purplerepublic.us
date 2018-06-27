@@ -79,7 +79,7 @@ export default class Bubble extends React.Component {
 
   render() {
     const {mode, bubbleRect} = this.state
-    const {isFullscreen, unsavedImageUrl, nucleus, onNext} = this.props
+    const {isFullscreen, unsavedImageUrl, nucleus, onNext, onEdit} = this.props
     const isEditing = mode === Mode.editing
     const isFocused = mode === Mode.focused
 
@@ -114,6 +114,7 @@ export default class Bubble extends React.Component {
           {...nucleus}
           className={mode}
           onNext={onNext}
+          onEdit={onEdit}
           onClose={this.defocusIt}
           editing={isEditing}>
             <BubbleComponent
