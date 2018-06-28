@@ -22,7 +22,8 @@ export default class BubbleVideo extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {shouldRenderVideo} = this.state
     this.setState({
-      shouldRenderVideo: shouldRenderVideo || getShouldRenderVideo(nextProps),
+      shouldRenderVideo: nextProps.videoId &&
+        (shouldRenderVideo || getShouldRenderVideo(nextProps)),
     })
   }
 
