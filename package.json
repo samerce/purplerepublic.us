@@ -268,6 +268,7 @@
     "sanitize.css": "4.1.0",
     "sine-waves": "^0.3.0",
     "styled-components": "^3.2.6",
+    "tiny-sha256": "^1.0.2",
     "uuid": "^3.2.1",
     "warning": "3.0.0",
     "wavesurfer.js": "1.1.11",

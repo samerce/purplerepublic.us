@@ -22,6 +22,7 @@ import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
 import {BubbleComponents} from '../../components/bubble/bubbles'
 import autobind from 'autobind-decorator'
+import sha256 from 'tiny-sha256'
 
 const Mode = makeEnum([
   'enter',
@@ -46,6 +47,10 @@ export default class Start extends React.Component {
       bubblePods: [],
       savingNewArrangement: false,
     }
+  }
+
+  componentWillMount() {
+    authorizeIfNeeded()
   }
 
   componentDidMount() {
@@ -267,6 +272,18 @@ function getBubbleIdFromUrl() {
       if (bubbles.find(b => b.id === bubbleId)) {
         return bubbleId
       }
+    }
+  }
+}
+
+const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aabc072b'
+
+function authorizeIfNeeded() {
+  if (canShowEditingTools()) {
+    const passcode = prompt('passcode, madam?') || ''
+    if (!passcode.length || sha256(passcode) !== editPasscode) {
+      alert('no entry fo yew.')
+      window.location = '#intro'
     }
   }
 }
