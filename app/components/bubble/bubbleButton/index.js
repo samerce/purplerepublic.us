@@ -2,11 +2,17 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 
 import {
-  Root,
+  Root, BubbleIcon,
 } from './styled'
 
 const xCenter = window.innerWidth / 2
 const yCenter = window.innerHeight / 2
+
+const TypeToIcon = {
+  video: 'film',
+  writing: 'book',
+  shop: 'shopping-bag',
+}
 
 export default class BubbleButton extends React.Component {
 
@@ -16,7 +22,7 @@ export default class BubbleButton extends React.Component {
   }
 
   render() {
-    const {onClick, className, children} = this.props
+    const {onClick, className, children, type, editingButton} = this.props
     return (
       <Root
         ref={r => this.ref = r}
@@ -25,6 +31,9 @@ export default class BubbleButton extends React.Component {
         className={className}
         onClick={onClick}>
         {children}
+        <BubbleIcon editingButton={editingButton}>
+          <i className={'fa fa-' + TypeToIcon[type]} />
+        </BubbleIcon>
       </Root>
     )
   }

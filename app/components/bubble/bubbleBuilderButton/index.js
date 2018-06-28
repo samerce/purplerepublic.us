@@ -10,7 +10,10 @@ import autobind from 'autobind-decorator'
 
 export function BubbleAddButton({onClick}) {
   return (
-    <BubbleButton onClick={onClick} className='bubbleBuilderButton'>
+    <BubbleButton
+      onClick={onClick}
+      className='bubbleBuilderButton'
+      editingButton={true}>
       <div>
         <i className='fa fa-plus' />
       </div>
@@ -21,12 +24,13 @@ export function BubbleAddButton({onClick}) {
 export function BubbleArrangeButton({onClick, isArranging}) {
   const data = {
     classes: isArranging? 'bubbleArrangeActive' : '',
-    icon: isArranging? 'fa-close' : 'fa-leaf',
+    icon: isArranging? 'fa-close' : 'fa-random',
   }
   return (
     <BubbleButton
       onClick={onClick}
-      className={'bubbleBuilderButton ' + data.classes}>
+      className={'bubbleBuilderButton ' + data.classes}
+      editingButton={true}>
       <div>
         <i className={'fa ' + data.icon} />
       </div>

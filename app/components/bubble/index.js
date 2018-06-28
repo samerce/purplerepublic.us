@@ -98,6 +98,7 @@ export default class Bubble extends React.Component {
           {animationName: this.animationName, ...bubbleRect}}
         className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
+          {...nucleus}
           onClick={this.onClickBubble}
           className={mode}>
           {renderButtonContent?

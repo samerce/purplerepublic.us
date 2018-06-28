@@ -42,14 +42,13 @@ injectGlobal`
 
       &:hover {
         transform: scale(.9);
-        background: ${darken(.05, aColor)};
       }
       &:active {
         transform: scale(.85);
-        background: ${darken(.1, aColor)};
       }
       .bubbleArrangeActive & {
-        background: ${darken(.1, aColor)};
+        background: ${darken(.2, aColor)};
+        transform: scale(1.1);
       }
     }
   }

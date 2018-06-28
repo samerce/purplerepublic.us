@@ -8,7 +8,7 @@ import {
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
 
-const aColor = '#498359'
+const aColor = '#956C95'
 let CIRCLE_SIZE_SMALL = 60
 let CIRCLE_SIZE_MEDIUM = 80
 let CIRCLE_SIZE_LARGE = 150
@@ -82,4 +82,30 @@ export const BubbleButtonSVG = styled.object`
   pointer-events: none;
   width: 300px;
   height: 65px;
+`
+
+export const BubbleIcon = styled.div`
+  display: ${p => p.editingButton? 'none' : 'flex'};
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -48px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  transition: all .5s ${EASE_OUT};
+
+  i {
+    font-size: 32px;
+    color: white;
+    opacity: .5;
+  }
+
+  .focused &, .editing & {
+    opacity: 0;
+    transition: all .3s ${EASE_OUT};
+  }
 `
