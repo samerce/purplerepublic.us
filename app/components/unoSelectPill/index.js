@@ -12,26 +12,29 @@ export default class UnoSelectPill extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedIndex: props.selectedIndex,
+      selectedIndex: props.selectedIndex || 0,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      selectedIndex: nextProps.selectedIndex,
-    })
+    if (nextProps.selectedIndex) {
+      this.setState({
+        selectedIndex: nextProps.selectedIndex,
+      })
+    }
   }
 
   render() {
     const {
       options,
+      className,
     } = this.props
     const {
       selectedIndex,
     } = this.state
 
     return (
-      <Root>
+      <Root className={className}>
         {options.map(this.renderOption)}
       </Root>
     )

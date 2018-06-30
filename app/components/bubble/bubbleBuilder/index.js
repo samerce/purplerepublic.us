@@ -50,7 +50,7 @@ const InitialNucleus = {
   size: 200,
 }
 const FilterOptionList = [
-  // BubbleType.gallery,
+  BubbleType.gallery,
   BubbleType.video,
   BubbleType.writing,
 ]
