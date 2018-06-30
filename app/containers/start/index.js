@@ -229,8 +229,8 @@ export default class Start extends React.Component {
 
   rearrangeBubbles(sourceIndex, destIndex) {
     const sourceBubble = bubbles[sourceIndex]
-    const destBubble = bubbles.splice(destIndex, 1, sourceBubble)[0]
-    bubbles.splice(sourceIndex, 1, destBubble)
+    bubbles.splice(destIndex, 0, sourceBubble)
+    bubbles.splice(sourceIndex, 1)
 
     this.setState({
       savingNewArrangement: true,
