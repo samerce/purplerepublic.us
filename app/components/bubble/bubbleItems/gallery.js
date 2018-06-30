@@ -25,9 +25,6 @@ export default class BubbleGallery extends React.Component {
   constructor(props) {
     super(props)
 
-    this.fileReader = new FileReader()
-    this.fileReader.onloadend = this.onImageUploadComplete
-
     this.imagesToDelete = []
     this.sourceMoveIndex = null
     this.selectPillOptions = ['add', 'delete', 'move'].map(opt => ({
@@ -87,6 +84,7 @@ export default class BubbleGallery extends React.Component {
 
               <input
                 type='file' style={{visibility: 'hidden', position: 'absolute'}}
+                multiple='multiple'
                 onChange={this.onChangeFileInput}
                 ref={r => this.fileInput = r}
               />
@@ -99,7 +97,7 @@ export default class BubbleGallery extends React.Component {
   renderEditTools_add() {
     return (
       <Button onClick={() => this.fileInput.click()}>
-        add photo
+        add photos
       </Button>
     )
   }
@@ -119,29 +117,35 @@ export default class BubbleGallery extends React.Component {
   }
 
   @autobind
-  onChangeFileInput(e) {
+  onChangeFileInput({target}) {
     this.setState({
       isUploadingImage: true,
     })
-    this.fileReader.readAsDataURL(e.target.files[0])
-  }
+    for (let i = 0; i < target.files.length; i++) {
+      const fileReader = new FileReader()
+      fileReader.onloadend = () => {
+        const imageElement = new Image()
+        imageElement.src = fileReader.result
 
-  @autobind
-  onImageUploadComplete() {
-    const localImages = [
-      ...this.state.localImages,
-      {
-        src: this.fileReader.result,
-        thumbnail: this.fileReader.result,
-        thumbnailWidth: 320,
-        thumbnailHeight: 174,
-      },
-    ]
-    this.setState({
-      isUploadingImage: false,
-      localImages,
-    })
-    this.props.onEditingChange({images: localImages})
+        imageElement.onload = () => {
+          const localImages = [
+            ...this.state.localImages,
+            {
+              src: fileReader.result,
+              thumbnail: fileReader.result,
+              thumbnailWidth: imageElement.naturalWidth,
+              thumbnailHeight: imageElement.naturalHeight,
+            },
+          ]
+          this.setState({
+            isUploadingImage: false,
+            localImages,
+          })
+          this.props.onEditingChange({images: localImages})
+        }
+      }
+      fileReader.readAsDataURL(target.files[i])
+    }
   }
 
   @autobind
