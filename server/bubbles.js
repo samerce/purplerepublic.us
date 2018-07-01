@@ -1,6 +1,7 @@
 const {s3, BUCKET} = require('./purpleAWS')
 
 const KEY_BUBBLE_STAGE_DIRECTION_ROOT = 'bubbles/stageDirection/'
+const BubbleImageRootKey = 'bubbles/buttonImages/'
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
@@ -16,12 +17,21 @@ module.exports = {
     const bubbleProps = JSON.parse(bubblePropsJSONString)
 
     if (imageData) {
-      uploadJPEG(imageData, bubbleProps.id).then(() => {
-        updateStageDirection(bubbleProps, existingBubbleIndex, res)
-      }).catch(e => res.status(500).end('image upload failed: ' + e))
+      uploadJPEG(imageData, BubbleImageRootKey + bubbleProps.id)
+        .then(() => {
+          updateStageDirection(bubbleProps, existingBubbleIndex, res)
+        })
+        .catch(e => res.status(500).end('image upload failed: ' + e))
     } else {
       updateStageDirection(bubbleProps, existingBubbleIndex, res)
     }
+  },
+
+  uploadGalleryImage: (req, res) => {
+    const {data, id} = req.body
+    uploadJPEG(data, id)
+      .then(() => res.status(200).end())
+      .catch(e => res.status(500).end(e))
   },
 
   delete: (req, res) => {
@@ -107,7 +117,7 @@ function uploadJPEG(imageData, key, metadata = {}) {
   )
   const params = {
     ...getDefaultS3Params(),
-    Key: `bubbles/buttonImages/${key}.jpg`,
+    Key: `${key}.jpg`,
     ContentEncoding: 'base64',
     ContentType: 'image/jpeg',
     Body: imageBuffer,

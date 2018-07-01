@@ -13,6 +13,9 @@ import {SRC_URL} from '../../../global/constants'
 import {makeEnum} from '../../../utils/lang'
 import autobind from 'autobind-decorator'
 
+const GalleryBaseKey = 'bubbles/galleryImages/'
+const GalleryBaseUrl = SRC_URL + GalleryBaseKey
+
 const Mode = makeEnum([
   'show',
   'add',
@@ -34,9 +37,26 @@ export default class BubbleGallery extends React.Component {
 
     this.state = {
       mode: props.editing? Mode.add : Mode.show,
-      localImages: [],
-      isUploadingImage: false,
+      localImages: this.getGalleryImages(props),
     }
+  }
+
+  getGalleryImages({images, id: bubbleId}) {
+    if (!images || !images.length) return []
+
+    let galleryImages = []
+
+    images.forEach((img, index) => {
+      const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
+      galleryImages.push({
+        src,
+        thumbnail: src,
+        thumbnailWidth: img.width,
+        thumbnailHeight: img.height,
+      })
+    })
+
+    return galleryImages
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,10 +65,19 @@ export default class BubbleGallery extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.localImages === prevState.localImages) return
+    const images = this.state.localImages.map(img => ({
+      id: img.id,
+      width: img.thumbnailWidth,
+      height: img.thumbnailHeight,
+    }))
+    this.props.onEditingChange({images})
+  }
+
   render() {
     const {mode, localImages} = this.state
     const {
-      images,
       detailText = 'tell somebody bout your gallery, hennie.',
       editing,
       onEditingChange,
@@ -71,7 +100,7 @@ export default class BubbleGallery extends React.Component {
           showLightboxThumbnails={true}
           backdropClosesModal={false}
           onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
-          images={images || localImages} />
+          images={localImages} />
 
           {editing &&
             <EditPhotosRoot>
@@ -118,33 +147,31 @@ export default class BubbleGallery extends React.Component {
 
   @autobind
   onChangeFileInput({target}) {
-    this.setState({
-      isUploadingImage: true,
-    })
     for (let i = 0; i < target.files.length; i++) {
+      const file = target.files[i]
       const fileReader = new FileReader()
-      fileReader.onloadend = () => {
-        const imageElement = new Image()
-        imageElement.src = fileReader.result
+      fileReader.onloadend = () => this.loadImage(fileReader, file.name)
+      fileReader.readAsDataURL(file)
+    }
+  }
 
-        imageElement.onload = () => {
-          const localImages = [
-            ...this.state.localImages,
-            {
-              src: fileReader.result,
-              thumbnail: fileReader.result,
-              thumbnailWidth: imageElement.naturalWidth,
-              thumbnailHeight: imageElement.naturalHeight,
-            },
-          ]
-          this.setState({
-            isUploadingImage: false,
-            localImages,
-          })
-          this.props.onEditingChange({images: localImages})
-        }
-      }
-      fileReader.readAsDataURL(target.files[i])
+  loadImage(fileReader, filename) {
+    const imageElement = new Image()
+    imageElement.src = fileReader.result
+    imageElement.onload = () => {
+      this.setState({
+        localImages: [
+          ...this.state.localImages,
+          {
+            id: filename.split('.jpg')[0],
+            src: fileReader.result,
+            thumbnail: fileReader.result,
+            thumbnailWidth: imageElement.naturalWidth,
+            thumbnailHeight: imageElement.naturalHeight,
+            needsUpload: true,
+          },
+        ],
+      })
     }
   }
 
@@ -160,7 +187,6 @@ export default class BubbleGallery extends React.Component {
 
     this.imagesToDelete = []
     this.setState({localImages})
-    this.props.onEditingChange({images: localImages})
   }
 
   @autobind
@@ -203,10 +229,30 @@ export default class BubbleGallery extends React.Component {
       localImages.splice(index, 0, sourceImage)
       localImages.forEach(o => o.isSelected = false)
 
-      this.setState({localImages})
-      this.props.onEditingChange({images: localImages})
       this.sourceMoveIndex = null
+      this.setState({localImages})
     }
+  }
+
+  @autobind
+  publish() {
+    const imageUploadRequests = this.state.localImages
+      .filter(img => img.needsUpload)
+      .map(this.uploadImage)
+    return Promise.all(imageUploadRequests)
+  }
+
+  @autobind
+  uploadImage(img) {
+    return fetch('/bubbles.upload.galleryImage', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: `data=${encodeURIComponent(img.src)}&id=${
+        GalleryBaseKey + `${this.props.id}/${img.id}`
+      }`,
+    })
   }
 
 }

@@ -77,6 +77,13 @@ export default class Bubble extends React.Component {
     this.timers.forEach(clearTimeout)
   }
 
+  @autobind
+  publish() {
+    const {publish} = this.bubbleComponentRef
+    if (publish) return publish()
+    else return new Promise(resolve => resolve())
+  }
+
   render() {
     const {mode, bubbleRect} = this.state
     const {isFullscreen, unsavedImageUrl, nucleus, onNext, onEdit} = this.props

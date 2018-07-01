@@ -40,6 +40,7 @@ app.get('/bubbleStageDirection.js', bubbles.getStageDirectionScript)
 app.post('/bubbles.upload', bubbles.upload)
 app.post('/bubbles.delete', bubbles.delete)
 app.post('/bubbles.update.arrangement', bubbles.updateArrangement)
+app.post('/bubbles.upload.galleryImage', bubbles.uploadGalleryImage)
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

@@ -314,8 +314,10 @@ export default class BubbleBuilder extends React.Component {
         window.bubbles.push(nucleus)
       }
 
-      this.reset()
-      this.props.onClose(nucleus.id)
+      this.bubble.publish().then(() => {
+        this.reset()
+        this.props.onClose(nucleus.id)
+      })
     })
   }
 
