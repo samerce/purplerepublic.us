@@ -23,7 +23,7 @@ const Mode = makeEnum([
   'move',
 ])
 
-export default class BubbleGallery extends React.Component {
+export default class BubbleGallery extends React.PureComponent {
 
   constructor(props) {
     super(props)

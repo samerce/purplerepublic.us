@@ -7,7 +7,7 @@ import {cx} from '../../utils/style'
 
 import autobind from 'autobind-decorator'
 
-export default class UnoSelectPill extends React.Component {
+export default class UnoSelectPill extends React.PureComponent {
 
   constructor(props) {
     super(props)

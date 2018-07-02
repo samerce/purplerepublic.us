@@ -8,6 +8,20 @@ import {
   VideoRoot,
 } from './styled'
 
+const VideoConfig = {
+  width: '100%',
+  origin: window.location.origin,
+  playerVars: {
+    rel: 0,
+    showinfo: 0,
+    frameborder: 0,
+    allowfullscreen: 1,
+    controls: 1,
+    modestbranding: 1,
+    color: 'white',
+  },
+}
+
 export default class BubbleVideo extends React.Component {
 
   constructor(props) {
@@ -27,6 +41,11 @@ export default class BubbleVideo extends React.Component {
     })
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.videoId !== this.props.videoId ||
+      nextState.shouldRenderVideo !== this.state.shouldRenderVideo
+  }
+
   render() {
     return (
       <VideoRoot>
@@ -34,7 +53,7 @@ export default class BubbleVideo extends React.Component {
           <YouTubeVideo
             videoId={this.props.videoId}
             onReady={this.onVideoReady}
-            opts={getVideoOptions()} />
+            opts={VideoConfig} />
         }
       </VideoRoot>
     )
@@ -63,20 +82,4 @@ export default class BubbleVideo extends React.Component {
 
 function getShouldRenderVideo({focused, editing, videoId}) {
   return (focused || editing) && videoId
-}
-
-function getVideoOptions() {
-  return {
-    width: '100%',
-    origin: window.location.origin,
-    playerVars: {
-      rel: 0,
-      showinfo: 0,
-      frameborder: 0,
-      allowfullscreen: 1,
-      controls: 1,
-      modestbranding: 1,
-      color: 'white',
-    },
-  }
 }

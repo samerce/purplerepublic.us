@@ -55,7 +55,7 @@ const FilterOptionList = [
   BubbleType.writing,
 ]
 
-export default class BubbleBuilder extends React.Component {
+export default class BubbleBuilder extends React.PureComponent {
 
   constructor(props) {
     super(props)

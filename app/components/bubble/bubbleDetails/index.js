@@ -13,7 +13,7 @@ import autobind from 'autobind-decorator'
 
 import {BubbleButtonActions} from '../actions'
 
-export default class BubbleDetails extends React.Component {
+export default class BubbleDetails extends React.PureComponent {
 
   constructor(props) {
     super(props)

@@ -22,6 +22,10 @@ export default class ShopBubble extends React.Component {
     )
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   render() {
     return (
       <Description>

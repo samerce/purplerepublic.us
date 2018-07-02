@@ -7,6 +7,10 @@ import {
 
 export default class Spinnie extends React.Component {
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.show !== this.props.show
+  }
+
   render() {
     const {text, show, className} = this.props
     const classes = cx({

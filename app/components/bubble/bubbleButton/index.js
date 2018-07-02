@@ -17,9 +17,27 @@ const TypeToIcon = {
 
 export default class BubbleButton extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.delay = Math.random() * .5
+    this.styles = {}
+  }
+
   componentDidMount() {
-    this.rect = findDOMNode(this.ref).getBoundingClientRect()
-    this.forceUpdate()
+    const rect = findDOMNode(this.ref).getBoundingClientRect()
+    const xTranslate = xCenter - rect.left - (rect.width / 2)
+    const yTranslate = yCenter - rect.top - (rect.height / 2)
+    this.styles.willEnter = {
+      transform: `
+        translate(${xTranslate}px, ${yTranslate}px) scale(0)
+      `,
+    }
+    requestAnimationFrame(() => this.forceUpdate())
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.className !== this.props.className ||
+      !!nextProps.editing
   }
 
   render() {
@@ -27,8 +45,8 @@ export default class BubbleButton extends React.Component {
     return (
       <Root
         ref={r => this.ref = r}
-        style={this.getStyle()}
-        delay={Math.random() * .5}
+        style={this.styles[className] || {}}
+        delay={this.delay}
         className={className}
         onClick={onClick}>
         {children}
@@ -37,19 +55,6 @@ export default class BubbleButton extends React.Component {
         </BubbleIcon>
       </Root>
     )
-  }
-
-  getStyle() {
-    const {rect} = this
-    if (this.props.className === 'willEnter' && rect) {
-      const xTranslate = xCenter - rect.left - (rect.width / 2)
-      const yTranslate = yCenter - rect.top - (rect.height / 2)
-      return {
-        transform: `
-          translate(${xTranslate}px, ${yTranslate}px) scale(0)
-        `,
-      }
-    } else return {}
   }
 
 }

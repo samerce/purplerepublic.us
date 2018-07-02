@@ -28,12 +28,16 @@ injectGlobal`
     }
   }
 
-  @keyframes makeTouchable {
+  @keyframes showBackdrop {
     0% {
+      opacity: 0;
       pointer-events: none;
+      transform: scale(0);
     }
     100% {
+      opacity: 1;
       pointer-events: all;
+      transform: scale(1.5);
     }
   }
 `
@@ -46,6 +50,7 @@ export const Root = styled.div`
   height: 100%;
   width: 100%;
   pointer-events: none;
+  z-index: 1;
 `
 
 export const Foreground = styled.img`
@@ -77,43 +82,35 @@ export const Background = styled.div`
   transform: scale(0);
   z-index: 1;
 
-  .start-show &, .start-buildBubble &, .start-arrange &{
-    transition: all 4s ${EASE_OUT};
-    transform: scale(1.5);
-    opacity: 1;
-    animation-name: makeTouchable;
-    animation-duration: .1s;
-    animation-fill-mode: both;
-    animation-delay: 4s;
+  transition: all 4s ${EASE_OUT};
+  animation-name: showBackdrop;
+  animation-delay: .1s;
+  animation-duration: 4s;
+  animation-fill-mode: both;
+  animation-timing-function: ${EASE_OUT};
+
+  @media (max-width: ${SCREEN_WIDTH_L_PX}) {
+    transform: scale(1.7);
+  }
+  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    transform: scale(2.1);
+  }
+  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+    transform: scale(2.6);
+  }
+
+  &:hover {
+    transform: scale(1.3);
+    transition-duration: 3s;
 
     @media (max-width: ${SCREEN_WIDTH_L_PX}) {
-      transform: scale(1.7);
+      transform: scale(1.4);
     }
     @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-      transform: scale(2.1);
+      transform: scale(1.8);
     }
     @media (max-width: ${SCREEN_WIDTH_S_PX}) {
-      transform: scale(2.6);
-    }
-
-    &:not(.collapsed):hover {
-      transform: scale(1.3);
-      transition-duration: 3s;
-
-      @media (max-width: ${SCREEN_WIDTH_L_PX}) {
-        transform: scale(1.4);
-      }
-      @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-        transform: scale(1.8);
-      }
-      @media (max-width: ${SCREEN_WIDTH_S_PX}) {
-        transform: scale(2.2);
-      }
-    }
-    &.collapsed {
-      opacity: 0;
-      transform: scale(3);
-      transition: all 2s ${EASE_IN};
+      transform: scale(2.2);
     }
   }
 `

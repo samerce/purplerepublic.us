@@ -33,7 +33,7 @@ const Mode = makeEnum([
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 
-export default class Bubble extends React.Component {
+export default class Bubble extends React.PureComponent {
 
   constructor(props) {
     super(props)
@@ -106,6 +106,7 @@ export default class Bubble extends React.Component {
         className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
           {...nucleus}
+          editing={isEditing}
           onClick={this.onClickBubble}
           className={mode}>
           {renderButtonContent?

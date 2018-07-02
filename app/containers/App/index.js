@@ -6,7 +6,7 @@ import {Content} from './styled'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import PurpleRouter from 'containers/purpleRouter'
-import withProgressBar from 'components/ProgressBar'
+// import withProgressBar from 'components/ProgressBar'
 
 const AppWrapper = styled.div`
   height: 100%;
@@ -38,4 +38,5 @@ App.propTypes = {
   children: React.PropTypes.node,
 };
 
-export default withProgressBar(App);
+export default App;
+// export default withProgressBar(App);
