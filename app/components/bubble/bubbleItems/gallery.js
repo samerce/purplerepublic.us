@@ -133,11 +133,11 @@ export default class BubbleGallery extends React.PureComponent {
 
   renderEditTools_delete() {
     return (
-      <div>
-        <DeleteButton
-          disabled={!this.imagesToDelete.length}
-          onClick={this.deletePhotos}>delete photos</DeleteButton>
-      </div>
+      <DeleteButton
+        disabled={!this.imagesToDelete.length}
+        onClick={this.deletePhotos}>
+        delete photos
+      </DeleteButton>
     )
   }
 

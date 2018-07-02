@@ -210,9 +210,10 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   rearrangeBubbles(sourceIndex, destIndex) {
-    const sourceBubble = bubbles[sourceIndex]
-    bubbles.splice(destIndex, 0, sourceBubble)
-    bubbles.splice(sourceIndex, 1)
+    const destBubble = bubbles[destIndex]
+    const sourceBubble = bubbles.splice(sourceIndex, 1)[0]
+    const newDestBubbleIndex = bubbles.findIndex(b => b.id === destBubble.id)
+    bubbles.splice(newDestBubbleIndex, 0, sourceBubble)
 
     this.setState({
       savingNewArrangement: true,
