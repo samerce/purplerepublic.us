@@ -2,57 +2,70 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 
 import {
-  Root, BubbleIcon,
+  Root, Icon, ImageBubbleButton,
 } from './styled'
+
+import {SRC_URL} from '../../../global/constants'
 
 const xCenter = window.innerWidth / 2
 const yCenter = window.innerHeight / 2
-
 const TypeToIcon = {
   video: 'film',
   writing: 'book',
-  shop: 'shopping-bag',
   gallery: 'camera-retro',
 }
+
+const getButtonImageUrl = id => SRC_URL + `bubbles/buttonImages/${id}.jpg`
 
 export default class BubbleButton extends React.Component {
 
   constructor(props) {
     super(props)
     this.delay = Math.random() * .5
-    this.styles = {}
+    this.state = {
+      styles: {},
+    }
   }
 
   componentDidMount() {
     const rect = findDOMNode(this.ref).getBoundingClientRect()
     const xTranslate = xCenter - rect.left - (rect.width / 2)
     const yTranslate = yCenter - rect.top - (rect.height / 2)
-    this.styles.willEnter = {
-      transform: `
-        translate(${xTranslate}px, ${yTranslate}px) scale(0)
-      `,
+    const styles = {
+      willEnter: {
+        transform: `
+          translate(${xTranslate}px, ${yTranslate}px) scale(0)
+        `,
+      }
     }
-    requestAnimationFrame(() => this.forceUpdate())
+    requestAnimationFrame(() => this.setState({styles}))
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return nextProps.className !== this.props.className ||
-      !!nextProps.editing
+      this.state.styles !== nextState.styles ||
+      !!nextProps.editing || nextProps.unsavedImageUrl !== this.props.unsavedImageUrl || nextProps.type !== this.props.type
   }
 
   render() {
-    const {onClick, className, children, type, editingButton} = this.props
+    const {
+      onClick, children, className, id,
+      type, unsavedImageUrl, size,
+    } = this.props
+
     return (
       <Root
         ref={r => this.ref = r}
-        style={this.styles[className] || {}}
+        style={this.state.styles[className] || {}}
         delay={this.delay}
-        className={className}
         onClick={onClick}>
-        {children}
-        <BubbleIcon editingButton={editingButton}>
-          <i className={'fa fa-' + TypeToIcon[type]} />
-        </BubbleIcon>
+        {children ||
+          <ImageBubbleButton
+            src={unsavedImageUrl || getButtonImageUrl(id)}
+            size={size}>
+            <Icon className={'fa fa-' + TypeToIcon[type]} />
+          </ImageBubbleButton>
+        }
       </Root>
     )
   }

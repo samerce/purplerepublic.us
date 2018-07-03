@@ -9,15 +9,11 @@ import {cx} from '../../utils/style'
 import {
   Root,
 } from './styled'
-import {BubbleButtonImage} from './bubbleButton/styled'
+import {ImageBubbleButton} from './bubbleButton/styled'
 
 import {makeEnum} from '../../utils/lang'
 import autobind from 'autobind-decorator'
 import {makeJiggler} from '../../global-styles'
-
-import {SRC_URL} from '../../global/constants'
-
-const getButtonImageUrl = id => SRC_URL + `bubbles/buttonImages/${id}.jpg`
 
 const Mode = makeEnum([
   'willEnter',
@@ -92,7 +88,7 @@ export default class Bubble extends React.PureComponent {
 
     const {
       id,
-      size = 200,
+      size,
       Component: BubbleComponent,
     } = nucleus
     const {renderButtonContent} = BubbleComponent
@@ -106,18 +102,10 @@ export default class Bubble extends React.PureComponent {
         className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
           {...nucleus}
-          editing={isEditing}
-          onClick={this.onClickBubble}
-          className={mode}>
-          {renderButtonContent?
-            renderButtonContent(nucleus) :
-            <BubbleButtonImage
-              src={
-                isEditing? unsavedImageUrl: getButtonImageUrl(id)
-              }
-              size={size}
-            />
-          }
+          className={mode}
+          unsavedImageUrl={unsavedImageUrl}
+          onClick={this.onClickBubble}>
+          {renderButtonContent? renderButtonContent(nucleus) : undefined}
         </BubbleButton>
         <BubbleDetails
           {...nucleus}
@@ -143,7 +131,7 @@ export default class Bubble extends React.PureComponent {
     if (mode === Mode.focused) return
     const {mode, bubbleRect} = this.state
     requestAnimationFrame(this.setWillFocusState)
-    requestAnimationFrame(() => setTimeout(this.focusIt))
+    setTimeout(() => requestAnimationFrame(this.focusIt))
   }
 
   @autobind

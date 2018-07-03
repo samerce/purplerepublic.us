@@ -8,48 +8,33 @@ import {
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
 
-const aColor = '#498359'
-let CIRCLE_SIZE_SMALL = 60
-let CIRCLE_SIZE_MEDIUM = 80
-let CIRCLE_SIZE_LARGE = 150
-let CIRCLE_SIZE_FOCUSED = CIRCLE_SIZE_SMALL
+import {
+  Icon as aIcon,
+  BubbleButton,
+} from '../../../global/styled'
 
-if (window.innerWidth <= SCREEN_WIDTH_M) {
-  CIRCLE_SIZE_SMALL = 40
-  CIRCLE_SIZE_MEDIUM = 60
-  CIRCLE_SIZE_LARGE = 80
-}
+export const BubbleBuilderButton = BubbleButton.extend.attrs({
+  size: 80,
+})`
+  z-index: 30;
+  margin: 0 10px;
 
-injectGlobal`
-  .bubbleBuilderButton {
-    z-index: 30;
-    position: relative;
-    width: initial;
-    height: initial;
-    margin: 0 10px;
+  &.bubbleArrangeActive {
+    background: ${p => p.theme.veryDark};
+    transform: scale(1.1);
 
-    i {
-      font-size: 40px;
-      color: white;
-      border-radius: 100%;
-      border: 1px solid white;
-      width: 70px;
-      height: 70px;
-      line-height: 70px;
-      text-align: center;
-      background: ${aColor};
-      transition: all 1s ${EASE_OUT};
-
-      &:hover {
-        transform: scale(.9);
-      }
-      &:active {
-        transform: scale(.85);
-      }
-      .bubbleArrangeActive & {
-        background: ${darken(.2, aColor)};
-        transform: scale(1.1);
-      }
+    &:hover {
+      transform: scale(1);
     }
+  }
+`
+
+export const Icon = aIcon.extend.attrs({
+  size: 70,
+})`
+  font-size: 40px;
+
+  .bubbleArrangeActive & {
+    margin-top: -6px;
   }
 `

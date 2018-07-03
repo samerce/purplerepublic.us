@@ -8,17 +8,13 @@ import {
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_S_PX,
 } from '../../../global/constants'
+import {
+  AbsoluteFlexFillParent, Flex,
+} from '../../../global/styled'
 
-const aColor = '#956C95'
-
-export const Root = styled.div`
-  position: absolute;
+export const Root = AbsoluteFlexFillParent.extend`
   z-index: 20;
-  display: flex;
-  align-items: center;
   transition: all .7s ${EASE_OUT};
-  width: 100%;
-  height: 100%;
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 90px;
@@ -26,15 +22,14 @@ export const Root = styled.div`
   pointer-events: all;
 `
 
-export const BubbleButtonRoot = styled.div`
+export const BubbleButtonRoot = Flex.extend`
   flex: 1 0 auto;
   padding: 250px 0 0;
   justify-content: flex-start;
-  display: flex;
   z-index: 50;
 `
 
-export const BubbleButtonContent = styled.div`
+export const BubbleButtonContent = Flex.extend`
   cursor: pointer;
   z-index: 40;
   overflow: hidden;
@@ -46,7 +41,6 @@ export const BubbleButtonContent = styled.div`
   position: relative;
   align-self: flex-start;
   flex: 0 0 auto;
-  display: flex;
   justify-content: center;
   align-items: center;
 
@@ -60,8 +54,7 @@ export const BubbleButtonContent = styled.div`
   }
 `
 
-export const BubbleBuilderToolsRoot = styled.div`
-  display: flex;
+export const BubbleBuilderToolsRoot = Flex.extend`
   flex-direction: column;
   padding: 15px;
   margin-bottom: 90px;
@@ -70,7 +63,12 @@ export const BubbleBuilderToolsRoot = styled.div`
   z-index: 50;
 `
 
-export const BubbleButtonSizeSlider = styled.input`
+export const BubbleButtonSizeSlider = styled.input.attrs({
+  type: 'range',
+  min: 150,
+  max: 300,
+  step: 6,
+})`
   padding: 15px;
   flex: 0 0 auto;
   width: 150px;
@@ -82,6 +80,6 @@ export const BubbleButtonSizeSlider = styled.input`
   -webkit-appearance: none;
   height: 10px;
   border-radius: 20px;
-  background: ${aColor};
+  background: ${p => p.theme.main};
   outline: none;
 `

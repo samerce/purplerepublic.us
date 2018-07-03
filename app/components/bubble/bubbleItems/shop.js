@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {injectGlobal} from 'styled-components'
-import {BubbleButtonImage} from '../bubbleButton/styled'
+import {ImageBubbleButton, Icon} from '../bubbleButton/styled'
 import {Description} from './styled'
 
 import {SRC_URL} from '../../../global/constants'
@@ -11,9 +11,11 @@ export default class ShopBubble extends React.Component {
   static renderButtonContent(nucleus) {
     return (
       <div>
-        <BubbleButtonImage
+        <ImageBubbleButton
           size={nucleus.size}
-          src={SRC_URL + 'commons/shop-art.jpg'} />
+          src={SRC_URL + 'commons/shop-art.jpg'}>
+          <Icon className={'fa fa-shopping-bag'} />
+        </ImageBubbleButton>
         <div className='bubbleShopText'>
           <div style={{lineHeight: '40px'}}>SHOP<br /></div>
           <span>with purpose</span>

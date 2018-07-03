@@ -10,6 +10,62 @@ import {darken, transparentize as trans} from 'polished'
 
 const whitePurple = 'rgba(255, 227, 251, 1)'
 
+export const AbsoluteFlexFillParent = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+`
+
+export const Flex = styled.div`
+  display: flex;
+`
+
+const DefaultIconSize = 24
+export const Icon = styled.i.attrs({
+  containerSize: p => (p.size || (DefaultIconSize + 10))
+})`
+  font-size: ${DefaultIconSize}px;
+  width: ${p => p.containerSize}px;
+  height: ${p => p.containerSize}px;
+  color: white;
+  text-align: center;
+  transition: all .3s ${EASE_OUT};
+`
+
+export const BubbleButton = styled.div`
+  position: relative;
+  border-radius: 100%;
+  border: 1px solid white;
+  background: ${p => p.theme.main};
+  transition: all .5s ${EASE_OUT};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(.9);
+    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
+  }
+  &:active {
+    transform: scale(.85);
+  }
+
+  @media(max-width: SCREEN_WIDTH_M_PX) {
+    width: ${p => p.size * (3/5)}px;
+    height: ${p => p.size * (3/5)}px;
+  }
+`
+
 export const Header = styled.div`
   position: relative;
   z-index: 1;

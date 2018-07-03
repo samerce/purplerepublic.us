@@ -107,7 +107,7 @@ export const ArrangeButton = styled.div`
   animation-iteration-count: infinite;
   animation-play-state: paused;
   visibility: hidden;
-  z-index: 50;
+  z-index: 25;
   height: 100%;
   width: 100%;
   cursor: pointer;

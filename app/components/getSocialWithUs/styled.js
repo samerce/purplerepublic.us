@@ -18,10 +18,9 @@ export const Root = styled.div`
   top: 0;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  opacity: .5;
   transition: all .5s ${EASE};
   z-index: 6;
+  pointer-events: none;
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;
@@ -31,18 +30,6 @@ export const Root = styled.div`
     opacity: 0;
     transform: translateX(100px);
     transition: all 1.5s ${EASE};
-  }
-
-  &:hover {
-    opacity: 1;
-    transition: all .2s ${EASE_OUT};
-    z-index: 25;
-
-    .i1, .i2, .i3, .i4, .i5, .i6 {
-      transform: none;
-      transition-timing-function: ${EASE};
-      transition: opacity .1s, transform .3s;
-    }
   }
 
   a {
@@ -100,6 +87,22 @@ export const SocialButtonsRoot = styled.div`
   z-index: 5;
   display: flex;
   flex-direction: column;
+  pointer-events: all;
+  flex: 0 0 auto;
+  cursor: pointer;
+  opacity: .5;
+
+  &:hover {
+    opacity: 1;
+    transition: all .2s ${EASE_OUT};
+    z-index: 25;
+
+    .i1, .i2, .i3, .i4, .i5, .i6 {
+      transform: none;
+      transition-timing-function: ${EASE};
+      transition: opacity .1s, transform .3s;
+    }
+  }
 
   #document svg {
     cursor: pointer;

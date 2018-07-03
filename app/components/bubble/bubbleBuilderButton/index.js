@@ -1,39 +1,27 @@
 import React from 'react'
-import BubbleButton from '../bubbleButton'
 
-import {cx} from '../../../utils/style'
 import {
-  Root, ContentRoot,
+  BubbleBuilderButton, Icon,
 } from './styled'
-
-import autobind from 'autobind-decorator'
 
 export function BubbleAddButton({onClick}) {
   return (
-    <BubbleButton
-      onClick={onClick}
-      className='bubbleBuilderButton'
-      editingButton={true}>
-      <div>
-        <i className='fa fa-plus' />
-      </div>
-    </BubbleButton>
+    <BubbleBuilderButton onClick={onClick}>
+      <Icon className='fa fa-plus' />
+    </BubbleBuilderButton>
   )
 }
 
 export function BubbleArrangeButton({onClick, isArranging}) {
   const data = {
     classes: isArranging? 'bubbleArrangeActive' : '',
-    icon: isArranging? 'fa-close' : 'fa-random',
+    icon: isArranging? 'close' : 'random',
   }
   return (
-    <BubbleButton
+    <BubbleBuilderButton
       onClick={onClick}
-      className={'bubbleBuilderButton ' + data.classes}
-      editingButton={true}>
-      <div>
-        <i className={'fa ' + data.icon} />
-      </div>
-    </BubbleButton>
+      className={data.classes}>
+      <Icon className={'fa fa-' + data.icon} />
+    </BubbleBuilderButton>
   )
 }

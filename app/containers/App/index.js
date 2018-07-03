@@ -1,7 +1,9 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import styled from 'styled-components'
+
+import styled, {ThemeProvider} from 'styled-components'
 import {Content} from './styled'
+import theme from '../../global/theme'
 
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -26,10 +28,12 @@ export function App(props) {
         meta={pageMeta}>
       </Helmet>
 
-      <Content>
-        <Header />
-        <PurpleRouter />
-      </Content>
+      <ThemeProvider theme={theme}>
+        <Content>
+          <Header />
+          <PurpleRouter />
+        </Content>
+      </ThemeProvider>
     </AppWrapper>
   );
 }

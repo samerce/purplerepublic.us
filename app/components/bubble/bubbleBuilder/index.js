@@ -8,7 +8,6 @@ import {
 } from '../bubbleBuilderTools'
 
 import Bubble from '..'
-import {BubbleButtonImage} from '../bubbleButton/styled'
 import {Description} from '../bubbleItems/styled'
 import {BubbleType, BubbleComponents} from '../bubbles'
 
@@ -160,7 +159,6 @@ export default class BubbleBuilder extends React.PureComponent {
       <BubbleButtonRoot>
         <BubbleButtonSizeSlider
           value={nucleus.size}
-          type='range' min='150' max='300' step='6'
           onChange={e => this.setState({
             nucleus: {
               ...nucleus,
