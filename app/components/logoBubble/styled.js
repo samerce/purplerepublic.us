@@ -24,7 +24,7 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 40;
+  z-index: 2;
   pointer-events: none;
 
   &.logo-hangin {

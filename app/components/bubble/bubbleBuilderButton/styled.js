@@ -29,12 +29,13 @@ export const BubbleBuilderButton = BubbleButton.extend.attrs({
   }
 `
 
-export const Icon = aIcon.extend.attrs({
-  size: 70,
-})`
+export const Icon = aIcon.extend`
   font-size: 40px;
+  margin-top: 3px;
+  margin-left: 3px;
 
   .bubbleArrangeActive & {
-    margin-top: -6px;
+    margin-top: -3px;
+    margin-left: 2px;
   }
 `

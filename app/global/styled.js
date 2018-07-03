@@ -26,12 +26,8 @@ export const Flex = styled.div`
 `
 
 const DefaultIconSize = 24
-export const Icon = styled.i.attrs({
-  containerSize: p => (p.size || (DefaultIconSize + 10))
-})`
+export const Icon = styled.i`
   font-size: ${DefaultIconSize}px;
-  width: ${p => p.containerSize}px;
-  height: ${p => p.containerSize}px;
   color: white;
   text-align: center;
   transition: all .3s ${EASE_OUT};

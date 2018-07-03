@@ -47,9 +47,7 @@ export const ImageBubbleButton = BubbleButton.extend`
   }
 `
 
-export const Icon = aIcon.extend.attrs({
-  size: 32,
-})`
+export const Icon = aIcon.extend`
   position: absolute;
   top: 100%;
   left: 50%;
