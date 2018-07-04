@@ -1,11 +1,11 @@
 import React from 'react'
 import Spinnie from '../../spinnie'
 
-import {cx} from '../../../utils/style'
 import {
-  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, JourneyButtonRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
+  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, JourneyButtonRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
   BubbleOptions,
 } from './styled'
+import {Description} from '../bubbleItems/styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
 

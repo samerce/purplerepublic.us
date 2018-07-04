@@ -33,6 +33,10 @@ export const Flex = styled.div`
   display: flex;
 `
 
+export const FlexColumn = Flex.extend`
+  flex-direction: column;
+`
+
 export const AbsoluteFlex = Flex.extend`
   position: absolute;
 `
@@ -127,6 +131,21 @@ export const TextInput = styled.input`
   }
 `
 
+export const ArticleText = styled.div`
+  font-size: 18px;
+  color: white;
+  cursor: text;
+`
+
+export const HiddenFileInput = styled.input.attrs({
+  type: 'file',
+})`
+  visibility: hidden;
+  position: absolute;
+`
+
+// ------------------------------------- old styles below
+
 export const Header = styled.div`
   position: relative;
   z-index: 1;
@@ -143,11 +162,6 @@ export const Header = styled.div`
     font-size: 32px;
     padding-top: 15px;
   }
-`
-
-export const ArticleText = styled.div`
-  font-size: 18px;
-  color: white;
 `
 
 export const CatchLine = styled(Header)`

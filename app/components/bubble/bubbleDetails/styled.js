@@ -73,11 +73,6 @@ export const Subtitle = Title.extend`
   `}
 `
 
-export const Description = ArticleText.extend`
-  margin: 10px 20px 20px;
-  padding-top: 10px;
-`
-
 export const ActionsRoot = Flex.extend`
   align-items: center;
   justify-content: center;

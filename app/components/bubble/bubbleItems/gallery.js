@@ -1,13 +1,12 @@
 import React from 'react'
 import Gallery from 'react-grid-gallery'
+import SelectPill from '../../unoSelectPill'
 
 import {
   Description, GalleryRoot, EditPhotosRoot, Button, DeleteButton,
   Hint,
 } from './styled'
-import SelectPill from '../../unoSelectPill'
-
-import {injectGlobal} from 'styled-components'
+import {FlexColumn, HiddenFileInput} from '../../../global/styled'
 
 import {SRC_URL} from '../../../global/constants'
 import {makeEnum} from '../../../utils/lang'
@@ -59,6 +58,10 @@ export default class BubbleGallery extends React.PureComponent {
     return galleryImages
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !!this.props.editing || !!nextProps.editing
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!this.props.editing && nextProps.editing) {
       this.setState({mode: Mode.add})
@@ -85,7 +88,7 @@ export default class BubbleGallery extends React.PureComponent {
     const onChange = ({target}) => onEditingChange({detailText: target.innerHTML})
 
     return (
-      <GalleryRoot className={'galleryBubble-' + mode}>
+      <FlexColumn className={'galleryBubble-' + mode}>
         <Description>
           <span
             contentEditable={editing}
@@ -111,15 +114,14 @@ export default class BubbleGallery extends React.PureComponent {
 
               {this['renderEditTools_' + mode]()}
 
-              <input
-                type='file' style={{visibility: 'hidden', position: 'absolute'}}
+              <HiddenFileInput
                 multiple='multiple'
                 onChange={this.onChangeFileInput}
-                ref={r => this.fileInput = r}
+                innerRef={r => this.fileInput = r}
               />
             </EditPhotosRoot>
           }
-      </GalleryRoot>
+      </FlexColumn>
     )
   }
 
@@ -256,9 +258,3 @@ export default class BubbleGallery extends React.PureComponent {
   }
 
 }
-
-injectGlobal`
-  #lightboxBackdrop button span {
-      color: white;
-  }
-`
