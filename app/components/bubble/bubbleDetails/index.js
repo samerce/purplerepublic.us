@@ -3,8 +3,8 @@ import Spinnie from '../../spinnie'
 
 import {cx} from '../../../utils/style'
 import {
-  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, ExpandedContent, JourneyButtonRoot, BubbleName, BubbleDeleteButton,
-  BubbleEditButton, BubbleOptions,
+  Root, ContentRoot, Title, Description, ActionsRoot, Action, Subtitle, JourneyButtonRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
+  BubbleOptions,
 } from './styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
@@ -22,18 +22,28 @@ export default class BubbleDetails extends React.PureComponent {
       isDeleting: false,
       title: props.title,
       subtitle: props.subtitle,
+      bubbleOptionsStyle: getBubbleOptionsStyle(props.nextBubbleId),
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      subtitle: nextProps.subtitle,
-      title: nextProps.title,
-    })
+    const newState = {}
+
+    if (this.props.title !== nextProps.title) {
+      newState.title = nextProps.title
+    }
+    if (this.props.subtitle !== nextProps.title) {
+      newState.subtitle = nextProps.subtitle
+    }
+    if (this.props.nextBubbleId !== nextProps.nextBubbleId) {
+      newState.bubbleOptionsStyle = getBubbleOptionsStyle(nextProps.nextBubbleId)
+    }
+
+    Object.keys(newState).length > 0 && this.setState(newState)
   }
 
   render() {
-    const {title, subtitle} = this.state
+    const {title, subtitle, bubbleOptionsStyle} = this.state
     const {
       className,
       children,
@@ -65,12 +75,10 @@ export default class BubbleDetails extends React.PureComponent {
           {nextBubbleId && this.renderJourneyButton()}
 
           {canShowEditingTools() && !editing &&
-            <BubbleOptions style={{
-              marginTop: nextBubbleId? 100 : 20,
-            }}>
-              <BubbleName onClick={this.copyBubbleName}>
-                <span>name: </span>{this.props.id}
-              </BubbleName>
+            <BubbleOptions style={bubbleOptionsStyle}>
+              <BubbleNameButton onClick={this.copyBubbleName}>
+                {this.props.id}
+              </BubbleNameButton>
               <BubbleEditButton onClick={this.props.onEdit}>
                 edit bubble
               </BubbleEditButton>
@@ -81,7 +89,6 @@ export default class BubbleDetails extends React.PureComponent {
             </BubbleOptions>
           }
         </ContentRoot>
-
       </Root>
     )
   }
@@ -164,6 +171,12 @@ export default class BubbleDetails extends React.PureComponent {
     if (e.key === 'Enter') e.target.blur(e)
   }
 
+}
+
+function getBubbleOptionsStyle(nextBubbleId) {
+  return {
+    marginTop: nextBubbleId? 100 : 20,
+  }
 }
 
 BubbleDetails.defaultProps = {

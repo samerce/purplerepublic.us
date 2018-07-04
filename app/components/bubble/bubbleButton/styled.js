@@ -8,14 +8,13 @@ import {
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
 import {
-  Icon as aIcon, BubbleButton,
+  Icon as aIcon, BubbleButton, InlineBlock,
 } from '../../../global/styled'
 
 let CircleSizeFocused = 60
 
-export const Root = styled.div`
+export const Root = InlineBlock.extend`
   transition: all .5s ${EASE_OUT};
-  display: inline-block;
   z-index: 8;
   pointer-events: ${p => p.disabled? 'none' : 'all'};
 
@@ -32,10 +31,6 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-image: url('${p => p.src}');
   background-position: center;
   background-size: cover;
-
-  ${'' /* .bubble-focused &&:hover {
-    transform: none;
-  } */}
 
   .bubble-focused &, .bubble-editing & {
     width: ${CircleSizeFocused}px;

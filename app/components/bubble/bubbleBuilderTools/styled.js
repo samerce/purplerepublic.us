@@ -4,19 +4,19 @@ import {
   EASE_OUT,
   EASE_IN,
   EASE,
-  SCREEN_WIDTH_M_PX,
-  SCREEN_WIDTH_M,
 } from '../../../global/constants'
+import {Flex, TextInput} from '../../../global/styled'
 
-const aColor = '#956C95'
 const kBorderRadius = '10px'
 
-export const Root = styled.div`
-  transition: all .3s ${EASE_OUT};
-  display: flex;
+export const Root = Flex.extend`
   z-index: 8;
   pointer-events: all;
   margin: 10px 0;
+`
+
+export const BuilderInputLink = TextInput.extend`
+  border-left: 1px solid white;
 `
 
 export const BuilderButton = styled.div`
@@ -40,50 +40,4 @@ export const BuilderButton = styled.div`
     color: ${aColor};
     transform: scale(.97);
   } */}
-`
-
-export const BuilderInput = styled.input`
-  text-align: center;
-  font-size: 22px;
-  font-family: annie use your telescope;
-  color: white;
-  transition: all .3s ${EASE_OUT};
-  flex: 1 0 auto;
-  height: 100%;
-  border-bottom: 1px solid white;
-  opacity: .9;
-  padding: 5px;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:focus {
-    opacity: 1;
-  }
-`
-
-injectGlobal`
-  .bubbleBuilderInputGrouped {
-    transition: all .3s ${EASE_OUT};
-
-    &:not(:first-child) {
-      border-left: 1px solid white;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-
-      &:focus {
-        border-color: ${aColor};
-      }
-    }
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-  }
-
-  .bubbleBuilderGroupedInputHide {
-    flex: 0 0 1px;
-    overflow: hidden;
-  }
 `

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import {cx} from '../../../utils/style'
 import {
-  Root, BuilderButton, BuilderInput,
+  Root, BuilderButton, BuilderInputLink
 } from './styled'
+import {TextInput} from '../../../global/styled'
 
 import autobind from 'autobind-decorator'
 
@@ -27,19 +27,17 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
     const {title, link} = this.state
     return (
       <Root>
-        <BuilderInput
+        <TextInput
           value={title}
-          className='bubbleBuilderInputGrouped'
           placeholder='bubbly button title'
           onChange={this.onTitleChange}
           onFocus={this.setActionIndex}
           onKeyPress={this.onTitleKeyPress}
           onBlur={this.sendChanges}
         />
-        <BuilderInput
+        <BuilderInputLink
           value={link}
           innerRef={r => this.linkRef = r}
-          className='bubbleBuilderInputGrouped'
           placeholder='bubble button linky'
           onFocus={this.setActionIndex}
           onChange={this.onLinkChange}
@@ -134,7 +132,7 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
 
   return (
     <Root>
-      <BuilderInput
+      <TextInput
         value={nucleus.nextBubbleId || ''}
         placeholder='series? "next" bubbly wubbly name here'
         onChange={setId}
@@ -166,7 +164,7 @@ export const BubbleBuilderNameTool = ({
 
   return (
     <Root>
-      <BuilderInput
+      <TextInput
         id='bubbleBuilderNameToolInput'
         value={nucleus.id || ''}
         placeholder='name your new bubbly wubbly!'
@@ -198,7 +196,7 @@ export function BubbleBuilderYouTubeTool({nucleus, onChangeNucleus}) {
 
   return (
     <Root>
-      <BuilderInput
+      <TextInput
         value={linkValue || ''}
         placeholder='youtube linky here'
         onKeyPress={onKeyPress}

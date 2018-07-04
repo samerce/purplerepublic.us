@@ -1,6 +1,10 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, {injectGlobal, css} from 'styled-components'
 import {
   EASE, EASE_OUT,
+  SCREEN_WIDTH_S,
+  SCREEN_WIDTH_M,
+  SCREEN_WIDTH_L,
+  SCREEN_WIDTH_XL,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -8,21 +12,42 @@ import {
 } from './constants'
 import {darken, transparentize as trans} from 'polished'
 
+const sizes = {
+  small: SCREEN_WIDTH_S,
+  medium: SCREEN_WIDTH_M,
+  large: SCREEN_WIDTH_L,
+  xlarge: SCREEN_WIDTH_XL,
+}
+export const screen = Object.keys(sizes).reduce((result, key) => {
+  result[key] = (...args) => css`
+    @media (max-width: ${sizes[key] / 16}em) {
+      ${css(...args)}
+    }
+  `
+  return result
+}, {})
+
 const whitePurple = 'rgba(255, 227, 251, 1)'
 
-export const AbsoluteFlexFillParent = styled.div`
+export const Flex = styled.div`
+  display: flex;
+`
+
+export const AbsoluteFlex = Flex.extend`
   position: absolute;
+`
+
+export const AbsoluteFlexFillParent = AbsoluteFlex.extend`
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
-  display: flex;
   align-items: center;
 `
 
-export const Flex = styled.div`
-  display: flex;
+export const InlineBlock = styled.div`
+  display: inline-block;
 `
 
 const DefaultIconSize = 24
@@ -33,16 +58,15 @@ export const Icon = styled.i`
   transition: all .3s ${EASE_OUT};
 `
 
-export const BubbleButton = styled.div`
+export const BubbleButton = Flex.extend`
   position: relative;
   border-radius: 100%;
   border: 1px solid white;
   background: ${p => p.theme.main};
   transition: all .5s ${EASE_OUT};
-  display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+  box-shadow: ${p => p.theme.shadowMedium};
   width: ${p => p.size}px;
   height: ${p => p.size}px;
   color: white;
@@ -56,9 +80,50 @@ export const BubbleButton = styled.div`
     transform: scale(.85);
   }
 
-  @media(max-width: SCREEN_WIDTH_M_PX) {
+  ${screen.medium`
     width: ${p => p.size * (3/5)}px;
     height: ${p => p.size * (3/5)}px;
+  `}
+`
+
+export const Boto = Flex.extend`
+  font-size: 30px;
+  font-family: annie use your telescope;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s ${EASE_OUT};
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  color: white;
+  background: ${p => p.theme.slightlyDark};
+  border-radius: ${p => p.theme.borderRadiusBoto}px;
+  padding: 10px 20px;
+
+  &:hover {
+    background: white;
+    color: ${p => p.theme.slightlyDark};
+  }
+`
+
+export const TextInput = styled.input`
+  text-align: center;
+  font-size: 22px;
+  font-family: annie use your telescope;
+  color: white;
+  transition: all .3s ${EASE_OUT};
+  flex: 1 0 auto;
+  height: 100%;
+  border-bottom: 1px solid white;
+  opacity: .9;
+  padding: 5px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    opacity: 1;
   }
 `
 
@@ -78,6 +143,11 @@ export const Header = styled.div`
     font-size: 32px;
     padding-top: 15px;
   }
+`
+
+export const ArticleText = styled.div`
+  font-size: 18px;
+  color: white;
 `
 
 export const CatchLine = styled(Header)`
