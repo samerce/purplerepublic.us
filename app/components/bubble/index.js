@@ -5,7 +5,6 @@ import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'
 import BubbleRelated from './bubbleRelated'
 
-import {cx} from '../../utils/style'
 import {
   Root,
 } from './styled'
@@ -23,11 +22,13 @@ const Mode = makeEnum([
   'focused',
   'editing',
   'willDefocus',
-  'expanded',
 ])
 
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
+const ShouldUpdateKeys = [
+  'isFullscreen', 'unsavedImageUrl', 'nucleus', 'onNext', 'onEdit'
+]
 
 export default class Bubble extends React.PureComponent {
 
@@ -37,8 +38,7 @@ export default class Bubble extends React.PureComponent {
     this.animationName = makeJiggler()
     this.state = {
       mode: Mode.willEnter,
-      bubbleRect: this.getNewBubbleRect(),
-      originalBubbleRect: {},
+      rootStyle: this.getNewRootStyle(),
     }
   }
 
@@ -52,25 +52,15 @@ export default class Bubble extends React.PureComponent {
     this.defocusIt()
   }
 
+  @autobind
   edit() {
     this.setState({
       mode: Mode.editing,
-      bubbleRect: {
+      rootStyle: {
         top: 0,
         left: 0,
       },
     })
-  }
-
-  componentDidMount() {
-    this.timers.push(
-      setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
-      setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
-    )
-  }
-
-  componentWillUnmount() {
-    this.timers.forEach(clearTimeout)
   }
 
   @autobind
@@ -80,8 +70,46 @@ export default class Bubble extends React.PureComponent {
     else return new Promise(resolve => resolve())
   }
 
+  componentDidMount() {
+    this.timers.push(
+      setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
+      setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
+    )
+
+    const boundingRect = findDOMNode(this.root).getBoundingClientRect()
+    const {size} = this.props.nucleus
+    this.focusedStyle = {
+      top: boundingRect.top,
+      left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
+      animationName: this.animationName,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isFullscreen !== this.props.isFullscreen) {
+      this.setState({
+        rootStyle: {
+          ...this.state.rootStyle,
+          animationName: isFullscreen && this.animationName,
+        }
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let shouldUpdate = false
+    ShouldUpdateKeys.forEach(
+      key => shouldUpdate = nextProps[key] !== this.props[key]
+    )
+    return shouldUpdate || this.state !== nextState
+  }
+
   render() {
-    const {mode, bubbleRect} = this.state
+    const {mode, rootStyle} = this.state
     const {isFullscreen, unsavedImageUrl, nucleus, onNext, onEdit} = this.props
     const isEditing = mode === Mode.editing
     const isFocused = mode === Mode.focused
@@ -96,9 +124,7 @@ export default class Bubble extends React.PureComponent {
     return (
       <Root
         ref={r => this.root = r}
-        style={isFullscreen?
-          bubbleRect :
-          {animationName: this.animationName, ...bubbleRect}}
+        style={rootStyle}
         className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
           {...nucleus}
@@ -129,22 +155,16 @@ export default class Bubble extends React.PureComponent {
   @autobind
   onClickBubble() {
     if (mode === Mode.focused) return
-    const {mode, bubbleRect} = this.state
+    const {mode, rootStyle} = this.state
     requestAnimationFrame(this.setWillFocusState)
     setTimeout(() => requestAnimationFrame(this.focusIt))
   }
 
   @autobind
   setWillFocusState() {
-    const boundingRect = findDOMNode(this.root).getBoundingClientRect()
-    const {size} = this.props.nucleus
-
     this.setState({
       mode: Mode.willFocus,
-      bubbleRect: {
-        top: boundingRect.top,
-        left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
-      },
+      rootStyle: this.focusedStyle,
     })
   }
 
@@ -153,11 +173,10 @@ export default class Bubble extends React.PureComponent {
     this.props.onOpen && this.props.onOpen()
     this.setState({
       mode: Mode.focused,
-      bubbleRect: {
+      rootStyle: {
         top: 0,
         left: 0,
       },
-      originalBubbleRect: this.state.bubbleRect,
     })
   }
 
@@ -179,7 +198,7 @@ export default class Bubble extends React.PureComponent {
   setWillDefocusState() {
     this.setState({
       mode: Mode.willDefocus,
-      bubbleRect: this.state.originalBubbleRect,
+      rootStyle: this.focusedStyle,
     })
   }
 
@@ -187,14 +206,15 @@ export default class Bubble extends React.PureComponent {
   setDefocusedState() {
     this.setState({
       mode: Mode.defocused,
-      bubbleRect: this.getNewBubbleRect(),
+      rootStyle: this.getNewRootStyle(),
     })
   }
 
-  getNewBubbleRect() {
+  getNewRootStyle() {
     return {
       top: Math.round(Math.random() * 20) + 50,
       left: 10,//Math.round(Math.random() * 40) + 10,
+      animationName: this.animationName,
     }
   }
 

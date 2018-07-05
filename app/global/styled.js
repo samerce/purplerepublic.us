@@ -144,6 +144,31 @@ export const HiddenFileInput = styled.input.attrs({
   position: absolute;
 `
 
+export const MaskAbsoluteFillParent = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${p => trans(.3, p.theme.veryDark)};
+  z-index: 60;
+  pointer-events: ${p => p.show? 'all' : 'none'};
+  opacity: ${p => p.show? 1 : 0};
+  transition: all .3s ${EASE_OUT};
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  i {
+    font-size: 100px;
+  }
+`
+
 // ------------------------------------- old styles below
 
 export const Header = styled.div`
@@ -273,24 +298,6 @@ export const ToolBarItem = styled.div`
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     font-size: 24px;
     padding: 10px;
-  }
-`
-
-export const PublishMask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: ${p => p.show? 'flex' : 'none'};
-  justify-content: center;
-  align-items: center;
-  background: ${trans(.3, darken(.7, whitePurple))};
-  z-index: 200;
-  pointer-events: all;
-
-  i {
-    font-size: 100px;
   }
 `
 

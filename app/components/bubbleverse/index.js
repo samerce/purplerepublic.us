@@ -10,7 +10,7 @@ import Spinnie from '../spinnie'
 import {
   Root, BubbleGrid, BubbleGridItem, ArrangeButton, BubbleEditingButtonsRoot,
 } from './styled'
-import {PublishMask} from '../../global/styled'
+import {MaskAbsoluteFillParent} from '../../global/styled'
 
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
@@ -86,7 +86,10 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   render() {
-    const {mode, isFullscreen, bubblePods, arrangeSourceIndex} = this.state
+    const {
+      mode, isFullscreen, bubblePods, arrangeSourceIndex,
+      savingNewArrangement,
+    } = this.state
     return (
       <Root className={`start-${mode}`}>
         {mode !== Mode.buildBubble && canShowEditingTools() &&
@@ -137,9 +140,9 @@ export default class Bubbleverse extends React.PureComponent {
           ))}
         </BubbleGrid>
 
-        <PublishMask show={this.state.savingNewArrangement}>
-          <Spinnie show={true} />
-        </PublishMask>
+        <MaskAbsoluteFillParent id='bubbleMask' show={savingNewArrangement}>
+          <Spinnie show={savingNewArrangement} />
+        </MaskAbsoluteFillParent>
       </Root>
     )
   }

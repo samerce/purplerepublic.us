@@ -17,7 +17,7 @@ import {
   BubbleButtonSizeSlider,
 } from './styled'
 import {
-  ToolBar, ToolBarItem, PublishMask,
+  ToolBar, ToolBarItem, MaskAbsoluteFillParent,
 } from '../../../global/styled'
 
 import {makeEnum} from '../../../utils/lang'
@@ -120,9 +120,9 @@ export default class BubbleBuilder extends React.PureComponent {
         ref={r => this.root = r}
         className={'bubbleBuilder-' + mode}>
 
-        <PublishMask show={isPublishing}>
+        <MaskAbsoluteFillParent show={isPublishing}>
           <Spinnie show={true} />
-        </PublishMask>
+        </MaskAbsoluteFillParent>
 
         <UnoSelectPill
           options={this.filterOptions}
