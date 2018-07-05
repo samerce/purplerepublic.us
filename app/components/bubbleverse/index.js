@@ -9,6 +9,7 @@ import Spinnie from '../spinnie'
 
 import {
   Root, BubbleGrid, BubbleGridItem, ArrangeButton, BubbleEditingButtonsRoot,
+  ArrangeIcon,
 } from './styled'
 import {MaskAbsoluteFillParent} from '../../global/styled'
 
@@ -120,7 +121,7 @@ export default class Bubbleverse extends React.PureComponent {
 
               {mode === Mode.arrange && (index !== 0) &&
                 <ArrangeButton onClick={this.onArrange.bind(this, index)}>
-                  <i className={`fa
+                  <ArrangeIcon className={`fa
                     ${arrangeSourceIndex? 'fa-map-pin' : 'fa-bullseye'}`
                   } />
                 </ArrangeButton>

@@ -77,7 +77,26 @@ export default class Bubble extends React.PureComponent {
       setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
     )
 
-    const boundingRect = findDOMNode(this.root).getBoundingClientRect()
+    this.rootNode = findDOMNode(this.root)
+    this.configureStyles()
+    // window.onscroll = _.throttle(this.configureStyles, 200)
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let shouldUpdate = false
+    ShouldUpdateKeys.forEach(
+      key => shouldUpdate = shouldUpdate || nextProps[key] !== this.props[key]
+    )
+    return shouldUpdate || this.state !== nextState
+  }
+
+  @autobind
+  configureStyles() {
+    const boundingRect = this.rootNode.getBoundingClientRect()
     const {size} = this.props.nucleus
 
     this.willFocusStyle = {
@@ -91,18 +110,6 @@ export default class Bubble extends React.PureComponent {
         ${-this.willFocusStyle.top}px
       )`
     }
-  }
-
-  componentWillUnmount() {
-    this.timers.forEach(clearTimeout)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    let shouldUpdate = false
-    ShouldUpdateKeys.forEach(
-      key => shouldUpdate = nextProps[key] !== this.props[key]
-    )
-    return shouldUpdate || this.state !== nextState
   }
 
   render() {

@@ -51,7 +51,7 @@ const InitialNucleus = {
 const FilterOptionList = [
   BubbleType.gallery,
   BubbleType.video,
-  BubbleType.writing,
+  BubbleType.words,
 ]
 
 export default class BubbleBuilder extends React.PureComponent {

@@ -4,7 +4,7 @@ import {openInNewTab} from '../../utils/nav'
 export const BubbleType = makeEnum([
   'gallery',
   'video',
-  'writing',
+  'words',
   'shop',
   // 'music',
 ])
@@ -13,6 +13,7 @@ export const BubbleComponents = {}
 Object.keys(BubbleType).forEach(type => {
   BubbleComponents[type] = require('./bubbleItems/' + type).default
 })
+BubbleComponents.writing = BubbleComponents.words
 
 export const BubbleButtonActions = {
   OpenLink: props => openInNewTab(props.url),

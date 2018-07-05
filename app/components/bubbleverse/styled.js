@@ -1,33 +1,27 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, {injectGlobal, keyframes} from 'styled-components'
 import {transparentize as alpha} from 'polished'
 import {
   EASE_SINE, EASE_OUT, EASE_IN, EASE,
-  SCREEN_WIDTH_S_PX,
-  SCREEN_WIDTH_M_PX,
-  SCREEN_WIDTH_L_PX,
-  SCREEN_WIDTH_XL_PX,
-  SRC_URL,
 } from '../../global/constants'
+import {
+  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon,
+} from '../../global/styled'
 
-const aColor = '#956C95'
+const fastBlink = keyframes`
+  0% {
+    opacity: 1;
+  }
 
-injectGlobal`
-  @keyframes fastBlink {
-    0% {
-      opacity: 1;
-    }
+  30% {
+    opacity: .5
+  }
 
-    30% {
-      opacity: .5
-    }
+  70% {
+    opacity: 1;
+  }
 
-    70% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 1;
-    }
+  100% {
+    opacity: 1;
   }
 `
 
@@ -44,23 +38,18 @@ export const Root = styled.div`
   }
 `
 
-export const BubbleGrid = styled.div`
+export const BubbleGrid = AbsoluteFlexFillParent.extend`
   display: ${p => p.hidden? 'none' : 'flex'};
   flex-wrap: wrap;
   align-content: flex-start;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 50px;
   pointer-events: all;
 
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+  ${screen.medium`
     padding: 0;
-  }
+  `}
 `
 
 export const BubbleGridItem = styled.div`
@@ -74,30 +63,25 @@ export const BubbleGridItem = styled.div`
     pointer-events: none;
   }
 
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    height: ${p => p.size * (2/3)}px;
-  }
+  ${screen.medium`
+    height: ${p => p.size * (3/5)}px;
+    flex: 0 0 ${p => p.size * (3/5)}px;
+  `}
 `
 
-export const BubbleEditingButtonsRoot = styled.div`
-  position: absolute;
+export const BubbleEditingButtonsRoot = AbsoluteFlex.extend`
   top: 20px;
   right: 20px;
-  display: flex;
   height: 80px;
-
 `
 
-export const ArrangeButton = styled.div`
-  position: absolute;
+export const ArrangeButton = AbsoluteFlex.extend`
   top: 50px;
   left: 10px;
-  display: flex;
   align-items: center;
   justify-content: center;
   animation-name: fastBlink;
   animation-duration: 1s;
-  ${'' /* animation-fill-mode: both; */}
   animation-timing-function: ${EASE_OUT};
   animation-iteration-count: infinite;
   animation-play-state: paused;
@@ -110,23 +94,21 @@ export const ArrangeButton = styled.div`
 
   .start-arrange & {
     visibility: visible;
-    ${'' /* animation-play-state: running; */}
+    animation-play-state: running;
   }
+`
 
-  &:hover i {
+export const ArrangeIcon = Icon.extend`
+  font-size: 30px;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  border-radius: 100%;
+  background: ${p => p.theme.main};
+  transition: all .5s ${EASE_OUT};
+
+  ${ArrangeButton}:hover & {
     background: white;
-    color: ${aColor};
-  }
-
-  i {
-    font-size: 30px;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
-    border-radius: 100%;
-    background: ${aColor};
-    transition: all .5s ${EASE_OUT};
-    color: white;
-    text-align: center;
+    color: ${p => p.theme.main};
   }
 `

@@ -10,9 +10,11 @@ import {
 } from '../../../global/styled'
 
 injectGlobal`
-  .gallerySelectPill {
-    position: initial;
+  .gallerySelectPill.gallerySelectPill {
+    position: relative;
     transform: none;
+    top: 0;
+    left: 0;
   }
   #lightboxBackdrop button span {
       color: white;

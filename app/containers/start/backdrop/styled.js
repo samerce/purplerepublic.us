@@ -2,14 +2,11 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
-  SCREEN_WIDTH_S_PX,
-  SCREEN_WIDTH_M_PX,
-  SCREEN_WIDTH_L_PX,
-  SCREEN_WIDTH_XL_PX,
-  SRC_URL,
 } from '../../../global/constants'
+import {
+  screen, AbsoluteFlexFillParent,
+} from '../../../global/styled'
 
-const aColor = '#498359'
 
 injectGlobal`
   @keyframes shootingStar {
@@ -38,19 +35,24 @@ injectGlobal`
       opacity: 1;
       pointer-events: all;
       transform: scale(1.5);
+
+      ${screen.large`
+        transform: scale(1.7);
+      `}
+      ${screen.medium`
+        transform: scale(2.1);
+      `}
+      ${screen.small`
+        transform: scale(2.6);
+      `}
     }
   }
 `
 
-export const Root = styled.div`
-  position: absolute;
-  display: flex;
+export const Root = AbsoluteFlexFillParent.extend`
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
   pointer-events: none;
-  z-index: 1;
 `
 
 export const Foreground = styled.img`
@@ -66,11 +68,11 @@ export const Foreground = styled.img`
     transition: all 10s ${EASE_OUT} 1s;
   }
 
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+  ${screen.medium`
     top: 0;
     height: 100%;
     width: initial;
-  }
+  `}
 `
 
 export const Background = styled.div`
@@ -89,44 +91,28 @@ export const Background = styled.div`
   animation-fill-mode: both;
   animation-timing-function: ${EASE_OUT};
 
-  @media (max-width: ${SCREEN_WIDTH_L_PX}) {
-    transform: scale(1.7);
-  }
-  @media (max-width: ${SCREEN_WIDTH_M_PX}) {
-    transform: scale(2.1);
-  }
-  @media (max-width: ${SCREEN_WIDTH_S_PX}) {
-    transform: scale(2.6);
-  }
-
   &:hover {
     transform: scale(1.3);
     transition-duration: 3s;
 
-    @media (max-width: ${SCREEN_WIDTH_L_PX}) {
+    ${screen.large`
       transform: scale(1.4);
-    }
-    @media (max-width: ${SCREEN_WIDTH_M_PX}) {
+    `}
+    ${screen.medium`
       transform: scale(1.8);
-    }
-    @media (max-width: ${SCREEN_WIDTH_S_PX}) {
+    `}
+    ${screen.small`
       transform: scale(2.2);
-    }
+    `}
   }
 `
 
-export const ShootingStars = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+export const ShootingStars = AbsoluteFlexFillParent.extend`
   z-index: 4;
   pointer-events: none;
 `
 
-export const StarRoot = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
+export const StarRoot = AbsoluteFlexFillParent.extend`
   transform: rotate(-145deg);
 `
 
@@ -148,5 +134,4 @@ export const Star = styled.div`
   border-radius: 100%;
   background: rgba(229, 238, 244, 1);
   box-shadow: 0 0 5px 2px rgba(255, 255, 255, .8);
-
 `
