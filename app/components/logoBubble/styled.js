@@ -28,7 +28,6 @@ export const Root = styled.div`
   pointer-events: none;
 
   &.logo-hangin {
-    z-index: 5;
     transition: all 1s ${EASE_OUT};
     transform: translate(
       -${-100 + (window.innerWidth / 2)}px,

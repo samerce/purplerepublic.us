@@ -127,10 +127,10 @@ export const BubbleOptions = AbsoluteFlex.extend`
   width: 100%;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   box-shadow: ${p => p.theme.boxShadowHeavy};
+  flex-wrap: wrap;
 `
 
 export const BubbleToolButton = Boto.extend`
-  height: 40px;
   font-size: 24px;
   flex: 1 0 auto;
   border-radius: 0;
@@ -138,11 +138,13 @@ export const BubbleToolButton = Boto.extend`
 
 export const BubbleNameButton = BubbleToolButton.extend`
   border-top-left-radius: ${p => p.theme.borderRadiusBoto}px;
-  border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
+  border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
+  border-bottom: 1px solid white;
+  flex: 0 0 100%;
 `
 
 export const BubbleEditButton = BubbleToolButton.extend`
-  border-left: 1px solid white;
+  border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
 `
 
 export const BubbleDeleteButton = BubbleToolButton.extend`
@@ -150,7 +152,6 @@ export const BubbleDeleteButton = BubbleToolButton.extend`
   right: 0;
   position: relative;
   border-left: 1px solid white;
-  border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
   border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
 
   &:hover {

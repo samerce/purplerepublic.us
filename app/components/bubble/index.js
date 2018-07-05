@@ -35,10 +35,11 @@ export default class Bubble extends React.PureComponent {
   constructor(props) {
     super(props)
     this.timers = []
-    this.animationName = makeJiggler()
+    this.jiggler = makeJiggler()
+    this.defocusedStyle = this.getNewRootStyle()
     this.state = {
       mode: Mode.willEnter,
-      rootStyle: this.getNewRootStyle(),
+      rootStyle: this.defocusedStyle,
     }
   }
 
@@ -78,21 +79,17 @@ export default class Bubble extends React.PureComponent {
 
     const boundingRect = findDOMNode(this.root).getBoundingClientRect()
     const {size} = this.props.nucleus
-    this.focusedStyle = {
-      top: boundingRect.top,
-      left: boundingRect.left - (window.innerWidth / 2) + (size / 2),
-      animationName: this.animationName,
-    }
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isFullscreen !== this.props.isFullscreen) {
-      this.setState({
-        rootStyle: {
-          ...this.state.rootStyle,
-          animationName: isFullscreen && this.animationName,
-        }
-      })
+    this.willFocusStyle = {
+      top: boundingRect.top + Math.round(Math.random() * 20),
+      left: boundingRect.left - (window.innerWidth / 2)  + (size / 2),
+    }
+    this.focusedStyle = {
+      ...this.willFocusStyle,
+      transform: `translate(
+        ${-this.willFocusStyle.left}px,
+        ${-this.willFocusStyle.top}px
+      )`
     }
   }
 
@@ -125,6 +122,8 @@ export default class Bubble extends React.PureComponent {
       <Root
         ref={r => this.root = r}
         style={rootStyle}
+        jiggler={this.jiggler}
+        isFullscreen={isFullscreen}
         className={'bubble-' + mode + ' bubbleButton-' + id}>
         <BubbleButton
           {...nucleus}
@@ -154,8 +153,7 @@ export default class Bubble extends React.PureComponent {
 
   @autobind
   onClickBubble() {
-    if (mode === Mode.focused) return
-    const {mode, rootStyle} = this.state
+    if (this.state.mode === Mode.focused) return
     requestAnimationFrame(this.setWillFocusState)
     setTimeout(() => requestAnimationFrame(this.focusIt))
   }
@@ -164,7 +162,7 @@ export default class Bubble extends React.PureComponent {
   setWillFocusState() {
     this.setState({
       mode: Mode.willFocus,
-      rootStyle: this.focusedStyle,
+      rootStyle: this.willFocusStyle,
     })
   }
 
@@ -173,10 +171,7 @@ export default class Bubble extends React.PureComponent {
     this.props.onOpen && this.props.onOpen()
     this.setState({
       mode: Mode.focused,
-      rootStyle: {
-        top: 0,
-        left: 0,
-      },
+      rootStyle: this.focusedStyle,
     })
   }
 
@@ -191,14 +186,14 @@ export default class Bubble extends React.PureComponent {
       bubbleComponentRef.onClose()
 
     requestAnimationFrame(this.setWillDefocusState)
-    requestAnimationFrame(() => setTimeout(this.setDefocusedState, 700))
+    requestAnimationFrame(() => setTimeout(this.setDefocusedState, 400))
   }
 
   @autobind
   setWillDefocusState() {
     this.setState({
       mode: Mode.willDefocus,
-      rootStyle: this.focusedStyle,
+      rootStyle: this.willFocusStyle,
     })
   }
 
@@ -206,7 +201,7 @@ export default class Bubble extends React.PureComponent {
   setDefocusedState() {
     this.setState({
       mode: Mode.defocused,
-      rootStyle: this.getNewRootStyle(),
+      rootStyle: this.defocusedStyle,
     })
   }
 
@@ -214,7 +209,6 @@ export default class Bubble extends React.PureComponent {
     return {
       top: Math.round(Math.random() * 20) + 50,
       left: 10,//Math.round(Math.random() * 40) + 10,
-      animationName: this.animationName,
     }
   }
 

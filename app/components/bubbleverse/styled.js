@@ -1,7 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha} from 'polished'
 import {
-  EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
+  EASE_SINE, EASE_OUT, EASE_IN, EASE,
   SCREEN_WIDTH_S_PX,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_L_PX,
@@ -12,11 +12,6 @@ import {
 const aColor = '#956C95'
 
 injectGlobal`
-  div.bubbleButton-nolaMarch {
-    top: 40px;
-    left: 10px;
-  }
-
   @keyframes fastBlink {
     0% {
       opacity: 1;
@@ -42,7 +37,7 @@ export const Root = styled.div`
   position: fixed;
   overflow: hidden;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 
   &.start-show, &.start-arrange {
     pointer-events: all;

@@ -12,33 +12,34 @@ const aColor = '#956C95'
 
 export const Root = AbsoluteFlexFillParent.extend`
   z-index: 10;
-  animation-duration: 10s;
+  ${'' /* animation-duration: 10s;
   animation-fill-mode: both;
   animation-timing-function: ${EASE_SINE};
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  animation-name: ${p => p.isFullscreen? 'none' : p.jiggler}; */}
   flex-direction: column;
-  transition: all .7s ${EASE_OUT};
   pointer-events: none;
 
   &.bubble-focused, &.bubble-editing {
-    transition: top .5s, left .5s, background .5s ${EASE} .3s;
-    transition-timing-function: ${EASE_OUT};
+    transition: transform .5s ${EASE_OUT}, background .3s ${EASE} .2s;
     position: fixed;
     pointer-events: all;
     overflow-y: scroll;
     overflow-x: hidden;
     background: rgba(0,0,0,.3);
     z-index: 30;
+    animation-name: none;
   }
   &.bubble-willFocus {
     transition: none;
     position: fixed;
+    animation-name: none;
   }
   &.bubble-willDefocus {
     position: fixed;
-    transition: top .7s, left .7s;
-    transition-timing-function: ${EASE_OUT};
+    transition: transform .4s ${EASE_OUT};
+    animation-name: none;
   }
   &.bubble-defocused {
     transition: none;
