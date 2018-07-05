@@ -14,7 +14,7 @@ import {MaskAbsoluteFillParent} from '../../global/styled'
 
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
-import {BubbleComponents} from '../bubble/bubbles'
+import {BubbleComponents} from '../bubble/config'
 import autobind from 'autobind-decorator'
 
 const Mode = makeEnum([

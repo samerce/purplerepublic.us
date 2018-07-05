@@ -11,7 +11,7 @@ import {canShowEditingTools} from '../../../utils/nav'
 
 import autobind from 'autobind-decorator'
 
-import {BubbleButtonActions} from '../actions'
+import {BubbleButtonActions} from '../config'
 
 export default class BubbleDetails extends React.PureComponent {
 

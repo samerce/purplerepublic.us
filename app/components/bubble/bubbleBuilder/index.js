@@ -9,7 +9,7 @@ import {
 
 import Bubble from '..'
 import {Description} from '../bubbleItems/styled'
-import {BubbleType, BubbleComponents} from '../bubbles'
+import {BubbleType, BubbleComponents} from '../config'
 
 import {cx} from '../../../utils/style'
 import {

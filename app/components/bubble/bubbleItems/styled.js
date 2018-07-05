@@ -17,6 +17,13 @@ injectGlobal`
   #lightboxBackdrop button span {
       color: white;
   }
+  .bubbleShopText {
+    transition: all .3s ${EASE_OUT};
+    .bubble-willFocus &, .bubble-focused &, .bubble-willDefocus & {
+      opacity: 0;
+      transition: none;
+    }
+  }
 `
 
 export const VideoRoot = styled.div`

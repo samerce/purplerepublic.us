@@ -7,7 +7,7 @@ import {TextInput} from '../../../global/styled'
 
 import autobind from 'autobind-decorator'
 
-import {BubbleButtonActionList} from '../actions'
+import {BubbleButtonActionList} from '../config'
 
 export class BubbleBuilderButtonTool extends React.PureComponent {
 
