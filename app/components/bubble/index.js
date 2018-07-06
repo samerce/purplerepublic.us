@@ -13,6 +13,8 @@ import {ImageBubbleButton} from './bubbleButton/styled'
 import {makeEnum} from '../../utils/lang'
 import autobind from 'autobind-decorator'
 import {makeJiggler} from '../../global-styles'
+import _ from 'lodash'
+import fastdom from 'fastdom'
 
 const Mode = makeEnum([
   'willEnter',
@@ -79,7 +81,10 @@ export default class Bubble extends React.PureComponent {
 
     this.rootNode = findDOMNode(this.root)
     this.configureStyles()
-    // window.onscroll = _.throttle(this.configureStyles, 200)
+    document.getElementById('bubbleGrid').addEventListener(
+      'scroll',
+      _.throttle(this.configureStyles, 400)
+    )
   }
 
   componentWillUnmount() {
@@ -96,20 +101,22 @@ export default class Bubble extends React.PureComponent {
 
   @autobind
   configureStyles() {
-    const boundingRect = this.rootNode.getBoundingClientRect()
-    const {size} = this.props.nucleus
+    fastdom.measure(() => {
+      const boundingRect = this.rootNode.getBoundingClientRect()
+      const {size} = this.props.nucleus
 
-    this.willFocusStyle = {
-      top: boundingRect.top + Math.round(Math.random() * 20),
-      left: boundingRect.left - (window.innerWidth / 2)  + (size / 2),
-    }
-    this.focusedStyle = {
-      ...this.willFocusStyle,
-      transform: `translate(
-        ${-this.willFocusStyle.left}px,
-        ${-this.willFocusStyle.top}px
-      )`
-    }
+      this.willFocusStyle = {
+        top: boundingRect.top + Math.round(Math.random() * 20) - window.scrollY,
+        left: boundingRect.left - (window.innerWidth / 2)  + (size / 2),
+      }
+      this.focusedStyle = {
+        ...this.willFocusStyle,
+        transform: `translate(
+          ${-this.willFocusStyle.left}px,
+          ${-this.willFocusStyle.top}px
+        )`
+      }
+    })
   }
 
   render() {

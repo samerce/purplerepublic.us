@@ -93,7 +93,7 @@ export default class Bubbleverse extends React.PureComponent {
     } = this.state
     return (
       <Root className={`start-${mode}`}>
-        {mode !== Mode.buildBubble && canShowEditingTools() &&
+        {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
             <BubbleAddButton
               onClick={() => this.openBubbleBuilder()} />
@@ -112,6 +112,7 @@ export default class Bubbleverse extends React.PureComponent {
         }
 
         <BubbleGrid
+          id='bubbleGrid'
           hidden={mode === Mode.buildBubble}
           ref={r => this.bubbleGrid = r}>
           {bubblePods.map((bubble, index) => (

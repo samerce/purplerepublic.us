@@ -82,7 +82,9 @@ export default class BubbleDetails extends React.PureComponent {
               <BubbleEditButton onClick={this.props.onEdit}>
                 edit bubble
               </BubbleEditButton>
-              <BubbleDeleteButton onClick={this.deleteBubble}>
+              <BubbleDeleteButton
+                disabled={this.isDeleting}
+                onClick={this.deleteBubble}>
                 <div hidden={this.state.isDeleting}>delete bubble</div>
                 <Spinnie show={this.state.isDeleting} />
               </BubbleDeleteButton>
@@ -95,10 +97,10 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   deleteBubble() {
+    if (this.state.isDeleting) return
     if (!confirm(
       'the bubble will be gone forever!\n\n click OK to destroy it. D:'
     )) return
-    if (this.state.isDeleting) return
 
     this.setState({isDeleting: true})
     fetch('/bubbles.delete', {

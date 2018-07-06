@@ -30,7 +30,7 @@ module.exports = {
 }
 
 var uploadToS3 = ({imageData, description, sourceImage, cropBox}) => {
-  const imageBuffer = new Buffer(
+  const imageBuffer = Buffer.from(
     imageData.replace(/^data:image\/\w+;base64,/, ''),
     'base64'
   )
