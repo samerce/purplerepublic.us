@@ -1,7 +1,9 @@
 const {s3, BUCKET} = require('./purpleAWS')
 
-const KEY_BUBBLE_STAGE_DIRECTION_ROOT = 'bubbles/stageDirection/'
 const BubbleImageRootKey = 'bubbles/buttonImages/'
+
+const {STAGE_DIRECTION_KEY_SUFFIX = ''} = process.env
+const BubbleStageDirectionKey = 'bubbles/stageDirection/' + STAGE_DIRECTION_KEY_SUFFIX
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
@@ -37,19 +39,19 @@ module.exports = {
   delete: (req, res) => {
     uploadJSON(
       bubbleStageDirection,
-      KEY_BUBBLE_STAGE_DIRECTION_ROOT + new Date().toISOString()
+      BubbleStageDirectionKey + new Date().toISOString()
     ).then(() => {
       bubbleStageDirection = bubbleStageDirection.filter(
         bubbleProps => bubbleProps.id !== req.body.bubbleId
       )
-      uploadJSON(bubbleStageDirection, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
+      uploadJSON(bubbleStageDirection, BubbleStageDirectionKey + 'latest')
         .then(() => res.status(200).end())
         .catch((e) => res.status(500).end(e))
     }).catch((e) => res.status(500).end(e))
   },
 
   updateArrangement: ({body: newBubbles}, res) => {
-    uploadJSON(newBubbles, KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest')
+    uploadJSON(newBubbles, BubbleStageDirectionKey + 'latest')
       .then(() => {
         bubbleStageDirection = newBubbles
         res.status(200).end()
@@ -73,7 +75,7 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 
   uploadJSON(
     newStageDirection,
-    KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest'
+    BubbleStageDirectionKey + 'latest'
   ).then(() => {
     bubbleStageDirection = newStageDirection
     res.status(200).end()
@@ -83,7 +85,7 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 function fetchBubbleStageDirection() {
   s3.getObject({
     Bucket: BUCKET,
-    Key: KEY_BUBBLE_STAGE_DIRECTION_ROOT + 'latest.json',
+    Key: BubbleStageDirectionKey + 'latest.json',
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
     else bubbleStageDirection = JSON.parse(data.Body.toString())
