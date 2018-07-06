@@ -4,9 +4,8 @@ import {
   EASE_OUT,
   EASE_IN,
   EASE,
-  SCREEN_WIDTH_M_PX,
-  SCREEN_WIDTH_S_PX,
 } from '../../global/constants'
+import {screen} from '../../global/styled'
 
 injectGlobal`
   .bubbleButton-logo-svg {
@@ -14,6 +13,12 @@ injectGlobal`
     z-index: 10;
     width: 150px;
   }
+
+  ${screen.medium`
+    .bubbleButton-logo-svg {
+      width: 125px;
+    }
+  `}
 `
 
 
@@ -30,10 +35,19 @@ export const Root = styled.div`
   &.logo-hangin {
     transition: all 1s ${EASE_OUT};
     transform: translate(
-      -${-100 + (window.innerWidth / 2)}px,
-      -${-100 + (window.innerHeight / 2)}px
+      -${(window.innerWidth / 2) - 100}px,
+      -${(window.innerHeight / 2) - 100}px
     );
   }
+
+  ${screen.medium`
+    &.logo-hangin {
+      transform: translate(
+        -${(window.innerWidth / 2) - 70}px,
+        -${(window.innerHeight / 2) - 70}px
+      );
+    }
+  `}
 `
 
 export const LogoSVG = styled.object`
@@ -77,17 +91,17 @@ export const CircleBill = styled.div`
   transition: all 2s ${EASE_OUT};
   box-shadow: 2px 2px 20px rgba(0,0,0,.2);
 
-  .logo-intro &, .logo-breatheOut & {
+  .logo-intro & {
     transform: scale(1.8);
-    ${'' /* opacity: 1;
-    transition: all 3s ${EASE_OUT};
-    transition-delay: .6s; */}
+    ${screen.medium`
+      transform: scale(1.4);
+    `}
   }
   .logo-breatheIn & {
     transform: scale(0);
     transition: all 1s ${EASE_IN};
   }
-  .logo-breatheOut &, .logo-hangin & {
+  .logo-hangin & {
     transform: scale(1);
     transition: all 1.5s ${EASE_OUT};
   }

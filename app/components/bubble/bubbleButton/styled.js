@@ -8,7 +8,7 @@ import {
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
 import {
-  Icon as aIcon, BubbleButton, InlineBlock,
+  Icon as aIcon, BubbleButton, InlineBlock, screen,
 } from '../../../global/styled'
 
 let CircleSizeFocused = 60
@@ -47,7 +47,7 @@ export const Icon = aIcon.extend`
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: -48px;
+  margin-top: -25%;
   pointer-events: none;
   transition-duration: .5s;
   opacity: .5;
@@ -56,4 +56,8 @@ export const Icon = aIcon.extend`
     opacity: 0;
     transition-duration: .3s;
   }
+
+  ${screen.medium`
+    font-size: 20px;
+  `}
 `

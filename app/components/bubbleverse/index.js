@@ -1,4 +1,5 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
 import Bubble from '../bubble'
 import BubbleBuilder from '../bubble/bubbleBuilder'
 import {
@@ -59,6 +60,7 @@ export default class Bubbleverse extends React.PureComponent {
     )
 
     processBubbles()
+    this.rootNode = findDOMNode(this.root)
   }
 
   @autobind
@@ -92,7 +94,9 @@ export default class Bubbleverse extends React.PureComponent {
       savingNewArrangement,
     } = this.state
     return (
-      <Root className={`start-${mode}`}>
+      <Root
+        innerRef={r => this.root = r}
+        className={`start-${mode}`}>
         {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
             <BubbleAddButton
@@ -176,6 +180,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.isFocusLocked = true
     this.focusedBubbleId = bubbleId
     window.location.hash = '#start?bubble=' + bubbleId
+    this.rootNode.style.zIndex = 7
     this.isFocusLocked = false
   }
 
@@ -184,6 +189,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.isFocusLocked = true
     this.focusedBubbleId = null
     window.location.hash = '#start'
+    this.rootNode.style.zIndex = 5
     this.isFocusLocked = false
   }
 

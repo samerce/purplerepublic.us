@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, {injectGlobal, keyframes} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
@@ -9,6 +9,15 @@ import {
   SRC_URL,
 } from '../../global/constants'
 
+const reveal = keyframes`
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: none;
+  }
+`
+
 const aColor = '#498359'
 
 export const Root = styled.div`
@@ -18,18 +27,16 @@ export const Root = styled.div`
   top: 0;
   display: flex;
   align-items: center;
-  transition: all .5s ${EASE};
   z-index: 6;
   pointer-events: none;
+  animation-name: ${reveal};
+  animation-duration: 1s;
+  animation-delay: 5s;
+  animation-timing-function: ${EASE_OUT};
+  animation-fill-mode: both;
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;
-  }
-
-  .start-exit & {
-    opacity: 0;
-    transform: translateX(100px);
-    transition: all 1.5s ${EASE};
   }
 
   a {

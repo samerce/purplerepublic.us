@@ -44,12 +44,8 @@ export const BubbleGrid = AbsoluteFlexFillParent.extend`
   align-content: flex-start;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-right: 50px;
   pointer-events: all;
-
-  ${screen.medium`
-    padding: 0;
-  `}
+  padding: 0 50px 0 5px;
 `
 
 export const BubbleGridItem = styled.div`
@@ -57,10 +53,10 @@ export const BubbleGridItem = styled.div`
   pointer-events: none;
   flex: 0 0 ${p => p.size}px;
   height: ${p => p.size}px;
+  margin: 0 3px;
 
   &:first-child {
     visibility: hidden;
-    pointer-events: none;
   }
 
   ${screen.medium`

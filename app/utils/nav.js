@@ -6,5 +6,5 @@ export function openInNewTab(url) {
 }
 
 export function canShowEditingTools() {
-  return true//window.origin.includes('edit.')
+  return window.origin.includes('edit.')
 }

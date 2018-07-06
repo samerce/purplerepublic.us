@@ -221,8 +221,8 @@ export default class Bubble extends React.PureComponent {
 
   getNewRootStyle() {
     return {
-      top: Math.round(Math.random() * 20) + 50,
-      left: 10,//Math.round(Math.random() * 40) + 10,
+      top: Math.round(Math.random() * 20) + 15,
+      left: 0,//Math.round(Math.random() * 40) + 10,
     }
   }
 

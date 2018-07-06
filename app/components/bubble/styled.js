@@ -50,7 +50,7 @@ export const Root = AbsoluteFlexFillParent.extend`
 
   ${screen.medium`
     &.bubble-focused {
-      margin-top: 20px;
+      padding-top: 5px;
     }
   `}
 `

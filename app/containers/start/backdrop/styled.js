@@ -2,11 +2,20 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
+  SCREEN_WIDTH_S, SCREEN_WIDTH_M, SCREEN_WIDTH_L,
 } from '../../../global/constants'
 import {
   screen, AbsoluteFlexFillParent,
 } from '../../../global/styled'
 
+let CircleScale = 1.5
+if (window.innerWidth <= SCREEN_WIDTH_S) {
+  CircleScale = 2.6
+} else if (window.innerWidth <= SCREEN_WIDTH_M) {
+  CircleScale = 2.1
+} else if (window.innerWidth <= SCREEN_WIDTH_L) {
+  CircleScale = 1.7
+}
 
 injectGlobal`
   @keyframes shootingStar {
@@ -28,23 +37,11 @@ injectGlobal`
   @keyframes showBackdrop {
     0% {
       opacity: 0;
-      pointer-events: none;
       transform: scale(0);
     }
     100% {
       opacity: 1;
-      pointer-events: all;
-      transform: scale(1.5);
-
-      ${screen.large`
-        transform: scale(1.7);
-      `}
-      ${screen.medium`
-        transform: scale(2.1);
-      `}
-      ${screen.small`
-        transform: scale(2.6);
-      `}
+      transform: scale(${CircleScale});
     }
   }
 `
