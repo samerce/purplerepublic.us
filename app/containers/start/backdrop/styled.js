@@ -76,7 +76,14 @@ export const Background = styled.div`
   height: ${window.innerWidth}px;
   width: ${window.innerWidth}px;
   border-radius: 100%;
-  background: radial-gradient(circle at center, white 0, #E78D8F 10%, #B85A9F 35%, #8E3AA6 60%, #4C1994 100%);
+  background: radial-gradient(
+    circle at center,
+    white 0,
+    ${p => p.theme.veryLight} 10%,
+    ${p => p.theme.main} 35%,
+    #2b1644 60%,
+    #7023c7 100%
+  );
   opacity: 0;
   transform: scale(0);
   z-index: 1;

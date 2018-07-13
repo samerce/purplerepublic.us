@@ -1,6 +1,6 @@
 import {darken, lighten, transparentize as trans} from 'polished'
 
-const purple = '#956C95'
+const purple = '#3e1b66'
 const purpleVeryDark = darken(.2, purple)
 const purpleSlightlyDark = darken(.05, purple)
 const purpleVeryLight = lighten(.3, purple)

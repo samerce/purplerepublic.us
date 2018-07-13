@@ -43,33 +43,32 @@ export default class Intro extends React.Component {
     return (
       <Root className={'intro-' + mode}>
 
-        <HelloThere>
-          <div className='offering'>
-            reality is rough if you look at it head on.<br />
-            here's a shred of something decent amidst the noise.<br />
-            welcome to the glamour gutter.<br /><br />
-            <strong>art. ideas.<br /> revolution. nonsense.</strong><br />
-            <strong>love.</strong><br />
-          </div>
-        </HelloThere>
 
         <PickYourPath>
-          <PathOption onClick={this.emailUs}>
-            <PathOptionButton>talk to us</PathOptionButton>
-          </PathOption>
-          <PathOption onClick={this.letsGo}>
+          <PathOption onClick={this.redbubble}>
             <PathOptionButton >
-              enter the vortex
+              art to wear
             </PathOptionButton>
             {/* <MultiSelectPicker /> */}
           </PathOption>
-          <PathOption onClick={this.shop}>
+          <PathOption onClick={this.shop} className='pathWithBorder'>
             <PathOptionButton>
-              {window.innerWidth <= SCREEN_WIDTH_M?
-                <div>painting. photography. shopping!</div> :
-                <div>painting.<br />photography.<br />shopping!</div>
-              }
+              art to hang
             </PathOptionButton>
+          </PathOption>
+
+          <PathOption onClick={this.letsGo} className='pathMiddle'>
+            <PathOptionButton>
+              explore our world
+            </PathOptionButton>
+            {/* <MultiSelectPicker /> */}
+          </PathOption>
+
+          <PathOption onClick={this.emailUs}>
+            <PathOptionButton>email</PathOptionButton>
+          </PathOption>
+          <PathOption onClick={this.instagramUs} className='pathWithBorder'>
+            <PathOptionButton>instagram</PathOptionButton>
           </PathOption>
         </PickYourPath>
 
@@ -91,6 +90,16 @@ export default class Intro extends React.Component {
   @autobind
   emailUs() {
     openInNewTab('mailto:rise@purplerepublic.us')
+  }
+
+  @autobind
+  redbubble() {
+    openInNewTab('https://www.redbubble.com/people/purplerepublic/collections/837980-isness')
+  }
+
+  @autobind
+  instagramUs() {
+    openInNewTab('https://www.instagram.com/expressyourmess')
   }
 
 }

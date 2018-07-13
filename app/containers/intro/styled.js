@@ -1,8 +1,7 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken} from 'polished'
 import {
-  CatchLine as aCatchLine,
-  SweetTalk as aSweetTalk,
+  screen,
 } from '../../global/styled'
 import {
   EASE_OUT, EASE_IN, EASE,
@@ -13,8 +12,6 @@ import {
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
-
-const aColor = '#956C95'
 
 export const Root = styled.div`
   position: relative;
@@ -61,35 +58,32 @@ export const HelloThere = styled.div`
   }
 
   .offering {
-    margin-bottom: 20px;
+    padding: 20px 0;
     font-size: 28px;
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
 
     strong {
-      color: ${aColor};
+      color: ${p => p.theme.main};
     }
   }
 
   hr {
     margin: 20px 0;
   }
-  @media (max-width: 647px) {
-    flex: 0 0 50%;
-  }
 `
 
 export const PickYourPath = styled.div`
-  flex: 0 0 36%;
+  flex: 0 0 100%;
   width: 100%;
   display: flex;
   transform: translateY(150%);
   transition: all 1s ${EASE_OUT};
-
-  @media (max-width: 647px) {
-    flex-direction: column-reverse;
-  }
+  flex-wrap: wrap;
 
   & > * {
-    flex: 0 0 33.33333%;
+    flex: 1 0 33.33333%;
   }
 
   .intro-enter & {
@@ -98,9 +92,6 @@ export const PickYourPath = styled.div`
   .intro-exit & {
     transition: all 1s ${EASE};
   }
-  @media (max-width: 647px) {
-    flex: 0 0 50%;
-  }
 `
 
 export const PathOption = styled.div`
@@ -108,31 +99,34 @@ export const PathOption = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${aColor};
+  background: ${p => p.theme.main};
   color: white;
   cursor: pointer;
-  border-top: 1px solid transparent;
   font-size: 32px;
+  transition: background, border;
+  transition-duration: .3s;
+  transition-timing-function: ${EASE_OUT};
+  height: 20%;
+
+  &.pathWithBorder {
+    border-left: 1px solid white;
+  }
 
   &:hover {
     background: white;
-    color: ${aColor};
-    border-top-color: ${aColor};
+    color: ${p => p.theme.main};
   }
 
-  &:not(:first-child) {
-    border-left: 1px solid white;
-
-    @media (max-width: 647px) {
-      border-left: none;
-    }
-  }
-
-  @media (max-width: 647px) {
-    font-size: 26px;
+  &.pathMiddle {
     border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    flex: 0 0 100%;
+    height: 60%;
   }
 
+  ${screen.medium`
+    font-size: 26px;
+  `}
 `
 
 export const PathOptionButton = styled.div`
