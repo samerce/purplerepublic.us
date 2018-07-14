@@ -99,6 +99,10 @@ export const Action = Boto.extend`
   &:last-child {
     border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
   }
+
+  ${screen.medium`
+    font-size: 26px;
+  `}
 `
 
 export const JourneyButtonRoot = Boto.extend`

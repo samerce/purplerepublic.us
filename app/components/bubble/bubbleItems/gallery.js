@@ -34,9 +34,11 @@ export default class BubbleGallery extends React.PureComponent {
       onClick: () => this.setState({mode: Mode[opt]})
     }))
 
+    const localImages = this.getGalleryImages(props)
     this.state = {
       mode: props.editing? Mode.add : Mode.show,
-      localImages: this.getGalleryImages(props),
+      thumbnailStyle: this.getThumbnailStyle(localImages),
+      localImages,
     }
   }
 
@@ -75,11 +77,23 @@ export default class BubbleGallery extends React.PureComponent {
       width: img.thumbnailWidth,
       height: img.thumbnailHeight,
     }))
+
     this.props.onEditingChange({images})
+
+    this.setState({
+      thumbnailStyle: this.getThumbnailStyle(this.state.localImages),
+    })
+  }
+
+  getThumbnailStyle(images) {
+    return (images.length === 1)? {
+      width: 695,
+      height: (images[0].thumbnailHeight / images[0].thumbnailWidth) * 695,
+    } : {}
   }
 
   render() {
-    const {mode, localImages} = this.state
+    const {mode, localImages, thumbnailStyle} = this.state
     const {
       detailText = 'tell somebody bout your gallery, hennie.',
       editing,
@@ -102,6 +116,8 @@ export default class BubbleGallery extends React.PureComponent {
           imageCountSeparator='/'
           showLightboxThumbnails={true}
           backdropClosesModal={false}
+          tileViewportStyle={() => thumbnailStyle}
+          thumbnailStyle={() => thumbnailStyle}
           onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
           images={localImages} />
 
