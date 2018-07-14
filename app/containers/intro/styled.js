@@ -106,7 +106,7 @@ export const PathOption = styled.div`
   transition: background, border;
   transition-duration: .3s;
   transition-timing-function: ${EASE_OUT};
-  height: 20%;
+  height: 29%;
 
   &.pathWithBorder {
     border-left: 1px solid white;
@@ -121,11 +121,15 @@ export const PathOption = styled.div`
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     flex: 0 0 100%;
-    height: 60%;
+    height: 42%;
+    font-size: 62px;
   }
 
   ${screen.medium`
     font-size: 26px;
+    &.pathMiddle {
+      font-size: 36px;
+    }
   `}
 `
 

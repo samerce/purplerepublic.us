@@ -125,7 +125,9 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
   }
   const verify = ({target: nextBubbleNameInput}) => {
     const nextBubbleId = nextBubbleNameInput.value
-    if (nextBubbleId && bubbles.find(b => b.id === nextBubbleId) < 0) {
+    if (nextBubbleId && bubbles.findIndex(b => b.id === nextBubbleId) < 0) {
+      nextBubbleNameInput.value = ''
+      nextBubbleNameInput.focus()
       return alert('ohhh noo, darling, be careful!\nthere\'s no bubble with that name.\n\nchoose one that exists already! xo')
     }
   }

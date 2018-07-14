@@ -8,10 +8,11 @@ import {
 import {Description} from '../bubbleItems/styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
-
 import autobind from 'autobind-decorator'
-
 import {BubbleButtonActions} from '../config'
+import ClipboardJS from 'clipboard'
+
+const Clipboard = new ClipboardJS('.clipboardBtn')
 
 export default class BubbleDetails extends React.PureComponent {
 
@@ -23,7 +24,13 @@ export default class BubbleDetails extends React.PureComponent {
       title: props.title,
       subtitle: props.subtitle,
       bubbleOptionsStyle: getBubbleOptionsStyle(props.nextBubbleId),
+      idCopied: false,
     }
+
+    Clipboard.on('success', () => {
+      this.setState({idCopied: true})
+      setTimeout(() => this.setState({idCopied: false}), 1000)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +50,7 @@ export default class BubbleDetails extends React.PureComponent {
   }
 
   render() {
-    const {title, subtitle, bubbleOptionsStyle} = this.state
+    const {title, subtitle, bubbleOptionsStyle, idCopied} = this.state
     const {
       className,
       children,
@@ -76,8 +83,16 @@ export default class BubbleDetails extends React.PureComponent {
 
           {canShowEditingTools() && !editing &&
             <BubbleOptions style={bubbleOptionsStyle}>
-              <BubbleNameButton onClick={this.copyBubbleName}>
-                {this.props.id}
+              <BubbleNameButton
+                className='clipboardBtn'>
+                <div id='bubbleId'>{this.props.id}</div>
+                <button
+                  className='clipboardBtn'
+                  data-clipboard-text={this.props.id}
+                />
+                <div className={`copiedMsg ${idCopied && 'show'}`}>
+                  copied!
+                </div>
               </BubbleNameButton>
               <BubbleEditButton onClick={this.props.onEdit}>
                 edit bubble
@@ -177,7 +192,7 @@ export default class BubbleDetails extends React.PureComponent {
 
 function getBubbleOptionsStyle(nextBubbleId) {
   return {
-    marginTop: nextBubbleId? 100 : 20,
+    marginTop: nextBubbleId? 100 : 30,
   }
 }
 

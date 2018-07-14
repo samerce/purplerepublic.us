@@ -123,7 +123,7 @@ export const JourneyButtonRoot = Boto.extend`
 `
 export const BubbleOptions = AbsoluteFlex.extend`
   top: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   box-shadow: ${p => p.theme.boxShadowHeavy};
@@ -141,6 +141,37 @@ export const BubbleNameButton = BubbleToolButton.extend`
   border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
   border-bottom: 1px solid white;
   flex: 0 0 100%;
+
+  button {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
+
+  .copiedMsg {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    transform: translate(0, 10px);
+    opacity: 0;
+    transition: all .3s ${EASE_OUT};
+    pointer-events: none;
+
+    &.show {
+      transform: none;
+      opacity: 1;
+    }
+  }
 `
 
 export const BubbleEditButton = BubbleToolButton.extend`

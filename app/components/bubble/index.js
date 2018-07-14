@@ -68,9 +68,11 @@ export default class Bubble extends React.PureComponent {
 
   @autobind
   publish() {
-    const {publish} = this.bubbleComponentRef
-    if (publish) return publish()
-    else return new Promise(resolve => resolve())
+    if (this.bubbleComponentRef) {
+      const {publish} = this.bubbleComponentRef
+      if (publish) return publish()
+    }
+    return new Promise(resolve => resolve())
   }
 
   componentDidMount() {
