@@ -2,8 +2,8 @@ const {s3, BUCKET} = require('./purpleAWS')
 
 const BubbleImageRootKey = 'bubbles/buttonImages/'
 
-const {STAGE_DIRECTION_KEY_SUFFIX = ''} = process.env
-const BubbleStageDirectionKey = 'bubbles/stageDirection/' + STAGE_DIRECTION_KEY_SUFFIX
+const {STAGE_DIRECTION_KEY_SUFFIX = 'beta'} = process.env
+const BubbleStageDirectionKey = `bubbles/stageDirection/${STAGE_DIRECTION_KEY_SUFFIX}/`
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
