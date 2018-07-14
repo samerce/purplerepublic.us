@@ -146,7 +146,7 @@ export default class Bubbleverse extends React.PureComponent {
           ))}
         </BubbleGrid>
 
-        <MaskAbsoluteFillParent id='bubbleMask' show={savingNewArrangement}>
+        <MaskAbsoluteFillParent show={savingNewArrangement}>
           <Spinnie show={savingNewArrangement} />
         </MaskAbsoluteFillParent>
       </Root>

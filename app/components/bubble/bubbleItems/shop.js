@@ -1,12 +1,12 @@
 import React from 'react'
+import WordsBubble from './words'
 
 import {injectGlobal} from 'styled-components'
 import {ImageBubbleButton, Icon} from '../bubbleButton/styled'
-import {Description} from './styled'
 
 import {SRC_URL} from '../../../global/constants'
 
-export default class ShopBubble extends React.Component {
+export default class ShopBubble extends React.PureComponent {
 
   static renderButtonContent(nucleus) {
     return (
@@ -17,28 +17,15 @@ export default class ShopBubble extends React.Component {
           <Icon className={'fa fa-shopping-bag'} />
         </ImageBubbleButton>
         <div className='bubbleShopText'>
-          <div style={{lineHeight: '40px'}}>SHOP<br /></div>
+          <div className='shopText'>SHOP<br /></div>
           <span>with purpose</span>
         </div>
       </div>
     )
   }
 
-  shouldComponentUpdate() {
-    return false
-  }
-
   render() {
-    return (
-      <Description>
-        welcome to purple republic.<br /><br />
-        we're here to think, make art and celebrate living. to simultaneously radically accept and critically question. to rebel against our static selves and deeply-held systems of belief.<br /><br />
-
-        through the written word, video, visual art, events, theatre, performance, drag and discussion we aim to do our part for the revolution. <br /><br />
-
-        click below to shop our art and spread the love!
-      </Description>
-    )
+    return <WordsBubble {...this.props} />
   }
 
 }
@@ -68,6 +55,10 @@ injectGlobal`
 
     span {
       font-size: 22px;
+    }
+
+    .shopText {
+      line-height: 40px;
     }
   }
 `

@@ -27,7 +27,7 @@ export const Root = AbsoluteFlexFillParent.extend`
     pointer-events: all;
     overflow-y: scroll;
     overflow-x: hidden;
-    background: rgba(0,0,0,.3);
+    background: ${p => alpha(.3, p.theme.veryDark)};
     z-index: 30;
     animation-name: none;
   }
