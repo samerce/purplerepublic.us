@@ -141,6 +141,7 @@ export const BubbleNameButton = BubbleToolButton.extend`
   border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
   border-bottom: 1px solid white;
   flex: 0 0 100%;
+  position: relative;
 
   button {
     opacity: 0;
