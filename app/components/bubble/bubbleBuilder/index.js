@@ -287,7 +287,8 @@ export default class BubbleBuilder extends React.PureComponent {
       ...nucleus,
       Component: undefined, // delete Component property
     })
-    let body = `bubbleProps=${bubbleProps}`
+
+    let body = `bubbleProps=${encodeURIComponent(bubbleProps)}`
     if (imageUrl.includes('base64')) {
       body += '&imageData=' + encodeURIComponent(imageUrl)
     }
