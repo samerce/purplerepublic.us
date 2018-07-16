@@ -18,7 +18,7 @@ export const Root = styled.div`
   pointer-events: none;
   transform: scale(0);
   transform-origin: center top;
-  transition: opacity .4s, transform .5s;
+  transition: opacity .1s, transform .2s;
   transition-timing-function: ${EASE_OUT};
   z-index: 7;
   position: relative;

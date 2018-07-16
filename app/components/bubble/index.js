@@ -108,7 +108,7 @@ export default class Bubble extends React.PureComponent {
       const {size} = this.props.nucleus
 
       this.willFocusStyle = {
-        top: boundingRect.top + Math.round(Math.random() * 20) - window.scrollY,
+        top: boundingRect.top - window.scrollY,
         left: boundingRect.left - (window.innerWidth / 2)  + (size / 2),
       }
       this.focusedStyle = {
