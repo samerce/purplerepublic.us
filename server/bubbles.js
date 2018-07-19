@@ -51,17 +51,12 @@ module.exports = {
       deleteFolderS3(GalleryBaseKey + bubbleId)
     }
 
-    uploadJSON(
-      bubbleStageDirection,
-      BubbleStageDirectionKey + new Date().toISOString()
-    ).then(() => {
-      bubbleStageDirection = bubbleStageDirection.filter(
-        bubbleProps => bubbleProps.id !== bubbleId
-      )
-      uploadJSON(bubbleStageDirection, BubbleStageDirectionKey + 'latest')
-        .then(() => res.status(200).end())
-        .catch((e) => res.status(500).end(e))
-    }).catch((e) => res.status(500).end(e))
+    bubbleStageDirection = bubbleStageDirection.filter(
+      bubbleProps => bubbleProps.id !== bubbleId
+    )
+    uploadJSON(bubbleStageDirection, BubbleStageDirectionKey + 'latest')
+      .then(() => res.status(200).end())
+      .catch((e) => res.status(500).end(e))
   },
 
   updateArrangement: ({body: newBubbles}, res) => {
