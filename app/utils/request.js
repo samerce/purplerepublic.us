@@ -41,3 +41,11 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(parseJSON);
 }
+
+export function makeQueryString(obj) {
+  let queryString = ''
+  Object.keys(obj).forEach(key => {
+    queryString += `${key}=${encodeURIComponent(obj[key])}&`
+  })
+  return queryString.substring(0, queryString.length - 1) // remove trailing &
+}

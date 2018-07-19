@@ -10,6 +10,7 @@ import {FlexColumn, HiddenFileInput} from '../../../global/styled'
 
 import {SRC_URL} from '../../../global/constants'
 import {makeEnum} from '../../../utils/lang'
+import {makeQueryString} from '../../../utils/request'
 import autobind from 'autobind-decorator'
 
 const GalleryBaseKey = 'bubbles/galleryImages/'
@@ -54,6 +55,7 @@ export default class BubbleGallery extends React.PureComponent {
         thumbnail: src,
         thumbnailWidth: img.width,
         thumbnailHeight: img.height,
+        id: img.id,
       })
     })
 
@@ -71,7 +73,11 @@ export default class BubbleGallery extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (prevProps.editing !== this.props.editing) {
+      this.setState({localImages: this.getGalleryImages(this.props)})
+    }
     if (this.state.localImages === prevState.localImages) return
+
     const images = this.state.localImages.map(img => ({
       id: img.id,
       width: img.thumbnailWidth,
@@ -165,6 +171,10 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   onChangeFileInput({target}) {
+    if (!validateFiles(target.files)) {
+      return alert('sweetie, only jpegs please')
+    }
+
     for (let i = 0; i < target.files.length; i++) {
       const file = target.files[i]
       const fileReader = new FileReader()
@@ -173,6 +183,7 @@ export default class BubbleGallery extends React.PureComponent {
     }
   }
 
+  @autobind
   loadImage(fileReader, filename) {
     const imageElement = new Image()
     imageElement.src = fileReader.result
@@ -181,7 +192,7 @@ export default class BubbleGallery extends React.PureComponent {
         localImages: [
           ...this.state.localImages,
           {
-            id: filename.split('.jpg')[0],
+            id: getFilename(filename),
             src: fileReader.result,
             thumbnail: fileReader.result,
             thumbnailWidth: imageElement.naturalWidth,
@@ -267,10 +278,31 @@ export default class BubbleGallery extends React.PureComponent {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
-      body: `data=${encodeURIComponent(img.src)}&id=${
-        GalleryBaseKey + `${this.props.id}/${img.id}`
-      }`,
+      body: makeQueryString({
+        data: img.src,
+        id: GalleryBaseKey + `${this.props.id}/${img.id}`
+      }),
     })
   }
 
+}
+
+function getFilename(filenameRaw) {
+  let filenameParts
+  if (filenameRaw.includes('.jpg')) {
+    filenameParts = filenameRaw.split('.jpg')
+  } else {
+    filenameParts = filenameRaw.split('.jpeg')
+  }
+  return filenameParts[0]
+}
+
+function validateFiles(files) {
+  for (let i = 0; i < files.length; i++) {
+    const valid = ['jpg', 'jpeg'].some(
+      format => files[i].name.includes(format)
+    )
+    if (!valid) return false
+  }
+  return true
 }
