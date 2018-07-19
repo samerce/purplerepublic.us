@@ -89,7 +89,7 @@ export default class BubbleGallery extends React.PureComponent {
     return (images.length === 1)? {
       width: 695,
       height: (images[0].thumbnailHeight / images[0].thumbnailWidth) * 695,
-    } : {}
+    } : null
   }
 
   render() {
@@ -116,8 +116,8 @@ export default class BubbleGallery extends React.PureComponent {
           imageCountSeparator='/'
           showLightboxThumbnails={true}
           backdropClosesModal={false}
-          tileViewportStyle={() => thumbnailStyle}
-          thumbnailStyle={() => thumbnailStyle}
+          tileViewportStyle={thumbnailStyle? () => thumbnailStyle : null}
+          thumbnailStyle={thumbnailStyle? () => thumbnailStyle : null}
           onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
           images={localImages} />
 

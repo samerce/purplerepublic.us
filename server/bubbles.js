@@ -1,9 +1,10 @@
-const {s3, BUCKET} = require('./purpleAWS')
+const {s3, BUCKET, deleteFolderS3} = require('./purpleAWS')
 
 const BubbleImageRootKey = 'bubbles/buttonImages/'
 
 const {STAGE_DIRECTION_KEY_SUFFIX = 'beta'} = process.env
 const BubbleStageDirectionKey = `bubbles/stageDirection/${STAGE_DIRECTION_KEY_SUFFIX}/`
+const GalleryBaseKey = 'bubbles/galleryImages/'
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
@@ -37,12 +38,19 @@ module.exports = {
   },
 
   delete: (req, res) => {
+    const {bubbleId} = req.body
+    const bubble = bubbleStageDirection.find(b => b.id === bubbleId)
+
+    if (bubble.type === 'gallery') {
+      deleteFolderS3(GalleryBaseKey + bubbleId)
+    }
+
     uploadJSON(
       bubbleStageDirection,
       BubbleStageDirectionKey + new Date().toISOString()
     ).then(() => {
       bubbleStageDirection = bubbleStageDirection.filter(
-        bubbleProps => bubbleProps.id !== req.body.bubbleId
+        bubbleProps => bubbleProps.id !== bubbleId
       )
       uploadJSON(bubbleStageDirection, BubbleStageDirectionKey + 'latest')
         .then(() => res.status(200).end())
@@ -140,7 +148,7 @@ function uploadJPEG(imageData, key, metadata = {}) {
 
 function getDefaultS3Params() {
   return {
-    Bucket: 'purplerepublic.us',
+    Bucket: BUCKET,
     ACL: 'public-read',
   }
 }
