@@ -47,7 +47,7 @@ module.exports = {
     const bubble = bubbleStageDirection.find(b => b.id === bubbleId)
 
     deleteObjectS3(BubbleImageRootKey + bubbleId + '.jpg')
-    if (bubble.type === 'gallery') {
+    if (bubble && bubble.type === 'gallery') {
       deleteFolderS3(GalleryBaseKey + bubbleId)
     }
 
