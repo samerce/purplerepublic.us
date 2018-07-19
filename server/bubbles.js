@@ -100,6 +100,7 @@ function fetchBubbleStageDirection() {
   s3.getObject({
     Bucket: BUCKET,
     Key: BubbleStageDirectionKey + 'latest.json',
+    ResponseCacheControl: 'no-cache',
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
     else bubbleStageDirection = JSON.parse(data.Body.toString())
