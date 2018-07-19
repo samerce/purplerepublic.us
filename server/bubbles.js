@@ -1,4 +1,9 @@
-const {s3, BUCKET, deleteFolderS3} = require('./purpleAWS')
+const {
+  s3,
+  BUCKET,
+  deleteFolderS3,
+  deleteObjectS3,
+} = require('./purpleAWS')
 
 const BubbleImageRootKey = 'bubbles/buttonImages/'
 
@@ -41,6 +46,7 @@ module.exports = {
     const {bubbleId} = req.body
     const bubble = bubbleStageDirection.find(b => b.id === bubbleId)
 
+    deleteObjectS3(BubbleImageRootKey + bubbleId + '.jpg')
     if (bubble.type === 'gallery') {
       deleteFolderS3(GalleryBaseKey + bubbleId)
     }

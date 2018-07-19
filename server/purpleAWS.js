@@ -8,8 +8,27 @@ const s3 = new aws.S3()
 module.exports = {
   s3,
   uploadFileToS3,
+  deleteObjectS3,
   deleteFolderS3,
   BUCKET,
+}
+
+function deleteObjectS3(key) {
+  const params = {
+    Bucket: BUCKET,
+    Key: key,
+  }
+  return new Promise((resolve, reject) => {
+    s3.deleteObject(params, (err) => {
+      if (err) {
+        console.error('failed to delete object from s3', key, err)
+        reject(err)
+      } else {
+        console.log('successfully deleted object from s3', key)
+        resolve()
+      }
+    })
+  })
 }
 
 function deleteFolderS3(key) {
@@ -34,7 +53,7 @@ function deleteFolderS3(key) {
 
       s3.deleteObjects(deleteParams, (err, data) => {
         if (err) {
-          console.log('failed to delete folder from s3', key, err)
+          console.error('failed to delete folder from s3', key, err)
           reject(err)
         } else {
           console.log('successfully deleted folder from s3', key)
