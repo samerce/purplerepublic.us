@@ -249,6 +249,7 @@
     "react-dom": "15.6.1",
     "react-grid-gallery": "^0.4.11",
     "react-helmet": "3.2.2",
+    "react-image-gallery": "^0.8.9",
     "react-intl": "2.1.5",
     "react-konva": "^1.1.5",
     "react-loadable": "^5.4.0",

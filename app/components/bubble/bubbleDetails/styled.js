@@ -22,6 +22,7 @@ export const Root = styled.div`
   transition-timing-function: ${EASE_OUT};
   z-index: 7;
   position: relative;
+  margin-bottom: 100px;
 
   &.focused, &.expanded, &.editing {
     opacity: 1;
@@ -109,7 +110,6 @@ export const JourneyButtonRoot = Boto.extend`
   position: absolute;
   top: 100%;
   margin-top: 20px;
-  z-index: 50;
   height: 60px;
   width: 100%;
   box-shadow: ${p => p.theme.shadowHeavy};

@@ -26,6 +26,28 @@ injectGlobal`
       transition: none;
     }
   }
+  .image-gallery {
+    width: 100%;
+    height: 100%;
+  }
+  .image-gallery-content, .image-gallery-slide-wrapper,
+  .image-gallery-swipe, .image-gallery-slides, .image-gallery-image {
+    height: 100%;
+  }
+  .image-gallery-slide {
+    text-align: center;
+  }
+  .fullscreen .widthPreferred.image-gallery-slide {
+    width: 100%;
+  }
+  .fullscreen .heightPreferred.image-gallery-slide {
+    height: 100%;
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
 `
 
 export const VideoRoot = styled.div`

@@ -1,5 +1,6 @@
 import React from 'react'
-import Gallery from 'react-grid-gallery'
+import EditingGallery from 'react-grid-gallery'
+import Gallery from 'react-image-gallery'
 import SelectPill from '../../unoSelectPill'
 
 import {
@@ -7,6 +8,7 @@ import {
   Hint,
 } from './styled'
 import {FlexColumn, HiddenFileInput} from '../../../global/styled'
+import 'react-image-gallery/styles/css/image-gallery.css'
 
 import {SRC_URL} from '../../../global/constants'
 import {makeEnum} from '../../../utils/lang'
@@ -50,8 +52,12 @@ export default class BubbleGallery extends React.PureComponent {
 
     images.forEach((img, index) => {
       const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
+      const originalClass = (img.width / img.height) > 1.4?
+        'widthPreferred' : 'heightPreferred'
       galleryImages.push({
         src,
+        originalClass,
+        original: src,
         thumbnail: src,
         thumbnailWidth: img.width,
         thumbnailHeight: img.height,
@@ -108,6 +114,7 @@ export default class BubbleGallery extends React.PureComponent {
       onEditingChange,
     } = this.props
     const onChange = ({target}) => onEditingChange({detailText: target.innerHTML})
+    const shouldShowEditingGallery = (mode === Mode.delete || mode === Mode.move)
 
     return (
       <FlexColumn className={'galleryBubble-' + mode}>
@@ -118,16 +125,22 @@ export default class BubbleGallery extends React.PureComponent {
             dangerouslySetInnerHTML={{__html: detailText}} />
         </Description>
 
-        {focused &&
+        {(focused || editing) && !shouldShowEditingGallery &&
           <Gallery
-            enableImageSelection={mode === Mode.delete || mode === Mode.move}
+            lazyLoad={!editing}
+            showPlayButton={false}
+            showIndex={true}
+            items={localImages} />
+        }
+
+        {(focused || editing) && shouldShowEditingGallery &&
+          <EditingGallery
+            enableImageSelection={true}
             onSelectImage={this.onSelectImage}
             imageCountSeparator='/'
             showLightboxThumbnails={true}
             backdropClosesModal={false}
-            tileViewportStyle={thumbnailStyle? () => thumbnailStyle : null}
-            thumbnailStyle={thumbnailStyle? () => thumbnailStyle : null}
-            onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
+            onClickThumbnail={this.onSelectImage}
             images={localImages} />
         }
 
