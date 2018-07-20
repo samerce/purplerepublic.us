@@ -48,6 +48,12 @@ injectGlobal`
       height: 100%;
     }
   }
+  .image-gallery-left-nav, .image-gallery-right-nav {
+    height: 100%;
+  }
+  button.image-gallery-fullscreen-button {
+    z-index: 5;
+  }
 `
 
 export const VideoRoot = styled.div`
