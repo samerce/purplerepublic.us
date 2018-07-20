@@ -69,7 +69,6 @@ module.exports = {
   },
 
   getStageDirectionScript(req, res) {
-    console.log('sending script')
     res.set('Cache-Control', 'max-age=1')
     res.send('window.bubbles=' + JSON.stringify(bubbleStageDirection))
   },
@@ -94,7 +93,6 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 }
 
 function fetchBubbleStageDirection() {
-  console.log('fetching bubbles')
   s3.getObject({
     Bucket: BUCKET,
     Key: BubbleStageDirectionKey + 'latest.json',
@@ -102,7 +100,6 @@ function fetchBubbleStageDirection() {
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
     else bubbleStageDirection = JSON.parse(data.Body.toString())
-    console.log(bubbleStageDirection)
   })
 }
 
