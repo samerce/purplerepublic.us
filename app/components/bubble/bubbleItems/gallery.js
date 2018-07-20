@@ -63,7 +63,8 @@ export default class BubbleGallery extends React.PureComponent {
   }
 
   shouldComponentUpdate(nextProps) {
-    return !!this.props.editing || !!nextProps.editing
+    return !!this.props.editing || !!nextProps.editing ||
+      (this.props.focused !== nextProps.focused)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -103,6 +104,7 @@ export default class BubbleGallery extends React.PureComponent {
     const {
       detailText = 'tell somebody bout your gallery, hennie.',
       editing,
+      focused,
       onEditingChange,
     } = this.props
     const onChange = ({target}) => onEditingChange({detailText: target.innerHTML})
@@ -116,16 +118,18 @@ export default class BubbleGallery extends React.PureComponent {
             dangerouslySetInnerHTML={{__html: detailText}} />
         </Description>
 
-        <Gallery
-          enableImageSelection={mode === Mode.delete || mode === Mode.move}
-          onSelectImage={this.onSelectImage}
-          imageCountSeparator='/'
-          showLightboxThumbnails={true}
-          backdropClosesModal={false}
-          tileViewportStyle={thumbnailStyle? () => thumbnailStyle : null}
-          thumbnailStyle={thumbnailStyle? () => thumbnailStyle : null}
-          onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
-          images={localImages} />
+        {focused &&
+          <Gallery
+            enableImageSelection={mode === Mode.delete || mode === Mode.move}
+            onSelectImage={this.onSelectImage}
+            imageCountSeparator='/'
+            showLightboxThumbnails={true}
+            backdropClosesModal={false}
+            tileViewportStyle={thumbnailStyle? () => thumbnailStyle : null}
+            thumbnailStyle={thumbnailStyle? () => thumbnailStyle : null}
+            onClickThumbnail={(mode === Mode.delete || mode === Mode.move)? this.onSelectImage : undefined}
+            images={localImages} />
+        }
 
           {editing &&
             <EditPhotosRoot>
