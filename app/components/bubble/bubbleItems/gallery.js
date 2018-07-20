@@ -5,7 +5,7 @@ import SelectPill from '../../unoSelectPill'
 
 import {
   Description, GalleryRoot, EditPhotosRoot, Button, DeleteButton,
-  Hint,
+  Hint, CaptionInput,
 } from './styled'
 import {FlexColumn, HiddenFileInput} from '../../../global/styled'
 import 'react-image-gallery/styles/css/image-gallery.css'
@@ -57,6 +57,7 @@ export default class BubbleGallery extends React.PureComponent {
       galleryImages.push({
         src,
         originalClass,
+        description: img.caption,
         original: src,
         thumbnail: src,
         thumbnailWidth: img.width,
@@ -89,6 +90,7 @@ export default class BubbleGallery extends React.PureComponent {
       id: img.id,
       width: img.thumbnailWidth,
       height: img.thumbnailHeight,
+      caption: img.description,
     }))
 
     this.props.onEditingChange({images})
@@ -127,9 +129,12 @@ export default class BubbleGallery extends React.PureComponent {
 
         {(focused || editing) && !shouldShowEditingGallery &&
           <Gallery
+            ref={r => this.gallery = r}
+            renderCustomControls={editing? this.renderCaptionInput : null}
             lazyLoad={!editing}
             showPlayButton={false}
             showIndex={true}
+            onSlide={this.onGallerySlide}
             items={localImages} />
         }
 
@@ -184,6 +189,48 @@ export default class BubbleGallery extends React.PureComponent {
 
   renderEditTools_move() {
     return <Hint>click photos to move them</Hint>
+  }
+
+  @autobind
+  renderCaptionInput() {
+    return <CaptionInput
+      innerRef={r => this.captionInput = r}
+      placeholder='give me a caption, hennie!'
+      onKeyPress={this.onKeyPressCaptionInput}
+      onBlur={this.onBlurCaptionInput}
+    />
+  }
+
+  @autobind
+  onKeyPressCaptionInput({key, target}) {
+    if (key === 'Enter') {
+      target.blur()
+    }
+  }
+
+  @autobind
+  onBlurCaptionInput({target}) {
+    const image = this.getCurrentImage()
+    if (!target.value || !target.value.length) {
+      delete image.description
+    } else {
+      image.description = target.value
+    }
+    this.setState({
+      localImages: [
+        ...this.state.localImages,
+      ]
+    })
+  }
+
+  getCurrentImage() {
+    const imageIndex = this.gallery.getCurrentIndex()
+    return this.state.localImages[imageIndex]
+  }
+
+  @autobind
+  onGallerySlide(imageIndex) {
+    this.captionInput.value = this.state.localImages[imageIndex].description || ''
   }
 
   @autobind

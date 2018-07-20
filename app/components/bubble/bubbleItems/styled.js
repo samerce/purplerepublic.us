@@ -6,7 +6,7 @@ import {
   EASE,
 } from '../../../global/constants'
 import {
-  ArticleText, Flex, FlexColumn, Boto,
+  ArticleText, Flex, FlexColumn, Boto, TextInput,
 } from '../../../global/styled'
 
 injectGlobal`
@@ -54,6 +54,10 @@ injectGlobal`
   button.image-gallery-fullscreen-button {
     z-index: 5;
   }
+  .image-gallery-description {
+    font-family: annie use your telescope;
+    font-size: 20px;
+  }
 `
 
 export const VideoRoot = styled.div`
@@ -91,4 +95,16 @@ export const Button = Boto.extend`
 export const DeleteButton = Button.extend`
   opacity: ${p => p.disabled? .5 : 1};
   pointer-events: ${p => p.disabled? 'none' : 'all'};
+`
+
+export const CaptionInput = TextInput.extend`
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  z-index: 6;
+  height: 40px;
+  width: 50%;
+  text-align: left;
+  padding: 5px 10px 5px 20px;
+  font-size: 20px;
 `
