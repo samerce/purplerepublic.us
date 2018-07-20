@@ -92,6 +92,7 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 }
 
 function fetchBubbleStageDirection() {
+  console.log('fetching bubbles')
   s3.getObject({
     Bucket: BUCKET,
     Key: BubbleStageDirectionKey + 'latest.json',
@@ -99,6 +100,7 @@ function fetchBubbleStageDirection() {
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
     else bubbleStageDirection = JSON.parse(data.Body.toString())
+    console.log(bubbleStageDirection)
   })
 }
 
@@ -108,6 +110,9 @@ function uploadJSON(json, key) {
     Key: key + '.json',
     ContentType: 'application/json',
     Body: JSON.stringify(json),
+    Metadata: {
+      'Cache-Control': 'max-age=1',
+    }
   }
   return new Promise((resolve, reject) => {
   	s3.putObject(params, (err, data) => {
