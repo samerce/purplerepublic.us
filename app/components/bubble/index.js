@@ -15,6 +15,7 @@ import autobind from 'autobind-decorator'
 import {makeJiggler} from '../../global-styles'
 import _ from 'lodash'
 import fastdom from 'fastdom'
+import {SCREEN_WIDTH_M} from '../../global/constants'
 
 const Mode = makeEnum([
   'willEnter',
@@ -108,11 +109,14 @@ export default class Bubble extends React.PureComponent {
   configureStyles() {
     fastdom.measure(() => {
       const boundingRect = this.rootNode.getBoundingClientRect()
-      const {size} = this.props.nucleus
+      let {size} = this.props.nucleus
+      if (window.innerWidth <= SCREEN_WIDTH_M) {
+        size = (3/5) * size
+      }
 
       this.willFocusStyle = {
         top: boundingRect.top - window.scrollY,
-        left: boundingRect.left - (window.innerWidth / 2)  + (size / 2),
+        left: boundingRect.left + (-window.innerWidth / 2)  + (size / 2),
       }
       this.focusedStyle = {
         ...this.willFocusStyle,
