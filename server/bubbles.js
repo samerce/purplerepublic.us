@@ -94,7 +94,7 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 function fetchBubbleStageDirection() {
   s3.getObject({
     Bucket: BUCKET,
-    Key: BubbleStageDirectionKey + 'fuckingwhore.json',
+    Key: BubbleStageDirectionKey + 'latest.json',
     ResponseCacheControl: 'no-cache',
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
