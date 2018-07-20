@@ -84,7 +84,8 @@ export default class BubbleGallery extends React.PureComponent {
     if (prevProps.editing !== this.props.editing) {
       this.setState({localImages: this.getGalleryImages(this.props)})
     }
-    if (this.props.editing && this.state.localImages.length && this.captionInput) {
+    if (this.props.editing && !prevProps.editing &&
+        this.state.localImages.length && this.captionInput) {
       this.captionInput.value = this.state.localImages[0].description
     }
     if (this.state.localImages === prevState.localImages) return
