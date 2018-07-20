@@ -70,6 +70,7 @@ module.exports = {
 
   getStageDirectionScript(req, res) {
     console.log('sending script')
+    res.set('Cache-Control', 'max-age=1')
     res.send('window.bubbles=' + JSON.stringify(bubbleStageDirection))
   },
 
