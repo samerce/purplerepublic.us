@@ -6,10 +6,10 @@ const {
 } = require('./purpleAWS')
 
 const BubbleImageRootKey = 'bubbles/buttonImages/'
+const GalleryBaseKey = 'bubbles/galleryImages/'
 
 const {STAGE_DIRECTION_KEY_SUFFIX = 'beta'} = process.env
 const BubbleStageDirectionKey = `bubbles/stageDirection/${STAGE_DIRECTION_KEY_SUFFIX}/`
-const GalleryBaseKey = 'bubbles/galleryImages/'
 
 let bubbleStageDirection = null
 fetchBubbleStageDirection()
@@ -94,7 +94,7 @@ function updateStageDirection(bubble, existingBubbleIndex, res) {
 function fetchBubbleStageDirection() {
   s3.getObject({
     Bucket: BUCKET,
-    Key: BubbleStageDirectionKey + 'latest.json',
+    Key: BubbleStageDirectionKey + 'fuckingwhore.json',
     ResponseCacheControl: 'no-cache',
   }, (err, data) => {
     if (err) console.error('stage direction fetch failed!', err)
