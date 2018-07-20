@@ -69,7 +69,8 @@ module.exports = {
   },
 
   getStageDirectionScript(req, res) {
-    return res.send('window.bubbles=' + JSON.stringify(bubbleStageDirection))
+    console.log('sending script')
+    res.send('window.bubbles=' + JSON.stringify(bubbleStageDirection))
   },
 
 }
