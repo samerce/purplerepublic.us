@@ -255,7 +255,7 @@ function fetchBubbles() {
     fetch('/bubbleStageDirection.js', {
       method: 'get',
       headers: {
-        'Cache-Control': 'no-cache',
+        'Cache-Control': 'max-age=1',
       }
     }).then((responseRaw) => {
       responseRaw.text().then(bubblesText => {
