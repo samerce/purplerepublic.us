@@ -63,6 +63,9 @@ export default class Bubble extends React.PureComponent {
         top: 0,
         left: 0,
       },
+    }, () => {
+      const {edit} = this.bubbleComponentRef
+      edit && edit()
     })
   }
 
