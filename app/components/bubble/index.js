@@ -89,7 +89,7 @@ export default class Bubble extends React.PureComponent {
     this.configureStyles()
     document.getElementById('bubbleGrid').addEventListener(
       'scroll',
-      _.throttle(this.configureStyles, 400)
+      _.throttle(this.configureStyles, 300)
     )
   }
 

@@ -137,6 +137,10 @@ export default class BubbleGallery extends React.PureComponent {
             showPlayButton={false}
             showIndex={true}
             onSlide={this.onGallerySlide}
+            swipeThreshold={5}
+            flickThreshold={.1}
+            slideInterval={1000}
+            stopPropagation={true}
             items={localImages} />
         }
 

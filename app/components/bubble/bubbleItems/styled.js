@@ -68,6 +68,15 @@ injectGlobal`
   .image-gallery-description {
     font-family: annie use your telescope;
     font-size: 20px;
+
+    ${screen.medium`
+      font-size: 22px !important;
+      transition: all .3s ${EASE_OUT};
+
+      .fullscreen & {
+        font-size: 24px !important;
+      }
+    `}
   }
 `
 
