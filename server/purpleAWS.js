@@ -4,13 +4,39 @@ const BUCKET = 'purplerepublic.us'
 
 loadConfig()
 const s3 = new aws.S3()
+const cloudFront = new aws.CloudFront()
 
 module.exports = {
+  BUCKET,
   s3,
   uploadFileToS3,
   deleteObjectS3,
   deleteFolderS3,
-  BUCKET,
+  resetCache,
+}
+
+function resetCache(keys) {
+  const params = {
+    DistributionId: 'E2IAN446K3MSX3',
+    InvalidationBatch: {
+      CallerReference: new Date().toISOString(),
+      Paths: {
+        Quantity: keys.length,
+        Items: keys,
+      },
+    },
+  }
+  return new Promise((resolve, reject) => {
+    cloudFront.createInvalidation(params, (err, data) => {
+      if (err) {
+        console.error('failed to create invalidation', keys, err)
+        reject(err)
+      } else {
+        console.log('successfully created invalidation', keys, data)
+        resolve(data)
+      }
+    })
+  })
 }
 
 function deleteObjectS3(key) {

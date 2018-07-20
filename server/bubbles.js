@@ -3,6 +3,7 @@ const {
   BUCKET,
   deleteFolderS3,
   deleteObjectS3,
+  resetCache,
 } = require('./purpleAWS')
 
 const BubbleImageRootKey = 'bubbles/buttonImages/'
@@ -104,13 +105,14 @@ function fetchBubbleStageDirection() {
 }
 
 function uploadJSON(json, key) {
+  const fullKey = key + '.json'
   const params = {
     ...getDefaultS3Params(),
-    Key: key + '.json',
+    Key: fullKey,
     ContentType: 'application/json',
     Body: JSON.stringify(json),
     Metadata: {
-      'Cache-Control': 'max-age=1',
+      'Cache-Control': 'no-cache',
     }
   }
   return new Promise((resolve, reject) => {
@@ -120,20 +122,22 @@ function uploadJSON(json, key) {
   	    	reject(err)
   	    } else {
   	    	console.log("successfully uploaded json to S3", data)
-  	    	resolve(data)
+          resetCache([fullKey])
+          resolve(data)
   	    }
   	})
   })
 }
 
 function uploadJPEG(imageData, key, metadata = {}) {
+  const fullKey = key + '.jpg'
   const imageBuffer = Buffer.from(
     imageData.replace(/^data:image\/\w+;base64,/, ''),
     'base64'
   )
   const params = {
     ...getDefaultS3Params(),
-    Key: `${key}.jpg`,
+    Key: fullKey,
     ContentEncoding: 'base64',
     ContentType: 'image/jpeg',
     Body: imageBuffer,
@@ -146,6 +150,7 @@ function uploadJPEG(imageData, key, metadata = {}) {
   	    	reject(err)
   	    } else {
   	    	console.log("successfully uploaded image to S3", data)
+          resetCache([fullKey])
   	    	resolve(data)
   	    }
   	})
