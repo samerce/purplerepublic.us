@@ -37,10 +37,7 @@ injectGlobal`
   .image-gallery-slide {
     text-align: center;
   }
-  .fullscreen .widthPreferred.image-gallery-slide {
-    width: 100%;
-  }
-  .fullscreen .heightPreferred.image-gallery-slide {
+  .fullscreen .image-gallery-slide.image-gallery-slide {
     height: 100%;
 
     img {

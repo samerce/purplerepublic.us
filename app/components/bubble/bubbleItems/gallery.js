@@ -52,11 +52,8 @@ export default class BubbleGallery extends React.PureComponent {
 
     images.forEach((img, index) => {
       const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
-      const originalClass = (img.width / img.height) > 1.4?
-        'widthPreferred' : 'heightPreferred'
       galleryImages.push({
         src,
-        originalClass,
         description: img.caption,
         original: src,
         thumbnail: src,
