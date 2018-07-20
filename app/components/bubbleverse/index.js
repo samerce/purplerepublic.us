@@ -258,11 +258,18 @@ function fetchBubbles() {
         'Cache-Control': 'no-cache',
       }
     }).then((responseRaw) => {
-      responseRaw.json().then(bubbles => {
+      responseRaw.text().then(bubblesText => {
+        console.log(bubblesText)
+        const bubbles = JSON.parse(bubblesText)
         bubbles.forEach(bubbleProps => {
           bubbleProps.Component = BubbleComponents[bubbleProps.type]
         })
         resolve(bubbles)
+      // responseRaw.json().then(bubbles => {
+      //   bubbles.forEach(bubbleProps => {
+      //     bubbleProps.Component = BubbleComponents[bubbleProps.type]
+      //   })
+      //   resolve(bubbles)
       }).catch(reject)
     }).catch(reject)
   })
