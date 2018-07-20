@@ -248,10 +248,20 @@ export default class Bubbleverse extends React.PureComponent {
 }
 
 function processBubbles() {
-  // bubbles is a global loaded in index.html
-  bubbles.forEach(bubbleProps => {
-    bubbleProps.Component = BubbleComponents[bubbleProps.type]
+  fetch('/bubbleStageDirection.js', {
+    method: 'get',
+    headers: {
+      'Cache-Control': 'no-cache',
+    }
+  }).then((responseRaw) => {
+    responseRaw.json().then(bubbles => {
+      bubbles.forEach(bubbleProps => {
+        bubbleProps.Component = BubbleComponents[bubbleProps.type]
+      })
+      window.bubbles = bubbles
+    })
   })
+
 }
 
 function getBubbleIdFromUrl() {
