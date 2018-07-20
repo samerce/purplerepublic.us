@@ -232,6 +232,7 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   onGallerySlide(imageIndex) {
+    if (!this.props.editing) return
     this.captionInput.value = this.state.localImages[imageIndex].description || ''
   }
 

@@ -6,6 +6,7 @@ import {
   EASE,
 } from '../../../global/constants'
 import {
+  screen,
   ArticleText, Flex, FlexColumn, Boto, TextInput,
 } from '../../../global/styled'
 
@@ -44,6 +45,19 @@ injectGlobal`
       width: auto;
       height: 100%;
     }
+
+    ${screen.medium`
+      .image-gallery-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    `}
   }
   .image-gallery-left-nav, .image-gallery-right-nav {
     height: 100%;
