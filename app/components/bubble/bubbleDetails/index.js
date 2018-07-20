@@ -175,7 +175,10 @@ export default class BubbleDetails extends React.PureComponent {
   @autobind
   onClickJourneyButton() {
     const {editing, onNext, nextBubbleId} = this.props
-    if (!this.editing) onNext(nextBubbleId)
+    if (!this.editing) {
+      ga('send', 'event', 'bubbles', 'continue journey clicked', this.props.id)
+      onNext(nextBubbleId)
+    }
   }
 
   @autobind

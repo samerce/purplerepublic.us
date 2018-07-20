@@ -253,10 +253,7 @@ export default class Bubbleverse extends React.PureComponent {
 function fetchBubbles() {
   return new Promise((resolve, reject) => {
     fetch('/bubbleStageDirection.js', {
-      method: 'get',
-      headers: {
-        'Cache-Control': 'max-age=1',
-      }
+      cache: 'no-cache',
     }).then((responseRaw) => {
       responseRaw.text().then(bubblesText => {
         bubblesText = bubblesText.replace('window.bubbles=', '')
