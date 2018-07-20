@@ -30,6 +30,7 @@ export default class Bubbleverse extends React.PureComponent {
 
   constructor() {
     super()
+    fetchBubbles().then(bubbles => this.bubbleConfig = bubbles)
 
     this.timeouts = []
     this.bubbles = {}
@@ -54,18 +55,17 @@ export default class Bubbleverse extends React.PureComponent {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
       setTimeout(() => this.setState({
-        bubblePods: [...bubbles],
+        bubblePods: [...this.bubbleConfig],
       }), 2000),
       setTimeout(this.startUrlWatcher, 5000),
     )
 
-    processBubbles()
     this.rootNode = findDOMNode(this.root)
   }
 
   @autobind
   startUrlWatcher() {
-    if (!getBubbleIdFromUrl()) {
+    if (!getBubbleIdFromUrl(this.bubbleConfig)) {
       this.bubbles['lampshade'].open()
     }
 
@@ -73,7 +73,7 @@ export default class Bubbleverse extends React.PureComponent {
       if (this.isFocusLocked) return
 
       const {focusedBubbleId} = this
-      const bubbleIdFromUrl = getBubbleIdFromUrl()
+      const bubbleIdFromUrl = getBubbleIdFromUrl(this.bubbleConfig)
       if (bubbleIdFromUrl && bubbleIdFromUrl !== focusedBubbleId) {
         this.openBubble(bubbleIdFromUrl)
       }
@@ -112,6 +112,7 @@ export default class Bubbleverse extends React.PureComponent {
             ref={r => this.bubbleBuilder = r}
             onClose={this.closeBubbleBuilder}
             visible={mode === Mode.buildBubble}
+            bubbleConfig={this.bubbleConfig}
           />
         }
 
@@ -166,10 +167,11 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  closeBubbleBuilder(bubbleId) {
+  closeBubbleBuilder(bubbleId, bubbleConfig) {
+    this.bubbleConfig = bubbleConfig
     this.setState({
       mode: Mode.show,
-      bubblePods: [...bubbles],
+      bubblePods: [...bubbleConfig],
     }, () => setTimeout(() => {
       bubbleId && this.openBubble(bubbleId)
     }, 250))
@@ -221,10 +223,11 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   rearrangeBubbles(sourceIndex, destIndex) {
-    const destBubble = bubbles[destIndex]
-    const sourceBubble = bubbles.splice(sourceIndex, 1)[0]
-    const newDestBubbleIndex = bubbles.findIndex(b => b.id === destBubble.id)
-    bubbles.splice(newDestBubbleIndex, 0, sourceBubble)
+    const {bubbleConfig} = this
+    const destBubble = bubbleConfig[destIndex]
+    const sourceBubble = bubbleConfig.splice(sourceIndex, 1)[0]
+    const newDestBubbleIndex = bubbleConfig.findIndex(b => b.id === destBubble.id)
+    bubbleConfig.splice(newDestBubbleIndex, 0, sourceBubble)
 
     this.setState({
       savingNewArrangement: true,
@@ -235,10 +238,10 @@ export default class Bubbleverse extends React.PureComponent {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(bubbles),
+      body: JSON.stringify(bubbleConfig),
     }).then(() => {
       this.setState({
-        bubblePods: [...bubbles],
+        bubblePods: [...bubbleConfig],
         arrangeSourceIndex: null,
         savingNewArrangement: false
       })
@@ -247,24 +250,26 @@ export default class Bubbleverse extends React.PureComponent {
 
 }
 
-function processBubbles() {
-  fetch('/bubbleStageDirection.js', {
-    method: 'get',
-    headers: {
-      'Cache-Control': 'no-cache',
-    }
-  }).then((responseRaw) => {
-    responseRaw.json().then(bubbles => {
-      bubbles.forEach(bubbleProps => {
-        bubbleProps.Component = BubbleComponents[bubbleProps.type]
-      })
-      window.bubbles = bubbles
-    })
+function fetchBubbles() {
+  return new Promise((resolve, reject) => {
+    fetch('/bubbleStageDirection.js', {
+      method: 'get',
+      headers: {
+        'Cache-Control': 'no-cache',
+      }
+    }).then((responseRaw) => {
+      responseRaw.json().then(bubbles => {
+        bubbles.forEach(bubbleProps => {
+          bubbleProps.Component = BubbleComponents[bubbleProps.type]
+        })
+        resolve(bubbles)
+      }).catch(reject)
+    }).catch(reject)
   })
 
 }
 
-function getBubbleIdFromUrl() {
+function getBubbleIdFromUrl(bubbles) {
   const {hash} = window.location
   const hashParts = hash? hash.split('?') : []
 

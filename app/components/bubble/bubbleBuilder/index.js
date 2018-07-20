@@ -307,15 +307,16 @@ export default class BubbleBuilder extends React.PureComponent {
       },
       body,
     }).then(() => {
+      const newBubbleConfig = [...this.props.bubbleConfig]
       if (existingBubbleIndex) {
-        window.bubbles[existingBubbleIndex] = nucleus
+        newBubbleConfig[existingBubbleIndex] = nucleus
       } else {
-        window.bubbles.push(nucleus)
+        newBubbleConfig.push(nucleus)
       }
 
       this.bubble.publish().then(() => {
         this.reset()
-        this.props.onClose(nucleus.id)
+        this.props.onClose(nucleus.id, newBubbleConfig)
       })
     })
   }
