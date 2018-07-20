@@ -259,7 +259,7 @@ function fetchBubbles() {
       }
     }).then((responseRaw) => {
       responseRaw.text().then(bubblesText => {
-        console.log(bubblesText)
+        bubblesText = bubblesText.replace('window.bubbles=', '')
         const bubbles = JSON.parse(bubblesText)
         bubbles.forEach(bubbleProps => {
           bubbleProps.Component = BubbleComponents[bubbleProps.type]
