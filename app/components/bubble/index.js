@@ -177,6 +177,12 @@ export default class Bubble extends React.PureComponent {
   @autobind
   onClickBubble() {
     if (this.state.mode === Mode.focused) return
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'bubble opened',
+      eventLabel: this.props.nucleus.id,
+    })
+
     requestAnimationFrame(this.setWillFocusState)
     setTimeout(() => requestAnimationFrame(this.focusIt))
   }
@@ -201,6 +207,11 @@ export default class Bubble extends React.PureComponent {
   @autobind
   defocusIt() {
     if (this.state.mode === Mode.editing) return
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'bubble closed',
+      eventLabel: this.props.nucleus.id,
+    })
 
     this.props.onClose && this.props.onClose()
 

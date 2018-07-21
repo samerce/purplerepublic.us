@@ -36,7 +36,7 @@ export const ImageBubbleButton = BubbleButton.extend`
     width: ${CircleSizeFocused}px;
     height: ${CircleSizeFocused}px;
     box-shadow: none;
-    transform: translateY(10px);
+    transform: translate3d(0, 10px, 0);
     cursor: default;
     transition: all .7s ${EASE_OUT};
   }
@@ -46,7 +46,7 @@ export const Icon = aIcon.extend`
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   margin-top: -25%;
   pointer-events: none;
   transition-duration: .5s;

@@ -14,3 +14,7 @@ export function openInNewTab(url) {
 export function canShowEditingTools() {
   return window.origin.includes('edit.')
 }
+
+export function isInsider() {
+  return window.origin.includes('insider.')
+}

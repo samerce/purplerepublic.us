@@ -123,8 +123,9 @@ export const CaptionInput = TextInput.extend`
   left: 0;
   z-index: 6;
   height: 40px;
-  width: 50%;
+  width: 80%;
   text-align: left;
   padding: 5px 10px 5px 20px;
   font-size: 20px;
+  background: rgba(0,0,0,.5);
 `
