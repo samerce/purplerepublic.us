@@ -78,6 +78,10 @@ injectGlobal`
       }
     `}
   }
+  button.image-gallery-fullscreen-button::before {
+    font-size: 1.7em;
+    padding: 10px;
+  }
 `
 
 export const VideoRoot = styled.div`
