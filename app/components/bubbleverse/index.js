@@ -25,6 +25,7 @@ const Mode = makeEnum([
   'buildBubble',
   'arrange',
 ])
+const BDBubbles = []
 
 export default class Bubbleverse extends React.PureComponent {
 
@@ -122,6 +123,7 @@ export default class Bubbleverse extends React.PureComponent {
           ref={r => this.bubbleGrid = r}>
           {bubblePods.map((bubble, index) => (
             <BubbleGridItem
+              className={BDBubbles.includes(bubble.id) && 'hidden'}
               key={bubble.id}
               size={bubble.size}>
 
