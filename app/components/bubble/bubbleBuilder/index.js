@@ -198,12 +198,13 @@ export default class BubbleBuilder extends React.PureComponent {
         <BubbleBuilderNameTool
           nucleus={nucleus}
           isExistingBubble={existingBubbleIndex}
-          verifyUniqueBubbleId={this.verifyUniqueBubbleId}
+          verifyBubbleIdExists={this.verifyBubbleIdExists}
           onChangeNucleus={this.onChangeNucleus}
         />
 
         <BubbleBuilderJourneyTool
           nucleus={nucleus}
+          verifyBubbleIdExists={this.verifyBubbleIdExists}
           onChangeNucleus={this.onChangeNucleus}
         />
 
@@ -276,7 +277,7 @@ export default class BubbleBuilder extends React.PureComponent {
   }
 
   @autobind
-  verifyUniqueBubbleId(id) {
+  verifyBubbleIdExists(id) {
     return this.props.bubbleConfig.find(b => b.id === id)
   }
 

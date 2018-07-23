@@ -66,9 +66,10 @@ export default class BubbleGallery extends React.PureComponent {
     return galleryImages
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return !!this.props.editing || !!nextProps.editing ||
-      (this.props.focused !== nextProps.focused)
+      (this.props.focused !== nextProps.focused) ||
+      (this.state.localImages !== nextState.localImages)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,6 +107,7 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   edit() {
+    if (!this.state.localImages.length) return
     this.captionInput.value = this.state.localImages[0].description
   }
 
@@ -129,7 +131,7 @@ export default class BubbleGallery extends React.PureComponent {
             dangerouslySetInnerHTML={{__html: detailText}} />
         </Description>
 
-        {(focused || editing) && !shouldShowEditingGallery &&
+        {(focused || editing) && !!localImages.length && !shouldShowEditingGallery &&
           <Gallery
             ref={r => this.gallery = r}
             renderCustomControls={editing? this.renderCaptionInput : null}
@@ -265,6 +267,7 @@ export default class BubbleGallery extends React.PureComponent {
           {
             id: getFilename(filename),
             src: fileReader.result,
+            original: fileReader.result,
             thumbnail: fileReader.result,
             thumbnailWidth: imageElement.naturalWidth,
             thumbnailHeight: imageElement.naturalHeight,

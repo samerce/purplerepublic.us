@@ -109,7 +109,11 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
 
 }
 
-export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
+export const BubbleBuilderJourneyTool = ({
+  nucleus,
+  onChangeNucleus,
+  verifyBubbleIdExists,
+}) => {
 
   const setId = ({target: nextBubbleNameInput}) => {
     onChangeNucleus({
@@ -119,7 +123,7 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
   }
   const verify = ({target: nextBubbleNameInput}) => {
     const nextBubbleId = nextBubbleNameInput.value
-    if (nextBubbleId && bubbles.findIndex(b => b.id === nextBubbleId) < 0) {
+    if (nextBubbleId && !verifyBubbleIdExists(nextBubbleId)) {
       nextBubbleNameInput.value = ''
       nextBubbleNameInput.focus()
       return alert('ohhh noo, darling, be careful!\nthere\'s no bubble with that name.\n\nchoose one that exists already! xo')
@@ -143,7 +147,7 @@ export const BubbleBuilderNameTool = ({
   nucleus,
   onChangeNucleus,
   isExistingBubble,
-  verifyUniqueBubbleId,
+  verifyBubbleIdExists,
 }) => {
   const onChange = ({key, target: nameInput}) => {
     if (isExistingBubble) {
@@ -153,7 +157,7 @@ export const BubbleBuilderNameTool = ({
     }
 
     const newBubbleId = nameInput.value.replace(/\s/, '-')
-    if (verifyUniqueBubbleId(newBubbleId)) {
+    if (verifyBubbleIdExists(newBubbleId)) {
       nameInput.focus()
       alert('that name is taken. :0\nget more creative!')
       return
