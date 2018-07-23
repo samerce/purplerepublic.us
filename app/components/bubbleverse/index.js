@@ -168,10 +168,14 @@ export default class Bubbleverse extends React.PureComponent {
 
   @autobind
   closeBubbleBuilder(bubbleId, bubbleConfig) {
-    this.bubbleConfig = bubbleConfig
+    const newState = {}
+    if (bubbleConfig) {
+      this.bubbleConfig = bubbleConfig
+      newState.bubblePods = [...bubbleConfig]
+    }
     this.setState({
       mode: Mode.show,
-      bubblePods: [...bubbleConfig],
+      ...newState,
     }, () => setTimeout(() => {
       bubbleId && this.openBubble(bubbleId)
     }, 250))

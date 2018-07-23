@@ -15,14 +15,20 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
   constructor(props) {
     super(props)
     this.actionIndex = -1
+    this.state = this.getActionState(props)
+  }
 
+  componentDidUpdate() {
+    this.setState(this.getActionState(this.props))
+  }
+
+  getActionState(props) {
     const {actions = []} = props.nucleus
-    this.state = {
+    return {
       title: actions.length > 0? actions[0].text || '' : '',
       link: actions.length > 0? actions[0].props.url || '' : '',
     }
   }
-
 
   render() {
     const {title, link} = this.state
