@@ -15,38 +15,43 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
   constructor(props) {
     super(props)
     this.actionIndex = -1
-    this.state = this.getActionState(props)
+    this.state = {
+      action: this.getActionState(props),
+    }
   }
 
-  componentDidUpdate() {
-    this.setState(this.getActionState(this.props))
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.setState({action: this.getActionState(this.props)})
+    }
   }
 
   getActionState(props) {
     const {actions = []} = props.nucleus
     return {
-      title: actions.length > 0? actions[0].text || '' : '',
-      link: actions.length > 0? actions[0].props.url || '' : '',
+      type: BubbleButtonActionList.OpenLink,
+      text: actions.length > 0? actions[0].text || '' : '',
+      props: {
+        url: actions.length > 0? actions[0].props.url || '' : '',
+      }
     }
   }
 
   render() {
-    const {title, link} = this.state
+    const {text, props} = this.state.action
     return (
       <Root>
         <TextInput
-          value={title}
+          value={text}
           placeholder='bubbly button title'
           onChange={this.onTitleChange}
-          onFocus={this.setActionIndex}
           onKeyPress={this.onTitleKeyPress}
           onBlur={this.sendChanges}
         />
         <BuilderInputLink
-          value={link}
+          value={props.url}
           innerRef={r => this.linkRef = r}
           placeholder='bubble button linky'
-          onFocus={this.setActionIndex}
           onChange={this.onLinkChange}
           onKeyPress={onKeyPress}
           onBlur={this.sendChanges}
@@ -67,27 +72,27 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
 
   @autobind
   sendChanges() {
+    const {action} = this.state
     const {nucleus, onChangeNucleus} = this.props
     const {actions = []} = nucleus
     const {actionIndex} = this
-    const actionProps = {
-      type: BubbleButtonActionList.OpenLink,
-      text: this.state.title,
-      props: {
-        url: this.state.link,
-      }
-    }
 
-    if (!actionProps.text || !actionProps.props.url) return
+    // if (!actionProps.text || !actionProps.props.url) return
+    //
+    // if (actionIndex >= 0) {
+    //   actions[actionIndex] = actionProps
+    // } else {
+    //   actions.push(actionProps)
+    // }
 
-    if (actionIndex >= 0) {
-      actions[actionIndex] = actionProps
+    if (actions.length) {
+      actions[0] = action
     } else {
-      actions.push(actionProps)
+      actions.push(action)
     }
 
     onChangeNucleus({
-      ...this.props.nucleus,
+      ...nucleus,
       actions,
     })
   }
@@ -95,7 +100,10 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
   @autobind
   onTitleChange({target: titleInput}) {
     this.setState({
-      title: titleInput.value
+      action: {
+        ...this.state.action,
+        text: titleInput.value,
+      }
     })
   }
 
@@ -109,7 +117,12 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
   @autobind
   onLinkChange({target: linkInput}) {
     this.setState({
-      link: linkInput.value
+      action: {
+        ...this.state.action,
+        props: {
+          url: linkInput.value,
+        }
+      }
     })
   }
 
