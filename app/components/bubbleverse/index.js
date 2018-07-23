@@ -66,7 +66,7 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   startUrlWatcher() {
     if (!getBubbleIdFromUrl(this.bubbleConfig)) {
-      this.bubbles['lampshade'].open()
+      this.bubbles['ahhh!-postcards!'].open()
     }
 
     this.urlWatcher = setInterval(() => {
