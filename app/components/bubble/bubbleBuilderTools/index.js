@@ -6,8 +6,9 @@ import {
 import {TextInput} from '../../../global/styled'
 
 import autobind from 'autobind-decorator'
-
 import {BubbleButtonActionList} from '../config'
+
+const onKeyPress = ({key, target}) => (key === 'Enter') && target.blur()
 
 export class BubbleBuilderButtonTool extends React.PureComponent {
 
@@ -41,7 +42,7 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
           placeholder='bubble button linky'
           onFocus={this.setActionIndex}
           onChange={this.onLinkChange}
-          onKeyPress={this.onLinkKeyPress}
+          onKeyPress={onKeyPress}
           onBlur={this.sendChanges}
         />
       </Root>
@@ -106,13 +107,6 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
     })
   }
 
-  @autobind
-  onLinkKeyPress({key, target}) {
-    if (key === 'Enter') {
-      target.blur()
-    }
-  }
-
 }
 
 export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
@@ -138,6 +132,7 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
         value={nucleus.nextBubbleId || ''}
         placeholder='series? "next" bubbly wubbly name here'
         onChange={setId}
+        onKeyPress={onKeyPress}
         onBlur={verify}
       />
     </Root>
@@ -147,7 +142,8 @@ export const BubbleBuilderJourneyTool = ({nucleus, onChangeNucleus}) => {
 export const BubbleBuilderNameTool = ({
   nucleus,
   onChangeNucleus,
-  isExistingBubble
+  isExistingBubble,
+  verifyUniqueBubbleId,
 }) => {
   const onChange = ({key, target: nameInput}) => {
     if (isExistingBubble) {
@@ -155,12 +151,17 @@ export const BubbleBuilderNameTool = ({
         "you can't change the name of an existing bubble.\nsorry, love :("
       )
     }
-    if (bubbles.find(b => b.id === nameInput.value) >= 0) {
-      return alert('that name is taken. :0\nget more creative!')
+
+    const newBubbleId = nameInput.value.replace(/\s/, '-')
+    if (verifyUniqueBubbleId(newBubbleId)) {
+      nameInput.focus()
+      alert('that name is taken. :0\nget more creative!')
+      return
     }
+
     onChangeNucleus({
       ...nucleus,
-      id: nameInput.value.replace(/\s/, '-'),
+      id: newBubbleId,
     })
   }
 
@@ -171,6 +172,7 @@ export const BubbleBuilderNameTool = ({
         value={nucleus.id || ''}
         placeholder='name your new bubbly wubbly!'
         onChange={onChange}
+        onKeyPress={onKeyPress}
       />
     </Root>
   )

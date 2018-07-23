@@ -55,7 +55,7 @@ export default class LogoBubble extends React.Component {
           defaultStyle={DefaultTextStyle}
           style={{
             rotate: spring(700, RotateConfig),
-            scale: spring(1.3, ScaleConfig),
+            scale: spring(1.8, ScaleConfig),
           }}>
             {m =>
               <LogoTextRoot>
