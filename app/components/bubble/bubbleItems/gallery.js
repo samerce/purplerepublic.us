@@ -37,11 +37,10 @@ export default class BubbleGallery extends React.PureComponent {
       onClick: () => this.setState({mode: Mode[opt]})
     }))
 
-    const localImages = this.getGalleryImages(props)
+    const images = this.getGalleryImages(props)
     this.state = {
       mode: props.editing? Mode.add : Mode.show,
-      thumbnailStyle: this.getThumbnailStyle(localImages),
-      localImages,
+      images,
     }
   }
 
@@ -69,7 +68,7 @@ export default class BubbleGallery extends React.PureComponent {
   shouldComponentUpdate(nextProps, nextState) {
     return !!this.props.editing || !!nextProps.editing ||
       (this.props.focused !== nextProps.focused) ||
-      (this.state.localImages !== nextState.localImages)
+      (this.state.images !== nextState.images)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,39 +79,22 @@ export default class BubbleGallery extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.editing !== this.props.editing) {
-      this.setState({localImages: this.getGalleryImages(this.props)})
+      console.log('hitting editing spot')
+      this.setState({images: this.getGalleryImages(this.props)})
     }
-    if (this.state.localImages === prevState.localImages) return
-
-    const images = this.state.localImages.map(img => ({
-      id: img.id,
-      width: img.thumbnailWidth,
-      height: img.thumbnailHeight,
-      caption: img.description,
-    }))
-
-    this.props.onEditingChange({images})
-
-    this.setState({
-      thumbnailStyle: this.getThumbnailStyle(this.state.localImages),
-    })
-  }
-
-  getThumbnailStyle(images) {
-    return (images.length === 1)? {
-      width: 695,
-      height: (images[0].thumbnailHeight / images[0].thumbnailWidth) * 695,
-    } : null
   }
 
   @autobind
   edit() {
-    if (!this.state.localImages.length) return
-    this.captionInput.value = this.state.localImages[0].description
+    this.setImages(this.getGalleryImages(this.props))
+
+    if (this.state.images.length) {
+      this.captionInput.value = this.state.images[0].description
+    }
   }
 
   render() {
-    const {mode, localImages, thumbnailStyle} = this.state
+    const {mode, images} = this.state
     const {
       detailText = 'tell somebody bout your gallery, hennie.',
       editing,
@@ -131,19 +113,21 @@ export default class BubbleGallery extends React.PureComponent {
             dangerouslySetInnerHTML={{__html: detailText}} />
         </Description>
 
-        {(focused || editing) && !!localImages.length && !shouldShowEditingGallery &&
+        {(focused || editing) && !!images.length && !shouldShowEditingGallery &&
           <Gallery
             ref={r => this.gallery = r}
             renderCustomControls={editing? this.renderCaptionInput : null}
             lazyLoad={!editing}
             showPlayButton={false}
-            showIndex={true}
+            showIndex={images.length > 1}
+            showThumbnails={images.length > 1}
+            showNav={images.length > 1}
             onSlide={this.onGallerySlide}
             swipeThreshold={5}
             flickThreshold={.1}
             slideInterval={1000}
             stopPropagation={true}
-            items={localImages} />
+            items={images} />
         }
 
         {(focused || editing) && shouldShowEditingGallery &&
@@ -154,7 +138,7 @@ export default class BubbleGallery extends React.PureComponent {
             showLightboxThumbnails={true}
             backdropClosesModal={false}
             onClickThumbnail={this.onSelectImage}
-            images={localImages} />
+            images={images} />
         }
 
           {editing &&
@@ -224,22 +208,18 @@ export default class BubbleGallery extends React.PureComponent {
     } else {
       image.description = target.value
     }
-    this.setState({
-      localImages: [
-        ...this.state.localImages,
-      ]
-    })
+    this.forceUpdate()
   }
 
   getCurrentImage() {
     const imageIndex = this.gallery.getCurrentIndex()
-    return this.state.localImages[imageIndex]
+    return this.state.images[imageIndex]
   }
 
   @autobind
   onGallerySlide(imageIndex) {
     if (!this.props.editing) return
-    this.captionInput.value = this.state.localImages[imageIndex].description || ''
+    this.captionInput.value = this.state.images[imageIndex].description || ''
   }
 
   @autobind
@@ -261,20 +241,18 @@ export default class BubbleGallery extends React.PureComponent {
     const imageElement = new Image()
     imageElement.src = fileReader.result
     imageElement.onload = () => {
-      this.setState({
-        localImages: [
-          ...this.state.localImages,
-          {
-            id: getFilename(filename),
-            src: fileReader.result,
-            original: fileReader.result,
-            thumbnail: fileReader.result,
-            thumbnailWidth: imageElement.naturalWidth,
-            thumbnailHeight: imageElement.naturalHeight,
-            needsUpload: true,
-          },
-        ],
-      })
+      this.setImages([
+        ...this.state.images,
+        {
+          id: getFilename(filename),
+          src: fileReader.result,
+          original: fileReader.result,
+          thumbnail: fileReader.result,
+          thumbnailWidth: imageElement.naturalWidth,
+          thumbnailHeight: imageElement.naturalHeight,
+          needsUpload: true,
+        },
+      ])
     }
   }
 
@@ -282,27 +260,23 @@ export default class BubbleGallery extends React.PureComponent {
   deletePhotos() {
     if (!this.imagesToDelete.length) return
 
-    const localImages = this.state.localImages.filter((o, i) => {
+    const images = this.state.images.filter((o, i) => {
       return !this.imagesToDelete.includes(i)
     })
 
-    localImages.forEach(o => o.isSelected = false)
+    images.forEach(o => o.isSelected = false)
 
     this.imagesToDelete = []
-    this.setState({localImages})
+    this.setImages(images)
   }
 
   @autobind
   onSelectImage(index, image) {
-    const {mode, localImages} = this.state
+    const {mode, images} = this.state
 
-    localImages[index].isSelected = !localImages[index].isSelected
-    this.setState({
-      localImages: [
-        ...localImages
-      ],
-    })
+    images[index].isSelected = !images[index].isSelected
 
+    this.setImages(images)
     this['onSelectImage_' + mode](index, image)
   }
 
@@ -325,21 +299,21 @@ export default class BubbleGallery extends React.PureComponent {
         return this.sourceMoveIndex = null
       }
 
-      const localImages = [...this.state.localImages]
+      const images = [...this.state.images]
 
-      const sourceImage = localImages[this.sourceMoveIndex]
-      localImages.splice(this.sourceMoveIndex, 1)
-      localImages.splice(index, 0, sourceImage)
-      localImages.forEach(o => o.isSelected = false)
+      const sourceImage = images[this.sourceMoveIndex]
+      images.splice(this.sourceMoveIndex, 1)
+      images.splice(index, 0, sourceImage)
+      images.forEach(o => o.isSelected = false)
 
       this.sourceMoveIndex = null
-      this.setState({localImages})
+      this.setImages(images)
     }
   }
 
   @autobind
   publish() {
-    const imageUploadRequests = this.state.localImages
+    const imageUploadRequests = this.state.images
       .filter(img => img.needsUpload)
       .map(this.uploadImage)
     return Promise.all(imageUploadRequests)
@@ -356,6 +330,22 @@ export default class BubbleGallery extends React.PureComponent {
         data: img.src,
         id: GalleryBaseKey + `${this.props.id}/${img.id}`
       }),
+    })
+  }
+
+  setImages(images) {
+    const nucleusImages = images.map(img => ({
+      id: img.id,
+      width: img.thumbnailWidth,
+      height: img.thumbnailHeight,
+      caption: img.description,
+    }))
+    this.props.onEditingChange({images: nucleusImages})
+
+    this.setState({
+      images: [
+        ...images
+      ],
     })
   }
 
