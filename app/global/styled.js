@@ -65,7 +65,7 @@ export const Icon = styled.i`
 export const BubbleButton = Flex.extend`
   position: relative;
   border-radius: 100%;
-  border: 1px solid white;
+  border: 1px solid ${p => p.theme.veryLight};
   background: ${p => p.theme.main};
   transition: all .5s ${EASE_OUT};
   align-items: center;

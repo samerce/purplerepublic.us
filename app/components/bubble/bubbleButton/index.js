@@ -2,7 +2,7 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 
 import {
-  Root, Icon, ImageBubbleButton,
+  Root, Icon, ImageBubbleButton, Title,
 } from './styled'
 
 import {SRC_URL} from '../../../global/constants'
@@ -50,7 +50,7 @@ export default class BubbleButton extends React.Component {
   render() {
     const {
       onClick, children, className, id,
-      type, unsavedImageUrl, size,
+      type, unsavedImageUrl, size, title,
     } = this.props
 
     return (
@@ -64,6 +64,7 @@ export default class BubbleButton extends React.Component {
             src={unsavedImageUrl || getButtonImageUrl(id)}
             size={size}>
             <Icon className={'fa fa-' + TypeToIcon[type]} />
+            <Title><div>{title}</div></Title>
           </ImageBubbleButton>
         }
       </Root>
