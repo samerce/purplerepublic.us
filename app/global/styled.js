@@ -309,4 +309,7 @@ injectGlobal`
     padding: 20px;
     box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
   }
+  a {
+    color: white;
+  }
 `

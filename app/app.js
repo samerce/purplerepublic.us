@@ -6,7 +6,10 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'sanitize.css/sanitize.css';
 
+// dependency imports
 require('wavesurfer.js')
+require('medium-editor/dist/css/medium-editor.css')
+require('medium-editor/dist/css/themes/flat.css')
 
 import App from 'containers/App';
 

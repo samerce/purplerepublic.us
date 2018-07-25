@@ -2,9 +2,10 @@ import React from 'react'
 import EditingGallery from 'react-grid-gallery'
 import Gallery from 'react-image-gallery'
 import SelectPill from '../../unoSelectPill'
+import BubbleWriting from './words'
 
 import {
-  Description, GalleryRoot, EditPhotosRoot, Button, DeleteButton,
+  GalleryRoot, EditPhotosRoot, Button, DeleteButton,
   Hint, CaptionInput,
 } from './styled'
 import {FlexColumn, HiddenFileInput} from '../../../global/styled'
@@ -79,7 +80,6 @@ export default class BubbleGallery extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.editing !== this.props.editing) {
-      console.log('hitting editing spot')
       this.setState({images: this.getGalleryImages(this.props)})
     }
   }
@@ -101,17 +101,15 @@ export default class BubbleGallery extends React.PureComponent {
       focused,
       onEditingChange,
     } = this.props
-    const onChange = ({target}) => onEditingChange({detailText: target.innerHTML})
     const shouldShowEditingGallery = (mode === Mode.delete || mode === Mode.move)
 
     return (
       <FlexColumn className={'galleryBubble-' + mode}>
-        <Description>
-          <span
-            contentEditable={editing}
-            onBlur={onChange}
-            dangerouslySetInnerHTML={{__html: detailText}} />
-        </Description>
+        <BubbleWriting
+          editing={editing}
+          detailText={detailText}
+          onEditingChange={onEditingChange}
+        />
 
         {(focused || editing) && !!images.length && !shouldShowEditingGallery &&
           <Gallery

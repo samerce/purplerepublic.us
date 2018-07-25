@@ -1,6 +1,7 @@
 import React from 'react'
 import YouTubeVideo from 'react-youtube'
 import {BubbleBuilderYouTubeTool} from '../bubbleBuilderTools'
+import BubbleWriting from './words'
 
 import autobind from 'autobind-decorator'
 
@@ -49,6 +50,8 @@ export default class BubbleVideo extends React.Component {
   render() {
     return (
       <VideoRoot>
+        <BubbleWriting {...this.props} />
+
         {this.state.shouldRenderVideo &&
           <YouTubeVideo
             videoId={this.props.videoId}

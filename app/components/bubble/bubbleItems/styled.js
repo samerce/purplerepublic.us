@@ -9,6 +9,7 @@ import {
   screen,
   ArticleText, Flex, FlexColumn, Boto, TextInput,
 } from '../../../global/styled'
+import theme from '../../../global/theme'
 
 injectGlobal`
   .gallerySelectPill.gallerySelectPill {
@@ -81,6 +82,23 @@ injectGlobal`
   button.image-gallery-fullscreen-button::before {
     font-size: 1.7em;
     padding: 10px;
+  }
+
+  .medium-editor-toolbar.medium-editor-toolbar.medium-editor-toolbar-active {
+    background-color: ${theme.veryLight};
+
+    &:after {
+      display: none;
+    }
+  }
+  .medium-editor-action {
+    border-color: white!important;
+    &:hover {
+      background-color: ${theme.slightlyDark} !important;
+    }
+  }
+  .medium-editor-button-active {
+    background-color: ${theme.veryDark} !important;
   }
 `
 

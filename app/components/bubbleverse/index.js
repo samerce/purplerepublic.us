@@ -158,9 +158,6 @@ export default class Bubbleverse extends React.PureComponent {
 
   @autobind
   openBubbleBuilder(bubbleToEdit, index) {
-    if (this.focusedBubbleId) {
-      this.bubbles[this.focusedBubbleId].close()
-    }
     this.setState({
       mode: Mode.buildBubble,
       arrangeSourceIndex: null,
