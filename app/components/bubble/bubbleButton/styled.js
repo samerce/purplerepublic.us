@@ -78,7 +78,7 @@ export const Title = AbsoluteFlex.extend`
   transform: scale(1.05);
   opacity: 0;
 
-  ${Root}:hover & {
+  ${ImageBubbleButton}:hover & {
     opacity: 1;
     transform: none;
   }

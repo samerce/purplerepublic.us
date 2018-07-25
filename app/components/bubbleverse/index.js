@@ -25,7 +25,7 @@ const Mode = makeEnum([
   'buildBubble',
   'arrange',
 ])
-const BDBubbles = []
+const BDBubbles = ['twinkle', 'jamaica', 'magic', 'beauty', 'queen']
 
 export default class Bubbleverse extends React.PureComponent {
 
