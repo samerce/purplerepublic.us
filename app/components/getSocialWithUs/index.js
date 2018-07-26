@@ -51,7 +51,7 @@ export default class GetSocialWithUs extends React.Component {
             <SocialIcon className='fa fa-envelope-o i4' />
             <div className='tooltip'>email</div>
           </a>
-          <a href='https://www.patreon.com/purplerepublic' target='_blank' className='i10'>
+          <a href='https://www.patreon.com/expressyourmess' target='_blank' className='i10'>
             <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
             <div className='tooltip'>donate with patreon</div>
           </a>

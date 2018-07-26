@@ -70,6 +70,9 @@ export default class Intro extends React.Component {
           <PathOption onClick={this.instagramUs} className='pathWithBorder'>
             <PathOptionButton>instagram</PathOptionButton>
           </PathOption>
+          <PathOption onClick={this.joinClub} className='pathWithBorder'>
+            <PathOptionButton>join our club!</PathOptionButton>
+          </PathOption>
         </PickYourPath>
 
       </Root>
@@ -100,6 +103,11 @@ export default class Intro extends React.Component {
   @autobind
   instagramUs() {
     openInNewTab('https://www.instagram.com/expressyourmess')
+  }
+
+  @autobind
+  joinClub() {
+    openInNewTab('https://www.patreon.com/expressyourmess')
   }
 
 }

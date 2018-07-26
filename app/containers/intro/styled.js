@@ -109,7 +109,7 @@ export const PathOption = styled.div`
   height: 29%;
 
   &.pathWithBorder {
-    border-left: 1px solid white;
+    border-left: 1px solid ${p => p.theme.veryLight};
   }
 
   &:hover {
@@ -118,8 +118,8 @@ export const PathOption = styled.div`
   }
 
   &.pathMiddle {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid ${p => p.theme.veryLight};
+    border-bottom: 1px solid ${p => p.theme.veryLight};
     flex: 0 0 100%;
     height: 42%;
     font-size: 62px;
