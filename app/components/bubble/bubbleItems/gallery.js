@@ -69,7 +69,7 @@ export default class BubbleGallery extends React.PureComponent {
   shouldComponentUpdate(nextProps, nextState) {
     return !!this.props.editing || !!nextProps.editing ||
       (this.props.focused !== nextProps.focused) ||
-      (this.state.images !== nextState.images)
+      (this.state !== nextState)
   }
 
   componentWillReceiveProps(nextProps) {

@@ -30,7 +30,7 @@ const Mode = makeEnum([
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 const ShouldUpdateKeys = [
-  'isFullscreen', 'unsavedImageUrl', 'nucleus', 'onNext', 'onEdit'
+  'isFullscreen', 'unsavedImageUrl', 'nucleus', 'onNext', 'onEdit', 'editing',
 ]
 
 export default class Bubble extends React.PureComponent {

@@ -43,7 +43,7 @@ export default class BubbleVideo extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.videoId !== this.props.videoId ||
+    return nextProps.editing || nextProps.videoId !== this.props.videoId ||
       nextState.shouldRenderVideo !== this.state.shouldRenderVideo
   }
 
