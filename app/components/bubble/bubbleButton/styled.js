@@ -38,7 +38,7 @@ export const ImageBubbleButton = BubbleButton.extend`
     width: ${CircleSizeFocused}px;
     height: ${CircleSizeFocused}px;
     box-shadow: none;
-    transform: translate3d(0, 10px, 0);
+    transform: translate(0, 10px);
     cursor: default;
     transition: all .7s ${EASE_OUT};
   }
@@ -48,7 +48,7 @@ export const Icon = aIcon.extend`
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate3d(-50%, 0, 0);
+  transform: translate(-50%, 0);
   margin-top: -25%;
   pointer-events: none;
   transition-duration: .5s;
@@ -74,13 +74,19 @@ export const Title = AbsoluteFlex.extend`
   text-align: center;
   padding: 5px;
   font-family: annie use your telescope;
-  transition: all .2s ${EASE_OUT};
+  transition-property: opacity, transform;
+  transition-duration: .2s;
+  transition-timing-function: ${EASE_OUT};
   transform: scale(1.05);
   opacity: 0;
 
   ${ImageBubbleButton}:hover & {
     opacity: 1;
     transform: none;
+  }
+
+  .bubble-focused &, .bubble-editing & {
+    visibility: hidden;
   }
 
 `

@@ -2,6 +2,7 @@ import React from 'react'
 import MediumEditor from 'medium-editor'
 
 import autobind from 'autobind-decorator'
+import {canShowEditingTools} from '../../../utils/nav'
 
 import {
   Description,
@@ -44,9 +45,11 @@ export default class BubbleWriting extends React.PureComponent {
   componentDidMount() {
     const detailText = this.props.detailText || 'fill me up with something alluring, dahling'
 
-    this.editor = new MediumEditor('.' + this.editorClass, EditorOptions)
-    this.editor.setContent(detailText, 0)
-    this.editor.subscribe('editableInput', this.onChange)
+    if (canShowEditingTools()) {
+      this.editor = new MediumEditor('.' + this.editorClass, EditorOptions)
+      this.editor.setContent(detailText, 0)
+      this.editor.subscribe('editableInput', this.onChange)
+    }
   }
 
   componentDidUpdate(prevProps) {

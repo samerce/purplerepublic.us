@@ -83,6 +83,10 @@ injectGlobal`
     font-size: 1.7em;
     padding: 10px;
   }
+  div.image-gallery-index {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 
   .medium-editor-toolbar.medium-editor-toolbar.medium-editor-toolbar-active {
     background-color: ${theme.veryLight};
