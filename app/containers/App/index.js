@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet'
 import styled, {ThemeProvider} from 'styled-components'
 import {Content} from './styled'
 import theme from '../../global/theme'
+import {SRC_URL} from '../../global/constants'
 
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -17,6 +18,18 @@ const pageMeta = [
   {
     name: 'description',
     content: 'purple republic presents curated roots: (sm)art. isness with purpose. performance. politics. play.'
+  },
+  {
+    property: 'og:image',
+    content: SRC_URL + 'commons/eym splash.jpg',
+  },
+  {
+    property: 'og:title',
+    content: 'express your mess — by purple republic',
+  },
+  {
+    property: 'og:description',
+    content: 'in a sea of vanilla, why not be lima bean puree?',
   },
 ]
 
