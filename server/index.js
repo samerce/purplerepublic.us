@@ -22,6 +22,9 @@ const upload = multer({
   }
 });
 
+// for crawlers/bots
+app.use(require('prerender-node'))
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
