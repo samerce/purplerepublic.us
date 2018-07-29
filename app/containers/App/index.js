@@ -19,28 +19,21 @@ const pageMeta = [
     name: 'description',
     content: 'purple republic presents curated roots: (sm)art. isness with purpose. performance. politics. play.'
   },
-  {
-    property: 'og:image',
-    content: SRC_URL + 'commons/eym splash.jpg',
-  },
-  {
-    property: 'og:title',
-    content: 'express your mess — by purple republic',
-  },
-  {
-    property: 'og:description',
-    content: 'in a sea of vanilla, why not be lima bean puree?',
-  },
 ]
 
 export function App(props) {
   return (
     <AppWrapper>
       <Helmet>
-        <title>purple republic - isness with purpose</title>
+        <title>express your mess — by purple republic</title>
         {pageMeta.forEach(m => (
           <meta name={m.name} content={m.content} />
         ))}
+        <meta property='og:image' content={SRC_URL + 'commons/eym splash.jpg'} />
+        <meta
+          property='og:description'
+          content='in a sea of vanilla, why not be lima bean puree?'
+        />
       </Helmet>
 
       <ThemeProvider theme={theme}>
