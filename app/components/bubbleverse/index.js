@@ -278,17 +278,18 @@ function fetchBubbles() {
 }
 
 function getBubbleIdFromUrl(bubbles) {
-  const {hash} = window.location
-  const hashParts = hash? hash.replace('#start', '').split('?') : []
+  let query = window.location.search
+  if (!query || !query.length) {
+    query = window.location.hash
+  }
+  query = query.replace('#start', '')
+  query = query.replace('?', '')
 
-  if (hashParts.length > 1) {
-    const queryParts = hashParts[1].split('=')
-    if (queryParts[0] === 'bubble') {
-
-      const bubbleId = queryParts[1]
-      if (bubbles.find(b => b.id === bubbleId)) {
-        return bubbleId
-      }
+  const queryParts = query.split('=')
+  if (queryParts.length > 1 && queryParts[0] === 'bubble') {
+    const bubbleId = queryParts[1]
+    if (bubbles.find(b => b.id === bubbleId)) {
+      return bubbleId
     }
   }
 }
