@@ -139,6 +139,8 @@ export default class Bubble extends React.PureComponent {
     const {
       id,
       size,
+      title,
+      description,
       Component: BubbleComponent,
     } = nucleus
     const {renderButtonContent} = BubbleComponent
@@ -153,6 +155,8 @@ export default class Bubble extends React.PureComponent {
 
         {isFocused &&
           <Helmet>
+            <meta property='og:type' content='article' />
+            <meta property='og:title' content={title} />
             <meta property='og:image' content={getButtonImageUrl(id)} />
           </Helmet>
         }
