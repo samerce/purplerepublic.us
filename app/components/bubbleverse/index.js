@@ -7,6 +7,7 @@ import {
   BubbleArrangeButton,
 } from '../bubble/bubbleBuilderButton'
 import Spinnie from '../spinnie'
+import SelectPill from '../unoSelectPill'
 
 import {
   Root, BubbleGrid, BubbleGridItem, ArrangeButton, BubbleEditingButtonsRoot,
@@ -16,8 +17,9 @@ import {MaskAbsoluteFillParent} from '../../global/styled'
 
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
-import {BubbleComponents} from '../bubble/config'
+import {BubbleComponents, BubbleType} from '../bubble/config'
 import autobind from 'autobind-decorator'
+import {cx} from '../../utils/style'
 
 const Mode = makeEnum([
   'enter',
@@ -26,6 +28,7 @@ const Mode = makeEnum([
   'arrange',
 ])
 const BDBubbles = ['twinkle', 'jamaica', 'magic', 'beauty', 'queen']
+const SelectPillValues = [...Object.keys(BubbleType)]
 
 export default class Bubbleverse extends React.PureComponent {
 
@@ -36,11 +39,21 @@ export default class Bubbleverse extends React.PureComponent {
     this.timeouts = []
     this.bubbles = {}
     this.focusedBubbleId = null
+    this.selectPillOptions =
+      SelectPillValues
+      .filter(t => t !== 'shop')
+      .map(type => ({
+        name: type,
+        onClick: selectedIndices => this.setState({
+          selectedTypes: selectedIndices.map(i => SelectPillValues[i])
+        }),
+      }))
     this.state = {
       mode: Mode.enter,
       isFullscreen: false,
       bubblePods: [],
       savingNewArrangement: false,
+      selectedTypes: [],
     }
   }
 
@@ -62,6 +75,7 @@ export default class Bubbleverse extends React.PureComponent {
     )
 
     this.rootNode = findDOMNode(this.root)
+    this.selectPill = findDOMNode(this.selectPillRef)
   }
 
   @autobind
@@ -93,7 +107,7 @@ export default class Bubbleverse extends React.PureComponent {
   render() {
     const {
       mode, isFullscreen, bubblePods, arrangeSourceIndex,
-      savingNewArrangement,
+      savingNewArrangement, selectedTypes,
     } = this.state
     return (
       <Root
@@ -118,13 +132,23 @@ export default class Bubbleverse extends React.PureComponent {
           />
         }
 
+        <SelectPill
+          ref={r => this.selectPillRef = r}
+          className='bubbleverseSelectPill'
+          options={this.selectPillOptions}
+          multiSelect={true}
+          selectedList={[]}
+        />
+
         <BubbleGrid
           id='bubbleGrid'
           hidden={mode === Mode.buildBubble}
           ref={r => this.bubbleGrid = r}>
           {bubblePods.map((bubble, index) => (
             <BubbleGridItem
-              className={BDBubbles.includes(bubble.id) && 'hidden'}
+              className={cx({
+                hidden: bubble.id !== 'logo' && (BDBubbles.includes(bubble.id) || (selectedTypes.length && !selectedTypes.includes(bubble.type)))
+              })}
               key={bubble.id}
               size={bubble.size}>
 
@@ -187,6 +211,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.focusedBubbleId = bubbleId
     window.location.hash = '#start?bubble=' + bubbleId
     this.rootNode.style.zIndex = 7
+    this.selectPill.style.zIndex = 0
     this.isFocusLocked = false
   }
 
@@ -196,6 +221,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.focusedBubbleId = null
     window.location.hash = '#start'
     this.rootNode.style.zIndex = 5
+    this.selectPill.style.zIndex = 2
     this.isFocusLocked = false
   }
 

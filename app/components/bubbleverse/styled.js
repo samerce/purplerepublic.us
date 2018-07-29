@@ -7,6 +7,22 @@ import {
   screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon,
 } from '../../global/styled'
 
+injectGlobal`
+  .bubbleverseSelectPill {
+    top: 20px;
+    transform: translate(-50%, -100px);
+
+    .start-show & {
+      transform: translate(-50%, 0);
+      transition: transform 1s ${EASE_OUT} 6s;
+    }
+
+    ${screen.medium`
+      display: none;
+    `}
+  }
+`
+
 const fastBlink = keyframes`
   0% {
     opacity: 1;
@@ -41,11 +57,11 @@ export const Root = styled.div`
 export const BubbleGrid = AbsoluteFlexFillParent.extend`
   display: ${p => p.hidden? 'none' : 'flex'};
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-items: flex-start;
   overflow-y: scroll;
   overflow-x: hidden;
   pointer-events: all;
-  padding: 0 50px 0 5px;
+  padding: 80px 50px 20px 5px;
 `
 
 export const BubbleGridItem = styled.div`

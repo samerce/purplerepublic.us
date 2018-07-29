@@ -39,6 +39,7 @@ export const OptionRoot = styled.div`
   font-size: 24px;
   transition: all .3s ${EASE_OUT};
   user-select: none;
+  margin-left: ${p => p.breathe? '5px' : '0'};
 
   &.unoOptSelected {
     color: ${aColor};

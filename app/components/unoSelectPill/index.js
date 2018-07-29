@@ -12,14 +12,15 @@ export default class UnoSelectPill extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      selectedIndex: props.selectedIndex || 0,
+      selectedList: props.selectedList || [props.selectedIndex || 0],
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedIndex) {
       this.setState({
-        selectedIndex: nextProps.selectedIndex,
+        selectedList:
+          [nextProps.selectedIndex || this.props.selectedIndex],
       })
     }
   }
@@ -29,9 +30,6 @@ export default class UnoSelectPill extends React.PureComponent {
       options,
       className,
     } = this.props
-    const {
-      selectedIndex,
-    } = this.state
 
     return (
       <Root className={className}>
@@ -42,13 +40,13 @@ export default class UnoSelectPill extends React.PureComponent {
 
   @autobind
   renderOption(opt, index) {
-    const {selectedIndex} = this.state
-    const isSelected = selectedIndex === index
+    const {selectedList} = this.state
     return (
       <OptionRoot
         key={index}
+        breathe={index !== 0 && this.props.multiSelect}
         onClick={this.onClick.bind(this, opt, index)}
-        className={cx({unoOptSelected: isSelected})}>
+        className={cx({unoOptSelected: selectedList.includes(index)})}>
         <Indicator />
         <OptionText>{opt.name}</OptionText>
       </OptionRoot>
@@ -57,10 +55,21 @@ export default class UnoSelectPill extends React.PureComponent {
 
   @autobind
   onClick(opt, index) {
+    let newSelectedList = [...this.state.selectedList]
+    if (newSelectedList.includes(index)) {
+      newSelectedList = newSelectedList.filter(i => i !== index)
+    } else {
+      newSelectedList.push(index)
+    }
+
+    if (!this.props.multiSelect) {
+      newSelectedList = [index]
+    }
+
     this.setState({
-      selectedIndex: index
+      selectedList: newSelectedList,
     })
-    opt.onClick()
+    opt.onClick(newSelectedList)
   }
 
 }
