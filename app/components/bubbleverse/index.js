@@ -58,7 +58,7 @@ export default class Bubbleverse extends React.PureComponent {
       setTimeout(() => this.setState({
         bubblePods: [...this.bubbleConfig],
       }), 2000),
-      setTimeout(this.startUrlWatcher, 5000),
+      setTimeout(this.startUrlWatcher, 6000),
     )
 
     this.rootNode = findDOMNode(this.root)

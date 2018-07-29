@@ -64,6 +64,10 @@ export default class PurpleRouter extends React.PureComponent {
   }
 
   componentDidMount() {
+    const {pathname} = window.location
+    if (pathname && pathname.length > 1) {
+      window.location = '/#start?bubble=' + pathname.substr(1)
+    }
     window.onhashchange = () => {
       const activeRoute = getCurrentRoute()
       const {preloadRoute} = this.props
