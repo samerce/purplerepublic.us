@@ -1,5 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import {Helmet} from 'react-helmet'
 
 import styled, {ThemeProvider} from 'styled-components'
 import {Content} from './styled'
@@ -23,9 +23,11 @@ const pageMeta = [
 export function App(props) {
   return (
     <AppWrapper>
-      <Helmet
-        titleTemplate="%s"
-        meta={pageMeta}>
+      <Helmet>
+        <title>purple republic - isness with purpose</title>
+        {pageMeta.forEach(m => (
+          <meta name={m.name} content={m.content} />
+        ))}
       </Helmet>
 
       <ThemeProvider theme={theme}>

@@ -1,5 +1,6 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
+import {Helmet} from 'react-helmet'
 
 import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'
@@ -11,6 +12,7 @@ import {
 import {ImageBubbleButton} from './bubbleButton/styled'
 
 import {makeEnum} from '../../utils/lang'
+import {getButtonImageUrl} from '../../utils/bubbleverse'
 import autobind from 'autobind-decorator'
 import {makeJiggler} from '../../global-styles'
 import _ from 'lodash'
@@ -148,6 +150,13 @@ export default class Bubble extends React.PureComponent {
         jiggler={this.jiggler}
         isFullscreen={isFullscreen}
         className={'bubble-' + mode + ' bubbleButton-' + id}>
+
+        {isFocused &&
+          <Helmet>
+            <meta property='og:image' content={getButtonImageUrl(id)} />
+          </Helmet>
+        }
+
         <BubbleButton
           {...nucleus}
           className={mode}

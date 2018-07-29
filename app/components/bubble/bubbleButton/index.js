@@ -5,7 +5,7 @@ import {
   Root, Icon, ImageBubbleButton, Title,
 } from './styled'
 
-import {SRC_URL} from '../../../global/constants'
+import {getButtonImageUrl} from '../../../utils/bubbleverse'
 
 const xCenter = window.innerWidth / 2
 const yCenter = window.innerHeight / 2
@@ -14,8 +14,6 @@ const TypeToIcon = {
   writing: 'book',
   gallery: 'camera-retro',
 }
-
-const getButtonImageUrl = id => SRC_URL + `bubbles/buttonImages/${id}.jpg`
 
 export default class BubbleButton extends React.Component {
 

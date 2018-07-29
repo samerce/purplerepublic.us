@@ -3,6 +3,7 @@ import EditingGallery from 'react-grid-gallery'
 import Gallery from 'react-image-gallery'
 import SelectPill from '../../unoSelectPill'
 import BubbleWriting from './words'
+import {Helmet} from 'react-helmet'
 
 import {
   GalleryRoot, EditPhotosRoot, Button, DeleteButton,
@@ -105,6 +106,12 @@ export default class BubbleGallery extends React.PureComponent {
 
     return (
       <FlexColumn className={'galleryBubble-' + mode}>
+        {focused &&
+          <Helmet>
+            <meta property='og:image' content={images.length && images[0].src} />
+          </Helmet>
+        }
+
         <BubbleWriting
           editing={editing}
           detailText={detailText}
