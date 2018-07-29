@@ -81,6 +81,7 @@ export default class Bubbleverse extends React.PureComponent {
       if (!bubbleIdFromUrl && focusedBubbleId) {
         this.bubbles[focusedBubbleId].close()
       }
+      window.prerenderReady = true
     }, 250)
   }
 
