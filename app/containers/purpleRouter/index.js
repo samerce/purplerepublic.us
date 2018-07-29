@@ -131,6 +131,6 @@ export default class PurpleRouter extends React.PureComponent {
 
 function getCurrentRoute() {
   const hash = window.location.hash
-  const route = hash && hash.split('?')[0]
+  const route = hash && hash.split('?')[0].replace('!', '')
   return route || Object.keys(router)[0]
 }
