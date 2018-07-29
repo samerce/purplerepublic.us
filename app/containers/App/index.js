@@ -29,7 +29,7 @@ export function App(props) {
         {pageMeta.forEach(m => (
           <meta name={m.name} content={m.content} />
         ))}
-        <meta property='og:image' content={SRC_URL + 'commons/eym splash.jpg'} />
+        <meta property='og:image' content={SRC_URL + 'commons/eym+splash.jpg'} />
         <meta
           property='og:description'
           content='in a sea of vanilla, why not be lima bean puree?'
