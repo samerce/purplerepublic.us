@@ -1,5 +1,5 @@
 import React from 'react'
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet-prepend'
 
 import styled, {ThemeProvider} from 'styled-components'
 import {Content} from './styled'

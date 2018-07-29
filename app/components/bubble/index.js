@@ -1,6 +1,6 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet-prepend'
 
 import BubbleButton from './bubbleButton'
 import BubbleDetails from './bubbleDetails'

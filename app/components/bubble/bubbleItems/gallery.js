@@ -3,7 +3,7 @@ import EditingGallery from 'react-grid-gallery'
 import Gallery from 'react-image-gallery'
 import SelectPill from '../../unoSelectPill'
 import BubbleWriting from './words'
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet-prepend'
 
 import {
   GalleryRoot, EditPhotosRoot, Button, DeleteButton,

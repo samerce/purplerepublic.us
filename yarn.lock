@@ -6693,6 +6693,15 @@ react-grid-gallery@^0.4.11:
   dependencies:
     react-images "^0.5.6"
 
+react-helmet-prepend@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-helmet-prepend/-/react-helmet-prepend-5.2.1.tgz#7c8414be3b7b85c26f810c057eff61d1f280a665"
+  dependencies:
+    deep-equal "^1.0.1"
+    object-assign "^4.1.1"
+    prop-types "^15.5.4"
+    react-side-effect "^1.1.0"
+
 react-helmet@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.0.tgz#a81811df21313a6d55c5f058c4aeba5d6f3d97a7"
