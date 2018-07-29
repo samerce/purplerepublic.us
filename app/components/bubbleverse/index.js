@@ -279,7 +279,7 @@ function fetchBubbles() {
 
 function getBubbleIdFromUrl(bubbles) {
   const {hash} = window.location
-  const hashParts = hash? hash.split('?') : []
+  const hashParts = hash? hash.replace('#start', '').split('?') : []
 
   if (hashParts.length > 1) {
     const queryParts = hashParts[1].split('=')
