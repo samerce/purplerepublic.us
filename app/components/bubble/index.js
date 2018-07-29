@@ -140,6 +140,7 @@ export default class Bubble extends React.PureComponent {
       id,
       size,
       title,
+      subtitle,
       description,
       Component: BubbleComponent,
     } = nucleus
@@ -159,6 +160,7 @@ export default class Bubble extends React.PureComponent {
             <meta property='og:title' content={title} />
             <meta property='og:image' content={getButtonImageUrl(id)} />
             <meta property='og:url' content={getFacebookUrl(id)} />
+            <meta property='og:description' content={subtitle} />
           </Helmet>
         }
 
