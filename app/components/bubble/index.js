@@ -158,6 +158,7 @@ export default class Bubble extends React.PureComponent {
             <meta property='og:type' content='article' />
             <meta property='og:title' content={title} />
             <meta property='og:image' content={getButtonImageUrl(id)} />
+            <meta property='og:url' content={getFacebookUrl(id)} />
           </Helmet>
         }
 
@@ -259,4 +260,8 @@ export default class Bubble extends React.PureComponent {
     }
   }
 
+}
+
+function getFacebookUrl(bubble) {
+  return window.location.origin + '/?bubble=' + bubble + '&_escaped_fragment_=start'
 }
