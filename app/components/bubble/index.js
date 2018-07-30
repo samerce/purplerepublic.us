@@ -265,5 +265,5 @@ export default class Bubble extends React.PureComponent {
 }
 
 function getFacebookUrl(bubble) {
-  return window.location.origin + '/?bubble=' + bubble + '&_escaped_fragment_=start'
+  return window.location.origin + '/?_escaped_fragment_=start/bubble/' + bubble
 }

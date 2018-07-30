@@ -209,7 +209,7 @@ export default class Bubbleverse extends React.PureComponent {
   onBubbleOpened(bubbleId) {
     this.isFocusLocked = true
     this.focusedBubbleId = bubbleId
-    window.location.hash = '#start?bubble=' + bubbleId
+    window.location.hash = '#start/bubble/' + bubbleId
     this.rootNode.style.zIndex = 7
     this.selectPill.style.zIndex = 0
     this.isFocusLocked = false
@@ -304,16 +304,10 @@ function fetchBubbles() {
 }
 
 function getBubbleIdFromUrl(bubbles) {
-  let query = window.location.search
-  if (!query || !query.length) {
-    query = window.location.hash
-  }
-  query = query.replace('#start', '')
-  query = query.replace('?', '')
-
-  const queryParts = query.split('=')
-  if (queryParts.length > 1 && queryParts[0] === 'bubble') {
-    const bubbleId = queryParts[1]
+  const {hash} = window.location
+  const hashParts = hash.split('/')
+  if (hashParts.length > 1 && hashParts[1] === 'bubble') {
+    const bubbleId = hashParts[2]
     if (bubbles.find(b => b.id === bubbleId)) {
       return bubbleId
     }
