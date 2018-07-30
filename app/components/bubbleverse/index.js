@@ -44,9 +44,7 @@ export default class Bubbleverse extends React.PureComponent {
       .filter(t => t !== 'shop')
       .map(type => ({
         name: type,
-        onClick: selectedIndices => this.setState({
-          selectedTypes: selectedIndices.map(i => SelectPillValues[i])
-        }),
+        onClick: this.onClickFilter,
       }))
     this.state = {
       mode: Mode.enter,
@@ -55,6 +53,15 @@ export default class Bubbleverse extends React.PureComponent {
       savingNewArrangement: false,
       selectedTypes: [],
     }
+  }
+
+  @autobind
+  onClickFilter(index, selected) {
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'filter ' + selected? 'picked' : 'unpicked',
+      eventLabel: SelectPillValues[index],
+    })
   }
 
   componentDidMount() {
@@ -138,6 +145,7 @@ export default class Bubbleverse extends React.PureComponent {
           options={this.selectPillOptions}
           multiSelect={true}
           selectedList={[]}
+          onChange={this.onChangeFilterList}
         />
 
         <BubbleGrid
@@ -179,6 +187,13 @@ export default class Bubbleverse extends React.PureComponent {
         </MaskAbsoluteFillParent>
       </Root>
     )
+  }
+
+  @autobind
+  onChangeFilterList(selectedIndices) {
+    this.setState({
+      selectedTypes: selectedIndices.map(i => SelectPillValues[i])
+    })
   }
 
   @autobind

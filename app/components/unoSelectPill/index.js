@@ -55,8 +55,10 @@ export default class UnoSelectPill extends React.PureComponent {
 
   @autobind
   onClick(opt, index) {
+    let isSelected = true
     let newSelectedList = [...this.state.selectedList]
     if (newSelectedList.includes(index)) {
+      isSelected = false
       newSelectedList = newSelectedList.filter(i => i !== index)
     } else {
       newSelectedList.push(index)
@@ -69,7 +71,9 @@ export default class UnoSelectPill extends React.PureComponent {
     this.setState({
       selectedList: newSelectedList,
     })
-    opt.onClick(newSelectedList)
+
+    opt.onClick(index, isSelected)
+    this.props.onChange(newSelectedList)
   }
 
 }
