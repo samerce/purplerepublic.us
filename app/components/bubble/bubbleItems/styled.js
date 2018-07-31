@@ -127,7 +127,6 @@ export const EditPhotosRoot = FlexColumn.extend`
 `
 
 export const Hint = styled.div`
-  font-family: quattrocento;
   font-size: 18px;
   margin: 15px;
   color: ${p => p.theme.veryLight};

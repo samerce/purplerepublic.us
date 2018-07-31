@@ -59,7 +59,6 @@ export const QuoteRoot = styled.div`
 export const TextRoot = styled.div`
   border-radius: 5px;
   font-size: 36px;
-  font-family: quattrocento;
   width: ${window.innerWidth - 20}px;
   max-width: 605px;
   padding: 15px;

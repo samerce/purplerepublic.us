@@ -51,11 +51,11 @@ injectGlobal`
   }
 
   body {
-    font-family: quattrocento, 'Helvetica Neue', Helvetica, sans-serif;
+    font-family: 'IM Fell DW Pica', 'Helvetica Neue', Helvetica, sans-serif;
   }
 
   body.fontLoaded {
-    font-family: quattrocento, 'Open Sans', 'Helvetica Neue', Helvetica, serif;
+    font-family: 'IM Fell DW Pica', 'Open Sans', 'Helvetica Neue', Helvetica, serif;
   }
 
   #app {

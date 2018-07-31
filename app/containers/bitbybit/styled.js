@@ -161,7 +161,6 @@ export const BitBoxTextRoot = styled.div`
 export const BitBoxText = styled.textarea`
   resize: none;
   width: 100%;
-  font-family: quattrocento;
   padding: 0;
   outline: none;
   pointer-events: none;
@@ -266,7 +265,6 @@ export const BitArticle = styled.div`
   background: ${p => p.themeColor};
   opacity: 0;
   color: white;
-  font-family: quattrocento;
   font-size: 22px;
   line-height: 30px;
   padding: 25px 30px 70px;
@@ -496,7 +494,6 @@ export const MoreBitsTextEntry = styled.div`
     height: 40px;
     border-radius: 5px;
     color: white;
-    font-family: quattrocento;
 
     .bitMoreTextEntry & {
       pointer-events: all;

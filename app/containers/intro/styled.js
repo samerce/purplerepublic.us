@@ -24,7 +24,6 @@ export const Root = styled.div`
 export const HelloThere = styled.div`
   flex: 0 0 64%;
   width: 100%;
-  font-family: quattrocento;
   font-size: 20px;
   text-align: center;
   height: 100%;

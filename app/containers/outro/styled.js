@@ -471,7 +471,6 @@ export const Finality = styled.div`
   width: 100%;
   z-index: 6;
   margin: ${FINAL_WORD_MARGIN_TOP}px 0 0;
-  font-family: quattrocento;
   font-size: 20px;
   opacity: 0;
   transform: translateY(50px);
