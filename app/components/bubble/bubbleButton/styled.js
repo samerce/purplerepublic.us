@@ -46,10 +46,9 @@ export const ImageBubbleButton = BubbleButton.extend`
 
 export const Icon = aIcon.extend`
   position: absolute;
-  top: 100%;
+  bottom: -5px;
   left: 50%;
   transform: translate(-50%, 0);
-  margin-top: -15%;
   pointer-events: none;
   transition-duration: .5s;
   background: ${p => p.theme.veryLight};
@@ -67,7 +66,7 @@ export const Icon = aIcon.extend`
   }
 
   ${screen.medium`
-    font-size: 20px;
+    font-size: 14px;
   `}
 `
 

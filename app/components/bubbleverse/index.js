@@ -146,6 +146,7 @@ export default class Bubbleverse extends React.PureComponent {
           multiSelect={true}
           selectedList={[]}
           onChange={this.onChangeFilterList}
+          collapsible={true}
         />
 
         <BubbleGrid

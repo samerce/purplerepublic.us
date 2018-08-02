@@ -10,17 +10,14 @@ import {
 injectGlobal`
   .bubbleverseSelectPill {
     top: 20px;
-    transform: translate(-50%, -100px);
-    display: none;
+    left: initial;
+    right: 20px;
+    transform: translateY(-100px);
 
     .start-show & {
-      transform: translate(-50%, 0);
+      transform: none;
       transition: transform 1s ${EASE_OUT} 6s;
     }
-
-    ${screen.medium`
-      display: none;
-    `}
   }
 `
 
@@ -62,7 +59,8 @@ export const BubbleGrid = AbsoluteFlexFillParent.extend`
   overflow-y: scroll;
   overflow-x: hidden;
   pointer-events: all;
-  padding: 10px 50px 20px 10px;
+  padding: 20px 50px 20px 20px;
+  align-content: flex-start;
 `
 
 export const BubbleGridItem = styled.div`

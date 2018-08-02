@@ -35,16 +35,16 @@ export const Root = styled.div`
   &.logo-hangin {
     transition: all 1s ${EASE_OUT};
     transform: translate(
-      -${(window.innerWidth / 2) - 117}px,
-      -${(window.innerHeight / 2) - 115}px
+      -${(window.innerWidth / 2) - 127}px,
+      -${(window.innerHeight / 2) - 125}px
     );
   }
 
   ${screen.medium`
     &.logo-hangin {
       transform: translate(
-        -${(window.innerWidth / 2) - 60}px,
-        -${(window.innerHeight / 2) - 60}px
+        -${(window.innerWidth / 2) - 70}px,
+        -${(window.innerHeight / 2) - 70}px
       );
     }
   `}

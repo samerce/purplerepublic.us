@@ -8,14 +8,7 @@ import {
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_S_PX,
 } from '../../global/constants'
-
-const aColor = '#956C95'
-
-injectGlobal`
-  .unoOptSelected {
-
-  }
-`
+import {Icon, screen} from '../../global/styled'
 
 export const Root = styled.div`
   position: absolute;
@@ -24,9 +17,17 @@ export const Root = styled.div`
   display: flex;
   padding: 5px;
   border-radius: 50px;
-  border: 1px solid white;
+  border: 1px solid ${p => p.theme.veryLight};
   z-index: 40;
   transform: translateX(-50%);
+  background: ${p => p.theme.main};
+  height: 60px;
+  box-shadow: ${p => p.theme.shadowMedium};
+
+  ${p => p.collapsed && `
+    padding: 0;
+    width: 60px;
+  `}
 `
 
 export const OptionRoot = styled.div`
@@ -35,15 +36,23 @@ export const OptionRoot = styled.div`
   text-transform: uppercase;
   font-family: annie use your telescope;
   position: relative;
-  color: white;
   font-size: 24px;
-  transition: all .3s ${EASE_OUT};
+  transition-property: width, opacity;
+  transition-duration: .3s;
+  transition-timing-function: ${EASE_OUT};
   user-select: none;
   margin-left: ${p => p.breathe? '5px' : '0'};
+  color: ${p => p.selected? p.theme.main : 'white'};
 
-  &.unoOptSelected {
-    color: ${aColor};
-  }
+  ${p => p.hidden? `
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+  ` : ''}
+
+  ${screen.medium`
+    font-size: 20px;
+  `}
 `
 
 export const Indicator = styled.div`
@@ -59,15 +68,37 @@ export const Indicator = styled.div`
   transform: scaleX(0);
   transition: all .3s ${EASE_OUT};
 
-  .unoOptSelected & {
-    opacity: .9;
+  ${p => p.selected && `
+    transition-duration: .5s;
     transform: scaleX(1);
-    transition: all .5s ${EASE_OUT};
-  }
+    opacity: .9;
+  `}
 `
 
 export const OptionText = styled.div`
   position: relative;
   z-index: 5;
   padding: 3px;
+`
+
+export const FilterButton = Icon.extend`
+  color: white;
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all .3s ${EASE_OUT};
+
+  &:hover {
+    color: ${p => p.theme.main};
+    background: white;
+  }
+  ${p => p.hidden && `
+    opacity: 0;
+    pointer-events: none;
+  `}
 `
