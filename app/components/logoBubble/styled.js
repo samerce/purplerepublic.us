@@ -36,7 +36,7 @@ export const Root = styled.div`
     transition: all 1s ${EASE_OUT};
     transform: translate(
       -${(window.innerWidth / 2) - 117}px,
-      -${(window.innerHeight / 2) - 125}px
+      -${(window.innerHeight / 2) - 115}px
     );
   }
 

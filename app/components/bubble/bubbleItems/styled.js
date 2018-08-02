@@ -148,7 +148,7 @@ export const VideoRoot = styled.div`
 `
 
 export const Description = ArticleText.extend`
-  margin: 10px 20px 20px;
+  margin: 20px;
   font-size: 21px;
 `
 

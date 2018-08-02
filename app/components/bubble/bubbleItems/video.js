@@ -50,7 +50,9 @@ export default class BubbleVideo extends React.Component {
   render() {
     return (
       <VideoRoot>
-        <BubbleWriting {...this.props} />
+        {this.props.detailText &&
+          <BubbleWriting {...this.props} />
+        }
 
         {this.state.shouldRenderVideo &&
           <YouTubeVideo

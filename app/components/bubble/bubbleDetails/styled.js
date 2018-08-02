@@ -43,7 +43,7 @@ export const ContentRoot = styled.div`
   hr {
     width: 100%;
     border-color: ${p => p.theme.veryLight};
-    margin: 15px 0;
+    margin: 15px 0 0;
   }
 `
 
@@ -61,7 +61,7 @@ export const Title = styled.input`
     font-size: 24px;
   `}
 
-  .editing & {
+  .bubble-editing & {
     pointer-events: all;
   }
 `
