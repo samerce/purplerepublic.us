@@ -97,7 +97,7 @@ export default class BubbleGallery extends React.PureComponent {
   render() {
     const {mode, images} = this.state
     const {
-      detailText = 'tell somebody bout your gallery, hennie.',
+      detailText,
       editing,
       focused,
       onEditingChange,
@@ -112,11 +112,15 @@ export default class BubbleGallery extends React.PureComponent {
           </Helmet>
         }
 
-        <BubbleWriting
-          editing={editing}
-          detailText={detailText}
-          onEditingChange={onEditingChange}
-        />
+        {(editing || detailText) &&
+          <BubbleWriting
+            editing={editing}
+            detailText={
+              editing? detailText || 'tell somebody bout yo gallery, hennie.' : detailText
+            }
+            onEditingChange={onEditingChange}
+          />
+        }
 
         {(focused || editing) && !!images.length && !shouldShowEditingGallery &&
           <Gallery

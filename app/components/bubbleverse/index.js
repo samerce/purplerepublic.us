@@ -81,7 +81,7 @@ export default class Bubbleverse extends React.PureComponent {
       setTimeout(this.startUrlWatcher, 6000),
     )
 
-    this.rootNode = findDOMNode(this.root)
+    this.socialButtonsNode = document.getElementById('socialButtonsRoot')
     this.selectPill = findDOMNode(this.selectPillRef)
   }
 
@@ -226,7 +226,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.isFocusLocked = true
     this.focusedBubbleId = bubbleId
     window.location.hash = '#start/bubble/' + bubbleId
-    this.rootNode.style.zIndex = 7
+    this.socialButtonsNode.style.zIndex = 2
     this.selectPill.style.zIndex = 0
     this.isFocusLocked = false
   }
@@ -236,7 +236,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.isFocusLocked = true
     this.focusedBubbleId = null
     window.location.hash = '#start'
-    this.rootNode.style.zIndex = 5
+    this.socialButtonsNode.style.zIndex = 4
     this.selectPill.style.zIndex = 2
     this.isFocusLocked = false
   }

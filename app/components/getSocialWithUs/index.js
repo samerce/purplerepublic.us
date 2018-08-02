@@ -17,7 +17,7 @@ export default class GetSocialWithUs extends React.Component {
 
   render() {
     return (
-      <Root>
+      <Root id='socialButtonsRoot'>
         <SocialButtonsRoot>
           <a href='https://www.facebook.com/purplerepublic' target='_blank'>
             <SocialIcon className='fa fa-facebook-square i1' />
