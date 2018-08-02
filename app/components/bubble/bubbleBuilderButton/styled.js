@@ -14,10 +14,11 @@ import {
 } from '../../../global/styled'
 
 export const BubbleBuilderButton = BubbleButton.extend.attrs({
-  size: 80,
+  size: 60,
 })`
-  z-index: 30;
-  margin: 0 10px;
+  z-index: 100;
+  flex: 0 0 60px;
+  margin: 5px 0 0;
 
   &.bubbleArrangeActive {
     background: ${p => p.theme.veryDark};
@@ -30,7 +31,7 @@ export const BubbleBuilderButton = BubbleButton.extend.attrs({
 `
 
 export const Icon = aIcon.extend`
-  font-size: 40px;
+  font-size: 30px;
   margin-top: 3px;
   margin-left: 3px;
 

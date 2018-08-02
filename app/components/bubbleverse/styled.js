@@ -87,9 +87,9 @@ export const BubbleGridItem = styled.div`
 `
 
 export const BubbleEditingButtonsRoot = AbsoluteFlex.extend`
-  top: 20px;
+  bottom: 20px;
   right: 20px;
-  height: 80px;
+  flex-direction: column;
 `
 
 export const ArrangeButton = AbsoluteFlex.extend`
