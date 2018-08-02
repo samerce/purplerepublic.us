@@ -85,8 +85,8 @@ export const BubbleButton = Flex.extend`
   }
 
   ${screen.medium`
-    width: ${p => p.size * (3/5)}px;
-    height: ${p => p.size * (3/5)}px;
+    width: ${p => p.size * .47}px;
+    height: ${p => p.size * .47}px;
   `}
 `
 

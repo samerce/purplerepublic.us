@@ -35,15 +35,15 @@ export const Root = styled.div`
   &.logo-hangin {
     transition: all 1s ${EASE_OUT};
     transform: translate(
-      -${(window.innerWidth / 2) - 100}px,
-      -${(window.innerHeight / 2) - 100}px
+      -${(window.innerWidth / 2) - 117}px,
+      -${(window.innerHeight / 2) - 125}px
     );
   }
 
   ${screen.medium`
     &.logo-hangin {
       transform: translate(
-        -${(window.innerWidth / 2) - 70}px,
+        -${(window.innerWidth / 2) - 60}px,
         -${(window.innerHeight / 2) - 70}px
       );
     }
@@ -66,9 +66,15 @@ export const LogoTextRoot = styled.div`
     transition: all .7s ${EASE_IN};
   }
   .logo-hangin & {
-    transform: scale(.6);
+    transform: scale(.5);
     transition: all 1.5s ${EASE_OUT};
   }
+
+  ${screen.medium`
+    .logo-hangin & {
+      transform: scale(.3);
+    }
+  `}
 `
 
 export const CircleRoot = styled.div`
@@ -94,7 +100,7 @@ export const CircleBill = styled.div`
   .logo-intro & {
     transform: scale(1.8);
     ${screen.medium`
-      transform: scale(1.4);
+      transform: scale(1.2);
     `}
   }
   .logo-breatheIn & {
@@ -102,8 +108,11 @@ export const CircleBill = styled.div`
     transition: all 1s ${EASE_IN};
   }
   .logo-hangin & {
-    transform: scale(1);
+    transform: scale(.8);
     transition: all 1.5s ${EASE_OUT};
+    ${screen.medium`
+      transform: scale(.39);
+    `}
   }
 `
 

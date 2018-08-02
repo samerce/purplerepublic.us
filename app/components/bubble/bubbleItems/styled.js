@@ -22,11 +22,47 @@ injectGlobal`
       color: white;
   }
   .bubbleShopText {
-    transition: all .3s ${EASE_OUT};
+    transition: all .01s linear .2s;
+    pointer-events: none;
+    font-family: annie use your telescope;
+    font-size: 62px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    color: white;
+    top: 0;
+    user-select: none;
+    text-shadow: 1px 1px rgba(0,0,0,.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    .focused & {
+      transition-delay: 0s;
+      opacity: 0;
+    }
+
+    span {
+      font-size: 22px;
+    }
+
+    .shopText {
+      line-height: 40px;
+    }
     .bubble-willFocus &, .bubble-focused &, .bubble-willDefocus & {
       opacity: 0;
       transition: none;
     }
+    ${screen.medium`
+      font-size: 36px;
+      .shopText {
+        line-height: 30px;
+      }
+      span {
+        font-size: 16px;
+      }
+    `}
   }
   .image-gallery {
     width: 100%;
@@ -113,7 +149,7 @@ export const VideoRoot = styled.div`
 
 export const Description = ArticleText.extend`
   margin: 10px 20px 20px;
-  padding-top: 10px;
+  font-size: 21px;
 `
 
 export const EditPhotosRoot = FlexColumn.extend`

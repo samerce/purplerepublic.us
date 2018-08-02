@@ -11,6 +11,7 @@ injectGlobal`
   .bubbleverseSelectPill {
     top: 20px;
     transform: translate(-50%, -100px);
+    display: none;
 
     .start-show & {
       transform: translate(-50%, 0);
@@ -61,7 +62,7 @@ export const BubbleGrid = AbsoluteFlexFillParent.extend`
   overflow-y: scroll;
   overflow-x: hidden;
   pointer-events: all;
-  padding: 80px 50px 20px 5px;
+  padding: 10px 50px 20px 10px;
 `
 
 export const BubbleGridItem = styled.div`
@@ -69,7 +70,7 @@ export const BubbleGridItem = styled.div`
   pointer-events: none;
   flex: 0 0 ${p => p.size}px;
   height: ${p => p.size}px;
-  margin: 0 3px;
+  margin: 5px;
 
   &:first-child {
     visibility: hidden;
@@ -78,11 +79,12 @@ export const BubbleGridItem = styled.div`
   &.hidden {
     flex: 0 0 0;
     overflow: hidden;
+    margin: 0;
   }
 
   ${screen.medium`
-    height: ${p => p.size * (3/5)}px;
-    flex: 0 0 ${p => p.size * (3/5)}px;
+    height: ${p => p.size * .47}px;
+    flex: 0 0 ${p => p.size * .47}px;
   `}
 `
 

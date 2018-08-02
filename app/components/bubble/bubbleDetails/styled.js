@@ -34,14 +34,16 @@ export const Root = styled.div`
 
 export const ContentRoot = styled.div`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
-  max-width: 700px;
+  max-width: 740px;
   background: ${p => p.theme.main};
   box-shadow: ${p => p.theme.shadowHeavy};
   padding-top: 20px;
   width: ${window.innerWidth}px;
 
   hr {
-    width: 150px;
+    width: 100%;
+    border-color: ${p => p.theme.veryLight};
+    margin: 15px 0;
   }
 `
 
@@ -56,7 +58,7 @@ export const Title = styled.input`
   width: 100%;
 
   ${screen.medium`
-    font-size: 28px;
+    font-size: 24px;
   `}
 
   .editing & {
@@ -68,6 +70,7 @@ export const Subtitle = Title.extend`
   font-size: 16px;
   opacity: .8;
   text-transform: uppercase;
+  color: ${p => p.theme.veryLight};
 
   ${screen.medium`
     font-size: 14px;
@@ -79,7 +82,7 @@ export const ActionsRoot = Flex.extend`
   justify-content: center;
   height: 60px;
   width: 100%;
-  border-top: 1px solid white;
+  border-top: 1px solid ${p => p.theme.veryLight};
   font-family: annie use your telescope;
   background: ${p => p.theme.slightlyDark};
   border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
@@ -95,7 +98,7 @@ export const Action = Boto.extend`
     border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
   }
   &:not(:first-child) {
-    border-left: 1px solid white;
+    border-left: 1px solid ${p => p.theme.veryLight};
   }
   &:last-child {
     border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;

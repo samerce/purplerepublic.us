@@ -305,6 +305,7 @@ function fetchBubbles() {
         const bubbles = JSON.parse(bubblesText)
         bubbles.forEach(bubbleProps => {
           bubbleProps.Component = BubbleComponents[bubbleProps.type]
+          bubbleProps.size = 200
         })
         resolve(bubbles)
       // responseRaw.json().then(bubbles => {

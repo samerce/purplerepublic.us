@@ -19,7 +19,7 @@ export default class BubbleButton extends React.Component {
 
   constructor(props) {
     super(props)
-    this.delay = (Math.random() * .5) + .5
+    this.delay = (Math.random() * .5) + .2
     this.state = {
       styles: {},
     }
