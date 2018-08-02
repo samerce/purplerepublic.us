@@ -127,7 +127,7 @@ export const PathOption = styled.div`
   ${screen.medium`
     font-size: 26px;
     &.pathMiddle {
-      font-size: 36px;
+      font-size: 34px;
     }
   `}
 `

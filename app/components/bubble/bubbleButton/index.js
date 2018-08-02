@@ -13,6 +13,7 @@ const TypeToIcon = {
   video: 'film',
   writing: 'book',
   gallery: 'camera-retro',
+  words: 'book',
 }
 
 export default class BubbleButton extends React.Component {

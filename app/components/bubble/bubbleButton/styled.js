@@ -49,10 +49,17 @@ export const Icon = aIcon.extend`
   top: 100%;
   left: 50%;
   transform: translate(-50%, 0);
-  margin-top: -25%;
+  margin-top: -15%;
   pointer-events: none;
   transition-duration: .5s;
-  opacity: .5;
+  background: ${p => p.theme.veryLight};
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: 18px;
 
   .bubble-focused &, .bubble-editing & {
     opacity: 0;

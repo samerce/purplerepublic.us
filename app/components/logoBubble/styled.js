@@ -44,7 +44,7 @@ export const Root = styled.div`
     &.logo-hangin {
       transform: translate(
         -${(window.innerWidth / 2) - 60}px,
-        -${(window.innerHeight / 2) - 70}px
+        -${(window.innerHeight / 2) - 60}px
       );
     }
   `}
@@ -91,7 +91,7 @@ export const CircleBill = styled.div`
   position: absolute;
   width: 250px;
   height: 250px;
-  background: ${p => p.theme.main};
+  background: ${p => lighten(.2, p.theme.main)};
   border-radius: 100%;
   transform: scale(0);
   transition: all 2s ${EASE_OUT};
@@ -129,7 +129,7 @@ export const CirclePaul = styled(CircleBill)`
 export const CircleSami = styled(CirclePaul)`
   width: 200px;
   height: 200px;
-  background: ${p => lighten(.2, p.theme.main)};
+  background: ${p => p.theme.main};
   transition-delay: .6s;
   .logo-breatheIn & {
     transition-duration: .8s;
