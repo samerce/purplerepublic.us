@@ -45,7 +45,7 @@ export const Root = AbsoluteFlexFillParent.extend`
     transition: none;
   }
   &.bubble-editing {
-    padding: 120px 0 120px 250px;
+    padding: 120px 80px 120px 250px;
   }
 
   ${screen.medium`

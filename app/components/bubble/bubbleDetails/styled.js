@@ -42,7 +42,9 @@ export const ContentRoot = styled.div`
 
   hr {
     width: 100%;
+    border-width: 1px;
     border-color: ${p => p.theme.veryLight};
+    border-top: 0;
     margin: 15px 0 0;
   }
 `
@@ -146,7 +148,7 @@ export const BubbleToolButton = Boto.extend`
 export const BubbleNameButton = BubbleToolButton.extend`
   border-top-left-radius: ${p => p.theme.borderRadiusBoto}px;
   border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid ${p => p.theme.veryLight};
   flex: 0 0 100%;
   position: relative;
 
@@ -190,7 +192,7 @@ export const BubbleDeleteButton = BubbleToolButton.extend`
   background: red;
   right: 0;
   position: relative;
-  border-left: 1px solid white;
+  border-left: 1px solid ${p => p.theme.veryLight};
   border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
 
   &:hover {

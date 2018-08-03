@@ -114,11 +114,8 @@ export default class BubbleGallery extends React.PureComponent {
 
         {(editing || detailText) &&
           <BubbleWriting
-            editing={editing}
-            detailText={
-              editing? detailText || 'tell somebody bout yo gallery, hennie.' : detailText
-            }
-            onEditingChange={onEditingChange}
+            {...this.props}
+            placeholder='tell somebody bout yo gallery, hennie.'
           />
         }
 

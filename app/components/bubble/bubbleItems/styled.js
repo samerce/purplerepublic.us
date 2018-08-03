@@ -124,21 +124,32 @@ injectGlobal`
     font-size: 12px;
   }
 
-  .medium-editor-toolbar.medium-editor-toolbar.medium-editor-toolbar-active {
-    background-color: ${theme.veryLight};
-
-    &:after {
-      display: none;
-    }
+  .words-editor-toolbar {
+    color: ${theme.slightlyDark};
+    border: 1px solid ${theme.veryLight};
+    background: ${theme.main};
+    z-index: 10;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 30px;
+    right: 80px;
+    width: 140px;
+    top: 200px;
+    justify-content: center;
+    border-radius: 10px;
+    position: fixed;
   }
-  .medium-editor-action {
-    border-color: white!important;
-    &:hover {
-      background-color: ${theme.slightlyDark} !important;
-    }
+  .words-editor-textarea {
+    color: white;
   }
-  .medium-editor-button-active {
-    background-color: ${theme.veryDark} !important;
+  .rdw-option-wrapper, .rdw-dropdown-wrapper {
+    border: 1px solid ${theme.slightlyDark};
+    color: black;
+    border-radius: 5px;
+  }
+  .rdw-dropdown-selectedtext {
+    color: black;
+  }
+  .rdw-text-align-dropdown {
+    margin-bottom: 5px;
   }
 `
 
@@ -159,7 +170,7 @@ export const EditPhotosRoot = FlexColumn.extend`
   margin: 20px 0;
   position: fixed;
   top: 10px;
-  right: 100px;
+  right: 20px;
 `
 
 export const Hint = styled.div`
