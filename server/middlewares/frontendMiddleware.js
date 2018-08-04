@@ -32,6 +32,7 @@ const addDevMiddlewares = (app, webpackConfig) => {
   }
 
   app.get('*', (req, res) => {
+    res.set('Cache-Control', 'no-cache, must-revalidate')
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {
         res.sendStatus(404);
@@ -53,7 +54,10 @@ const addProdMiddlewares = (app, options) => {
   app.use(compression());
   app.use(publicPath, express.static(outputPath));
 
-  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  app.get('*', (req, res) => {
+    res.set('Cache-Control', 'max-age=14400, must-revalidate') // 4 hour max age
+    res.sendFile(path.resolve(outputPath, 'index.html'))
+  });
 };
 
 /**
