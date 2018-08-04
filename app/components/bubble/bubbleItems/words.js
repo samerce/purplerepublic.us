@@ -57,6 +57,10 @@ export default class BubbleWords extends React.PureComponent {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.props.detailText !== nextProps.detailText) || nextState !== this.state
+  }
+
   componentDidUpdate(prevProps) {
     const {detailText, editing, id} = this.props
     if (id !== prevProps.id || (editing && !prevProps.editing)) {

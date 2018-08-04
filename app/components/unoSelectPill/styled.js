@@ -20,7 +20,7 @@ export const Root = styled.div`
   border: 1px solid ${p => p.theme.veryLight};
   z-index: 40;
   transform: translateX(-50%);
-  background: ${p => p.theme.main};
+  background: ${p => p.theme.slightlyDark};
   height: 60px;
   box-shadow: ${p => p.theme.shadowMedium};
 

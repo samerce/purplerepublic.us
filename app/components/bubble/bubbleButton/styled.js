@@ -33,14 +33,16 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-position: center;
   background-size: cover;
   overflow: hidden;
+  border-width: 3px;
 
   .bubble-focused &, .bubble-editing & {
     width: ${CircleSizeFocused}px;
     height: ${CircleSizeFocused}px;
     box-shadow: none;
-    transform: translate(0, 10px);
+    transform: translate(0, 17px);
     cursor: default;
     transition: all .7s ${EASE_OUT};
+    border-color: ${p => p.theme.main};
   }
 `
 
@@ -85,6 +87,7 @@ export const Title = AbsoluteFlex.extend`
   transition-timing-function: ${EASE_OUT};
   transform: scale(1.05);
   opacity: 0;
+  user-select: none;
 
   ${ImageBubbleButton}:hover & {
     opacity: 1;

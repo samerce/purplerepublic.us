@@ -61,10 +61,18 @@ export default class BubbleGallery extends React.PureComponent {
         thumbnailWidth: img.width,
         thumbnailHeight: img.height,
         id: img.id,
+        originalClass: this.getImageClass(img.width, img.height),
       })
     })
 
     return galleryImages
+  }
+
+  getImageClass(width, height) {
+    if (width > height) {
+      return 'preferWidth'
+    }
+    return 'preferHeight'
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -257,6 +265,10 @@ export default class BubbleGallery extends React.PureComponent {
           thumbnailWidth: imageElement.naturalWidth,
           thumbnailHeight: imageElement.naturalHeight,
           needsUpload: true,
+          originalClass: this.getImageClass(
+            imageElement.naturalWidth,
+            imageElement.naturalHeight
+          ),
         },
       ])
     }

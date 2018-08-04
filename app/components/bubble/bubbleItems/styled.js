@@ -68,33 +68,51 @@ injectGlobal`
     width: 100%;
     height: 100%;
   }
-  .image-gallery-content, .image-gallery-slide-wrapper,
-  .image-gallery-swipe, .image-gallery-slides, .image-gallery-image {
+  .image-gallery-content, .image-gallery-swipe,
+  .image-gallery-slides {
     height: 100%;
   }
   .image-gallery-slide {
     text-align: center;
   }
-  .fullscreen .image-gallery-slide.image-gallery-slide {
+  .image-gallery-image {
     height: 100%;
-
-    img {
-      width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fullscreen {
+    .image-gallery-slide-wrapper {
       height: 100%;
     }
+    .image-gallery-slide.image-gallery-slide {
+      height: 100%;
+      width: 100%;
+      text-align: center;
 
-    ${screen.medium`
-      .image-gallery-image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      &.preferHeight img {
+        height: 100%;
+        width: auto;
       }
 
-      img {
+      &.preferWidth img {
         width: 100%;
         height: auto;
       }
-    `}
+
+      ${screen.medium`
+        .image-gallery-image {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      `}
+    }
   }
   .image-gallery-left-nav, .image-gallery-right-nav {
     height: 100%;
@@ -182,6 +200,7 @@ export const Hint = styled.div`
 export const Button = Boto.extend`
   margin: 20px;
   font-size: 24px;
+  border: 1px solid ${p => p.theme.veryLight};
 `
 
 export const DeleteButton = Button.extend`
