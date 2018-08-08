@@ -23,8 +23,9 @@ const upload = multer({
 });
 
 // for crawlers/bots
-app.use(require('prerender-node')).set('protocol', 'https')
+// app.use(require('prerender-node').set('protocol', 'https'))
 
+// for file uploads
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -51,14 +52,11 @@ setup(app, {
   publicPath: '/',
 });
 
-// get the intended host and port number, use localhost and port 3000 if not provided
 const customHost = argv.host || process.env.HOST;
-const host = customHost || null; // Let http.Server use its default IPv6/4 host
+const host = customHost || null;
 const prettyHost = customHost || 'localhost';
-
 const port = argv.port || process.env.PORT || 3000;
 
-// Start your app.
 app.listen(port, host, (err) => {
   if (err) {
     return logger.error(err.message);

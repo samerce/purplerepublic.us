@@ -71,7 +71,7 @@ export default class Intro extends React.Component {
             <PathOptionButton>instagram</PathOptionButton>
           </PathOption>
           <PathOption onClick={this.joinClub} className='pathWithBorder'>
-            <PathOptionButton>join our club!</PathOptionButton>
+            <PathOptionButton>join our club</PathOptionButton>
           </PathOption>
         </PickYourPath>
 
