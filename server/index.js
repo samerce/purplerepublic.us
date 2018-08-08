@@ -23,7 +23,7 @@ const upload = multer({
 });
 
 // for crawlers/bots
-// app.use(require('prerender-node').set('protocol', 'https'))
+app.use(require('prerender-node').set('protocol', 'https'))
 
 // for file uploads
 app.use(bodyParser.json());
