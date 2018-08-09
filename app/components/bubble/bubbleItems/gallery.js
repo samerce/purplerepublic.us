@@ -110,13 +110,14 @@ export default class BubbleGallery extends React.PureComponent {
       focused,
       onEditingChange,
     } = this.props
-    const shouldShowEditingGallery = (mode === Mode.delete || mode === Mode.move)
+    const shouldShowEditingGallery =
+      editing && (mode === Mode.delete || mode === Mode.move)
 
     return (
       <FlexColumn className={'galleryBubble-' + mode}>
-        {focused &&
+        {focused && images.length &&
           <Helmet>
-            <meta property='og:image' content={images.length && images[0].src} />
+            <meta property='og:image' content={images[0].src} />
           </Helmet>
         }
 
@@ -144,7 +145,7 @@ export default class BubbleGallery extends React.PureComponent {
             items={images} />
         }
 
-        {(focused || editing) && shouldShowEditingGallery &&
+        {shouldShowEditingGallery &&
           <EditingGallery
             enableImageSelection={true}
             onSelectImage={this.onSelectImage}
@@ -155,22 +156,22 @@ export default class BubbleGallery extends React.PureComponent {
             images={images} />
         }
 
-          {editing &&
-            <EditPhotosRoot>
-              <SelectPill
-                className='gallerySelectPill'
-                options={this.selectPillOptions}
-              />
+        {editing &&
+          <EditPhotosRoot>
+            <SelectPill
+              className='gallerySelectPill'
+              options={this.selectPillOptions}
+            />
 
-              {this['renderEditTools_' + mode]()}
+            {this['renderEditTools_' + mode]()}
 
-              <HiddenFileInput
-                multiple='multiple'
-                onChange={this.onChangeFileInput}
-                innerRef={r => this.fileInput = r}
-              />
-            </EditPhotosRoot>
-          }
+            <HiddenFileInput
+              multiple='multiple'
+              onChange={this.onChangeFileInput}
+              innerRef={r => this.fileInput = r}
+            />
+          </EditPhotosRoot>
+        }
       </FlexColumn>
     )
   }
