@@ -14,16 +14,28 @@ import {
 let CircleSizeFocused = 60
 
 export const Root = InlineBlock.extend`
-  transition: all .5s ${EASE_OUT};
+  transition: transform .7s ${EASE_OUT};
   z-index: 8;
   pointer-events: ${p => p.disabled? 'none' : 'all'};
   cursor: pointer;
+  position: relative;
 
-  .bubble-willEnter & {
-    transition: none;
+  &.bubble-focused {
+    pointer-events: none;
+    transition-duration: 1s;
+    position: fixed;
   }
 
-  .bubble-enter & {
+  &.bubble-willFocus, &.bubble-willDefocus {
+    position: fixed;
+  }
+
+  &.bubble-willEnter {
+    transition: none;
+    transform: scale(0);
+  }
+
+  &.bubble-enter {
     transition: all 1s ${EASE_OUT} ${p => p.delay}s;
   }
 `
@@ -35,11 +47,9 @@ export const ImageBubbleButton = BubbleButton.extend`
   overflow: hidden;
   border-width: 3px;
 
-  .bubble-focused &, .bubble-editing & {
-    width: ${CircleSizeFocused}px;
-    height: ${CircleSizeFocused}px;
+  &.bubble-focused, &.bubble-editing {
     box-shadow: none;
-    transform: translate(0, 17px);
+    transform: translate(0, 0) scale(.25);
     cursor: default;
     transition: all .7s ${EASE_OUT};
     border-color: ${p => p.theme.main};

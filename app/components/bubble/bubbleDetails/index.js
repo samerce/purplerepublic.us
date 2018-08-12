@@ -1,12 +1,14 @@
 import React from 'react'
 import Spinnie from '../../spinnie'
+import {Helmet} from 'react-helmet'
 
 import {
   Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, JourneyButtonRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
-  BubbleOptions,
+  BubbleOptions, Header, Footer, Mask
 } from './styled'
 import {Description} from '../bubbleItems/styled'
 
+import {getButtonImageUrl, getFacebookUrl} from '../../../utils/bubbleverse'
 import {canShowEditingTools} from '../../../utils/nav'
 import autobind from 'autobind-decorator'
 import {BubbleButtonActions} from '../config'
@@ -21,10 +23,10 @@ export default class BubbleDetails extends React.PureComponent {
     this.state = {
       actionClicked: false,
       isDeleting: false,
-      title: props.title,
-      subtitle: props.subtitle,
-      bubbleOptionsStyle: getBubbleOptionsStyle(props.nextBubbleId),
+      title: props.nucleus && props.nucleus.title,
+      subtitle: props.nucleus && props.nucleus.subtitle,
       idCopied: false,
+      nucleus: {},
     }
 
     Clipboard.on('success', () => {
@@ -33,78 +35,141 @@ export default class BubbleDetails extends React.PureComponent {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextState) {
     const newState = {}
 
-    if (this.props.title !== nextProps.title) {
-      newState.title = nextProps.title
-    }
-    if (this.props.subtitle !== nextProps.title) {
-      newState.subtitle = nextProps.subtitle
-    }
-    if (this.props.nextBubbleId !== nextProps.nextBubbleId) {
-      newState.bubbleOptionsStyle = getBubbleOptionsStyle(nextProps.nextBubbleId)
-    }
+    // if (this.props.nucleus.title !== nextProps.nucleus.title) {
+    //   newState.title = nextProps.nucleus.title
+    // }
+    // if (this.props.nucleus.subtitle !== nextProps.nucleus.subtitle) {
+    //   newState.subtitle = nextProps.nucleus.subtitle
+    // }
+    // if (this.state.nucleus.nextBubbleId !== nextState.nucleus.nextBubbleId) {
+    //   newState.bubbleOptionsStyle = getBubbleOptionsStyle(nextProps.nucleus.nextBubbleId)
+    // }
 
-    Object.keys(newState).length > 0 && this.setState(newState)
+    // Object.keys(newState).length > 0 && this.setState(newState)
+  }
+
+  @autobind
+  open(nucleus) {
+    clearTimeout(this.closeTimer)
+    this.setState({
+      nucleus: {
+        ...nucleus,
+      },
+      visible: true,
+      title: nucleus.title,
+      subtitle: nucleus.subtitle,
+    })
+  }
+
+  @autobind
+  close() {
+    this.setState({visible: false})
+    this.closeTimer = setTimeout(() => this.setState({nucleus: {}}), 700)
+    const {bubbleComponentRef} = this
+    bubbleComponentRef && bubbleComponentRef.onClose &&
+      bubbleComponentRef.onClose()
+  }
+
+  @autobind
+  publish() {
+    if (this.bubbleComponentRef) {
+      const {publish} = this.bubbleComponentRef
+      if (publish) return publish()
+    }
+    return new Promise(resolve => resolve())
   }
 
   render() {
-    const {title, subtitle, bubbleOptionsStyle, idCopied} = this.state
     const {
-      className,
-      children,
-      nextBubbleId,
-      editing,
+      title, subtitle, bubbleOptionsStyle, idCopied, isDeleting, nucleus,
+      visible,
+    } = this.state
+    const {
+      className, editing, onEditingChange, onEdit,
     } = this.props
+    const {
+      id,
+      nextBubbleId,
+      Component: BubbleComponent,
+    } = nucleus
 
     return (
-      <Root className={className}>
+      <Root visible={visible} editing={editing}>
+        {visible &&
+          <Helmet>
+            <meta property='og:type' content='article' />
+            <meta property='og:title' content={title} />
+            <meta property='og:image' content={getButtonImageUrl(id)} />
+            <meta property='og:image:secure_url' content={getButtonImageUrl(id)} />
+            <meta property='og:url' content={getFacebookUrl(id)} />
+            <meta property='og:description' content={subtitle} />
+          </Helmet>
+        }
+
+        <Mask
+          onClick={this.onClickClose}
+          show={visible}
+          className='bubbleMask'
+        />
+
         <ContentRoot>
-          <Subtitle
-            onBlur={e => this.props.onEditingChange({subtitle: e.target.value})}
-            onKeyPress={this.onInputKeyPress}
-            onChange={e => this.setState({subtitle: e.target.value})}
-            value={subtitle}
-          />
-          <Title
-            onBlur={e => this.props.onEditingChange({title: e.target.value})}
-            onKeyPress={this.onInputKeyPress}
-            onChange={e => this.setState({title: e.target.value})}
-            value={title}
-          />
-          <hr />
+          <Header>
+            <Subtitle
+              editing={editing}
+              onBlur={e => onEditingChange({subtitle: e.target.value})}
+              onKeyPress={this.onInputKeyPress}
+              onChange={e => this.setState({subtitle: e.target.value})}
+              value={subtitle}
+            />
+            <Title
+              editing={editing}
+              onBlur={e => onEditingChange({title: e.target.value})}
+              onKeyPress={this.onInputKeyPress}
+              onChange={e => this.setState({title: e.target.value})}
+              value={title}
+            />
+            <hr />
+          </Header>
 
-          {children}
-
-          {this.renderActions()}
-
-          {nextBubbleId && this.renderJourneyButton()}
-
-          {canShowEditingTools() && !editing &&
-            <BubbleOptions style={bubbleOptionsStyle}>
-              <BubbleNameButton
-                className='clipboardBtn'>
-                <div id='bubbleId'>{this.props.id}</div>
-                <button
-                  className='clipboardBtn'
-                  data-clipboard-text={this.props.id}
-                />
-                <div className={`copiedMsg ${idCopied && 'show'}`}>
-                  copied!
-                </div>
-              </BubbleNameButton>
-              <BubbleEditButton onClick={this.props.onEdit}>
-                edit bubble
-              </BubbleEditButton>
-              <BubbleDeleteButton
-                disabled={this.isDeleting}
-                onClick={this.deleteBubble}>
-                <div hidden={this.state.isDeleting}>delete bubble</div>
-                <Spinnie show={this.state.isDeleting} />
-              </BubbleDeleteButton>
-            </BubbleOptions>
+          {BubbleComponent &&
+            <BubbleComponent
+              nucleus={nucleus}
+              editing={editing}
+              ref={r => this.bubbleComponentRef = r}
+            />
           }
+
+          <Footer>
+            {nextBubbleId && this.renderJourneyButton()}
+            {this.renderActions()}
+            {canShowEditingTools() && !editing &&
+              <BubbleOptions style={bubbleOptionsStyle}>
+                <BubbleNameButton
+                  className='clipboardBtn'>
+                  <div id='bubbleId'>{id}</div>
+                  <button
+                    className='clipboardBtn'
+                    data-clipboard-text={id}
+                  />
+                  <div className={`copiedMsg ${idCopied && 'show'}`}>
+                    copied!
+                  </div>
+                </BubbleNameButton>
+                <BubbleEditButton onClick={onEdit}>
+                  edit bubble
+                </BubbleEditButton>
+                <BubbleDeleteButton
+                  disabled={isDeleting}
+                  onClick={this.deleteBubble}>
+                  <div hidden={isDeleting}>delete bubble</div>
+                  <Spinnie show={isDeleting} />
+                </BubbleDeleteButton>
+              </BubbleOptions>
+            }
+          </Footer>
         </ContentRoot>
       </Root>
     )
@@ -125,19 +190,19 @@ export default class BubbleDetails extends React.PureComponent {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        bubbleId: this.props.id,
+        bubbleId: this.state.nucleus.id,
       }),
     }).then(() => window.location.reload())
   }
 
   renderActions() {
     const {
-      actions,
-    } = this.props
+      actions = [],
+    } = this.state.nucleus
 
     return (
       <ActionsRoot>
-        <Action onClick={this.close}>
+        <Action onClick={this.onClickClose}>
           <div>close</div>
         </Action>
         {actions.length > 1 &&
@@ -174,16 +239,18 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   onClickJourneyButton() {
-    const {editing, onNext, nextBubbleId} = this.props
+    const {editing, onNext} = this.props
+    const {nucleus} = this.state
     if (!this.editing) {
-      ga('send', 'event', 'bubbles', 'continue journey clicked', this.props.id)
-      onNext(nextBubbleId)
+      ga('send', 'event', 'bubbles', 'continue journey clicked', nucleus.id)
+      onNext(nucleus.nextBubbleId)
     }
   }
 
   @autobind
-  close() {
-    this.props.onClose()
+  onClickClose() {
+    this.props.onClose && this.props.onClose()
+    this.close()
   }
 
   @autobind
@@ -191,12 +258,6 @@ export default class BubbleDetails extends React.PureComponent {
     if (e.key === 'Enter') e.target.blur(e)
   }
 
-}
-
-function getBubbleOptionsStyle(nextBubbleId) {
-  return {
-    marginTop: nextBubbleId? 100 : 30,
-  }
 }
 
 BubbleDetails.defaultProps = {

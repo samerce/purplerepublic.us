@@ -169,16 +169,25 @@ injectGlobal`
   .rdw-text-align-dropdown {
     margin-bottom: 5px;
   }
+  .galleryWriting {
+    overflow-y: hidden;
+    flex: 1 0 auto;
+  }
 `
 
-export const VideoRoot = styled.div`
-  text-align: center;
+export const BubbleComponentRoot = FlexColumn.extend`
+  overflow-y: scroll;
   width: 100%;
 `
 
+export const VideoRoot = BubbleComponentRoot.extend`
+  text-align: center;
+`
+
 export const Description = ArticleText.extend`
-  margin: 20px;
+  padding: 0 20px;
   font-size: 21px;
+  overflow-y: scroll;
 `
 
 export const EditPhotosRoot = FlexColumn.extend`

@@ -1,7 +1,7 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
-import Bubble from '../bubble'
 import BubbleBuilder from '../bubble/bubbleBuilder'
+import BubbleGrid from '../bubbleGrid'
 import {
   BubbleAddButton,
   BubbleArrangeButton,
@@ -10,8 +10,7 @@ import Spinnie from '../spinnie'
 import SelectPill from '../unoSelectPill'
 
 import {
-  Root, BubbleGrid, BubbleGridItem, ArrangeButton, BubbleEditingButtonsRoot,
-  ArrangeIcon,
+  Root, BubbleEditingButtonsRoot,
 } from './styled'
 import {MaskAbsoluteFillParent} from '../../global/styled'
 
@@ -19,15 +18,14 @@ import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
 import {BubbleComponents, BubbleType} from '../bubble/config'
 import autobind from 'autobind-decorator'
-import {cx} from '../../utils/style'
 
 const Mode = makeEnum([
   'enter',
   'show',
+  'showBubble',
   'buildBubble',
   'arrange',
 ])
-const BDBubbles = ['twinkle', 'jamaica', 'magic', 'beauty', 'queen']
 const SelectPillValues = [...Object.keys(BubbleType)]
 
 export default class Bubbleverse extends React.PureComponent {
@@ -37,8 +35,6 @@ export default class Bubbleverse extends React.PureComponent {
     fetchBubbles().then(bubbles => this.bubbleConfig = bubbles)
 
     this.timeouts = []
-    this.bubbles = {}
-    this.focusedBubbleId = null
     this.selectPillOptions =
       SelectPillValues
       .filter(t => t !== 'shop')
@@ -48,10 +44,11 @@ export default class Bubbleverse extends React.PureComponent {
       }))
     this.state = {
       mode: Mode.enter,
-      isFullscreen: false,
       bubblePods: [],
-      savingNewArrangement: false,
       selectedTypes: [],
+      arrangeSourceIndex: null,
+      savingNewArrangement: false,
+      focusedBubble: null,
     }
   }
 
@@ -65,14 +62,6 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   componentDidMount() {
-    const onFullscreenChange = () => this.setState({
-      isFullscreen: !this.state.isFullscreen
-    })
-    document.addEventListener('webkitfullscreenchange', onFullscreenChange, false)
-    document.addEventListener('mozfullscreenchange', onFullscreenChange, false)
-    document.addEventListener('msfullscreenchange', onFullscreenChange, false)
-    document.addEventListener('fullscreenchange', onFullscreenChange, false)
-
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
       setTimeout(() => this.setState({
@@ -88,19 +77,17 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   startUrlWatcher() {
     if (!getBubbleIdFromUrl(this.bubbleConfig)) {
-      this.bubbles['welcome'].open()
+      // this.openBubble('welcome')
     }
 
     this.urlWatcher = setInterval(() => {
-      if (this.isFocusLocked) return
-
-      const {focusedBubbleId} = this
+      const {focusedBubble} = this.state
       const bubbleIdFromUrl = getBubbleIdFromUrl(this.bubbleConfig)
-      if (bubbleIdFromUrl && bubbleIdFromUrl !== focusedBubbleId) {
+      if (bubbleIdFromUrl && (!focusedBubble || bubbleIdFromUrl !== focusedBubble.id)) {
         this.openBubble(bubbleIdFromUrl)
       }
-      if (!bubbleIdFromUrl && focusedBubbleId) {
-        this.bubbles[focusedBubbleId].close()
+      if (!bubbleIdFromUrl && focusedBubble) {
+        this.closeBubble()
       }
       window.prerenderReady = true
     }, 250)
@@ -113,13 +100,13 @@ export default class Bubbleverse extends React.PureComponent {
 
   render() {
     const {
-      mode, isFullscreen, bubblePods, arrangeSourceIndex,
-      savingNewArrangement, selectedTypes,
+      mode, bubblePods, selectedTypes, focusedBubble, savingNewArrangement,
     } = this.state
     return (
       <Root
         innerRef={r => this.root = r}
         className={`start-${mode}`}>
+
         {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
             <BubbleAddButton
@@ -150,44 +137,35 @@ export default class Bubbleverse extends React.PureComponent {
         />
 
         <BubbleGrid
-          id='bubbleGrid'
+          ref={r => this.bubbleGrid = r}
+          bubbles={bubblePods}
+          filters={selectedTypes}
           hidden={mode === Mode.buildBubble}
-          ref={r => this.bubbleGrid = r}>
-          {bubblePods.map((bubble, index) => (
-            <BubbleGridItem
-              className={cx({
-                hidden: bubble.id !== 'logo' && (BDBubbles.includes(bubble.id) || (selectedTypes.length && !selectedTypes.includes(bubble.type)))
-              })}
-              key={bubble.id}
-              size={bubble.size}>
-
-              {mode === Mode.arrange && (index !== 0) &&
-                <ArrangeButton onClick={this.onArrange.bind(this, index)}>
-                  <ArrangeIcon className={`fa
-                    ${arrangeSourceIndex? 'fa-map-pin' : 'fa-bullseye'}`
-                  } />
-                </ArrangeButton>
-              }
-
-              <Bubble
-                disabled={mode === Mode.arrange}
-                onOpen={this.onBubbleOpened.bind(this, bubble.id)}
-                onNext={this.openBubble}
-                onClose={this.onBubbleClosed}
-                onEdit={this.openBubbleBuilder.bind(this, bubble, index)}
-                nucleus={bubble}
-                isFullscreen={isFullscreen && this.focusedBubbleId === bubble.id}
-                ref={r => this.bubbles[bubble.id] = r}
-              />
-            </BubbleGridItem>
-          ))}
-        </BubbleGrid>
+          onBubbleOpened={this.onBubbleOpened}
+          onBubbleClosed={this.onBubbleClosed}
+          onBubbleEdit={this.onBubbleEdit}
+          isArranging={mode === Mode.arrange}
+          onArrange={this.onArrange}
+        />
 
         <MaskAbsoluteFillParent show={savingNewArrangement}>
           <Spinnie show={savingNewArrangement} />
         </MaskAbsoluteFillParent>
       </Root>
     )
+  }
+
+  @autobind
+  onBubbleEdit() {
+    this.openBubbleBuilder(true)
+  }
+
+  @autobind
+  toggleArrangeMode() {
+    this.setState({
+      mode: (this.state.mode === Mode.arrange)? Mode.show : Mode.arrange,
+      arrangeSourceIndex: null,
+    })
   }
 
   @autobind
@@ -198,7 +176,19 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  openBubbleBuilder(bubbleToEdit, index) {
+  onBubblesChanged(bubbles) {
+    this.setState({
+      bubblePods: bubbles,
+    })
+  }
+
+  @autobind
+  openBubbleBuilder(shouldEditFocusedBubble) {
+    let bubbleToEdit, index
+    if (shouldEditFocusedBubble) {
+      bubbleToEdit = this.state.focusedBubble
+      index = this.bubbleConfig.findIndex(b => b.id === bubbleToEdit.id)
+    }
     this.setState({
       mode: Mode.buildBubble,
       arrangeSourceIndex: null,
@@ -222,39 +212,49 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  onBubbleOpened(bubbleId) {
-    this.isFocusLocked = true
-    this.focusedBubbleId = bubbleId
-    window.location.hash = '#start/bubble/' + bubbleId
+  onBubbleOpened(focusedBubbleId) {
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'bubble opened',
+      eventLabel: focusedBubbleId,
+    })
+
+    window.location.hash = '#start/bubble/' + focusedBubbleId
+    this.setState({
+      focusedBubble: this.bubbleConfig.find(b => b.id === focusedBubbleId),
+    })
     this.socialButtonsNode.style.zIndex = 2
     this.selectPill.style.zIndex = 0
-    this.isFocusLocked = false
   }
 
   @autobind
   onBubbleClosed() {
-    this.isFocusLocked = true
-    this.focusedBubbleId = null
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'bubble closed',
+      eventLabel: this.state.focusedBubble.id,
+    })
+
     window.location.hash = '#start'
+    this.setState({
+      focusedBubble: null,
+    })
     this.socialButtonsNode.style.zIndex = 4
     this.selectPill.style.zIndex = 2
-    this.isFocusLocked = false
   }
 
   @autobind
   openBubble(bubbleId) {
-    if (this.focusedBubbleId) {
-      this.bubbles[this.focusedBubbleId].close()
+    if (this.state.focusedBubble) {
+      this.closeBubble()
     }
-    this.bubbles[bubbleId].open()
+    this.bubbleGrid.openBubble(bubbleId)
   }
 
   @autobind
-  toggleArrangeMode() {
-    this.setState({
-      mode: (this.state.mode === Mode.arrange)? Mode.show : Mode.arrange,
-      arrangeSourceIndex: null,
-    })
+  closeBubble() {
+    this.bubbleGrid.closeBubble()
+    this.focusedBubbleRef.close()
   }
 
   @autobind

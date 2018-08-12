@@ -10,35 +10,56 @@ import {
   ArticleText,
   Flex,
   Boto,
-  AbsoluteFlex,
+  AbsoluteFlex, MaskAbsoluteFillParent,
 } from '../../../global/styled'
 
-export const Root = styled.div`
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0);
-  transform-origin: center top;
-  transition: opacity .1s, transform .2s;
-  transition-timing-function: ${EASE_OUT};
-  z-index: 7;
-  position: relative;
-  margin-bottom: 100px;
+const RevealDuration = .7
+const RootMarginTop = 40
 
-  &.focused, &.expanded, &.editing {
+export const Mask = MaskAbsoluteFillParent.extend`
+  position: fixed;
+  transition-duration: ${p => p.show? 2 : 0}s;
+  transition-delay: ${p => p.show? RevealDuration : 0}s;
+  z-index: 59;
+`
+
+export const Root = styled.div`
+  ${'' /* opacity: 0; */}
+  pointer-events: none;
+  transform: translate(0, ${window.innerHeight}px);
+  transform-origin: center top;
+  transition: opacity .5s, transform .7s;
+  transition-timing-function: ${EASE_OUT};
+  z-index: 11;
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  ${p => (p.visible || p.editing) && `
     opacity: 1;
     transform: none;
     pointer-events: all;
-    transition: all .7s ${EASE_OUT} .05s;
-  }
+    transition: all ${RevealDuration}s ${EASE_OUT} .2s;
+  `}
 `
-
+const HeaderTop = 25;
 export const ContentRoot = styled.div`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
-  max-width: 740px;
   background: ${p => p.theme.main};
   box-shadow: ${p => p.theme.shadowHeavy};
-  padding-top: 20px;
-  width: ${window.innerWidth}px;
+  width: 100%;
+  max-width: 740px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: ${77 + HeaderTop}px;
+  padding-bottom: ${RootMarginTop + 80}px;
+  margin-top: 35px;
+  z-index: 70;
 
   hr {
     width: 100%;
@@ -47,8 +68,23 @@ export const ContentRoot = styled.div`
     border-top: 0;
     margin: 15px 0 0;
   }
+
+  ${screen.medium`
+    padding-top: 92px;
+  `}
 `
 
+export const Header = AbsoluteFlex.extend`
+  width: 100%;
+  top: ${HeaderTop}px;
+  flex-direction: column;
+`
+
+export const Footer = AbsoluteFlex.extend`
+  width: 100%;
+  bottom: 0px;
+  flex-direction: column;
+`
 
 export const Title = styled.input`
   font-size: 30px;
@@ -63,9 +99,9 @@ export const Title = styled.input`
     font-size: 24px;
   `}
 
-  .bubble-editing & {
+  ${p => p.editing && `
     pointer-events: all;
-  }
+  `}
 `
 
 export const Subtitle = Title.extend`
@@ -112,12 +148,11 @@ export const Action = Boto.extend`
 `
 
 export const JourneyButtonRoot = Boto.extend`
-  position: absolute;
-  top: 100%;
-  margin-top: 20px;
   height: 60px;
   width: 100%;
-  box-shadow: ${p => p.theme.shadowHeavy};
+  position: relative;
+  border-radius: 0;
+  border-top: 1px solid ${p => p.theme.veryLight};
 
   i {
     width: 30px;
@@ -131,9 +166,10 @@ export const JourneyButtonRoot = Boto.extend`
   }
 `
 export const BubbleOptions = AbsoluteFlex.extend`
-  top: 100%;
+  top: 20px;
+  right: 100px;
   margin-top: 30px;
-  width: 100%;
+  width: 300px;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   box-shadow: ${p => p.theme.boxShadowHeavy};
   flex-wrap: wrap;

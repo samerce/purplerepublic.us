@@ -21,13 +21,13 @@ const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aa
 export default class Start extends React.Component {
 
   componentWillMount() {
-    if (canShowEditingTools()) {
-      const passcode = prompt('passcode, madam?') || ''
-      if (!passcode.length || sha256(passcode) !== editPasscode) {
-        alert('no entry fo yew.')
-        window.location = '#intro'
-      }
-    }
+    // if (canShowEditingTools()) {
+    //   const passcode = prompt('passcode, madam?') || ''
+    //   if (!passcode.length || sha256(passcode) !== editPasscode) {
+    //     alert('no entry fo yew.')
+    //     window.location = '#intro'
+    //   }
+    // }
   }
 
   shouldComponentUpdate() {

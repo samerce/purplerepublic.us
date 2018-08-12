@@ -25,41 +25,29 @@ const VideoConfig = {
 
 export default class BubbleVideo extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.player = null
-    this.state = {
-      shouldRenderVideo: getShouldRenderVideo(props),
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {shouldRenderVideo} = this.state
-    this.setState({
-      shouldRenderVideo: nextProps.videoId &&
-        (shouldRenderVideo || getShouldRenderVideo(nextProps)),
-    })
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.editing || nextProps.videoId !== this.props.videoId ||
-      nextState.shouldRenderVideo !== this.state.shouldRenderVideo
+    return nextProps !== this.props
   }
 
   render() {
+    const {
+      nucleus, editing,
+    } = this.props
+    const {
+      detailText, videoId,
+    } = nucleus
     return (
       <VideoRoot>
-        {this.props.detailText &&
+        {(editing || detailText) &&
           <BubbleWriting
             {...this.props}
             placeholder='you got a description for this video, love?'
           />
         }
 
-        {this.state.shouldRenderVideo &&
+        {videoId &&
           <YouTubeVideo
-            videoId={this.props.videoId}
+            videoId={videoId}
             onReady={this.onVideoReady}
             opts={VideoConfig} />
         }
@@ -86,8 +74,4 @@ export default class BubbleVideo extends React.Component {
     )
   }
 
-}
-
-function getShouldRenderVideo({focused, editing, videoId}) {
-  return (focused || editing) && videoId
 }

@@ -7,7 +7,7 @@ import {
   BubbleBuilderJourneyTool,
 } from '../bubbleBuilderTools'
 
-import Bubble from '..'
+import BubbleDetails from '../bubbleDetails'
 import {Description} from '../bubbleItems/styled'
 import {BubbleType, BubbleComponents} from '../config'
 
@@ -132,16 +132,18 @@ export default class BubbleBuilder extends React.PureComponent {
         {this.renderBubbleButtonBuilder()}
         {this.renderBubbleBuilderTools()}
 
-        <Bubble
-          ref={r => this.bubble = r}
+        <BubbleButton
+          nucleus={nucleus}
+          className='editing'
           unsavedImageUrl={imageUrl}
-          nucleus={{
-            ...nucleus,
-            onEditingChange: this.onEditingChange,
-          }}
+        />
+        <BubbleDetails
+          ref={r => this.bubble = r}
+          onEditingChange={this.onEditingChange}
+          nucleus={nucleus}
         />
 
-        <ToolBar themeColor={'#956C95'} style={{position: 'fixed', zIndex: 50, pointerEvents: 'all'}}>
+        <ToolBar themeColor={'#956C95'} className='bubbleBuilderToolbar'>
           <ToolBarItem themeColor={'#956C95'} onClick={this.close}>
             <div>quit bubble builder</div>
           </ToolBarItem>

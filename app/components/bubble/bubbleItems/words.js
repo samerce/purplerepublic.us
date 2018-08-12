@@ -12,7 +12,7 @@ import draftToHtml from 'draftjs-to-html'
 import autobind from 'autobind-decorator'
 
 import {
-  Description,
+  Description, BubbleComponentRoot
 } from './styled'
 
 // HACK: had to remove node_modules/draft-js/node_modules/immutable
@@ -52,18 +52,19 @@ export default class BubbleWords extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      editorState: createEditorState(props.detailText),
-      html: getHTML(props.detailText),
+      editorState: createEditorState(props.nucleus.detailText),
+      html: getHTML(props.nucleus.detailText),
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (this.props.detailText !== nextProps.detailText) || nextState !== this.state
+    return nextProps !== this.props || nextState !== this.state
   }
 
   componentDidUpdate(prevProps) {
-    const {detailText, editing, id} = this.props
-    if (id !== prevProps.id || (editing && !prevProps.editing)) {
+    const {nucleus, editing} = this.props
+    const {detailText, id} = nucleus
+    if (id !== prevProps.nucleus.id || (editing && !prevProps.editing)) {
       this.setState({
         editorState: createEditorState(detailText),
         html: getHTML(detailText),
@@ -73,24 +74,26 @@ export default class BubbleWords extends React.PureComponent {
 
   render() {
     const {editorState, html} = this.state
-    const {placeholder, editing} = this.props
+    const {placeholder, editing, className} = this.props
     return (
-      <Description>
-        {editing &&
-          <Editor
-            toolbar={ToolbarConfig}
-            toolbarClassName='words-editor-toolbar'
-            editorClassName='words-editor-textarea'
-            editorState={editorState}
-            placeholder={placeholder || DefaultPlaceholder}
-            onEditorStateChange={this.onEditorChange}
-            onBlur={this.onEditorBlur}
-          />
-        }
-        {!editing && html &&
-          <div dangerouslySetInnerHTML={{__html: html}} />
-        }
-      </Description>
+      <BubbleComponentRoot className={className}>
+        <Description>
+          {editing &&
+            <Editor
+              toolbar={ToolbarConfig}
+              toolbarClassName='words-editor-toolbar'
+              editorClassName='words-editor-textarea'
+              editorState={editorState}
+              placeholder={placeholder || DefaultPlaceholder}
+              onEditorStateChange={this.onEditorChange}
+              onBlur={this.onEditorBlur}
+            />
+          }
+          {!editing && html &&
+            <div dangerouslySetInnerHTML={{__html: html}} />
+          }
+        </Description>
+      </BubbleComponentRoot>
     )
   }
 

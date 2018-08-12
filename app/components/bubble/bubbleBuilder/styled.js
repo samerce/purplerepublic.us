@@ -12,6 +12,14 @@ import {
   AbsoluteFlexFillParent, Flex,
 } from '../../../global/styled'
 
+injectGlobal`
+  .bubbleBuilderToolbar {
+    position: fixed;
+    z-index: 50;
+    pointer-events: all;
+  }
+`
+
 export const Root = AbsoluteFlexFillParent.extend`
   z-index: 20;
   transition: all .7s ${EASE_OUT};

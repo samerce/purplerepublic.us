@@ -7,7 +7,7 @@ import {Helmet} from 'react-helmet'
 
 import {
   GalleryRoot, EditPhotosRoot, Button, DeleteButton,
-  Hint, CaptionInput,
+  Hint, CaptionInput, BubbleComponentRoot
 } from './styled'
 import {FlexColumn, HiddenFileInput} from '../../../global/styled'
 import 'react-image-gallery/styles/css/image-gallery.css'
@@ -39,7 +39,7 @@ export default class BubbleGallery extends React.PureComponent {
       onClick: () => this.setState({mode: Mode[opt]})
     }))
 
-    const images = this.getGalleryImages(props)
+    const images = this.getGalleryImages(props.nucleus)
     this.state = {
       mode: props.editing? Mode.add : Mode.show,
       images,
@@ -75,11 +75,9 @@ export default class BubbleGallery extends React.PureComponent {
     return 'preferHeight'
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !!this.props.editing || !!nextProps.editing ||
-      (this.props.focused !== nextProps.focused) ||
-      (this.state !== nextState)
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props !== nextProps || nextState !== this.state
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.editing && nextProps.editing) {
@@ -89,13 +87,13 @@ export default class BubbleGallery extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.editing !== this.props.editing) {
-      this.setState({images: this.getGalleryImages(this.props)})
+      this.setState({images: this.getGalleryImages(this.props.nucleus)})
     }
   }
 
   @autobind
   edit() {
-    this.setImages(this.getGalleryImages(this.props))
+    this.setImages(this.getGalleryImages(this.props.nucleus))
 
     if (this.state.images.length) {
       this.captionInput.value = this.state.images[0].description
@@ -105,17 +103,18 @@ export default class BubbleGallery extends React.PureComponent {
   render() {
     const {mode, images} = this.state
     const {
-      detailText,
-      editing,
-      focused,
-      onEditingChange,
+      editing, onEditingChange, nucleus
     } = this.props
+    const {
+      detailText,
+    } = nucleus
     const shouldShowEditingGallery =
       editing && (mode === Mode.delete || mode === Mode.move)
+    const shouldShowGallery = !!images.length && !shouldShowEditingGallery
 
     return (
-      <FlexColumn className={'galleryBubble-' + mode}>
-        {focused && images.length &&
+      <BubbleComponentRoot className={'galleryBubble-' + mode}>
+        {!!images.length &&
           <Helmet>
             <meta property='og:image' content={images[0].src} />
           </Helmet>
@@ -124,11 +123,12 @@ export default class BubbleGallery extends React.PureComponent {
         {(editing || detailText) &&
           <BubbleWriting
             {...this.props}
+            className='galleryWriting'
             placeholder='tell somebody bout yo gallery, hennie.'
           />
         }
 
-        {(focused || editing) && !!images.length && !shouldShowEditingGallery &&
+        {shouldShowGallery &&
           <Gallery
             ref={r => this.gallery = r}
             renderCustomControls={editing? this.renderCaptionInput : null}
@@ -172,7 +172,7 @@ export default class BubbleGallery extends React.PureComponent {
             />
           </EditPhotosRoot>
         }
-      </FlexColumn>
+      </BubbleComponentRoot>
     )
   }
 
