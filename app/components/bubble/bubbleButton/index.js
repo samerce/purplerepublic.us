@@ -65,7 +65,7 @@ export default class BubbleButton extends React.Component {
     )
 
     if (this.props.editing) {
-      this.setState({mode: Mode.focused})
+      setTimeout(() => this.setState({mode: Mode.editing}), DURATION_ENTER + 700)
     }
   }
 

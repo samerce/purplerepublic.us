@@ -43,7 +43,7 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
       <Root>
         <TextInput
           value={text}
-          placeholder='bubbly button title'
+          placeholder='action title'
           onChange={this.onTitleChange}
           onKeyPress={this.onTitleKeyPress}
           onBlur={this.sendChanges}
@@ -51,7 +51,7 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
         <BuilderInputLink
           value={props.url}
           innerRef={r => this.linkRef = r}
-          placeholder='bubble button linky'
+          placeholder='action link'
           onChange={this.onLinkChange}
           onKeyPress={onKeyPress}
           onBlur={this.sendChanges}
@@ -153,7 +153,7 @@ export const BubbleBuilderJourneyTool = ({
     <Root>
       <TextInput
         value={nucleus.nextBubbleId || ''}
-        placeholder='series? "next" bubbly wubbly name here'
+        placeholder='next bubble'
         onChange={setId}
         onKeyPress={onKeyPress}
         onBlur={verify}
@@ -193,7 +193,7 @@ export const BubbleBuilderNameTool = ({
       <TextInput
         id='bubbleBuilderNameToolInput'
         value={nucleus.id || ''}
-        placeholder='name your new bubbly wubbly!'
+        placeholder='url'
         onChange={onChange}
         onKeyPress={onKeyPress}
       />
@@ -201,36 +201,44 @@ export const BubbleBuilderNameTool = ({
   )
 }
 
-export function BubbleBuilderYouTubeTool({nucleus, onChangeNucleus}) {
+export class BubbleBuilderYouTubeTool extends React.PureComponent {
 
-  let linkValue = null
-  if (nucleus.videoId) {
-      linkValue = 'https://www.youtube.com/watch?v=' + nucleus.videoId
-  }
-
-  const onBlur = ({target: youtubeLinkInput}) => {
-    const videoId = youtubeLinkInput.value.split('/').pop().split('=').pop()
-    onChangeNucleus({
-      ...nucleus,
-      videoId: videoId.length > 0? videoId : undefined,
-    })
-  }
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.target.blur(e)
+  constructor(props) {
+    super(props)
+    const {nucleus} = props
+    this.state = {
+      link: (nucleus && nucleus.videoId)? this.getLinkValue(nucleus) : ''
     }
   }
 
-  return (
-    <Root>
-      <TextInput
-        value={linkValue || ''}
-        placeholder='youtube linky here'
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-      />
-    </Root>
-  )
+  getLinkValue({videoId}) {
+    return 'https://www.youtube.com/watch?v=' + videoId
+  }
+
+  render() {
+    const {link} = this.state
+    return (
+      <Root>
+        <TextInput
+          value={link}
+          placeholder='youtube link'
+          onChange={e => this.setState({link: e.target.value})}
+          onKeyPress={onKeyPress}
+          onBlur={this.onBlur}
+        />
+      </Root>
+    )
+  }
+
+  @autobind
+  onBlur({target: linkInput}) {
+    const videoId = linkInput.value.split('/').pop().split('=').pop()
+    this.props.onChangeNucleus({
+      ...this.props.nucleus,
+      videoId: videoId.length > 0? videoId : undefined,
+    })
+  }
+
 }
 
 export class BubbleBuilderSocialMediaTool extends React.Component {

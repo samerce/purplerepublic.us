@@ -44,6 +44,7 @@ export default class BubbleGrid extends React.PureComponent {
   render() {
     const {
       bubbles, hidden, onBubbleOpened, isArranging, onArrange,
+      arrangeSourceIndex
     } = this.props
 
     return (
@@ -59,7 +60,7 @@ export default class BubbleGrid extends React.PureComponent {
             size={bubble.size}>
 
             {isArranging && (index !== 0) &&
-              <ArrangeButton onClick={onArrange(index)}>
+              <ArrangeButton onClick={() => onArrange(index)}>
                 <ArrangeIcon className={`fa
                   ${arrangeSourceIndex? 'fa-map-pin' : 'fa-bullseye'}`
                 } />

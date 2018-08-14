@@ -169,7 +169,7 @@ injectGlobal`
   .rdw-text-align-dropdown {
     margin-bottom: 5px;
   }
-  .galleryWriting {
+  .galleryWriting, .videoWriting {
     overflow-y: hidden;
     flex: 1 0 auto;
   }
@@ -182,6 +182,7 @@ export const BubbleComponentRoot = FlexColumn.extend`
 
 export const VideoRoot = BubbleComponentRoot.extend`
   text-align: center;
+  overflow-y: scroll;
 `
 
 export const Description = ArticleText.extend`

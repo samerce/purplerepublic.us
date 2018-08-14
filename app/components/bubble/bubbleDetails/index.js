@@ -35,24 +35,8 @@ export default class BubbleDetails extends React.PureComponent {
     })
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    const newState = {}
-
-    // if (this.props.nucleus.title !== nextProps.nucleus.title) {
-    //   newState.title = nextProps.nucleus.title
-    // }
-    // if (this.props.nucleus.subtitle !== nextProps.nucleus.subtitle) {
-    //   newState.subtitle = nextProps.nucleus.subtitle
-    // }
-    // if (this.state.nucleus.nextBubbleId !== nextState.nucleus.nextBubbleId) {
-    //   newState.bubbleOptionsStyle = getBubbleOptionsStyle(nextProps.nucleus.nextBubbleId)
-    // }
-
-    // Object.keys(newState).length > 0 && this.setState(newState)
-  }
-
   @autobind
-  open(nucleus) {
+  open(nucleus, callback) {
     clearTimeout(this.closeTimer)
     this.setState({
       nucleus: {
@@ -61,6 +45,14 @@ export default class BubbleDetails extends React.PureComponent {
       visible: true,
       title: nucleus.title,
       subtitle: nucleus.subtitle,
+    }, callback)
+  }
+
+  @autobind
+  edit(nucleus) {
+    this.open(nucleus, () => {
+      const {bubbleComponentRef} = this
+      bubbleComponentRef.edit && bubbleComponentRef.edit()
     })
   }
 
@@ -71,6 +63,11 @@ export default class BubbleDetails extends React.PureComponent {
     const {bubbleComponentRef} = this
     bubbleComponentRef && bubbleComponentRef.onClose &&
       bubbleComponentRef.onClose()
+  }
+
+  @autobind
+  editNucleus(nucleus) {
+    this.setState({nucleus})
   }
 
   @autobind
@@ -85,7 +82,7 @@ export default class BubbleDetails extends React.PureComponent {
   render() {
     const {
       title, subtitle, bubbleOptionsStyle, idCopied, isDeleting, nucleus,
-      visible,
+      visible, bubbleOptionsVisible,
     } = this.state
     const {
       className, editing, onEditingChange, onEdit,
@@ -115,7 +112,42 @@ export default class BubbleDetails extends React.PureComponent {
           className='bubbleMask'
         />
 
-        <ContentRoot>
+        <ContentRoot editing={editing}>
+          {canShowEditingTools() && !editing &&
+            <BubbleOptions style={bubbleOptionsStyle}>
+              <i
+                onClick={() => this.setState({
+                  bubbleOptionsVisible: !bubbleOptionsVisible
+                })}
+                className='fa fa-pencil bubbleEditButton'
+              />
+              <BubbleNameButton
+                visible={bubbleOptionsVisible}
+                className='clipboardBtn'>
+                <div id='bubbleId'>{id}</div>
+                <button
+                  className='clipboardBtn'
+                  data-clipboard-text={id}
+                />
+                <div className={`copiedMsg ${idCopied && 'show'}`}>
+                  copied!
+                </div>
+              </BubbleNameButton>
+              <BubbleEditButton
+                visible={bubbleOptionsVisible}
+                onClick={onEdit}>
+                edit
+              </BubbleEditButton>
+              <BubbleDeleteButton
+                visible={bubbleOptionsVisible}
+                disabled={isDeleting}
+                onClick={this.deleteBubble}>
+                <div hidden={isDeleting}>delete</div>
+                <Spinnie show={isDeleting} />
+              </BubbleDeleteButton>
+            </BubbleOptions>
+          }
+
           <Header>
             <Subtitle
               editing={editing}
@@ -138,6 +170,7 @@ export default class BubbleDetails extends React.PureComponent {
             <BubbleComponent
               nucleus={nucleus}
               editing={editing}
+              onEditingChange={onEditingChange}
               ref={r => this.bubbleComponentRef = r}
             />
           }
@@ -145,30 +178,6 @@ export default class BubbleDetails extends React.PureComponent {
           <Footer>
             {nextBubbleId && this.renderJourneyButton()}
             {this.renderActions()}
-            {canShowEditingTools() && !editing &&
-              <BubbleOptions style={bubbleOptionsStyle}>
-                <BubbleNameButton
-                  className='clipboardBtn'>
-                  <div id='bubbleId'>{id}</div>
-                  <button
-                    className='clipboardBtn'
-                    data-clipboard-text={id}
-                  />
-                  <div className={`copiedMsg ${idCopied && 'show'}`}>
-                    copied!
-                  </div>
-                </BubbleNameButton>
-                <BubbleEditButton onClick={onEdit}>
-                  edit bubble
-                </BubbleEditButton>
-                <BubbleDeleteButton
-                  disabled={isDeleting}
-                  onClick={this.deleteBubble}>
-                  <div hidden={isDeleting}>delete bubble</div>
-                  <Spinnie show={isDeleting} />
-                </BubbleDeleteButton>
-              </BubbleOptions>
-            }
           </Footer>
         </ContentRoot>
       </Root>
@@ -241,7 +250,7 @@ export default class BubbleDetails extends React.PureComponent {
   onClickJourneyButton() {
     const {editing, onNext} = this.props
     const {nucleus} = this.state
-    if (!this.editing) {
+    if (!editing) {
       ga('send', 'event', 'bubbles', 'continue journey clicked', nucleus.id)
       onNext(nucleus.nextBubbleId)
     }
@@ -249,8 +258,11 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   onClickClose() {
-    this.props.onClose && this.props.onClose()
-    this.close()
+    const {editing, onClose} = this.props
+    if (!editing) {
+      onClose && onClose()
+      this.close()
+    }
   }
 
   @autobind

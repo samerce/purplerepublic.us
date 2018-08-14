@@ -7,6 +7,7 @@ import {
   BubbleBuilderJourneyTool,
 } from '../bubbleBuilderTools'
 
+import BubbleButton from '../bubbleButton'
 import BubbleDetails from '../bubbleDetails'
 import {Description} from '../bubbleItems/styled'
 import {BubbleType, BubbleComponents} from '../config'
@@ -14,7 +15,7 @@ import {BubbleType, BubbleComponents} from '../config'
 import {cx} from '../../../utils/style'
 import {
   Root, BubbleButtonRoot, BubbleBuilderToolsRoot, BubbleButtonContent,
-  BubbleButtonSizeSlider,
+  BubbleButtonSizeSlider, PropertiesRoot, PreviewRoot,
 } from './styled'
 import {
   ToolBar, ToolBarItem, MaskAbsoluteFillParent,
@@ -64,14 +65,7 @@ export default class BubbleBuilder extends React.PureComponent {
       name: opt,
       onClick: this.onSelectFilter.bind(this, opt)
     }))
-
-    this.state = {
-      mode: Mode.willEnter,
-      isUploadingImage: false,
-      isPublishing: false,
-      imageUrl: '',
-      nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
-    }
+    this.state = getDefaultState()
   }
 
   componentDidMount() {
@@ -103,16 +97,16 @@ export default class BubbleBuilder extends React.PureComponent {
         },
         existingBubbleIndex,
         imageUrl: BUBBLE_IMAGE_URL + existingBubble.id + '.jpg',
-      }, () => this.bubble.edit())
+      }, () => this.bubble.edit(existingBubble))
     } else {
-      this.bubble.edit()
+      const state = this.reset()
+      this.bubble.edit(state.nucleus)
     }
   }
 
   render() {
     const {mode, imageUrl, nucleus, isPublishing} = this.state
     const {visible} = this.props
-    const {Component: BubbleComponent} = nucleus
 
     return (
       <Root
@@ -129,19 +123,24 @@ export default class BubbleBuilder extends React.PureComponent {
           selectedIndex={FilterOptionList.findIndex(o => o === nucleus.type)}
         />
 
-        {this.renderBubbleButtonBuilder()}
-        {this.renderBubbleBuilderTools()}
+        <PropertiesRoot>
+          {this.renderBubbleButtonBuilder()}
+          {this.renderBubbleBuilderTools()}
+        </PropertiesRoot>
 
-        <BubbleButton
-          nucleus={nucleus}
-          className='editing'
-          unsavedImageUrl={imageUrl}
-        />
-        <BubbleDetails
-          ref={r => this.bubble = r}
-          onEditingChange={this.onEditingChange}
-          nucleus={nucleus}
-        />
+        <PreviewRoot>
+          <BubbleButton
+            nucleus={nucleus}
+            editing={true}
+            unsavedImageUrl={imageUrl}
+          />
+          <BubbleDetails
+            editing={true}
+            ref={r => this.bubble = r}
+            onEditingChange={this.onEditingChange}
+            nucleus={nucleus}
+          />
+        </PreviewRoot>
 
         <ToolBar themeColor={'#956C95'} className='bubbleBuilderToolbar'>
           <ToolBarItem themeColor={'#956C95'} onClick={this.close}>
@@ -159,16 +158,6 @@ export default class BubbleBuilder extends React.PureComponent {
     const {isUploadingImage, imageUrl, nucleus} = this.state
     return (
       <BubbleButtonRoot>
-        <BubbleButtonSizeSlider
-          value={nucleus.size}
-          onChange={e => this.setState({
-            nucleus: {
-              ...nucleus,
-              size: e.target.value,
-            }
-          })}
-        />
-
         <BubbleButtonContent
           onClick={() => this.fileInput.click()}
           style={{
@@ -239,6 +228,7 @@ export default class BubbleBuilder extends React.PureComponent {
         ...nucleus,
       }
     })
+    this.bubble.editNucleus(nucleus)
   }
 
   @autobind
@@ -260,22 +250,24 @@ export default class BubbleBuilder extends React.PureComponent {
 
   @autobind
   onSelectFilter(opt) {
-    if (opt === this.state.nucleus.type) return
+    const {nucleus, existingBubbleIndex} = this.state
+    if (opt === nucleus.type) return
 
-    this.setState({
-      nucleus: getNewNucleus(opt),
-    })
+    this.onChangeNucleus(getNewNucleus(
+      opt,
+      existingBubbleIndex && nucleus
+    ))
   }
 
   @autobind
   onEditingChange(props) {
-    this.setState({
-      nucleus: {
-        ...InitialNucleus,
-        ...this.state.nucleus,
-        ...props,
-      },
-    })
+    const nucleus = {
+      ...InitialNucleus,
+      ...this.state.nucleus,
+      ...props,
+    }
+    this.setState({nucleus})
+    this.bubble.editNucleus(nucleus)
   }
 
   @autobind
@@ -331,19 +323,28 @@ export default class BubbleBuilder extends React.PureComponent {
   }
 
   reset() {
-    this.setState({
-      nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
-      imageUrl: null,
-      existingBubbleIndex: null,
-      isPublishing: false,
-    })
+    const defaultState = getDefaultState()
+    this.setState(defaultState)
+    return defaultState
   }
 
 }
 
-function getNewNucleus(type) {
+function getDefaultState() {
+  return {
+    mode: Mode.willEnter,
+    isUploadingImage: false,
+    isPublishing: false,
+    imageUrl: '',
+    nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
+    existingBubbleIndex: null,
+  }
+}
+
+function getNewNucleus(type, existingNucleus = {}) {
   return {
     ...InitialNucleus,
+    ...existingNucleus,
     type,
     Component: BubbleComponents[type],
   }

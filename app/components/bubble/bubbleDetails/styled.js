@@ -39,6 +39,10 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
 
+  ${p => p.editing && `
+    transform: none;
+  `}
+
   ${p => (p.visible || p.editing) && `
     opacity: 1;
     transform: none;
@@ -71,6 +75,10 @@ export const ContentRoot = styled.div`
 
   ${screen.medium`
     padding-top: 92px;
+  `}
+
+  ${p => p.editing && `
+    margin: 100px 0;
   `}
 `
 
@@ -165,28 +173,62 @@ export const JourneyButtonRoot = Boto.extend`
     transform: translateY(-50%);
   }
 `
-export const BubbleOptions = AbsoluteFlex.extend`
-  top: 20px;
-  right: 100px;
-  margin-top: 30px;
+export const BubbleOptions = Flex.extend`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 300px;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   box-shadow: ${p => p.theme.boxShadowHeavy};
   flex-wrap: wrap;
+  justify-content: flex-end;
+  z-index: 1;
+
+  .bubbleEditButton {
+    font-size: 20px;
+    border-radius: 100%;
+    border: 1px solid ${p => p.theme.veryLight};
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    transition: all .3s ${EASE_OUT};
+    cursor: pointer;
+    margin-bottom: 5px;
+    background: ${p => p.theme.slightlyDark};
+
+    &:hover {
+      background: white;
+      color: ${p => p.theme.slightlyDark};
+    }
+  }
 `
 
 export const BubbleToolButton = Boto.extend`
   font-size: 24px;
   flex: 1 0 auto;
-  border-radius: 0;
+  transition: all .2s ${EASE_OUT};
+  transform: scaleY(0);
+  opacity: 0;
+  border: 1px solid ${p => p.theme.veryLight};
+  flex: 0 0 100%;
+  margin: 5px 0;
+  box-shadow: ${p => p.theme.shadowMedium};
+
+  ${p => p.visible && `
+    transform: none;
+    opacity: 1;
+  `}
 `
 
 export const BubbleNameButton = BubbleToolButton.extend`
-  border-top-left-radius: ${p => p.theme.borderRadiusBoto}px;
-  border-top-right-radius: ${p => p.theme.borderRadiusBoto}px;
-  border-bottom: 1px solid ${p => p.theme.veryLight};
-  flex: 0 0 100%;
   position: relative;
+  transition-delay: ${p => p.visible? 0 : .2}s;
+
+  &:hover {
+    transition-delay: 0;
+  }
 
   button {
     opacity: 0;
@@ -221,17 +263,20 @@ export const BubbleNameButton = BubbleToolButton.extend`
 `
 
 export const BubbleEditButton = BubbleToolButton.extend`
-  border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
+  transition-delay: .1s;
+  &:hover {
+    transition-delay: 0;
+  }
 `
 
 export const BubbleDeleteButton = BubbleToolButton.extend`
   background: red;
   right: 0;
   position: relative;
-  border-left: 1px solid ${p => p.theme.veryLight};
-  border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
+  transition-delay: ${p => p.visible? .2 : 0}s;
 
   &:hover {
     color: red;
+    transition-delay: 0;
   }
 `

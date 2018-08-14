@@ -101,6 +101,7 @@ export default class Bubbleverse extends React.PureComponent {
   render() {
     const {
       mode, bubblePods, selectedTypes, focusedBubble, savingNewArrangement,
+      arrangeSourceIndex
     } = this.state
     return (
       <Root
@@ -146,6 +147,7 @@ export default class Bubbleverse extends React.PureComponent {
           onBubbleEdit={this.onBubbleEdit}
           isArranging={mode === Mode.arrange}
           onArrange={this.onArrange}
+          arrangeSourceIndex={arrangeSourceIndex}
         />
 
         <MaskAbsoluteFillParent show={savingNewArrangement}>

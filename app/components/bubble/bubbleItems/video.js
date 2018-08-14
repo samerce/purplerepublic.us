@@ -41,6 +41,7 @@ export default class BubbleVideo extends React.Component {
         {(editing || detailText) &&
           <BubbleWriting
             {...this.props}
+            className='videoWriting'
             placeholder='you got a description for this video, love?'
           />
         }

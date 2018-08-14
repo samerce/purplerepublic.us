@@ -24,10 +24,18 @@ export const Root = AbsoluteFlexFillParent.extend`
   z-index: 20;
   transition: all .7s ${EASE_OUT};
   align-items: flex-start;
-  flex-direction: column;
   margin-bottom: 90px;
   overflow: scroll;
   pointer-events: all;
+`
+
+export const PropertiesRoot = Flex.extend`
+  flex-direction: column;
+  align-items: center;
+`
+
+export const PreviewRoot = Flex.extend`
+  margin-top: 200px;
 `
 
 export const BubbleButtonRoot = Flex.extend`
@@ -44,7 +52,7 @@ export const BubbleButtonContent = Flex.extend`
   width: 150px;
   height: 150px;
   border-radius: 100%;
-  border: 1px solid white;
+  border: 4px solid ${p => p.theme.veryLight};
   text-align: center;
   position: relative;
   align-self: flex-start;

@@ -26,6 +26,12 @@ export const Root = InlineBlock.extend`
     position: fixed;
   }
 
+  &.bubble-editing {
+    position: absolute;
+    pointer-events: none;
+    transform: scale(.5);
+  }
+
   &.bubble-willFocus, &.bubble-willDefocus {
     position: fixed;
   }
