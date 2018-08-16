@@ -62,7 +62,7 @@ export const ImageButtonRoot = Flex.extend`
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0 8px;
+  padding: 0 15px;
   transition: all .5s ${EASE_OUT};
   cursor: pointer;
 
@@ -77,9 +77,6 @@ export const ImageButtonRoot = Flex.extend`
   &:hover {
     transform: scale(.95);
   }
-  ${screen.medium`
-    padding: 0 15px;
-  `}
 `
 
 export const ImageButtonText = Flex.extend`
