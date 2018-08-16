@@ -77,7 +77,7 @@ export default class BubbleGrid extends React.PureComponent {
         ))}
 
         <BubbleDetails
-          onNext={this.openBubble}
+          onNext={this.onNextBubble}
           onEdit={this.props.onBubbleEdit}
           onClose={this.closeBubble}
           ref={r => this.bubbleDetails = r}
@@ -92,6 +92,12 @@ export default class BubbleGrid extends React.PureComponent {
     this.bubbleDetails.open(bubble)
     this.props.onBubbleOpened(bubble.id)
     findDOMNode(this.bubbleGridItems[bubble.id]).style.zIndex = 60
+  }
+
+  @autobind
+  onNextBubble(bubbleId) {
+    this.closeBubble()
+    setTimeout(() => this.openBubble(bubbleId), 500)
   }
 
   @autobind
