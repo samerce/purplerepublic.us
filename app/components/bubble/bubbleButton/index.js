@@ -192,11 +192,12 @@ function getWillFocusStyle(rect, cache = {}) {
 
 function getFocusedStyle(size, willFocusStyle) {
   const {left, top} = willFocusStyle
+  const topFudge = window.innerWidth <= SCREEN_WIDTH_M? 10 : 70
   return {
     ...willFocusStyle,
     transform: `translate(
       ${-left + (window.innerWidth / 2) - (size / 2)}px,
-      ${-top - 70}px
+      ${-top - topFudge}px
     ) scale(${ScaleFocused})`,
   }
 }

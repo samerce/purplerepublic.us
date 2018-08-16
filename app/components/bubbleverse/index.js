@@ -14,6 +14,7 @@ import {
 } from './styled'
 import {MaskAbsoluteFillParent} from '../../global/styled'
 
+import {SCREEN_WIDTH_M} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
 import {BubbleComponents, BubbleType} from '../bubble/config'
@@ -308,7 +309,7 @@ function fetchBubbles() {
         const bubbles = JSON.parse(bubblesText)
         bubbles.forEach(bubbleProps => {
           bubbleProps.Component = BubbleComponents[bubbleProps.type]
-          bubbleProps.size = 200
+          bubbleProps.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 200
         })
         resolve(bubbles)
       // responseRaw.json().then(bubbles => {

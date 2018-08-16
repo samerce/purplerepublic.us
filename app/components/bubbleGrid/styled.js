@@ -28,11 +28,6 @@ export const BubbleGridItem = styled.div`
     visibility: hidden;
   }
 
-  ${screen.medium`
-    height: ${p => p.size * .47}px;
-    flex: 0 0 ${p => p.size * .47}px;
-  `}
-
   ${p => p.hidden && `
     flex: 0 0 0;
     overflow: hidden;

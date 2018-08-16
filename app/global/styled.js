@@ -83,11 +83,6 @@ export const BubbleButton = Flex.extend`
   &:active {
     transform: scale(.85);
   }
-
-  ${screen.medium`
-    width: ${p => p.size * .47}px;
-    height: ${p => p.size * .47}px;
-  `}
 `
 
 export const Boto = Flex.extend`
