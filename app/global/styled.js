@@ -27,6 +27,26 @@ export const screen = Object.keys(sizes).reduce((result, key) => {
   return result
 }, {})
 
+const getRandInt = range => Math.ceil(Math.random() * range)
+const getRand = range => `${getRandInt(range)}`
+export const vyingBuilder = () => `
+  0% {
+    transform: rotate(${getRand(-10)}deg) translate(${getRand(10)}px, ${getRand(5)}px);
+  }
+  25% {
+    transform: rotate(${getRand(7)}deg) translate(${getRand(5)}px, ${getRand(-5)}px) scale(1.1);
+  }
+  50% {
+    transform: rotate(${getRand(-5)}deg) translate(${getRand(-12)}px, ${getRand(8)}px);
+  }
+  75% {
+    transform: rotate(${getRand(10)}deg) translate(${getRand(8)}px, ${getRand(12)}px) scale(.9);
+  }
+  100% {
+    transform: rotate(${getRand(-10)}deg) translate(${getRand(-6)}px, ${getRand(-7)}px);
+  }
+`
+
 const whitePurple = 'rgba(255, 227, 251, 1)'
 
 export const Flex = styled.div`

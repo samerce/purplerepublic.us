@@ -12,7 +12,7 @@ let CircleScale = 1.5
 if (window.innerWidth <= SCREEN_WIDTH_S) {
   CircleScale = 2.6
 } else if (window.innerWidth <= SCREEN_WIDTH_M) {
-  CircleScale = 2.1
+  CircleScale = 2.3
 } else if (window.innerWidth <= SCREEN_WIDTH_L) {
   CircleScale = 1.7
 }

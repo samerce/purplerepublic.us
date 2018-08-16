@@ -8,6 +8,7 @@ import {
 } from './styled'
 
 import autobind from 'autobind-decorator'
+import {HeroBubbleConfig} from '../bubble/config'
 
 const BDBubbles = ['twinkle', 'jamaica', 'magic', 'beauty', 'queen']
 
@@ -57,6 +58,7 @@ export default class BubbleGrid extends React.PureComponent {
             innerRef={r => this.bubbleGridItems[bubble.id] = r}
             hidden={this.isBubbleHidden(bubble)}
             key={bubble.id}
+            width={HeroBubbleConfig[bubble.id] && HeroBubbleConfig[bubble.id].width}
             size={bubble.size}>
 
             {isArranging && (index !== 0) &&

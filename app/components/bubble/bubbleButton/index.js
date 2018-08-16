@@ -10,6 +10,7 @@ import {getButtonImageUrl} from '../../../utils/bubbleverse'
 import _ from 'lodash'
 import fastdom from 'fastdom'
 import autobind from 'autobind-decorator'
+import {HeroBubbleConfig} from '../config'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'
 
@@ -103,16 +104,21 @@ export default class BubbleButton extends React.Component {
       Component: BubbleComponent,
     } = nucleus
     const {renderButtonContent} = BubbleComponent
+    const hasHero = HeroBubbleConfig[id]
+    const Hero = hasHero && HeroBubbleConfig[id].Component
 
     return (
       <Root
         ref={r => this.ref = r}
         className={'bubble-' + mode}
         style={this.styles[mode] || {}}
-        delay={this.delay}
-        onClick={this.onClick}>
-        {renderButtonContent? renderButtonContent(nucleus) :
+        delay={this.delay}>
+
+        {Hero && <Hero />}
+
+        {renderButtonContent? renderButtonContent(nucleus, this.onClick) :
           <ImageBubbleButton
+            onClick={this.onClick}
             src={unsavedImageUrl || getButtonImageUrl(id)}
             size={size}>
             <Icon className={'fa fa-' + TypeToIcon[type]} />

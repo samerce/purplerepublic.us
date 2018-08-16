@@ -14,7 +14,7 @@ export const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
 export const EASE_IN = 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
 export const EASE = 'cubic-bezier(0.86, 0, 0.07, 1)';
 
-export const SCREEN_WIDTH_S = 425
+export const SCREEN_WIDTH_S = 375
 export const SCREEN_WIDTH_M = 768
 export const SCREEN_WIDTH_L = 1024
 export const SCREEN_WIDTH_XL = 1366

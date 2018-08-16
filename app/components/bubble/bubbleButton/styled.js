@@ -11,8 +11,6 @@ import {
   Icon as aIcon, BubbleButton, InlineBlock, screen, AbsoluteFlex,
 } from '../../../global/styled'
 
-let CircleSizeFocused = 60
-
 export const Root = InlineBlock.extend`
   transition: transform .7s ${EASE_OUT};
   z-index: 8;
@@ -60,6 +58,16 @@ export const ImageBubbleButton = BubbleButton.extend`
     transition: all .7s ${EASE_OUT};
     border-color: ${p => p.theme.main};
   }
+
+  &:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  ${Root}:hover & {
+    transform: scale(.9);
+    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
+  }
 `
 
 export const Icon = aIcon.extend`
@@ -93,10 +101,13 @@ export const Title = AbsoluteFlex.extend`
   align-items: center;
   pointer-events: none;
   font-size: 20px;
-  background: ${p => alpha(.3, p.theme.veryDark)};
+  background: linear-gradient(
+    0deg,
+    transparent, ${p => alpha(.4, p.theme.veryDark)} 50%, transparent
+  );
   width: 100%;
   text-align: center;
-  padding: 5px;
+  padding: 100px 5px;
   font-family: annie use your telescope;
   transition-property: opacity, transform;
   transition-duration: .2s;
@@ -104,8 +115,9 @@ export const Title = AbsoluteFlex.extend`
   transform: scale(1.05);
   opacity: 0;
   user-select: none;
+  line-height: 20px;
 
-  ${ImageBubbleButton}:hover & {
+  ${Root}:hover & {
     opacity: 1;
     transform: none;
   }

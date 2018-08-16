@@ -20,7 +20,7 @@ export const Root = AbsoluteFlexFillParent.extend`
 export const BubbleGridItem = styled.div`
   position: relative;
   pointer-events: none;
-  flex: 0 0 ${p => p.size}px;
+  flex: 0 0 ${p => p.width? p.width : p.size}px;
   height: ${p => p.size}px;
   margin: 5px;
 

@@ -57,7 +57,7 @@ injectGlobal`
     ${screen.medium`
       font-size: 36px;
       .shopText {
-        line-height: 30px;
+        line-height: 16px;
       }
       span {
         font-size: 16px;

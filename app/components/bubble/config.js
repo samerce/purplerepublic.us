@@ -24,3 +24,12 @@ export const BubbleButtonActionList =
     list[k] = k
     return list
   }, {})
+
+export const HeroBubbleConfig = {
+  shopArt: {
+    width: 600,
+  }
+}
+Object.keys(HeroBubbleConfig).forEach(bid => {
+  HeroBubbleConfig[bid].Component = require('./hero/' + bid).default
+})

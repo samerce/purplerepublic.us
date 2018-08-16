@@ -8,29 +8,9 @@ import {
   SCREEN_WIDTH_XL_PX,
   SCREEN_WIDTH_M,
 } from '../../global/constants'
-import {ToolBar, ToolBarItem} from '../../global/styled'
+import {ToolBar, ToolBarItem, vyingBuilder} from '../../global/styled'
 
 const aColor = '#498359'
-
-const getRandInt = range => Math.ceil(Math.random() * range)
-const getRand = range => `${getRandInt(range)}`
-const vyingBuilder = () => `
-  0% {
-    transform: rotate(${getRand(-10)}deg) translate(${getRand(10)}px, ${getRand(5)}px);
-  }
-  25% {
-    transform: rotate(${getRand(7)}deg) translate(${getRand(5)}px, ${getRand(-5)}px) scale(1.1);
-  }
-  50% {
-    transform: rotate(${getRand(-5)}deg) translate(${getRand(-12)}px, ${getRand(8)}px);
-  }
-  75% {
-    transform: rotate(${getRand(10)}deg) translate(${getRand(8)}px, ${getRand(12)}px) scale(.9);
-  }
-  100% {
-    transform: rotate(${getRand(-10)}deg) translate(${getRand(-6)}px, ${getRand(-7)}px);
-  }
-`
 
 injectGlobal`
   @keyframes vying1 {
