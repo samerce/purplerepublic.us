@@ -62,12 +62,13 @@ export default class BubbleButton extends React.Component {
     this.timers.push(
       setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
       setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER),
-      setTimeout(this.configureStyles, DURATION_ENTER + 700),
+      setTimeout(() => {
+        this.configureStyles()
+        if (this.props.editing) {
+          this.setState({mode: Mode.editing})
+        }
+      }, DURATION_ENTER + 700),
     )
-
-    if (this.props.editing) {
-      setTimeout(() => this.setState({mode: Mode.editing}), DURATION_ENTER + 700)
-    }
   }
 
   @autobind
@@ -76,13 +77,14 @@ export default class BubbleButton extends React.Component {
       const rect = this.rootNode.getBoundingClientRect()
       const {styles} = this
 
+      styles.willFocus = getWillFocusStyle(rect)
+      styles.willDefocus = styles.willFocus
+      styles.focused = getFocusedStyle(this.props.nucleus.size, styles.willFocus)
+
       if (!styles.willEnter) {
         styles.willEnter = getWillEnterStyle(rect)
         this.forceUpdate()
       }
-      styles.willFocus = getWillFocusStyle(rect, styles.willFocus)
-      styles.willDefocus = styles.willFocus
-      styles.focused = getFocusedStyle(this.props.nucleus.size, styles.willFocus)
     })
   }
 
@@ -189,7 +191,7 @@ function getWillEnterStyle(rect) {
   }
 }
 
-function getWillFocusStyle(rect, cache = {}) {
+function getWillFocusStyle(rect) {
   return {
     top: rect.top,
     left: rect.left,

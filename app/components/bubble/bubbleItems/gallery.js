@@ -81,13 +81,13 @@ export default class BubbleGallery extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.editing && nextProps.editing) {
-      this.setState({mode: Mode.add})
+      this.setState({
+        mode: Mode.add,
+        images: this.getGalleryImages(nextProps.nucleus),
+      })
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.editing !== this.props.editing) {
-      this.setState({images: this.getGalleryImages(this.props.nucleus)})
+    if (this.props.nucleus !== nextProps.nucleus) {
+      this.setState({images: this.getGalleryImages(nextProps.nucleus)})
     }
   }
 

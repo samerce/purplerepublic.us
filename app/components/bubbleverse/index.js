@@ -33,7 +33,12 @@ export default class Bubbleverse extends React.PureComponent {
 
   constructor() {
     super()
-    fetchBubbles().then(bubbles => this.bubbleConfig = bubbles)
+    fetchBubbles().then(bubbles => {
+      this.bubbleConfig = bubbles
+      if (this.state.readyForBubbles) {
+        this.setState({bubblePods: [...bubbles]})
+      }
+    })
 
     this.timeouts = []
     this.selectPillOptions =
@@ -50,6 +55,7 @@ export default class Bubbleverse extends React.PureComponent {
       arrangeSourceIndex: null,
       savingNewArrangement: false,
       focusedBubble: null,
+      readyForBubbles: false,
     }
   }
 
@@ -65,9 +71,13 @@ export default class Bubbleverse extends React.PureComponent {
   componentDidMount() {
     this.timeouts.push(
       setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => this.setState({
-        bubblePods: [...this.bubbleConfig],
-      }), 2000),
+      setTimeout(() => {
+        const newState = {readyForBubbles: true}
+        if (this.bubbleConfig) {
+          newState.bubblePods = [...this.bubbleConfig]
+        }
+        this.setState(newState)
+      }, 2000),
       setTimeout(this.startUrlWatcher, 6000),
     )
 
