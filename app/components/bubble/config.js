@@ -27,7 +27,7 @@ export const BubbleButtonActionList =
 
 export const HeroBubbleConfig = {
   shopArt: {
-    width: 510,
+    width: 540,
   }
 }
 Object.keys(HeroBubbleConfig).forEach(bid => {

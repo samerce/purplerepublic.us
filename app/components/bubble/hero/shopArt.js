@@ -18,10 +18,10 @@ export default class ShopArtHero extends React.PureComponent {
   render() {
     return (
       <Root>
+        {this.renderImageButton(SRC_URL + 'commons/aura-hardcover-journal.png', 'journals')}
         {window.innerWidth > SCREEN_WIDTH_S &&
           this.renderImageButton(SRC_URL + 'commons/leggings-blue lagoon.png', 'tights')
         }
-        {this.renderImageButton(SRC_URL + 'commons/aura-hardcover-journal.png', 'journals')}
         {this.renderImageButton(SRC_URL + 'commons/print.png', 'prints')}
       </Root>
     )

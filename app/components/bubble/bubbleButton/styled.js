@@ -49,7 +49,7 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-position: center;
   background-size: cover;
   overflow: hidden;
-  border-width: 3px;
+  border-width: 2px;
 
   &.bubble-focused, &.bubble-editing {
     box-shadow: none;
@@ -101,13 +101,12 @@ export const Title = AbsoluteFlex.extend`
   align-items: center;
   pointer-events: none;
   font-size: 20px;
-  background: linear-gradient(
-    0deg,
-    transparent, ${p => alpha(.4, p.theme.veryDark)} 50%, transparent
-  );
+  background: ${p => alpha(.5, p.theme.veryDark)};
+  border-top: 2px solid ${p => p.theme.veryLight};
+  border-bottom: 2px solid ${p => p.theme.veryLight};
   width: 100%;
   text-align: center;
-  padding: 100px 5px;
+  padding: 15px 5px;
   font-family: annie use your telescope;
   transition-property: opacity, transform;
   transition-duration: .2s;
