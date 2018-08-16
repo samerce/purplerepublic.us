@@ -14,7 +14,8 @@ export const Root = AbsoluteFlexFillParent.extend`
   pointer-events: all;
   padding: 20px 50px 20px 20px;
   align-content: flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `
 
 export const BubbleGridItem = styled.div`

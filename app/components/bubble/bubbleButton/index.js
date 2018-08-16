@@ -19,7 +19,7 @@ const xCenter = window.innerWidth / 2
 const yCenter = window.innerHeight / 2
 
 const TypeToIcon = {
-  video: 'film',
+  video: 'youtube-play',
   writing: 'book',
   gallery: 'camera-retro',
   words: 'book',

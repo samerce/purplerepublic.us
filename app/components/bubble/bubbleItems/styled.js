@@ -60,7 +60,7 @@ injectGlobal`
         line-height: 16px;
       }
       span {
-        font-size: 16px;
+        display: none;
       }
     `}
   }

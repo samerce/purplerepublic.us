@@ -92,7 +92,10 @@ export const Icon = aIcon.extend`
   }
 
   ${screen.medium`
-    font-size: 14px;
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
   `}
 `
 
