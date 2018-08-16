@@ -114,4 +114,8 @@ export const Title = AbsoluteFlex.extend`
     visibility: hidden;
   }
 
+  ${screen.medium`
+    display: none;
+  `}
+
 `
