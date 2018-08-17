@@ -66,6 +66,12 @@ const addProdMiddlewares = (app, options) => {
 module.exports = (app, options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
+  app.get('*', (req, res, next) => {
+    if (req.headers.host.includes('sound.')) {
+      res.redirect('https://soundcloud.com/expressyourmess')
+    } else next()
+  })
+
   if (isProd) {
     addProdMiddlewares(app, options);
   } else {
