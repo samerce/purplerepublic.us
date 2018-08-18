@@ -67,9 +67,14 @@ module.exports = (app, options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
   app.get('*', (req, res, next) => {
-    if (req.headers.host.includes('sound.')) {
+    const {host} = req.headers
+    if (host.includes('sound.') || host.includes('sounds.'))  {
       res.redirect('https://soundcloud.com/expressyourmess')
-    } else next()
+    } else if (host.includes('video.') || host.includes('videos.')) {
+      res.redirect('https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw')
+    } else {
+      next()
+    }
   })
 
   if (isProd) {
