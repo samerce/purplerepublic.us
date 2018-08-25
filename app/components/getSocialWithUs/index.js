@@ -33,9 +33,10 @@ export default class GetSocialWithUs extends React.Component {
             <SocialIcon className='fa fa-youtube-square i5' />
             <div className='tooltip'>youtube</div>
           </a>
-          <a href='https://www.twitter.com/1purplerepublic' target='_blank' onClick={this.onClick.bind(this, 'twitter')}>
-            <SocialIcon className='fa fa-twitter-square i2' />
-            <div className='tooltip'>twitter</div>
+          <a onClick={() => this.payPalLink.click()} className='i11' onClick={this.onClick.bind(this, 'paypal')}>
+            <SocialIcon className='fa fa-paypal i9' />
+            <PayPalLink ref={r => this.payPalLink = r} />
+            <div className='tooltip'>donate with paypal</div>
           </a>
           <a href='https://www.instagram.com/expressyourmess' target='_blank' onClick={this.onClick.bind(this, 'instagram')}>
             <SocialIcon className='fa fa-instagram i3' />
@@ -44,15 +45,6 @@ export default class GetSocialWithUs extends React.Component {
           <a href='mailto:rise@purplerepublic.us' target='_blank' onClick={this.onClick.bind(this, 'email')}>
             <SocialIcon className='fa fa-envelope-o i4' />
             <div className='tooltip'>email</div>
-          </a>
-          <a href='https://www.patreon.com/expressyourmess' target='_blank' className='i10' onClick={this.onClick.bind(this, 'patreon')}>
-            <object data={ICON_URL + 'patreon.svg'} type='image/svg+xml' />
-            <div className='tooltip'>donate with patreon</div>
-          </a>
-          <a onClick={() => this.payPalLink.click()} className='i11' onClick={this.onClick.bind(this, 'paypal')}>
-            <SocialIcon className='fa fa-paypal i9' />
-            <PayPalLink ref={r => this.payPalLink = r} />
-            <div className='tooltip'>donate with paypal</div>
           </a>
         </SocialButtonsRoot>
       </Root>

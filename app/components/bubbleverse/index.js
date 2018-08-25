@@ -17,7 +17,9 @@ import {MaskAbsoluteFillParent} from '../../global/styled'
 import {SCREEN_WIDTH_M} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
-import {BubbleComponents, BubbleType} from '../bubble/config'
+import {
+  BubbleComponents, BubbleType, BubbleButtonComponents
+} from '../bubble/config'
 import autobind from 'autobind-decorator'
 
 const Mode = makeEnum([
@@ -78,7 +80,7 @@ export default class Bubbleverse extends React.PureComponent {
         }
         this.setState(newState)
       }, 2000),
-      setTimeout(this.startUrlWatcher, 6000),
+      setTimeout(this.startUrlWatcher, 5500),
     )
 
     this.socialButtonsNode = document.getElementById('socialButtonsRoot')
@@ -314,19 +316,25 @@ function fetchBubbles() {
     fetch('/bubbleStageDirection.js', {
       cache: 'no-cache',
     }).then((responseRaw) => {
-      responseRaw.text().then(bubblesText => {
-        bubblesText = bubblesText.replace('window.bubbles=', '')
-        const bubbles = JSON.parse(bubblesText)
-        bubbles.forEach(bubbleProps => {
-          bubbleProps.Component = BubbleComponents[bubbleProps.type]
-          bubbleProps.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 200
+      responseRaw.json().then(bubbles => {
+        bubbles.forEach(bubble => {
+          if (bubble.id === 'patreon') {
+            bubble.buttonType = 'patreon'
+          }
+          if (bubble.id === 'shopArt') {
+            bubble.type = 'words'
+            bubble.buttonType = 'shop'
+          }
+          if (bubble.id === 'instagram') {
+            bubble.buttonType = 'instagram'
+          }
+          if (bubble.buttonType) {
+            bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
+          }
+          bubble.Component = BubbleComponents[bubble.type]
+          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 200
         })
         resolve(bubbles)
-      // responseRaw.json().then(bubbles => {
-      //   bubbles.forEach(bubbleProps => {
-      //     bubbleProps.Component = BubbleComponents[bubbleProps.type]
-      //   })
-      //   resolve(bubbles)
       }).catch(reject)
     }).catch(reject)
   })

@@ -21,9 +21,15 @@ export const Root = AbsoluteFlexFillParent.extend`
 export const BubbleGridItem = styled.div`
   position: relative;
   pointer-events: none;
-  flex: 0 0 ${p => p.width? p.width : p.size}px;
+  flex: 0 0 ${p => p.size}px;
   height: ${p => p.size}px;
   margin: 5px;
+  display: flex;
+
+  ${p => p.heroConfig && `
+    flex: 0 0 ${p.heroConfig.width}px;
+    justify-content: ${p.heroConfig.leftSide? 'flex-end' : 'initial'};
+  `}
 
   &:first-child {
     visibility: hidden;

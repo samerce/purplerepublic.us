@@ -1,13 +1,13 @@
 import React from 'react'
-import WordsBubble from './words'
 
-import {ImageBubbleButton, Icon} from '../bubbleButton/styled'
+import {ImageBubbleButton, Icon} from './styled'
 
 import {SRC_URL} from '../../../global/constants'
 
-export default class ShopBubble extends React.PureComponent {
+export default class ShopBubbleButton extends React.PureComponent {
 
-  static renderButtonContent(nucleus, onClick) {
+  render() {
+    const {onClick, nucleus} = this.props
     return (
       <div>
         <ImageBubbleButton
@@ -22,10 +22,6 @@ export default class ShopBubble extends React.PureComponent {
         </div>
       </div>
     )
-  }
-
-  render() {
-    return <WordsBubble {...this.props} />
   }
 
 }

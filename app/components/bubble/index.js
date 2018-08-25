@@ -144,7 +144,6 @@ export default class Bubble extends React.PureComponent {
       description,
       Component: BubbleComponent,
     } = nucleus
-    const {renderButtonContent} = BubbleComponent
 
     return (
       <Root
@@ -169,9 +168,7 @@ export default class Bubble extends React.PureComponent {
           {...nucleus}
           className={mode}
           unsavedImageUrl={unsavedImageUrl}
-          onClick={this.onClickBubble}>
-          {renderButtonContent? renderButtonContent(nucleus) : undefined}
-        </BubbleButton>
+          onClick={this.onClickBubble} />
         <BubbleDetails
           {...nucleus}
           className={mode}
@@ -186,7 +183,6 @@ export default class Bubble extends React.PureComponent {
               ref={r => this.bubbleComponentRef = r}
             />
         </BubbleDetails>
-        {/* <BubbleRelated /> */}
       </Root>
     )
   }

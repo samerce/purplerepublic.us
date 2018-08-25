@@ -72,6 +72,8 @@ module.exports = (app, options) => {
       res.redirect('https://soundcloud.com/expressyourmess')
     } else if (host.includes('video.') || host.includes('videos.')) {
       res.redirect('https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw')
+    } else if (host.includes('patreon.')) {
+      res.redirect('https://www.patreon.com/expressyourmess')
     } else {
       next()
     }

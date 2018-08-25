@@ -8,11 +8,15 @@ import { combineReducers } from 'redux-immutable'
 
 import appReducer from 'containers/App/reducer'
 import quarkArtReducer from 'containers/quarkart/reducer'
+import patreonReducer from 'components/bubble/redux/patreon'
+import instagramReducer from 'components/bubble/redux/instagram'
 
 export default function createReducer(asyncReducers) {
   return combineReducers({
     app: appReducer,
     quarkArt: quarkArtReducer,
+    patreonBubble: patreonReducer,
+    instagramBubble: instagramReducer,
     ...asyncReducers,
   })
 }

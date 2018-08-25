@@ -20,7 +20,7 @@ export const Root = InlineBlock.extend`
 
   &.bubble-focused {
     pointer-events: none;
-    transition-duration: 1s;
+    transition-duration: .8s;
     position: fixed;
   }
 

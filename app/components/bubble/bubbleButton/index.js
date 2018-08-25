@@ -103,11 +103,10 @@ export default class BubbleButton extends React.Component {
     } = this.props
     const {
       id, size, title, type,
-      Component: BubbleComponent,
+      ButtonComponent,
     } = nucleus
-    const {renderButtonContent} = BubbleComponent
-    const hasHero = HeroBubbleConfig[id]
-    const Hero = hasHero && HeroBubbleConfig[id].Component
+    const heroConfig = HeroBubbleConfig[id]
+    const Hero = heroConfig && heroConfig.Component
 
     return (
       <Root
@@ -116,9 +115,14 @@ export default class BubbleButton extends React.Component {
         style={this.styles[mode] || {}}
         delay={this.delay}>
 
-        {Hero && <Hero />}
+        {Hero && <Hero config={heroConfig} />}
 
-        {renderButtonContent? renderButtonContent(nucleus, this.onClick) :
+        {ButtonComponent?
+          <ButtonComponent
+            nucleus={nucleus}
+            onClick={this.onClick}
+            heroConfig={heroConfig} />
+          :
           <ImageBubbleButton
             onClick={this.onClick}
             src={unsavedImageUrl || getButtonImageUrl(id)}

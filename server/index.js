@@ -7,6 +7,7 @@ const bubbles = require('./bubbles')
 const express = require('express');
 const logger = require('./logger');
 const bodyParser = require('body-parser')
+const https = require('https');
 
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontendMiddleware');
@@ -45,6 +46,24 @@ app.post('/bubbles.upload', bubbles.upload)
 app.post('/bubbles.delete', bubbles.delete)
 app.post('/bubbles.update.arrangement', bubbles.updateArrangement)
 app.post('/bubbles.upload.galleryImage', bubbles.uploadGalleryImage)
+
+
+let InstagramToken
+try {
+  InstagramToken = require('../instagram.config')
+} catch {
+  InstagramToken = process.env.INSTAGRAM_TOKEN
+}
+app.get('/instagram.posts.recent', (req, res) => {
+  https.get(
+    'https://api.instagram.com/v1/users/self/media/recent?access_token=' + InstagramToken,
+    response => {
+      let data = ''
+      response.on('data', chunk => data += chunk)
+      response.on('end', () => res.send(JSON.parse(data)))
+    }
+  )
+})
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

@@ -58,7 +58,7 @@ export default class BubbleGrid extends React.PureComponent {
             innerRef={r => this.bubbleGridItems[bubble.id] = r}
             hidden={this.isBubbleHidden(bubble)}
             key={bubble.id}
-            width={HeroBubbleConfig[bubble.id] && HeroBubbleConfig[bubble.id].width}
+            heroConfig={HeroBubbleConfig[bubble.id]}
             size={bubble.size}>
 
             {isArranging && (index !== 0) &&

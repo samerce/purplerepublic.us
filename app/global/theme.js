@@ -1,13 +1,14 @@
 import {darken, lighten, transparentize as trans} from 'polished'
 
-const purple = '#512287'
-const purpleVeryDark = darken(.2, purple)
-const purpleSlightlyDark = darken(.05, purple)
-const purpleVeryLight = lighten(.3, purple)
-const purpleSlightlyLight = lighten(.05, purple)
+// const purple = '#512287'
+const main = '#334ac7'
+const purpleVeryDark = darken(.2, main)
+const purpleSlightlyDark = darken(.05, main)
+const purpleVeryLight = lighten(.3, main)
+const purpleSlightlyLight = lighten(.05, main)
 
 export default {
-  main: purple,
+  main,
   slightlyDark: purpleSlightlyDark,
   slightlyLight: purpleSlightlyLight,
   veryDark: purpleVeryDark,
