@@ -21,6 +21,14 @@ export default class GetSocialWithUs extends React.Component {
     return (
       <Root id='socialButtonsRoot'>
         <SocialButtonsRoot>
+          <a href='https://www.instagram.com/expressyourmess' target='_blank' onClick={this.onClick.bind(this, 'instagram')}>
+            <SocialIcon className='fa fa-instagram i3' />
+            <div className='tooltip'>instagram</div>
+          </a>
+          <a href='mailto:rise@purplerepublic.us' target='_blank' onClick={this.onClick.bind(this, 'email')}>
+            <SocialIcon className='fa fa-envelope i4' />
+            <div className='tooltip'>email</div>
+          </a>
           <a href='https://www.facebook.com/purplerepublic' target='_blank' onClick={this.onClick.bind(this, 'facebook')}>
             <SocialIcon className='fa fa-facebook-square i1' />
             <div className='tooltip'>facebook</div>
@@ -37,14 +45,6 @@ export default class GetSocialWithUs extends React.Component {
             <SocialIcon className='fa fa-paypal i9' />
             <PayPalLink ref={r => this.payPalLink = r} />
             <div className='tooltip'>donate with paypal</div>
-          </a>
-          <a href='https://www.instagram.com/expressyourmess' target='_blank' onClick={this.onClick.bind(this, 'instagram')}>
-            <SocialIcon className='fa fa-instagram i3' />
-            <div className='tooltip'>instagram</div>
-          </a>
-          <a href='mailto:rise@purplerepublic.us' target='_blank' onClick={this.onClick.bind(this, 'email')}>
-            <SocialIcon className='fa fa-envelope-o i4' />
-            <div className='tooltip'>email</div>
           </a>
         </SocialButtonsRoot>
       </Root>
