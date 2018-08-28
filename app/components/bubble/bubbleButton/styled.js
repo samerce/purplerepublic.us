@@ -85,6 +85,7 @@ export const Icon = aIcon.extend`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   font-size: 18px;
+  color: ${p => p.theme.slightlyDark};
 
   .bubble-focused &, .bubble-editing & {
     opacity: 0;

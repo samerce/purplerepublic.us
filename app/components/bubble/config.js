@@ -71,7 +71,7 @@ Object.keys(HeroBubbleConfig).forEach(bid => {
 })
 
 export const Poetcards = [
-  'front',
+  'front v2 tiny',
   'dreams of lucy',
   'moby\'s dick',
   'igbok',
@@ -87,13 +87,13 @@ export const Poetcards = [
   'nola porch',
   'dorothy',
   'b&w merman',
-  'open minds',
+  'open minds v2',
   'queer',
-  'submerged explorations',
+  'submerged explorations v2',
   'di-no',
   'copacetic chaos',
-  'dali dreams',
-  'cosmic diversity',
+  'dali dreams v2',
+  'cosmic diversity v2',
   'jesus thorns',
   'floor',
   '1000 colors',

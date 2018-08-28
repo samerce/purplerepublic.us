@@ -340,6 +340,9 @@ export const CheckoutTitle = Flex.extend`
   text-align: center;
   margin-bottom: 85px;
   align-self: center;
+  flex: 0 0 auto;
+  position: fixed;
+  top: 20px;
 `
 
 export const CustomerInfo = Flex.extend`
@@ -349,6 +352,8 @@ export const CustomerInfo = Flex.extend`
   border-radius: 10px;
   background: ${p => p.theme.main};
   box-shadow: ${p => p.theme.shadowMedium};
+  flex: 0 0 auto;
+  margin-top: 160px;
 `
 
 export const CustomerInfoTitle = Flex.extend`
@@ -386,12 +391,12 @@ export const Address = InfoInput.extend`
 
 export const PaymentInstructions = FlexColumn.extend`
   width: 100%;
-  height: 0;
-  overflow: hidden;
+  flex: 0 0 0;
+  overflow: scroll;
   transition: all .5s ${EASE_OUT};
 
   .poetcards-checkoutPayment & {
-    height: 640px;
+    flex: 0 0 auto;
   }
 `
 
@@ -401,6 +406,7 @@ export const InstructionRow = Flex.extend`
   padding: 10px 0 10px 80px;
   flex-wrap: wrap;
   border-bottom: 1px solid ${p => alpha(.5, p.theme.veryLight)};
+  flex: 0 0 auto;
 `
 
 export const InstructionNumber = AbsoluteFlex.extend`
@@ -463,6 +469,7 @@ export const CopiedMsg = AbsoluteFlex.extend`
 export const ActionButtons = Flex.extend`
   margin-top: 20px;
   justify-content: space-between;
+  flex: 0 0 60px;
 `
 
 const Action = Boto.extend`
