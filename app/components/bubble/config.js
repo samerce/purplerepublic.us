@@ -6,6 +6,7 @@ export const BubbleType = makeEnum([
   'gallery',
   'video',
   'words',
+  'poetcards',
   // 'music',
 ])
 
@@ -27,6 +28,7 @@ BubbleButtonTypes.forEach(t => {
 
 export const BubbleButtonActions = {
   OpenLink: props => openInNewTab(props.url),
+  OrderPoetcards: props => {},
 }
 
 export const BubbleButtonActionList =

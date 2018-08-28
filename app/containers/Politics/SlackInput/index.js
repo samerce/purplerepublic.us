@@ -16,14 +16,20 @@ export default class SlackInput extends React.Component {
     }
   }
 
+  post(value) {
+    const input = document.getElementById(this.getElementId())
+    this.sendToSlack(input, value)
+  }
+
   render() {
-    const {placeholder, isRight} = this.props
+    const {placeholder, isRight, className = ''} = this.props
     const {input, isSending, justSent} = this.state
     const placeholderText = isSending? 'sending your thoughts...' :
       justSent? 'got it! anything else? :)' : placeholder || 'what do you think?'
     return (
       <Input
-        className={`${isRight && 'right'} ${isSending && 'sending'} ${justSent && 'justSent'}`}
+        id={this.getElementId()}
+        className={`${className} ${isRight && 'right'} ${isSending && 'sending'} ${justSent && 'justSent'}`}
         value={input}
         onChange={e => this.onChange(e)}
         onKeyPress={e => this.onKeyPress(e)}
@@ -37,33 +43,41 @@ export default class SlackInput extends React.Component {
   }
 
   onKeyPress(e) {
-    const {isSending, justSent, input} = this.state;
-    const target = e.target
+    const {isSending, justSent, input} = this.state
 
     if (isSending) return
     if (justSent) this.setState({justSent: false})
 
     if (input.trim().length > 0 && e.which === 13) {
-      target.blur()
-      this.setState({input: '', isSending: true})
-
-      fetch(SLACK_WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          text: input,
-          channel: '#' + this.props.channel,
-        })
-      }).then(() => {
-        setTimeout(() => {
-          target.focus()
-          this.setState({isSending: false, justSent: true})
-        }, 1000)
-        setTimeout(() => this.setState({justSent: false}), 4000)
-      })
+      this.sendToSlack(e.target, e.target.value)
     }
+  }
+
+  sendToSlack(target, value) {
+    target.blur()
+    this.setState({input: '', isSending: true})
+
+    fetch(SLACK_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        text: value,
+        channel: '#' + this.props.channel,
+      })
+    }).then(() => {
+      setTimeout(() => {
+        target.focus()
+        this.setState({isSending: false, justSent: true})
+      }, 1000)
+      setTimeout(() => this.setState({justSent: false}), 4000)
+    })
+  }
+
+  getElementId() {
+    const {id, channel} = this.props
+    return id || channel + 'SlackInput'
   }
 
 }

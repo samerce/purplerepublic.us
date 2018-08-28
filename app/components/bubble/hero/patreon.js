@@ -14,6 +14,10 @@ import {connect} from 'react-redux'
 @connect(d => ({}))
 export default class PatreonHero extends React.PureComponent {
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   render() {
     return (
       <Root leftSide>

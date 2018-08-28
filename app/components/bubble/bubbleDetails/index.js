@@ -13,9 +13,13 @@ import {canShowEditingTools} from '../../../utils/nav'
 import autobind from 'autobind-decorator'
 import {BubbleButtonActions} from '../config'
 import ClipboardJS from 'clipboard'
+import {connect} from 'react-redux'
+
+import {onClickBubbleAction} from '../redux/actions'
 
 const Clipboard = new ClipboardJS('.clipboardBtn')
 
+@connect(d => ({}), undefined, undefined, {withRef: true})
 export default class BubbleDetails extends React.PureComponent {
 
   constructor(props) {
@@ -244,6 +248,7 @@ export default class BubbleDetails extends React.PureComponent {
   @autobind
   onClickAction(action) {
     BubbleButtonActions[action.type](action.props)
+    this.props.dispatch(onClickBubbleAction(this.state.nucleus.id, action))
   }
 
   @autobind

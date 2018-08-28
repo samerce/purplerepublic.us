@@ -8,14 +8,19 @@ import autobind from 'autobind-decorator'
 
 export default class TimedTextBlurb extends React.PureComponent {
 
+  static defaultProps = {
+    duration: 5000,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      activeIndex: 0,
+      activeIndex: -1,
     }
   }
 
   componentDidMount() {
+    setTimeout(() => this.setState({activeIndex: 0}))
     this.ticker = setInterval(() => {
       const {onUpdateIndex, items} = this.props
       const newIndex = (this.state.activeIndex + 1) % items.length
@@ -51,8 +56,4 @@ export default class TimedTextBlurb extends React.PureComponent {
     )
   }
 
-}
-
-TimedTextBlurb.defaultProps = {
-  duration: 5000,
 }

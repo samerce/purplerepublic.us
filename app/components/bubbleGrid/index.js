@@ -36,7 +36,7 @@ export default class BubbleGrid extends React.PureComponent {
   closeBubble() {
     const {id} = this.focusedBubble
     this.bubbleButtons[id].defocusIt()
-    this.bubbleDetails.close()
+    this.bubbleDetails.getWrappedInstance().close()
     this.props.onBubbleClosed()
     this.focusedBubble = null
     findDOMNode(this.bubbleGridItems[id]).style.zIndex = 0
@@ -91,7 +91,7 @@ export default class BubbleGrid extends React.PureComponent {
   @autobind
   onClickBubbleButton(bubble) {
     this.focusedBubble = bubble
-    this.bubbleDetails.open(bubble)
+    this.bubbleDetails.getWrappedInstance().open(bubble)
     this.props.onBubbleOpened(bubble.id)
     findDOMNode(this.bubbleGridItems[bubble.id]).style.zIndex = 60
   }

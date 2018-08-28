@@ -328,6 +328,15 @@ function fetchBubbles() {
           if (bubble.id === 'instagram') {
             bubble.buttonType = 'instagram'
           }
+          if (bubble.id === 'buy-poetcards' || bubble.id === 'buy-postcards') {
+            bubble.type = 'poetcards'
+            bubble.actions = [
+              {
+                text: 'checkout',
+                type: 'OrderPoetcards',
+              }
+            ]
+          }
           if (bubble.buttonType) {
             bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
           }

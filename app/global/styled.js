@@ -133,7 +133,7 @@ export const TextInput = styled.input`
   transition: all .3s ${EASE_OUT};
   flex: 1 0 auto;
   height: 100%;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid ${p => p.theme.veryLight};
   opacity: .9;
   padding: 5px;
 

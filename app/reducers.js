@@ -10,6 +10,7 @@ import appReducer from 'containers/App/reducer'
 import quarkArtReducer from 'containers/quarkart/reducer'
 import patreonReducer from 'components/bubble/redux/patreon'
 import instagramReducer from 'components/bubble/redux/instagram'
+import bubbleDetailsReducer from 'components/bubble/redux/details'
 
 export default function createReducer(asyncReducers) {
   return combineReducers({
@@ -17,6 +18,7 @@ export default function createReducer(asyncReducers) {
     quarkArt: quarkArtReducer,
     patreonBubble: patreonReducer,
     instagramBubble: instagramReducer,
+    bubbleDetails: bubbleDetailsReducer,
     ...asyncReducers,
   })
 }

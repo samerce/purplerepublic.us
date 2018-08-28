@@ -54,7 +54,7 @@ export const GratitudeText = Flex.extend`
     overflow: auto;
     div {
       height: 100%;
-      padding-top: 5px;
+      padding: 5px 0;
     }
   }
   .leftSide & {

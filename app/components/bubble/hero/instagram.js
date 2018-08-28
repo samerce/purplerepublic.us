@@ -28,13 +28,17 @@ export default class InstagramHero extends React.PureComponent {
     }))
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.posts !== this.props.posts
+  }
+
   render() {
     return (
       <Root>
         <TimedTextBlurb
           className='scrollable leftSide'
           items={this.props.posts}
-          duration={8000}
+          duration={10000}
           onUpdateIndex={this.onUpdateIndex}
         />
         <BeggingButton onClick={this.onClickButton}>
