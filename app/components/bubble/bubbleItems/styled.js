@@ -293,7 +293,7 @@ export const PoetCardTotal = AbsoluteFlex.extend`
   border-top: 1px solid ${p => p.theme.veryLight};
   z-index: 102;
   font-family: annie use your telescope;
-  transition: all .5s ${EASE_OUT};
+  transition: all .4s ${EASE_OUT};
 
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     bottom: ${window.innerHeight - 160}px;
@@ -357,6 +357,7 @@ export const CustomerInfoTitle = Flex.extend`
   flex: 0 0 100%;
   justify-content: center;
   transition: all .5s ${EASE_OUT};
+  font-family: life savers;
 
   .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     height: 0;

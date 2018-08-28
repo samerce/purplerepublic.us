@@ -56,6 +56,7 @@ export default class PoetcardsBubble extends React.PureComponent {
         }
         this.orderNumber = Date.now()
         this.setState({mode: Mode.checkoutInfo})
+        getFocusedBubbleButton().style.opacity = 0
       }
     }
   }
@@ -108,7 +109,7 @@ export default class PoetcardsBubble extends React.PureComponent {
 
           <ThanksMsg>
             <InstructionEmphasis className='orderNumber'>
-              ORDER #{this.orderNumber}
+              order #{this.orderNumber}
             </InstructionEmphasis><br />
             watch your email for updates on your order.<br />
             cards usually arrive in about a week.<br />
@@ -127,7 +128,7 @@ export default class PoetcardsBubble extends React.PureComponent {
             </InstructionRow>
             <InstructionRow>
               <InstructionNumber>2</InstructionNumber>
-              <Instructions>click here and paste the total in paypal ⤵</Instructions>
+              <Instructions>click here ⤵ then paste the total amount in paypal</Instructions>
               <InstructionEmphasis onClick={this.onClickGoToPaypal}>
                 go to paypal
               </InstructionEmphasis>
@@ -233,6 +234,7 @@ export default class PoetcardsBubble extends React.PureComponent {
 
   @autobind
   onClickExit() {
+    getFocusedBubbleButton().style.opacity = 1
     this.setState({mode: Mode.cardPicker})
   }
 
@@ -263,4 +265,8 @@ export default class PoetcardsBubble extends React.PureComponent {
     , 0)
   }
 
+}
+
+function getFocusedBubbleButton() {
+  return document.getElementsByClassName('bubble-focused')[0]
 }
