@@ -136,7 +136,7 @@ export default class BubbleBuilder extends React.PureComponent {
           />
           <BubbleDetails
             editing={true}
-            ref={r => this.bubble = r}
+            ref={r => this.bubble = r && r.getWrappedInstance()}
             onEditingChange={this.onEditingChange}
             nucleus={nucleus}
           />

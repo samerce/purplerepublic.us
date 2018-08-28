@@ -69,3 +69,35 @@ export const HeroBubbleConfig = {
 Object.keys(HeroBubbleConfig).forEach(bid => {
   HeroBubbleConfig[bid].Component = require('./hero/' + bid).default
 })
+
+export const Poetcards = [
+  'front',
+  'dreams of lucy',
+  'moby\'s dick',
+  'igbok',
+  'sunrise folly',
+  'unicorn-merman',
+  'amy',
+  'camus cabaret',
+  'be',
+  'jimmy',
+  'the flight home',
+  'liberate yourself',
+  'train hoppin charlie',
+  'nola porch',
+  'dorothy',
+  'b&w merman',
+  'open minds',
+  'queer',
+  'submerged explorations',
+  'di-no',
+  'copacetic chaos',
+  'dali dreams',
+  'cosmic diversity',
+  'jesus thorns',
+  'floor',
+  '1000 colors',
+  'roark',
+  'rose quartz',
+  'always eat forbidden',
+]
