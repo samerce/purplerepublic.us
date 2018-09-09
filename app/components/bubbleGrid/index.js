@@ -29,9 +29,12 @@ export default class BubbleGrid extends React.PureComponent {
 
   @autobind
   openBubble(bubbleId) {
-    if (this.focusedBubble) {
+    const {focusedBubble} = this
+    if (focusedBubble) {
+      if (focusedBubble.id === bubbleId) return
       this.closeBubble()
     }
+
     this.bubbleButtons[bubbleId].onClick()
   }
 

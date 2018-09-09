@@ -209,6 +209,7 @@ export default class Bubbleverse extends React.PureComponent {
       arrangeSourceIndex: null,
     })
     this.bubbleBuilder.show(bubbleToEdit, index)
+    this.closeBubble()
   }
 
   @autobind
@@ -260,16 +261,12 @@ export default class Bubbleverse extends React.PureComponent {
 
   @autobind
   openBubble(bubbleId) {
-    if (this.state.focusedBubble) {
-      this.closeBubble()
-    }
     this.bubbleGrid.openBubble(bubbleId)
   }
 
   @autobind
   closeBubble() {
     this.bubbleGrid.closeBubble()
-    this.focusedBubbleRef.close()
   }
 
   @autobind
