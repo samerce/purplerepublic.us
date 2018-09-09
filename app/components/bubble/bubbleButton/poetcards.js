@@ -16,8 +16,7 @@ export default class ShopBubbleButton extends React.PureComponent {
           <Icon className={'fa fa-shopping-bag'} />
         </ImageBubbleButton>
         <div className='bubbleShopText'>
-          <div className='shopText'>BUY<br /></div>
-          <span>poetcards</span>
+          <div className='poetcardText'>poetcards<br /></div>
         </div>
       </div>
     )

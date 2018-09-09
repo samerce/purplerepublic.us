@@ -47,6 +47,10 @@ injectGlobal`
       font-size: 22px;
     }
 
+    .poetcardText {
+      font-size: 40px;
+    }
+
     .shopText {
       line-height: 40px;
     }
@@ -58,6 +62,9 @@ injectGlobal`
       font-size: 36px;
       .shopText {
         line-height: 16px;
+      }
+      .poetcardText {
+        font-size: 22px;
       }
       span {
         display: none;
