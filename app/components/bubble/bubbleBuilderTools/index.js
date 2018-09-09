@@ -31,9 +31,7 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
     return {
       type: BubbleButtonActionList.OpenLink,
       text: actions.length > 0? actions[0].text || '' : '',
-      props: {
-        url: actions.length > 0? actions[0].props.url || '' : '',
-      }
+      props: actions.length > 0? {...actions[0].props} : {},
     }
   }
 
