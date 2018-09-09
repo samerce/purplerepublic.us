@@ -37,7 +37,7 @@ import {cx} from '../../utils/style'
 import {clearPreloadRoute} from '../App/actions'
 
 const router = {
-  '#intro': Intro,
+  // '#intro': Intro,
   '#start': Start,
   '#hello': Hello,
   '#quote': Quote,
