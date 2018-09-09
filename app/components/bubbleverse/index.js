@@ -80,7 +80,7 @@ export default class Bubbleverse extends React.PureComponent {
         }
         this.setState(newState)
       }, 2000),
-      setTimeout(this.startUrlWatcher, 5500),
+      setTimeout(this.startUrlWatcher, 5400),
     )
 
     this.socialButtonsNode = document.getElementById('socialButtonsRoot')

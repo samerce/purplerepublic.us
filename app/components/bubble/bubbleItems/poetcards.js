@@ -63,11 +63,25 @@ export default class PoetcardsBubble extends React.PureComponent {
 
   render() {
     const {mode} = this.state
+    const {detailText} = this.props.nucleus
     const price = this.getPrice()
     const totalQuantity = this.getTotalQuantity()
     return (
       <Root className={'poetcards-' + mode}>
-        <Intro>find your favorite cards. enter the quantity you want in the box to the right. here's the price breakdown:</Intro>
+        {detailText?
+          <Intro>{detailText}</Intro>
+          :
+          <Intro>
+            art with a message — our poetcards are used as postcards, greeting cards, birthday cards, and just beautiful original artwork ready to frame and hang!
+            <br /><br />
+
+            go ahead, scroll through. choose your favorites, enter quantities, and place your order today.<br /><br />
+
+            join the love revolution — help us spread the magic!<br /><br />
+
+            namaste, friend.
+          </Intro>
+        }
 
         <img src={SRC_URL + 'poetcards/price-sheet.jpg'} className='price-sheet' />
 
@@ -171,7 +185,7 @@ export default class PoetcardsBubble extends React.PureComponent {
   renderPoetCardRow(p) {
     const imageSrc = SRC_URL + 'poetcards/' + p + '.jpg'
     return (
-      <PoetCardRow className={p}>
+      <PoetCardRow className={p} key={p}>
         <ImageRoot>
           <img
             onClick={() => openInNewTab(imageSrc)}

@@ -74,6 +74,8 @@ module.exports = (app, options) => {
       res.redirect('https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw')
     } else if (host.includes('patreon.')) {
       res.redirect('https://www.patreon.com/expressyourmess')
+    } else if (host.includes('poetcards.') || host.includes('postcards.')) {
+      res.redirect('https://expressyourmess.com/#start/bubble/buy-poetcards')
     } else {
       next()
     }

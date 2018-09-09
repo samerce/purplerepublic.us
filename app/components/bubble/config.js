@@ -121,7 +121,7 @@ export const Poetcards = [
   'always eat forbidden',
   'cosmic diversity',
   'dali dreams',
-  'ideals',
+  // 'ideals',
   'wrong more',
   'dressin pretty',
   'recycle fucker',
