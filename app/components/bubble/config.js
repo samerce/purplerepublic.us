@@ -51,7 +51,9 @@ export const HeroBubbleConfig = {
     leftSide: true,
     gratitude: [
       {
-        text: 'jewnicorn dave and his mustachioed carrot!',
+        text: '<strong>this month\'s spotlight patron:</strong>\
+               jewnicorn dave and his mustachioed carrot!\
+               <br />want art for a cause? join the club.',
         image: {
           src: SRC_URL + 'bubbles/patreon/dave-carrot.jpg',
           width: 122,

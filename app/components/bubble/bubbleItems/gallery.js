@@ -140,6 +140,7 @@ export default class BubbleGallery extends React.PureComponent {
             flickThreshold={.1}
             slideInterval={1000}
             stopPropagation={true}
+            useBrowserFullscreen={false}
             items={images} />
         }
 

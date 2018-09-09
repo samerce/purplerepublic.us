@@ -49,7 +49,7 @@ export default class TimedTextBlurb extends React.PureComponent {
         key={index}
         className={activeIndex === index && 'active'}>
         <GratitudeText>
-          <div>{item.text}</div>
+          <div dangerouslySetInnerHTML={{__html: item.text}} />
         </GratitudeText>
         <Timer duration={this.props.duration} />
       </GratitudeWheel>
