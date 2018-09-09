@@ -128,6 +128,7 @@ export default class BubbleGallery extends React.PureComponent {
         {shouldShowGallery &&
           <Gallery
             ref={r => this.gallery = r}
+            onClick={this.onClickGalleryImage}
             renderCustomControls={editing? this.renderCaptionInput : null}
             lazyLoad={!editing}
             showPlayButton={false}
@@ -203,6 +204,11 @@ export default class BubbleGallery extends React.PureComponent {
       onKeyPress={this.onKeyPressCaptionInput}
       onBlur={this.onBlurCaptionInput}
     />
+  }
+
+  @autobind
+  onClickGalleryImage() {
+    document.getElementsByClassName('image-gallery-fullscreen-button')[0].click()
   }
 
   @autobind

@@ -126,6 +126,7 @@ injectGlobal`
   }
   button.image-gallery-fullscreen-button {
     z-index: 5;
+    visibility: hidden;
   }
   .image-gallery-description {
     font-family: annie use your telescope;
