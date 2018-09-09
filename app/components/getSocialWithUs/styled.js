@@ -148,13 +148,14 @@ export const SocialButtonsRoot = styled.div`
     position: relative;
     .tooltip {
       position: absolute;
-      height: 40px;
-      line-height: 30px;
+      height: 35px;
+      line-height: 25px;
       vertical-align: middle;
       padding: 5px 10px;
-      font-size: 12px;
+      font-size: 14px;
+      font-family: annie use your telescope;
       color: white;
-      background: ${aColor};
+      background: ${p => p.theme.main};
       border-radius: 5px;
       box-shadow: 1px 1px 10px rgba(0,0,0,.3);
       opacity: 0;
@@ -174,7 +175,7 @@ export const SocialButtonsRoot = styled.div`
       width: 131px;
     }
     &.i11 .tooltip {
-      width: 125px;
+      width: 110px;
     }
     &.i8 .tooltip {
       width: 80px;
