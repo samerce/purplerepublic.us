@@ -35,7 +35,10 @@ export default class BubbleDetails extends React.PureComponent {
 
     Clipboard.on('success', () => {
       this.setState({idCopied: true})
-      setTimeout(() => this.setState({idCopied: false}), 1000)
+      setTimeout(() => this.setState({
+        idCopied: false,
+        bubbleOptionsVisible: false
+      }), 1000)
     })
   }
 
@@ -62,7 +65,7 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   close() {
-    this.setState({visible: false})
+    this.setState({visible: false, bubbleOptionsVisible: false})
     this.closeTimer = setTimeout(() => this.setState({nucleus: {}}), 700)
     const {bubbleComponentRef} = this
     bubbleComponentRef && bubbleComponentRef.onClose &&
@@ -85,11 +88,11 @@ export default class BubbleDetails extends React.PureComponent {
 
   render() {
     const {
-      title, subtitle, bubbleOptionsStyle, idCopied, isDeleting, nucleus,
+      title, subtitle, idCopied, isDeleting, nucleus,
       visible, bubbleOptionsVisible,
     } = this.state
     const {
-      className, editing, onEditingChange, onEdit,
+      className, editing, onEditingChange,
     } = this.props
     const {
       id,
@@ -118,7 +121,7 @@ export default class BubbleDetails extends React.PureComponent {
 
         <ContentRoot editing={editing}>
           {canShowEditingTools() && !editing &&
-            <BubbleOptions style={bubbleOptionsStyle}>
+            <BubbleOptions>
               <i
                 onClick={() => this.setState({
                   bubbleOptionsVisible: !bubbleOptionsVisible
@@ -139,7 +142,7 @@ export default class BubbleDetails extends React.PureComponent {
               </BubbleNameButton>
               <BubbleEditButton
                 visible={bubbleOptionsVisible}
-                onClick={onEdit}>
+                onClick={this.editBubble}>
                 edit
               </BubbleEditButton>
               <BubbleDeleteButton
@@ -195,7 +198,7 @@ export default class BubbleDetails extends React.PureComponent {
       'the bubble will be gone forever!\n\n click OK to destroy it. D:'
     )) return
 
-    this.setState({isDeleting: true})
+    this.setState({isDeleting: true, bubbleOptionsVisible: false})
     fetch('/bubbles.delete', {
       method: 'post',
       headers: {
@@ -206,6 +209,12 @@ export default class BubbleDetails extends React.PureComponent {
         bubbleId: this.state.nucleus.id,
       }),
     }).then(() => window.location.reload())
+  }
+
+  @autobind
+  editBubble() {
+    this.setState({bubbleOptionsVisible: false})
+    this.props.onEdit()
   }
 
   renderActions() {
