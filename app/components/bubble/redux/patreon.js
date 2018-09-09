@@ -2,7 +2,7 @@ import {fromJS} from 'immutable'
 import {SetActiveGratitude} from './actions'
 
 const initialState = fromJS({
-  activeGratitude: 1,
+  activeGratitude: 0,
 })
 
 export default function patreon(state = initialState, action) {

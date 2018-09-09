@@ -81,7 +81,11 @@ export const Timer = AbsoluteFlex.extend`
   height: 2px;
   width: 100%;
   background: ${p => p.theme.veryLight};
-  transform-origin: left center;
+  transform-origin: right center;
+
+  .leftSide & {
+    transform-origin: left center;
+  }
 
   .active & {
     transform: scaleX(0);

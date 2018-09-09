@@ -51,13 +51,6 @@ export const HeroBubbleConfig = {
     leftSide: true,
     gratitude: [
       {
-        text: 'blowing unicorn kisses to carl!',
-        image: {
-          src: SRC_URL + 'bubbles/buttonImages/postcards.jpg',
-          width: 71.28,
-        },
-      },
-      {
         text: 'jewnicorn dave and his mustachioed carrot!',
         image: {
           src: SRC_URL + 'bubbles/patreon/dave-carrot.jpg',

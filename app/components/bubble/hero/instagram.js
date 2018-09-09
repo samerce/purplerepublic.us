@@ -42,7 +42,7 @@ export default class InstagramHero extends React.PureComponent {
           onUpdateIndex={this.onUpdateIndex}
         />
         <BeggingButton onClick={this.onClickButton}>
-          <div>view on instagram</div>
+          <div>view instagram</div>
         </BeggingButton>
       </Root>
     )
