@@ -152,6 +152,10 @@ export const Action = Boto.extend`
 
   ${screen.medium`
     font-size: 26px;
+
+    div {
+      line-height: 17px;
+    }
   `}
 `
 

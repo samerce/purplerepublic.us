@@ -332,7 +332,14 @@ function fetchBubbles() {
               {
                 text: 'checkout',
                 type: 'OrderPoetcards',
-              }
+              },
+              {
+                text: 'continue journey...',
+                type: 'OpenLinkInPlace',
+                props: {
+                  url: '/#start/bubble/' + bubble.nextBubbleId,
+                },
+              },
             ]
           }
           if (bubble.buttonType) {

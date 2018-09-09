@@ -30,6 +30,7 @@ BubbleButtonTypes.forEach(t => {
 export const BubbleButtonActions = {
   OpenLink: props => openInNewTab(props.url),
   OrderPoetcards: props => {},
+  OpenLinkInPlace: props => window.location = props.url,
 }
 
 export const BubbleButtonActionList =
