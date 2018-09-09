@@ -86,7 +86,6 @@ export default class BubbleWords extends React.PureComponent {
               editorState={editorState}
               placeholder={placeholder || DefaultPlaceholder}
               onEditorStateChange={this.onEditorChange}
-              onBlur={this.onEditorBlur}
             />
           }
           {!editing && html &&
@@ -102,12 +101,8 @@ export default class BubbleWords extends React.PureComponent {
     this.setState({
       editorState,
     })
-  }
-
-  @autobind
-  onEditorBlur() {
     this.props.onEditingChange({
-      detailText: convertToRaw(this.state.editorState.getCurrentContent()),
+      detailText: convertToRaw(editorState.getCurrentContent()),
     })
   }
 
