@@ -330,6 +330,7 @@ function fetchBubbles() {
           }
           if (bubble.id === 'buy-poetcards' || bubble.id === 'buy-postcards') {
             bubble.type = 'poetcards'
+            bubble.buttonType = 'poetcards'
             bubble.actions = [
               {
                 text: 'checkout',

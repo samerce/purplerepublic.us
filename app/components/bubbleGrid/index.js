@@ -12,7 +12,7 @@ import {HeroBubbleConfig} from '../bubble/config'
 
 const BDBubbles = [
   'twinkle', 'jamaica', 'magic', 'beauty', 'queen',
-  'buy-poetcards', 'buy-postcards',
+  'buy-postcards',
 ]
 
 export default class BubbleGrid extends React.PureComponent {
