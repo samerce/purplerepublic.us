@@ -45,7 +45,7 @@ export default class Bubbleverse extends React.PureComponent {
     this.timeouts = []
     this.selectPillOptions =
       SelectPillValues
-      .filter(t => t !== 'shop')
+      .filter(t => t !== 'shop' && t !== 'poetcards')
       .map(type => ({
         name: type,
         onClick: this.onClickFilter,

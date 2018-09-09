@@ -180,7 +180,7 @@ export default class PoetcardsBubble extends React.PureComponent {
 
         <QuantityRoot>
           <QuantityInput
-            placeholder={p === 'front'? 'quantity ↓' : 0}
+            placeholder={p === 'front v2 tiny'? 'quantity ↓' : 0}
             value={this.state.quantities[p]}
             onChange={e => this.onChangeQuantity(p, e.target.value)}
           />
@@ -243,12 +243,10 @@ export default class PoetcardsBubble extends React.PureComponent {
     let unitPrice
 
     if (totalQuantity < 10) unitPrice = 3
-    else if (totalQuantity < 100) unitPrice = 2
-    else if (totalQuantity < 250) unitPrice = 1.5
-    else if (totalQuantity < 500) unitPrice = 1.3
-    else if (totalQuantity < 1000) unitPrice = 1.1
-    else if (totalQuantity < 2500) unitPrice = .99
-    else if (totalQuantity < 5000) unitPrice = .79
+    else if (totalQuantity < 25) unitPrice = 2
+    else if (totalQuantity < 300) unitPrice = 1.5
+    else if (totalQuantity < 1250) unitPrice = 1.3
+    else if (totalQuantity < 5000) unitPrice = 1.1
     else unitPrice = .75
 
     const total = (unitPrice * totalQuantity)
