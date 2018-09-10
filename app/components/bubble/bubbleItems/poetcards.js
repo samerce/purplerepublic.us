@@ -79,7 +79,10 @@ export default class PoetcardsBubble extends React.PureComponent {
 
             join the love revolution — help us spread the magic!<br /><br />
 
-            namaste, friend.
+            namaste, friend.<br /><br />
+
+            p.s. ordering is easier on larger screens.
+            p.p.s. click the images for full screen views.
           </Intro>
         }
 

@@ -303,6 +303,10 @@ export const PoetCardTotal = AbsoluteFlex.extend`
   font-family: annie use your telescope;
   transition: all .4s ${EASE_OUT};
 
+  @media(max-width: 740px) {
+    width: 100%;
+  }
+
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     bottom: ${window.innerHeight - 160}px;
     border-color: transparent;
