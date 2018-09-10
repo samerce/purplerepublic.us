@@ -24,6 +24,7 @@ export const GratitudeWheel = AbsoluteFlexFillParent.extend`
   left: 0;
   opacity: 0;
   pointer-events: none;
+  overflow: auto;
 
   &.active {
     opacity: 1;
@@ -65,9 +66,13 @@ export const GratitudeText = Flex.extend`
     font-size: 14px;
     line-height: 18px;
     padding-right: 25px;
+    padding-top: 5px;
 
     .leftSide & {
       padding: 5px 10px 5px 25px;
+    }
+    div {
+      height: 100%;
     }
   `}
   ${screen.small`

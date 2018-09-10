@@ -114,11 +114,11 @@ export const Poetcards = [
   'floor',
   'roark',
   'rose quartz',
+  'recycle fucker',
   'always eat forbidden',
   'cosmic diversity',
   'dali dreams',
   // 'ideals',
   'wrong more',
-  'dressin pretty',
-  'recycle fucker',
+  // 'dressin pretty',
 ]
