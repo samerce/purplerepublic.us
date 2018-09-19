@@ -61,7 +61,7 @@ export const ContentRoot = styled.div`
   flex-direction: column;
   position: relative;
   padding-top: ${77 + HeaderTop}px;
-  padding-bottom: ${RootMarginTop + 80}px;
+  padding-bottom: ${p => RootMarginTop + (p.hasActions? 80 : 20)}px;
   margin-top: 35px;
   z-index: 70;
 
@@ -135,10 +135,19 @@ export const ActionsRoot = Flex.extend`
   border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
 `
 
+export const VariableActionsRoot = ActionsRoot.extend`
+  height: 60px;
+  width: 100%;
+  position: relative;
+  border-radius: 0;
+  border-top: 1px solid ${p => p.theme.veryLight};
+`
+
 export const Action = Boto.extend`
   flex: 1 0 30px;
   height: 100%;
   border-radius: 0;
+  position: relative;
 
   &:first-child {
     border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
@@ -149,22 +158,9 @@ export const Action = Boto.extend`
   &:last-child {
     border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
   }
-
-  ${screen.medium`
-    font-size: 26px;
-
-    div {
-      line-height: 17px;
-    }
-  `}
-`
-
-export const JourneyButtonRoot = Boto.extend`
-  height: 60px;
-  width: 100%;
-  position: relative;
-  border-radius: 0;
-  border-top: 1px solid ${p => p.theme.veryLight};
+  ${VariableActionsRoot} & {
+    border-radius: 0;
+  }
 
   i {
     width: 30px;
@@ -176,7 +172,16 @@ export const JourneyButtonRoot = Boto.extend`
     right: 15px;
     transform: translateY(-50%);
   }
+
+  ${screen.medium`
+    font-size: 26px;
+
+    div {
+      line-height: 17px;
+    }
+  `}
 `
+
 export const BubbleOptions = Flex.extend`
   position: absolute;
   top: 10px;

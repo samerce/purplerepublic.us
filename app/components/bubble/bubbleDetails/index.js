@@ -3,7 +3,7 @@ import Spinnie from '../../spinnie'
 import {Helmet} from 'react-helmet'
 
 import {
-  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, JourneyButtonRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
+  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, VariableActionsRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
   BubbleOptions, Header, Footer, Mask
 } from './styled'
 import {Description} from '../bubbleItems/styled'
@@ -96,6 +96,13 @@ export default class BubbleDetails extends React.PureComponent {
     } = this.props
     const {
       id,
+      actions = (Math.random() <= .27)? [{
+        text: 'become a patron',
+        type: BubbleButtonActions.OpenLink,
+        props: {
+          url: 'https://www.patreon.com/expressyourmess',
+        },
+      }] : [],
       nextBubbleId,
       Component: BubbleComponent,
     } = nucleus
@@ -119,7 +126,7 @@ export default class BubbleDetails extends React.PureComponent {
           className='bubbleMask'
         />
 
-        <ContentRoot editing={editing}>
+        <ContentRoot editing={editing} hasActions={!!actions.length}>
           {canShowEditingTools() && !editing &&
             <BubbleOptions>
               <i
@@ -183,8 +190,8 @@ export default class BubbleDetails extends React.PureComponent {
           }
 
           <Footer>
-            {nextBubbleId && this.renderJourneyButton()}
-            {this.renderActions()}
+            {!!actions.length && this.renderVariableActions(actions)}
+            {this.renderDefaultActions()}
           </Footer>
         </ContentRoot>
       </Root>
@@ -217,9 +224,9 @@ export default class BubbleDetails extends React.PureComponent {
     this.props.onEdit()
   }
 
-  renderActions() {
+  renderDefaultActions() {
     const {
-      actions = [],
+      nextBubbleId,
     } = this.state.nucleus
 
     return (
@@ -227,30 +234,28 @@ export default class BubbleDetails extends React.PureComponent {
         <Action onClick={this.onClickClose}>
           <div>close</div>
         </Action>
-        {actions.length > 1 &&
-          <Action
-            className={actions[1].className}
-            onClick={() => this.onClickAction(actions[1])}>
-            <div>{actions[1].text}</div>
-          </Action>
-        }
-        {actions.length > 0 && !this.state.actionClicked &&
-          <Action
-            className={actions[0].className}
-            onClick={() => this.onClickAction(actions[0])}>
-            <div>{actions[0].text || 'explore'}</div>
+        {nextBubbleId &&
+          <Action onClick={this.onClickJourneyButton}>
+            <div>continue journey...</div>
+            <i className='fa fa-caret-right' />
           </Action>
         }
       </ActionsRoot>
     )
   }
 
-  renderJourneyButton() {
+  renderVariableActions(actions) {
     return (
-      <JourneyButtonRoot onClick={this.onClickJourneyButton}>
-        <div>continue journey...</div>
-        <i className='fa fa-caret-right' />
-      </JourneyButtonRoot>
+      <VariableActionsRoot>
+        {actions.reverse().map(a => (
+          <Action
+            key={a.text}
+            className={a.className}
+            onClick={() => this.onClickAction(a)}>
+            <div>{a.text}</div>
+          </Action>
+        ))}
+      </VariableActionsRoot>
     )
   }
 
