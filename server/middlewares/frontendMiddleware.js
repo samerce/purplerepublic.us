@@ -76,6 +76,8 @@ module.exports = (app, options) => {
       res.redirect('https://www.patreon.com/expressyourmess')
     } else if (host.includes('poetcards.') || host.includes('postcards.')) {
       res.redirect('https://expressyourmess.com/#start/bubble/buy-poetcards')
+    } else if (host.includes('ash.')) {
+      res.redirect('https://ash.launchaco.com')
     } else {
       next()
     }
