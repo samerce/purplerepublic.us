@@ -24,15 +24,18 @@ injectGlobal`
 
 export const Root = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  flex: 0 0 200px;
+  height: 230px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
 
-  &.logo-hangin {
+  /* &.logo-hangin {
     transition: all 1s ${EASE_OUT};
     transform: translate(
       -${(window.innerWidth / 2) - 127}px,
@@ -47,7 +50,7 @@ export const Root = styled.div`
         -${(window.innerHeight / 2) - 70}px
       );
     }
-  `}
+  `} */
 `
 
 export const LogoSVG = styled.object`
@@ -95,7 +98,7 @@ export const CircleBill = styled.div`
   border-radius: 100%;
   transform: scale(0);
   transition: all 2s ${EASE_OUT};
-  box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+  box-shadow: ${p => p.theme.shadowHeavy};
 
   .logo-intro & {
     transform: scale(1.8);
@@ -121,6 +124,7 @@ export const CirclePaul = styled(CircleBill)`
   height: 225px;
   background: ${p => lighten(.1, p.theme.main)};
   transition-delay: .3s;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.2);
   .logo-breatheIn & {
     transition-duration: .9s;
   }

@@ -1,11 +1,14 @@
 import React from 'react'
 import Backdrop from './backdrop'
-import LogoBubble from '../../components/logoBubble'
+import Logo from '../../components/logoBubble'
+import HookEmHeader from '../../components/HookEmHeader'
+import ThenNowWhen from '../../components/ThenNowWhen'
+import StackGrid from '../../components/StackGrid'
+import LatestBoard from '../../components/LatestBoard'
 import GetSocialWithUs from '../../components/getSocialWithUs'
-import Bubbleverse from '../../components/bubbleverse'
 
 import {
-  Root,
+  Root, ScrollContainer,
 } from './styled'
 
 import {canShowEditingTools} from '../../utils/nav'
@@ -38,9 +41,14 @@ export default class Start extends React.Component {
     return (
       <Root>
         <Backdrop />
-        <LogoBubble />
-        <Bubbleverse />
-        <GetSocialWithUs />
+        <ScrollContainer>
+          <Logo />
+          <ThenNowWhen />
+          <HookEmHeader />
+          <StackGrid />
+          {/* <LatestBoard /> */}
+        </ScrollContainer>
+        {/* <GetSocialWithUs /> */}
       </Root>
     )
   }

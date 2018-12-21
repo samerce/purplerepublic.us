@@ -8,12 +8,19 @@ import {
   SCREEN_WIDTH_XL_PX,
   SRC_URL,
 } from '../../global/constants'
+import {
+  AbsoluteFlexFillParent,
+} from '../../global/styled'
 
 const aColor = '#956C95'
 
-export const Root = styled.div`
-  height: 100%;
-  width: 100%;
+export const Root = AbsoluteFlexFillParent.extend`
   position: fixed;
-  overflow: hidden;
+`
+
+export const ScrollContainer = AbsoluteFlexFillParent.extend`
+  overflow: scroll;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 0 15px;
 `
