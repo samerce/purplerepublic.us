@@ -1,5 +1,0 @@
-/*
- *
- * LanguageProvider constants
- *
- */

@@ -6,8 +6,6 @@ import {Content} from './styled'
 import theme from '../../global/theme'
 import {SRC_URL} from '../../global/constants'
 
-import Header from 'components/Header'
-import Footer from 'components/Footer'
 import PurpleRouter from 'containers/purpleRouter'
 // import withProgressBar from 'components/ProgressBar'
 
@@ -38,7 +36,6 @@ export function App(props) {
 
       <ThemeProvider theme={theme}>
         <Content>
-          <Header />
           <PurpleRouter />
         </Content>
       </ThemeProvider>
