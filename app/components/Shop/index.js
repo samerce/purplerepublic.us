@@ -1,0 +1,108 @@
+import React from 'react'
+
+import {
+  Root, EntryButton, Background, CloseButton,
+  ContentRoot, ShopRow, IconBubble, WordsRoot, ShopButton, ShopText,
+} from './styled'
+
+import {makeEnum} from '../../utils/lang'
+import {openInNewTab} from '../../utils/nav'
+import autobind from 'autobind-decorator'
+
+export default class Shop extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      mode: Mode.hide,
+    }
+  }
+
+  render() {
+    const {mode} = this.state
+    return (
+      <Root className={'shop-' + mode}>
+        <Background />
+        <EntryButton onClick={this.onClickEntryButton}>
+          <i className='fa fa-shopping-bag' />
+          <span>shop</span>
+        </EntryButton>
+        <CloseButton onClick={this.onClickCloseButton}>
+          <i className='fa fa-close' />
+        </CloseButton>
+
+        <ContentRoot>
+          {ShopRows.map(this.renderShopRow)}
+        </ContentRoot>
+      </Root>
+    )
+  }
+
+  renderShopRow({iconId, buttonText, shopText, onClick}, i) {
+    return (
+      <ShopRow i={i}>
+        <IconBubble i={i}>
+          <i className={'fa fa-' + iconId} />
+        </IconBubble>
+        <WordsRoot>
+          <ShopButton onClick={onClick} i={i}>
+            {buttonText}
+          </ShopButton>
+          <ShopText i={i}>
+            {shopText}
+          </ShopText>
+        </WordsRoot>
+      </ShopRow>
+    )
+  }
+
+  @autobind
+  onClickEntryButton() {
+    this.setState({mode: Mode.enter})
+    setTimeout(() => this.setState({mode: Mode.show}), 500)
+  }
+
+  @autobind
+  onClickCloseButton() {
+    this.setState({mode: Mode.hide})
+  }
+
+}
+
+var Mode = makeEnum([
+  'hide',
+  'enter',
+  'show',
+])
+var ShopRows = [
+  {
+    iconId: 'gift',
+    buttonText: 'poetcards',
+    shopText: 'don\'t let the written word die. get some of our original art poetcards and send some wit and love to your dearest.',
+    onClick: () => {/* open poetcard ordering */}
+  },
+  {
+    iconId: 'book',
+    buttonText: 'shirts, tights, journals, and more!',
+    shopText: 'browse our catalog on redbubble.com to buy shirts, tights, dresses, journals, phone cases, mugs, stickers, home decor and more!',
+    onClick: () => openInNewTab(
+      'https://www.redbubble.com/people/purplerepublic/shop/'
+    )
+  },
+  {
+    iconId: 'picture-o',
+    buttonText: 'art prints',
+    shopText: 'visit our etsy shop to grab our prints on the finest quality metallic paper. many sizes available.',
+    onClick: () => openInNewTab(
+      'https://etsy.com/shop/expressyourmess'
+    )
+  },
+  {
+    iconId: 'money',
+    buttonText: 'become a patron',
+    shopText: 'get a monthly dose of incredible modern art by becoming a regular supporter of the art revolution on patreon.',
+    onClick: () => openInNewTab(
+      'https://www.patreon.com/expressyourmess'
+    )
+  },
+]

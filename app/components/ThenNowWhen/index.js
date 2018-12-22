@@ -19,10 +19,7 @@ export default class ThenNowWhen extends React.Component {
           <span>where we've been</span>
         </Button>
 
-        <Shop>
-          <i className='fa fa-shopping-bag' />
-          <span>shop</span>
-        </Shop>
+
 
         <Button className='right'>
           <span>where we're going</span>

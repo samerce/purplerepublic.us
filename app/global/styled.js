@@ -107,7 +107,7 @@ export const BubbleButton = Flex.extend`
 
 export const Boto = Flex.extend`
   font-size: 30px;
-  font-family: annie use your telescope;
+  font-family: alice; /*annie use your telescope;*/
   text-align: center;
   cursor: pointer;
   transition: all .2s ${EASE_OUT};
@@ -120,8 +120,9 @@ export const Boto = Flex.extend`
   padding: 10px 20px;
 
   &:hover {
-    background: white;
+    background: ${p => p.theme.veryLight};
     color: ${p => p.theme.slightlyDark};
+    border-color: ${p => p.theme.slightlyDark};
   }
 `
 

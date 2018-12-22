@@ -26,14 +26,7 @@ export const Button = Boto.extend`
   line-height: ${ButtonHeight - 5}px;
   box-shadow: ${p => p.theme.shadowMedium};
   padding: 0;
-  font-family: alice;
   font-size: 28px;
-
-  &:hover {
-    background: ${p => p.theme.veryLight};
-    border-color: ${p => p.theme.slightlyDark};
-    color: ${p => p.theme.slightlyDark};
-  }
 
   &.right {
     margin-left: 85px;
@@ -56,29 +49,5 @@ export const Button = Boto.extend`
     line-height: 80px;
     padding: 0 15px;
     vertical-align: middle;
-  }
-`
-
-export const Shop = Button.extend`
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(50%, -50%);
-  padding: 130px 115px 0 0;
-  border-radius: 100%;
-  width: 300px;
-  height: 300px;
-  border: 2px solid ${p => p.theme.veryLight};
-  background: ${p => p.theme.slightlyDark};
-  font-size: 42px;
-  z-index: 3;
-  box-shadow: ${p => p.theme.shadowHeavy};
-  flex-direction: column;
-  font-size: 34px;
-
-  i {
-    height: 60px;
-    position: relative;
-    top: 15px;
   }
 `
