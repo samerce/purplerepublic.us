@@ -5,29 +5,22 @@ import {
   ContentRoot, ShopRow, IconBubble, WordsRoot, ShopButton, ShopText,
 } from './styled'
 
-import {makeEnum} from '../../utils/lang'
 import {openInNewTab} from '../../utils/nav'
-import autobind from 'autobind-decorator'
+import withTransitions from '../hocs/withTransitions'
 
+@withTransitions({prefix: 'shop'})
 export default class Shop extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      mode: Mode.hide,
-    }
-  }
-
   render() {
-    const {mode} = this.state
+    const {show, hide} = this.props
     return (
-      <Root className={'shop-' + mode}>
+      <Root>
         <Background />
-        <EntryButton onClick={this.onClickEntryButton}>
+        <EntryButton onClick={show}>
           <i className='fa fa-shopping-bag' />
           <span>shop</span>
         </EntryButton>
-        <CloseButton onClick={this.onClickCloseButton}>
+        <CloseButton onClick={hide}>
           <i className='fa fa-close' />
         </CloseButton>
 
@@ -56,24 +49,8 @@ export default class Shop extends React.Component {
     )
   }
 
-  @autobind
-  onClickEntryButton() {
-    this.setState({mode: Mode.enter})
-    setTimeout(() => this.setState({mode: Mode.show}), 500)
-  }
-
-  @autobind
-  onClickCloseButton() {
-    this.setState({mode: Mode.hide})
-  }
-
 }
 
-var Mode = makeEnum([
-  'hide',
-  'enter',
-  'show',
-])
 var ShopRows = [
   {
     iconId: 'gift',

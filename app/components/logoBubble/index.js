@@ -5,7 +5,9 @@ import {
 } from './styled'
 import LogoSvg from './logoSvg'
 
+import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
+import {connect} from 'react-redux'
 
 const Mode = makeEnum([
   'born',
@@ -22,6 +24,10 @@ const DefaultTextStyle = {rotate: 0, scale: 0}
 const RotateConfig = {stiffness: 60, damping: 7}
 const ScaleConfig = {stiffness: 40, damping: 25}
 
+@connect(d => ({
+  pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
+  futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
+}))
 export default class LogoBubble extends React.Component {
 
   constructor(props) {
@@ -43,8 +49,13 @@ export default class LogoBubble extends React.Component {
 
   render() {
     const {mode} = this.state
+    const {pastTimelineVisible, futureTimelineVisible} = this.props
+    const classes = cx({
+      pastTimeline: pastTimelineVisible,
+      futureTimeline: futureTimelineVisible,
+    })
     return (
-      <Root className={'logo-' + mode}>
+      <Root className={`logo-${mode} ${classes}`}>
         <CircleRoot>
           <CircleBill />
           <CirclePaul />

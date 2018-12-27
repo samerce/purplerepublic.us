@@ -185,6 +185,18 @@ export const MaskAbsoluteFillParent = styled.div`
   }
 `
 
+export const CloseButton = Boto.extend`
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 2px solid ${p => p.theme.veryLight};
+  box-shadow: ${p => p.theme.shadowMedium};
+
+  i {
+    font-size: 30px;
+  }
+`
+
 // ------------------------------------- old styles below
 
 export const Header = styled.div`

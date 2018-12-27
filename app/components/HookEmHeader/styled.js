@@ -26,7 +26,6 @@ export const Blurb = Flex.extend`
   box-shadow: ${p => p.theme.shadowMedium};
   border: 1px solid ${p => p.theme.veryLight};
   color: ${p => p.theme.veryLight};
-  font-family: "im fell dw pica";
   font-size: 26px;
   justify-content: center;
   align-items: center;

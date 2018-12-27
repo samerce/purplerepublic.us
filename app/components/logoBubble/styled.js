@@ -32,8 +32,10 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 4;
+  z-index: 7;
   pointer-events: none;
+  transition: all .5s ${EASE_OUT};
+  transition-property: left transform;
 
   /* &.logo-hangin {
     transition: all 1s ${EASE_OUT};
@@ -51,6 +53,15 @@ export const Root = styled.div`
       );
     }
   `} */
+
+  &.pastTimeline {
+    left: 100%;
+    transform: translate(-190px, 0);
+  }
+  &.futureTimeline {
+    left: 30px;
+    transform: translate(15px, 0);
+  }
 `
 
 export const LogoSVG = styled.object`

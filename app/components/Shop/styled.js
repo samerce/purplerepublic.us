@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto
+  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton,
 } from '../../global/styled'
 
 export const Root = AbsoluteFlexFillParent.extend`
@@ -54,7 +54,7 @@ export const EntryButton = CornerButton.extend`
     border-color: ${p => p.theme.slightlyDark};
     color: ${p => p.theme.slightlyDark};
     box-shadow: ${p => p.theme.shadowMedium};
-    border-radius: 30px;
+    ${'' /* border-radius: 30px; */}
 
     i {
       top: 0;
@@ -80,23 +80,15 @@ export const Background = CornerButton.extend`
   }
 `
 
-export const CloseButton = Boto.extend`
+export const CloseButton = aCloseButton.extend`
   position: fixed;
   top: 15px;
   right: 15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  border: 2px solid ${p => p.theme.veryLight};
   transform: scale(0);
   opacity: 0;
   pointer-events: none;
   z-index: 4;
-  box-shadow: ${p => p.theme.shadowMedium};
 
-  i {
-    font-size: 30px;
-  }
   .shop-show &, .shop-enter & {
     transform: none;
     opacity: 1;
@@ -135,6 +127,8 @@ export const ShopRow = Flex.extend`
   } */}
 `
 
+const RowShowDelay = .1
+
 export const IconBubble = Flex.extend`
   flex: 0 0 200px;
   height: 200px;
@@ -157,15 +151,12 @@ export const IconBubble = Flex.extend`
   .shop-enter & {
     transform: none;
     opacity: 1;
-    transition-delay: ${p => p.i * .1 + .2}s;
+    transition-delay: ${p => p.i * .1 + RowShowDelay}s;
   }
   .shop-show & {
     transform: none;
     opacity: 1;
     transition-delay: 0s;
-  }
-  ${ShopRow}:nth-child(even) & {
-    order: 2;
   }
 `
 
@@ -173,10 +164,6 @@ export const WordsRoot = Flex.extend`
   flex-direction: column;
   align-items: center;
   margin: 60px 0 0 -15px;
-  ${ShopRow}:nth-child(even) & {
-    margin-left: 0;
-    margin-right: -15px;
-  }
 `
 
 export const ShopButton = Boto.extend`
@@ -193,7 +180,7 @@ export const ShopButton = Boto.extend`
   .shop-enter & {
     transform: none;
     opacity: 1;
-    transition-delay: ${p => (p.i * .1) + .1 + .2}s;
+    transition-delay: ${p => (p.i * .1) + .1 + RowShowDelay}s;
   }
   .shop-show & {
     transform: none;
@@ -222,7 +209,7 @@ export const ShopText = Flex.extend`
   .shop-enter & {
     opacity: 1;
     transform: none;
-    transition-delay: ${p => p.i * .1 + .2 + .2}s;
+    transition-delay: ${p => p.i * .1 + .2 + RowShowDelay}s;
   }
   .shop-show & {
     transform: none;
