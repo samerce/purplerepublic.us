@@ -1,7 +1,7 @@
 import {darken, lighten, transparentize as trans} from 'polished'
 
-// #512287 #334ac7
-const main = '#238386'
+// #512287 #334ac7 #238386 #1b316b
+const main = '#1b316b'
 const purpleVeryDark = darken(.2, main)
 const purpleSlightlyDark = darken(.05, main)
 const purpleVeryLight = lighten(.3, main)
@@ -16,4 +16,10 @@ export default {
   shadowHeavy: '2px 2px 30px rgba(0,0,0,.3)',
   shadowMedium: '2px 2px 20px rgba(0,0,0,.3)',
   borderRadiusBoto: 10,
+  gradientVeryDark: `radial-gradient(
+    circle at center,
+    ${purpleSlightlyDark} 0%,
+    ${purpleVeryDark} 50%,
+    ${purpleVeryDark} 100%
+  )`
 }

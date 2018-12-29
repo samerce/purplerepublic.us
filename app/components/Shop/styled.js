@@ -2,17 +2,19 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton,
+  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton, ExpandingBackground,
 } from '../../global/styled'
 
 export const Root = AbsoluteFlexFillParent.extend`
-  z-index: 5;
+  z-index: 6;
   pointer-events: none;
   justify-content: center;
   overflow: hidden;
 
-  &.shop-show, &.shop-enter {
+  &.shop-show, &.shop-enter, &.shop-willExit, &.shop-exit {
     overflow: initial;
+    z-index: 9;
+    pointer-events: all;
   }
 `
 
@@ -34,6 +36,9 @@ const CornerButton = Boto.extend`
 
 export const EntryButton = CornerButton.extend`
   pointer-events: all;
+  box-shadow: ${p => p.theme.shadowMedium};
+  z-index: 3;
+
   i {
     height: 60px;
     position: relative;
@@ -53,8 +58,6 @@ export const EntryButton = CornerButton.extend`
     background: ${p => p.theme.veryLight};
     border-color: ${p => p.theme.slightlyDark};
     color: ${p => p.theme.slightlyDark};
-    box-shadow: ${p => p.theme.shadowMedium};
-    ${'' /* border-radius: 30px; */}
 
     i {
       top: 0;
@@ -64,19 +67,22 @@ export const EntryButton = CornerButton.extend`
   }
 `
 
-export const Background = CornerButton.extend`
-  box-shadow: ${p => p.theme.shadowHeavy};
-  background: radial-gradient(
-    circle at center,
-    ${p => p.theme.slightlyDark} 0%,
-    ${p => p.theme.veryDark} 50%,
-    ${p => p.theme.veryDark} 100%
-  );
+export const Background = ExpandingBackground.extend`
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%) scale(0);
+  transition-duration: .5s;
   pointer-events: none;
-  position: fixed;
 
+  .shop-willEnter &, .shop-willExit &, .shop-exit & {
+    position: fixed;
+    opacity: 0;
+  }
   .shop-show &, .shop-enter & {
-    transform: translate(50%, -50%) scale(15);
+    position: fixed;
+    transform: translate(50%, -50%) scale(3);
+    opacity: 1;
+    transition: all 1s ${EASE_OUT};
   }
 `
 
@@ -89,6 +95,9 @@ export const CloseButton = aCloseButton.extend`
   pointer-events: none;
   z-index: 4;
 
+  .shop-enter & {
+    transition-delay: .3s;
+  }
   .shop-show &, .shop-enter & {
     transform: none;
     opacity: 1;
@@ -104,7 +113,7 @@ export const ContentRoot = Flex.extend`
   pointer-events: none;
   z-index: 4;
   justify-content: flex-start;
-  margin: 440px 0 50px;
+  margin: 480px 0 50px;
 
   .shop-show & {
     pointer-events: all;
@@ -142,7 +151,7 @@ export const IconBubble = Flex.extend`
 
   i {
     font-size: 40px;
-    color: white;
+    color: ${p => p.theme.veryLight};
   }
 
   opacity: 0;

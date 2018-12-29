@@ -5,7 +5,7 @@ import {
   EASE_IN,
   EASE,
 } from '../../global/constants'
-import {screen} from '../../global/styled'
+import {screen, Flex} from '../../global/styled'
 
 injectGlobal`
   .bubbleButton-logo-svg {
@@ -33,7 +33,7 @@ export const Root = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 7;
-  pointer-events: none;
+  cursor: pointer;
   transition: all .5s ${EASE_OUT};
   transition-property: left transform;
 
@@ -53,15 +53,6 @@ export const Root = styled.div`
       );
     }
   `} */
-
-  &.pastTimeline {
-    left: 100%;
-    transform: translate(-190px, 0);
-  }
-  &.futureTimeline {
-    left: 30px;
-    transform: translate(15px, 0);
-  }
 `
 
 export const LogoSVG = styled.object`
@@ -149,4 +140,14 @@ export const CircleSami = styled(CirclePaul)`
   .logo-breatheIn & {
     transition-duration: .8s;
   }
+`
+
+export const Name = Flex.extend`
+  font-size: 80px;
+  line-height: 72px;
+  font-family: yanone kaffeesatz;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
 `

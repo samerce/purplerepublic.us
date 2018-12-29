@@ -12,9 +12,9 @@ import withTransitions from '../hocs/withTransitions'
 export default class Shop extends React.Component {
 
   render() {
-    const {show, hide} = this.props
+    const {show, hide, className} = this.props
     return (
-      <Root>
+      <Root className={className}>
         <Background />
         <EntryButton onClick={show}>
           <i className='fa fa-shopping-bag' />

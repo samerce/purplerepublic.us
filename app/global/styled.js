@@ -107,10 +107,10 @@ export const BubbleButton = Flex.extend`
 
 export const Boto = Flex.extend`
   font-size: 30px;
-  font-family: alice; /*annie use your telescope;*/
+  font-family: alice; /*alice, annie use your telescope;*/
   text-align: center;
   cursor: pointer;
-  transition: all .2s ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
   align-items: center;
   justify-content: center;
   user-select: none;
@@ -191,10 +191,56 @@ export const CloseButton = Boto.extend`
   border-radius: 100%;
   border: 2px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowMedium};
+  transition: all 1s ${EASE_OUT};
 
   i {
     font-size: 30px;
   }
+`
+
+export const SectionHeader = Flex.extend`
+  flex: 1 0 100%;
+  position: relative;
+  justify-content: center;
+  align-self: center;
+  margin: 0 0 40px;
+
+  div {
+    background: ${p => p.theme.veryDark};
+    border: 1px solid ${p => p.theme.veryLight};
+    border-radius: 10px;
+    padding: 5px 20px;
+    font-family: playfair display;
+    font-size: 22px;
+    color: ${p => p.theme.veryLight};
+    text-transform: uppercase;
+    z-index: 1;
+    box-shadow: ${p => p.theme.shadowHeavy};
+    user-select: none;
+  }
+
+  hr {
+    position: absolute;
+    top: 50%;
+    border-color: ${p => p.theme.veryLight};
+    width: 100%;
+    margin: -1px 0 0;
+    box-shadow: ${p => p.theme.shadowHeavy};
+  }
+`
+
+export const ExpandingBackgroundSize = Math.max(window.innerWidth, window.innerHeight)
+export const ExpandingBackground = Flex.extend`
+  background: ${p => p.theme.gradientVeryDark};
+  box-shadow: ${p => p.theme.shadowMedium};
+  position: fixed;
+  height: ${ExpandingBackgroundSize}px;
+  width: ${ExpandingBackgroundSize}px;
+  z-index: 2;
+  border: 2px solid ${p => p.theme.veryLight};
+  border-radius: 100%;
+  transform: scale(0);
+  transition: all 1s ${EASE_OUT};
 `
 
 // ------------------------------------- old styles below

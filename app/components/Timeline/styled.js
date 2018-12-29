@@ -95,16 +95,38 @@ export const RowContentRoot = Flex.extend`
   .left & {
     margin-right: 40px;
   }
+  &.special {
+    background: ${p => p.theme.veryDark};
+  }
 `
 
 export const TimelineTitle = Flex.extend`
   font-family: playfair display;
   text-transform: uppercase;
   font-size: 20px;
+
+  .left & {
+    align-self: flex-end;
+  }
 `
 
 export const TimelineSubtitle = Flex.extend`
   color: ${p => p.theme.veryLight};
   font-size: 18px;
 
+  .left & {
+    align-self: flex-end;
+  }
+`
+
+export const IntroBlurb = Flex.extend`
+  max-width: 740px;
+  color: ${p => p.theme.veryLight};
+  font-size: 22px;
+  background: ${p => alpha(.5, p.theme.veryDark)};
+  box-shadow: ${p => p.theme.shadowMedium};
+  border: 1px solid ${p => p.theme.veryLight};
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 0 50px;
 `

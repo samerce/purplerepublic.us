@@ -2,7 +2,8 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto, AbsoluteFlex, CloseButton as aCloseButton,
+  Flex, Boto, AbsoluteFlex, CloseButton as aCloseButton, screen,
+  ExpandingBackground, ExpandingBackgroundSize,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -10,9 +11,11 @@ export const Root = Flex.extend`
   height: 230px;
   transition-property: right left transform;
   position: relative;
+  z-index: 6;
+  pointer-events: none;
 
   &.timeline-enter, &.timeline-show {
-    z-index: 6;
+    pointer-events: all;
   }
 `
 
@@ -23,19 +26,8 @@ export const ButtonRoot = Flex.extend`
   justify-content: center;
   transition: all .5s ${EASE_OUT};
 
-  .pastTimeline.timeline-show &, .pastTimeline.timeline-enter & {
+  .timeline-show &, .timeline-enter & {
     z-index: 2;
-    right: 90px;
-    position: relative;
-    transform: translate(50%, 0);
-    pointer-events: none;
-  }
-  .futureTimeline.timeline-show &, .futureTimeline.timeline-enter & {
-    z-index: 2;
-    left: 100px;
-    position: relative;
-    transform: translate(-50%, 0);
-    pointer-events: none;
   }
 `
 
@@ -53,6 +45,7 @@ export const Button = Boto.extend`
   padding: 0;
   font-size: 28px;
   box-shadow: ${p => p.theme.shadowMedium};
+  pointer-events: all;
 
   &.right {
     margin-left: 85px;
@@ -79,64 +72,61 @@ export const Button = Boto.extend`
     z-index: 1;
   }
 
-  &.past {
-    .pastTimeline.timeline-show &, .pastTimeline.timeline-enter & {
-      z-index: 3;
-      background: ${p => p.theme.veryLight};
-      color: ${p => p.theme.slightlyDark};
-      border-color: ${p => p.theme.slightlyDark};
+  @media(max-width: 1200px) {
+    transform: scale(.8);
+    &.right {
+      margin-left: 55px;
     }
-    .pastTimeline.timeline-exit &, .pastTimeline-timeline-hide & {
-      z-index: 3;
-    }
-    .futureTimeline.timeline-show &, .futureTimeline.timeline-enter & {
-      opacity: 0;
-      pointer-events: none;
-      transition: all .3s ${EASE_OUT};
+    &.left {
+      margin-right: 55px;
     }
   }
 
-  &.future {
-    .futureTimeline.timeline-show &, .futureTimeline.timeline-enter & {
-      z-index: 3;
-      background: ${p => p.theme.veryLight};
-      color: ${p => p.theme.slightlyDark};
-      border-color: ${p => p.theme.slightlyDark};
+  &.active {
+    z-index: 3;
+    background: ${p => p.theme.veryLight};
+    color: ${p => p.theme.slightlyDark};
+    border-color: ${p => p.theme.slightlyDark};
+    pointer-events: none;
+
+    &.left {
+      transform: scale(1.1) translate(-10px, 0);
     }
-    .pastTimeline.timeline-show &, .pastTimeline.timeline-enter & {
-      opacity: 0;
-      pointer-events: none;
-      transition: all .1s ${EASE_OUT};
+    &.right {
+      transform: scale(1.1) translate(10px, 0);
     }
+
+    @media(max-width: 1200px) {
+      &.left {
+        transform: scale(.9) translate(-10px, 0);
+      }
+      &.right {
+        transform: scale(.9) translate(10px, 0);
+      }
+    }
+  }
+
+  .timeline-exit &, .timeline-willExit & {
+    transition-delay: .3s;
+  }
+  .timeline-exit &, .timeline-hide & {
+    z-index: 3;
   }
 `
 
-const CircleSize = Math.max(window.innerWidth, window.innerHeight)
-export const Background = AbsoluteFlex.extend`
-  background: radial-gradient(
-    circle at center,
-    ${p => p.theme.slightlyDark} 0%,
-    ${p => p.theme.veryDark} 50%,
-    ${p => p.theme.veryDark} 100%
-  );
-  box-shadow: ${p => p.theme.shadowMedium};
-  pointer-events: none;
-  position: fixed;
-  height: ${CircleSize}px;
-  width: ${CircleSize}px;
-  z-index: 2;
-  top: ${(-CircleSize / 2) + 120}px;
+export const Background = ExpandingBackground.extend`
+  top: ${(-ExpandingBackgroundSize / 2) + 120}px;
   left: 0;
-  border: 2px solid ${p => p.theme.veryLight};
-  border-radius: 100%;
-  transform: scale(0);
-  transition: all .5s ${EASE_OUT};
-  opacity: 0;
 
-  .timeline-show &, .timeline-enter & {
-    transform: scale(2);
+  .timeline-show &, .timeline-enter &, .timeline-willExit & {
+    transform: scale(3);
     opacity: 1;
-    transition: all 1s ${EASE_OUT};
+    transition: all 2s ${EASE_OUT};
+  }
+  .timeline-exit & {
+    opacity: 0;
+    transition-delay: .2s;
+    transition-duration: 1s;
   }
 `
 
@@ -148,16 +138,9 @@ export const CloseButton = aCloseButton.extend`
   opacity: 0;
   transform: scale(0);
   z-index: 8;
+  right: 15px;
 
-  .pastTimeline.timeline-show &, .pastTimeline.timeline-enter & {
-    left: 15px;
-    opacity: 1;
-    transform: none;
-    transition-duration: .5s;
-    transition-delay: .2s;
-  }
-  .futureTimeline.timeline-show &, .futureTimeline.timeline-enter & {
-    right: 15px;
+  .timeline-show &, .timeline-enter & {
     opacity: 1;
     transform: none;
     transition-duration: .5s;

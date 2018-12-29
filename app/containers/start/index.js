@@ -50,9 +50,9 @@ export default class Start extends React.Component {
           <ThenNowWhen />
           <HookEmHeader />
           <StackGrid />
-          {/* <LatestBoard /> */}
+          <LatestBoard />
         </ScrollContainer>
-        {/* <GetSocialWithUs /> */}
+        <GetSocialWithUs />
       </Root>
     )
   }

@@ -2,8 +2,11 @@ import React from 'react'
 import Timeline from '../Timeline'
 
 import {
-  Root, IntroBlurb,
+  Root,
 } from './styled'
+import {
+  IntroBlurb,
+} from '../Timeline/styled'
 
 import withTransitions from '../hocs/withTransitions'
 import {connect} from 'react-redux'
@@ -11,7 +14,7 @@ import {connect} from 'react-redux'
 @connect(d => ({
   isVisible: d.get('timeline').get('pastTimelineVisible')
 }))
-@withTransitions({prefix: 'pastTimeline', willEnterDuration: 5})
+@withTransitions({prefix: 'pastTimeline'})
 export default class PastTimeline extends React.Component {
 
   componentWillReceiveProps(nextProps) {

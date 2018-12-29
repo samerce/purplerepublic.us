@@ -1,13 +1,18 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {
-  Root, CircleRoot, CircleBill, CirclePaul, CircleSami, LogoTextRoot,
+  Root, CircleRoot, CircleBill, CirclePaul, CircleSami, LogoTextRoot, Name,
 } from './styled'
 import LogoSvg from './logoSvg'
 
 import {cx} from '../../utils/style'
 import {makeEnum} from '../../utils/lang'
 import {connect} from 'react-redux'
+import autobind from 'autobind-decorator'
+
+import {
+  togglePastTimeline, toggleFutureTimeline
+} from '../ThenNowWhen/actions'
 
 const Mode = makeEnum([
   'born',
@@ -55,7 +60,7 @@ export default class LogoBubble extends React.Component {
       futureTimeline: futureTimelineVisible,
     })
     return (
-      <Root className={`logo-${mode} ${classes}`}>
+      <Root className={`logo-${mode} ${classes}`} onClick={this.toggleTimeline}>
         <CircleRoot>
           <CircleBill />
           <CirclePaul />
@@ -68,18 +73,23 @@ export default class LogoBubble extends React.Component {
             rotate: spring(700, RotateConfig),
             scale: spring(1.5, ScaleConfig),
           }}>
-            {m =>
-              <LogoTextRoot>
-                <LogoSvg
-                    style={{
-                      transform: `rotate(${m.rotate}deg) scale(${m.scale})`
-                    }}
-                    className='bubbleButton-logo-svg' />
+          {m =>
+            <LogoTextRoot>
+              <Name>
+                lucid<br />ball
+              </Name>
               </LogoTextRoot>
             }
         </Motion>
       </Root>
     )
+  }
+
+  @autobind
+  toggleTimeline() {
+    const {dispatch, pastTimelineVisible, futureTimelineVisible} = this.props
+    futureTimelineVisible && dispatch(toggleFutureTimeline())
+    pastTimelineVisible && dispatch(togglePastTimeline())
   }
 
 }

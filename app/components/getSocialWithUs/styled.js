@@ -23,17 +23,17 @@ const aColor = '#498359'
 export const Root = styled.div`
   position: absolute;
   bottom: 0;
-  right: 15px;
-  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   z-index: 6;
   pointer-events: none;
-  animation-name: ${reveal};
+  justify-content: center;
+  ${'' /* animation-name: ${reveal};
   animation-duration: 1s;
   animation-delay: 5s;
   animation-timing-function: ${EASE_OUT};
-  animation-fill-mode: both;
+  animation-fill-mode: both; */}
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;
@@ -56,9 +56,8 @@ export const Root = styled.div`
 export const SocialIcon = styled.i`
   font-size: 40px;
   color: white;
-  width: 50px;
   text-align: center;
-  padding: 10px;
+  padding: 10px 20px;
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     font-size: 30px;
@@ -71,7 +70,7 @@ export const SocialIcon = styled.i`
   &.i3 {
   }
   &.i4 {
-    font-size: 34px;
+    font-size: 40px;
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       font-size: 24px;
     }
@@ -83,25 +82,38 @@ export const SocialIcon = styled.i`
     }
   }
   &.i6 {
-    font-size: 30px;
+    font-size: 40px;
     @media(max-width: ${SCREEN_WIDTH_S_PX}) {
       font-size: 22px;
     }
+  }
+  &.i9 {
+    padding-top: 12px;
+    font-size: 34px;
   }
 `
 
 export const SocialButtonsRoot = styled.div`
   z-index: 5;
   display: flex;
-  flex-direction: column;
   pointer-events: all;
   flex: 0 0 auto;
   cursor: pointer;
-  opacity: .5;
+  opacity: .8;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-self: center;
+  background: ${p => p.theme.veryLight};
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  box-shadow: ${p => p.theme.shadowHeavy};
+  border: 1px solid ${p => p.theme.veryDark};
+  transform: scale(.8);
+  transform-origin: center bottom;
 
   &:hover {
     opacity: 1;
-    transition: all .2s ${EASE_OUT};
+    transition: all .3s ${EASE_OUT};
     z-index: 25;
 
     .i1, .i2, .i3, .i4, .i5, .i6 {
@@ -146,6 +158,7 @@ export const SocialButtonsRoot = styled.div`
 
   a {
     position: relative;
+
     .tooltip {
       position: absolute;
       height: 35px;
@@ -157,19 +170,19 @@ export const SocialButtonsRoot = styled.div`
       color: white;
       background: ${p => p.theme.main};
       border-radius: 5px;
-      box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+      box-shadow: ${p => p.theme.shadowHeavy};
       opacity: 0;
-      transform: translate(5px, -50%);
+      transform: translate(-50%, 5px);
       transition: all .2s ${EASE_OUT};
       z-index: 7;
-      right: 100%;
-      top: 50%;
+      left: 50%;
+      bottom: 100%;
       pointer-events: none;
     }
     &:hover .tooltip {
       opacity: 1;
-      transform: translateY(-50%);
-      transition: .3s ${EASE} .4s;
+      transform: translate(-50%, 0);
+      transition: .3s ${EASE_OUT} .4s;
     }
     &.i10 .tooltip {
       width: 131px;

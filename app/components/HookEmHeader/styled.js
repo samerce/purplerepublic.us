@@ -8,6 +8,7 @@ export const Root = Flex.extend`
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  margin: 20px 0 0;
 `
 
 export const Title  = Flex.extend`

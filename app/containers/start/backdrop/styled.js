@@ -79,9 +79,9 @@ export const Background = styled.div`
   background: radial-gradient(
     circle at center,
     white 0,
-    ${p => p.theme.veryLight} 10%,
-    ${p => p.theme.main} 35%,
-    #2b1644 60%,
+    ${p => p.theme.veryLight} 3%,
+    ${p => p.theme.main} 10%,
+    #2b1644 70%,
     #7023c7 100%
   );
   opacity: 0;
