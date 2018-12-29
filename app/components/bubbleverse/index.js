@@ -10,9 +10,13 @@ import Spinnie from '../spinnie'
 import SelectPill from '../unoSelectPill'
 
 import {
-  Root, BubbleEditingButtonsRoot,
+  Root, BubbleEditingButtonsRoot, CloseButton, Background,
 } from './styled'
-import {MaskAbsoluteFillParent} from '../../global/styled'
+import {
+  MaskAbsoluteFillParent,
+} from '../../global/styled'
+
+import withTransitions from '../hocs/withTransitions'
 
 import {SCREEN_WIDTH_M} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
@@ -21,35 +25,33 @@ import {
   BubbleComponents, BubbleType, BubbleButtonComponents
 } from '../bubble/config'
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
+import {closeBubbleverse} from './actions'
+
+import latest from '../../../latest'
 
 const Mode = makeEnum([
-  'enter',
-  'show',
+  'showGrid',
   'showBubble',
   'buildBubble',
   'arrange',
 ])
 const SelectPillValues = [...Object.keys(BubbleType)]
 
+@connect(d => ({
+  dimension: d.get('bubbleverse').get('dimension'),
+}))
+@withTransitions({prefix: 'bubbleverse'})
 export default class Bubbleverse extends React.PureComponent {
 
   constructor() {
     super()
     fetchBubbles().then(bubbles => {
       this.bubbleConfig = bubbles
-      if (this.state.readyForBubbles) {
-        this.setState({bubblePods: [...bubbles]})
-      }
+      this.setState({bubblePods: [...bubbles]})
     })
 
     this.timeouts = []
-    this.selectPillOptions =
-      SelectPillValues
-      .filter(t => t !== 'shop' && t !== 'poetcards')
-      .map(type => ({
-        name: type,
-        onClick: this.onClickFilter,
-      }))
     this.state = {
       mode: Mode.enter,
       bubblePods: [],
@@ -57,42 +59,26 @@ export default class Bubbleverse extends React.PureComponent {
       arrangeSourceIndex: null,
       savingNewArrangement: false,
       focusedBubble: null,
-      readyForBubbles: false,
     }
   }
 
-  @autobind
-  onClickFilter(index, selected) {
-    ga('send', 'event', {
-      eventCategory: 'bubbles',
-      eventAction: 'filter ' + selected? 'picked' : 'unpicked',
-      eventLabel: SelectPillValues[index],
-    })
+  componentDidMount() {
+    // this.timeouts.push(
+      // setTimeout(this.startUrlWatcher, 5400),
+    // )
+    //
+    // this.socialButtonsNode = document.getElementById('socialButtonsRoot')
   }
 
-  componentDidMount() {
-    this.timeouts.push(
-      setTimeout(() => this.setState({mode: Mode.show})),
-      setTimeout(() => {
-        const newState = {readyForBubbles: true}
-        if (this.bubbleConfig) {
-          newState.bubblePods = [...this.bubbleConfig]
-        }
-        this.setState(newState)
-      }, 2000),
-      setTimeout(this.startUrlWatcher, 5400),
-    )
-
-    this.socialButtonsNode = document.getElementById('socialButtonsRoot')
-    this.selectPill = findDOMNode(this.selectPillRef)
+  componentWillReceiveProps(nextProps) {
+    const {dimension, show, hide} = this.props
+    if (nextProps.dimension !== dimension) {
+      nextProps.dimension? show() : hide()
+    }
   }
 
   @autobind
   startUrlWatcher() {
-    if (!getBubbleIdFromUrl(this.bubbleConfig)) {
-      this.openBubble('welcome')
-    }
-
     this.urlWatcher = setInterval(() => {
       const {focusedBubble} = this.state
       const bubbleIdFromUrl = getBubbleIdFromUrl(this.bubbleConfig)
@@ -119,7 +105,12 @@ export default class Bubbleverse extends React.PureComponent {
     return (
       <Root
         innerRef={r => this.root = r}
-        className={`start-${mode}`}>
+        className={`bubbleverse-${mode} ${this.props.className}`}>
+        <Background />
+
+        <CloseButton onClick={this.onClickClose}>
+          <i className='fa fa-close' />
+        </CloseButton>
 
         {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
@@ -140,20 +131,9 @@ export default class Bubbleverse extends React.PureComponent {
           />
         }
 
-        <SelectPill
-          ref={r => this.selectPillRef = r}
-          className='bubbleverseSelectPill'
-          options={this.selectPillOptions}
-          multiSelect={true}
-          selectedList={[]}
-          onChange={this.onChangeFilterList}
-          collapsible={true}
-        />
-
         <BubbleGrid
           ref={r => this.bubbleGrid = r}
           bubbles={bubblePods}
-          filters={selectedTypes}
           hidden={mode === Mode.buildBubble}
           onBubbleOpened={this.onBubbleOpened}
           onBubbleClosed={this.onBubbleClosed}
@@ -171,6 +151,11 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
+  onClickClose() {
+    this.props.dispatch(closeBubbleverse())
+  }
+
+  @autobind
   onBubbleEdit() {
     this.openBubbleBuilder(true)
   }
@@ -178,7 +163,7 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   toggleArrangeMode() {
     this.setState({
-      mode: (this.state.mode === Mode.arrange)? Mode.show : Mode.arrange,
+      mode: (this.state.mode === Mode.arrange)? Mode.showGrid : Mode.arrange,
       arrangeSourceIndex: null,
     })
   }
@@ -220,7 +205,7 @@ export default class Bubbleverse extends React.PureComponent {
       newState.bubblePods = [...bubbleConfig]
     }
     this.setState({
-      mode: Mode.show,
+      mode: Mode.showGrid,
       ...newState,
     }, () => setTimeout(() => {
       bubbleId && this.openBubble(bubbleId)
@@ -314,7 +299,7 @@ function fetchBubbles() {
       cache: 'no-cache',
     }).then((responseRaw) => {
       responseRaw.json().then(bubbles => {
-        bubbles.forEach(bubble => {
+        latest.forEach(bubble => {
           if (bubble.id === 'patreon') {
             bubble.buttonType = 'patreon'
           }
@@ -348,7 +333,7 @@ function fetchBubbles() {
           bubble.Component = BubbleComponents[bubble.type]
           bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 200
         })
-        resolve(bubbles)
+        resolve(latest)
       }).catch(reject)
     }).catch(reject)
   })

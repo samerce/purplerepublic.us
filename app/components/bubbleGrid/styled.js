@@ -1,21 +1,24 @@
-import styled, {injectGlobal, keyframes} from 'styled-components'
+import styled, {injectGlobal, keyframes, css} from 'styled-components'
 import {transparentize as alpha} from 'polished'
 import {
   EASE_SINE, EASE_OUT, EASE_IN, EASE,
 } from '../../global/constants'
 import {
-  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon,
+  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
 } from '../../global/styled'
 
-export const Root = AbsoluteFlexFillParent.extend`
-  display: ${p => p.hidden? 'none' : 'flex'};
+export const Root = Flex.extend`
   flex-wrap: wrap;
   align-items: flex-start;
   pointer-events: all;
   padding: 20px 50px 20px 20px;
   align-content: flex-start;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  transition: all 1s ${EASE_OUT};
+  z-index: 3;
+  ${p => p.hidden? `
+    opacity: 0;
+    pointer-events: none;
+  ` : ''}
 `
 
 export const BubbleGridItem = styled.div`
@@ -25,20 +28,18 @@ export const BubbleGridItem = styled.div`
   height: ${p => p.size}px;
   margin: 5px;
   display: flex;
+  transition: all 1s ${EASE_OUT} .3s;
 
   ${p => p.heroConfig && `
     flex: 0 0 ${p.heroConfig.width}px;
     justify-content: ${p.heroConfig.leftSide? 'flex-end' : 'initial'};
   `}
 
-  &:first-child {
-    visibility: hidden;
-  }
-
   ${p => p.hidden && `
     flex: 0 0 0;
     overflow: hidden;
     margin: 0;
+    opacity: 0;
   `}
 `
 
@@ -59,7 +60,7 @@ export const ArrangeButton = AbsoluteFlex.extend`
   cursor: pointer;
   pointer-events: all;
 
-  .start-arrange & {
+  .bubbleverse-arrange & {
     visibility: visible;
     animation-play-state: running;
   }

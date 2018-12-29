@@ -8,6 +8,7 @@ import ThenNowWhen from '../../components/ThenNowWhen'
 import StackGrid from '../../components/StackGrid'
 import LatestBoard from '../../components/LatestBoard'
 import GetSocialWithUs from '../../components/getSocialWithUs'
+import Bubbleverse from '../../components/bubbleverse'
 
 import {
   Root, ScrollContainer,
@@ -52,6 +53,7 @@ export default class Start extends React.Component {
           <StackGrid />
           <LatestBoard />
         </ScrollContainer>
+        <Bubbleverse />
         <GetSocialWithUs />
       </Root>
     )

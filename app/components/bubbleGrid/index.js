@@ -14,7 +14,11 @@ const BDBubbles = [
   'twinkle', 'jamaica', 'magic', 'beauty', 'queen',
   'buy-postcards',
 ]
+import {connect} from 'react-redux'
 
+@connect(d => ({
+  dimension: d.get('bubbleverse').get('dimension')
+}))
 export default class BubbleGrid extends React.PureComponent {
 
   constructor(props) {
@@ -51,13 +55,13 @@ export default class BubbleGrid extends React.PureComponent {
   render() {
     const {
       bubbles, hidden, onBubbleOpened, isArranging, onArrange,
-      arrangeSourceIndex
+      arrangeSourceIndex, dimension,
     } = this.props
 
     return (
       <Root
         id='bubbleGrid'
-        hidden={hidden}
+        hidden={!dimension}
         ref={r => this.bubbleGrid = r}>
         {bubbles.map((bubble, index) => (
           <BubbleGridItem
@@ -109,10 +113,12 @@ export default class BubbleGrid extends React.PureComponent {
   }
 
   @autobind
-  isBubbleHidden({id, type}) {
-    const {filters} = this.props
-    const isFilteredOut = (filters.length && !filters.includes(type))
-    return id !== 'logo' && (BDBubbles.includes(id) || isFilteredOut)
+  isBubbleHidden({id, tags = ''}) {
+    const {dimension} = this.props
+    if (!dimension) return true
+
+    const isFilteredOut = !tags.includes(dimension.toLowerCase())
+    return (BDBubbles.includes(id) || isFilteredOut)
   }
 
 }

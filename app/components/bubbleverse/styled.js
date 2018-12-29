@@ -4,51 +4,26 @@ import {
   EASE_SINE, EASE_OUT, EASE_IN, EASE,
 } from '../../global/constants'
 import {
-  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon,
+  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
+  CloseButton as aCloseButton, ExpandingBackground,
 } from '../../global/styled'
 
-injectGlobal`
-  .bubbleverseSelectPill {
-    top: 20px;
-    left: initial;
-    right: 20px;
-    transform: translateY(-100px);
-
-    .start-show & {
-      transform: none;
-      transition: transform 1s ${EASE_OUT} 6s;
-    }
-  }
-`
-
-const fastBlink = keyframes`
-  0% {
-    opacity: 1;
-  }
-
-  30% {
-    opacity: .5
-  }
-
-  70% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-  }
-`
-
-export const Root = styled.div`
+export const Root = Flex.extend`
   height: 100%;
   width: 100%;
-  position: fixed;
-  overflow: hidden;
   pointer-events: none;
   z-index: 3;
+  overflow-y: scroll;
+  opacity: 0;
+  transition: all .5s ${EASE_OUT};
 
-  &.start-show, &.start-arrange {
+  &.bubbleverse-show, &.bubbleverse-enter, &.bubbleverse-arrange {
+    opacity: 1;
     pointer-events: all;
+    transition: none;
+  }
+  &.bubbleverse-willExit, &.bubbleverse-exit {
+    opacity: 1;
   }
 `
 
@@ -56,4 +31,28 @@ export const BubbleEditingButtonsRoot = AbsoluteFlex.extend`
   bottom: 20px;
   right: 20px;
   flex-direction: column;
+`
+
+export const CloseButton = aCloseButton.extend`
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transform: scale(0);
+  opacity: 0;
+  z-index: 4;
+
+  .bubbleverse-show &, .bubbleverse-enter & {
+    opacity: 1;
+    transform: none;
+  }
+`
+
+export const Background = ExpandingBackground.extend`
+  .bubbleverse-show &, .bubbleverse-enter & {
+    transform: scale(2);
+    transition-duration: 2s;
+  }
+  .bubbleverse-exit &, .bubbleverse-willExit & {
+    opacity: 0;
+  }
 `
