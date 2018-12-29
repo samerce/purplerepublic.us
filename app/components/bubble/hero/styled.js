@@ -18,7 +18,7 @@ injectGlobal`
   }
 `
 
-export const Root = AbsoluteFlex.extend`
+export const Root = Flex.extend`
   background: ${p => p.theme.slightlyDark};
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   border: 1px solid ${p => p.theme.veryLight};

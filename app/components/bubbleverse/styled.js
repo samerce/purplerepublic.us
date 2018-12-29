@@ -15,7 +15,7 @@ export const Root = Flex.extend`
   z-index: 3;
   overflow-y: scroll;
   opacity: 0;
-  transition: all .5s ${EASE_OUT};
+  transition: opacity .5s ${EASE_OUT};
 
   &.bubbleverse-show, &.bubbleverse-enter, &.bubbleverse-arrange {
     opacity: 1;
@@ -24,6 +24,9 @@ export const Root = Flex.extend`
   }
   &.bubbleverse-willExit, &.bubbleverse-exit {
     opacity: 1;
+  }
+  &.bubbleverse-hide {
+    visibility: hidden;
   }
 `
 
