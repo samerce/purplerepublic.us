@@ -21,7 +21,6 @@ export const Root = InlineBlock.extend`
   &.bubble-focused {
     pointer-events: none;
     transition-duration: .8s;
-    position: fixed;
   }
 
   &.bubble-editing {
@@ -31,7 +30,6 @@ export const Root = InlineBlock.extend`
   }
 
   &.bubble-willFocus, &.bubble-willDefocus {
-    position: fixed;
   }
 
   &.bubble-willEnter {
@@ -40,7 +38,7 @@ export const Root = InlineBlock.extend`
   }
 
   &.bubble-enter {
-    transition: all 1s ${EASE_OUT} ${p => p.delay}s;
+    transition: all 1s ${EASE_OUT};
   }
 `
 
@@ -50,6 +48,8 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-size: cover;
   overflow: hidden;
   border-width: 2px;
+  width: 150px;
+  height: 150px;
 
   &.bubble-focused, &.bubble-editing {
     box-shadow: none;

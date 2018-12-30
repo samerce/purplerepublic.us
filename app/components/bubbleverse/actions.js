@@ -1,15 +1,45 @@
-export const OpenBubbleverse = 'bubbleverse.open'
-export const CloseBubbleverse = 'bubbleverse.close'
+export const BubbleverseOpen = 'bubbleverse.open'
+export const BubbleverseClose = 'bubbleverse.close'
+export const BubbleverseSetActiveBubble = 'bubbleverse.setActiveBubble'
+export const BubbleverseSetBubbles = 'bubbleverse.setBubbles'
+export const BubbleverseGoToNextBubble = 'bubbleverse.goToNextBubble'
+export const BubbleverseGoToPrevBubble = 'bubbleverse.goToPrevBubble'
 
 export function openBubbleverse(dimension) {
   return {
     dimension,
-    type: OpenBubbleverse,
+    type: BubbleverseOpen,
   }
 }
 
 export function closeBubbleverse() {
   return {
-    type: CloseBubbleverse,
+    type: BubbleverseClose,
+  }
+}
+
+export function setActiveBubble(nucleus) {
+  return {
+    nucleus,
+    type: BubbleverseSetActiveBubble,
+  }
+}
+
+export function setBubbles(bubbles) {
+  return {
+    bubbles,
+    type: BubbleverseSetBubbles,
+  }
+}
+
+export function goToNextBubble() {
+  return {
+    type: BubbleverseGoToNextBubble,
+  }
+}
+
+export function goToPrevBubble() {
+  return {
+    type: BubbleverseGoToPrevBubble,
   }
 }

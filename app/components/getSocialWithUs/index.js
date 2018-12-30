@@ -6,20 +6,25 @@ import {
 } from './styled'
 
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
 
 import {SRC_URL} from '../../global/constants'
 
 const ICON_URL = SRC_URL + 'icons/'
 
+@connect(d => ({
+  dimension: d.get('bubbleverse').get('dimension'),
+}))
 export default class GetSocialWithUs extends React.Component {
 
-  shouldComponentUpdate() {
-    return false
+  shouldComponentUpdate(nextProps) {
+    return this.props.dimension !== nextProps.dimension
   }
 
   render() {
+    const {dimension} = this.props
     return (
-      <Root id='socialButtonsRoot'>
+      <Root id='socialButtonsRoot' className={dimension? 'hidden' : ''}>
         <SocialButtonsRoot>
           <a href='https://www.instagram.com/expressyourmess' target='_blank' onClick={this.onClick.bind(this, 'instagram')}>
             <SocialIcon className='fa fa-instagram i3' />

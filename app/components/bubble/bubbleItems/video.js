@@ -6,11 +6,13 @@ import BubbleWriting from './words'
 import autobind from 'autobind-decorator'
 
 import {
-  VideoRoot,
+  VideoRoot, VideoWrapper,
 } from './styled'
 
+const width = Math.min(1200, window.innerWidth * .8)
 const VideoConfig = {
-  width: '100%',
+  width,
+  height: width / (16/9),
   origin: window.location.origin,
   playerVars: {
     rel: 0,
@@ -46,12 +48,15 @@ export default class BubbleVideo extends React.Component {
           />
         }
 
-        {videoId &&
-          <YouTubeVideo
-            videoId={videoId}
-            onReady={this.onVideoReady}
-            opts={VideoConfig} />
-        }
+        <VideoWrapper width={width}>
+          {videoId &&
+            <YouTubeVideo
+              videoId={videoId}
+              onReady={this.onVideoReady}
+              opts={VideoConfig} />
+          }
+        </VideoWrapper>
+
       </VideoRoot>
     )
   }

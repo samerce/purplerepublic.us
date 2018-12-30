@@ -23,21 +23,16 @@ export const Mask = MaskAbsoluteFillParent.extend`
   z-index: 59;
 `
 
-export const Root = styled.div`
-  ${'' /* opacity: 0; */}
+export const Root = Flex.extend`
   pointer-events: none;
-  transform: translate(0, ${window.innerHeight}px);
-  transform-origin: center top;
   transition: opacity .5s, transform .7s;
   transition-timing-function: ${EASE_OUT};
-  z-index: 11;
-  position: fixed;
-  top: 0;
-  left: 0;
-  max-height: 100%;
+  z-index: 3;
   width: 100%;
-  display: flex;
+  flex: 0 0 70%;
   justify-content: center;
+  overflow-y: scroll;
+  padding: 0 50px;
 
   ${p => p.editing && `
     transform: none;
@@ -51,47 +46,32 @@ export const Root = styled.div`
   `}
 `
 const HeaderTop = 25;
-export const ContentRoot = styled.div`
+export const ContentRoot = Flex.extend`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
-  background: ${p => p.theme.main};
-  box-shadow: ${p => p.theme.shadowHeavy};
-  width: 100%;
-  max-width: 740px;
-  display: flex;
+  flex: 1;
+  height: 100%;
   flex-direction: column;
   position: relative;
-  padding-top: ${77 + HeaderTop}px;
-  padding-bottom: ${p => RootMarginTop + (p.hasActions? 80 : 20)}px;
-  margin-top: 35px;
   z-index: 70;
-
-  hr {
-    width: 100%;
-    border-width: 1px;
-    border-color: ${p => p.theme.veryLight};
-    border-top: 0;
-    margin: 15px 0 0;
-  }
-
-  ${screen.medium`
-    padding-top: 92px;
-  `}
 
   ${p => p.editing && `
     margin: 100px 0;
   `}
 `
 
-export const Header = AbsoluteFlex.extend`
+export const Header = Flex.extend`
   width: 100%;
-  top: ${HeaderTop}px;
   flex-direction: column;
+  padding: 0 0 20px 0;
+  flex: 0 0 auto;
 `
 
-export const Footer = AbsoluteFlex.extend`
+export const Footer = Flex.extend`
   width: 100%;
-  bottom: 0px;
   flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 20px 0 20px;
 `
 
 export const Title = styled.input`
@@ -127,20 +107,15 @@ export const ActionsRoot = Flex.extend`
   align-items: center;
   justify-content: center;
   height: 60px;
-  width: 100%;
-  border-top: 1px solid ${p => p.theme.veryLight};
+  width: 80%;
   font-family: annie use your telescope;
   background: ${p => p.theme.slightlyDark};
-  border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
-  border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
+  border-radius: ${p => p.theme.borderRadiusBoto}px;
 `
 
 export const VariableActionsRoot = ActionsRoot.extend`
   height: 60px;
-  width: 100%;
   position: relative;
-  border-radius: 0;
-  border-top: 1px solid ${p => p.theme.veryLight};
 `
 
 export const Action = Boto.extend`
@@ -148,18 +123,11 @@ export const Action = Boto.extend`
   height: 100%;
   border-radius: 0;
   position: relative;
+  border: 2px solid ${p => p.theme.veryLight};
+  border-radius: ${p => p.theme.borderRadiusBoto}px;
 
-  &:first-child {
-    border-bottom-left-radius: ${p => p.theme.borderRadiusBoto}px;
-  }
   &:not(:first-child) {
     border-left: 1px solid ${p => p.theme.veryLight};
-  }
-  &:last-child {
-    border-bottom-right-radius: ${p => p.theme.borderRadiusBoto}px;
-  }
-  ${VariableActionsRoot} & {
-    border-radius: 0;
   }
 
   i {
@@ -287,5 +255,35 @@ export const BubbleDeleteButton = BubbleToolButton.extend`
   &:hover {
     color: red;
     transition-delay: 0;
+  }
+`
+
+export const ComponentRoot = Flex.extend`
+  flex: 0 0 auto;
+`
+
+export const NavButton = Flex.extend`
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 0 20px;
+  cursor: pointer;
+  color: white;
+  transition: all .5s ${EASE_OUT};
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+
+  &.right {
+    left: initial;
+    right: 0;
+  }
+
+  &:hover {
+    color: ${p => p.theme.veryLight};
+  }
+  i {
+    font-size: 30px;
   }
 `

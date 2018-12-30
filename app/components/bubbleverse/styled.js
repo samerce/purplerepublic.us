@@ -13,9 +13,9 @@ export const Root = Flex.extend`
   width: 100%;
   pointer-events: none;
   z-index: 3;
-  overflow-y: scroll;
   opacity: 0;
   transition: opacity .5s ${EASE_OUT};
+  flex-direction: column;
 
   &.bubbleverse-show, &.bubbleverse-enter, &.bubbleverse-arrange {
     opacity: 1;
@@ -58,4 +58,14 @@ export const Background = ExpandingBackground.extend`
   .bubbleverse-exit &, .bubbleverse-willExit & {
     opacity: 0;
   }
+`
+
+export const Header = Flex.extend`
+  flex: 0 0 10%;
+  color: ${p => p.theme.veryLight};
+  z-index: 2;
+  font-family: playfair display;
+  text-transform: uppercase;
+  font-size: 36px;
+  padding: 15px 0 15px 30px;
 `

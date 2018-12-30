@@ -8,13 +8,15 @@ import {
 } from '../../global/styled'
 
 export const Root = Flex.extend`
-  flex-wrap: wrap;
   align-items: flex-start;
   pointer-events: all;
-  padding: 20px 50px 20px 20px;
+  padding: 0 0 20px;
   align-content: flex-start;
   transition: all 1s ${EASE_OUT};
   z-index: 3;
+  flex: 0 0 20%;
+  overflow-x: scroll;
+
   ${p => p.hidden? `
     opacity: 0;
     pointer-events: none;
@@ -24,11 +26,25 @@ export const Root = Flex.extend`
 export const BubbleGridItem = styled.div`
   position: relative;
   pointer-events: none;
-  flex: 0 0 ${p => p.size}px;
   height: ${p => p.size}px;
-  margin: 5px;
+  flex: 0 0 ${p => p.size}px;
   display: flex;
-  transition: all 1s ${EASE_OUT} .3s;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid ${p => p.theme.veryLight};
+  padding: 0 5px;
+  transition: all .3s ${EASE_OUT};
+
+  &.active {
+    border: 1px solid ${p => p.theme.veryLight};
+    border-top: none;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+  }
+
+  &.gapItem {
+    flex: 0 0 10px;
+  }
 
   ${p => p.heroConfig && `
     flex: 0 0 ${p.heroConfig.width}px;
@@ -38,8 +54,8 @@ export const BubbleGridItem = styled.div`
   ${p => p.hidden && `
     flex: 0 0 0;
     overflow: hidden;
-    margin: 0;
     opacity: 0;
+    padding: 0;
   `}
 `
 

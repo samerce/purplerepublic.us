@@ -12,6 +12,7 @@ import {
 import theme from '../../../global/theme'
 
 injectGlobal`
+
   .gallerySelectPill.gallerySelectPill {
     position: relative;
     transform: none;
@@ -196,19 +197,30 @@ injectGlobal`
 
 export const BubbleComponentRoot = FlexColumn.extend`
   overflow-y: scroll;
-  width: 100%;
+  height: 100%;
   position: relative;
+  flex: 0 0 100%;
+  align-items: center;
 `
 
 export const VideoRoot = BubbleComponentRoot.extend`
   text-align: center;
   overflow-y: scroll;
+  align-items: center;
+`
+
+export const VideoWrapper = Flex.extend`
+  border: 1px solid ${p => p.theme.veryLight};
+  border-radius: 10px;
+  width: ${p => p.width}px;
+  overflow: hidden;
 `
 
 export const Description = ArticleText.extend`
   padding: 0 20px;
   font-size: 21px;
   overflow-y: scroll;
+  max-width: 740px;
 `
 
 export const EditPhotosRoot = FlexColumn.extend`

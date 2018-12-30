@@ -29,11 +29,11 @@ export const Root = styled.div`
   z-index: 6;
   pointer-events: none;
   justify-content: center;
-  ${'' /* animation-name: ${reveal};
-  animation-duration: 1s;
-  animation-delay: 5s;
-  animation-timing-function: ${EASE_OUT};
-  animation-fill-mode: both; */}
+  transition: all 1s ${EASE_OUT};
+
+  &.hidden {
+    transform: translate(0, 120%);
+  }
 
   @media(max-width: ${SCREEN_WIDTH_S_PX}) {
     right: 10px;

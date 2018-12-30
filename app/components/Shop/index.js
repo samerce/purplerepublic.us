@@ -33,7 +33,7 @@ export default class Shop extends React.Component {
 
   renderShopRow({iconId, buttonText, shopText, onClick}, i) {
     return (
-      <ShopRow i={i}>
+      <ShopRow i={i} key={i}>
         <IconBubble i={i}>
           <i className={'fa fa-' + iconId} />
         </IconBubble>

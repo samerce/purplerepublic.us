@@ -11,8 +11,11 @@ import _ from 'lodash'
 import fastdom from 'fastdom'
 import autobind from 'autobind-decorator'
 import {HeroBubbleConfig} from '../config'
+import {setActiveBubble} from '../../bubbleverse/actions'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'
+
+import {connect} from 'react-redux'
 
 const ScaleFocused = window.innerWidth <= SCREEN_WIDTH_M? .5 : .25
 const xCenter = window.innerWidth / 2
@@ -38,6 +41,9 @@ const Mode = makeEnum([
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 
+@connect(d => ({
+  activeBubble: d.get('bubbleverse').get('activeBubble')
+}))
 export default class BubbleButton extends React.Component {
 
   constructor(props) {
@@ -46,24 +52,13 @@ export default class BubbleButton extends React.Component {
     this.timers = []
     this.styles = {}
     this.state = {
-      mode: Mode.willEnter,
+      mode: Mode.defocused,
     }
   }
 
   componentDidMount() {
-    this.rootNode = findDOMNode(this.ref)
-    const bubbleGrid = document.getElementById('bubbleGrid')
-    bubbleGrid.addEventListener(
-      'scroll',
-      _.throttle(this.configureStyles, 300)
-    )
-    this.configureStyles()
-
     this.timers.push(
-      setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
-      setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER),
       setTimeout(() => {
-        this.configureStyles()
         if (this.props.editing) {
           this.setState({mode: Mode.editing})
         }
@@ -71,21 +66,18 @@ export default class BubbleButton extends React.Component {
     )
   }
 
-  @autobind
-  configureStyles() {
-    fastdom.measure(() => {
-      const rect = this.rootNode.getBoundingClientRect()
-      const {styles} = this
-
-      styles.willFocus = getWillFocusStyle(rect)
-      styles.willDefocus = styles.willFocus
-      styles.focused = getFocusedStyle(this.props.nucleus.size, styles.willFocus)
-
-      if (!styles.willEnter) {
-        styles.willEnter = getWillEnterStyle(rect)
-        this.forceUpdate()
+  componentWillReceiveProps(nextProps) {
+    const {activeBubble, nucleus} = this.props
+    const {activeBubble: nextActiveBubble} = nextProps
+    if (nextActiveBubble) {
+      if (nextActiveBubble.id === nucleus.id) {
+        this.focusIt()
+      } else {
+        this.defocusIt()
       }
-    })
+    } else if (activeBubble && activeBubble.id === nucleus.id) {
+      this.defocusIt()
+    }
   }
 
   componentWillUnmount() {
@@ -122,10 +114,10 @@ export default class BubbleButton extends React.Component {
             nucleus={nucleus}
             onClick={this.onClick}
             heroConfig={heroConfig} />
-          :
-          <ImageBubbleButton
-            onClick={this.onClick}
-            src={unsavedImageUrl || getButtonImageUrl(id)}
+        :
+        <ImageBubbleButton
+          onClick={this.onClick}
+          src={unsavedImageUrl || getButtonImageUrl(id)}
             size={size}>
             <Icon className={'fa fa-' + TypeToIcon[type]} />
             <Title><div>{title}</div></Title>
@@ -137,27 +129,16 @@ export default class BubbleButton extends React.Component {
 
   @autobind
   onClick() {
-    if (this.state.mode === Mode.focused) return
-    requestAnimationFrame(this.setWillFocusState)
-    setTimeout(() => requestAnimationFrame(this.focusIt))
+    const {dispatch, nucleus} = this.props
+    requestAnimationFrame(() => dispatch(setActiveBubble(nucleus)))
   }
 
-  @autobind
-  setWillFocusState() {
-    this.setState({
-      mode: Mode.willFocus,
-    })
-  }
-
-  @autobind
   focusIt() {
     this.setState({
       mode: Mode.focused,
     })
-    this.props.onClick()
   }
 
-  @autobind
   defocusIt() {
     if (this.state.mode === Mode.editing) return
 

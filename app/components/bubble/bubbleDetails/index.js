@@ -3,7 +3,7 @@ import Spinnie from '../../spinnie'
 import {Helmet} from 'react-helmet'
 
 import {
-  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, VariableActionsRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton,
+  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, VariableActionsRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton, NavButton, ComponentRoot,
   BubbleOptions, Header, Footer, Mask
 } from './styled'
 import {Description} from '../bubbleItems/styled'
@@ -16,10 +16,15 @@ import ClipboardJS from 'clipboard'
 import {connect} from 'react-redux'
 
 import {onClickBubbleAction} from '../redux/actions'
+import {
+  goToNextBubble, goToPrevBubble
+} from '../../bubbleverse/actions'
 
 const Clipboard = new ClipboardJS('.clipboardBtn')
 
-@connect(d => ({}), undefined, undefined, {withRef: true})
+@connect(d => ({
+  activeBubble: d.get('bubbleverse').get('activeBubble'),
+}), undefined, undefined, {withRef: true})
 export default class BubbleDetails extends React.PureComponent {
 
   constructor(props) {
@@ -40,6 +45,18 @@ export default class BubbleDetails extends React.PureComponent {
         bubbleOptionsVisible: false
       }), 1000)
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {activeBubble} = this.props
+    const {activeBubble: nextActiveBubble} = nextProps
+    if (nextActiveBubble) {
+      if (!activeBubble || activeBubble.id !== nextActiveBubble.id) {
+        this.open(nextActiveBubble)
+      }
+    } else if (activeBubble) {
+      this.close()
+    }
   }
 
   @autobind
@@ -120,11 +137,9 @@ export default class BubbleDetails extends React.PureComponent {
           </Helmet>
         }
 
-        <Mask
-          onClick={this.onClickClose}
-          show={visible}
-          className='bubbleMask'
-        />
+        <NavButton onClick={this.onClickPrev}>
+          <i className='fa fa-chevron-circle-left' />
+        </NavButton>
 
         <ContentRoot editing={editing} hasActions={!!actions.length}>
           {canShowEditingTools() && !editing &&
@@ -137,7 +152,7 @@ export default class BubbleDetails extends React.PureComponent {
               />
               <BubbleNameButton
                 visible={bubbleOptionsVisible}
-                className='clipboardBtn'>
+              className='clipboardBtn'>
                 <div id='bubbleId'>{id}</div>
                 <button
                   className='clipboardBtn'
@@ -177,25 +192,40 @@ export default class BubbleDetails extends React.PureComponent {
               onChange={e => this.setState({title: e.target.value})}
               value={title}
             />
-            <hr />
           </Header>
 
-          {BubbleComponent &&
-            <BubbleComponent
-              nucleus={nucleus}
-              editing={editing}
-              onEditingChange={onEditingChange}
-              ref={r => this.bubbleComponentRef = r}
-            />
-          }
+          <ComponentRoot>
+            {BubbleComponent &&
+              <BubbleComponent
+                nucleus={nucleus}
+                editing={editing}
+                onEditingChange={onEditingChange}
+                ref={r => this.bubbleComponentRef = r}
+              />
+            }
+          </ComponentRoot>
+
 
           <Footer>
             {!!actions.length && this.renderVariableActions(actions)}
-            {this.renderDefaultActions()}
           </Footer>
         </ContentRoot>
+
+        <NavButton onClick={this.onClickNext} className='right'>
+          <i className='fa fa-chevron-circle-right' />
+        </NavButton>
       </Root>
     )
+  }
+
+  @autobind
+  onClickPrev() {
+    this.props.dispatch(goToPrevBubble())
+  }
+
+  @autobind
+  onClickNext() {
+    this.props.dispatch(goToNextBubble())
   }
 
   @autobind
@@ -222,26 +252,6 @@ export default class BubbleDetails extends React.PureComponent {
   editBubble() {
     this.setState({bubbleOptionsVisible: false})
     this.props.onEdit()
-  }
-
-  renderDefaultActions() {
-    const {
-      nextBubbleId,
-    } = this.state.nucleus
-
-    return (
-      <ActionsRoot>
-        <Action onClick={this.onClickClose}>
-          <div>close</div>
-        </Action>
-        {nextBubbleId &&
-          <Action onClick={this.onClickJourneyButton}>
-            <div>continue journey...</div>
-            <i className='fa fa-caret-right' />
-          </Action>
-        }
-      </ActionsRoot>
-    )
   }
 
   renderVariableActions(actions) {
@@ -277,9 +287,8 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   onClickClose() {
-    const {editing, onClose} = this.props
+    const {editing} = this.props
     if (!editing) {
-      onClose && onClose()
       this.close()
     }
   }

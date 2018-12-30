@@ -16,7 +16,8 @@ import {Dimensions} from '../bubbleverse/config'
 import {openBubbleverse} from '../bubbleverse/actions'
 
 const randomOffset = (range) => Math.round(Math.random() * range)
-const DimensionTypeList = Object.keys(Dimensions)
+const DimensionTypes = Object.keys(Dimensions)
+const DimensionValues = Object.values(Dimensions)
 
 @connect(d => ({}))
 export default class StackGrid extends React.Component {
@@ -24,7 +25,7 @@ export default class StackGrid extends React.Component {
   constructor(props) {
     super(props)
     this.circleOffsets = []
-    for (let i = 0; i < Object.keys(Dimensions).length; i++) {
+    for (let i = 0; i < DimensionTypes.length; i++) {
       this.circleOffsets.push((randomOffset(10) + 5) * (Math.round(Math.random())? -1 : 1))
     }
   }
@@ -37,7 +38,7 @@ export default class StackGrid extends React.Component {
           <div>get to know us</div>
         </SectionHeader>
 
-        {Object.values(Dimensions).map(this.renderStack)}
+        {DimensionValues.map(this.renderStack)}
       </Root>
     )
   }
@@ -66,7 +67,7 @@ export default class StackGrid extends React.Component {
 
   @autobind
   onClickStack(i) {
-    const dimension = DimensionTypeList[i]
+    const dimension = DimensionTypes[i]
     this.props.dispatch(openBubbleverse(dimension))
   }
 

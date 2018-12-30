@@ -20,7 +20,7 @@ export default class Timeline extends React.Component {
     const side = (i % 2) == 0? 'right' : 'left'
     const arrow = (i % 2) == 0? 'left' : 'right'
     return (
-      <TimelineRowRoot className={side}>
+      <TimelineRowRoot className={side} key={i}>
         <TimelineDot />
         <TimelineArrow className={'fa fa-angle-' + arrow} />
         <RowContentRoot>

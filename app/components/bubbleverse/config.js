@@ -1,5 +1,11 @@
 import {makeEnum} from '../../utils/lang'
 
+export const Mode = makeEnum([
+  'ShowBubbleDetails',
+  'ShowBubbleGrid',
+  'BuildBubble',
+])
+
 export const Dimensions = {
   Business: {
     title: 'mindful business',
@@ -40,3 +46,8 @@ export const Dimensions = {
 }
 
 export const DimensionTypes = makeEnum(Object.keys(Dimensions))
+
+const BDBubbles = [
+  'twinkle', 'jamaica', 'magic', 'beauty', 'queen',
+  'buy-postcards',
+]

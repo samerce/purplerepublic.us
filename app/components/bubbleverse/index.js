@@ -6,11 +6,12 @@ import {
   BubbleAddButton,
   BubbleArrangeButton,
 } from '../bubble/bubbleBuilderButton'
+import BubbleDetails from '../bubble/bubbleDetails'
 import Spinnie from '../spinnie'
 import SelectPill from '../unoSelectPill'
 
 import {
-  Root, BubbleEditingButtonsRoot, CloseButton, Background,
+  Root, BubbleEditingButtonsRoot, CloseButton, Background, Header,
 } from './styled'
 import {
   MaskAbsoluteFillParent,
@@ -26,7 +27,9 @@ import {
 } from '../bubble/config'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import {closeBubbleverse} from './actions'
+import {
+  closeBubbleverse, setBubbles, setActiveBubble,
+} from './actions'
 
 import latest from '../../../latest'
 
@@ -36,26 +39,24 @@ const Mode = makeEnum([
   'buildBubble',
   'arrange',
 ])
-const SelectPillValues = [...Object.keys(BubbleType)]
 
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
+  activeBubble: d.get('bubbleverse').get('activeBubble'),
+  bubbles: d.get('bubbleverse').get('bubbles'),
 }))
 @withTransitions({prefix: 'bubbleverse'})
 export default class Bubbleverse extends React.PureComponent {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     fetchBubbles().then(bubbles => {
-      this.bubbleConfig = bubbles
-      this.setState({bubblePods: [...bubbles]})
+      props.dispatch(setBubbles(bubbles))
     })
 
     this.timeouts = []
     this.state = {
       mode: Mode.enter,
-      bubblePods: [],
-      selectedTypes: [],
       arrangeSourceIndex: null,
       savingNewArrangement: false,
       focusedBubble: null,
@@ -63,17 +64,24 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   componentDidMount() {
-    // this.timeouts.push(
-      // setTimeout(this.startUrlWatcher, 5400),
-    // )
-    //
-    // this.socialButtonsNode = document.getElementById('socialButtonsRoot')
+    this.timeouts.push(
+      setTimeout(this.startUrlWatcher, 400),
+    )
   }
 
   componentWillReceiveProps(nextProps) {
-    const {dimension, show, hide} = this.props
+    const {dimension, show, hide, activeBubble} = this.props
     if (nextProps.dimension !== dimension) {
       nextProps.dimension? show() : hide()
+    }
+
+    const {activeBubble: nextActiveBubble} = nextProps
+    if (nextActiveBubble) {
+      if (!activeBubble || activeBubble.id !== nextActiveBubble.id) {
+        this.onBubbleOpened(nextActiveBubble)
+      }
+    } else if (activeBubble) {
+      this.onBubbleClosed()
     }
   }
 
@@ -81,11 +89,11 @@ export default class Bubbleverse extends React.PureComponent {
   startUrlWatcher() {
     this.urlWatcher = setInterval(() => {
       const {focusedBubble} = this.state
-      const bubbleIdFromUrl = getBubbleIdFromUrl(this.bubbleConfig)
-      if (bubbleIdFromUrl && (!focusedBubble || bubbleIdFromUrl !== focusedBubble.id)) {
-        this.openBubble(bubbleIdFromUrl)
+      const bubbleFromUrl = getBubbleFromUrl(this.props.bubbles)
+      if (bubbleFromUrl && (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id)) {
+        this.openBubble(bubbleFromUrl)
       }
-      if (!bubbleIdFromUrl && focusedBubble) {
+      if (!bubbleFromUrl && focusedBubble) {
         this.closeBubble()
       }
       window.prerenderReady = true
@@ -99,13 +107,10 @@ export default class Bubbleverse extends React.PureComponent {
 
   render() {
     const {
-      mode, bubblePods, selectedTypes, focusedBubble, savingNewArrangement,
-      arrangeSourceIndex
+      mode, focusedBubble, savingNewArrangement, arrangeSourceIndex
     } = this.state
     return (
-      <Root
-        innerRef={r => this.root = r}
-        className={`bubbleverse-${mode} ${this.props.className}`}>
+      <Root className={`bubbleverse-${mode} ${this.props.className}`}>
         <Background />
 
         <CloseButton onClick={this.onClickClose}>
@@ -127,25 +132,27 @@ export default class Bubbleverse extends React.PureComponent {
             ref={r => this.bubbleBuilder = r}
             onClose={this.closeBubbleBuilder}
             visible={mode === Mode.buildBubble}
-            bubbleConfig={this.bubbleConfig}
+            bubbleConfig={this.props.bubbles}
           />
         }
 
+        <Header>
+          <div>{this.props.dimension}</div>
+        </Header>
+
+        <BubbleDetails />
+
         <BubbleGrid
-          ref={r => this.bubbleGrid = r}
-          bubbles={bubblePods}
-          hidden={mode === Mode.buildBubble}
-          onBubbleOpened={this.onBubbleOpened}
-          onBubbleClosed={this.onBubbleClosed}
-          onBubbleEdit={this.onBubbleEdit}
           isArranging={mode === Mode.arrange}
           onArrange={this.onArrange}
           arrangeSourceIndex={arrangeSourceIndex}
         />
 
-        <MaskAbsoluteFillParent show={savingNewArrangement}>
-          <Spinnie show={savingNewArrangement} />
-        </MaskAbsoluteFillParent>
+        {savingNewArrangement &&
+          <MaskAbsoluteFillParent show={savingNewArrangement}>
+            <Spinnie show={savingNewArrangement} />
+          </MaskAbsoluteFillParent>
+        }
       </Root>
     )
   }
@@ -169,17 +176,8 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  onChangeFilterList(selectedIndices) {
-    this.setState({
-      selectedTypes: selectedIndices.map(i => SelectPillValues[i])
-    })
-  }
-
-  @autobind
   onBubblesChanged(bubbles) {
-    this.setState({
-      bubblePods: bubbles,
-    })
+    this.props.dispatch(setBubbles(bubbles))
   }
 
   @autobind
@@ -187,7 +185,7 @@ export default class Bubbleverse extends React.PureComponent {
     let bubbleToEdit, index
     if (shouldEditFocusedBubble) {
       bubbleToEdit = this.state.focusedBubble
-      index = this.bubbleConfig.findIndex(b => b.id === bubbleToEdit.id)
+      index = this.props.bubbles.findIndex(b => b.id === bubbleToEdit.id)
     }
     this.setState({
       mode: Mode.buildBubble,
@@ -198,34 +196,27 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  closeBubbleBuilder(bubbleId, bubbleConfig) {
-    const newState = {}
-    if (bubbleConfig) {
-      this.bubbleConfig = bubbleConfig
-      newState.bubblePods = [...bubbleConfig]
+  closeBubbleBuilder(bubbleId, newBubbles) {
+    if (newBubbles) {
+      this.props.dispatch(setBubbles(newBubbles))
     }
     this.setState({
       mode: Mode.showGrid,
-      ...newState,
     }, () => setTimeout(() => {
       bubbleId && this.openBubble(bubbleId)
     }, 250))
   }
 
   @autobind
-  onBubbleOpened(focusedBubbleId) {
+  onBubbleOpened(focusedBubble) {
     ga('send', 'event', {
       eventCategory: 'bubbles',
       eventAction: 'bubble opened',
-      eventLabel: focusedBubbleId,
+      eventLabel: focusedBubble.id,
     })
 
-    window.location.hash = '#start/bubble/' + focusedBubbleId
-    this.setState({
-      focusedBubble: this.bubbleConfig.find(b => b.id === focusedBubbleId),
-    })
-    this.socialButtonsNode.style.zIndex = 2
-    this.selectPill.style.zIndex = 0
+    window.location.hash = '#start/bubble/' + focusedBubble.id
+    this.setState({focusedBubble})
   }
 
   @autobind
@@ -240,18 +231,16 @@ export default class Bubbleverse extends React.PureComponent {
     this.setState({
       focusedBubble: null,
     })
-    this.socialButtonsNode.style.zIndex = 4
-    this.selectPill.style.zIndex = 2
   }
 
   @autobind
   openBubble(bubbleId) {
-    this.bubbleGrid.openBubble(bubbleId)
+    this.props.dispatch(setActiveBubble(bubbleId))
   }
 
   @autobind
   closeBubble() {
-    this.bubbleGrid.closeBubble()
+    this.props.dispatch(closeBubbleverse())
   }
 
   @autobind
@@ -266,11 +255,11 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   rearrangeBubbles(sourceIndex, destIndex) {
-    const {bubbleConfig} = this
-    const destBubble = bubbleConfig[destIndex]
-    const sourceBubble = bubbleConfig.splice(sourceIndex, 1)[0]
-    const newDestBubbleIndex = bubbleConfig.findIndex(b => b.id === destBubble.id)
-    bubbleConfig.splice(newDestBubbleIndex, 0, sourceBubble)
+    const {bubbles} = this.props
+    const destBubble = bubbles[destIndex]
+    const sourceBubble = bubbles.splice(sourceIndex, 1)[0]
+    const newDestBubbleIndex = bubbles.findIndex(b => b.id === destBubble.id)
+    bubbles.splice(newDestBubbleIndex, 0, sourceBubble)
 
     this.setState({
       savingNewArrangement: true,
@@ -281,10 +270,10 @@ export default class Bubbleverse extends React.PureComponent {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(bubbleConfig),
+      body: JSON.stringify(bubbles),
     }).then(() => {
+      this.props.dispatch(setBubbles(bubbles))
       this.setState({
-        bubblePods: [...bubbleConfig],
         arrangeSourceIndex: null,
         savingNewArrangement: false
       })
@@ -331,7 +320,7 @@ function fetchBubbles() {
             bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
           }
           bubble.Component = BubbleComponents[bubble.type]
-          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 200
+          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 170
         })
         resolve(latest)
       }).catch(reject)
@@ -340,13 +329,11 @@ function fetchBubbles() {
 
 }
 
-function getBubbleIdFromUrl(bubbles) {
+function getBubbleFromUrl(bubbles) {
   const {hash} = window.location
   const hashParts = hash.split('/')
   if (hashParts.length > 1 && hashParts[1] === 'bubble') {
     const bubbleId = hashParts[2]
-    if (bubbles.find(b => b.id === bubbleId)) {
-      return bubbleId
-    }
+    return bubbles.find(b => b.id === bubbleId)
   }
 }
