@@ -80,8 +80,8 @@ export const Background = styled.div`
     circle at center,
     white 0,
     ${p => p.theme.veryLight} 3%,
-    ${p => p.theme.main} 10%,
-    #2b1644 70%,
+    ${p => p.theme.main} 15%,
+    #2b1644 80%,
     #7023c7 100%
   );
   opacity: 0;

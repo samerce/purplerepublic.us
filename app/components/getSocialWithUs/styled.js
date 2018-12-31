@@ -103,11 +103,12 @@ export const SocialButtonsRoot = styled.div`
   flex: 0 0 auto;
   justify-content: center;
   align-self: center;
-  background: ${p => p.theme.veryLight};
+  background: ${p => p.theme.main};
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   box-shadow: ${p => p.theme.shadowHeavy};
-  border: 1px solid ${p => p.theme.veryDark};
+  border: 2px solid ${p => p.theme.veryLight};
+  border-bottom: none;
   transform: scale(.8);
   transform-origin: center bottom;
 
@@ -165,7 +166,7 @@ export const SocialButtonsRoot = styled.div`
       line-height: 25px;
       vertical-align: middle;
       padding: 5px 10px;
-      font-size: 14px;
+      font-size: 18px;
       font-family: annie use your telescope;
       color: white;
       background: ${p => p.theme.main};
@@ -176,7 +177,7 @@ export const SocialButtonsRoot = styled.div`
       transition: all .2s ${EASE_OUT};
       z-index: 7;
       left: 50%;
-      bottom: 100%;
+      bottom: 103%;
       pointer-events: none;
     }
     &:hover .tooltip {
@@ -188,7 +189,7 @@ export const SocialButtonsRoot = styled.div`
       width: 131px;
     }
     &.i11 .tooltip {
-      width: 110px;
+      width: 135px;
     }
     &.i8 .tooltip {
       width: 80px;

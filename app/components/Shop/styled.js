@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton, ExpandingBackground,
+  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton, ExpandingBackground, BlurbBubble, BlurbContent, BlurbButton, BlurbText,
 } from '../../global/styled'
 
 export const Root = AbsoluteFlexFillParent.extend`
@@ -124,39 +124,11 @@ export const ShopRow = Flex.extend`
   position: relative;
   width: 100%;
   margin-bottom: 15px;
-  ${'' /* opacity: 0;
-  transform: scale(1.1);
-  transition: all .3s ${EASE_OUT};
-
-  .shop-show & {
-    opacity: 1;
-    transform: none;
-    transition-duration: .5s;
-    transition-delay: ${p => (p.index * .1) + .1}s;
-  } */}
 `
 
 const RowShowDelay = .1
 
-export const IconBubble = Flex.extend`
-  flex: 0 0 200px;
-  height: 200px;
-  border-radius: 100%;
-  border: 1px solid ${p => p.theme.veryLight};
-  background: ${p => p.theme.veryDark};
-  box-shadow: ${p => p.theme.shadowHeavy};
-  z-index: 2;
-  justify-content: center;
-  align-items: center;
-
-  i {
-    font-size: 40px;
-    color: ${p => p.theme.veryLight};
-  }
-
-  opacity: 0;
-  transform: scale(0);
-  transition: all .5s ${EASE_OUT};
+export const IconBubble = BlurbBubble.extend`
   .shop-enter & {
     transform: none;
     opacity: 1;
@@ -169,23 +141,11 @@ export const IconBubble = Flex.extend`
   }
 `
 
-export const WordsRoot = Flex.extend`
-  flex-direction: column;
-  align-items: center;
+export const WordsRoot = BlurbContent.extend`
   margin: 60px 0 0 -15px;
 `
 
-export const ShopButton = Boto.extend`
-  flex: 0 0 80px;
-  width: 100%;
-  border: 2px solid ${p => p.theme.veryLight};
-  box-shadow: ${p => p.theme.shadowMedium};
-  z-index: 1;
-
-  transform: scaleX(0);
-  transform-origin: left center;
-  opacity: 0;
-  transition: all .5s ${EASE_OUT};
+export const ShopButton = BlurbButton.extend`
   .shop-enter & {
     transform: none;
     opacity: 1;
@@ -198,23 +158,7 @@ export const ShopButton = Boto.extend`
   }
 `
 
-export const ShopText = Flex.extend`
-  border-radius: 10px;
-  border: 1px solid ${p => p.theme.veryLight};
-  box-shadow: ${p => p.theme.shadowMedium};
-  background: ${p => p.theme.veryDark};
-  color: ${p => p.theme.veryLight};
-  text-align: center;
-  width: 85%;
-  margin-top: -10px;
-  font-size: 20px;
-  font-family: im fell dw pica;
-  padding: 20px;
-
-  transform: scaleY(0);
-  transform-origin: center top;
-  opacity: 0;
-  transition: all .5s ${EASE_OUT};
+export const ShopText = BlurbText.extend`
   .shop-enter & {
     opacity: 1;
     transform: none;

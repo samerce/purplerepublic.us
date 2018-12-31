@@ -7,6 +7,7 @@ export const BubbleType = makeEnum([
   'video',
   'words',
   'poetcards',
+  'business',
   // 'music',
 ])
 

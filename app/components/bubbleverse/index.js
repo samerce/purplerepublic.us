@@ -12,6 +12,7 @@ import SelectPill from '../unoSelectPill'
 
 import {
   Root, BubbleEditingButtonsRoot, CloseButton, Background, Header,
+  BubbleHeader, Title, Subtitle, Dimension,
 } from './styled'
 import {
   MaskAbsoluteFillParent,
@@ -109,6 +110,7 @@ export default class Bubbleverse extends React.PureComponent {
     const {
       mode, focusedBubble, savingNewArrangement, arrangeSourceIndex
     } = this.state
+    const {dimension, activeBubble} = this.props
     return (
       <Root className={`bubbleverse-${mode} ${this.props.className}`}>
         <Background />
@@ -137,7 +139,21 @@ export default class Bubbleverse extends React.PureComponent {
         }
 
         <Header>
-          <div>{this.props.dimension}</div>
+          <Dimension>{dimension}</Dimension>
+          <BubbleHeader>
+            <Subtitle
+              onBlur={e => onEditingChange({subtitle: e.target.value})}
+              onKeyPress={this.onInputKeyPress}
+              onChange={e => this.setState({subtitle: e.target.value})}
+              value={activeBubble && activeBubble.subtitle}
+            />
+            <Title
+              onBlur={e => onEditingChange({title: e.target.value})}
+              onKeyPress={this.onInputKeyPress}
+              onChange={e => this.setState({title: e.target.value})}
+              value={activeBubble && activeBubble.title}
+            />
+          </BubbleHeader>
         </Header>
 
         <BubbleDetails />

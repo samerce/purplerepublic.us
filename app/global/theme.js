@@ -15,6 +15,7 @@ export default {
   veryLight: purpleVeryLight,
   shadowHeavy: '2px 2px 30px rgba(0,0,0,.3)',
   shadowMedium: '2px 2px 20px rgba(0,0,0,.3)',
+  shadowLight: '2px 2px 10px rgba(0,0,0,.2)',
   borderRadiusBoto: 10,
   gradientVeryDark: `radial-gradient(
     circle at center,

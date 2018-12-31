@@ -67,5 +67,45 @@ export const Header = Flex.extend`
   font-family: playfair display;
   text-transform: uppercase;
   font-size: 36px;
-  padding: 15px 0 15px 30px;
+  position: relative;
+  align-items: center;
+`
+
+export const BubbleHeader = AbsoluteFlex.extend`
+  width: 100%;
+  flex-direction: column;
+  pointer-events: none;
+`
+
+export const Title = styled.input`
+  font-size: 30px;
+  font-family: life savers;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  pointer-events: none;
+  width: 100%;
+
+  ${screen.medium`
+    font-size: 24px;
+  `}
+
+  ${p => p.editing && `
+    pointer-events: all;
+  `}
+`
+
+export const Subtitle = Title.extend`
+  font-size: 16px;
+  opacity: .8;
+  text-transform: uppercase;
+  color: ${p => p.theme.veryLight};
+
+  ${screen.medium`
+    font-size: 14px;
+  `}
+`
+
+export const Dimension = Flex.extend`
+  padding: 0 0 0 30px;
 `

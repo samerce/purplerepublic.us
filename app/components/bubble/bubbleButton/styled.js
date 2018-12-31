@@ -19,8 +19,8 @@ export const Root = InlineBlock.extend`
   position: relative;
 
   &.bubble-focused {
-    pointer-events: none;
     transition-duration: .8s;
+    pointer-events: none;
   }
 
   &.bubble-editing {
@@ -59,14 +59,18 @@ export const ImageBubbleButton = BubbleButton.extend`
     border-color: ${p => p.theme.main};
   }
 
-  &:hover {
+  &:hover, &:active {
     transform: none;
     box-shadow: none;
   }
 
   ${Root}:hover & {
+    transform: scale(1.1);
+    box-shadow: ${p => p.theme.shadowHeavy};
+  }
+  ${Root}:active & {
     transform: scale(.9);
-    box-shadow: 1px 1px 15px rgba(0,0,0,.3);
+    box-shadow: ${p => p.theme.shadowLight};
   }
 `
 

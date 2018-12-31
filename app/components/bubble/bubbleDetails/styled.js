@@ -27,6 +27,7 @@ export const Root = Flex.extend`
   pointer-events: none;
   transition: opacity .5s, transform .7s;
   transition-timing-function: ${EASE_OUT};
+  transition-delay: 0;
   z-index: 3;
   width: 100%;
   flex: 0 0 70%;
@@ -59,48 +60,12 @@ export const ContentRoot = Flex.extend`
   `}
 `
 
-export const Header = Flex.extend`
-  width: 100%;
-  flex-direction: column;
-  padding: 0 0 20px 0;
-  flex: 0 0 auto;
-`
-
 export const Footer = Flex.extend`
   width: 100%;
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
   margin: 20px 0 20px;
-`
-
-export const Title = styled.input`
-  font-size: 30px;
-  font-family: life savers;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  pointer-events: none;
-  width: 100%;
-
-  ${screen.medium`
-    font-size: 24px;
-  `}
-
-  ${p => p.editing && `
-    pointer-events: all;
-  `}
-`
-
-export const Subtitle = Title.extend`
-  font-size: 16px;
-  opacity: .8;
-  text-transform: uppercase;
-  color: ${p => p.theme.veryLight};
-
-  ${screen.medium`
-    font-size: 14px;
-  `}
 `
 
 export const ActionsRoot = Flex.extend`
@@ -259,14 +224,15 @@ export const BubbleDeleteButton = BubbleToolButton.extend`
 `
 
 export const ComponentRoot = Flex.extend`
-  flex: 0 0 auto;
+  flex: 1 0 auto;
+  align-items: center;
 `
 
 export const NavButton = Flex.extend`
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
-  padding: 0 20px;
+  padding: 0 20px 187px;
   cursor: pointer;
   color: white;
   transition: all .5s ${EASE_OUT};

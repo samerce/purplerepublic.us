@@ -177,23 +177,6 @@ export default class BubbleDetails extends React.PureComponent {
             </BubbleOptions>
           }
 
-          <Header>
-            <Subtitle
-              editing={editing}
-              onBlur={e => onEditingChange({subtitle: e.target.value})}
-              onKeyPress={this.onInputKeyPress}
-              onChange={e => this.setState({subtitle: e.target.value})}
-              value={subtitle}
-            />
-            <Title
-              editing={editing}
-              onBlur={e => onEditingChange({title: e.target.value})}
-              onKeyPress={this.onInputKeyPress}
-              onChange={e => this.setState({title: e.target.value})}
-              value={title}
-            />
-          </Header>
-
           <ComponentRoot>
             {BubbleComponent &&
               <BubbleComponent

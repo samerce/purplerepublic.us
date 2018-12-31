@@ -97,7 +97,7 @@ export const BubbleButton = Flex.extend`
   cursor: pointer;
 
   &:hover {
-    transform: scale(.9);
+    transform: scale(1.1);
     box-shadow: 1px 1px 15px rgba(0,0,0,.3);
   }
   &:active {
@@ -241,6 +241,68 @@ export const ExpandingBackground = Flex.extend`
   border-radius: 100%;
   transform: scale(0);
   transition: all 1s ${EASE_OUT};
+`
+
+export const BlurbBubble = Flex.extend`
+  position: relative;
+  flex: 0 0 200px;
+  height: 200px;
+  border-radius: 100%;
+  border: 1px solid ${p => p.theme.veryLight};
+  background: ${p => p.theme.veryDark};
+  box-shadow: ${p => p.theme.shadowHeavy};
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  ${p => p.src? `
+    background: url('${p.src}');
+  ` : ''}
+
+  i {
+    font-size: 40px;
+    color: ${p => p.theme.veryLight};
+  }
+
+  opacity: 0;
+  transform: scale(0);
+  transition: all .5s ${EASE_OUT};
+`
+
+export const BlurbContent = Flex.extend`
+  flex-direction: column;
+  align-items: center;
+`
+
+export const BlurbButton = Boto.extend`
+  flex: 0 0 80px;
+  width: 100%;
+  border: 2px solid ${p => p.theme.veryLight};
+  box-shadow: ${p => p.theme.shadowMedium};
+  z-index: 1;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: all .5s ${EASE_OUT};
+`
+
+export const BlurbText = Flex.extend`
+  border-radius: 10px;
+  border: 1px solid ${p => p.theme.veryLight};
+  box-shadow: ${p => p.theme.shadowMedium};
+  background: ${p => p.theme.veryDark};
+  color: ${p => p.theme.veryLight};
+  text-align: center;
+  width: 85%;
+  margin-top: -10px;
+  font-size: 20px;
+  font-family: im fell dw pica;
+  padding: 20px;
+
+  transform: scaleY(0);
+  transform-origin: center top;
+  opacity: 0;
+  transition: all .5s ${EASE_OUT};
 `
 
 // ------------------------------------- old styles below
