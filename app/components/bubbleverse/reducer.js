@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable'
 import {
   BubbleverseOpen, BubbleverseClose, BubbleverseSetActiveBubble, BubbleverseSetBubbles,
-  BubbleverseGoToNextBubble, BubbleverseGoToPrevBubble
+  BubbleverseGoToNextBubble, BubbleverseGoToPrevBubble, BubbleverseToggleFullscreenBubbleGrid
 } from './actions'
 
 const initialState = fromJS({
@@ -9,6 +9,7 @@ const initialState = fromJS({
   activeBubble: null,
   bubbles: [],
   visibleBubbles: [],
+  isBubbleGridFullscreen: false,
 })
 
 export default function bubbleverse(state = initialState, action) {
@@ -32,13 +33,17 @@ export default function bubbleverse(state = initialState, action) {
           .set('dimension', dimension)
           .set('visibleBubbles', getBubblesByDimension(state, dimension))
       }
-      return state.set('activeBubble', action.nucleus)
+      return state
+        .set('activeBubble', action.nucleus)
+        .set('isBubbleGridFullscreen', false)
     case BubbleverseSetBubbles:
       return state.set('bubbles', action.bubbles)
     case BubbleverseGoToNextBubble:
       return state.set('activeBubble', getNextActiveBubble(state))
     case BubbleverseGoToPrevBubble:
       return state.set('activeBubble', getPrevActiveBubble(state))
+    case BubbleverseToggleFullscreenBubbleGrid:
+      return state.set('isBubbleGridFullscreen', !state.get('isBubbleGridFullscreen'))
     default:
       return state
   }

@@ -30,7 +30,7 @@ export const Root = Flex.extend`
   transition-delay: 0;
   z-index: 3;
   width: 100%;
-  flex: 0 0 70%;
+  flex: 1;
   justify-content: center;
   overflow-y: scroll;
   padding: 0 50px;

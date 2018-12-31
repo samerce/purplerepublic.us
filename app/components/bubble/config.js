@@ -41,9 +41,6 @@ export const BubbleButtonActionList =
   }, {})
 
 export const HeroBubbleConfig = {
-  shopArt: {
-    width: 540,
-  },
   instagram: {
     width: 540,
   },

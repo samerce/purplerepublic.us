@@ -4,6 +4,7 @@ export const BubbleverseSetActiveBubble = 'bubbleverse.setActiveBubble'
 export const BubbleverseSetBubbles = 'bubbleverse.setBubbles'
 export const BubbleverseGoToNextBubble = 'bubbleverse.goToNextBubble'
 export const BubbleverseGoToPrevBubble = 'bubbleverse.goToPrevBubble'
+export const BubbleverseToggleFullscreenBubbleGrid = 'bubbleverse.toggleFullscreenBubbleGrid'
 
 export function openBubbleverse(dimension) {
   return {
@@ -41,5 +42,11 @@ export function goToNextBubble() {
 export function goToPrevBubble() {
   return {
     type: BubbleverseGoToPrevBubble,
+  }
+}
+
+export function toggleFullscreenBubbleGrid() {
+  return {
+    type: BubbleverseToggleFullscreenBubbleGrid,
   }
 }

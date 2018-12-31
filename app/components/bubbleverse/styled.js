@@ -61,7 +61,8 @@ export const Background = ExpandingBackground.extend`
 `
 
 export const Header = Flex.extend`
-  flex: 0 0 10%;
+  flex: 0 0 auto;
+  padding: 15px 0 20px;
   color: ${p => p.theme.veryLight};
   z-index: 2;
   font-family: playfair display;

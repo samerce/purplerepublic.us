@@ -4,23 +4,57 @@ import {
   EASE_SINE, EASE_OUT, EASE_IN, EASE,
 } from '../../global/constants'
 import {
-  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
+  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex, Boto,
 } from '../../global/styled'
 
+const fullscreenGrid = keyframes`
+  0% {
+    height: ${window.innerHeight * .2}px;
+  }
+  100% {
+    height: 100%;
+  }
+`
+
 export const Root = Flex.extend`
-  align-items: flex-start;
   pointer-events: all;
-  padding: 0 0 20px;
-  align-content: flex-start;
   transition: all 1s ${EASE_OUT};
   z-index: 3;
-  flex: 0 0 20%;
-  overflow-x: scroll;
+  flex: 0 0 auto;
+  position: relative;
+  padding: 0 0 40px;
 
   ${p => p.hidden? `
     opacity: 0;
     pointer-events: none;
   ` : ''}
+
+  &.showAll {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    align-items: center;
+    background-attachment: fixed;
+    z-index: 4;
+    animation: ${fullscreenGrid};
+    animation-duration: .5s;
+    animation-timing-function: ${EASE_OUT};
+    animation-fill-mode: both;
+    background: ${p => p.theme.gradientVeryDark};
+    box-shadow: ${p => p.theme.shadowHeavy};
+  }
+`
+
+export const ScrollContainer = Flex.extend`
+  overflow-x: scroll;
+  flex: 1;
+  align-content: flex-start;
+  align-items: flex-start;
+  transition: all .3s ${EASE_OUT};
+
+  .showAll & {
+    flex-wrap: wrap;
+  }
 `
 
 export const BubbleGridItem = styled.div`
@@ -40,6 +74,10 @@ export const BubbleGridItem = styled.div`
     border-top: none;
     border-bottom-left-radius: 100%;
     border-bottom-right-radius: 100%;
+  }
+
+  .showAll &, .showAll &.active {
+    border: none;
   }
 
   &.gapItem {
@@ -94,5 +132,37 @@ export const ArrangeIcon = Icon.extend`
   ${ArrangeButton}:hover & {
     background: white;
     color: ${p => p.theme.main};
+  }
+`
+
+export const ShowAllButton = Boto.extend`
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    ${p => p.theme.veryDark} 40%,
+    ${p => p.theme.veryDark} 100%
+  );
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  z-index: 10;
+  border-radius: 0;
+  transform-origin: center bottom;
+
+  &:hover {
+    border-left: 1px solid ${p => p.theme.veryDark};
+    box-shadow: ${p => p.theme.shadowHeavy};
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      ${p => p.theme.veryDark} 40%,
+      ${p => p.theme.veryDark} 100%
+    );
+    color: ${p => p.theme.veryLight};
+    transform: scale(1.2);
   }
 `
