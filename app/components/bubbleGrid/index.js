@@ -33,8 +33,7 @@ export default class BubbleGrid extends React.PureComponent {
     return (
       <Root
         id='bubbleGrid'
-        className={cx({showAll: isBubbleGridFullscreen})}
-        hidden={!dimension}>
+        className={cx({showAll: isBubbleGridFullscreen})}>
         <ScrollContainer>
           <BubbleGridItem className='gapItem' />
 

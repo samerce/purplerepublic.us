@@ -1,4 +1,4 @@
-import {darken, lighten, transparentize as trans} from 'polished'
+import {darken, lighten, transparentize as alpha} from 'polished'
 
 // #512287 #334ac7 #238386 #1b316b
 const main = '#1b316b'
@@ -13,6 +13,7 @@ export default {
   slightlyLight: purpleSlightlyLight,
   veryDark: purpleVeryDark,
   veryLight: purpleVeryLight,
+  shadowVeryHeavy: '3px 3px 30px ' + alpha(.5, purpleVeryDark),
   shadowHeavy: '2px 2px 30px rgba(0,0,0,.3)',
   shadowMedium: '2px 2px 20px rgba(0,0,0,.3)',
   shadowLight: '2px 2px 10px rgba(0,0,0,.2)',

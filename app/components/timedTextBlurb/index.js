@@ -1,11 +1,13 @@
 import React from 'react'
 
 import {
-  GratitudeWheel, GratitudeWheelRoot, GratitudeText, Timer,
+  GratitudeWheelRoot, GratitudeText, Timer,
 } from './styled'
 
 import autobind from 'autobind-decorator'
+import withTransitions from '../hocs/withTransitions'
 
+@withTransitions({prefix: 'timedBlurb', enterDuration: 100, exitDuration: 100})
 export default class TimedTextBlurb extends React.PureComponent {
 
   static defaultProps = {
@@ -16,43 +18,47 @@ export default class TimedTextBlurb extends React.PureComponent {
     super(props)
     this.state = {
       activeIndex: -1,
+      timerActive: false,
     }
   }
 
   componentDidMount() {
     setTimeout(() => this.setState({activeIndex: 0}))
     this.ticker = setInterval(() => {
-      const {onUpdateIndex, items} = this.props
+      const {onUpdateIndex, items, hide, show} = this.props
       const newIndex = (this.state.activeIndex + 1) % items.length
-      this.setState({activeIndex: newIndex})
-      onUpdateIndex(newIndex)
+
+      hide(() => {
+        this.setState({activeIndex: newIndex})
+        onUpdateIndex(newIndex)
+        show()
+      })
+
     }, this.props.duration)
+    this.props.show()
   }
 
   componentWillUnmount() {
     clearInterval(this.ticker)
+    clearTimer(this.timeout)
   }
 
   render() {
+    const {timerActive, activeIndex} = this.state
+    const {items, duration, className} = this.props
+    const item = activeIndex >= 0 && items[activeIndex]
     return (
-      <GratitudeWheelRoot className={this.props.className}>
-        {this.props.items.map(this.renderItem)}
-      </GratitudeWheelRoot>
-    )
-  }
+      <GratitudeWheelRoot className={className}>
+        {item &&
+          <GratitudeText>
+            <div dangerouslySetInnerHTML={{__html: item.text}} />
+          </GratitudeText>
+        }
 
-  @autobind
-  renderItem(item, index) {
-    const {activeIndex} = this.state
-    return (
-      <GratitudeWheel
-        key={index}
-        className={activeIndex === index && 'active'}>
-        <GratitudeText>
-          <div dangerouslySetInnerHTML={{__html: item.text}} />
-        </GratitudeText>
-        <Timer duration={this.props.duration} />
-      </GratitudeWheel>
+        <Timer
+          duration={duration}
+        />
+      </GratitudeWheelRoot>
     )
   }
 

@@ -15,7 +15,7 @@ import {
   BubbleHeader, Title, Subtitle, Dimension,
 } from './styled'
 import {
-  MaskAbsoluteFillParent,
+  MaskAbsoluteFillParent, ExpandingBackgroundSize,
 } from '../../global/styled'
 
 import withTransitions from '../hocs/withTransitions'
@@ -34,9 +34,10 @@ import {
 
 import latest from '../../../latest'
 
+const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
+const HalfBackgroundHeight = -(ExpandingBackgroundSize / 2)
 const Mode = makeEnum([
-  'showGrid',
-  'showBubble',
+  'visible',
   'buildBubble',
   'arrange',
 ])
@@ -45,6 +46,7 @@ const Mode = makeEnum([
   dimension: d.get('bubbleverse').get('dimension'),
   activeBubble: d.get('bubbleverse').get('activeBubble'),
   bubbles: d.get('bubbleverse').get('bubbles'),
+  mouseLocation: d.get('bubbleverse').get('mouseLocation'),
 }))
 @withTransitions({prefix: 'bubbleverse'})
 export default class Bubbleverse extends React.PureComponent {
@@ -57,10 +59,10 @@ export default class Bubbleverse extends React.PureComponent {
 
     this.timeouts = []
     this.state = {
-      mode: Mode.enter,
+      mode: Mode.visible,
       arrangeSourceIndex: null,
       savingNewArrangement: false,
-      focusedBubble: null,
+      backgroundStyle: {},
     }
   }
 
@@ -89,7 +91,7 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   startUrlWatcher() {
     this.urlWatcher = setInterval(() => {
-      const {focusedBubble} = this.state
+      const {focusedBubble} = this
       const bubbleFromUrl = getBubbleFromUrl(this.props.bubbles)
       if (bubbleFromUrl && (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id)) {
         this.openBubble(bubbleFromUrl)
@@ -108,12 +110,13 @@ export default class Bubbleverse extends React.PureComponent {
 
   render() {
     const {
-      mode, focusedBubble, savingNewArrangement, arrangeSourceIndex
+      mode, savingNewArrangement, arrangeSourceIndex,
+      backgroundStyle,
     } = this.state
-    const {dimension, activeBubble} = this.props
+    const {dimension, activeBubble, className} = this.props
     return (
-      <Root className={`bubbleverse-${mode} ${this.props.className}`}>
-        <Background />
+      <Root className={`bubbleverse-${mode} ${className}`}>
+        <Background style={backgroundStyle} />
 
         <CloseButton onClick={this.onClickClose}>
           <i className='fa fa-close' />
@@ -186,7 +189,7 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   toggleArrangeMode() {
     this.setState({
-      mode: (this.state.mode === Mode.arrange)? Mode.showGrid : Mode.arrange,
+      mode: (this.state.mode === Mode.arrange)? Mode.visible : Mode.arrange,
       arrangeSourceIndex: null,
     })
   }
@@ -200,7 +203,7 @@ export default class Bubbleverse extends React.PureComponent {
   openBubbleBuilder(shouldEditFocusedBubble) {
     let bubbleToEdit, index
     if (shouldEditFocusedBubble) {
-      bubbleToEdit = this.state.focusedBubble
+      bubbleToEdit = this.focusedBubble
       index = this.props.bubbles.findIndex(b => b.id === bubbleToEdit.id)
     }
     this.setState({
@@ -217,7 +220,7 @@ export default class Bubbleverse extends React.PureComponent {
       this.props.dispatch(setBubbles(newBubbles))
     }
     this.setState({
-      mode: Mode.showGrid,
+      mode: Mode.visible,
     }, () => setTimeout(() => {
       bubbleId && this.openBubble(bubbleId)
     }, 250))
@@ -231,8 +234,19 @@ export default class Bubbleverse extends React.PureComponent {
       eventLabel: focusedBubble.id,
     })
 
+    // const backgroundStyle = {}
+    // const {mouseLocation} = this.props
+    // if (mouseLocation) {
+    //   backgroundStyle.left = HalfBackgroundWidth + mouseLocation.x
+    //   backgroundStyle.top = HalfBackgroundHeight + mouseLocation.y
+    //   console.log(backgroundStyle, HalfBackgroundWidth, HalfBackgroundHeight, mouseLocation)
+    // }
+
     window.location.hash = '#start/bubble/' + focusedBubble.id
-    this.setState({focusedBubble})
+    this.focusedBubble = focusedBubble
+    // this.setState({
+    //   backgroundStyle,
+    // })
   }
 
   @autobind
@@ -240,13 +254,11 @@ export default class Bubbleverse extends React.PureComponent {
     ga('send', 'event', {
       eventCategory: 'bubbles',
       eventAction: 'bubble closed',
-      eventLabel: this.state.focusedBubble.id,
+      eventLabel: this.focusedBubble.id,
     })
 
     window.location.hash = '#start'
-    this.setState({
-      focusedBubble: null,
-    })
+    this.focusedBubble = null
   }
 
   @autobind
@@ -336,7 +348,7 @@ function fetchBubbles() {
             bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
           }
           bubble.Component = BubbleComponents[bubble.type]
-          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 170
+          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 160
         })
         resolve(latest)
       }).catch(reject)

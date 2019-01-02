@@ -10,6 +10,7 @@ const initialState = fromJS({
   bubbles: [],
   visibleBubbles: [],
   isBubbleGridFullscreen: false,
+  mouseLocation: null,
 })
 
 export default function bubbleverse(state = initialState, action) {
@@ -18,6 +19,7 @@ export default function bubbleverse(state = initialState, action) {
       const {dimension} = action
       const visibleBubbles = getBubblesByDimension(state, dimension)
       return state
+        .set('mouseLocation', action.mouseLocation)
         .set('visibleBubbles', visibleBubbles)
         .set('dimension', dimension)
         .set('activeBubble', visibleBubbles[0])

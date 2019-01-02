@@ -5,7 +5,7 @@ import {
 } from '../../global/constants'
 import {
   screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
-  CloseButton as aCloseButton, ExpandingBackground,
+  CloseButton as aCloseButton, ExpandingBackground, ExpandingBackgroundSize,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -13,17 +13,11 @@ export const Root = Flex.extend`
   width: 100%;
   pointer-events: none;
   z-index: 3;
-  opacity: 0;
-  transition: opacity .5s ${EASE_OUT};
   flex-direction: column;
+  position: relative;
 
   &.bubbleverse-show, &.bubbleverse-enter, &.bubbleverse-arrange {
-    opacity: 1;
     pointer-events: all;
-    transition: none;
-  }
-  &.bubbleverse-willExit, &.bubbleverse-exit {
-    opacity: 1;
   }
   &.bubbleverse-hide {
     visibility: hidden;
@@ -42,7 +36,7 @@ export const CloseButton = aCloseButton.extend`
   top: 15px;
   transform: scale(0);
   opacity: 0;
-  z-index: 4;
+  z-index: 6;
 
   .bubbleverse-show &, .bubbleverse-enter & {
     opacity: 1;
@@ -51,12 +45,17 @@ export const CloseButton = aCloseButton.extend`
 `
 
 export const Background = ExpandingBackground.extend`
+  top: -${(ExpandingBackgroundSize - window.innerHeight) / 2}px;
+  left: 0;
   .bubbleverse-show &, .bubbleverse-enter & {
+    opacity: 1;
     transform: scale(2);
     transition-duration: 2s;
+    transition-property: transform, opacity;
   }
   .bubbleverse-exit &, .bubbleverse-willExit & {
     opacity: 0;
+    transition-delay: .1s;
   }
 `
 
@@ -64,12 +63,30 @@ export const Header = Flex.extend`
   flex: 0 0 auto;
   padding: 15px 0 20px;
   color: ${p => p.theme.veryLight};
-  z-index: 2;
+  z-index: 5;
   font-family: playfair display;
   text-transform: uppercase;
   font-size: 36px;
   position: relative;
   align-items: center;
+  border-bottom: 1px solid ${p => p.theme.veryLight};
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
+
+  opacity: 0;
+  transform: translate(0, -5px);
+  transition: all .5s ${EASE_OUT};
+  .bubbleverse-show &, .bubbleverse-enter & {
+    opacity: 1;
+    transform: none;
+    transition-delay: .3s;
+    transition-duration: 1s;
+  }
+  .bubbleverse-exit &, .bubbleverse-willExit & {
+    transform: translate(0, 5px);
+  }
+  .bubbleverse-hide & {
+    ${'' /* visibility: hidden; */}
+  }
 `
 
 export const BubbleHeader = AbsoluteFlex.extend`

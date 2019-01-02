@@ -13,31 +13,15 @@ import {
 
 
 export const GratitudeWheelRoot = Flex.extend`
-  flex: 0 0 70%;
-  width: 100%;
   position: relative;
-  margin-left: -3px;
-`
-
-export const GratitudeWheel = AbsoluteFlexFillParent.extend`
-  top: 0;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
+  flex: 0 0 100%;
   overflow: auto;
-
-  &.active {
-    opacity: 1;
-    pointer-events: all;
-  }
 `
 
 export const GratitudeText = Flex.extend`
   align-items: center;
   font-size: 20px;
-  color: white;
   text-align: center;
-  transform: translateX(100px);
   opacity: 0;
   transition: all .5s ${EASE_OUT};
   line-height: 24px;
@@ -47,9 +31,11 @@ export const GratitudeText = Flex.extend`
   justify-content: center;
   height: 100%;
 
-  .active & {
-    transform: none;
+  .timedBlurb-enter &, .timedBlurb-show & {
     opacity: 1;
+  }
+  .timedBlurb-exit &, .timedBlurb-willExit & {
+    opacity: 0;
   }
   .scrollable & {
     overflow: auto;
@@ -92,8 +78,11 @@ export const Timer = AbsoluteFlex.extend`
     transform-origin: left center;
   }
 
-  .active & {
+  .timedBlurb-show &, .timedBlurb-enter & {
     transform: scaleX(0);
     transition: all ${p => p.duration}ms linear;
+  }
+  .timedBlurb-exit &, .timedBlurb-willExit & {
+    transition: all .1s ${EASE_OUT};
   }
 `

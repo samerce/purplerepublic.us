@@ -110,7 +110,7 @@ export const Boto = Flex.extend`
   font-family: alice; /*alice, annie use your telescope;*/
   text-align: center;
   cursor: pointer;
-  transition: all .5s ${EASE_OUT};
+  transition: all .3s ${EASE_OUT};
   align-items: center;
   justify-content: center;
   user-select: none;
@@ -303,6 +303,37 @@ export const BlurbText = Flex.extend`
   transform-origin: center top;
   opacity: 0;
   transition: all .5s ${EASE_OUT};
+`
+
+export const WidgetRoot = FlexColumn.extend`
+  z-index: 0;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 50%;
+  padding: 0 10px 80px;
+  position: relative;
+`
+
+export const BeggingButton = Boto.extend`
+  flex: 0 0 50px;
+  width: 200px;
+  font-size: 20px;
+  background: ${p => p.theme.main};
+  border-radius: 10px;
+  border: 2px solid ${p => p.theme.veryLight};
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-4deg);
+  margin: 15px 0 0;
+  box-shadow: ${p => p.theme.shadowHeavy};
+
+  ${screen.medium`
+    font-size: 16px;
+    padding: 0;
+  `}
+  ${screen.small`
+    font-size: 14px;
+  `}
 `
 
 // ------------------------------------- old styles below

@@ -67,6 +67,7 @@ export const BuildingOption = FlexColumn.extend`
   color: white;
   cursor: pointer;
   transition: all .3s ${EASE_OUT};
+  max-width: 300px;
 
   &:hover {
     background: ${p => p.theme.veryLight};
@@ -122,17 +123,17 @@ export const PreviousFeatures = FeatureText.extend`
   align-items: center;
   text-align: center;
   font-size: 24px;
+  color: ${p => p.theme.veryLight};
+
+  ${BuildingOption}:hover & {
+    color: ${p => p.theme.veryDark};
+  }
 
   i {
     width: 100%;
     font-size: 30px;
-    color: ${p => p.theme.veryLight};
-    padding: 5px 0;
+    padding: 10px 0;
     transition: all .3s ${EASE_OUT};
-
-    ${BuildingOption}:hover & {
-      color: ${p => p.theme.veryDark};
-    }
   }
 `
 

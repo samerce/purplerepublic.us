@@ -14,6 +14,7 @@ import autobind from 'autobind-decorator'
 import {BubbleButtonActions} from '../config'
 import ClipboardJS from 'clipboard'
 import {connect} from 'react-redux'
+import withTransitions from '../../hocs/withTransitions'
 
 import {onClickBubbleAction} from '../redux/actions'
 import {
@@ -82,7 +83,7 @@ export default class BubbleDetails extends React.PureComponent {
 
   @autobind
   close() {
-    this.setState({visible: false, bubbleOptionsVisible: false})
+    // this.setState({visible: false, bubbleOptionsVisible: false})
     this.closeTimer = setTimeout(() => this.setState({nucleus: {}}), 700)
     const {bubbleComponentRef} = this
     bubbleComponentRef && bubbleComponentRef.onClose &&
@@ -106,10 +107,10 @@ export default class BubbleDetails extends React.PureComponent {
   render() {
     const {
       title, subtitle, idCopied, isDeleting, nucleus,
-      visible, bubbleOptionsVisible,
+      bubbleOptionsVisible, visible,
     } = this.state
     const {
-      className, editing, onEditingChange,
+      editing, onEditingChange,
     } = this.props
     const {
       id,
@@ -125,7 +126,7 @@ export default class BubbleDetails extends React.PureComponent {
     } = nucleus
 
     return (
-      <Root visible={visible} editing={editing}>
+      <Root editing={editing}>
         {visible &&
           <Helmet>
             <meta property='og:type' content='article' />

@@ -8,7 +8,9 @@ import {
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
-import {SRC_URL} from '../../global/constants'
+import {
+  SRC_URL, YOUTUBE_URL, INSTAGRAM_URL, MEDIUM_URL,
+} from '../../global/constants'
 
 const ICON_URL = SRC_URL + 'icons/'
 
@@ -26,7 +28,8 @@ export default class GetSocialWithUs extends React.Component {
     return (
       <Root id='socialButtonsRoot' className={dimension? 'hidden' : ''}>
         <SocialButtonsRoot>
-          <a href='https://www.instagram.com/expressyourmess' target='_blank' onClick={this.onClick.bind(this, 'instagram')}>
+          <a href={INSTAGRAM_URL} target='_blank'
+            onClick={this.onClick.bind(this, 'instagram')}>
             <SocialIcon className='fa fa-instagram i3' />
             <div className='tooltip'>instagram</div>
           </a>
@@ -38,11 +41,13 @@ export default class GetSocialWithUs extends React.Component {
             <SocialIcon className='fa fa-facebook-square i1' />
             <div className='tooltip'>facebook</div>
           </a>
-          <a href='https://www.medium.com/the-purple-republic' target='_blank' onClick={this.onClick.bind(this, 'medium')}>
+          <a href={MEDIUM_URL} target='_blank'
+            onClick={this.onClick.bind(this, 'medium')}>
             <SocialIcon className='fa fa-medium i6' />
             <div className='tooltip'>medium</div>
           </a>
-          <a href='https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw' target='_blank' onClick={this.onClick.bind(this, 'youtube')}>
+          <a href={YOUTUBE_URL} target='_blank'
+            onClick={this.onClick.bind(this, 'youtube')}>
             <SocialIcon className='fa fa-youtube-square i5' />
             <div className='tooltip'>youtube</div>
           </a>

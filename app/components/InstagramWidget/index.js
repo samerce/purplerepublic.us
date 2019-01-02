@@ -3,8 +3,8 @@ import TimedTextBlurb from '../timedTextBlurb'
 import {ImageBubbleButton} from '../bubble/bubbleButton/styled'
 
 import {
-  InstagramRoot as Root, BeggingButton,
-} from '../bubble/hero/styled'
+  Root, Image, CaptionRoot, ImageHeight, Button, Row,
+} from './styled'
 
 import {
   setActiveInstagramPostIndex, setInstagramPosts
@@ -13,6 +13,8 @@ import {openInNewTab} from '../../utils/nav'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+
+import {INSTAGRAM_URL} from '../../global/constants'
 
 @connect(d => ({
   activePostIndex: d.get('instagramBubble').get('activePostIndex'),
@@ -24,37 +26,40 @@ export default class InstagramHero extends React.PureComponent {
     fetch('/instagram.posts.recent')
     .then((responseRaw) => responseRaw.json().then(response => {
       this.props.dispatch(setInstagramPosts(response.data.map(p => ({
-        image: p.images.low_resolution.url,
+        image: p.images.low_resolution,
         text: p.caption? p.caption.text : '#expressyourmess',
       }))))
     }))
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   return nextProps.posts !== this.props.posts
-  // }
-
   render() {
     const {
       activePostIndex, posts,
     } = this.props
+    const {image} = posts.length > 0 ? posts[activePostIndex] : {}
     return (
       <Root>
-        <ImageBubbleButton
-          size={200}
-          src={posts.length > 0 &&
-            posts[activePostIndex].image
-          }>
-        </ImageBubbleButton>
-        <TimedTextBlurb
-          className='scrollable leftSide'
-          items={this.props.posts}
-          duration={10000}
-          onUpdateIndex={this.onUpdateIndex}
-        />
-        <BeggingButton onClick={this.onClickButton}>
+        <Row>
+          <Image
+            onClick={this.openInstagram}
+            height={image? (image.height / image.width) * ImageHeight : 0}
+            src={image? image.url : ''}>
+          </Image>
+
+          <CaptionRoot>
+            <i className='fa fa-instagram' />
+            <TimedTextBlurb
+              className='scrollable leftSide'
+              items={this.props.posts}
+              duration={10000}
+              onUpdateIndex={this.onUpdateIndex}
+            />
+          </CaptionRoot>
+        </Row>
+
+        <Button onClick={this.openInstagram}>
           <div>view instagram</div>
-        </BeggingButton>
+        </Button>
       </Root>
     )
   }
@@ -65,8 +70,8 @@ export default class InstagramHero extends React.PureComponent {
   }
 
   @autobind
-  onClickButton() {
-    openInNewTab('https://www.instagram.com/expressyourmess')
+  openInstagram() {
+    openInNewTab(INSTAGRAM_URL)
   }
 
 }

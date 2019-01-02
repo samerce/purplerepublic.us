@@ -6,9 +6,10 @@ export const BubbleverseGoToNextBubble = 'bubbleverse.goToNextBubble'
 export const BubbleverseGoToPrevBubble = 'bubbleverse.goToPrevBubble'
 export const BubbleverseToggleFullscreenBubbleGrid = 'bubbleverse.toggleFullscreenBubbleGrid'
 
-export function openBubbleverse(dimension) {
+export function openBubbleverse(dimension, mouseLocation) {
   return {
     dimension,
+    mouseLocation,
     type: BubbleverseOpen,
   }
 }

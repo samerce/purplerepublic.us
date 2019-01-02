@@ -5,12 +5,6 @@ import {
   Flex
 } from '../../global/styled'
 
-injectGlobal`
-  .latest-instagram, .latest-patreon {
-    flex: 1 0 auto;
-  }
-`
-
 export const Root = Flex.extend`
   flex: 0 0 100%;
   margin: 40px 0 0;

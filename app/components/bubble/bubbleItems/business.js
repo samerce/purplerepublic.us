@@ -22,7 +22,7 @@ export default class MindfulBusiness extends React.Component {
 
           {WildOptions.map(this.renderWildOption)}
         </SectionRoot>
-        
+
         <SectionRoot>
           <SectionHeader>
             <hr />
@@ -129,10 +129,11 @@ var BuildingOptions = [
     includesFeaturesFrom: 'gallery',
     features: [
       'performance venue',
-      'cafe/bar',
+      'cafe',
       'art studio',
       'classrooms',
       'restaurant',
+      'bar',
     ]
   },
   {
@@ -145,6 +146,7 @@ var BuildingOptions = [
       'nonprofit programs',
       'leadership training',
       'experimental education',
+      'makerspace',
     ]
   }
 ]

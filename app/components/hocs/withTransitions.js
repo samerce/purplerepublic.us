@@ -30,45 +30,44 @@ function withTransitions(args) { return Component => {
     render() {
       const {mode} = this.state
       const {prefix} = this.args
+      const {className} = this.props
       return (
         <Component
-          className={`${prefix}-${mode}`}
+          {...this.props}
           show={this.show}
           hide={this.hide}
-          {...this.props}
+          className={`${prefix}-${mode} ${className? className : ''}`}
         />
       )
     }
 
     @autobind
-    show() {
+    show(callback) {
       const {willEnterDuration = 1, enterDuration = 500} = this.args
       this.setState({mode: Mode.willEnter})
-      if (willEnterDuration) {
-        this.timeouts.push(
-          setTimeout(() => this.setState({mode: Mode.enter}), willEnterDuration)
-        )
-      } else {
-        this.setState({mode: Mode.enter})
-      }
       this.timeouts.push(
-        setTimeout(() => this.setState({mode: Mode.show}), willEnterDuration + enterDuration)
+        setTimeout(() => this.setState({mode: Mode.enter}), willEnterDuration)
+      )
+      this.timeouts.push(
+        setTimeout(() => {
+          this.setState({mode: Mode.show})
+          callback && callback()
+        }, willEnterDuration + enterDuration)
       )
     }
 
     @autobind
-    hide() {
+    hide(callback) {
       const {willExitDuration = 1, exitDuration = 500} = this.args
       this.setState({mode: Mode.willExit})
-      if (willExitDuration) {
-        this.timeouts.push(
-          setTimeout(() => this.setState({mode: Mode.exit}), willExitDuration)
-        )
-      } else {
-        this.setState({mode: Mode.exit})
-      }
       this.timeouts.push(
-        setTimeout(() => this.setState({mode: Mode.hide}), willExitDuration + exitDuration)
+        setTimeout(() => this.setState({mode: Mode.exit}), willExitDuration)
+      )
+      this.timeouts.push(
+        setTimeout(() => {
+          this.setState({mode: Mode.hide})
+          callback && callback()
+        }, willExitDuration + exitDuration)
       )
     }
   }

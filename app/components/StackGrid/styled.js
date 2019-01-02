@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex
+  Flex, Boto,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -63,20 +63,21 @@ export const CirclePat = Circle.extend`
   transform: translate(0, -25px);
 `
 
-export const Title = Flex.extend`
+export const Title = Boto.extend`
   color: white;
   font-size: 20px;
   font-family: alice;
   z-index: 2;
-  text-shadow: 1px 1px ${p => p.theme.veryDark};
   user-select: none;
-  background: ${p => alpha(.3, p.theme.veryDark)};
   border: 2px solid ${p => p.theme.veryLight};
   border-radius: 30px;
   padding: 5px 20px;
   box-shadow: ${p => p.theme.shadowHeavy};
   margin: 25px 0 0;
-  ${'' /* position: absolute;
-  top: 80%;
-  transform: translate(0, -50%); */}
+
+  ${StackRoot}:hover & {
+    background: ${p => p.theme.veryLight};
+    color: ${p => p.theme.veryDark};
+    border-color: ${p => p.theme.veryDark};
+  }
 `

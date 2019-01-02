@@ -47,7 +47,7 @@ export default class StackGrid extends React.Component {
   renderStack(s, i) {
     const {circleOffsets} = this
     return (
-      <StackRoot key={i} onClick={() => this.onClickStack(i)}>
+      <StackRoot key={i} onClick={(e) => this.onClickStack(i, e)}>
         <CircleRoot rotate={circleOffsets[i]}>
           <CircleAmy
             src={getButtonImageUrl(s.previewImages[0])}
@@ -66,9 +66,11 @@ export default class StackGrid extends React.Component {
   }
 
   @autobind
-  onClickStack(i) {
-    const dimension = DimensionTypes[i]
-    this.props.dispatch(openBubbleverse(dimension))
+  onClickStack(i, event) {
+    this.props.dispatch(openBubbleverse(DimensionTypes[i],{
+      x: event.clientX,
+      y: event.clientY,
+    }))
   }
 
 }

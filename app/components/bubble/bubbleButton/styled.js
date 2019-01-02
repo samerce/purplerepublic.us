@@ -51,12 +51,13 @@ export const ImageBubbleButton = BubbleButton.extend`
   width: 150px;
   height: 150px;
 
-  &.bubble-focused, &.bubble-editing {
-    box-shadow: none;
-    transform: translate(0, 0) scale(.25);
+  .active & {
+    border: 1px solid ${p => p.theme.slightlyDark};
+    box-shadow:
+      inset 2px 2px 20px ${p => alpha(.5, p.theme.veryDark)},
+      inset -2px -2px 20px ${p => alpha(.5, p.theme.veryDark)};
     cursor: default;
-    transition: all .7s ${EASE_OUT};
-    border-color: ${p => p.theme.main};
+    pointer-events: none;
   }
 
   &:hover, &:active {

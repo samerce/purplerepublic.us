@@ -24,10 +24,6 @@ export const Mask = MaskAbsoluteFillParent.extend`
 `
 
 export const Root = Flex.extend`
-  pointer-events: none;
-  transition: opacity .5s, transform .7s;
-  transition-timing-function: ${EASE_OUT};
-  transition-delay: 0;
   z-index: 3;
   width: 100%;
   flex: 1;
@@ -39,12 +35,17 @@ export const Root = Flex.extend`
     transform: none;
   `}
 
-  ${p => (p.visible || p.editing) && `
+  opacity: 0;
+  ${'' /* transform: scale(.99); */}
+  pointer-events: none;
+  transition: all .5s ${EASE_OUT};
+  .bubbleverse-show &, .bubbleverse-enter & {
+    ${'' /* transform: none; */}
     opacity: 1;
-    transform: none;
     pointer-events: all;
-    transition: all ${RevealDuration}s ${EASE_OUT} .2s;
-  `}
+    transition-duration: 1s;
+    transition-delay: .2s;
+  }
 `
 const HeaderTop = 25;
 export const ContentRoot = Flex.extend`

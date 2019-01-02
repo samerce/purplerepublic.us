@@ -18,16 +18,11 @@ const fullscreenGrid = keyframes`
 
 export const Root = Flex.extend`
   pointer-events: all;
-  transition: all 1s ${EASE_OUT};
-  z-index: 3;
+  z-index: 7;
   flex: 0 0 auto;
   position: relative;
   padding: 0 0 40px;
-
-  ${p => p.hidden? `
-    opacity: 0;
-    pointer-events: none;
-  ` : ''}
+  box-shadow: -3px -3px 30px ${p => alpha(.5, p.theme.veryDark)};
 
   &.showAll {
     position: absolute;
@@ -35,13 +30,24 @@ export const Root = Flex.extend`
     width: 100%;
     align-items: center;
     background-attachment: fixed;
-    z-index: 4;
     animation: ${fullscreenGrid};
     animation-duration: .5s;
     animation-timing-function: ${EASE_OUT};
     animation-fill-mode: both;
     background: ${p => p.theme.gradientVeryDark};
-    box-shadow: ${p => p.theme.shadowHeavy};
+  }
+
+  transform: translate(0, 10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .1s, transform .5s;
+  transition-timing-function: ${EASE_OUT};
+  .bubbleverse-show &, .bubbleverse-enter & {
+    opacity: 1;
+    transform: none;
+    pointer-events: all;
+    transition-delay: .2s;
+    transition-duration: 1s;
   }
 `
 
@@ -51,33 +57,39 @@ export const ScrollContainer = Flex.extend`
   align-content: flex-start;
   align-items: flex-start;
   transition: all .3s ${EASE_OUT};
+  border-top: 1px solid ${p => p.theme.veryLight};
+  padding: 0 0 6px;
 
   .showAll & {
     flex-wrap: wrap;
+    border: none;
   }
 `
 
-export const BubbleGridItem = styled.div`
+export const BubbleGridItem = Flex.extend`
   position: relative;
   pointer-events: none;
   height: ${p => p.size}px;
   flex: 0 0 ${p => p.size}px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid ${p => p.theme.veryLight};
-  padding: 0 5px;
-  transition: all .3s ${EASE_OUT};
+  margin: 0 5px;
+  transition: all .5s ${EASE_OUT};
+  border-bottom-right-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border: none;
 
   &.active {
-    border: 1px solid ${p => p.theme.veryLight};
-    border-top: none;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
+    background: ${p => p.theme.veryLight};
+    box-shadow:
+      0 0 10px ${p => p.theme.veryLight},
+      0 0 10px ${p => p.theme.veryLight};
+
   }
 
   .showAll &, .showAll &.active {
-    border: none;
+    border-radius: 100%;
+    pointer-events: none;
   }
 
   &.gapItem {
@@ -87,13 +99,6 @@ export const BubbleGridItem = styled.div`
   ${p => p.heroConfig && `
     flex: 0 0 ${p.heroConfig.width}px;
     justify-content: ${p.heroConfig.leftSide? 'flex-end' : 'initial'};
-  `}
-
-  ${p => p.hidden && `
-    flex: 0 0 0;
-    overflow: hidden;
-    opacity: 0;
-    padding: 0;
   `}
 `
 
@@ -143,8 +148,7 @@ export const ShowAllButton = Boto.extend`
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    ${p => p.theme.veryDark} 40%,
-    ${p => p.theme.veryDark} 100%
+    ${p => p.theme.slightlyDark} 100%
   );
   align-items: center;
   justify-content: center;
@@ -159,8 +163,7 @@ export const ShowAllButton = Boto.extend`
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      ${p => p.theme.veryDark} 40%,
-      ${p => p.theme.veryDark} 100%
+      ${p => p.theme.slightlyDark} 100%
     );
     color: ${p => p.theme.veryLight};
     transform: scale(1.2);

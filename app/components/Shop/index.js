@@ -56,7 +56,7 @@ var ShopRows = [
     iconId: 'gift',
     buttonText: 'poetcards',
     shopText: 'don\'t let the written word die. get some of our original art poetcards and send some wit and love to your dearest.',
-    onClick: () => {/* open poetcard ordering */}
+    onClick: () => window.location = '/#start/bubble/buy-poetcards'
   },
   {
     iconId: 'book',
