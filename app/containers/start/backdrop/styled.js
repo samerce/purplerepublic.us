@@ -73,8 +73,8 @@ export const Foreground = styled.img`
 `
 
 export const Background = styled.div`
-  height: ${window.innerWidth}px;
-  width: ${window.innerWidth}px;
+  height: ${p => p.size}px;
+  width: ${p => p.size}px;
   border-radius: 100%;
   background: radial-gradient(
     circle at center,

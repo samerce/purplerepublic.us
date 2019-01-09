@@ -16,6 +16,8 @@ const ICON_URL = SRC_URL + 'icons/'
 
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
+  timelineVisible: d.get('timeline').get('pastTimelineVisible') ||
+    d.get('timeline').get('futureTimelineVisible'),
 }))
 export default class GetSocialWithUs extends React.Component {
 
@@ -24,9 +26,10 @@ export default class GetSocialWithUs extends React.Component {
   }
 
   render() {
-    const {dimension} = this.props
+    const {dimension, timelineVisible} = this.props
+    const hidden = dimension || timelineVisible
     return (
-      <Root id='socialButtonsRoot' className={dimension? 'hidden' : ''}>
+      <Root id='socialButtonsRoot' className={hidden && 'hidden'}>
         <SocialButtonsRoot>
           <a href={INSTAGRAM_URL} target='_blank'
             onClick={this.onClick.bind(this, 'instagram')}>

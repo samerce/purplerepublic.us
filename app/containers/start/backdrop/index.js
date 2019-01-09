@@ -6,22 +6,39 @@ import {
   Foreground, Background,
 } from './styled'
 
+import _ from 'lodash'
+
 import {SRC_URL} from '../../../global/constants'
 
 const INKY = SRC_URL + 'intro/inky-glass.png'
 
+function getBackgroundSize() {
+  return Math.max(window.innerHeight, window.innerWidth)
+}
+
 export default class Backdrop extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       foregroundLoaded: false,
+      backgroundSize: getBackgroundSize(),
     }
   }
 
+  componentDidMount() {
+    this.onResize = _.throttle(() => {
+      this.setState({backgroundSize: getBackgroundSize()})
+    }, 100)
+    window.addEventListener('resize', this.onResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize)
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
-    return false
-    // return !this.state.foregroundLoaded && nextState.foregroundLoaded
+    return nextState !== this.state
   }
 
   render() {
@@ -180,7 +197,7 @@ export default class Backdrop extends React.Component {
           </StarRoot>
         </ShootingStars>
 
-        <Background />
+        <Background size={this.state.backgroundSize} />
         {/* <Foreground
           className={cx({show: this.state.foregroundLoaded})}
           src={INKY}

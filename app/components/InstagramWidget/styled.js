@@ -49,7 +49,7 @@ export const CaptionRoot = Flex.extend`
   i {
     position: absolute;
     font-size: 60px;
-    right: -100px;
+    left: 620px;
     top: -60px;
     width: 80px;
     height: 80px;

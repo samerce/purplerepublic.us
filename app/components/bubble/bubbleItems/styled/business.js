@@ -10,7 +10,7 @@ import {
 } from '../styled'
 
 export const Root = BubbleComponentRoot.extend`
-  padding: 0 15px;
+  padding: 20px 15px 0;
 `
 
 export const SectionRoot = Flex.extend`

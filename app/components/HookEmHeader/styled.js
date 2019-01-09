@@ -1,14 +1,16 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
-import {Flex} from '../../global/styled'
+import {
+  Flex, screen
+} from '../../global/styled'
 
 export const Root = Flex.extend`
   flex: 1 0 100%;
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  margin: 20px 0 0;
+  margin: 40px 0 0;
 `
 
 export const Title  = Flex.extend`
@@ -33,6 +35,13 @@ export const Blurb = Flex.extend`
   height: 80px;
   padding: 0 40px;
   margin-top: -3px;
+  text-align: center;
+
+  ${screen.medsmall`
+    max-width: 85%;
+    font-size: 20px;
+    padding: 0 20px;
+  `}
 `
 
 export const VideoRoot = Flex.extend`

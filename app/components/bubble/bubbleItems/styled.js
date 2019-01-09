@@ -201,6 +201,7 @@ export const BubbleComponentRoot = FlexColumn.extend`
   position: relative;
   flex: 0 0 100%;
   align-items: center;
+  padding: 20px 0 0;
 `
 
 export const VideoRoot = BubbleComponentRoot.extend`

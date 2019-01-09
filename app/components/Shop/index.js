@@ -16,11 +16,11 @@ export default class Shop extends React.Component {
     return (
       <Root className={className}>
         <Background />
-        <EntryButton onClick={show}>
+        <EntryButton onClick={() => show()}>
           <i className='fa fa-shopping-bag' />
           <span>shop</span>
         </EntryButton>
-        <CloseButton onClick={hide}>
+        <CloseButton onClick={() => hide()}>
           <i className='fa fa-close' />
         </CloseButton>
 
@@ -60,7 +60,7 @@ var ShopRows = [
   },
   {
     iconId: 'book',
-    buttonText: 'shirts, tights, journals, and more!',
+    buttonText: 'shirts, tights, journals & more!',
     shopText: 'browse our catalog on redbubble.com to buy shirts, tights, dresses, journals, phone cases, mugs, stickers, home decor and more!',
     onClick: () => openInNewTab(
       'https://www.redbubble.com/people/purplerepublic/shop/'

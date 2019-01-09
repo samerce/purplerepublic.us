@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex
+  Flex, AbsoluteFlex, screen,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -37,6 +37,14 @@ export const TimelineRowRoot = Flex.extend`
       transparent 100%
     )
   }
+
+  ${screen.medium`
+    && {
+      margin: 0 0 20px;
+      border: none;
+      transform: none;
+    }
+  `}
 `
 
 export const TimelineDot = Flex.extend`
@@ -47,6 +55,7 @@ export const TimelineDot = Flex.extend`
   position: absolute;
   transform: translate(-50%, 0);
   box-shadow: 2px 2px 30px rgba(0,0,0,.5);
+  z-index: 2;
 
   .right & {
     margin-left: -1px;
@@ -56,6 +65,15 @@ export const TimelineDot = Flex.extend`
     margin-right: -11px;
     right: 0;
   }
+
+  ${screen.medium`
+    && {
+      left: 50%;
+      right: initial;
+      transform: translate(-50%, 0);
+      top: -4px;
+    }
+  `}
 `
 
 export const TimelineArrow = styled.i`
@@ -75,6 +93,10 @@ export const TimelineArrow = styled.i`
   .left & {
     right: 10px;
   }
+
+  ${screen.medium`
+    display: none;
+  `}
 `
 
 export const RowContentRoot = Flex.extend`
@@ -88,6 +110,8 @@ export const RowContentRoot = Flex.extend`
   padding: 10px 20px;
   color: white;
   box-shadow: ${p => p.theme.shadowHeavy};
+  position: relative;
+  z-index: 1;
 
   .right & {
     margin-left: 40px;
@@ -98,6 +122,14 @@ export const RowContentRoot = Flex.extend`
   &.special {
     background: ${p => p.theme.veryDark};
   }
+
+  ${screen.medium`
+    && {
+      width: 95%;
+      padding: 15px;
+      margin: 0 auto;
+    }
+  `}
 `
 
 export const TimelineTitle = Flex.extend`
@@ -108,6 +140,13 @@ export const TimelineTitle = Flex.extend`
   .left & {
     align-self: flex-end;
   }
+
+  ${screen.medium`
+    && {
+      font-size: 18px;
+      align-self: center;
+    }
+  `}
 `
 
 export const TimelineSubtitle = Flex.extend`
@@ -117,16 +156,45 @@ export const TimelineSubtitle = Flex.extend`
   .left & {
     align-self: flex-end;
   }
+
+  ${screen.medium`
+    && {
+      font-size: 16px;
+      align-self: center;
+    }
+  `}
 `
 
 export const IntroBlurb = Flex.extend`
   max-width: 740px;
   color: ${p => p.theme.veryLight};
   font-size: 22px;
-  background: ${p => alpha(.5, p.theme.veryDark)};
+  background: ${p => p.theme.veryDark};
   box-shadow: ${p => p.theme.shadowMedium};
   border: 1px solid ${p => p.theme.veryLight};
   border-radius: 10px;
   padding: 20px;
   margin: 0 0 50px;
+  position: relative;
+  z-index: 3;
+
+  ${screen.medium`
+    max-width: 95%;
+    font-size: 18px;
+    padding: 15px;
+  `}
+`
+
+export const TimelineLine = AbsoluteFlex.extend`
+  width: 1px;
+  height: 60px;
+  background: ${p => p.theme.veryLight};
+  top: 0;
+  left: 50%;
+  transform: translate(-1px, -100%);
+  display: none;
+
+  ${screen.medium`
+    display: flex;
+  `}
 `

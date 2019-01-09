@@ -27,8 +27,7 @@ export const Root = styled.div`
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  flex: 0 0 200px;
-  height: 230px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +35,12 @@ export const Root = styled.div`
   cursor: pointer;
   transition: all .5s ${EASE_OUT};
   transition-property: left transform;
+  margin-top: 70px;
+
+  ${screen.large`
+    width: 110px;
+    margin-top: 20px;
+  `}
 
   /* &.logo-hangin {
     transition: all 1s ${EASE_OUT};
@@ -75,7 +80,7 @@ export const LogoTextRoot = styled.div`
     transition: all 1.5s ${EASE_OUT};
   }
 
-  ${screen.medium`
+  ${screen.large`
     .logo-hangin & {
       transform: scale(.3);
     }
@@ -104,7 +109,7 @@ export const CircleBill = styled.div`
 
   .logo-intro & {
     transform: scale(1.8);
-    ${screen.medium`
+    ${screen.large`
       transform: scale(1.2);
     `}
   }
@@ -115,7 +120,7 @@ export const CircleBill = styled.div`
   .logo-hangin & {
     transform: scale(.8);
     transition: all 1.5s ${EASE_OUT};
-    ${screen.medium`
+    ${screen.large`
       transform: scale(.39);
     `}
   }
@@ -144,10 +149,18 @@ export const CircleSami = styled(CirclePaul)`
 
 export const Name = Flex.extend`
   font-size: 80px;
-  line-height: 72px;
-  font-family: yanone kaffeesatz;
-  font-weight: 800;
-  text-transform: uppercase;
+  line-height: 22px;
+  font-family: great vibes;
+  ${'' /* font-weight: 800; */}
   color: white;
   text-align: center;
+  flex-direction: column;
+
+  div:first-child {
+    flex: 0 0 42px;
+  }
+  div:last-child {
+    flex: 0 0 22px;
+    font-family: im fell dw pica;
+  }
 `

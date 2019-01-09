@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex
+  Flex, screen,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -32,4 +32,11 @@ export const Root = Flex.extend`
     transform: translate(0, -10px);
     transition: all .3s ${EASE_OUT};
   }
+
+  ${screen.large`
+    margin: 140px 0 0;
+  `}
+  ${screen.medsmall`
+    margin: 250px 0 0;
+  `}
 `

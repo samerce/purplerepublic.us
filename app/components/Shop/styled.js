@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton, ExpandingBackground, BlurbBubble, BlurbContent, BlurbButton, BlurbText,
+  AbsoluteFlexFillParent, AbsoluteFlex, Flex, Boto, CloseButton as aCloseButton, ExpandingBackground, BlurbBubble, BlurbContent, BlurbButton, BlurbText, screen,
 } from '../../global/styled'
 
 export const Root = AbsoluteFlexFillParent.extend`
@@ -23,14 +23,13 @@ const CornerButton = Boto.extend`
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
-  padding: 100px 115px 0 0;
+  padding: 80px 90px 0 0;
   border-radius: 100%;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border: 2px solid ${p => p.theme.veryLight};
-  font-size: 42px;
   flex-direction: column;
-  font-size: 34px;
+  font-size: 26px;
   transition-duration: .5s;
 `
 
@@ -40,7 +39,7 @@ export const EntryButton = CornerButton.extend`
   z-index: 3;
 
   i {
-    height: 60px;
+    height: 50px;
     position: relative;
     top: 25px;
     transition: top, height;
@@ -65,6 +64,12 @@ export const EntryButton = CornerButton.extend`
       transition: top, height;
     }
   }
+  ${screen.medium`
+    transform: translate(50%, -50%) scale(.7);
+  `}
+  ${screen.medsmall`
+    transform: translate(50%, -50%) scale(.6);
+  `}
 `
 
 export const Background = ExpandingBackground.extend`
@@ -93,7 +98,7 @@ export const CloseButton = aCloseButton.extend`
   transform: scale(0);
   opacity: 0;
   pointer-events: none;
-  z-index: 4;
+  z-index: 5;
 
   .shop-enter & {
     transition-delay: .3s;
@@ -108,12 +113,13 @@ export const CloseButton = aCloseButton.extend`
 export const ContentRoot = Flex.extend`
   position: relative;
   max-width: 740px;
-  flex: 1 0 auto;
+  flex: 0 1 100%;
   flex-direction: column;
   pointer-events: none;
   z-index: 4;
   justify-content: flex-start;
-  margin: 480px 0 50px;
+  padding: 180px 10px 50px;
+  align-self: flex-start;
 
   .shop-show & {
     pointer-events: all;
@@ -139,10 +145,19 @@ export const IconBubble = BlurbBubble.extend`
     opacity: 1;
     transition-delay: 0s;
   }
+
+  ${screen.medium`
+    flex: 0 0 100px;
+    height: 100px;
+  `}
 `
 
 export const WordsRoot = BlurbContent.extend`
   margin: 60px 0 0 -15px;
+
+  ${screen.medium`
+    margin: 20px 0 0 -15px;
+  `}
 `
 
 export const ShopButton = BlurbButton.extend`
@@ -156,6 +171,14 @@ export const ShopButton = BlurbButton.extend`
     opacity: 1;
     transition-delay: 0s;
   }
+
+  ${screen.medium`
+    flex: 0 0 60px;
+    font-size: 28px;
+  `}
+  ${screen.medsmall`
+    font-size: 18px;
+  `}
 `
 
 export const ShopText = BlurbText.extend`
@@ -169,4 +192,11 @@ export const ShopText = BlurbText.extend`
     opacity: 1;
     transition-delay: 0s;
   }
+  ${screen.medium`
+    font-size: 20px;
+    padding: 20px 10px 10px;
+  `}
+  ${screen.medsmall`
+    font-size: 16px;
+  `}
 `

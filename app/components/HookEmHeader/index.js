@@ -1,6 +1,5 @@
 import React from 'react'
 import YouTubeVideo from 'react-youtube'
-import Spinnie from '../spinnie'
 
 import {
   Root, Blurb, Title, VideoRoot
@@ -13,7 +12,19 @@ export default class HookEmHeader extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      videoConfig: getVideoConfig(),
     }
+  }
+
+  componentDidMount() {
+     this.onResize = _.throttle(() => {
+      this.setState({videoConfig: getVideoConfig()})
+    }, 100)
+    window.addEventListener('resize', this.onResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize)
   }
 
   render() {
@@ -40,7 +51,7 @@ export default class HookEmHeader extends React.Component {
           <YouTubeVideo
             videoId={'rmXjuF1GLK0'}
             onReady={this.onVideoReady}
-            opts={IntroVideoConfig}
+            opts={this.state.videoConfig}
           />
         </VideoRoot>
 
@@ -68,18 +79,20 @@ export default class HookEmHeader extends React.Component {
 
 }
 
-const width = Math.min(1200, window.innerWidth - 35)
-var IntroVideoConfig = {
-  height: width / (16/9),
-  width,
-  origin: window.location.origin,
-  playerVars: {
-    rel: 0,
-    frameborder: 0,
-    allowfullscreen: 1,
-    controls: 1,
-    modestbranding: 1,
-    color: 'white',
-    // autoplay: 1,
-  },
+function getVideoConfig() {
+  const width = Math.min(1200, window.innerWidth - 35)
+  return {
+    height: width / (16/9),
+    width,
+    origin: window.location.origin,
+    playerVars: {
+      rel: 0,
+      frameborder: 0,
+      allowfullscreen: 1,
+      controls: 1,
+      modestbranding: 1,
+      color: 'white',
+      // autoplay: 1,
+    },
+  }
 }

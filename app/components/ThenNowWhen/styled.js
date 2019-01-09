@@ -8,7 +8,6 @@ import {
 
 export const Root = Flex.extend`
   flex: 1 0 auto;
-  height: 230px;
   transition-property: right left transform;
   position: relative;
   z-index: 6;
@@ -21,14 +20,23 @@ export const Root = Flex.extend`
 
 export const ButtonRoot = Flex.extend`
   flex: 1 0 auto;
+  padding: 75px 0 0;
   align-items: center;
-  height: 100%;
   justify-content: center;
   transition: all .5s ${EASE_OUT};
 
   .timeline-show &, .timeline-enter & {
     z-index: 2;
   }
+
+  ${screen.large`
+    padding: 40px 0 0;
+  `}
+
+  ${screen.medsmall`
+    flex-direction: column;
+    padding: 120px 0 0;
+  `}
 `
 
 const ButtonHeight = 80
@@ -38,8 +46,7 @@ export const Button = Boto.extend`
   background: ${p => p.theme.main};
   border: 2px solid ${p => p.theme.veryLight};
   height: ${ButtonHeight}px;
-  flex: 1 0 auto;
-  max-width: 330px;
+  flex: 0 0 420px;
   font-size: 36px;
   line-height: ${ButtonHeight - 5}px;
   padding: 0;
@@ -48,12 +55,10 @@ export const Button = Boto.extend`
   pointer-events: all;
 
   &.right {
-    margin-left: 85px;
     text-align: right;
   }
 
   &.left {
-    margin-right: 85px;
     text-align: left;
   }
 
@@ -72,15 +77,45 @@ export const Button = Boto.extend`
     z-index: 1;
   }
 
-  @media(max-width: 1200px) {
-    transform: scale(.8);
-    &.right {
-      margin-left: 55px;
+  ${screen.large`
+    && {
+      font-size: 18px;
+      height: 50px;
+      flex: 0 0 250px;
+
+      &.right {
+        margin-right: 20px;
+      }
+      &.left {
+        margin-left: 20px;
+      }
+      i {
+        padding: 0 10px;
+        font-size: 24px;
+        line-height: 77px;
+      }
     }
-    &.left {
-      margin-right: 55px;
+  `}
+
+  ${screen.medsmall`
+    && {
+      flex: 0 0 50px;
+      width: 95%;
+      max-width: 330px;
+      margin: 0 0 5px !important;
+      transform: none;
+      align-items: center;
+
+      span {
+        flex: 0 0 auto;
+      }
+
+      &.right {
+        flex-direction: row-reverse;
+        text-align: left;
+      }
     }
-  }
+  `}
 
   &.active {
     z-index: 3;
@@ -96,14 +131,11 @@ export const Button = Boto.extend`
       transform: scale(1.1) translate(10px, 0);
     }
 
-    @media(max-width: 1200px) {
-      &.left {
-        transform: scale(.9) translate(-10px, 0);
+    ${screen.medsmall`
+      && {
+        transform: none;
       }
-      &.right {
-        transform: scale(.9) translate(10px, 0);
-      }
-    }
+    `}
   }
 
   .timeline-exit &, .timeline-willExit & {

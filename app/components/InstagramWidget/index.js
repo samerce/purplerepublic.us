@@ -43,8 +43,7 @@ export default class InstagramHero extends React.PureComponent {
           <Image
             onClick={this.openInstagram}
             height={image? (image.height / image.width) * ImageHeight : 0}
-            src={image? image.url : ''}>
-          </Image>
+            src={image? image.url : ''} />
 
           <CaptionRoot>
             <i className='fa fa-instagram' />

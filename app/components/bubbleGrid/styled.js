@@ -77,19 +77,17 @@ export const BubbleGridItem = Flex.extend`
   transition: all .5s ${EASE_OUT};
   border-bottom-right-radius: 80px;
   border-bottom-left-radius: 80px;
-  border: none;
 
   &.active {
     background: ${p => p.theme.veryLight};
-    box-shadow:
+    ${'' /* box-shadow:
       0 0 10px ${p => p.theme.veryLight},
-      0 0 10px ${p => p.theme.veryLight};
+      0 0 10px ${p => p.theme.veryLight}; */}
 
   }
 
   .showAll &, .showAll &.active {
     border-radius: 100%;
-    pointer-events: none;
   }
 
   &.gapItem {

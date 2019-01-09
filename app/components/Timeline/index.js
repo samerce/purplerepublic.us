@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   Root, TimelineRowRoot, TimelineDot, TimelineArrow, RowContentRoot,
-  TimelineTitle, TimelineSubtitle,
+  TimelineTitle, TimelineSubtitle, TimelineLine,
 } from './styled'
 
 export default class Timeline extends React.Component {
@@ -21,6 +21,7 @@ export default class Timeline extends React.Component {
     const arrow = (i % 2) == 0? 'left' : 'right'
     return (
       <TimelineRowRoot className={side} key={i}>
+        <TimelineLine />
         <TimelineDot />
         <TimelineArrow className={'fa fa-angle-' + arrow} />
         <RowContentRoot>
