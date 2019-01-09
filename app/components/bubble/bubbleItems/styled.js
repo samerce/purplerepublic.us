@@ -213,7 +213,6 @@ export const VideoRoot = BubbleComponentRoot.extend`
 export const VideoWrapper = Flex.extend`
   border: 1px solid ${p => p.theme.veryLight};
   border-radius: 10px;
-  width: ${p => p.width}px;
   overflow: hidden;
 `
 

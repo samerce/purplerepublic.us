@@ -1,5 +1,5 @@
 import React from 'react'
-import YouTubeVideo from 'react-youtube'
+import Video from '../../Video'
 import {BubbleBuilderYouTubeTool} from '../bubbleBuilderTools'
 import BubbleWriting from './words'
 
@@ -8,22 +8,6 @@ import autobind from 'autobind-decorator'
 import {
   VideoRoot, VideoWrapper,
 } from './styled'
-
-const width = Math.min(1200, window.innerWidth * .8)
-const VideoConfig = {
-  width,
-  height: width / (16/9),
-  origin: window.location.origin,
-  playerVars: {
-    rel: 0,
-    showinfo: 0,
-    frameborder: 0,
-    allowfullscreen: 1,
-    controls: 1,
-    modestbranding: 1,
-    color: 'white',
-  },
-}
 
 export default class BubbleVideo extends React.Component {
 
@@ -48,12 +32,13 @@ export default class BubbleVideo extends React.Component {
           />
         }
 
-        <VideoWrapper width={width}>
+        <VideoWrapper>
           {videoId &&
-            <YouTubeVideo
-              videoId={videoId}
+            <Video
+              id={videoId}
               onReady={this.onVideoReady}
-              opts={VideoConfig} />
+              width={() => Math.min(1200, window.innerWidth * .9)}
+            />
           }
         </VideoWrapper>
 
@@ -67,8 +52,8 @@ export default class BubbleVideo extends React.Component {
   }
 
   @autobind
-  onVideoReady({target}) {
-    this.player = target
+  onVideoReady(player) {
+    this.player = player
   }
 
   static renderCustomBuilderTools(nucleus, onChangeNucleus) {

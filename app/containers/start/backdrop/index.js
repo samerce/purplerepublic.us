@@ -7,6 +7,7 @@ import {
 } from './styled'
 
 import _ from 'lodash'
+import resizable from '../../../components/hocs/resizable'
 
 import {SRC_URL} from '../../../global/constants'
 
@@ -16,6 +17,7 @@ function getBackgroundSize() {
   return Math.max(window.innerHeight, window.innerWidth)
 }
 
+@resizable()
 export default class Backdrop extends React.Component {
 
   constructor(props) {
@@ -26,15 +28,8 @@ export default class Backdrop extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.onResize = _.throttle(() => {
-      this.setState({backgroundSize: getBackgroundSize()})
-    }, 100)
-    window.addEventListener('resize', this.onResize)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.onResize)
+  onResize() {
+    this.setState({backgroundSize: getBackgroundSize()})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
