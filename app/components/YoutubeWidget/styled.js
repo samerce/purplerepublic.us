@@ -34,9 +34,17 @@ export const VideoRoot = Flex.extend`
     color: ${p => p.theme.veryDark};
     background: ${p => p.theme.veryLight};
     border-radius: 100%;
+
+    ${screen.medium`
+      right: 30%;
+      top: -70px;
+    `}
   }
 `
 
 export const Button = BeggingButton.extend`
   transform: translate(-80px, -20px) rotate(-1deg);
+  ${screen.small`
+    transform: rotate(-1deg);
+  `}
 `

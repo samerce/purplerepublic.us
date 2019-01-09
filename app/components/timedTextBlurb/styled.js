@@ -48,22 +48,19 @@ export const GratitudeText = Flex.extend`
     padding: 10px 15px 10px 50px;
   }
 
-  ${screen.medium`
-    font-size: 14px;
-    line-height: 18px;
-    padding-right: 25px;
-    padding-top: 5px;
-
-    .leftSide & {
-      padding: 5px 10px 5px 25px;
-    }
-    div {
-      height: 100%;
+  ${screen.mediumlarge`
+    && {
+      padding: 10px;
     }
   `}
+
+  ${screen.medium`
+    font-size: 18px;
+    line-height: 20px;
+  `}
   ${screen.small`
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 16px;
+    line-height: 18px;
   `}
 `
 

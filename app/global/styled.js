@@ -2,7 +2,9 @@ import styled, {injectGlobal, css} from 'styled-components'
 import {
   EASE, EASE_OUT,
   SCREEN_WIDTH_S,
+  SCREEN_WIDTH_MS,
   SCREEN_WIDTH_M,
+  SCREEN_WIDTH_ML,
   SCREEN_WIDTH_L,
   SCREEN_WIDTH_XL,
   SCREEN_WIDTH_S_PX,
@@ -14,7 +16,9 @@ import {darken, transparentize as trans} from 'polished'
 
 const sizes = {
   small: SCREEN_WIDTH_S,
+  medsmall: SCREEN_WIDTH_MS,
   medium: SCREEN_WIDTH_M,
+  mediumlarge: SCREEN_WIDTH_ML,
   large: SCREEN_WIDTH_L,
   xlarge: SCREEN_WIDTH_XL,
 }
@@ -326,14 +330,6 @@ export const BeggingButton = Boto.extend`
   transform: rotate(-4deg);
   margin: 15px 0 0;
   box-shadow: ${p => p.theme.shadowHeavy};
-
-  ${screen.medium`
-    font-size: 16px;
-    padding: 0;
-  `}
-  ${screen.small`
-    font-size: 14px;
-  `}
 `
 
 // ------------------------------------- old styles below

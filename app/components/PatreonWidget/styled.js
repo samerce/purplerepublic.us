@@ -8,8 +8,16 @@ import {
   SCREEN_WIDTH_M,
 } from '../../global/constants'
 import {
-  screen, AbsoluteFlex, Flex, Boto, FlexColumn, BlurbText, BeggingButton,
+  screen, AbsoluteFlex, Flex, Boto, FlexColumn, BlurbText, BeggingButton, WidgetRoot,
 } from '../../global/styled'
+
+export const Root = WidgetRoot.extend`
+  flex: 1 1 620px;
+
+  ${screen.medium`
+    padding-bottom: 100px;
+  `}
+`
 
 export const Blurb = BlurbText.extend`
   opacity: 1;
@@ -17,7 +25,7 @@ export const Blurb = BlurbText.extend`
   margin: 0;
   height: auto;
   display: initial;
-  flex: 0 0 400px;
+  flex: 1 0 400px;
   padding: 20px 15px;
   padding-left: 40px;
 
@@ -25,6 +33,13 @@ export const Blurb = BlurbText.extend`
     display: inline;
     font-weight: 800;
   }
+
+  ${screen.medium`
+    width: 95%;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 10px;
+  `}
 
   i {
     position: absolute;
@@ -54,16 +69,29 @@ export const Image = Flex.extend`
   background-size: cover;
   background-position-x: -10px;
   transform: translate(30px, 0);
+
+  ${screen.medium`
+    width: 240px;
+    transform: translate(0, 10px);
+  `}
 `
 
 export const Row = Flex.extend`
   align-items: center;
   width: 100%;
   position: relative;
+
+  ${screen.medium`
+    flex-direction: column;
+  `}
 `
 
 export const Button = BeggingButton.extend`
   transform: translate(240px, -85px) rotate(-2deg);
+
+  ${screen.medium`
+    transform: rotate(-2deg);
+  `}
 `
 
 export const Title = Flex.extend`

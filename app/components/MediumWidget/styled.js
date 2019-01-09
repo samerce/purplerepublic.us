@@ -19,6 +19,10 @@ export const Blurb = BlurbText.extend`
   text-align: justify;
   position: relative;
 
+  ${screen.medium`
+    width: 95%;
+  `}
+
   i {
     position: absolute;
     font-size: 50px;
@@ -37,7 +41,11 @@ export const Blurb = BlurbText.extend`
 `
 
 export const Button = BeggingButton.extend`
-  transform: translate(140px, -30px) rotate(2deg);
+  transform: translate(40px, -30px) rotate(2deg);
+
+  ${screen.medsmall`
+    transform: translate(0, -30px) rotate(2deg);
+  `}
 `
 
 export const Title = Flex.extend`

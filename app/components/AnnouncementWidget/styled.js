@@ -13,6 +13,10 @@ import {
 
 export const Root = WidgetRoot.extend`
   flex: 0 0 100%;
+
+  ${screen.mediumlarge`
+    padding: 80px 10px;
+  `}
 `
 
 export const Row = Flex.extend`
@@ -37,6 +41,11 @@ export const Row = Flex.extend`
     align-items: center;
     justify-content: center;
     display: flex;
+
+    ${screen.mediumlarge`
+      left: 50%;
+      transform: translate(-50%, -100px) rotate(-9deg);
+    `}
   }
 `
 
@@ -56,4 +65,8 @@ export const Blurb = BlurbText.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(300px, -40px) rotate(2deg);
+
+  ${screen.mediumlarge`
+    transform: translate(0, -30px) rotate(2deg);
+  `}
 `

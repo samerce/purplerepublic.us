@@ -6,7 +6,8 @@ import {
 } from '../../global/styled'
 
 export const Root = Flex.extend`
-  flex: 0 0 100%;
+  flex: 0 0 auto;
+  width: 100%;
   margin: 40px 0 0;
   padding: 20px 0 0;
   flex-wrap: wrap;
@@ -15,4 +16,5 @@ export const Root = Flex.extend`
   background: ${p => p.theme.gradientVeryDark};
   box-shadow: ${p => p.theme.shadowHeavy};
   background-attachment: fixed;
+  overflow: hidden;
 `

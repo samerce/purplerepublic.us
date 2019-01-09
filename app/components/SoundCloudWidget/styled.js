@@ -8,8 +8,17 @@ import {
   SCREEN_WIDTH_M,
 } from '../../global/constants'
 import {
-  screen, Flex, Boto, FlexColumn, BeggingButton
+  screen, Flex, Boto, FlexColumn, BeggingButton, WidgetRoot
 } from '../../global/styled'
+
+export const Root = WidgetRoot.extend`
+  ${screen.large`
+    padding: 0 60px 80px 10px;
+  `}
+  ${screen.medsmall`
+    padding: 0 20px 80px;
+  `}
+`
 
 export const EmbedRoot = Flex.extend`
   border-radius: 10px;
@@ -36,9 +45,18 @@ export const EmbedRoot = Flex.extend`
     color: ${p => p.theme.veryDark};
     background: ${p => p.theme.veryLight};
     border-radius: 100%;
+
+    ${screen.medium`
+      right: 30%;
+      top: -70px;
+    `}
   }
 `
 
 export const Button = BeggingButton.extend`
   transform: translate(-80px, -20px) rotate(-1deg);
+
+  ${screen.medium`
+    transform: rotate(-1deg);
+  `}
 `

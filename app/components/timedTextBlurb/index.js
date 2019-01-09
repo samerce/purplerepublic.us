@@ -48,7 +48,7 @@ export default class TimedTextBlurb extends React.PureComponent {
     const {items, duration, className} = this.props
     const item = activeIndex >= 0 && items[activeIndex]
     return (
-      <GratitudeWheelRoot className={className}>
+      <GratitudeWheelRoot className={className + ' timedTextBlurbRoot'}>
         {item &&
           <GratitudeText>
             <div dangerouslySetInnerHTML={{__html: item.text}} />

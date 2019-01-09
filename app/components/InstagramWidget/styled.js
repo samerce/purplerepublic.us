@@ -14,6 +14,16 @@ import {
 export const ImageHeight = 300
 
 export const Root = WidgetRoot.extend`
+  height: 380px;
+  flex: 1 0 620px;
+
+  ${screen.mediumlarge`
+    margin: 280px 0 0;
+    padding-bottom: 60px;
+  `}
+  ${screen.medsmall`
+    max-width: 95%;
+  `}
 `
 
 export const Image = Flex.extend`
@@ -30,14 +40,27 @@ export const Image = Flex.extend`
   transform: rotate(-8deg) translate(30px, 0);
   z-index: 2;
   transition: all .5s ${EASE_OUT};
+
+  ${screen.mediumlarge`
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -20px) rotate(-8deg);
+  `}
+`
+
+export const Gap = Flex.extend`
+  flex: 0 0 300px;
+  ${screen.medium`
+    display: none;
+  `}
 `
 
 export const CaptionRoot = Flex.extend`
-  margin: 0 0 0 300px;
   background: ${p => p.theme.veryDark};
   border-radius: 10px;
   border: 1px solid ${p => p.theme.veryLight};
-  flex: 0 0 370px;
+  flex: 1;
+  max-width: 740px
   max-height: 150px;
   transition: all .5s ${EASE_OUT};
   box-shadow:
@@ -46,11 +69,16 @@ export const CaptionRoot = Flex.extend`
   color: ${p => p.theme.veryLight};
   overflow: hidden;
 
+  ${screen.mediumlarge`
+    margin: 0 auto;
+    flex: 1;
+  `}
+
   i {
     position: absolute;
     font-size: 60px;
-    left: 620px;
-    top: -60px;
+    left: 570px;
+    top: -70px;
     width: 80px;
     height: 80px;
     padding: 2px 0 0 2px;
@@ -61,11 +89,21 @@ export const CaptionRoot = Flex.extend`
     color: ${p => p.theme.veryDark};
     background: ${p => p.theme.veryLight};
     border-radius: 100%;
+
+    ${screen.mediumlarge`
+      left: 30px;
+      top: -70px;
+      z-index: 3;
+    `}
   }
 `
 
 export const Button = BeggingButton.extend`
   transform: translate(200px, 0) rotate(3deg);
+
+  ${screen.mediumlarge`
+    transform: rotate(3deg);
+  `}
 `
 
 export const Row = Flex.extend`

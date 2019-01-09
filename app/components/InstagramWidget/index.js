@@ -3,7 +3,7 @@ import TimedTextBlurb from '../timedTextBlurb'
 import {ImageBubbleButton} from '../bubble/bubbleButton/styled'
 
 import {
-  Root, Image, CaptionRoot, ImageHeight, Button, Row,
+  Root, Image, CaptionRoot, ImageHeight, Button, Row, Gap,
 } from './styled'
 
 import {
@@ -45,6 +45,7 @@ export default class InstagramHero extends React.PureComponent {
             height={image? (image.height / image.width) * ImageHeight : 0}
             src={image? image.url : ''} />
 
+          <Gap />
           <CaptionRoot>
             <i className='fa fa-instagram' />
             <TimedTextBlurb

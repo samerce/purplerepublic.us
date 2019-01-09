@@ -3,14 +3,11 @@ import TimedTextBlurb from '../timedTextBlurb'
 import {HeroBubbleConfig} from '../bubble/config'
 
 import {
-  Blurb, Image, Row, Button,
+  Blurb, Image, Row, Button, Root,
 } from './styled'
 import {
   Title
 } from '../MediumWidget/styled'
-import {
-  WidgetRoot,
-} from '../../global/styled'
 
 import {setActiveGratitude} from '../bubble/redux/actions'
 import {openInNewTab} from '../../utils/nav'
@@ -29,7 +26,7 @@ export default class PatreonWidget extends React.PureComponent {
 
   render() {
     return (
-      <WidgetRoot>
+      <Root>
         <Row>
           <Image src={SRC_URL + 'bubbles/patreon/dave-carrot.jpg'} />
           <Blurb>
@@ -41,7 +38,7 @@ export default class PatreonWidget extends React.PureComponent {
         <Button onClick={this.onClickButton}>
           <div>become a patron</div>
         </Button>
-      </WidgetRoot>
+      </Root>
     )
   }
 
