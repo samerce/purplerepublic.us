@@ -32,8 +32,6 @@ import {
   closeBubbleverse, setBubbles, setActiveBubble,
 } from './actions'
 
-import latest from '../../../latest'
-
 const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
 const HalfBackgroundHeight = -(ExpandingBackgroundSize / 2)
 const Mode = makeEnum([
@@ -316,7 +314,7 @@ function fetchBubbles() {
       cache: 'no-cache',
     }).then((responseRaw) => {
       responseRaw.json().then(bubbles => {
-        latest.forEach(bubble => {
+        bubbles.forEach(bubble => {
           if (bubble.id === 'patreon') {
             bubble.buttonType = 'patreon'
           }
@@ -350,7 +348,7 @@ function fetchBubbles() {
           bubble.Component = BubbleComponents[bubble.type]
           bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 160
         })
-        resolve(latest)
+        resolve(bubbles)
       }).catch(reject)
     }).catch(reject)
   })
