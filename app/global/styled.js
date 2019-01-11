@@ -202,7 +202,7 @@ export const CloseButton = Boto.extend`
   border-radius: 100%;
   border: 2px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowMedium};
-  transition: all 1s ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
 
   i {
     font-size: 30px;
@@ -213,6 +213,7 @@ export const CloseButtonActiveStyles = css`
   transform: none;
   opacity: 1;
   pointer-events: all;
+  transition-duration: 1s;
 `
 
 export const SectionHeader = Flex.extend`

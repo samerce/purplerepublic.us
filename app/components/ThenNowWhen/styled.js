@@ -3,7 +3,7 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
   Flex, Boto, AbsoluteFlex, CloseButton as aCloseButton, screen,
-  ExpandingBackground, ExpandingBackgroundSize,
+  ExpandingBackground, ExpandingBackgroundSize, CloseButtonActiveStyles,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -163,19 +163,10 @@ export const Background = ExpandingBackground.extend`
 `
 
 export const CloseButton = aCloseButton.extend`
-  position: fixed;
-  top: 15px;
-  transition: all .3s ${EASE_OUT};
-  transition-property: opacity, transform;
-  opacity: 0;
-  transform: scale(0);
   z-index: 8;
-  right: 15px;
 
   .timeline-show &, .timeline-enter & {
-    opacity: 1;
-    transform: none;
-    transition-duration: .5s;
+    ${CloseButtonActiveStyles}
     transition-delay: .2s;
   }
 `
