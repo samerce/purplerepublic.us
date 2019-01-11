@@ -18,10 +18,16 @@ export default {
   shadowMedium: '2px 2px 20px rgba(0,0,0,.3)',
   shadowLight: '2px 2px 10px rgba(0,0,0,.2)',
   borderRadiusBoto: 10,
+  gradientVeryDarkButTransparent: `radial-gradient(
+    circle at center,
+    ${alpha(.17, purpleSlightlyDark)} 0%,
+    ${alpha(.17, purpleVeryDark)} 50%,
+    ${alpha(.17, purpleVeryDark)} 100%
+  )`,
   gradientVeryDark: `radial-gradient(
     circle at center,
     ${purpleSlightlyDark} 0%,
     ${purpleVeryDark} 50%,
     ${purpleVeryDark} 100%
-  )`
+  )`,
 }

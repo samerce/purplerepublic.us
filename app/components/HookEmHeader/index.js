@@ -33,7 +33,7 @@ export default class HookEmHeader extends React.Component {
         </VideoRoot>
 
         <Blurb>
-          collapse the paradox. let go of binary. live fearlessly.
+          This is our poem to planet earth. An open-source stand for something honest. Snapshots of life lived. Rewired dna. A little room for possibility. Creative space to get weird & think different. Our Schizopedia—a decategorized flow of ideas from a deep place beyond the binary. This is the present moment. Awareness witnessing now. Pure consciousness woke & ready to rebel.
         </Blurb>
       </Root>
     )

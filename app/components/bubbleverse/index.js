@@ -19,6 +19,7 @@ import {
 } from '../../global/styled'
 
 import withTransitions from '../hocs/withTransitions'
+import resizable from '../hocs/resizable'
 
 import {SCREEN_WIDTH_M} from '../../global/constants'
 import {makeEnum} from '../../utils/lang'
@@ -40,6 +41,8 @@ const Mode = makeEnum([
   'arrange',
 ])
 
+const getBackgroundTop = () => -(ExpandingBackgroundSize - window.innerHeight) / 2
+
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
   activeBubble: d.get('bubbleverse').get('activeBubble'),
@@ -47,6 +50,7 @@ const Mode = makeEnum([
   mouseLocation: d.get('bubbleverse').get('mouseLocation'),
 }))
 @withTransitions({prefix: 'bubbleverse'})
+@resizable()
 export default class Bubbleverse extends React.PureComponent {
 
   constructor(props) {
@@ -60,8 +64,18 @@ export default class Bubbleverse extends React.PureComponent {
       mode: Mode.visible,
       arrangeSourceIndex: null,
       savingNewArrangement: false,
-      backgroundStyle: {},
+      backgroundStyle: {
+        top: getBackgroundTop(),
+      },
     }
+  }
+
+  onResize() {
+    this.setState({
+      backgroundStyle: {
+        top: getBackgroundTop(),
+      }
+    })
   }
 
   componentDidMount() {

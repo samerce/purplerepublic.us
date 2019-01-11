@@ -8,17 +8,17 @@ import {
 export const Root = Flex.extend`
   flex: 0 0 100%;
   margin: 40px 0 0;
-  padding: 20px 0 0;
+  padding: 20px 0 40px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.gradientVeryDark};
+  background: ${p => p.theme.gradientVeryDarkButTransparent};
   box-shadow: ${p => p.theme.shadowHeavy};
   background-attachment: fixed;
 `
 
 export const StackRoot = Flex.extend`
-  flex: 1 0 200px;
+  flex: 0 1 200px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -69,15 +69,27 @@ export const Title = Boto.extend`
   font-family: alice;
   z-index: 2;
   user-select: none;
-  border: 2px solid ${p => p.theme.veryLight};
-  border-radius: 30px;
+  border: 1px solid ${p => p.theme.veryLight};
+  background: ${p => p.theme.main};
+  border-radius: 10px;
   padding: 5px 20px;
-  box-shadow: ${p => p.theme.shadowHeavy};
+  ${'' /* box-shadow: 1px 1px 50px black; */}
   margin: 25px 0 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-align: left;
+  text-shadow: 1px 1px black;
+  opacity: .8;
 
   ${StackRoot}:hover & {
     background: ${p => p.theme.veryLight};
     color: ${p => p.theme.veryDark};
     border-color: ${p => p.theme.veryDark};
+    text-shadow: none;
+    opacity: 1;
   }
 `

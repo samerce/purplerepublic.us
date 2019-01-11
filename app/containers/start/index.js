@@ -1,7 +1,7 @@
 import React from 'react'
 import Backdrop from './backdrop'
 import Shop from '../../components/Shop'
-import Team from '../../components/Team'
+import Hire from '../../components/Hire'
 import Logo from '../../components/logoBubble'
 import HookEmHeader from '../../components/HookEmHeader'
 import ThenNowWhen from '../../components/ThenNowWhen'
@@ -46,7 +46,7 @@ export default class Start extends React.Component {
         <Backdrop />
         <ScrollContainer>
           <Shop />
-          <Team />
+          <Hire />
           <Logo />
           <ThenNowWhen />
           <HookEmHeader />

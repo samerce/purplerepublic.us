@@ -35,7 +35,7 @@ export default class StackGrid extends React.Component {
       <Root>
         <SectionHeader>
           <hr />
-          <div>get to know us</div>
+          <div>a queer perspective</div>
         </SectionHeader>
 
         {DimensionValues.map(this.renderStack)}

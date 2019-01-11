@@ -13,7 +13,7 @@ export const Root = Flex.extend`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.gradientVeryDark};
+  background: ${p => p.theme.gradientVeryDarkButTransparent};
   box-shadow: ${p => p.theme.shadowHeavy};
   background-attachment: fixed;
   overflow: hidden;

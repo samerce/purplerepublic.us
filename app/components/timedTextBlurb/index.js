@@ -40,7 +40,7 @@ export default class TimedTextBlurb extends React.PureComponent {
 
   componentWillUnmount() {
     clearInterval(this.ticker)
-    clearTimer(this.timeout)
+    clearTimeout(this.timeout)
   }
 
   render() {

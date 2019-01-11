@@ -8,11 +8,11 @@ export const Mode = makeEnum([
 
 export const Dimensions = {
   Business: {
-    title: 'mindful business',
+    title: 'business',
     previewImages: ['senateWin', 'lampshade', 'takingUpCollection'],
   },
   Philosophy: {
-    title: 'our philosophy',
+    title: 'philosophy',
     previewImages: ['dragVote', 'proTip', 'dingell'],
   },
   Painting: {
@@ -32,7 +32,7 @@ export const Dimensions = {
     previewImages: ['godLovesFags', 'welcome', 'traderJoes']
   },
   GetInvolved: {
-    title: 'get involved',
+    title: 'streets',
     previewImages: ['queen', 'washington', 'onTheIssues']
   },
   Music: {

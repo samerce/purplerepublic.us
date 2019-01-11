@@ -25,17 +25,17 @@ export const Blurb = Flex.extend`
   flex: 1 0 auto;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: ${p => alpha(.5, p.theme.veryDark)};
+  background: ${p => alpha(.2, p.theme.veryDark)};
   box-shadow: ${p => p.theme.shadowMedium};
   border: 1px solid ${p => p.theme.veryLight};
   color: ${p => p.theme.veryLight};
-  font-size: 26px;
+  font-size: 24px;
   justify-content: center;
   align-items: center;
-  height: 80px;
-  padding: 0 40px;
+  padding: 20px;
   margin-top: -3px;
   text-align: center;
+  max-width: 1080px;
 
   ${screen.medsmall`
     max-width: 85%;

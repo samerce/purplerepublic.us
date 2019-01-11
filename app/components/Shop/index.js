@@ -15,8 +15,8 @@ export default class Shop extends React.Component {
     const {show, hide, className} = this.props
     return (
       <Root className={className}>
-        <Background />
-        <EntryButton onClick={() => show()}>
+        <Background rightCorner />
+        <EntryButton right onClick={() => show()}>
           <i className='fa fa-shopping-bag' />
           <span>shop</span>
         </EntryButton>

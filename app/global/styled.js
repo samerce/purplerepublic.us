@@ -190,6 +190,13 @@ export const MaskAbsoluteFillParent = styled.div`
 `
 
 export const CloseButton = Boto.extend`
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
   width: 50px;
   height: 50px;
   border-radius: 100%;
@@ -200,6 +207,12 @@ export const CloseButton = Boto.extend`
   i {
     font-size: 30px;
   }
+`
+
+export const CloseButtonActiveStyles = css`
+  transform: none;
+  opacity: 1;
+  pointer-events: all;
 `
 
 export const SectionHeader = Flex.extend`
@@ -244,6 +257,26 @@ export const ExpandingBackground = Flex.extend`
   border: 2px solid ${p => p.theme.veryLight};
   border-radius: 100%;
   transform: scale(0);
+  transition: all .5s ${EASE_OUT};
+  pointer-events: none;
+
+  ${p => p.rightCorner && css`
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%) scale(0);
+  `}
+  ${p => p.leftCorner && css`
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) scale(0);
+  `}
+`
+export const ExpandingBackgroundRightActiveStyles = css`
+  transform: translate(50%, -50%) scale(3);
+  transition: all 1s ${EASE_OUT};
+`
+export const ExpandingBackgroundLeftActiveStyles = css`
+  transform: translate(-50%, -50%) scale(3);
   transition: all 1s ${EASE_OUT};
 `
 
@@ -330,6 +363,99 @@ export const BeggingButton = Boto.extend`
   transform: rotate(-4deg);
   margin: 15px 0 0;
   box-shadow: ${p => p.theme.shadowHeavy};
+`
+
+export const CornerWorldRoot = AbsoluteFlexFillParent.extend`
+  z-index: 6;
+  pointer-events: none;
+  justify-content: center;
+  overflow: hidden;
+`
+export const CornerWorldRootActiveStyles = css`
+  overflow: initial;
+  z-index: 9;
+  pointer-events: all;
+`
+
+export const CornerWorldContentRoot = Flex.extend`
+  position: relative;
+  max-width: 740px;
+  flex: 0 1 100%;
+  flex-direction: column;
+  z-index: 4;
+  justify-content: flex-start;
+  padding: 180px 10px 50px;
+  align-self: flex-start;
+`
+
+export const CornerEntryButton = Boto.extend`
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 100%;
+  width: 250px;
+  height: 250px;
+  border: 2px solid ${p => p.theme.veryLight};
+  flex-direction: column;
+  font-size: 24px;
+  transition-duration: .5s;
+  pointer-events: all;
+  box-shadow: ${p => p.theme.shadowMedium};
+  z-index: 3;
+
+  ${p => p.right?
+  css`
+    padding: 80px 90px 0 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  ` :
+  css`
+    padding: 80px 0 0 90px;
+    left: 0;
+    transform: translate(-50%, -50%);
+  `}
+
+  ${screen.medium`
+    transform: translate(50%, -50%) scale(.7);
+  `}
+  ${screen.medsmall`
+    transform: translate(50%, -50%) scale(.6);
+  `}
+
+  i {
+    height: 50px;
+    position: relative;
+    top: 25px;
+    transition: top, height;
+    transition-duration: .5s;
+  }
+`
+
+export const CornerEntryButtonActiveStyles = css`
+  top: 15px;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  background: ${p => p.theme.veryLight};
+  border-color: ${p => p.theme.slightlyDark};
+  color: ${p => p.theme.slightlyDark};
+
+  ${p => p.right?
+  css`
+    right: 50%;
+    transform: translate(50%, 0) rotate(360deg);
+  ` :
+  css`
+    left: 50%;
+    transform: translate(-50%, 0) rotate(360deg);
+  `}
+
+  i {
+    top: 0;
+    height: 35px;
+    transition: top, height;
+  }
 `
 
 // ------------------------------------- old styles below

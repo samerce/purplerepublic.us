@@ -6,6 +6,7 @@ import {
 import {
   screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
   CloseButton as aCloseButton, ExpandingBackground, ExpandingBackgroundSize,
+  CloseButtonActiveStyles
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -31,22 +32,16 @@ export const BubbleEditingButtonsRoot = AbsoluteFlex.extend`
 `
 
 export const CloseButton = aCloseButton.extend`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  transform: scale(0);
-  opacity: 0;
   z-index: 6;
 
   .bubbleverse-show &, .bubbleverse-enter & {
-    opacity: 1;
-    transform: none;
+    ${CloseButtonActiveStyles}
   }
 `
 
 export const Background = ExpandingBackground.extend`
-  top: -${(ExpandingBackgroundSize - window.innerHeight) / 2}px;
   left: 0;
+
   .bubbleverse-show &, .bubbleverse-enter & {
     opacity: 1;
     transform: scale(2);
@@ -54,7 +49,6 @@ export const Background = ExpandingBackground.extend`
     transition-property: transform, opacity;
   }
   .bubbleverse-exit &, .bubbleverse-willExit & {
-    opacity: 0;
     transition-delay: .1s;
   }
 `
