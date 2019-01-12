@@ -385,7 +385,7 @@ export const CornerWorldContentRoot = Flex.extend`
   flex-direction: column;
   z-index: 4;
   justify-content: flex-start;
-  padding: 180px 10px 50px;
+  padding: 190px 10px 50px;
   align-self: flex-start;
 `
 

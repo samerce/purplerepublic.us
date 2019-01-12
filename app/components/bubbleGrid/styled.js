@@ -69,8 +69,8 @@ export const ScrollContainer = Flex.extend`
 export const BubbleGridItem = Flex.extend`
   position: relative;
   pointer-events: none;
-  height: ${p => p.size}px;
-  flex: 0 0 ${p => p.size}px;
+  height: ${p => p.size + 10}px;
+  flex: 0 0 ${p => p.size + 10}px;
   align-items: center;
   justify-content: center;
   margin: 0 5px;

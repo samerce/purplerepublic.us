@@ -22,7 +22,7 @@ const ICON_URL = SRC_URL + 'icons/'
 export default class GetSocialWithUs extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.dimension !== nextProps.dimension
+    return this.props !== nextProps
   }
 
   render() {

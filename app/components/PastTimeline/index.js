@@ -40,43 +40,43 @@ export default class PastTimeline extends React.Component {
 
 var TimelineItems = [
   {
-    title: 'cookies for cambodia',
-    subtitle: 'a nonprofit aiding the impoverished',
-  },
-  {
-    title: 'obama for america (ofa)',
-    subtitle: 'san francisco chapter 2008',
-  },
-  {
-    title: 'world exploration',
-    subtitle: 'over 50 countries'
+    title: 'express your mess',
+    subtitle: 'experiments in art installation'
   },
   {
     title: 'lampshade',
     subtitle: 'pick-your-price coffee shop, bookstore, performance venue, and more'
   },
   {
+    title: 'unrig conference',
+    subtitle: 'spreading the love in the political world'
+  },
+  {
+    title: 'remodels & transformations',
+    subtitle: 'embracing the endless cycle of rebirth '
+  },
+  {
+    title: 'in the streets',
+    subtitle: 'gonzo journalism anywhere, everywhere'
+  },
+  {
     title: 'heidelberg',
     subtitle: 'the launch of the political belly'
   },
   {
-    title: 'golden lantern',
-    subtitle: 'honing the inner drag queen'
+    title: 'obama for america (ofa)',
+    subtitle: 'san francisco chapter 2008',
   },
   {
-    title: 'unrig conference',
-    subtitle: 'spreading the love in the political world'
+    title: 'cookies for cambodia',
+    subtitle: 'a nonprofit aiding the impoverished',
   },
   {
     title: 'trailer trekkin',
     subtitle: 'sm(art) goes on the road'
   },
   {
-    title: 'express your mess',
-    subtitle: 'experiments in art installation'
+    title: 'world exploration',
+    subtitle: 'over 50 countries'
   },
-  {
-    title: 'remodel mikey',
-    subtitle: 'rebirth of an angel'
-  }
 ]

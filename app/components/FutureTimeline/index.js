@@ -23,7 +23,7 @@ export default class FutureTimeline extends React.Component {
       nextProps.isVisible? show() : hide()
     }
   }
-  
+
   render() {
     return (
       <Root className={this.props.className}>
@@ -40,11 +40,31 @@ export default class FutureTimeline extends React.Component {
 
 var TimelineItems = [
   {
-    title: 'performance venue',
-    subtitle: 'cabaret'
+    title: 'first book',
+    subtitle: 'the paradigm is published'
+  },
+  {
+    title: 'feature film',
+    subtitle: 'the journey til now'
+  },
+  {
+    title: 'purle probe',
+    subtitle: 'monthly magazine'
   },
   {
     title: 'coffee shop & political hub',
     subtitle: 'mindspace'
-  }
+  },
+  {
+    title: 'wet toe lp',
+    subtitle: 'debut album'
+  },
+  {
+    title: 'book tour & traveling show',
+    subtitle: 'immersive theatre to synthesize it all'
+  },
+  {
+    title: 'purple party',
+    subtitle: 'political organization without boundaries',
+  },
 ]

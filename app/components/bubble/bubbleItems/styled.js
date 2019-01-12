@@ -130,7 +130,7 @@ injectGlobal`
     visibility: hidden;
   }
   .image-gallery-description {
-    font-family: annie use your telescope;
+    font-family: im fell dw pica;
     font-size: 20px;
 
     ${screen.medium`

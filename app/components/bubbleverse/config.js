@@ -15,8 +15,8 @@ export const Dimensions = {
     title: 'philosophy',
     previewImages: ['dragVote', 'proTip', 'dingell'],
   },
-  Painting: {
-    title: 'painting',
+  Art: {
+    title: 'art',
     previewImages: ['senateWin', 'jamaica', 'workAmerica']
   },
   Politics: {
@@ -31,18 +31,10 @@ export const Dimensions = {
     title: 'film',
     previewImages: ['godLovesFags', 'welcome', 'traderJoes']
   },
-  GetInvolved: {
+  Streets: {
     title: 'streets',
     previewImages: ['queen', 'washington', 'onTheIssues']
   },
-  Music: {
-    title: 'music',
-    previewImages: ['guns', 'selfNotActor', 'toughQuestions']
-  },
-  Photography: {
-    title: 'photography',
-    previewImages: ['magic', 'lampshade', 'seeingGrace']
-  }
 }
 
 export const DimensionTypes = makeEnum(Object.keys(Dimensions))

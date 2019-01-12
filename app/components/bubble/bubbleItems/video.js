@@ -37,7 +37,7 @@ export default class BubbleVideo extends React.Component {
             <Video
               id={videoId}
               onReady={this.onVideoReady}
-              width={() => Math.min(1200, window.innerWidth * .9)}
+              width={() => Math.min(1200, window.innerWidth * .8)}
             />
           }
         </VideoWrapper>

@@ -48,8 +48,8 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-size: cover;
   overflow: hidden;
   border-width: 2px;
-  width: 150px;
-  height: 150px;
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
 
   .active & {
     border: 1px solid ${p => p.theme.slightlyDark};
