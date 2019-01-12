@@ -134,7 +134,7 @@ injectGlobal`
     font-size: 20px;
 
     ${screen.medium`
-      font-size: 22px !important;
+      font-size: 22px;
       transition: all .3s ${EASE_OUT};
 
       .fullscreen & {

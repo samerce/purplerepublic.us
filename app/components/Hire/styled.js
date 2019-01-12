@@ -70,6 +70,10 @@ export const NavParagraphRoot = styled.div`
   text-align: justify;
   max-width: 760px;
   align-self: center;
+
+  ${screen.medium`
+    text-align: left;
+  `}
 `
 
 export const NavTextButton = Boto.extend`
@@ -92,13 +96,19 @@ export const NavTextButton = Boto.extend`
 
 export const TabBarRoot = styled.div`
   border-bottom: 1px solid ${p => p.theme.veryLight};
-  margin: 30px 0 0;
+  padding: 60px 0 0;
 
   .mdc-tab__ripple {
     visibility: hidden !important;
   }
   .mdc-tab-indicator {
     visibility: hidden !important;
+  }
+  .mdc-tab-scroller__scroll-content {
+    scroll-snap-type: x mandatory;
+    & > * {
+      scroll-snap-align: center;
+    }
   }
 `
 
@@ -156,6 +166,14 @@ export const TabContentRoot = Flex.extend`
 
     .image-gallery-slide {
       height: 100%;
+      overflow: hidden;
+
+      ${screen.medsmall`
+        img {
+          height: 100%;
+          width: initial;
+        }
+      `}
 
       .image-gallery-description {
         bottom: 0;
@@ -169,16 +187,36 @@ export const TabContentRoot = Flex.extend`
           ${p => p.theme.veryDark} 0%,
           transparent 100%
          ) !important;
+
+         ${screen.medsmall`
+           font-size: 12px;
+         `}
       }
     }
   }
-  .image-gallery-right-nav::before {
-    content: "\\021C1";
-    font-size: 60px;
+  .image-gallery-right-nav {
+    right: -30px;
+
+    &::before {
+      content: "\\021C1";
+      font-size: 60px;
+
+      ${screen.medsmall`
+        font-size: 40px;
+      `}
+    }
   }
-  .image-gallery-left-nav::before {
-    content: "\\021BD";
-    font-size: 60px;
+  .image-gallery-left-nav {
+    left: -30px;
+
+    &::before {
+      content: "\\021BD";
+      font-size: 60px;
+
+      ${screen.medsmall`
+        font-size: 40px;
+      `}
+    }
   }
 `
 

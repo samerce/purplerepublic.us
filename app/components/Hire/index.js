@@ -85,7 +85,7 @@ export default class Hire extends React.Component {
     return (
       <NavTextButton
         className={(index === this.state.activeTabIndex) && 'active'}
-        onClick={() => this.setTab(index)}>
+        onClick={() => this.onClickNavTextButton(index)}>
         {Tabs[index].title}
       </NavTextButton>
     )
@@ -150,8 +150,12 @@ export default class Hire extends React.Component {
     )
   }
 
-  setTab(index) {
+  onClickNavTextButton(index) {
     this.tabBar.activateTab(index)
+    this.tabBar.root_.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
   }
 
   @autobind

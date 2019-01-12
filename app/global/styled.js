@@ -409,18 +409,25 @@ export const CornerEntryButton = Boto.extend`
     padding: 80px 90px 0 0;
     right: 0;
     transform: translate(50%, -50%);
+
+    ${screen.medium`
+      transform: translate(50%, -50%) scale(.7);
+    `}
+    ${screen.medsmall`
+      transform: translate(50%, -50%) scale(.6);
+    `}
   ` :
   css`
     padding: 80px 0 0 90px;
     left: 0;
     transform: translate(-50%, -50%);
-  `}
 
-  ${screen.medium`
-    transform: translate(50%, -50%) scale(.7);
-  `}
-  ${screen.medsmall`
-    transform: translate(50%, -50%) scale(.6);
+    ${screen.medium`
+      transform: translate(-50%, -50%) scale(.7);
+    `}
+    ${screen.medsmall`
+      transform: translate(-50%, -50%) scale(.6);
+    `}
   `}
 
   i {
