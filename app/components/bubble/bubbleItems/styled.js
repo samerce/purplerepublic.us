@@ -285,6 +285,7 @@ export const QuantityInput = styled(TextInput).attrs({
   width: 100%;
   font-size: 56px;
   border-top: 1px solid ${p => p.theme.veryLight};
+  border-right: 1px solid ${p => p.theme.veryLight};
 
   ${screen.medium`
     font-size: 26px;
@@ -295,6 +296,7 @@ export const PoetCardRow = Flex.extend`
   position: relative;
   width: 100%;
   flex: 0 0 auto;
+  justify-content: center;
 
   &.front {
     input {
@@ -336,8 +338,8 @@ export const PoetCardTotal = AbsoluteFlex.extend`
   font-size: 38px;
   background: ${p => p.theme.main};
   position: fixed;
-  bottom: 60px;
-  width: 740px;
+  bottom: 217px;
+  width: 100%;
   justify-content: center;
   border-top: 1px solid ${p => p.theme.veryLight};
   z-index: 102;
@@ -384,6 +386,7 @@ export const Intro = Flex.extend`
   padding: 10px 0;
   font-size: 22px;
   flex: 0 0 auto;
+  max-width: 740px;
 
   ${screen.medium`
     font-size: 18px;

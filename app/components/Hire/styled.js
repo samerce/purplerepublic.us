@@ -51,6 +51,7 @@ export const ContentRoot = CornerWorldContentRoot.extend`
     transform: translate(0, -10px);
   }
   .hire-willEnter & {
+    display: flex;
     transition: none;
   }
   .hire-willExit &, .hire-exit & {

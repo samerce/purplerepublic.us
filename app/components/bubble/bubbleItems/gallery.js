@@ -86,6 +86,11 @@ export default class BubbleGallery extends React.PureComponent {
         images: this.getGalleryImages(nextProps.nucleus),
       })
     }
+    if (this.props.nucleus !== nextProps.nucleus) {
+      this.setState({
+        images: this.getGalleryImages(nextProps.nucleus),
+      })
+    }
   }
 
   @autobind

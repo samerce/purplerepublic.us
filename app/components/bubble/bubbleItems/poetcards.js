@@ -80,7 +80,7 @@ export default class PoetcardsBubble extends React.PureComponent {
 
           namaste, friend.<br /><br />
 
-          p.s. ordering is easier on larger screens.
+          p.s. ordering is easier on larger screens.<br/>
           p.p.s. click the images for full screen views.
         </Intro>
         }
