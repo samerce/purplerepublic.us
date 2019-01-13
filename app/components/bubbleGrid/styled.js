@@ -37,17 +37,25 @@ export const Root = Flex.extend`
     background: ${p => p.theme.gradientVeryDark};
   }
 
-  transform: translate(0, 10px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .1s, transform .5s;
-  transition-timing-function: ${EASE_OUT};
+  &, &&.hidden {
+    transform: translate(0, 10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .1s, transform .5s;
+    transition-timing-function: ${EASE_OUT};
+    visibility: hidden;
+  }
+  .bubbleverse-willEnter & {
+    visibility: visible;
+    transition: none;
+  }
   .bubbleverse-show &, .bubbleverse-enter & {
     opacity: 1;
     transform: none;
     pointer-events: all;
     transition-delay: .2s;
     transition-duration: 1s;
+    visibility: visible;
   }
 `
 
@@ -63,6 +71,8 @@ export const ScrollContainer = Flex.extend`
   .showAll & {
     flex-wrap: wrap;
     border: none;
+    padding: 0 15px;
+    justify-content: center;
   }
 `
 
@@ -88,10 +98,16 @@ export const BubbleGridItem = Flex.extend`
 
   .showAll &, .showAll &.active {
     border-radius: 100%;
+    margin: 5px;
   }
 
   &.gapItem {
     flex: 0 0 10px;
+
+    .showAll & {
+      flex: 0 0 0;
+      margin: 0;
+    }
   }
 
   ${p => p.heroConfig && `
@@ -154,9 +170,9 @@ export const ShowAllButton = Boto.extend`
   z-index: 10;
   border-radius: 0;
   transform-origin: center bottom;
+  border: none;
 
   &:hover {
-    border-left: 1px solid ${p => p.theme.veryDark};
     box-shadow: ${p => p.theme.shadowHeavy};
     background: linear-gradient(
       to bottom,

@@ -34,6 +34,11 @@ export const BubbleEditingButtonsRoot = AbsoluteFlex.extend`
 export const CloseButton = aCloseButton.extend`
   z-index: 6;
 
+  &&.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .bubbleverse-show &, .bubbleverse-enter & {
     ${CloseButtonActiveStyles}
   }
@@ -66,9 +71,11 @@ export const Header = Flex.extend`
   border-bottom: 1px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowVeryHeavy};
 
-  opacity: 0;
-  transform: translate(0, -5px);
-  transition: all .5s ${EASE_OUT};
+  &, &&.hidden {
+    opacity: 0;
+    transform: translate(0, -5px);
+    transition: all .5s ${EASE_OUT};
+  }
   .bubbleverse-show &, .bubbleverse-enter & {
     opacity: 1;
     transform: none;
@@ -81,17 +88,26 @@ export const Header = Flex.extend`
   .bubbleverse-hide & {
     ${'' /* visibility: hidden; */}
   }
+
+  ${screen.medium`
+    flex-direction: column;
+    padding: 10px 0;
+  `}
 `
 
 export const BubbleHeader = AbsoluteFlex.extend`
   width: 100%;
   flex-direction: column;
   pointer-events: none;
+
+  ${screen.medium`
+    position: relative;
+  `}
 `
 
 export const Title = styled.input`
   font-size: 30px;
-  font-family: life savers;
+  font-family: im fell dw pica;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -115,9 +131,19 @@ export const Subtitle = Title.extend`
 
   ${screen.medium`
     font-size: 14px;
+    padding: 5px 0 0;
   `}
 `
 
 export const Dimension = Flex.extend`
   padding: 0 0 0 30px;
+
+  ${screen.medium`
+    padding: 0 15px 5px;
+    font-size: 16px;
+    border-bottom: 1px solid;
+    margin: 0 0 5px;
+    width: 90%;
+    align-self: flex-start;
+  `}
 `

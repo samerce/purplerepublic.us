@@ -47,7 +47,6 @@ export const Root = Flex.extend`
     transition-delay: .2s;
   }
 `
-const HeaderTop = 25;
 export const ContentRoot = Flex.extend`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   flex: 1;
@@ -82,6 +81,11 @@ export const ActionsRoot = Flex.extend`
 export const VariableActionsRoot = ActionsRoot.extend`
   height: 60px;
   position: relative;
+
+  ${screen.medium`
+    height: 50px;
+    width: 100%;
+  `}
 `
 
 export const Action = Boto.extend`
@@ -108,11 +112,7 @@ export const Action = Boto.extend`
   }
 
   ${screen.medium`
-    font-size: 26px;
-
-    div {
-      line-height: 17px;
-    }
+    font-size: 22px;
   `}
 `
 
@@ -233,7 +233,7 @@ export const NavButton = Flex.extend`
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
-  padding: 0 20px 187px;
+  padding: 90px 20px 187px;
   cursor: pointer;
   color: white;
   transition: all .5s ${EASE_OUT};
@@ -250,7 +250,16 @@ export const NavButton = Flex.extend`
   &:hover {
     color: ${p => p.theme.veryLight};
   }
+
+  ${screen.medium`
+    padding: 110px 10px 147px;
+  `}
+
   i {
     font-size: 30px;
+
+    ${screen.medium`
+      font-size: 26px;
+    `}
   }
 `

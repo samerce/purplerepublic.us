@@ -41,13 +41,17 @@ const Mode = makeEnum([
   'arrange',
 ])
 
-const getBackgroundTop = () => -(ExpandingBackgroundSize - window.innerHeight) / 2
+const getBackgroundStyle = () => ({
+  top: -(ExpandingBackgroundSize - window.innerHeight) / 2,
+  left: window.innerWidth <= SCREEN_WIDTH_M? -(ExpandingBackgroundSize / 4) + 20 : 0,
+})
 
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
   activeBubble: d.get('bubbleverse').get('activeBubble'),
   bubbles: d.get('bubbleverse').get('bubbles'),
   mouseLocation: d.get('bubbleverse').get('mouseLocation'),
+  isPoetcardCheckoutOpen: d.get('bubbles').get('isPoetcardCheckoutOpen'),
 }))
 @withTransitions({prefix: 'bubbleverse'})
 @resizable()
@@ -64,17 +68,13 @@ export default class Bubbleverse extends React.PureComponent {
       mode: Mode.visible,
       arrangeSourceIndex: null,
       savingNewArrangement: false,
-      backgroundStyle: {
-        top: getBackgroundTop(),
-      },
+      backgroundStyle: getBackgroundStyle(),
     }
   }
 
   onResize() {
     this.setState({
-      backgroundStyle: {
-        top: getBackgroundTop(),
-      }
+      backgroundStyle: getBackgroundStyle(),
     })
   }
 
@@ -125,12 +125,16 @@ export default class Bubbleverse extends React.PureComponent {
       mode, savingNewArrangement, arrangeSourceIndex,
       backgroundStyle,
     } = this.state
-    const {dimension, activeBubble, className} = this.props
+    const {
+      dimension, activeBubble, className, isPoetcardCheckoutOpen,
+    } = this.props
     return (
       <Root className={`bubbleverse-${mode} ${className}`}>
         <Background style={backgroundStyle} />
 
-        <CloseButton onClick={this.onClickClose}>
+        <CloseButton
+          className={isPoetcardCheckoutOpen && 'hidden'}
+          onClick={this.onClickClose}>
           <i className='fa fa-close' />
         </CloseButton>
 
@@ -153,7 +157,7 @@ export default class Bubbleverse extends React.PureComponent {
           />
         }
 
-        <Header>
+        <Header className={isPoetcardCheckoutOpen && 'hidden'}>
           <Dimension>{dimension}</Dimension>
           <BubbleHeader>
             <Subtitle

@@ -16,7 +16,8 @@ import {toggleFullscreenBubbleGrid} from '../bubbleverse/actions'
   dimension: d.get('bubbleverse').get('dimension'),
   activeBubble: d.get('bubbleverse').get('activeBubble'),
   visibleBubbles: d.get('bubbleverse').get('visibleBubbles'),
-  isBubbleGridFullscreen: d.get('bubbleverse').get('isBubbleGridFullscreen')
+  isBubbleGridFullscreen: d.get('bubbleverse').get('isBubbleGridFullscreen'),
+  isPoetcardCheckoutOpen: d.get('bubbles').get('isPoetcardCheckoutOpen'),
 }))
 export default class BubbleGrid extends React.PureComponent {
 
@@ -27,13 +28,16 @@ export default class BubbleGrid extends React.PureComponent {
   render() {
     const {
       isArranging, onArrange, arrangeSourceIndex, dimension, visibleBubbles,
-      isBubbleGridFullscreen,
+      isBubbleGridFullscreen, isPoetcardCheckoutOpen
     } = this.props
 
     return (
       <Root
         id='bubbleGrid'
-        className={cx({showAll: isBubbleGridFullscreen})}>
+        className={cx({
+          showAll: isBubbleGridFullscreen,
+          hidden: isPoetcardCheckoutOpen,
+        })}>
         <ScrollContainer>
           <BubbleGridItem className='gapItem' />
 

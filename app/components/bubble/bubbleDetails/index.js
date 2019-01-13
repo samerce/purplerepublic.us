@@ -114,13 +114,7 @@ export default class BubbleDetails extends React.PureComponent {
     } = this.props
     const {
       id,
-      actions = (Math.random() <= .27)? [{
-        text: 'become a patron',
-        type: BubbleButtonActions.OpenLink,
-        props: {
-          url: 'https://www.patreon.com/expressyourmess',
-        },
-      }] : [],
+      actions = [],
       nextBubbleId,
       Component: BubbleComponent,
     } = nucleus

@@ -43,7 +43,7 @@ export const ContentRoot = CornerWorldContentRoot.extend`
   .hire-hide & {
     opacity: 0;
     transform: translate(0, -10px);
-    visibility: hidden;
+    display: none;
     transition: none;
   }
   .hire-willEnter &, .hire-willExit &, .hire-exit & {
@@ -103,12 +103,6 @@ export const TabBarRoot = styled.div`
   }
   .mdc-tab-indicator {
     visibility: hidden !important;
-  }
-  .mdc-tab-scroller__scroll-content {
-    scroll-snap-type: x mandatory;
-    & > * {
-      scroll-snap-align: center;
-    }
   }
 `
 

@@ -178,9 +178,8 @@ injectGlobal`
   .rdw-text-align-dropdown {
     margin-bottom: 5px;
   }
-  .galleryWriting, .videoWriting {
-    overflow-y: hidden;
-    flex: 1 0 auto;
+  div.galleryWriting, div.videoWriting {
+    padding: 0;
   }
 
   .poetcards-slack {
@@ -192,6 +191,10 @@ injectGlobal`
     width: 65%;
     align-self: center;
     margin-bottom: 15px;
+
+    ${screen.medium`
+      width: 100%;
+    `}
   }
 `
 
@@ -202,6 +205,10 @@ export const BubbleComponentRoot = FlexColumn.extend`
   flex: 0 0 100%;
   align-items: center;
   padding: 20px 0 0;
+
+  &.wordsRoot {
+    padding: 0;
+  }
 `
 
 export const VideoRoot = BubbleComponentRoot.extend`
@@ -221,6 +228,11 @@ export const Description = ArticleText.extend`
   font-size: 21px;
   overflow-y: scroll;
   max-width: 740px;
+
+  ${screen.medium`
+    padding: 0;
+    font-size: 18px;
+  `}
 `
 
 export const EditPhotosRoot = FlexColumn.extend`
@@ -273,6 +285,10 @@ export const QuantityInput = styled(TextInput).attrs({
   width: 100%;
   font-size: 56px;
   border-top: 1px solid ${p => p.theme.veryLight};
+
+  ${screen.medium`
+    font-size: 26px;
+  `}
 `
 
 export const PoetCardRow = Flex.extend`
@@ -284,6 +300,10 @@ export const PoetCardRow = Flex.extend`
     input {
       pointer-events: none;
       font-size: 34px;
+
+      ${screen.medium`
+        font-size: 22px;
+      `}
     }
   }
 `
@@ -295,10 +315,19 @@ export const ImageRoot = styled.div`
   img {
     width: 100%;
   }
+
+  ${screen.medium`
+    flex: 0 0 70%;
+  `}
 `
 
 export const QuantityRoot = styled.div`
   flex: 0 0 180px;
+
+  ${screen.medium`
+    flex: 0 0 30%;
+    border-right: 1px solid ${p => p.theme.veryLight};
+  `}
 `
 
 export const PoetCardTotal = AbsoluteFlex.extend`
@@ -315,30 +344,57 @@ export const PoetCardTotal = AbsoluteFlex.extend`
   font-family: annie use your telescope;
   transition: all .4s ${EASE_OUT};
 
-  @media(max-width: 740px) {
+  ${screen.medium`
     width: 100%;
-  }
+    bottom: 147px;
+    font-family: alice;
+    font-size: 30px;
+    line-height: 58px;
+  `}
 
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     bottom: ${window.innerHeight - 160}px;
     border-color: transparent;
     border-radius: 10px;
     box-shadow: ${p => p.theme.shadowMedium};
+    color: ${p => p.theme.veryLight};
+
+    ${screen.medium`
+      width: 104%;
+      border: 1px solid ${p => p.theme.veryLight};
+
+      i {
+        opacity: 0;
+      }
+    `}
+  }
+
+  i {
+    font-size: 28px;
+    color: white;
+    position: absolute;
+    right: 10px;
+    padding: 16px 0;
+    transition: all .3s ${EASE_OUT};
   }
 `
 
 export const Intro = Flex.extend`
   color: white;
-  padding: 10px 20px;
+  padding: 10px 0;
   font-size: 22px;
   flex: 0 0 auto;
+
+  ${screen.medium`
+    font-size: 18px;
+  `}
 `
 
 export const Checkout = FlexColumn.extend`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
+  bottom: 0;
   width: 100%;
   padding: 20px ${(window.innerWidth - 740) / 2}px;
   margin: 0 auto;
@@ -355,29 +411,40 @@ export const Checkout = FlexColumn.extend`
     opacity: 1;
     pointer-events: all;
   }
+
+  ${screen.medium`
+    padding: 20px 15px;
+    margin: 160px 0 0;
+  `}
 `
 
 export const CheckoutTitle = Flex.extend`
-  font-size: 48px;
-  font-family: life savers;
+  font-size: 40px;
+  font-family: playfair display;
+  text-transform: uppercase;
   color: white;
-  text-align: center;
-  margin-bottom: 85px;
   align-self: center;
-  flex: 0 0 auto;
   position: fixed;
   top: 20px;
+  color: ${p => p.theme.veryLight};
+
+  opacity: 0;
+  transition: all .3s ${EASE_OUT};
+  .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
+    opacity: 1;
+    transition-delay: .5s;
+  }
 `
 
 export const CustomerInfo = Flex.extend`
   flex-wrap: wrap;
   width: 100%;
-  padding: 20px;
+  padding: 10px 20px 20px;
   border-radius: 10px;
   background: ${p => p.theme.main};
   box-shadow: ${p => p.theme.shadowMedium};
   flex: 0 0 auto;
-  margin-top: 160px;
+  border: 1px solid ${p => p.theme.veryLight};
 `
 
 export const CustomerInfoTitle = Flex.extend`
@@ -386,7 +453,7 @@ export const CustomerInfoTitle = Flex.extend`
   flex: 0 0 100%;
   justify-content: center;
   transition: all .5s ${EASE_OUT};
-  font-family: life savers;
+  font-family: im fell dw pica;
 
   .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     height: 0;
@@ -399,6 +466,10 @@ const InfoInput = TextInput.extend`
     border-color: transparent;
     pointer-events: none;
   }
+
+  ${screen.medium`
+    flex: 0 0 100%;
+  `}
 `
 
 export const Name = InfoInput.extend`
@@ -448,7 +519,6 @@ export const Instructions = Flex.extend`
 
 export const InstructionEmphasis = Boto.extend`
   flex: 0 0 100%;
-  border: 1px solid ${p => p.theme.veryLight};
   position: relative;
 
   button {
@@ -465,7 +535,7 @@ export const InstructionEmphasis = Boto.extend`
   }
   &.orderNumber {
     pointer-events: none;
-    border: 0;
+    border-width: 1px;
     background: ${p => p.theme.main};
     box-shadow: ${p => p.theme.shadowMedium};
   }
@@ -494,13 +564,20 @@ export const ActionButtons = Flex.extend`
   margin-top: 20px;
   justify-content: space-between;
   flex: 0 0 60px;
+
+  ${screen.medium`
+    flex: 0 0 50px;
+  `}
 `
 
 const Action = Boto.extend`
   flex: 0 0 49%;
   padding: 10px 0;
   transition: all .3s ${EASE_OUT};
-  border: 1px solid ${p => p.theme.veryLight};
+
+  ${screen.medium`
+    font-size: 24px;
+  `}
 `
 
 export const ContinueAction = Action.extend`

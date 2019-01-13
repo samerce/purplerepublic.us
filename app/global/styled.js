@@ -122,6 +122,7 @@ export const Boto = Flex.extend`
   background: ${p => p.theme.slightlyDark};
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   padding: 10px 20px;
+  border: 2px solid ${p => p.theme.veryLight};
 
   &:hover {
     background: ${p => p.theme.veryLight};
@@ -133,7 +134,7 @@ export const Boto = Flex.extend`
 export const TextInput = styled.input`
   text-align: center;
   font-size: 22px;
-  font-family: annie use your telescope;
+  font-family: alice;
   color: white;
   transition: all .3s ${EASE_OUT};
   flex: 1 0 auto;

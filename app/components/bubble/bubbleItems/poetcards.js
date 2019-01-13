@@ -14,6 +14,7 @@ import {openInNewTab} from '../../../utils/nav'
 import {makeEnum} from '../../../utils/lang'
 import ClipboardJS from 'clipboard'
 import {connect} from 'react-redux'
+import {togglePoetcardCheckout} from '../redux/actions'
 
 import {SRC_URL} from '../../../global/constants'
 import {Poetcards} from '../config'
@@ -26,9 +27,7 @@ const Mode = makeEnum([
   'checkoutThanks',
 ])
 
-@connect(d => ({
-  lastClickedAction: d.get('bubbleDetails').get('lastClickedAction')
-}))
+@connect(d => ({}))
 export default class PoetcardsBubble extends React.PureComponent {
 
   constructor(props) {
@@ -48,17 +47,17 @@ export default class PoetcardsBubble extends React.PureComponent {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.lastClickedAction !== this.props.lastClickedAction) {
-      if (nextProps.lastClickedAction.action.type === 'OrderPoetcards') {
-        if (this.getTotalQuantity() < 5) {
-          return alert('please pick at least 5 cards')
-        }
-        this.orderNumber = Date.now()
-        this.setState({mode: Mode.checkoutInfo})
-        getFocusedBubbleButton().style.opacity = 0
-      }
+  @autobind
+  startCheckout() {
+    if (this.state.mode !== Mode.cardPicker) {
+      return
     }
+    if (this.getTotalQuantity() < 5) {
+      return alert('please pick at least 5 cards')
+    }
+    this.orderNumber = Date.now()
+    this.setState({mode: Mode.checkoutInfo})
+    this.props.dispatch(togglePoetcardCheckout())
   }
 
   render() {
@@ -70,28 +69,31 @@ export default class PoetcardsBubble extends React.PureComponent {
       <Root className={'poetcards-' + mode}>
         {detailText?
           <Intro>{detailText}</Intro>
-          :
-          <Intro>
-            art with a message — our poetcards are used as postcards, greeting cards, birthday cards, and just beautiful original artwork ready to frame and hang!
-            <br /><br />
+        :
+        <Intro>
+          art with a message — our poetcards are used as postcards, greeting cards, birthday cards, and just beautiful original artwork ready to frame and hang!
+          <br /><br />
 
-            go ahead, scroll through. choose your favorites, enter quantities, and place your order today.<br /><br />
+          go ahead, scroll through. choose your favorites, enter quantities, and place your order today.<br /><br />
 
-            join the love revolution — help us spread the magic!<br /><br />
+          join the love revolution — help us spread the magic!<br /><br />
 
-            namaste, friend.<br /><br />
+          namaste, friend.<br /><br />
 
-            p.s. ordering is easier on larger screens.
-            p.p.s. click the images for full screen views.
-          </Intro>
+          p.s. ordering is easier on larger screens.
+          p.p.s. click the images for full screen views.
+        </Intro>
         }
 
         <img src={SRC_URL + 'poetcards/price-sheet.jpg'} className='price-sheet' />
 
         {Poetcards.map(this.renderPoetCardRow)}
 
-        <PoetCardTotal>
-          {totalQuantity.toLocaleString()} cards @ ${price.unit} = ${price.prettyTotal}
+        <PoetCardTotal onClick={this.startCheckout}>
+          <div>
+            {totalQuantity.toLocaleString()} cards @ ${price.unit} = ${price.prettyTotal}
+          </div>
+          <i className='fa fa-chevron-right' />
         </PoetCardTotal>
 
         <SlackInput
@@ -153,7 +155,7 @@ export default class PoetcardsBubble extends React.PureComponent {
             <InstructionRow>
               <InstructionNumber>3</InstructionNumber>
               <Instructions>put order number in paypal's NOTE box.<br/>
-                click here to copy order number ⤵</Instructions>
+              click here to copy order number ⤵</Instructions>
               <InstructionEmphasis>
                 <button className='copiable' data-clipboard-text={'#' + this.orderNumber} />
                 #{this.orderNumber}
@@ -251,8 +253,8 @@ export default class PoetcardsBubble extends React.PureComponent {
 
   @autobind
   onClickExit() {
-    getFocusedBubbleButton().style.opacity = 1
     this.setState({mode: Mode.cardPicker})
+    this.props.dispatch(togglePoetcardCheckout())
   }
 
   getPrice() {

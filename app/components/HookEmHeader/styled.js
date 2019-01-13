@@ -37,10 +37,12 @@ export const Blurb = Flex.extend`
   text-align: center;
   max-width: 1080px;
 
+  ${screen.medium`
+    max-width: 90%;
+  `}
   ${screen.medsmall`
     max-width: 85%;
     font-size: 20px;
-    padding: 0 20px;
   `}
 `
 

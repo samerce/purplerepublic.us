@@ -76,7 +76,7 @@ export default class BubbleWords extends React.PureComponent {
     const {editorState, html} = this.state
     const {placeholder, editing, className} = this.props
     return (
-      <BubbleComponentRoot className={className}>
+      <BubbleComponentRoot className={className + ' wordsRoot'}>
         <Description>
           {editing &&
             <Editor

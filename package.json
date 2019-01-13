@@ -217,6 +217,7 @@
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
+    "@material/tab-bar": "^0.43.0",
     "autobind-decorator": "^2.1.0",
     "aws-sdk": "^2.269.1",
     "babel-plugin-import-inspector": "^2.0.0",

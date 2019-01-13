@@ -2,6 +2,7 @@ export const SetActiveGratitude = 'patreon.setActiveGratitude'
 export const SetActivePostIndex = 'instagram.SetActivePostIndex'
 export const SetPosts = 'instagram.SetPosts'
 export const OnClickBubbleAction = 'details.OnClickBubbleAction'
+export const TogglePoetcardCheckout = 'poetcard.checkout.willOpen'
 
 export function setActiveGratitude(activeGratitude) {
   return {
@@ -29,5 +30,11 @@ export function onClickBubbleAction(bubbleId, action) {
     type: OnClickBubbleAction,
     bubbleId,
     action,
+  }
+}
+
+export function togglePoetcardCheckout() {
+  return {
+    type: TogglePoetcardCheckout,
   }
 }

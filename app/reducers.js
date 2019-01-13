@@ -13,6 +13,7 @@ import instagramReducer from 'components/bubble/redux/instagram'
 import bubbleDetailsReducer from 'components/bubble/redux/details'
 import timelineReducer from 'components/ThenNowWhen/reducer'
 import bubbleverseReducer from 'components/bubbleverse/reducer'
+import bubblesReducer from 'components/bubble/redux/reducer'
 
 export default function createReducer(asyncReducers) {
   return combineReducers({
@@ -23,6 +24,7 @@ export default function createReducer(asyncReducers) {
     bubbleDetails: bubbleDetailsReducer,
     timeline: timelineReducer,
     bubbleverse: bubbleverseReducer,
+    bubbles: bubblesReducer,
     ...asyncReducers,
   })
 }
