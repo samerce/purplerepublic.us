@@ -51,6 +51,7 @@ export const ContentRoot = Flex.extend`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   flex: 1;
   height: 100%;
+  width: 100%;
   flex-direction: column;
   position: relative;
   z-index: 70;
