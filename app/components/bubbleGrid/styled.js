@@ -67,12 +67,12 @@ export const ScrollContainer = Flex.extend`
   transition: all .3s ${EASE_OUT};
   border-top: 1px solid ${p => p.theme.veryLight};
   padding: 0 0 6px;
+  justify-content: center;
 
   .showAll & {
     flex-wrap: wrap;
     border: none;
     padding: 0 15px;
-    justify-content: center;
   }
 `
 

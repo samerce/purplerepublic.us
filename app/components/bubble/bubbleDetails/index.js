@@ -3,7 +3,7 @@ import Spinnie from '../../spinnie'
 import {Helmet} from 'react-helmet'
 
 import {
-  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, VariableActionsRoot, BubbleNameButton, BubbleEditButton, BubbleDeleteButton, NavButton, ComponentRoot,
+  Root, ContentRoot, Title, ActionsRoot, Action, Subtitle, BubbleNameButton, BubbleEditButton, BubbleDeleteButton, NavButton, ComponentRoot,
   BubbleOptions, Header, Footer, Mask
 } from './styled'
 import {Description} from '../bubbleItems/styled'
@@ -185,7 +185,7 @@ export default class BubbleDetails extends React.PureComponent {
 
 
           <Footer>
-            {!!actions.length && this.renderVariableActions(actions)}
+            {!!actions.length && this.renderActions(actions)}
           </Footer>
         </ContentRoot>
 
@@ -232,9 +232,9 @@ export default class BubbleDetails extends React.PureComponent {
     this.props.onEdit()
   }
 
-  renderVariableActions(actions) {
+  renderActions(actions) {
     return (
-      <VariableActionsRoot>
+      <ActionsRoot>
         {actions.reverse().map(a => (
           <Action
             key={a.text}
@@ -243,7 +243,7 @@ export default class BubbleDetails extends React.PureComponent {
             <div>{a.text}</div>
           </Action>
         ))}
-      </VariableActionsRoot>
+      </ActionsRoot>
     )
   }
 

@@ -145,7 +145,7 @@ export default class BubbleGallery extends React.PureComponent {
             flickThreshold={.1}
             slideInterval={1000}
             stopPropagation={true}
-            useBrowserFullscreen={false}
+            useBrowserFullscreen={true}
             items={images} />
         }
 
@@ -214,7 +214,7 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   onClickGalleryImage() {
-    document.getElementsByClassName('image-gallery-fullscreen-button')[0].click()
+    this.gallery.fullScreen()
   }
 
   @autobind

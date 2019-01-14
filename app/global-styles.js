@@ -1,6 +1,8 @@
 import { injectGlobal } from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT} from './global/constants'
+import theme from './global/theme'
+import {screen} from './global/styled'
 
 const getRandInt = range => Math.ceil(Math.random() * range)
 const getRand = range => `${getRandInt(range)}px`
@@ -136,4 +138,100 @@ injectGlobal`
     }
   }
 
+  /* image gallery ------------------------------ */
+
+  .image-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .image-gallery-content {
+      width: 100%;
+      &.fullscreen {
+        background: ${theme.gradientVeryDark} !important;
+      }
+    }
+  }
+  .image-gallery-slide {
+    text-align: center;
+    overflow: hidden;
+
+    .image-gallery-content.fullscreen &&.preferWidth {
+      img {
+        height: initial;
+        width: 100%;
+      }
+    }
+    .image-gallery-content.fullscreen &&.preferHeight {
+      ${screen.medium`
+        img {
+          height: initial;
+          width: 100%;
+        }
+      `}
+    }
+    .image-gallery-content.fullscreen && {
+      img {
+        height: ${window.innerHeight * .9}px;
+      }
+    }
+    && {
+      background: none;
+
+      img {
+        height: ${window.innerHeight - 470}px;
+        width: initial;
+      }
+    }
+  }
+  .image-gallery-left-nav, .image-gallery-right-nav {
+    height: 100%;
+  }
+  .image-gallery-right-nav {
+    &&::before {
+      content: "\\021C1";
+      font-size: 60px;
+
+      ${screen.medsmall`
+        font-size: 40px;
+      `}
+    }
+  }
+  .image-gallery-left-nav {
+    &&::before {
+      content: "\\021BD";
+      font-size: 60px;
+
+      ${screen.medsmall`
+        font-size: 40px;
+      `}
+    }
+  }
+  button.image-gallery-fullscreen-button {
+    z-index: 5;
+    opacity: 0;
+  }
+  .image-gallery-description {
+    font-family: im fell dw pica;
+    font-size: 20px;
+    font-style: italic;
+
+    ${screen.medium`
+      font-size: 22px;
+      transition: all .3s ${EASE_OUT};
+
+      .fullscreen & {
+        font-size: 24px !important;
+      }
+    `}
+  }
+  button.image-gallery-fullscreen-button::before {
+    font-size: 1.7em;
+    padding: 10px;
+  }
+  div.image-gallery-index {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 `

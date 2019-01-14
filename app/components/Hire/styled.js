@@ -146,6 +146,7 @@ export const TabContentRoot = Flex.extend`
     border-top: none;
     border-bottom: none;
     cursor: pointer;
+    overflow: hidden;
   }
   .image-gallery-slide-wrapper {
     height: 100%;
@@ -163,6 +164,11 @@ export const TabContentRoot = Flex.extend`
       height: 100%;
       overflow: hidden;
 
+      img {
+        height: initial;
+        width: 100%;
+      }
+
       ${screen.medsmall`
         img {
           height: 100%;
@@ -175,7 +181,6 @@ export const TabContentRoot = Flex.extend`
         width: 100%;
         text-align: center;
         font-size: 16px;
-        font-style: italic;
         padding: 100px 0 15px;
         background: linear-gradient(
           to top,
@@ -187,30 +192,6 @@ export const TabContentRoot = Flex.extend`
            font-size: 12px;
          `}
       }
-    }
-  }
-  .image-gallery-right-nav {
-    right: -30px;
-
-    &::before {
-      content: "\\021C1";
-      font-size: 60px;
-
-      ${screen.medsmall`
-        font-size: 40px;
-      `}
-    }
-  }
-  .image-gallery-left-nav {
-    left: -30px;
-
-    &::before {
-      content: "\\021BD";
-      font-size: 60px;
-
-      ${screen.medsmall`
-        font-size: 40px;
-      `}
     }
   }
 `

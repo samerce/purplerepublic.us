@@ -72,15 +72,12 @@ export const Footer = Flex.extend`
 export const ActionsRoot = Flex.extend`
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 50px;
   width: 80%;
+  max-width: 340px;
   font-family: annie use your telescope;
   background: ${p => p.theme.slightlyDark};
   border-radius: ${p => p.theme.borderRadiusBoto}px;
-`
-
-export const VariableActionsRoot = ActionsRoot.extend`
-  height: 60px;
   position: relative;
 
   ${screen.medium`
@@ -96,6 +93,7 @@ export const Action = Boto.extend`
   position: relative;
   border: 2px solid ${p => p.theme.veryLight};
   border-radius: ${p => p.theme.borderRadiusBoto}px;
+  font-size: 26px;
 
   &:not(:first-child) {
     border-left: 1px solid ${p => p.theme.veryLight};
