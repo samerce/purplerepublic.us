@@ -311,7 +311,6 @@ export const Intro = Flex.extend`
     font-size: 18px;
   `}
 `
-const CheckoutTitleHeight = 160
 export const Checkout = FlexColumn.extend`
   position: fixed;
   top: 0;
@@ -319,7 +318,6 @@ export const Checkout = FlexColumn.extend`
   bottom: 0;
   width: 100%;
   padding: 0 ${(window.innerWidth - 740) / 2}px;
-  margin: ${CheckoutTitleHeight}px auto 0;
   overflow: scroll;
   background: ${p => alpha(.1, p.theme.veryDark)};
   z-index: 100;
@@ -344,11 +342,9 @@ export const CheckoutTitle = Flex.extend`
   font-family: playfair display;
   text-transform: uppercase;
   color: ${p => p.theme.veryLight};
-  position: fixed;
-  height: ${CheckoutTitleHeight}px;
+  flex: 0 0 auto;
   background: inherit;
   width: 100%;
-  top: 0;
   padding: 20px 0 0;
   justify-content: center;
   align-self: center;
@@ -357,7 +353,7 @@ export const CheckoutTitle = Flex.extend`
   transition: all .3s ${EASE_OUT};
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
     opacity: 1;
-    transition-delay: .5s;
+    transition-delay: .2s;
   }
 `
 
@@ -370,7 +366,7 @@ export const CustomerInfo = Flex.extend`
   box-shadow: ${p => p.theme.shadowMedium};
   flex: 0 0 auto;
   border: 1px solid ${p => p.theme.veryLight};
-  margin: 20px 0 0;
+  margin: 100px 0 0;
 `
 
 export const CustomerInfoTitle = Flex.extend`
@@ -380,9 +376,10 @@ export const CustomerInfoTitle = Flex.extend`
   justify-content: center;
   transition: all .5s ${EASE_OUT};
   font-family: playfair display;
+  height: 80px;
 
   .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
-    height: 0;
+    height: 1px;
     overflow: hidden;
   }
 `
@@ -415,9 +412,13 @@ export const PaymentInstructions = FlexColumn.extend`
   flex: 0 0 0;
   overflow: scroll;
   transition: all .5s ${EASE_OUT};
+  transform: translate(0, -10px);
+  opacity: 0;
 
   .poetcards-checkoutPayment & {
     flex: 0 0 auto;
+    transform: none;
+    opacity: 1;
   }
 `
 

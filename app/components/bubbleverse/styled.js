@@ -21,7 +21,7 @@ export const Root = Flex.extend`
     pointer-events: all;
   }
   &.bubbleverse-hide {
-    visibility: hidden;
+    ${'' /* visibility: hidden; */}
   }
 `
 
@@ -59,8 +59,7 @@ export const Background = ExpandingBackground.extend`
 `
 
 export const Header = Flex.extend`
-  flex: 0 0 auto;
-  padding: 15px 0 20px;
+  flex: 0 0 82px;
   color: ${p => p.theme.veryLight};
   z-index: 5;
   font-family: playfair display;
@@ -91,7 +90,8 @@ export const Header = Flex.extend`
 
   ${screen.medium`
     flex-direction: column;
-    padding: 10px 0;
+    padding: 5px 0;
+    flex: 0 0 105px;
   `}
 `
 

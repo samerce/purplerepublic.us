@@ -19,16 +19,16 @@ const fullscreenGrid = keyframes`
 export const Root = Flex.extend`
   pointer-events: all;
   z-index: 7;
-  flex: 0 0 auto;
+  flex: 0 0 217px;
   position: relative;
   padding: 0 0 40px;
   box-shadow: -3px -3px 30px ${p => alpha(.5, p.theme.veryDark)};
+  width: 100%;
+  align-items: center;
 
   &.showAll {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    align-items: center;
     background-attachment: fixed;
     animation: ${fullscreenGrid};
     animation-duration: .5s;
@@ -57,17 +57,19 @@ export const Root = Flex.extend`
     transition-duration: 1s;
     visibility: visible;
   }
+
+  ${screen.medium`
+    flex: 0 0 147px;
+  `}
 `
 
 export const ScrollContainer = Flex.extend`
   overflow-x: scroll;
   flex: 1;
-  align-content: flex-start;
   align-items: flex-start;
   transition: all .3s ${EASE_OUT};
   border-top: 1px solid ${p => p.theme.veryLight};
   padding: 0 0 6px;
-  justify-content: center;
 
   .showAll & {
     flex-wrap: wrap;
