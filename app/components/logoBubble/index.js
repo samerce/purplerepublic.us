@@ -76,8 +76,7 @@ export default class LogoBubble extends React.Component {
           {m =>
             <LogoTextRoot>
               <Name>
-                <div>Lucid</div><br />
-                <div>POINT</div>
+                <div>Nomaya</div>
               </Name>
               </LogoTextRoot>
             }
