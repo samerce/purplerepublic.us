@@ -88,7 +88,7 @@ export const Header = Flex.extend`
     ${'' /* visibility: hidden; */}
   }
 
-  ${screen.medium`
+  ${screen.medsmall`
     flex-direction: column;
     padding: 5px 0;
     flex: 0 0 105px;
@@ -100,7 +100,7 @@ export const BubbleHeader = AbsoluteFlex.extend`
   flex-direction: column;
   pointer-events: none;
 
-  ${screen.medium`
+  ${screen.medsmall`
     position: relative;
   `}
 `
@@ -114,7 +114,7 @@ export const Title = styled.input`
   pointer-events: none;
   width: 100%;
 
-  ${screen.medium`
+  ${screen.medsmall`
     font-size: 24px;
   `}
 
@@ -129,7 +129,7 @@ export const Subtitle = Title.extend`
   text-transform: uppercase;
   color: ${p => p.theme.veryLight};
 
-  ${screen.medium`
+  ${screen.medsmall`
     font-size: 14px;
     padding: 5px 0 0;
   `}
@@ -139,6 +139,11 @@ export const Dimension = Flex.extend`
   padding: 0 0 0 30px;
 
   ${screen.medium`
+    font-size: 22px;
+    padding: 0 0 0 20px;
+  `}
+
+  ${screen.medsmall`
     padding: 0 15px 5px;
     font-size: 16px;
     border-bottom: 1px solid;
