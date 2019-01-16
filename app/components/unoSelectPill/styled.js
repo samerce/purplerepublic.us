@@ -31,10 +31,9 @@ export const Root = styled.div`
 `
 
 export const OptionRoot = styled.div`
-  padding: 5px 20px;
+  padding: 0 20px;
   cursor: pointer;
-  text-transform: uppercase;
-  font-family: annie use your telescope;
+  font-family: alice;
   position: relative;
   font-size: 24px;
   transition-property: width, opacity;

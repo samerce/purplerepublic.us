@@ -9,24 +9,45 @@ import {
   SCREEN_WIDTH_S_PX,
 } from '../../../global/constants'
 import {
-  AbsoluteFlexFillParent, Flex,
+  AbsoluteFlexFillParent, Flex, FlexColumn, MaskAbsoluteFillParent,
 } from '../../../global/styled'
 
-injectGlobal`
-  .bubbleBuilderToolbar {
-    position: fixed;
-    z-index: 50;
-    pointer-events: all;
-  }
+export const PublishingMask = MaskAbsoluteFillParent.extend`
+  position: fixed;
+  z-index: 100;
 `
 
 export const Root = AbsoluteFlexFillParent.extend`
-  z-index: 20;
+  z-index: 2;
   transition: all .7s ${EASE_OUT};
   align-items: flex-start;
   margin-bottom: 90px;
   overflow: scroll;
   pointer-events: all;
+  transform: translate(0, 200px);
+  opacity: 0;
+
+  &.bubbleBuilder-hide {
+    display: none;
+  }
+  &.bubbleBuilder-willEnter {
+    display: flex;
+    transition: none;
+  }
+  &.bubbleBuilder-show, &.bubbleBuilder-enter {
+    opacity: 1;
+    transform: none;
+  }
+
+  .bubbleBuilderToolbar {
+    position: fixed;
+    z-index: 50;
+    pointer-events: all;
+    & > * {
+      padding: 10px;
+      font-size: 26px;
+    }
+  }
 `
 
 export const PropertiesRoot = Flex.extend`
@@ -98,4 +119,45 @@ export const BubbleButtonSizeSlider = styled.input.attrs({
   border-radius: 20px;
   background: ${p => p.theme.main};
   outline: none;
+`
+
+export const PropertiesSection = FlexColumn.extend`
+  flex: 1 0 auto;
+  border-left: 1px solid ${p => p.theme.veryLight};
+  padding: 5px 10px 50px;
+  height: 100%;
+  justify-content: flex-start;
+  text-align: center;
+
+  &.first {
+    margin-left: 200px;
+    flex: 0 0 340px;
+  }
+  .typeSelectPill {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: none;
+    height: 50px;
+    justify-content: space-between;
+
+    .selectOption {
+      font-size: 20px;
+    }
+  }
+  .nothin {
+    color: ${alpha(.3, 'white')};
+  }
+`
+
+export const PropertiesSectionTitle = Flex.extend`
+  flex: 0 0 auto;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: playfair display;
+  color: ${p => p.theme.veryLight};
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 5px;
 `

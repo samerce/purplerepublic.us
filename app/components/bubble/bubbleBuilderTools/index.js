@@ -73,15 +73,8 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
     const {action} = this.state
     const {nucleus, onChangeNucleus} = this.props
     const {actions = []} = nucleus
-    const {actionIndex} = this
 
-    // if (!actionProps.text || !actionProps.props.url) return
-    //
-    // if (actionIndex >= 0) {
-    //   actions[actionIndex] = actionProps
-    // } else {
-    //   actions.push(actionProps)
-    // }
+    if (!action.text || !action.text.length) return
 
     if (actions.length) {
       actions[0] = action
@@ -89,18 +82,19 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
       actions.push(action)
     }
 
-    onChangeNucleus({
-      ...nucleus,
-      actions,
-    })
+    onChangeNucleus({actions})
   }
 
   @autobind
-  onTitleChange({target: titleInput}) {
+  onTitleChange({target}) {
+    const text = target.value
+    if (!text || !text.trim().length) {
+      return
+    }
     this.setState({
       action: {
         ...this.state.action,
-        text: titleInput.value,
+        text,
       }
     })
   }
@@ -113,13 +107,15 @@ export class BubbleBuilderButtonTool extends React.PureComponent {
   }
 
   @autobind
-  onLinkChange({target: linkInput}) {
+  onLinkChange({target}) {
+    const url = target.value
+    if (!url || !url.trim().length) {
+      return
+    }
     this.setState({
       action: {
         ...this.state.action,
-        props: {
-          url: linkInput.value,
-        }
+        props: {url},
       }
     })
   }
@@ -163,11 +159,10 @@ export const BubbleBuilderJourneyTool = ({
 export const BubbleBuilderNameTool = ({
   nucleus,
   onChangeNucleus,
-  isExistingBubble,
   verifyBubbleIdExists,
 }) => {
   const onChange = ({key, target: nameInput}) => {
-    if (isExistingBubble) {
+    if (nucleus.existingIndex >= 0) {
       return alert(
         "you can't change the name of an existing bubble.\nsorry, love :("
       )
@@ -232,7 +227,6 @@ export class BubbleBuilderYouTubeTool extends React.PureComponent {
   onBlur({target: linkInput}) {
     const videoId = linkInput.value.split('/').pop().split('=').pop()
     this.props.onChangeNucleus({
-      ...this.props.nucleus,
       videoId: videoId.length > 0? videoId : undefined,
     })
   }

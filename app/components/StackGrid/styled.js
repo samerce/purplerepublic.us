@@ -86,7 +86,7 @@ export const Title = Boto.extend`
   opacity: .8;
 
   ${StackRoot}:hover & {
-    background: ${p => p.theme.veryLight};
+    background: white;
     color: ${p => p.theme.veryDark};
     border-color: ${p => p.theme.veryDark};
     text-shadow: none;

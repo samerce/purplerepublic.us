@@ -1,9 +1,11 @@
 import React from 'react'
 import BubbleButton from '../bubble/bubbleButton'
+import BubbleButtonBuilder from '../bubble/bubbleButton/builder'
+import BubbleEditingPanel from '../bubble/bubbleBuilder'
 
 import {
   Root, BubbleGridItem, ArrangeButton, ArrangeIcon, ShowAllButton,
-  ScrollContainer,
+  ScrollContainer, BubbleGridAddItem,
 } from './styled'
 
 import {HeroBubbleConfig} from '../bubble/config'
@@ -11,6 +13,7 @@ import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import {cx} from '../../utils/style'
 import {toggleFullscreenBubbleGrid} from '../bubbleverse/actions'
+import {canShowEditingTools} from '../../utils/nav'
 
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
@@ -18,6 +21,8 @@ import {toggleFullscreenBubbleGrid} from '../bubbleverse/actions'
   visibleBubbles: d.get('bubbleverse').get('visibleBubbles'),
   isBubbleGridFullscreen: d.get('bubbleverse').get('isBubbleGridFullscreen'),
   isPoetcardCheckoutOpen: d.get('bubbles').get('isPoetcardCheckoutOpen'),
+  builderNucleus: d.get('bubbleverse').get('builderNucleus'),
+  isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
 }))
 export default class BubbleGrid extends React.PureComponent {
 
@@ -28,7 +33,8 @@ export default class BubbleGrid extends React.PureComponent {
   render() {
     const {
       isArranging, onArrange, arrangeSourceIndex, dimension, visibleBubbles,
-      isBubbleGridFullscreen, isPoetcardCheckoutOpen
+      isBubbleGridFullscreen, isPoetcardCheckoutOpen, builderNucleus,
+      isBubbleBuilderOpen,
     } = this.props
 
     return (
@@ -41,7 +47,13 @@ export default class BubbleGrid extends React.PureComponent {
         <ScrollContainer>
           <BubbleGridItem className='gapItem' />
 
-          {visibleBubbles.map((bubble, index) => (
+          {canShowEditingTools() &&
+            <BubbleGridAddItem>
+              <BubbleButtonBuilder />
+            </BubbleGridAddItem>
+          }
+
+          {!isBubbleBuilderOpen && visibleBubbles.map((bubble, index) => (
             <BubbleGridItem
               className={this.getBubbleGridItemClasses(bubble)}
               key={bubble.id}
@@ -66,11 +78,15 @@ export default class BubbleGrid extends React.PureComponent {
           <BubbleGridItem className='gapItem' />
         </ScrollContainer>
 
-        <ShowAllButton onClick={this.onClickShowAll}>
-          <div>
-            {isBubbleGridFullscreen? 'hide all' : 'show all'}
-          </div>
-        </ShowAllButton>
+        <BubbleEditingPanel />
+
+        {!isBubbleBuilderOpen &&
+          <ShowAllButton onClick={this.onClickShowAll}>
+            <div>
+              {isBubbleGridFullscreen? 'hide all' : 'show all'}
+            </div>
+          </ShowAllButton>
+        }
       </Root>
     )
   }

@@ -5,6 +5,10 @@ export const BubbleverseSetBubbles = 'bubbleverse.setBubbles'
 export const BubbleverseGoToNextBubble = 'bubbleverse.goToNextBubble'
 export const BubbleverseGoToPrevBubble = 'bubbleverse.goToPrevBubble'
 export const BubbleverseToggleFullscreenBubbleGrid = 'bubbleverse.toggleFullscreenBubbleGrid'
+export const BubbleverseBubbleBuilderOpen = 'bubbleverse.bubbleBuilder.open'
+export const BubbleverseBubbleBuilderClose = 'bubbleverse.bubbleBuilder.close'
+export const BubbleverseBubbleBuilderUpdateNucleus = 'bubbleverse.bubbleBuilder.updateNucleus'
+export const BubbleverseBubbleBuilderDidPublish = 'bubbleverse.bubbleBuilder.didPublish'
 
 export function openBubbleverse(dimension, mouseLocation) {
   return {
@@ -49,5 +53,32 @@ export function goToPrevBubble() {
 export function toggleFullscreenBubbleGrid() {
   return {
     type: BubbleverseToggleFullscreenBubbleGrid,
+  }
+}
+
+export function openBubbleBuilder(shouldEditActiveBubble) {
+  return {
+    type: BubbleverseBubbleBuilderOpen,
+    shouldEditActiveBubble,
+  }
+}
+
+export function closeBubbleBuilder() {
+  return {
+    type: BubbleverseBubbleBuilderClose,
+  }
+}
+
+export function updateBuilderNucleus(nucleus) {
+  return {
+    type: BubbleverseBubbleBuilderUpdateNucleus,
+    nucleus,
+  }
+}
+
+export function didPublishBubble(nucleus) {
+  return {
+    type: BubbleverseBubbleBuilderDidPublish,
+    nucleus,
   }
 }

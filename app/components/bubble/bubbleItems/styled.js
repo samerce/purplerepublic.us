@@ -85,6 +85,14 @@ injectGlobal`
     justify-content: center;
     border-radius: 10px;
     position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .5s ${EASE_OUT};
+
+    &.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
   }
   .words-editor-textarea {
     color: white;
@@ -158,30 +166,38 @@ export const Description = ArticleText.extend`
 `
 
 export const EditPhotosRoot = FlexColumn.extend`
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
   position: fixed;
-  top: 10px;
-  right: 20px;
-`
+  top: 90px;
+  right: 10px;
 
-export const Hint = styled.div`
-  font-size: 18px;
-  margin: 15px;
-  color: ${p => p.theme.veryLight};
+  .gallerySelectPill {
+    height: 50px;
+
+    .selectOption {
+      font-size: 20px;
+    }
+  }
 `
 
 export const Button = Boto.extend`
-  margin: 20px;
-  font-size: 24px;
-  border: 1px solid ${p => p.theme.veryLight};
+  font-size: 22px;
+  padding: 15px 20px 10px;
+  transform: translate(0, -10px);
 `
 
 export const DeleteButton = Button.extend`
   opacity: ${p => p.disabled? .5 : 1};
   pointer-events: ${p => p.disabled? 'none' : 'all'};
+`
+
+export const Hint = Button.extend`
+  font-size: 18px;
+  color: ${p => p.theme.veryLight};
+  background: ${p => p.theme.veryDark};
+  border: 1px solid ${p => p.theme.veryLight};
+  pointer-events: none;
 `
 
 export const CaptionInput = TextInput.extend`

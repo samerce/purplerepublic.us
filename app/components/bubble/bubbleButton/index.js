@@ -42,7 +42,7 @@ const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
 
 @connect(d => ({
-  activeBubble: d.get('bubbleverse').get('activeBubble')
+  activeBubble: d.get('bubbleverse').get('activeBubble'),
 }))
 export default class BubbleButton extends React.Component {
 
@@ -67,7 +67,7 @@ export default class BubbleButton extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {activeBubble, nucleus} = this.props
+    const {activeBubble, nucleus, isBubbleBuilderOpen} = this.props
     const {activeBubble: nextActiveBubble} = nextProps
     if (nextActiveBubble) {
       if (nextActiveBubble.id === nucleus.id) {
@@ -77,6 +77,9 @@ export default class BubbleButton extends React.Component {
       }
     } else if (activeBubble && activeBubble.id === nucleus.id) {
       this.defocusIt()
+    }
+    if (nextProps.isBubbleBuilderOpen && !isBubbleBuilderOpen) {
+      this.setState({mode: Mode.willEnter})
     }
   }
 
@@ -91,23 +94,20 @@ export default class BubbleButton extends React.Component {
   render() {
     const {mode} = this.state
     const {
-      className, unsavedImageUrl, nucleus,
+      className, imageUrl, nucleus,
     } = this.props
     const {
       id, size, title, type,
       ButtonComponent,
     } = nucleus
     const heroConfig = HeroBubbleConfig[id]
-    const Hero = heroConfig && heroConfig.Component
 
     return (
       <Root
         ref={r => this.ref = r}
-        className={'bubble-' + mode}
+        className={className + ' bubble-' + mode}
         style={this.styles[mode] || {}}
         delay={this.delay}>
-
-        {Hero && <Hero config={heroConfig} />}
 
         {ButtonComponent?
           <ButtonComponent
@@ -117,8 +117,7 @@ export default class BubbleButton extends React.Component {
         :
         <ImageBubbleButton
           onClick={this.onClick}
-          src={unsavedImageUrl || getButtonImageUrl(id)}
-            size={size}>
+          src={imageUrl || getButtonImageUrl(id)}>
             <Icon className={'fa fa-' + TypeToIcon[type]} />
             <Title><div>{title}</div></Title>
           </ImageBubbleButton>

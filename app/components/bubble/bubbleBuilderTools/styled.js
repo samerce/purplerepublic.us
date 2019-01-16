@@ -13,6 +13,10 @@ export const Root = Flex.extend`
   z-index: 8;
   pointer-events: all;
   margin: 10px 0;
+
+  input {
+    font-size: 18px;
+  }
 `
 
 export const BuilderInputLink = TextInput.extend`

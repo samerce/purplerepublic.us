@@ -7,54 +7,39 @@ import {
   BubbleBuilderJourneyTool,
 } from '../bubbleBuilderTools'
 
-import BubbleButton from '../bubbleButton'
-import BubbleDetails from '../bubbleDetails'
-import {Description} from '../bubbleItems/styled'
-import {BubbleType, BubbleComponents} from '../config'
-
-import {cx} from '../../../utils/style'
 import {
-  Root, BubbleButtonRoot, BubbleBuilderToolsRoot, BubbleButtonContent,
-  BubbleButtonSizeSlider, PropertiesRoot, PreviewRoot,
+  Root, PropertiesSection, PropertiesSectionTitle, PublishingMask,
 } from './styled'
 import {
-  ToolBar, ToolBarItem, MaskAbsoluteFillParent,
+  ToolBar, ToolBarItem,
 } from '../../../global/styled'
+import theme from '../../../global/theme'
 
-import {makeEnum} from '../../../utils/lang'
+import {cx} from '../../../utils/style'
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
+import withTransitions from '../../hocs/withTransitions'
+import {
+  updateBuilderNucleus, closeBubbleBuilder, didPublishBubble, openBubbleverse,
+} from '../../bubbleverse/actions'
 
+import {BubbleType, BubbleComponents} from '../config'
 import {SRC_URL} from '../../../global/constants'
 
-const Mode = makeEnum([
-  'willEnter',
-  'enter',
-  'defocused',
-  'willFocus',
-  'focused',
-  'editing',
-  'willDefocus',
-  'expanded',
-])
-
 const LOCAL_NUCLEUS_KEY = 'purple.republic.editingBubbleNucleus.'
-const BUBBLE_IMAGE_URL = SRC_URL + 'bubbles/buttonImages/'
-
-const DURATION_WILL_ENTER = 700
-const DURATION_ENTER = DURATION_WILL_ENTER + 700
-const INITIAL_FILTER = 0 //video
-
-const InitialNucleus = {
-  title: 'i am a cosmic title waiting to happen',
-  subtitle: 'click! make me pretty',
-  size: 200,
-}
 const FilterOptionList = [
   BubbleType.gallery,
   BubbleType.video,
   BubbleType.words,
 ]
 
+@connect(d => ({
+  builderNucleus: d.get('bubbleverse').get('builderNucleus'),
+  isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
+  dimension: d.get('bubbleverse').get('dimension'),
+  bubbles: d.get('bubbleverse').get('bubbles'),
+}))
+@withTransitions({prefix: 'bubbleBuilder'})
 export default class BubbleBuilder extends React.PureComponent {
 
   constructor(props) {
@@ -68,85 +53,75 @@ export default class BubbleBuilder extends React.PureComponent {
     this.state = getDefaultState()
   }
 
-  componentDidMount() {
-    this.timers.push(
-      setTimeout(() => this.setState({mode: Mode.enter}), DURATION_WILL_ENTER),
-      setTimeout(() => this.setState({mode: Mode.defocused}), DURATION_ENTER)
-    )
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isBubbleBuilderOpen && !this.props.isBubbleBuilderOpen) {
+      this.setState(getDefaultState())
+      this.props.show()
+      window.onbeforeunload = () => true
+    } else if (!nextProps.isBubbleBuilderOpen && this.props.isBubbleBuilderOpen) {
+      this.props.hide()
+      window.onbeforeunload = null
+    }
   }
 
   componentWillUnmount() {
     this.timers.forEach(clearTimeout)
   }
 
-  componentDidUpdate() {
-    // storeNucleus(this.state.nucleus)
-    if (this.props.visible) {
-      window.onbeforeunload = () => true
-    } else {
-      window.onbeforeunload = null
-    }
-  }
-
-  @autobind
-  show(existingBubble, existingBubbleIndex) {
-    if (existingBubble) {
-      this.setState({
-        nucleus: {
-          ...existingBubble,
-        },
-        existingBubbleIndex,
-        imageUrl: BUBBLE_IMAGE_URL + existingBubble.id + '.jpg',
-      }, () => this.bubble.edit(existingBubble))
-    } else {
-      const state = this.reset()
-      this.bubble.edit(state.nucleus)
-    }
-  }
-
   render() {
-    const {mode, imageUrl, nucleus, isPublishing} = this.state
-    const {visible} = this.props
+    const {
+      isPublishing,
+    } = this.state
+    const {className, isBubbleBuilderOpen, builderNucleus} = this.props
+    const {renderCustomBuilderTools} = BubbleComponents[builderNucleus.type]
+    const selectedIndex = FilterOptionList.findIndex(o => o === builderNucleus.type)
 
     return (
-      <Root
-        style={{display: visible? 'flex' : 'none'}}
-        ref={r => this.root = r}
-        className={'bubbleBuilder-' + mode}>
-
-        <MaskAbsoluteFillParent show={isPublishing}>
+      <Root className={className}>
+        <PublishingMask show={isPublishing}>
           <Spinnie show={true} />
-        </MaskAbsoluteFillParent>
+        </PublishingMask>
 
-        <UnoSelectPill
-          options={this.filterOptions}
-          selectedIndex={FilterOptionList.findIndex(o => o === nucleus.type)}
-        />
-
-        <PropertiesRoot>
-          {this.renderBubbleButtonBuilder()}
-          {this.renderBubbleBuilderTools()}
-        </PropertiesRoot>
-
-        <PreviewRoot>
-          <BubbleButton
-            nucleus={nucleus}
-            editing={true}
-            unsavedImageUrl={imageUrl}
+        <PropertiesSection className='first'>
+          <PropertiesSectionTitle>
+            <div>type</div>
+          </PropertiesSectionTitle>
+          <UnoSelectPill
+            className='typeSelectPill'
+            options={this.filterOptions}
+            selectedIndex={selectedIndex}
           />
-          <BubbleDetails
-            editing={true}
-            ref={r => this.bubble = r && r.getWrappedInstance()}
-            onEditingChange={this.onEditingChange}
-            nucleus={nucleus}
-          />
-        </PreviewRoot>
+        </PropertiesSection>
 
-        <ToolBar themeColor={'#956C95'} className='bubbleBuilderToolbar'>
-          <ToolBarItem themeColor={'#956C95'} onClick={this.close}>
+        <PropertiesSection>
+          <PropertiesSectionTitle>
+            <div>properties</div>
+          </PropertiesSectionTitle>
+          <BubbleBuilderNameTool
+            nucleus={builderNucleus}
+            verifyBubbleIdExists={this.verifyBubbleIdExists}
+            onChangeNucleus={this.onChangeNucleus}
+          />
+          {renderCustomBuilderTools && renderCustomBuilderTools(
+            builderNucleus,
+            this.onChangeNucleus
+          )}
+        </PropertiesSection>
+
+        <PropertiesSection>
+          <PropertiesSectionTitle>
+            <div>action</div>
+          </PropertiesSectionTitle>
+          <BubbleBuilderButtonTool
+            nucleus={builderNucleus}
+            onChangeNucleus={this.onChangeNucleus} />
+        </PropertiesSection>
+
+        <ToolBar themeColor={theme.main} className='bubbleBuilderToolbar'>
+          <ToolBarItem themeColor={theme.main} onClick={this.quit}>
             <div>quit bubble builder</div>
           </ToolBarItem>
-          <ToolBarItem themeColor={'#956C95'} onClick={this.publish}>
+          <ToolBarItem themeColor={theme.main} onClick={this.publish}>
             <div>publish bubble!</div>
           </ToolBarItem>
         </ToolBar>
@@ -154,153 +129,63 @@ export default class BubbleBuilder extends React.PureComponent {
     )
   }
 
-  renderBubbleButtonBuilder() {
-    const {isUploadingImage, imageUrl, nucleus} = this.state
-    return (
-      <BubbleButtonRoot>
-        <BubbleButtonContent
-          onClick={() => this.fileInput.click()}
-          style={{
-            width: +nucleus.size,
-            height: +nucleus.size,
-          }}>
-          {isUploadingImage?
-            <Spinnie show={true} /> :
-
-            imageUrl?
-              <img src={imageUrl} className='buttonContent' /> :
-              <i className='fa fa-image' />
-          }
-          <input
-            type='file' style={{visibility: 'hidden', position: 'absolute'}}
-            onChange={this.onChangeFileInput}
-            ref={r => this.fileInput = r}
-          />
-        </BubbleButtonContent>
-      </BubbleButtonRoot>
-    )
-  }
-
-  renderBubbleBuilderTools() {
-    const {nucleus, existingBubbleIndex} = this.state
-    const {renderCustomBuilderTools} = nucleus.Component
-    return (
-      <BubbleBuilderToolsRoot>
-        <BubbleBuilderNameTool
-          nucleus={nucleus}
-          isExistingBubble={existingBubbleIndex}
-          verifyBubbleIdExists={this.verifyBubbleIdExists}
-          onChangeNucleus={this.onChangeNucleus}
-        />
-
-        <BubbleBuilderJourneyTool
-          nucleus={nucleus}
-          verifyBubbleIdExists={this.verifyBubbleIdExists}
-          onChangeNucleus={this.onChangeNucleus}
-        />
-
-        <BubbleBuilderButtonTool
-          nucleus={nucleus}
-          onChangeNucleus={this.onChangeNucleus} />
-
-        {renderCustomBuilderTools && renderCustomBuilderTools(
-          nucleus,
-          this.onChangeNucleus,
-        )}
-      </BubbleBuilderToolsRoot>
-    )
-  }
-
   @autobind
-  close() {
+  quit() {
     if (confirm('erase all your work on this bubble?')) {
-      if (this.state.existingBubbleIndex) {
-        this.reset()
-      }
-      this.props.onClose()
+      this.props.dispatch(closeBubbleBuilder())
+      this.props.dispatch(openBubbleverse(this.props.dimension))
     }
   }
 
   @autobind
   onChangeNucleus(nucleus) {
-    this.setState({
-      nucleus: {
-        ...nucleus,
-      }
+    this.props.dispatch(updateBuilderNucleus(nucleus))
+  }
+
+  @autobind
+  onSelectFilter(type) {
+    const {builderNucleus} = this.props
+    if (type === builderNucleus.type) return
+
+    this.onChangeNucleus({
+      ...builderNucleus,
+      type,
     })
-    this.bubble.editNucleus(nucleus)
-  }
-
-  @autobind
-  onChangeFileInput(e) {
-    const reader = new FileReader()
-    const file = e.target.files[0]
-
-    this.setState({
-      isUploadingImage: true,
-    })
-    reader.onloadend = () => {
-      this.setState({
-        isUploadingImage: false,
-        imageUrl: reader.result,
-      })
-    }
-    reader.readAsDataURL(file)
-  }
-
-  @autobind
-  onSelectFilter(opt) {
-    const {nucleus, existingBubbleIndex} = this.state
-    if (opt === nucleus.type) return
-
-    this.onChangeNucleus(getNewNucleus(
-      opt,
-      existingBubbleIndex && nucleus
-    ))
-  }
-
-  @autobind
-  onEditingChange(props) {
-    const nucleus = {
-      ...InitialNucleus,
-      ...this.state.nucleus,
-      ...props,
-    }
-    this.setState({nucleus})
-    this.bubble.editNucleus(nucleus)
   }
 
   @autobind
   verifyBubbleIdExists(id) {
-    return this.props.bubbleConfig.find(b => b.id === id)
+    return this.props.bubbles.find(b => b.id === id)
   }
 
   @autobind
   publish() {
-    const {nucleus, imageUrl, existingBubbleIndex} = this.state
+    const {builderNucleus, dimension} = this.props
+    const {id, imageUrl, existingIndex} = builderNucleus
 
-    if (!nucleus.id) {
+    if (!id) {
       alert('your new bubble gotsta have a name!')
       return document.getElementById('bubbleBuilderNameToolInput').focus()
     }
 
-    const bubbleProps = JSON.stringify({
-      ...nucleus,
-      Component: undefined, // delete Component property
-    })
+    const newBubble = {
+      ...builderNucleus,
+      tags: dimension,
+      imageUrl: undefined,
+      existingIndex: undefined,
+      Component: undefined,
+    }
+    const bubbleProps = JSON.stringify(newBubble)
 
     let body = `bubbleProps=${encodeURIComponent(bubbleProps)}`
-    if (imageUrl.includes('base64')) {
+    if (imageUrl && imageUrl.includes('base64')) {
       body += '&imageData=' + encodeURIComponent(imageUrl)
     }
-    if (existingBubbleIndex) {
-      body += '&existingBubbleIndex=' + existingBubbleIndex
+    if (existingIndex >= 0) {
+      body += '&existingBubbleIndex=' + existingIndex
     }
 
-    this.setState({
-      isPublishing: true,
-    })
-
+    this.setState({isPublishing: true,})
     fetch('/bubbles.upload', {
       method: 'POST',
       headers: {
@@ -308,45 +193,19 @@ export default class BubbleBuilder extends React.PureComponent {
       },
       body,
     }).then(() => {
-      const newBubbleConfig = [...this.props.bubbleConfig]
-      if (existingBubbleIndex) {
-        newBubbleConfig[existingBubbleIndex] = nucleus
-      } else {
-        newBubbleConfig.push(nucleus)
-      }
-
-      this.bubble.publish().then(() => {
-        this.reset()
-        this.props.onClose(nucleus.id, newBubbleConfig)
-      })
+      this.setState({isPublishing: false})
+      this.props.dispatch(didPublishBubble(newBubble))
+      this.props.dispatch(closeBubbleBuilder())
+      setTimeout(() => window.location = '/#start/bubble/' + newBubble.id, 500)
     })
-  }
-
-  reset() {
-    const defaultState = getDefaultState()
-    this.setState(defaultState)
-    return defaultState
   }
 
 }
 
 function getDefaultState() {
   return {
-    mode: Mode.willEnter,
     isUploadingImage: false,
     isPublishing: false,
-    imageUrl: '',
-    nucleus: getNewNucleus(FilterOptionList[INITIAL_FILTER]),
-    existingBubbleIndex: null,
-  }
-}
-
-function getNewNucleus(type, existingNucleus = {}) {
-  return {
-    ...InitialNucleus,
-    ...existingNucleus,
-    type,
-    Component: BubbleComponents[type],
   }
 }
 

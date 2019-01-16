@@ -119,13 +119,13 @@ export const Boto = Flex.extend`
   justify-content: center;
   user-select: none;
   color: white;
-  background: ${p => p.theme.slightlyDark};
+  background: ${p => p.theme.main};
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   padding: 10px 20px;
-  border: 2px solid ${p => p.theme.veryLight};
+  border: 1px solid ${p => p.theme.veryLight};
 
   &:hover {
-    background: ${p => p.theme.veryLight};
+    background: white;
     color: ${p => p.theme.slightlyDark};
     border-color: ${p => p.theme.slightlyDark};
   }
@@ -201,7 +201,6 @@ export const CloseButton = Boto.extend`
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  border: 2px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowMedium};
   transition: all .5s ${EASE_OUT};
 
@@ -214,7 +213,6 @@ export const CloseButtonActiveStyles = css`
   transform: none;
   opacity: 1;
   pointer-events: all;
-  transition-duration: 1s;
 `
 
 export const SectionHeader = Flex.extend`
@@ -357,9 +355,6 @@ export const BeggingButton = Boto.extend`
   flex: 0 0 50px;
   width: 200px;
   font-size: 20px;
-  background: ${p => p.theme.main};
-  border-radius: 10px;
-  border: 2px solid ${p => p.theme.veryLight};
   align-items: center;
   justify-content: center;
   transform: rotate(-4deg);
@@ -397,12 +392,11 @@ export const CornerEntryButton = Boto.extend`
   border-radius: 100%;
   width: 250px;
   height: 250px;
-  border: 2px solid ${p => p.theme.veryLight};
   flex-direction: column;
   font-size: 24px;
   transition-duration: .5s;
   pointer-events: all;
-  box-shadow: ${p => p.theme.shadowMedium};
+  box-shadow: ${p => p.theme.shadowHeavy};
   z-index: 3;
 
   ${p => p.right?

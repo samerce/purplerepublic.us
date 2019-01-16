@@ -15,7 +15,7 @@ export const SOUNDCLOUD_URL = 'https://soundcloud.com/expressyourmess'
 export const EASE_OUT_SINE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
 export const EASE_IN_SINE = 'cubic-bezier(0.42, 0, 1, 1)';
 export const EASE_SINE = 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
-export const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+export const EASE_OUT = 'cubic-bezier(0.2, .8, 0.2, 1)';
 export const EASE_IN = 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
 export const EASE = 'cubic-bezier(0.86, 0, 0.07, 1)';
 
@@ -30,3 +30,5 @@ export const SCREEN_WIDTH_S_PX = SCREEN_WIDTH_S + 'px'
 export const SCREEN_WIDTH_M_PX = SCREEN_WIDTH_M + 'px'
 export const SCREEN_WIDTH_L_PX = SCREEN_WIDTH_L + 'px'
 export const SCREEN_WIDTH_XL_PX = SCREEN_WIDTH_XL + 'px'
+
+export const BubbleSize = 160

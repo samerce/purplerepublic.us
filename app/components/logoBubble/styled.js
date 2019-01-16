@@ -104,7 +104,7 @@ export const CircleBill = styled.div`
   border-radius: 100%;
   transform: scale(0);
   transition: all 2s ${EASE_OUT};
-  box-shadow: ${p => p.theme.shadowHeavy};
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
   background: ${p => lighten(.2, p.theme.veryLight)};
 
   .logo-intro & {
@@ -131,7 +131,7 @@ export const CirclePaul = styled(CircleBill)`
   height: 225px;
   background: ${p => p.theme.veryLight};
   transition-delay: .3s;
-  box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+  box-shadow: ${p => p.theme.shadowLight};
   .logo-breatheIn & {
     transition-duration: .9s;
   }

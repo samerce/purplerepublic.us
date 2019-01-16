@@ -1,7 +1,7 @@
 import styled, {injectGlobal, keyframes, css} from 'styled-components'
 import {transparentize as alpha} from 'polished'
 import {
-  EASE_SINE, EASE_OUT, EASE_IN, EASE,
+  EASE_SINE, EASE_OUT, EASE_IN, EASE, BubbleSize,
 } from '../../global/constants'
 import {
   screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex, Boto,
@@ -81,8 +81,8 @@ export const ScrollContainer = Flex.extend`
 export const BubbleGridItem = Flex.extend`
   position: relative;
   pointer-events: none;
-  height: ${p => p.size + 10}px;
-  flex: 0 0 ${p => p.size + 10}px;
+  height: ${BubbleSize + 10}px;
+  flex: 0 0 ${BubbleSize + 10}px;
   align-items: center;
   justify-content: center;
   margin: 0 5px;
@@ -116,6 +116,9 @@ export const BubbleGridItem = Flex.extend`
     flex: 0 0 ${p.heroConfig.width}px;
     justify-content: ${p.heroConfig.leftSide? 'flex-end' : 'initial'};
   `}
+`
+
+export const BubbleGridAddItem = BubbleGridItem.extend`
 `
 
 export const ArrangeButton = AbsoluteFlex.extend`

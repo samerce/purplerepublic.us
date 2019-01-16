@@ -31,16 +31,12 @@ export const Root = Flex.extend`
   overflow-y: scroll;
   padding: 0 50px;
 
-  ${p => p.editing && `
-    transform: none;
-  `}
-
   opacity: 0;
-  ${'' /* transform: scale(.99); */}
+  transform: scale(.99);
   pointer-events: none;
   transition: all .5s ${EASE_OUT};
   .bubbleverse-show &, .bubbleverse-enter & {
-    ${'' /* transform: none; */}
+    transform: none;
     opacity: 1;
     pointer-events: all;
     transition-duration: 1s;
@@ -55,10 +51,6 @@ export const ContentRoot = Flex.extend`
   flex-direction: column;
   position: relative;
   z-index: 70;
-
-  ${p => p.editing && `
-    margin: 100px 0;
-  `}
 `
 
 export const Footer = Flex.extend`
@@ -89,15 +81,8 @@ export const ActionsRoot = Flex.extend`
 export const Action = Boto.extend`
   flex: 1 0 30px;
   height: 100%;
-  border-radius: 0;
   position: relative;
-  border: 2px solid ${p => p.theme.veryLight};
-  border-radius: ${p => p.theme.borderRadiusBoto}px;
   font-size: 26px;
-
-  &:not(:first-child) {
-    border-left: 1px solid ${p => p.theme.veryLight};
-  }
 
   i {
     width: 30px;
@@ -118,13 +103,17 @@ export const Action = Boto.extend`
 export const BubbleOptions = Flex.extend`
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: -40px;
   width: 300px;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
-  box-shadow: ${p => p.theme.boxShadowHeavy};
   flex-wrap: wrap;
   justify-content: flex-end;
   z-index: 1;
+  pointer-events: none;
+
+  &.visible {
+    pointer-events: all;
+  }
 
   .bubbleEditButton {
     font-size: 20px;
@@ -139,6 +128,8 @@ export const BubbleOptions = Flex.extend`
     cursor: pointer;
     margin-bottom: 5px;
     background: ${p => p.theme.slightlyDark};
+    pointer-events: all;
+    box-shadow: ${p => p.theme.boxShadowHeavy};
 
     &:hover {
       background: white;
@@ -158,19 +149,14 @@ export const BubbleToolButton = Boto.extend`
   margin: 5px 0;
   box-shadow: ${p => p.theme.shadowMedium};
 
-  ${p => p.visible && `
+  .visible & {
     transform: none;
     opacity: 1;
-  `}
+  }
 `
 
 export const BubbleNameButton = BubbleToolButton.extend`
   position: relative;
-  transition-delay: ${p => p.visible? 0 : .2}s;
-
-  &:hover {
-    transition-delay: 0;
-  }
 
   button {
     opacity: 0;
@@ -205,21 +191,15 @@ export const BubbleNameButton = BubbleToolButton.extend`
 `
 
 export const BubbleEditButton = BubbleToolButton.extend`
-  transition-delay: .1s;
-  &:hover {
-    transition-delay: 0;
-  }
 `
 
 export const BubbleDeleteButton = BubbleToolButton.extend`
   background: red;
   right: 0;
   position: relative;
-  transition-delay: ${p => p.visible? .2 : 0}s;
 
   &:hover {
     color: red;
-    transition-delay: 0;
   }
 `
 
@@ -248,6 +228,11 @@ export const NavButton = Flex.extend`
 
   &:hover {
     color: ${p => p.theme.veryLight};
+  }
+
+  .editing & {
+    opacity: 0;
+    pointer-events: none;
   }
 
   ${screen.medium`

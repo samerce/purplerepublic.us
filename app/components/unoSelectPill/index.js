@@ -17,10 +17,10 @@ export default class UnoSelectPill extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedIndex) {
+    if (nextProps.selectedIndex !== undefined) {
       this.setState({
         selectedList:
-          [nextProps.selectedIndex || this.props.selectedIndex],
+          [nextProps.selectedIndex],
       })
     }
   }
@@ -56,6 +56,7 @@ export default class UnoSelectPill extends React.PureComponent {
     const isSelected = selectedList.includes(index)
     return (
       <OptionRoot
+        className='selectOption'
         key={index}
         breathe={index !== 0 && multiSelect}
         onClick={this.onClick.bind(this, opt, index)}

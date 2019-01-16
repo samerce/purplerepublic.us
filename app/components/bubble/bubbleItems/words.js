@@ -73,19 +73,23 @@ export default class BubbleWords extends React.PureComponent {
   }
 
   render() {
-    const {editorState, html} = this.state
+    const {editorState, html, isFocused} = this.state
     const {placeholder, editing, className} = this.props
+    let toolbarClassName = 'words-editor-toolbar'
+    if (isFocused) toolbarClassName += ' visible'
     return (
       <BubbleComponentRoot className={className + ' wordsRoot'}>
         <Description>
           {editing &&
             <Editor
               toolbar={ToolbarConfig}
-              toolbarClassName='words-editor-toolbar'
+              toolbarClassName={toolbarClassName}
               editorClassName='words-editor-textarea'
               editorState={editorState}
               placeholder={placeholder || DefaultPlaceholder}
               onEditorStateChange={this.onEditorChange}
+              onFocus={() => this.setState({isFocused: true})}
+              onBlur={() => this.setState({isFocused: false})}
             />
           }
           {!editing && html &&
@@ -108,7 +112,7 @@ export default class BubbleWords extends React.PureComponent {
 
 }
 
-function createEditorState(content) {
+function createEditorState(content = 'fill me up, dahling') {
   let editorState
   if (!content) {
     editorState = EditorState.createEmpty()

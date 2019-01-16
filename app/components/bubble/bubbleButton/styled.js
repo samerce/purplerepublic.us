@@ -6,9 +6,10 @@ import {
   EASE,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_M,
+  BubbleSize,
 } from '../../../global/constants'
 import {
-  Icon as aIcon, BubbleButton, InlineBlock, screen, AbsoluteFlex,
+  Icon as aIcon, BubbleButton, InlineBlock, screen, AbsoluteFlex, Flex,
 } from '../../../global/styled'
 
 export const Root = InlineBlock.extend`
@@ -17,6 +18,10 @@ export const Root = InlineBlock.extend`
   pointer-events: ${p => p.disabled? 'none' : 'all'};
   cursor: pointer;
   position: relative;
+
+  &&.builder {
+    pointer-events: all;
+  }
 
   &.bubble-focused {
     transition-duration: .8s;
@@ -35,6 +40,7 @@ export const Root = InlineBlock.extend`
   &.bubble-willEnter {
     transition: none;
     transform: scale(0);
+    pointer-events: none;
   }
 
   &.bubble-enter {
@@ -48,8 +54,8 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-size: cover;
   overflow: hidden;
   border-width: 2px;
-  width: ${p => p.size}px;
-  height: ${p => p.size}px;
+  width: ${BubbleSize}px;
+  height: ${BubbleSize}px;
 
   .active & {
     border: 1px solid ${p => p.theme.slightlyDark};
@@ -92,11 +98,6 @@ export const Icon = aIcon.extend`
   font-size: 18px;
   color: ${p => p.theme.slightlyDark};
 
-  .bubble-focused &, .bubble-editing & {
-    opacity: 0;
-    transition-duration: .3s;
-  }
-
   ${screen.medium`
     font-size: 12px;
     width: 25px;
@@ -130,7 +131,7 @@ export const Title = AbsoluteFlex.extend`
     transform: none;
   }
 
-  .bubble-focused &, .bubble-editing & {
+  .bubble-focused &, .bubble-editing &, .builder & {
     visibility: hidden;
   }
 
@@ -138,4 +139,20 @@ export const Title = AbsoluteFlex.extend`
     display: none;
   `}
 
+`
+
+export const BubbleButtonBuilderRoot = Flex.extend`
+  justify-content: center;
+  align-items: center;
+
+  input {
+    visibility: hidden;
+    position: absolute;
+  }
+  i.prompt {
+    color: white;
+    position: absolute;
+    z-index: 9;
+    font-size: 80px;
+  }
 `

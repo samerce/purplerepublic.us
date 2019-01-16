@@ -44,7 +44,6 @@ const ButtonHeight = 80
 export const Button = Boto.extend`
   position: relative;
   background: ${p => p.theme.main};
-  border: 2px solid ${p => p.theme.veryLight};
   height: ${ButtonHeight}px;
   flex: 0 0 420px;
   font-size: 36px;

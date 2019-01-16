@@ -30,14 +30,13 @@ import {
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {
-  closeBubbleverse, setBubbles, setActiveBubble,
+  closeBubbleverse, setBubbles, setActiveBubble, updateBuilderNucleus,
 } from './actions'
 
 const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
 const HalfBackgroundHeight = -(ExpandingBackgroundSize / 2)
 const Mode = makeEnum([
   'visible',
-  'buildBubble',
   'arrange',
 ])
 
@@ -52,6 +51,7 @@ const getBackgroundStyle = () => ({
   bubbles: d.get('bubbleverse').get('bubbles'),
   mouseLocation: d.get('bubbleverse').get('mouseLocation'),
   isPoetcardCheckoutOpen: d.get('bubbles').get('isPoetcardCheckoutOpen'),
+  isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
 }))
 @withTransitions({prefix: 'bubbleverse'})
 @resizable()
@@ -103,12 +103,13 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   startUrlWatcher() {
     this.urlWatcher = setInterval(() => {
+      const {bubbles, isBubbleBuilderOpen} = this.props
       const {focusedBubble} = this
-      const bubbleFromUrl = getBubbleFromUrl(this.props.bubbles)
+      const bubbleFromUrl = getBubbleFromUrl(bubbles)
       if (bubbleFromUrl && (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id)) {
         this.openBubble(bubbleFromUrl)
       }
-      if (!bubbleFromUrl && focusedBubble) {
+      if (!bubbleFromUrl && focusedBubble && !isBubbleBuilderOpen) {
         this.closeBubble()
       }
       window.prerenderReady = true
@@ -127,50 +128,45 @@ export default class Bubbleverse extends React.PureComponent {
     } = this.state
     const {
       dimension, activeBubble, className, isPoetcardCheckoutOpen,
+      isBubbleBuilderOpen
     } = this.props
+    const isCloseHidden = isPoetcardCheckoutOpen || isBubbleBuilderOpen
     return (
       <Root className={`bubbleverse-${mode} ${className}`}>
         <Background style={backgroundStyle} />
 
         <CloseButton
-          className={isPoetcardCheckoutOpen && 'hidden'}
+          className={isCloseHidden && 'hidden'}
           onClick={this.onClickClose}>
           <i className='fa fa-close' />
         </CloseButton>
 
-        {canShowEditingTools() && mode !== Mode.buildBubble &&
+        {/* {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
             <BubbleAddButton
-              onClick={() => this.openBubbleBuilder()} />
+          onClick={() => this.openBubbleBuilder()} />
             <BubbleArrangeButton
-              isArranging={mode === Mode.arrange}
-              onClick={this.toggleArrangeMode} />
+          isArranging={mode === Mode.arrange}
+          onClick={this.toggleArrangeMode} />
           </BubbleEditingButtonsRoot>
-        }
-
-        {canShowEditingTools() &&
-          <BubbleBuilder
-            ref={r => this.bubbleBuilder = r}
-            onClose={this.closeBubbleBuilder}
-            visible={mode === Mode.buildBubble}
-            bubbleConfig={this.props.bubbles}
-          />
-        }
+        } */}
 
         <Header className={isPoetcardCheckoutOpen && 'hidden'}>
           <Dimension>{dimension}</Dimension>
           <BubbleHeader>
             <Subtitle
-              onBlur={e => onEditingChange({subtitle: e.target.value})}
+              editing={isBubbleBuilderOpen}
+              onBlur={e => this.onEditingChange({subtitle: e.target.value})}
               onKeyPress={this.onInputKeyPress}
               onChange={e => this.setState({subtitle: e.target.value})}
-              value={activeBubble && activeBubble.subtitle}
+              value={this.state.subtitle || (activeBubble && activeBubble.subtitle)}
             />
             <Title
-              onBlur={e => onEditingChange({title: e.target.value})}
+              editing={isBubbleBuilderOpen}
+              onBlur={e => this.onEditingChange({title: e.target.value})}
               onKeyPress={this.onInputKeyPress}
               onChange={e => this.setState({title: e.target.value})}
-              value={activeBubble && activeBubble.title}
+              value={this.state.title || (activeBubble && activeBubble.title)}
             />
           </BubbleHeader>
         </Header>
@@ -193,13 +189,18 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   @autobind
-  onClickClose() {
-    this.props.dispatch(closeBubbleverse())
+  onInputKeyPress(e) {
+    if (e.key === 'Enter') e.target.blur(e)
   }
 
   @autobind
-  onBubbleEdit() {
-    this.openBubbleBuilder(true)
+  onEditingChange(nucleus) {
+    this.props.dispatch(updateBuilderNucleus(nucleus))
+  }
+
+  @autobind
+  onClickClose() {
+    this.props.dispatch(closeBubbleverse())
   }
 
   @autobind
@@ -208,38 +209,6 @@ export default class Bubbleverse extends React.PureComponent {
       mode: (this.state.mode === Mode.arrange)? Mode.visible : Mode.arrange,
       arrangeSourceIndex: null,
     })
-  }
-
-  @autobind
-  onBubblesChanged(bubbles) {
-    this.props.dispatch(setBubbles(bubbles))
-  }
-
-  @autobind
-  openBubbleBuilder(shouldEditFocusedBubble) {
-    let bubbleToEdit, index
-    if (shouldEditFocusedBubble) {
-      bubbleToEdit = this.focusedBubble
-      index = this.props.bubbles.findIndex(b => b.id === bubbleToEdit.id)
-    }
-    this.setState({
-      mode: Mode.buildBubble,
-      arrangeSourceIndex: null,
-    })
-    this.bubbleBuilder.show(bubbleToEdit, index)
-    this.closeBubble()
-  }
-
-  @autobind
-  closeBubbleBuilder(bubbleId, newBubbles) {
-    if (newBubbles) {
-      this.props.dispatch(setBubbles(newBubbles))
-    }
-    this.setState({
-      mode: Mode.visible,
-    }, () => setTimeout(() => {
-      bubbleId && this.openBubble(bubbleId)
-    }, 250))
   }
 
   @autobind
@@ -333,32 +302,12 @@ function fetchBubbles() {
     }).then((responseRaw) => {
       responseRaw.json().then(bubbles => {
         bubbles.forEach(bubble => {
-          if (bubble.id === 'patreon') {
-            bubble.buttonType = 'patreon'
-          }
           if (bubble.id === 'shopArt') {
             bubble.type = 'words'
-            bubble.buttonType = 'shop'
-          }
-          if (bubble.id === 'instagram') {
-            bubble.buttonType = 'instagram'
           }
           if (bubble.id === 'buy-poetcards' || bubble.id === 'buy-postcards') {
             bubble.type = 'poetcards'
             bubble.buttonType = 'poetcards'
-            bubble.actions = [
-              {
-                text: 'checkout',
-                type: 'OrderPoetcards',
-              },
-              {
-                text: 'continue journey...',
-                type: 'OpenLinkInPlace',
-                props: {
-                  url: '/#start/bubble/' + bubble.nextBubbleId,
-                },
-              },
-            ]
           }
           if (bubble.buttonType) {
             bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
