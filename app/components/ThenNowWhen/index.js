@@ -19,7 +19,7 @@ import withTransitions from '../hocs/withTransitions'
   pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
   futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
 }))
-@withTransitions({prefix: 'timeline'})
+@withTransitions({prefix: 'timeline', exitDuration: 1000})
 export default class ThenNowWhen extends React.Component {
 
   componentWillReceiveProps(nextProps) {

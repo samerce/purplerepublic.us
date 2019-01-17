@@ -155,9 +155,8 @@ export const Background = ExpandingBackground.extend`
     transition: all 2s ${EASE_OUT};
   }
   .timeline-exit & {
-    opacity: 0;
     transition-delay: .2s;
-    transition-duration: 1s;
+    transition-duration: .5s;
   }
 `
 

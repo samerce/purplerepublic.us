@@ -117,6 +117,5 @@ function getDefaultBuilderNucleus() {
     title: 'i am a cosmic title waiting to happen',
     subtitle: 'click! make me pretty',
     type: 'words',
-    detailText: 'what you got to say? what is dying to come out? spill it, hennie!',
   }
 }

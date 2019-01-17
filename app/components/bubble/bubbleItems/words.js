@@ -112,7 +112,7 @@ export default class BubbleWords extends React.PureComponent {
 
 }
 
-function createEditorState(content = 'fill me up, dahling') {
+function createEditorState(content) {
   let editorState
   if (!content) {
     editorState = EditorState.createEmpty()

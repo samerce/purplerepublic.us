@@ -96,6 +96,7 @@ injectGlobal`
   }
   .words-editor-textarea {
     color: white;
+    min-width: 360px;
   }
   .rdw-option-wrapper, .rdw-dropdown-wrapper {
     border: 1px solid ${theme.slightlyDark};
@@ -157,7 +158,7 @@ export const Description = ArticleText.extend`
   padding: 0 20px;
   font-size: 21px;
   overflow-y: scroll;
-  max-width: 740px;
+  max-width: 780px;
 
   ${screen.medium`
     padding: 0;
