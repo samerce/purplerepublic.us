@@ -1,14 +1,12 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
-import BubbleBuilder from '../bubble/bubbleBuilder'
 import BubbleGrid from '../bubbleGrid'
 import {
-  BubbleAddButton,
   BubbleArrangeButton,
 } from '../bubble/bubbleBuilderButton'
 import BubbleDetails from '../bubble/bubbleDetails'
 import Spinnie from '../spinnie'
-import SelectPill from '../unoSelectPill'
+import {Helmet} from 'react-helmet'
 
 import {
   Root, BubbleEditingButtonsRoot, CloseButton, Background, Header,
@@ -21,17 +19,19 @@ import {
 import withTransitions from '../hocs/withTransitions'
 import resizable from '../hocs/resizable'
 
-import {SCREEN_WIDTH_M} from '../../global/constants'
+import {getButtonImageUrl, getFacebookUrl} from '../../utils/bubbleverse'
 import {makeEnum} from '../../utils/lang'
 import {canShowEditingTools} from '../../utils/nav'
-import {
-  BubbleComponents, BubbleType, BubbleButtonComponents
-} from '../bubble/config'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {
   closeBubbleverse, setBubbles, setActiveBubble, updateBuilderNucleus,
 } from './actions'
+
+import {SCREEN_WIDTH_M} from '../../global/constants'
+import {
+  BubbleComponents, BubbleType, BubbleButtonComponents
+} from '../bubble/config'
 
 const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
 const HalfBackgroundHeight = -(ExpandingBackgroundSize / 2)
@@ -130,9 +130,20 @@ export default class Bubbleverse extends React.PureComponent {
       dimension, activeBubble, className, isPoetcardCheckoutOpen,
       isBubbleBuilderOpen
     } = this.props
+    const bubbleImageUrl = activeBubble && getButtonImageUrl(activeBubble.id)
     const isCloseHidden = isPoetcardCheckoutOpen || isBubbleBuilderOpen
     return (
       <Root className={`bubbleverse-${mode} ${className}`}>
+        {activeBubble &&
+          <Helmet>
+            <meta property='og:type' content='article' />
+            <meta property='og:title' content={activeBubble.title} />
+            <meta property='og:image' content={bubbleImageUrl} />
+            <meta property='og:image:secure_url' content={bubbleImageUrl} />
+            <meta property='og:url' content={getFacebookUrl(activeBubble.id)} />
+            <meta property='og:description' content={activeBubble.subtitle} />
+          </Helmet>
+        }
         <Background style={backgroundStyle} />
 
         <CloseButton
@@ -143,8 +154,6 @@ export default class Bubbleverse extends React.PureComponent {
 
         {/* {canShowEditingTools() && mode !== Mode.buildBubble &&
           <BubbleEditingButtonsRoot>
-            <BubbleAddButton
-          onClick={() => this.openBubbleBuilder()} />
             <BubbleArrangeButton
           isArranging={mode === Mode.arrange}
           onClick={this.toggleArrangeMode} />
@@ -159,14 +168,14 @@ export default class Bubbleverse extends React.PureComponent {
               onBlur={e => this.onEditingChange({subtitle: e.target.value})}
               onKeyPress={this.onInputKeyPress}
               onChange={e => this.setState({subtitle: e.target.value})}
-              value={this.state.subtitle || (activeBubble && activeBubble.subtitle)}
+              value={this.state.subtitle || (activeBubble && activeBubble.subtitle) || ''}
             />
             <Title
               editing={isBubbleBuilderOpen}
               onBlur={e => this.onEditingChange({title: e.target.value})}
               onKeyPress={this.onInputKeyPress}
               onChange={e => this.setState({title: e.target.value})}
-              value={this.state.title || (activeBubble && activeBubble.title)}
+              value={this.state.title || (activeBubble && activeBubble.title) || ''}
             />
           </BubbleHeader>
         </Header>

@@ -110,7 +110,7 @@ export default class Hire extends React.Component {
     const {activeTabIndex} = this.state
     const classes = (activeTabIndex === i)? 'mdc-tab--active' : ''
     return (
-      <TabButton className={'mdc-tab ' + classes} role="tab" ariaSelected="true" tabindex="0">
+      <TabButton key={i} className={'mdc-tab ' + classes} role="tab" ariaSelected="true" tabindex="0">
         <span className="mdc-tab__content">
           <TabBarTabText className="mdc-tab__text-label">{tab.title}</TabBarTabText>
         </span>

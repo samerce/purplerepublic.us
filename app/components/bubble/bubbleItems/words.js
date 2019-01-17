@@ -10,43 +10,24 @@ import {
 
 import draftToHtml from 'draftjs-to-html'
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
 
 import {
   Description, BubbleComponentRoot
 } from './styled'
 
+import {
+  updateBuilderNucleus
+} from '../../bubbleverse/actions'
+
 // HACK: had to remove node_modules/draft-js/node_modules/immutable
 // in order to get rid of thousands of warnings in console
 
 const DefaultPlaceholder = 'fill me up with something alluring, dahling.'
-const ToolbarConfig = {
-  options: [
-    'inline', 'list', 'textAlign', 'blockType', 'fontFamily', 'fontSize',  'colorPicker',
-    'embedded', 'emoji', 'link', 'remove', 'history',
-  ],
-  inline: {
-    options: ['bold', 'italic', 'strikethrough'],
-  },
-  blockType: {
-    options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote', 'Code'],
-  },
-  textAlign: {
-    inDropdown: true,
-  },
-  list: {
-    inDropdown: true,
-  },
-  fontFamily: {
-    options: [
-      'IM Fell DW Pica', 'Rancho', 'Life Savers', 'Crete Round', 'Quattrocento',
-      'Gloria Hallelujha', 'Goudy Bookletter 1911'
-    ],
-  },
-  link: {
-    defaultTargetOption: '_blank',
-  },
-}
 
+@connect(d => ({
+  editing: d.get('bubbleverse').get('isBubbleBuilderOpen'),
+}))
 export default class BubbleWords extends React.PureComponent {
 
   constructor(props) {
@@ -105,9 +86,9 @@ export default class BubbleWords extends React.PureComponent {
     this.setState({
       editorState,
     })
-    this.props.onEditingChange({
+    this.props.dispatch(updateBuilderNucleus({
       detailText: convertToRaw(editorState.getCurrentContent()),
-    })
+    }))
   }
 
 }
@@ -135,4 +116,32 @@ function getHTML(content) {
     return draftToHtml(content)
   }
   return content
+}
+
+var ToolbarConfig = {
+  options: [
+    'inline', 'list', 'textAlign', 'blockType', 'fontFamily', 'fontSize',  'colorPicker',
+    'embedded', 'emoji', 'link', 'remove', 'history',
+  ],
+  inline: {
+    options: ['bold', 'italic', 'strikethrough'],
+  },
+  blockType: {
+    options: ['Normal', 'H1', 'H2', 'H3', 'Blockquote', 'Code'],
+  },
+  textAlign: {
+    inDropdown: true,
+  },
+  list: {
+    inDropdown: true,
+  },
+  fontFamily: {
+    options: [
+      'IM Fell DW Pica', 'Rancho', 'Life Savers', 'Crete Round', 'Quattrocento',
+      'Gloria Hallelujha', 'Goudy Bookletter 1911'
+    ],
+  },
+  link: {
+    defaultTargetOption: '_blank',
+  },
 }

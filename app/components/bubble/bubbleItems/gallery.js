@@ -30,7 +30,7 @@ const Mode = makeEnum([
 
 @connect(d => ({
   activeBubble: d.get('bubbleverse').get('activeBubble'),
-  isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
+  editing: d.get('bubbleverse').get('isBubbleBuilderOpen'),
   lastPublishedBubble: d.get('bubbleverse').get('lastPublishedBubble'),
 }))
 export default class BubbleGallery extends React.PureComponent {
@@ -47,7 +47,7 @@ export default class BubbleGallery extends React.PureComponent {
 
     const images = this.getGalleryImages(props.nucleus)
     this.state = {
-      mode: props.isBubbleBuilderOpen? Mode.add : Mode.show,
+      mode: props.editing? Mode.add : Mode.show,
       images,
     }
   }
@@ -86,8 +86,8 @@ export default class BubbleGallery extends React.PureComponent {
   // }
 
   componentWillReceiveProps(nextProps) {
-    const {isBubbleBuilderOpen, nucleus, lastPublishedBubble} = this.props
-    if (!isBubbleBuilderOpen && nextProps.isBubbleBuilderOpen) {
+    const {editing, nucleus, lastPublishedBubble} = this.props
+    if (!editing && nextProps.editing) {
       this.setState({
         mode: Mode.add,
         images: this.getGalleryImages(nextProps.nucleus),
@@ -98,7 +98,7 @@ export default class BubbleGallery extends React.PureComponent {
         images: this.getGalleryImages(nextProps.nucleus),
       })
     }
-    if (lastPublishedBubble !== nextProps.lastPublishedBubble && isBubbleBuilderOpen) {
+    if (lastPublishedBubble !== nextProps.lastPublishedBubble && editing) {
       this.publish()
     }
   }
@@ -115,13 +115,13 @@ export default class BubbleGallery extends React.PureComponent {
   render() {
     const {mode, images} = this.state
     const {
-      isBubbleBuilderOpen, onEditingChange, nucleus
+      editing, nucleus
     } = this.props
     const {
       detailText,
     } = nucleus
     const shouldShowEditingGallery =
-      isBubbleBuilderOpen && (mode === Mode.delete || mode === Mode.move)
+      editing && (mode === Mode.delete || mode === Mode.move)
     const shouldShowGallery = !!images.length && !shouldShowEditingGallery
 
     return (
@@ -132,7 +132,7 @@ export default class BubbleGallery extends React.PureComponent {
           </Helmet>
         }
 
-        {(isBubbleBuilderOpen || detailText) &&
+        {(editing || detailText) &&
           <BubbleWriting
             {...this.props}
             className='galleryWriting'
@@ -144,8 +144,8 @@ export default class BubbleGallery extends React.PureComponent {
           <Gallery
             ref={r => this.gallery = r}
             onClick={this.onClickGalleryImage}
-            renderCustomControls={isBubbleBuilderOpen? this.renderCaptionInput : null}
-            lazyLoad={!isBubbleBuilderOpen}
+            renderCustomControls={editing? this.renderCaptionInput : null}
+            lazyLoad={!editing}
             showPlayButton={false}
             showIndex={images.length > 1}
             showThumbnails={images.length > 1}
@@ -170,7 +170,7 @@ export default class BubbleGallery extends React.PureComponent {
             images={images} />
         }
 
-        {isBubbleBuilderOpen &&
+        {editing &&
           <EditPhotosRoot>
             <SelectPill
               className='gallerySelectPill'
@@ -252,7 +252,7 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   onGallerySlide(imageIndex) {
-    if (!this.props.isBubbleBuilderOpen) return
+    if (!this.props.editing) return
     this.captionInput.value = this.state.images[imageIndex].description || ''
   }
 
@@ -378,7 +378,7 @@ export default class BubbleGallery extends React.PureComponent {
       height: img.thumbnailHeight,
       caption: img.description,
     }))
-    this.props.onEditingChange({images: nucleusImages})
+    this.props.dispatch(updateBuilderNucleus({images: nucleusImages}))
 
     this.setState({
       images: [

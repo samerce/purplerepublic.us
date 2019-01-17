@@ -4,11 +4,15 @@ import {BubbleBuilderYouTubeTool} from '../bubbleBuilderTools'
 import BubbleWriting from './words'
 
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
 
 import {
   VideoRoot, VideoWrapper,
 } from './styled'
 
+@connect(d => ({
+  editing: d.get('bubbleverse').get('isBubbleBuilderOpen'),
+}))
 export default class BubbleVideo extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
