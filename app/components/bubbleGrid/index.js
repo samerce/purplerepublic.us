@@ -110,7 +110,7 @@ export default class BubbleGrid extends React.PureComponent {
           </ShowAllButton>
         }
 
-        {isBubbleGridFullscreen &&
+        {(canShowEditingTools() && isBubbleGridFullscreen) &&
           <BubbleArrangeButton
             className='arrangeEntryButton'
             isArranging={mode === Mode.arrange}
