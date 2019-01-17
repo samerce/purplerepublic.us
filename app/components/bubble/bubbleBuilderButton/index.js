@@ -12,7 +12,7 @@ export function BubbleAddButton({onClick}) {
   )
 }
 
-export function BubbleArrangeButton({onClick, isArranging}) {
+export function BubbleArrangeButton({onClick, isArranging, className}) {
   const data = {
     classes: isArranging? 'bubbleArrangeActive' : '',
     icon: isArranging? 'close' : 'random',
@@ -20,7 +20,7 @@ export function BubbleArrangeButton({onClick, isArranging}) {
   return (
     <BubbleBuilderButton
       onClick={onClick}
-      className={data.classes}>
+      className={data.classes + ' ' + className}>
       <Icon className={'fa fa-' + data.icon} />
     </BubbleBuilderButton>
   )

@@ -1,15 +1,12 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
 import BubbleGrid from '../bubbleGrid'
-import {
-  BubbleArrangeButton,
-} from '../bubble/bubbleBuilderButton'
 import BubbleDetails from '../bubble/bubbleDetails'
 import Spinnie from '../spinnie'
 import {Helmet} from 'react-helmet'
 
 import {
-  Root, BubbleEditingButtonsRoot, CloseButton, Background, Header,
+  Root, CloseButton, Background, Header,
   BubbleHeader, Title, Subtitle, Dimension, DimensionPicker, DimensionChoice,
 } from './styled'
 import {
@@ -154,14 +151,6 @@ export default class Bubbleverse extends React.PureComponent {
           <i className='fa fa-close' />
         </CloseButton>
 
-        {/* {canShowEditingTools() && mode !== Mode.buildBubble &&
-          <BubbleEditingButtonsRoot>
-            <BubbleArrangeButton
-          isArranging={mode === Mode.arrange}
-          onClick={this.toggleArrangeMode} />
-          </BubbleEditingButtonsRoot>
-        } */}
-
         <Header className={isPoetcardCheckoutOpen && 'hidden'}>
           <Dimension onClick={this.onClickDimensionHeader}>
             {dimension}
@@ -194,18 +183,7 @@ export default class Bubbleverse extends React.PureComponent {
         </Header>
 
         <BubbleDetails />
-
-        <BubbleGrid
-          isArranging={mode === Mode.arrange}
-          onArrange={this.onArrange}
-          arrangeSourceIndex={arrangeSourceIndex}
-        />
-
-        {savingNewArrangement &&
-          <MaskAbsoluteFillParent show={savingNewArrangement}>
-            <Spinnie show={savingNewArrangement} />
-          </MaskAbsoluteFillParent>
-        }
+        <BubbleGrid />
       </Root>
     )
   }
@@ -234,14 +212,6 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   onClickClose() {
     this.props.dispatch(closeBubbleverse())
-  }
-
-  @autobind
-  toggleArrangeMode() {
-    this.setState({
-      mode: (this.state.mode === Mode.arrange)? Mode.visible : Mode.arrange,
-      arrangeSourceIndex: null,
-    })
   }
 
   @autobind
@@ -287,43 +257,6 @@ export default class Bubbleverse extends React.PureComponent {
   @autobind
   closeBubble() {
     this.props.dispatch(closeBubbleverse())
-  }
-
-  @autobind
-  onArrange(index) {
-    const {arrangeSourceIndex} = this.state
-
-    if (arrangeSourceIndex) {
-      this.rearrangeBubbles(arrangeSourceIndex, index)
-    } else {
-      this.setState({arrangeSourceIndex:  index})
-    }
-  }
-
-  rearrangeBubbles(sourceIndex, destIndex) {
-    const {bubbles} = this.props
-    const destBubble = bubbles[destIndex]
-    const sourceBubble = bubbles.splice(sourceIndex, 1)[0]
-    const newDestBubbleIndex = bubbles.findIndex(b => b.id === destBubble.id)
-    bubbles.splice(newDestBubbleIndex, 0, sourceBubble)
-
-    this.setState({
-      savingNewArrangement: true,
-    })
-
-    fetch('/bubbles.update.arrangement', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bubbles),
-    }).then(() => {
-      this.props.dispatch(setBubbles(bubbles))
-      this.setState({
-        arrangeSourceIndex: null,
-        savingNewArrangement: false
-      })
-    })
   }
 
 }

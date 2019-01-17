@@ -58,6 +58,12 @@ export const Root = Flex.extend`
     visibility: visible;
   }
 
+  .arrangeEntryButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
   ${screen.medium`
     flex: 0 0 147px;
   `}
@@ -122,26 +128,15 @@ export const BubbleGridAddItem = BubbleGridItem.extend`
 `
 
 export const ArrangeButton = AbsoluteFlex.extend`
-  top: 50px;
-  left: 10px;
+  top: 0;
+  left: 0;
   align-items: center;
   justify-content: center;
-  animation-name: fastBlink;
-  animation-duration: 1s;
-  animation-timing-function: ${EASE_OUT};
-  animation-iteration-count: infinite;
-  animation-play-state: paused;
-  visibility: hidden;
   z-index: 25;
   height: 100%;
   width: 100%;
   cursor: pointer;
   pointer-events: all;
-
-  .bubbleverse-arrange & {
-    visibility: visible;
-    animation-play-state: running;
-  }
 `
 
 export const ArrangeIcon = Icon.extend`

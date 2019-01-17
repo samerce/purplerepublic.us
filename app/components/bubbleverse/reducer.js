@@ -44,7 +44,12 @@ export default function bubbleverse(state = initialState, action) {
         .set('activeBubble', action.nucleus)
         .set('isBubbleGridFullscreen', false)
     case BubbleverseSetBubbles:
-      return state.set('bubbles', action.bubbles)
+      state = state.set('bubbles', action.bubbles)
+      const aDimension = state.get('dimension')
+      if (aDimension) {
+        state = state.set('visibleBubbles', getBubblesByDimension(state, aDimension))
+      }
+      return state
     case BubbleverseGoToNextBubble:
       return state.set('activeBubble', getNextActiveBubble(state))
     case BubbleverseGoToPrevBubble:

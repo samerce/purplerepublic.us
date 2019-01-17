@@ -128,7 +128,8 @@ export default class BubbleButton extends React.Component {
 
   @autobind
   onClick() {
-    const {dispatch, nucleus} = this.props
+    const {dispatch, nucleus, disabled} = this.props
+    if (disabled) return
     requestAnimationFrame(() => dispatch(setActiveBubble(nucleus)))
   }
 
