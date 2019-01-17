@@ -140,6 +140,11 @@ export const BubbleComponentRoot = FlexColumn.extend`
   &.wordsRoot {
     padding: 0;
   }
+
+  #ReactGridGallery {
+    height: 100%;
+    width: 100%;
+  }
 `
 
 export const VideoRoot = BubbleComponentRoot.extend`

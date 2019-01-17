@@ -17,6 +17,7 @@ import {makeEnum} from '../../../utils/lang'
 import {makeQueryString} from '../../../utils/request'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import {updateBuilderNucleus} from '../../bubbleverse/actions'
 
 const GalleryBaseKey = 'bubbles/galleryImages/'
 const GalleryBaseUrl = SRC_URL + GalleryBaseKey
@@ -42,7 +43,7 @@ export default class BubbleGallery extends React.PureComponent {
     this.sourceMoveIndex = null
     this.selectPillOptions = ['add', 'delete', 'move'].map(opt => ({
       name: opt,
-      onClick: () => this.setState({mode: Mode[opt]})
+      onClick: () => this.setState({mode: Mode[opt]}),
     }))
 
     const images = this.getGalleryImages(props.nucleus)
@@ -103,23 +104,10 @@ export default class BubbleGallery extends React.PureComponent {
     }
   }
 
-  @autobind
-  edit() {
-    this.setImages(this.getGalleryImages(this.props.nucleus))
-
-    if (this.state.images.length) {
-      this.captionInput.value = this.state.images[0].description
-    }
-  }
-
   render() {
     const {mode, images} = this.state
-    const {
-      editing, nucleus
-    } = this.props
-    const {
-      detailText,
-    } = nucleus
+    const {editing, nucleus} = this.props
+    const {detailText} = nucleus
     const shouldShowEditingGallery =
       editing && (mode === Mode.delete || mode === Mode.move)
     const shouldShowGallery = !!images.length && !shouldShowEditingGallery
@@ -314,7 +302,7 @@ export default class BubbleGallery extends React.PureComponent {
 
     images[index].isSelected = !images[index].isSelected
 
-    this.setImages(images)
+    this.forceUpdate()
     this['onSelectImage_' + mode](index, image)
   }
 
@@ -330,7 +318,7 @@ export default class BubbleGallery extends React.PureComponent {
 
   @autobind
   onSelectImage_move(index, image) {
-    if (!this.sourceMoveIndex) {
+    if (this.sourceMoveIndex === null) {
       this.sourceMoveIndex = index
     } else {
       if (this.sourceMoveIndex === index) {
