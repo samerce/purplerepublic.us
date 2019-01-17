@@ -14,18 +14,20 @@ const initialState = fromJS({
   isBubbleGridFullscreen: false,
   mouseLocation: null,
   isBubbleBuilderOpen: false,
-}).set('builderNucleus', getDefaultBuilderNucleus())
+})
 
 export default function bubbleverse(state = initialState, action) {
   switch (action.type) {
     case BubbleverseOpen:
       const {dimension} = action
       const visibleBubbles = getBubblesByDimension(state, dimension)
+      if (!state.get('isBubbleBuilderOpen')) {
+        state = state.set('activeBubble', visibleBubbles[0])
+      }
       return state
         .set('mouseLocation', action.mouseLocation)
         .set('visibleBubbles', visibleBubbles)
         .set('dimension', dimension)
-        .set('activeBubble', visibleBubbles[0])
     case BubbleverseClose:
       return state
         .set('dimension', null)
@@ -53,28 +55,23 @@ export default function bubbleverse(state = initialState, action) {
       state = state.set('isBubbleBuilderOpen', true)
       if (action.shouldEditActiveBubble) {
         const activeBubble = state.get('activeBubble')
-        state = state.set('builderNucleus', {
-          ...state.get('builderNucleus'),
+        state = state.set('activeBubble', {
           ...activeBubble,
           existingIndex: getExistingIndex(activeBubble, state.get('bubbles')),
         })
-      }
+      } else state = state.set('activeBubble', getBuilderNucleus())
       return state
     case BubbleverseBubbleBuilderClose:
       return state
         .set('isBubbleBuilderOpen', false)
-        .set('builderNucleus', getDefaultBuilderNucleus())
     case BubbleverseBubbleBuilderUpdateNucleus:
-      const builderNucleus = {
-        ...state.get('builderNucleus'),
+      return state.set('activeBubble', {
+        ...state.get('activeBubble'),
         ...action.nucleus,
-      }
-      return state
-        .set('builderNucleus', builderNucleus)
-        .set('activeBubble', builderNucleus)
+      })
     case BubbleverseBubbleBuilderDidPublish:
       const bubbles = state.get('bubbles')
-      const {existingIndex} = state.get('builderNucleus')
+      const {existingIndex} = state.get('activeBubble')
       if (existingIndex >= 0) {
         bubbles[existingIndex] = action.nucleus
       } else {
@@ -112,7 +109,7 @@ function getExistingIndex(bubble, bubbles) {
   return bubbles.findIndex(b => b.id === bubble.id)
 }
 
-function getDefaultBuilderNucleus() {
+function getBuilderNucleus() {
   return {
     title: 'i am a cosmic title waiting to happen',
     subtitle: 'click! make me pretty',

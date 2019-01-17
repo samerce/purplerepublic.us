@@ -13,8 +13,7 @@ import {
 } from '../../bubbleverse/actions'
 
 @connect(d => ({
-  builderNucleus: d.get('bubbleverse').get('builderNucleus'),
-  activeBubble: d.get('bubbleverse').get('activeBubble'),
+  nucleus: d.get('bubbleverse').get('activeBubble'),
   isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
 }))
 export default class BubbleButtonBuilder extends React.PureComponent {
@@ -28,13 +27,14 @@ export default class BubbleButtonBuilder extends React.PureComponent {
   }
 
   render() {
-    const {builderNucleus, isBubbleBuilderOpen} = this.props
+    const {isBubbleBuilderOpen} = this.props
     const {isLoadingImage, imageUrl} = this.state
+    const nucleus = isBubbleBuilderOpen? this.props.nucleus : {}
     return (
       <BubbleButtonBuilderRoot onClick={this.onClick}>
         {isLoadingImage?
           <Spinnie show={true} /> :
-          (!imageUrl && builderNucleus.existingIndex === undefined) &&
+          (!imageUrl && nucleus.existingIndex === undefined) &&
           <i className={'prompt fa fa-' + (isBubbleBuilderOpen? 'image' : 'plus')} />
         }
         <input
@@ -44,7 +44,7 @@ export default class BubbleButtonBuilder extends React.PureComponent {
         />
         <BubbleButton
           {...this.props}
-          nucleus={builderNucleus}
+          nucleus={nucleus}
           imageUrl={imageUrl}
           className='builder'
         />

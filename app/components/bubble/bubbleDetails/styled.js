@@ -108,7 +108,7 @@ export const BubbleOptions = Flex.extend`
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   flex-wrap: wrap;
   justify-content: flex-end;
-  z-index: 1;
+  z-index: 5;
   pointer-events: none;
 
   &.visible {

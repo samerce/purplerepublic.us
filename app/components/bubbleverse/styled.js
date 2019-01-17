@@ -4,7 +4,7 @@ import {
   EASE_SINE, EASE_OUT, EASE_IN, EASE,
 } from '../../global/constants'
 import {
-  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex,
+  screen, AbsoluteFlexFillParent, AbsoluteFlex, Icon, Flex, Boto,
   CloseButton as aCloseButton, ExpandingBackground, ExpandingBackgroundSize,
   CloseButtonActiveStyles
 } from '../../global/styled'
@@ -137,6 +137,8 @@ export const Subtitle = Title.extend`
 
 export const Dimension = Flex.extend`
   padding: 0 0 0 30px;
+  position: relative;
+  z-index: 3;
 
   ${screen.medium`
     font-size: 22px;
@@ -151,4 +153,26 @@ export const Dimension = Flex.extend`
     width: 90%;
     align-self: flex-start;
   `}
+`
+
+export const DimensionPicker = AbsoluteFlex.extend`
+  top: 100%;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: all .5s ${EASE_OUT};
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+`
+
+export const DimensionChoice = Boto.extend`
+  flex: 0 0 50px;
+  margin: 5px 10px;
+  line-height: 50px;
 `

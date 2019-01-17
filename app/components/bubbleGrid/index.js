@@ -21,7 +21,6 @@ import {canShowEditingTools} from '../../utils/nav'
   visibleBubbles: d.get('bubbleverse').get('visibleBubbles'),
   isBubbleGridFullscreen: d.get('bubbleverse').get('isBubbleGridFullscreen'),
   isPoetcardCheckoutOpen: d.get('bubbles').get('isPoetcardCheckoutOpen'),
-  builderNucleus: d.get('bubbleverse').get('builderNucleus'),
   isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
 }))
 export default class BubbleGrid extends React.PureComponent {
@@ -33,7 +32,7 @@ export default class BubbleGrid extends React.PureComponent {
   render() {
     const {
       isArranging, onArrange, arrangeSourceIndex, dimension, visibleBubbles,
-      isBubbleGridFullscreen, isPoetcardCheckoutOpen, builderNucleus,
+      isBubbleGridFullscreen, isPoetcardCheckoutOpen,
       isBubbleBuilderOpen,
     } = this.props
 

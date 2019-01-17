@@ -10,7 +10,7 @@ import {Helmet} from 'react-helmet'
 
 import {
   Root, BubbleEditingButtonsRoot, CloseButton, Background, Header,
-  BubbleHeader, Title, Subtitle, Dimension,
+  BubbleHeader, Title, Subtitle, Dimension, DimensionPicker, DimensionChoice,
 } from './styled'
 import {
   MaskAbsoluteFillParent, ExpandingBackgroundSize,
@@ -25,13 +25,14 @@ import {canShowEditingTools} from '../../utils/nav'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {
-  closeBubbleverse, setBubbles, setActiveBubble, updateBuilderNucleus,
+  closeBubbleverse, setBubbles, setActiveBubble, updateBuilderNucleus, openBubbleverse,
 } from './actions'
 
 import {SCREEN_WIDTH_M} from '../../global/constants'
 import {
   BubbleComponents, BubbleType, BubbleButtonComponents
 } from '../bubble/config'
+import {DimensionTypes} from './config'
 
 const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
 const HalfBackgroundHeight = -(ExpandingBackgroundSize / 2)
@@ -68,6 +69,7 @@ export default class Bubbleverse extends React.PureComponent {
       mode: Mode.visible,
       arrangeSourceIndex: null,
       savingNewArrangement: false,
+      isDimensionPickerOpen: false,
       backgroundStyle: getBackgroundStyle(),
     }
   }
@@ -124,7 +126,7 @@ export default class Bubbleverse extends React.PureComponent {
   render() {
     const {
       mode, savingNewArrangement, arrangeSourceIndex,
-      backgroundStyle,
+      backgroundStyle, isDimensionPickerOpen,
     } = this.state
     const {
       dimension, activeBubble, className, isPoetcardCheckoutOpen,
@@ -161,7 +163,18 @@ export default class Bubbleverse extends React.PureComponent {
         } */}
 
         <Header className={isPoetcardCheckoutOpen && 'hidden'}>
-          <Dimension>{dimension}</Dimension>
+          <Dimension onClick={this.onClickDimensionHeader}>
+            {dimension}
+            {isBubbleBuilderOpen &&
+              <DimensionPicker className={isDimensionPickerOpen && 'open'}>
+                {Object.keys(DimensionTypes).map(d => (
+                  <DimensionChoice key={d} onClick={() => this.onClickDimensionChoice(d)}>
+                    {d}
+                  </DimensionChoice>
+                ))}
+              </DimensionPicker>
+            }
+          </Dimension>
           <BubbleHeader>
             <Subtitle
               editing={isBubbleBuilderOpen}
@@ -195,6 +208,17 @@ export default class Bubbleverse extends React.PureComponent {
         }
       </Root>
     )
+  }
+
+  @autobind
+  onClickDimensionHeader() {
+    this.setState({isDimensionPickerOpen: !this.state.isDimensionPickerOpen})
+  }
+
+  @autobind
+  onClickDimensionChoice(d) {
+    this.props.dispatch(openBubbleverse(d))
+    this.setState({isDimensionPickerOpen: false})
   }
 
   @autobind

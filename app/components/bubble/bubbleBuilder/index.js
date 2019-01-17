@@ -34,7 +34,7 @@ const FilterOptionList = [
 ]
 
 @connect(d => ({
-  builderNucleus: d.get('bubbleverse').get('builderNucleus'),
+  nucleus: d.get('bubbleverse').get('activeBubble'),
   isBubbleBuilderOpen: d.get('bubbleverse').get('isBubbleBuilderOpen'),
   dimension: d.get('bubbleverse').get('dimension'),
   bubbles: d.get('bubbleverse').get('bubbles'),
@@ -69,16 +69,13 @@ export default class BubbleBuilder extends React.PureComponent {
   }
 
   render() {
-    const {
-      isPublishing,
-    } = this.state
-    const {className, isBubbleBuilderOpen, builderNucleus} = this.props
-    const {renderCustomBuilderTools} = BubbleComponents[builderNucleus.type]
-    const selectedIndex = FilterOptionList.findIndex(o => o === builderNucleus.type)
+    const {className, isBubbleBuilderOpen, nucleus} = this.props
+    if (!isBubbleBuilderOpen) return null
+    const {renderCustomBuilderTools} = BubbleComponents[nucleus.type]
 
     return (
       <Root className={className}>
-        <PublishingMask show={isPublishing}>
+        <PublishingMask show={this.state.isPublishing}>
           <Spinnie show={true} />
         </PublishingMask>
 
@@ -89,7 +86,7 @@ export default class BubbleBuilder extends React.PureComponent {
           <UnoSelectPill
             className='typeSelectPill'
             options={this.filterOptions}
-            selectedIndex={selectedIndex}
+            selectedIndex={FilterOptionList.findIndex(o => o === nucleus.type)}
           />
         </PropertiesSection>
 
@@ -98,12 +95,12 @@ export default class BubbleBuilder extends React.PureComponent {
             <div>properties</div>
           </PropertiesSectionTitle>
           <BubbleBuilderNameTool
-            nucleus={builderNucleus}
+            nucleus={nucleus}
             verifyBubbleIdExists={this.verifyBubbleIdExists}
             onChangeNucleus={this.onChangeNucleus}
           />
           {renderCustomBuilderTools && renderCustomBuilderTools(
-            builderNucleus,
+            nucleus,
             this.onChangeNucleus
           )}
         </PropertiesSection>
@@ -113,7 +110,7 @@ export default class BubbleBuilder extends React.PureComponent {
             <div>action</div>
           </PropertiesSectionTitle>
           <BubbleBuilderButtonTool
-            nucleus={builderNucleus}
+            nucleus={nucleus}
             onChangeNucleus={this.onChangeNucleus} />
         </PropertiesSection>
 
@@ -144,13 +141,8 @@ export default class BubbleBuilder extends React.PureComponent {
 
   @autobind
   onSelectFilter(type) {
-    const {builderNucleus} = this.props
-    if (type === builderNucleus.type) return
-
-    this.onChangeNucleus({
-      ...builderNucleus,
-      type,
-    })
+    if (type === this.props.nucleus.type) return
+    this.onChangeNucleus({type})
   }
 
   @autobind
@@ -160,8 +152,8 @@ export default class BubbleBuilder extends React.PureComponent {
 
   @autobind
   publish() {
-    const {builderNucleus, dimension} = this.props
-    const {id, imageUrl, existingIndex} = builderNucleus
+    const {nucleus, dimension} = this.props
+    const {id, imageUrl, existingIndex} = nucleus
 
     if (!id) {
       alert('your new bubble gotsta have a name!')
@@ -169,7 +161,7 @@ export default class BubbleBuilder extends React.PureComponent {
     }
 
     const newBubble = {
-      ...builderNucleus,
+      ...nucleus,
       tags: dimension,
       imageUrl: undefined,
       existingIndex: undefined,
