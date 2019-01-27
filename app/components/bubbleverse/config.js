@@ -11,13 +11,13 @@ export const Dimensions = {
     title: 'business',
     previewImages: ['senateWin', 'lampshade', 'takingUpCollection'],
   },
-  Philosophy: {
-    title: 'philosophy',
-    previewImages: ['dragVote', 'proTip', 'dingell'],
-  },
   Art: {
     title: 'art',
     previewImages: ['senateWin', 'jamaica', 'workAmerica']
+  },
+  Philosophy: {
+    title: 'philosophy',
+    previewImages: ['dragVote', 'proTip', 'dingell'],
   },
   Politics: {
     title: 'politics',
@@ -26,10 +26,6 @@ export const Dimensions = {
   Play: {
     title: 'play',
     previewImages: ['equilibrium', 'lampshade', 'mission']
-  },
-  Film: {
-    title: 'film',
-    previewImages: ['godLovesFags', 'welcome', 'traderJoes']
   },
   Streets: {
     title: 'streets',

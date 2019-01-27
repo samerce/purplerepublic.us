@@ -52,6 +52,11 @@ var TimelineItems = [
     subtitle: 'immersive theatre to synthesize it all'
   },
   {
+    title: 'wet toe lp',
+    subtitle: 'debut album',
+    render: () => 'an example of self-empowerment from novice to chart-topper.',
+  },
+  {
     title: 'manifesting the minority',
     subtitle: 'a leadership program for the underdogs',
     render: () => 'taking to the streets to empower queers, people of color, youth, and disenfranchised to run for office and take positions of power.',
@@ -87,20 +92,18 @@ var TimelineItems = [
     render: () => 'vigilante journalism powered by minorities. an antidote to fake news: our own reality, built on locked eyes and steady hearts.',
   },
   {
-    title: 'coffee shop & political hub',
-    subtitle: 'mindspace'
-  },
-  {
-    title: 'wet toe lp',
-    subtitle: 'debut album'
-  },
-  {
-    title: 'purple party',
-    subtitle: 'political organization without boundaries',
+    title: 'galleries, coffee shops, venues',
+    subtitle: 'mindspace',
+    render: () => 'brick & mortar spaces in hundreds of cities supporting all our programs. providing meeting space, working space, maker space, performance space, and retail space, and gallery space for everything that we do.',
   },
   {
     title: 'sandcastle university',
     subtitle: 'the culminating force',
     render: () => 'a bold take on education. a montessori school mixed with a trade school mixed with an improv theatre troupe and a traveling circus. ',
+  },
+  {
+    title: 'purple party',
+    subtitle: 'political organization without boundaries',
+    render: () => 'from sandcastleU to DC: the next world leaders will come from a new breed of educated folks.'
   },
 ]

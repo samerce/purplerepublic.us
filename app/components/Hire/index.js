@@ -70,13 +70,11 @@ export default class Hire extends React.Component {
         {this.renderNavTextButton(2)}
         . and to the highest bidder we
         {this.renderNavTextButton(3)}
-        our souls. we take every chance to
+        our souls. let's
         {this.renderNavTextButton(4)}
-        . because life is about your ability to
+        the world together and
         {this.renderNavTextButton(5)}
-        . our goal is to
-        {this.renderNavTextButton(6)}
-        a new paradise—join us!
+        our new paradise!
       </NavParagraphRoot>
     )
   }
@@ -218,7 +216,7 @@ var Tabs = [
         onClick: () => window.location = '/#start/bubble/selfNotActor'
       },
     ],
-    render: () => renderTabContentText('We have the big ideas. Schedule time to have us help you grow your idea-seeds into an orchard of fruit-filled trees.'),
+    render: () => renderTabContentText('We have the big ideas. Schedule time to have us help you grow your idea-seeds into an orchard of fruit-filled trees. Got an incredible idea that will push us into a more mindful future? Let\'s work together! We can help you develop and produce your next big project.'),
   },
   {
     title: 'create',
@@ -231,18 +229,13 @@ var Tabs = [
     render: () => <Business />,
   },
   {
-    title: 'celebrate',
-    images: [getButtonImageUrl('goo'),],
-    render: () => renderTabContentText('If you wanna celebrate, we can throw you a party, hennie.'),
-  },
-  {
     title: 'transform',
     images: [getButtonImageUrl('stare-off-into-space'),],
     render: () => renderTabContentText('We specialize in transformation. From business culture, to classrooms, to your own bedroom.'),
   },
   {
-    title: 'develop',
-    images: [getButtonImageUrl('the-faces'),],
-    render: () => renderTabContentText('Got an incredible idea that will push us into a more mindful future? Let\'s work together! We can help you develop and produce your next big project.')
+    title: 'celebrate',
+    images: [getButtonImageUrl('goo'),],
+    render: () => renderTabContentText('If you wanna celebrate, we can throw you a party, hennie.'),
   },
 ]
