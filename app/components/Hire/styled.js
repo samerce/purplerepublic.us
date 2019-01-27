@@ -81,7 +81,6 @@ export const NavTextButton = Boto.extend`
   display: inline;
   font-size: 22px;
   margin: 0 5px;
-  border: 2px solid ${p => p.theme.veryLight};
 
   &:active {
     transform: scale(.95);

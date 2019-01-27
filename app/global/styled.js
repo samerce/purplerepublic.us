@@ -287,7 +287,7 @@ export const BlurbBubble = Flex.extend`
   border-radius: 100%;
   border: 1px solid ${p => p.theme.veryLight};
   background: ${p => p.theme.veryDark};
-  box-shadow: ${p => p.theme.shadowHeavy};
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
   z-index: 2;
   justify-content: center;
   align-items: center;
@@ -313,7 +313,6 @@ export const BlurbContent = Flex.extend`
 export const BlurbButton = Boto.extend`
   flex: 0 0 80px;
   width: 100%;
-  border: 2px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowMedium};
   z-index: 1;
 

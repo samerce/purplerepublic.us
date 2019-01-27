@@ -103,7 +103,7 @@ export const RowContentRoot = Flex.extend`
   border-radius: 10px;
   max-width: 740px;
   background: ${p => p.theme.main};
-  border: 2px solid ${p => p.theme.veryLight};
+  border: 1px solid ${p => p.theme.veryLight};
   width: 80%;
   margin-top: -10px;
   flex-direction: column;

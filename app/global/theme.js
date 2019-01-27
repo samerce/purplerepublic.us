@@ -17,7 +17,7 @@ export default {
   shadowHeavy: '3px 10px 20px ' + alpha(.7, purpleVeryDark),
   shadowMedium: '2px 5px 10px ' + alpha(.8, purpleVeryDark),
   shadowLight: '2px 2px 8px ' + alpha(.9, purpleVeryDark),
-  borderRadiusBoto: 10,
+  borderRadiusBoto: 15,
   gradientVeryDarkButTransparent: `radial-gradient(
     circle at center,
     ${alpha(.17, purpleSlightlyDark)} 0%,

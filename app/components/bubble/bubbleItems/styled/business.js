@@ -59,7 +59,7 @@ export const OptionText = BlurbText.extend`
 
 export const BuildingOption = FlexColumn.extend`
   border-radius: 10px;
-  border: 2px solid ${p => p.theme.veryLight};
+  border: 1px solid ${p => p.theme.veryLight};
   padding: 10px 15px;
   margin: 0 10px;
   background: ${p => p.theme.main};
@@ -139,7 +139,6 @@ export const PreviousFeatures = FeatureText.extend`
 
 export const BuildingButton = Boto.extend`
   flex: 0 0 80%;
-  border: 2px solid ${p => p.theme.veryLight};
   margin: 20px 0 0;
 
   &:last-child {
