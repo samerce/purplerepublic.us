@@ -35,7 +35,7 @@ export const Root = styled.div`
   cursor: pointer;
   transition: all .5s ${EASE_OUT};
   transition-property: left transform;
-  margin-top: 45px;
+  margin-top: 85px;
 
   ${screen.large`
     width: 110px;

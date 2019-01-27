@@ -9,6 +9,7 @@ import StackGrid from '../../components/StackGrid'
 import LatestBoard from '../../components/LatestBoard'
 import GetSocialWithUs from '../../components/getSocialWithUs'
 import Bubbleverse from '../../components/bubbleverse'
+import PoetcardHero from '../../components/PoetcardHero'
 
 import {
   Root, ScrollContainer,
@@ -47,6 +48,7 @@ export default class Start extends React.Component {
         <ScrollContainer>
           <Shop />
           <Hire />
+          <PoetcardHero />
           <Logo />
           <ThenNowWhen />
           <HookEmHeader />
