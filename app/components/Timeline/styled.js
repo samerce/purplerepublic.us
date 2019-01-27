@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, AbsoluteFlex, screen,
+  Flex, FlexColumn, AbsoluteFlex, screen,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -118,6 +118,7 @@ export const RowContentRoot = Flex.extend`
   }
   .left & {
     margin-right: 40px;
+    text-align: right;
   }
   &.special {
     background: ${p => p.theme.veryDark};
@@ -165,7 +166,7 @@ export const TimelineSubtitle = Flex.extend`
   `}
 `
 
-export const IntroBlurb = Flex.extend`
+export const IntroBlurb = FlexColumn.extend`
   max-width: 740px;
   color: ${p => p.theme.veryLight};
   font-size: 22px;

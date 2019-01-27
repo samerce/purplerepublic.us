@@ -28,7 +28,11 @@ export default class FutureTimeline extends React.Component {
     return (
       <Root className={this.props.className}>
         <IntroBlurb>
-          the future is education. nomaya is building its first university in new orleans. and you can be a ground-floor investor. find out more about the plans below.
+          nomaya is a non-profit organization built to bring us into the future of consciousness. an impulse to let the dark coexist with the light. a vision of a world free from the binds of binary. here's how we do it.
+          <br />
+          <span style={{fontStyle: 'italic'}}>
+            the timeline is just a pretty graphic. everything is simultaneous.
+          </span>
         </IntroBlurb>
 
         <Timeline items={TimelineItems} />
@@ -55,12 +59,17 @@ var TimelineItems = [
   {
     title: 'faerie brigade',
     subtitle: 'mashing silly & smart to bring happy art to the people',
-    render: () => 'programs across the country to send brigades of wildly costumed, effervescent folk out into the streets to spread joy and knowledge. from drag faeries who pick up trash to vaudeville mimes who offer gazing meditation. plus social media firestorm to get people to write poetcards to each other and change the conversation on politics and philosophy and life.',
+    render: () => 'programs across the country to send brigades of wildly costumed, effervescent folk out into the streets to spread joy and knowledge. from drag faeries who pick up trash to vaudeville mimes who offer gazing meditation to absurd pop-up street theatre on climate change. plus social media firestorm to get people to write poetcards to each other and change the conversation on politics and philosophy and life.',
   },
   {
     title: 'art installs',
     subtitle: 'mind-bending installations across the globe',
-    render: () => 'massive constructions across the nation that make you think about the meaninglessness of existence, while inspiring you to create your own meaning. these will be entry points to the vast mystery that unfolds online and subsequently in the communities that host them. the first phase includes:',
+    render: () => 'massive constructions across the nation that make you think about the meaninglessness of existence, while inspiring you to create your own meaning. expansive industrial spaces are remade into an enchanting instagrammable atmosphere, while inviting you to take your art beyond phone photography: paint, record video, sing, play instruments, write, dance, meditate, juggle, improv. these will be entry points to the vast mystery that unfolds online and subsequently in the communities that host them. the first phase includes:',
+  },
+  {
+    title: 'transformation nation',
+    subtitle: 'a gale force wind sweeping the 50 states',
+    render: () => 'teams across the nation seek out those in need and in want of transformation—a radical redirect to an existence effervescent. a rebirth opportunity to reignite belief in the self. from business remodels a la kitchen nightmares, to life coaching a la queer eye, to community and government reforms aimed at turning the whole country into frisco.',
   },
   {
     title: 'film series',
@@ -74,7 +83,8 @@ var TimelineItems = [
   },
   {
     title: 'purple probe',
-    subtitle: 'monthly magazine'
+    subtitle: 'monthly magazine & tv station',
+    render: () => 'vigilante journalism powered by minorities. an antidote to fake news: our own reality, built on locked eyes and steady hearts.',
   },
   {
     title: 'coffee shop & political hub',
