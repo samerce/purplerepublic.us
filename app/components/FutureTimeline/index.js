@@ -55,7 +55,7 @@ var TimelineItems = [
   {
     title: 'faerie brigade',
     subtitle: 'mashing silly & smart to bring happy art to the people',
-    render: () => 'programs across the country to send brigades of wildly costumed, effervescent folk out into the streets to spread joy and knowledge. from drag faeries who pick up trash to vaudeville mimes who offer gazing meditation.',
+    render: () => 'programs across the country to send brigades of wildly costumed, effervescent folk out into the streets to spread joy and knowledge. from drag faeries who pick up trash to vaudeville mimes who offer gazing meditation. plus social media firestorm to get people to write poetcards to each other and change the conversation on politics and philosophy and life.',
   },
   {
     title: 'art installs',
@@ -68,7 +68,12 @@ var TimelineItems = [
     render: () => 'several episodic reality shows following the many facets of nomaya. from the faerie brigade to manifesting minorities to the art installs and traveling show.',
   },
   {
-    title: 'purle probe',
+    title: 'immortality — the play',
+    subtitle: 'the paradigm writ for the stage',
+    render: () => 'a queer, exhilarating ride through the mind of non-duality. a platform for the political party and process of the future. an endlessly evolving scene for a collective conversation. basically, the book tour goes broadway.',
+  },
+  {
+    title: 'purple probe',
     subtitle: 'monthly magazine'
   },
   {
