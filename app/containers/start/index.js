@@ -10,6 +10,7 @@ import LatestBoard from '../../components/LatestBoard'
 import GetSocialWithUs from '../../components/getSocialWithUs'
 import Bubbleverse from '../../components/bubbleverse'
 import PoetcardHero from '../../components/PoetcardHero'
+import BookHero from '../../components/BookHero'
 
 import {
   Root, ScrollContainer,
@@ -53,6 +54,7 @@ export default class Start extends React.Component {
           <ThenNowWhen />
           <HookEmHeader />
           <StackGrid />
+          <BookHero />
           <LatestBoard />
         </ScrollContainer>
         <Bubbleverse />

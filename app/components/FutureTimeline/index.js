@@ -67,8 +67,8 @@ var TimelineItems = [
     render: () => 'programs across the country to send brigades of wildly costumed, effervescent folk out into the streets to spread joy and knowledge. from drag faeries who pick up trash to vaudeville mimes who offer gazing meditation to absurd pop-up street theatre on climate change. plus social media firestorm to get people to write poetcards to each other and change the conversation on politics and philosophy and life.',
   },
   {
-    title: 'art installs',
-    subtitle: 'mind-bending installations across the globe',
+    title: 'express your mess',
+    subtitle: 'mind-bending interactive art installations across the globe',
     render: () => 'massive constructions across the nation that make you think about the meaninglessness of existence, while inspiring you to create your own meaning. expansive industrial spaces are remade into an enchanting instagrammable atmosphere, while inviting you to take your art beyond phone photography: paint, record video, sing, play instruments, write, dance, meditate, juggle, improv. these will be entry points to the vast mystery that unfolds online and subsequently in the communities that host them. the first phase includes:',
   },
   {
