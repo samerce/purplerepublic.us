@@ -290,7 +290,7 @@ var Tabs = [
     dimension: DimensionTypes.Movement,
     image: 'action',
     preText: ((window.innerWidth <= SCREEN_WIDTH_M)? '...' : '') + 'paired with organized',
-    postText: 'you\'ll touch millions.',
+    postText: 'we\'ll touch millions.',
     renderIntro: () => (
       <div>
         <p>we are given the gift of life, unasked. these waking moments are only process.</p>
@@ -329,7 +329,7 @@ var Tabs = [
     dimension: DimensionTypes.Space,
     image: 'lampshade tiny',
     preText: 'create',
-    postText: 'for that duo to grow infinitely, and you\'ll change the world.',
+    postText: 'for that duo to grow infinitely, and we\'ll change the world.',
     renderIntro: () => (
       <div>
         <p>we are each a plant. and we need space to grow.</p>
