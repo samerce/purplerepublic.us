@@ -12,6 +12,7 @@ import {
 } from '../../global/styled'
 
 export const Root = WidgetRoot.extend`
+  padding: 0 10px 40px;
   ${screen.large`
     padding: 0 60px 80px 10px;
   `}
@@ -55,6 +56,8 @@ export const EmbedRoot = Flex.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(-80px, -20px) rotate(-1deg);
+  background: ${p => p.theme.shelly};
+  border-color: ${p => p.theme.shellyLight};
 
   ${screen.medium`
     transform: rotate(-1deg);

@@ -42,6 +42,8 @@ export const Blurb = BlurbText.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(40px, -30px) rotate(2deg);
+  background: ${p => p.theme.shelly};
+  border-color: ${p => p.theme.shellyLight};
 
   ${screen.medsmall`
     transform: translate(0, -30px) rotate(2deg);

@@ -21,7 +21,7 @@ export const Title  = Flex.extend`
   padding: 0 0 0 10px;
 `
 
-export const Blurb = Flex.extend`
+export const Blurb = styled.div`
   flex: 1 0 auto;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -32,16 +32,17 @@ export const Blurb = Flex.extend`
   font-size: 24px;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 0 20px;
   margin-top: -3px;
-  text-align: center;
   max-width: 1080px;
 
+  ${screen.large`
+    max-width: 85%;
+  `}
   ${screen.medium`
     max-width: 90%;
   `}
   ${screen.medsmall`
-    max-width: 85%;
     font-size: 20px;
   `}
 `
@@ -51,10 +52,9 @@ export const VideoRoot = Flex.extend`
   background: ${p => p.theme.veryDark};
   border: 1px solid ${p => p.theme.veryLight};
   border-radius: 10px;
-  box-shadow: ${p => p.theme.shadowHeavy};
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
   position: relative;
   display: flex;
   align-items: center;
   overflow: hidden;
-
 `

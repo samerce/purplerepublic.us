@@ -35,11 +35,14 @@ export const Root = styled.div`
   cursor: pointer;
   transition: all .5s ${EASE_OUT};
   transition-property: left transform;
-  margin-top: 85px;
+  margin-top: 45px;
 
-  ${screen.large`
+  ${screen.medium`
     width: 110px;
-    margin-top: 20px;
+    margin-top: -10px;
+  `}
+  ${screen.large`
+    margin-top: -5px;
   `}
 
   /* &.logo-hangin {

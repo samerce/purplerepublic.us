@@ -5,6 +5,8 @@ import {
   Root, Blurb, Title, VideoRoot
 } from './styled'
 
+import {SCREEN_WIDTH_M} from '../../global/constants'
+
 export default class HookEmHeader extends React.Component {
 
   render() {
@@ -23,17 +25,24 @@ export default class HookEmHeader extends React.Component {
   }
 
   renderSingularityHeader() {
+    const videoWidthPadding = (window.innerWidth <= SCREEN_WIDTH_M)? 35 : 120
     return (
       <Root>
         <VideoRoot>
           <Video
             id={'rmXjuF1GLK0'}
-            width={() => Math.min(1200, window.innerWidth - 35)}
+            width={() => Math.min(1200, window.innerWidth - videoWidthPadding)}
           />
         </VideoRoot>
 
         <Blurb>
-          This is our poem to planet earth. An open-source stand for something honest. Snapshots of life lived. Rewired dna. A little room for possibility. Creative space to get weird & think different. Our Schizopedia—a decategorized flow of ideas from a deep place beyond the binary. This is the present moment. Awareness witnessing now. Pure consciousness woke & ready to rebel.
+          <p>we're born to celebrate. we're alive, bishes ! let's contemplate why. let's challenge fear, question reality, & work through being human. conscious and queer and human. we all dream, fear, and poop from the butt. let's get over it. earth is magic. and big enough for everybody.</p>
+
+          <p>this is an open-source stand for something honest. a fluid place of flowing possibility.</p>
+
+          <p>let's face ourselves. embrace our awkward. our bigotry and divine light.</p>
+
+          <p>500,000 elected positions will be filled in 2020. woke and ready? don't walk - run !  support the long shots! we'll help.</p>
         </Blurb>
       </Root>
     )

@@ -14,7 +14,7 @@ export default class BookHero extends React.PureComponent {
       <Root>
         <SectionHeader>
           <hr />
-          <div>publishing soon</div>
+          <div>upcoming book release</div>
         </SectionHeader>
         <ContentRoot>
           <IconGroup>
@@ -27,7 +27,7 @@ export default class BookHero extends React.PureComponent {
           <Blurb>
             <strong>i pray to all the gods</strong>
             <i>release: february 2019, everywhere books are sold</i>
-            <span>take a radiant ride through the mind of a modern genius. explore what the world is like without boundaries, without fear, without duality. get on the magic carpet, bitch, let's see what this world has to offer...</span>
+            <span>a story about a schizophrenic drag queen attempting to get famous by becoming a pop star president addicted to poker and marijuana. a radiant ride through a world  without boundary. get on the magic carpet, bish. fear is a mind state. liberation depends on where you focus.</span>
           </Blurb>
           <MailingListRoot>
             join the mailing list to get updates & sneak previews!

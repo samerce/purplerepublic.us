@@ -1,6 +1,6 @@
 import React from 'react'
-import PastTimeline from '../PastTimeline'
-import FutureTimeline from '../FutureTimeline'
+import Shop from '../Shop'
+import Explore from '../Explore'
 
 import {cx} from '../../utils/style'
 import {
@@ -57,18 +57,18 @@ export default class ThenNowWhen extends React.Component {
 
         <ButtonRoot>
           <Button className={'left ' + leftClasses} onClick={this.togglePast}>
-            <i className='fa fa-history' />
-            <span>where we've been</span>
+            <i className='fa fa-shopping-bag' />
+            <span>shop</span>
           </Button>
 
           <Button className={'right ' + rightClasses} onClick={this.toggleFuture}>
-            <span>where we're going</span>
+            <span>explore</span>
             <i className='fa fa-grav' />
           </Button>
         </ButtonRoot>
 
-        <PastTimeline />
-        <FutureTimeline />
+        <Shop />
+        <Explore />
       </Root>
     )
   }

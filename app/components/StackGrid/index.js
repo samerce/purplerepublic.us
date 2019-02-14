@@ -1,12 +1,9 @@
 import React from 'react'
-import Bubbleverse from '../bubbleverse'
 
 import {
   Root, StackRoot, CircleAmy, CircleSue, CirclePat, Title, CircleRoot,
+  Blurb, StacksRoot,
 } from './styled'
-import {
-  SectionHeader
-} from '../../global/styled'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
@@ -14,6 +11,7 @@ import {connect} from 'react-redux'
 import {getButtonImageUrl} from '../../utils/bubbleverse'
 import {Dimensions} from '../bubbleverse/config'
 import {openBubbleverse} from '../bubbleverse/actions'
+import {toggleFutureTimeline} from '../ThenNowWhen/actions'
 
 const randomOffset = (range) => Math.round(Math.random() * range)
 const DimensionTypes = Object.keys(Dimensions)
@@ -33,12 +31,13 @@ export default class StackGrid extends React.Component {
   render() {
     return (
       <Root>
-        <SectionHeader>
-          <hr />
-          <div>a queer perspective</div>
-        </SectionHeader>
-
-        {DimensionValues.map(this.renderStack)}
+        <StacksRoot>
+          {DimensionValues.map(this.renderStack)}
+        </StacksRoot>
+        <Blurb>
+          dive into us.<br />or for a quicker look,&nbsp;
+          <span onClick={this.onClickExplore}>explore the overview</span>.
+        </Blurb>
       </Root>
     )
   }
@@ -71,6 +70,11 @@ export default class StackGrid extends React.Component {
       x: event.clientX,
       y: event.clientY,
     }))
+  }
+
+  @autobind
+  onClickExplore() {
+    this.props.dispatch(toggleFutureTimeline())
   }
 
 }

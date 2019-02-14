@@ -110,7 +110,7 @@ export const BubbleButton = Flex.extend`
 `
 
 export const Boto = Flex.extend`
-  font-size: 30px;
+  font-size: 20px;
   font-family: alice; /*alice, annie use your telescope;*/
   text-align: center;
   cursor: pointer;
@@ -223,13 +223,13 @@ export const SectionHeader = Flex.extend`
   margin: 0 0 40px;
 
   div {
-    background: ${p => p.theme.veryDark};
-    border: 1px solid ${p => p.theme.veryLight};
+    background: ${p => p.theme.flikDark};
+    border: 1px solid ${p => p.theme.flikSemiLight};
     border-radius: 10px;
     padding: 5px 20px;
     font-family: playfair display;
     font-size: 22px;
-    color: ${p => p.theme.veryLight};
+    color: ${p => p.theme.flikSemiLight};
     text-transform: uppercase;
     z-index: 1;
     box-shadow: ${p => p.theme.shadowHeavy};
@@ -239,7 +239,7 @@ export const SectionHeader = Flex.extend`
   hr {
     position: absolute;
     top: 50%;
-    border-color: ${p => p.theme.veryLight};
+    border-color: ${p => p.theme.flikSemiLight};
     width: 100%;
     margin: -1px 0 0;
     box-shadow: ${p => p.theme.shadowHeavy};
@@ -369,7 +369,6 @@ export const CornerWorldRoot = AbsoluteFlexFillParent.extend`
 `
 export const CornerWorldRootActiveStyles = css`
   overflow: initial;
-  z-index: 9;
   pointer-events: all;
 `
 

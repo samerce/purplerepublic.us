@@ -2,19 +2,22 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto,
+  Flex, Boto, screen,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
   flex: 0 0 100%;
-  margin: 40px 0 0;
-  padding: 20px 0 40px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.veryDarkTransparent};
-  ${'' /* box-shadow: ${p => p.theme.shadowHeavy}; */}
-  background-attachment: fixed;
+  margin: 0 0 40px;
+`
+
+export const StacksRoot = Flex.extend`
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `
 
 export const StackRoot = Flex.extend`
@@ -26,6 +29,13 @@ export const StackRoot = Flex.extend`
   z-index: 1;
   margin: 10px 20px 30px;
   cursor: pointer;
+
+  ${screen.medium`
+    flex: 0 0 33%;
+  `}
+  ${screen.mediumlarge`
+    flex: 0 0 25%;
+  `}
 `
 
 export const CircleRoot = Flex.extend`
@@ -69,8 +79,8 @@ export const Title = Boto.extend`
   font-family: alice;
   z-index: 2;
   user-select: none;
-  border: 1px solid ${p => p.theme.veryLight};
-  background: ${p => p.theme.main};
+  border: 1px solid ${p => p.theme.shellyLight};
+  background: ${p => p.theme.shelly};
   border-radius: 10px;
   padding: 5px 20px;
   ${'' /* box-shadow: 1px 1px 50px black; */}
@@ -83,7 +93,7 @@ export const Title = Boto.extend`
   letter-spacing: 1px;
   text-align: left;
   text-shadow: 1px 1px black;
-  opacity: .8;
+  opacity: .9;
 
   ${StackRoot}:hover & {
     background: white;
@@ -92,4 +102,27 @@ export const Title = Boto.extend`
     text-shadow: none;
     opacity: 1;
   }
+`
+
+export const Blurb = styled.div`
+  flex: 0 1 500px;
+  max-width: 780px;
+  background: ${p => p.theme.veryDark};
+  color: ${p => p.theme.veryLight};
+  font-size: 24px;
+  padding: 70px 20px 20px;
+  border-radius: 10px;
+  border: 1px solid ${p => p.theme.veryLight};
+  text-align: center;
+  transform: translate(0, -70px);
+
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  ${screen.medium`
+    flex: 0 0 90%;
+    font-size: 20px;
+  `}
 `

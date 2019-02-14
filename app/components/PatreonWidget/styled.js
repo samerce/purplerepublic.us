@@ -88,6 +88,8 @@ export const Row = Flex.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(240px, -85px) rotate(-2deg);
+  background: ${p => p.theme.shelly};
+  border-color: ${p => p.theme.shellyLight};
 
   ${screen.medium`
     transform: rotate(-2deg);

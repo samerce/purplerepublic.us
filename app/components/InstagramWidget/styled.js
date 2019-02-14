@@ -100,6 +100,8 @@ export const CaptionRoot = Flex.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(200px, 0) rotate(3deg);
+  background: ${p => p.theme.shelly};
+  border-color: ${p => p.theme.shellyLight};
 
   ${screen.mediumlarge`
     transform: rotate(3deg);

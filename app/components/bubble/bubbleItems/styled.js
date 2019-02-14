@@ -120,6 +120,7 @@ injectGlobal`
   }
   .price-sheet {
     width: 65%;
+    max-width: 440px;
     align-self: center;
     margin-bottom: 15px;
 

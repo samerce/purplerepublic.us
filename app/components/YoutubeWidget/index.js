@@ -21,7 +21,7 @@ export default class YouTubeWidget extends React.PureComponent {
         <VideoRoot>
           <i className='fa fa-youtube' />
           <Video
-            id='rmXjuF1GLK0'
+            id='KVMFDuSPq68'
             width={() => Math.min(400, window.innerWidth * .95)}
           />
         </VideoRoot>

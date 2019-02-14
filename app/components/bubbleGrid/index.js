@@ -96,7 +96,7 @@ export default class BubbleGrid extends React.PureComponent {
               />
             </BubbleGridItem>
           ))}
-
+          
           <BubbleGridItem className='gapItem' />
         </ScrollContainer>
 

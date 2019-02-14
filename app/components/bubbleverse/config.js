@@ -7,29 +7,17 @@ export const Mode = makeEnum([
 ])
 
 export const Dimensions = {
-  Business: {
-    title: 'business',
-    previewImages: ['senateWin', 'lampshade', 'takingUpCollection'],
-  },
   Art: {
     title: 'art',
     previewImages: ['senateWin', 'jamaica', 'workAmerica']
   },
-  Philosophy: {
-    title: 'philosophy',
+  Movement: {
+    title: 'movement',
     previewImages: ['dragVote', 'proTip', 'dingell'],
   },
-  Politics: {
-    title: 'politics',
-    previewImages: ['dragChurch', 'whatIsThis', 'purpleStump']
-  },
-  Play: {
-    title: 'play',
-    previewImages: ['equilibrium', 'lampshade', 'mission']
-  },
-  Streets: {
-    title: 'streets',
-    previewImages: ['queen', 'washington', 'onTheIssues']
+  Space: {
+    title: 'space',
+    previewImages: ['senateWin', 'lampshade', 'takingUpCollection'],
   },
 }
 

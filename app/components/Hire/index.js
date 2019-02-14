@@ -51,122 +51,13 @@ export default class Hire extends React.Component {
         </CloseButton>
 
         <ContentRoot>
-          {this.renderNavParagraph()}
-          {this.renderTabBar()}
-          {this.renderTabContent()}
+
         </ContentRoot>
       </Root>
     )
   }
 
-  renderNavParagraph() {
-    return (
-      <NavParagraphRoot>
-        we like to
-        {this.renderNavTextButton(0)}
-        . we like to
-        {this.renderNavTextButton(1)}
-        even more. we vacation from concepts to
-        {this.renderNavTextButton(2)}
-        . and to the highest bidder we
-        {this.renderNavTextButton(3)}
-        our souls. let's
-        {this.renderNavTextButton(4)}
-        the world together and
-        {this.renderNavTextButton(5)}
-        our new paradise!
-      </NavParagraphRoot>
-    )
-  }
 
-  renderNavTextButton(index) {
-    return (
-      <NavTextButton
-        className={(index === this.state.activeTabIndex) && 'active'}
-        onClick={() => this.onClickNavTextButton(index)}>
-        {Tabs[index].title}
-      </NavTextButton>
-    )
-  }
-
-  renderTabBar() {
-    return (
-      <TabBarRoot className="mdc-tab-bar" role="tablist">
-        <div className="mdc-tab-scroller">
-          <div className="mdc-tab-scroller__scroll-area">
-            <div className="mdc-tab-scroller__scroll-content">
-              {Tabs.map(this.renderTab)}
-            </div>
-          </div>
-        </div>
-      </TabBarRoot>
-    )
-  }
-
-  @autobind
-  renderTab(tab, i) {
-    const {activeTabIndex} = this.state
-    const classes = (activeTabIndex === i)? 'mdc-tab--active' : ''
-    return (
-      <TabButton key={i} className={'mdc-tab ' + classes} role="tab" ariaSelected="true" tabindex="0">
-        <span className="mdc-tab__content">
-          <TabBarTabText className="mdc-tab__text-label">{tab.title}</TabBarTabText>
-        </span>
-        <span className="mdc-tab-indicator">
-          <span className="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-        </span>
-        <span className="mdc-tab__ripple"></span>
-      </TabButton>
-    )
-  }
-
-  renderTabContent() {
-    const {activeTabIndex} = this.state
-    const {images, render} = Tabs[activeTabIndex]
-    return (
-      <TabContentRoot>
-        <Gallery
-          ref={r => this.gallery = r}
-          onClick={this.onClickGalleryImage}
-          lazyLoad={true}
-          showPlayButton={false}
-          showIndex={images.length > 1}
-          showThumbnails={false}
-          showNav={images.length > 1}
-          swipeThreshold={5}
-          flickThreshold={.1}
-          slideInterval={1000}
-          stopPropagation={true}
-          useBrowserFullscreen={false}
-          items={getGalleryImages(images)} />
-        <GalleryOverlay />
-
-        <TabDetailsRoot>
-          {render()}
-        </TabDetailsRoot>
-      </TabContentRoot>
-    )
-  }
-
-  onClickNavTextButton(index) {
-    this.tabBar.activateTab(index)
-    this.tabBar.root_.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }
-
-  @autobind
-  onTabActivated(e) {
-    this.setState({activeTabIndex: e.detail.index})
-  }
-
-  @autobind
-  onClickGalleryImage() {
-    const imageIndex = this.gallery.getCurrentIndex()
-    const image = Tabs[this.state.activeTabIndex].images[imageIndex]
-    image.onClick()
-  }
 
 }
 

@@ -44,6 +44,9 @@ export const VideoRoot = Flex.extend`
 
 export const Button = BeggingButton.extend`
   transform: translate(-80px, -20px) rotate(-1deg);
+  background: ${p => p.theme.shelly};
+  border-color: ${p => p.theme.shellyLight};
+  
   ${screen.small`
     transform: rotate(-1deg);
   `}

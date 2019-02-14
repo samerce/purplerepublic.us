@@ -1,7 +1,5 @@
 import React from 'react'
 import Backdrop from './backdrop'
-import Shop from '../../components/Shop'
-import Hire from '../../components/Hire'
 import Logo from '../../components/logoBubble'
 import HookEmHeader from '../../components/HookEmHeader'
 import ThenNowWhen from '../../components/ThenNowWhen'
@@ -11,6 +9,9 @@ import GetSocialWithUs from '../../components/getSocialWithUs'
 import Bubbleverse from '../../components/bubbleverse'
 import PoetcardHero from '../../components/PoetcardHero'
 import BookHero from '../../components/BookHero'
+import Announcements from '../../components/Announcements'
+import Cast from '../../components/Cast'
+import SupportUs from '../../components/SupportUs'
 
 import {
   Root, ScrollContainer,
@@ -18,6 +19,8 @@ import {
 
 import {canShowEditingTools} from '../../utils/nav'
 import sha256 from 'tiny-sha256'
+import {connect} from 'react-redux'
+import {findDOMNode} from 'react-dom'
 
 const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aabc072b'
 
@@ -26,6 +29,9 @@ const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aa
 //   why(React)
 // }
 
+@connect(d => ({
+  isLogoWorldVisible: d.get('timeline').get('futureTimelineVisible') || d.get('timeline').get('pastTimelineVisible'),
+}))
 export default class Start extends React.Component {
 
   componentWillMount() {
@@ -35,6 +41,15 @@ export default class Start extends React.Component {
         alert('no entry fo yew.')
         window.location = '#intro'
       }
+  }
+
+  componentDidMount() {
+    this.scrollContainer = findDOMNode(this.scrollContainerRef)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isLogoWorldVisible && !this.props.isLogoWorldVisible) {
+      this.scrollContainer.scrollTo(0, 0)
     }
   }
 
@@ -46,16 +61,16 @@ export default class Start extends React.Component {
     return (
       <Root>
         <Backdrop />
-        <ScrollContainer>
-          <Shop />
-          <Hire />
-          <PoetcardHero />
+        <ScrollContainer ref={r => this.scrollContainerRef = r}>
           <Logo />
           <ThenNowWhen />
           <HookEmHeader />
-          <StackGrid />
+          <Announcements />
+          <PoetcardHero />
           <BookHero />
           <LatestBoard />
+          <Cast />
+          <SupportUs />
         </ScrollContainer>
         <Bubbleverse />
         <GetSocialWithUs />

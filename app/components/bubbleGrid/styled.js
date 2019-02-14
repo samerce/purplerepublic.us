@@ -117,11 +117,6 @@ export const BubbleGridItem = Flex.extend`
       margin: 0;
     }
   }
-
-  ${p => p.heroConfig && `
-    flex: 0 0 ${p.heroConfig.width}px;
-    justify-content: ${p.heroConfig.leftSide? 'flex-end' : 'initial'};
-  `}
 `
 
 export const BubbleGridAddItem = BubbleGridItem.extend`

@@ -99,7 +99,7 @@ export const SocialButtonsRoot = styled.div`
   pointer-events: all;
   flex: 0 0 auto;
   cursor: pointer;
-  opacity: .8;
+  opacity: .9;
   flex: 0 0 auto;
   justify-content: center;
   align-self: center;

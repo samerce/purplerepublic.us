@@ -5,6 +5,7 @@ import YouTubeWidget from '../YoutubeWidget'
 import MediumWidget from '../MediumWidget'
 import AnnouncementWidget from '../AnnouncementWidget'
 import SoundCloudWidget from '../SoundCloudWidget'
+import StackGrid from '../StackGrid'
 
 import {
   Root,
@@ -20,10 +21,10 @@ export default class LatestBoard extends React.Component {
       <Root>
         <SectionHeader>
           <hr />
-          <div>latest</div>
+          <div>corkboard</div>
         </SectionHeader>
 
-        <AnnouncementWidget />
+        <StackGrid />
         <InstagramWidget />
         <YouTubeWidget />
         <PatreonWidget />

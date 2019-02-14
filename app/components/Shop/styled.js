@@ -7,34 +7,9 @@ import {
 } from '../../global/styled'
 
 export const Root = CornerWorldRoot.extend`
+  z-index: 1;
   &.shop-show, &.shop-enter, &.shop-willExit, &.shop-exit {
     ${CornerWorldRootActiveStyles}
-  }
-`
-
-
-export const EntryButton = CornerEntryButton.extend`
-  .shop-show &, .shop-enter & {
-    ${CornerEntryButtonActiveStyles}
-  }
-`
-
-export const Background = ExpandingBackground.extend`
-  .shop-willEnter &, .shop-willExit &, .shop-exit & {
-    position: fixed;
-  }
-  .shop-show &, .shop-enter & {
-    position: fixed;
-    ${ExpandingBackgroundRightActiveStyles}
-  }
-`
-
-export const CloseButton = aCloseButton.extend`
-  .shop-enter & {
-    transition-delay: .3s;
-  }
-  .shop-show &, .shop-enter & {
-    ${CloseButtonActiveStyles}
   }
 `
 
@@ -42,6 +17,12 @@ export const ContentRoot = CornerWorldContentRoot.extend`
   .shop-show & {
     pointer-events: all;
   }
+  ${screen.large`
+    padding-top: 150px;
+  `}
+  ${screen.medsmall`
+    padding-top: 270px;
+  `}
 `
 
 export const ShopRow = Flex.extend`
@@ -53,6 +34,11 @@ export const ShopRow = Flex.extend`
 const RowShowDelay = .1
 
 export const IconBubble = BlurbBubble.extend`
+  border-color: ${p => p.theme[p.color + 'Light']};
+  i {
+    color: ${p => p.theme[p.color + 'Light']};
+  }
+
   .shop-enter & {
     transform: none;
     opacity: 1;
@@ -71,14 +57,18 @@ export const IconBubble = BlurbBubble.extend`
 `
 
 export const WordsRoot = BlurbContent.extend`
-  margin: 60px 0 0 -15px;
+  margin: 60px 0 0 -20px;
 
   ${screen.medium`
-    margin: 20px 0 0 -15px;
+    margin-top: 20px;
   `}
 `
 
 export const ShopButton = BlurbButton.extend`
+  font-size: 30px;
+  background: ${p => p.theme[p.color]};
+  border-color: ${p => p.theme[p.color + 'Light']};
+
   .shop-enter & {
     transform: none;
     opacity: 1;

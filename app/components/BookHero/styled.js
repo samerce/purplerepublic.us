@@ -2,11 +2,11 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, FlexColumn, Boto, AbsoluteFlex,
+  Flex, FlexColumn, Boto, AbsoluteFlex, screen,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
-  padding: 40px 0 40px;
+  padding: 20px 0 40px;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
@@ -17,11 +17,21 @@ export const ContentRoot = Flex.extend`
   flex-wrap: wrap;
   padding: 0 15px;
   width: 100%;
+  align-items: center;
+
+  ${screen.medium`
+    flex-direction: column;
+  `}
 `
 
 export const IconGroup = Flex.extend`
   flex: 0 0 40%;
   position: relative;
+
+  ${screen.medium`
+    flex: 0 0 210px;
+    width: 100%;
+  `}
 
   i {
     position: absolute;
@@ -88,6 +98,11 @@ export const Blurb = FlexColumn.extend`
   i {
     font-style: italic;
   }
+
+  ${screen.medium`
+    width: 100%;
+    flex: 0 0 auto;
+  `}
 `
 
 export const MailingListRoot = Boto.extend`
@@ -95,5 +110,11 @@ export const MailingListRoot = Boto.extend`
   margin: 40px auto 0;
   max-width: 740px;
   font-size: 24px;
+  background: ${p => p.theme.tweet};
+  border-color: ${p => p.theme.tweetLight};
+
+  ${screen.medium`
+    flex: 0 0 auto;
+  `}
 
 `

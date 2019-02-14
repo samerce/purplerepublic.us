@@ -45,7 +45,7 @@ export const Button = Boto.extend`
   position: relative;
   background: ${p => p.theme.main};
   height: ${ButtonHeight}px;
-  flex: 0 0 420px;
+  flex: 0 0 350px;
   font-size: 36px;
   line-height: ${ButtonHeight - 5}px;
   padding: 0;
@@ -55,6 +55,9 @@ export const Button = Boto.extend`
 
   &.right {
     text-align: right;
+    i {
+      line-height: 80px;
+    }
   }
 
   &.left {
@@ -70,8 +73,8 @@ export const Button = Boto.extend`
   i {
     height: ${ButtonHeight}px;
     font-size: 32px;
-    line-height: 80px;
-    padding: 0 15px;
+    line-height: inherit;
+    padding: 0 20px;
     vertical-align: middle;
     z-index: 1;
   }
@@ -89,7 +92,7 @@ export const Button = Boto.extend`
         margin-left: 20px;
       }
       i {
-        padding: 0 10px;
+        padding: 0 15px;
         font-size: 24px;
         line-height: 77px;
       }
@@ -148,6 +151,7 @@ export const Button = Boto.extend`
 export const Background = ExpandingBackground.extend`
   top: ${(-ExpandingBackgroundSize / 2) + 120}px;
   left: 0;
+  z-index: 1;
 
   .timeline-show &, .timeline-enter &, .timeline-willExit & {
     transform: scale(3);
