@@ -41,10 +41,12 @@ export default class Start extends React.Component {
         alert('no entry fo yew.')
         window.location = '#intro'
       }
+    }
   }
 
   componentDidMount() {
     this.scrollContainer = findDOMNode(this.scrollContainerRef)
+
   }
 
   componentWillReceiveProps(nextProps) {
