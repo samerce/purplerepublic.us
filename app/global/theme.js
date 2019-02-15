@@ -4,7 +4,7 @@ import {darken, lighten, transparentize as alpha} from 'polished'
 const main = '#1b316b'
 const purpleVeryDark = darken(.2, main)
 const purpleSlightlyDark = darken(.05, main)
-const purpleVeryLight = lighten(.3, main)
+const purpleVeryLight = lighten(.35, main)
 const purpleSlightlyLight = lighten(.05, main)
 
 const flik = '#053629'//'#204017'

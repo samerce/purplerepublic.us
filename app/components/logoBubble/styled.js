@@ -108,7 +108,7 @@ export const CircleBill = styled.div`
   transform: scale(0);
   transition: all 2s ${EASE_OUT};
   box-shadow: ${p => p.theme.shadowVeryHeavy};
-  background: ${p => lighten(.2, p.theme.veryLight)};
+  background: ${p => p.theme.shelly};
 
   .logo-intro & {
     transform: scale(1.8);
@@ -132,7 +132,7 @@ export const CircleBill = styled.div`
 export const CirclePaul = styled(CircleBill)`
   width: 225px;
   height: 225px;
-  background: ${p => p.theme.veryLight};
+  background: ${p => p.theme.tweet};
   transition-delay: .3s;
   box-shadow: ${p => p.theme.shadowLight};
   .logo-breatheIn & {
@@ -143,7 +143,7 @@ export const CirclePaul = styled(CircleBill)`
 export const CircleSami = styled(CirclePaul)`
   width: 200px;
   height: 200px;
-  background: ${p => p.theme.main};
+  background: ${p => p.theme.slightlyDark};
   transition-delay: .6s;
   .logo-breatheIn & {
     transition-duration: .8s;

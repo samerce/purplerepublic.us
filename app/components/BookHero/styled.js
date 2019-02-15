@@ -151,7 +151,7 @@ export const MailingListRoot = FlexColumn.extend`
     color: white;
     border-radius: 10px;
     width: 300px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid ${p => p.theme.tweetLight};
     cursor: pointer;
     max-width: 100%;
