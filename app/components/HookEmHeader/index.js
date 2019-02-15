@@ -36,13 +36,8 @@ export default class HookEmHeader extends React.Component {
         </VideoRoot>
 
         <Blurb>
-          <p>we're born to celebrate. we're alive, bishes ! let's contemplate why. let's challenge fear, question reality, & work through being human. conscious and queer and human. we all dream, fear, and poop from the butt. let's get over it. earth is magic. and big enough for everybody.</p>
-
-          <p>this is an open-source stand for something honest. a fluid place of flowing possibility.</p>
-
-          <p>let's face ourselves. embrace our awkward. our bigotry and divine light.</p>
-
-          <p>500,000 elected positions will be filled in 2020. woke and ready? don't walk - run !  support the long shots! we'll help.</p>
+          <p>maybe the time is now. maybe we are the who. and the how.</p>
+          <p>if not us, who? if not now, when?</p>
         </Blurb>
       </Root>
     )

@@ -35,6 +35,7 @@ export const Blurb = styled.div`
   padding: 0 20px;
   margin-top: -3px;
   max-width: 1080px;
+  text-align: center;
 
   ${screen.large`
     max-width: 85%;

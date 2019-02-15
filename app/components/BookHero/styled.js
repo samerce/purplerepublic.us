@@ -5,12 +5,23 @@ import {
   Flex, FlexColumn, Boto, AbsoluteFlex, screen,
 } from '../../global/styled'
 
+injectGlobal`
+  #mc_embed_signup{
+    background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;
+  }
+  .mc_hidden_input {
+    position: absolute;
+    left: -5000px;
+  }
+`
+
 export const Root = Flex.extend`
   padding: 20px 0 40px;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
   background: ${p => p.theme.veryDarkTransparent};
+  position: relative;
 `
 
 export const ContentRoot = Flex.extend`
@@ -105,16 +116,59 @@ export const Blurb = FlexColumn.extend`
   `}
 `
 
-export const MailingListRoot = Boto.extend`
+export const MailingListRoot = FlexColumn.extend`
   flex: 0 0 100%;
   margin: 40px auto 0;
   max-width: 740px;
   font-size: 24px;
-  background: ${p => p.theme.tweet};
-  border-color: ${p => p.theme.tweetLight};
+  text-align: center;
 
   ${screen.medium`
     flex: 0 0 auto;
   `}
 
+  #mc_embed_signup {
+    background: transparent;
+  }
+
+  .email {
+    width: 100%;
+    background: transparent;
+    padding: 10px;
+    font-size: 22px;
+    color: white;
+    border-bottom: 1px solid ${p => p.theme.veryLight};
+    text-align: center;
+    font-family: alice;
+    margin: 20px 0 10px;
+  }
+
+  #mc-embedded-subscribe {
+    background: ${p => p.theme.tweet};
+    font-family: alice;
+    font-size: 22px;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid ${p => p.theme.tweetLight};
+    cursor: pointer;
+
+    &:hover {
+      background: white;
+      border-color: ${p => p.theme.tweet};
+      color: ${p => p.theme.tweet};
+    }
+  }
+  .hiddenInput {
+    visibility: hidden;
+  }
+`
+
+export const Header = Flex.extend`
+  font-size: 24px;
+  color: white;
+  justify-content: center;
+  font-family: playfair display;
+  text-transform: uppercase;
 `
