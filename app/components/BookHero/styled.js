@@ -132,7 +132,8 @@ export const MailingListRoot = FlexColumn.extend`
   }
 
   .email {
-    width: 100%;
+    max-width: 100%;
+    width: 500px;
     background: transparent;
     padding: 10px;
     font-size: 22px;
@@ -146,13 +147,14 @@ export const MailingListRoot = FlexColumn.extend`
   #mc-embedded-subscribe {
     background: ${p => p.theme.tweet};
     font-family: alice;
-    font-size: 22px;
+    font-size: 26px;
     color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 300px;
     padding: 20px;
     border: 1px solid ${p => p.theme.tweetLight};
     cursor: pointer;
+    max-width: 100%;
 
     &:hover {
       background: white;

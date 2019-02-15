@@ -162,7 +162,7 @@ export default class BubbleBuilder extends React.PureComponent {
 
     const newBubble = {
       ...nucleus,
-      tags: dimension,
+      dimension,
       imageUrl: undefined,
       existingIndex: undefined,
       Component: undefined,
