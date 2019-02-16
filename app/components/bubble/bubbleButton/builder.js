@@ -20,9 +20,12 @@ export default class BubbleButtonBuilder extends React.PureComponent {
 
   constructor(props) {
     super(props)
-    this.state = {
-      isLoadingImage: false,
-      imageUrl: null,
+    this.state = getDefaultState()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isBubbleBuilderOpen && !nextProps.isBubbleBuilderOpen) {
+      this.setState(getDefaultState())
     }
   }
 
@@ -76,9 +79,18 @@ export default class BubbleButtonBuilder extends React.PureComponent {
         isLoadingImage: false,
         imageUrl: reader.result,
       })
-      this.props.dispatch(updateBuilderNucleus({imageUrl}))
+      this.props.dispatch(updateBuilderNucleus({
+        imageUrl: reader.result,
+      }))
     }
     reader.readAsDataURL(file)
   }
 
+}
+
+function getDefaultState() {
+  return {
+    isLoadingImage: false,
+    imageUrl: null,
+  }
 }

@@ -68,6 +68,8 @@ export default class Bubbleverse extends React.PureComponent {
       savingNewArrangement: false,
       isDimensionPickerOpen: false,
       backgroundStyle: getBackgroundStyle(),
+      subtitle: null,
+      title: null,
     }
   }
 
@@ -97,6 +99,13 @@ export default class Bubbleverse extends React.PureComponent {
     } else if (activeBubble) {
       this.onBubbleClosed()
     }
+
+    if (this.props.isBubbleBuilderOpen && !nextProps.isBubbleBuilderOpen) {
+      this.setState({
+        title: null,
+        subtitle: null,
+      })
+    }
   }
 
   @autobind
@@ -112,6 +121,9 @@ export default class Bubbleverse extends React.PureComponent {
       }
       if (!bubbleFromUrl && focusedBubble) {
         this.closeBubble()
+      }
+      if (!bubbleFromUrl && !focusedBubble && window.location.hash.includes('bubble')) {
+        window.location = '#start'
       }
       window.prerenderReady = true
     }, 250)
@@ -294,7 +306,10 @@ function getBubbleFromUrl(bubbles) {
   const {hash} = window.location
   const hashParts = hash.split('/')
   if (hashParts.length > 1 && hashParts[1] === 'bubble') {
-    const bubbleId = hashParts[2]
+    let bubbleId = hashParts[2]
+    if (bubbleId === 'buy-postcards') {
+      bubbleId = 'buy-poetcards'
+    }
     return bubbles.find(b => b.id === bubbleId)
   }
 }

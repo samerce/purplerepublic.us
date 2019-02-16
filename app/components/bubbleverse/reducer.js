@@ -35,7 +35,7 @@ export default function bubbleverse(state = initialState, action) {
         .set('activeBubble', null)
     case BubbleverseSetActiveBubble:
       if (!state.get('dimension')) {
-        const {dimension} = action.nucleus
+        const dimension = action.nucleus.dimension.toLowerCase()
         state = state
           .set('dimension', dimension)
           .set('visibleBubbles', getBubblesByDimension(state, dimension))
@@ -77,21 +77,25 @@ export default function bubbleverse(state = initialState, action) {
     case BubbleverseBubbleBuilderDidPublish:
       const bubbles = state.get('bubbles')
       const {existingIndex} = state.get('activeBubble')
+      const {nucleus} = action
       if (existingIndex >= 0) {
-        bubbles[existingIndex] = action.nucleus
+        bubbles[existingIndex] = nucleus
       } else {
-        bubbles.unshift(action.nucleus)
+        bubbles.push(nucleus)
       }
+      state = state.set('bubbles', bubbles)
       return state
-        .set('bubbles', bubbles)
-        .set('lastPublishedBubble', action.nucleus)
+        .set('visibleBubbles', getBubblesByDimension(state, nucleus.dimension))
+        .set('lastPublishedBubble', nucleus)
     default:
       return state
   }
 }
 
 function getBubblesByDimension(state, dimension) {
-  return state.get('bubbles').filter(b => b.dimension === dimension.toLowerCase())
+  return state.get('bubbles').filter(b => (
+    b.dimension.toLowerCase() === dimension.toLowerCase()
+  ))
 }
 
 function getNextActiveBubble(state) {
