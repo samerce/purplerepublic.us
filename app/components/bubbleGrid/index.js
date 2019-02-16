@@ -11,6 +11,7 @@ import {
 } from './styled'
 import {MaskAbsoluteFillParent} from '../../global/styled'
 
+import {findDOMNode} from 'react-dom'
 import {makeEnum} from '../../utils/lang'
 import {HeroBubbleConfig} from '../bubble/config'
 import {connect} from 'react-redux'
@@ -39,6 +40,7 @@ export default class BubbleGrid extends React.PureComponent {
 
   constructor(props) {
     super(props)
+    this.bubbleGridItems = {}
     this.state = {
       mode: Mode.show,
       arrangeSourceIndex: null,
@@ -48,6 +50,16 @@ export default class BubbleGrid extends React.PureComponent {
 
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps !== this.props || nextState !== this.state
+  }
+
+  componentDidUpdate(prevProps) {
+    const {activeBubble} = this.props
+    if (activeBubble && activeBubble !== prevProps.activeBubble) {
+      findDOMNode(this.bubbleGridItems[activeBubble.id]).scrollIntoView({
+        inline: 'center',
+        behavior: 'smooth',
+      })
+    }
   }
 
   render() {
@@ -77,6 +89,7 @@ export default class BubbleGrid extends React.PureComponent {
 
           {!isBubbleBuilderOpen && visibleBubbles.map((bubble, index) => (
             <BubbleGridItem
+              ref={r => this.bubbleGridItems[bubble.id] = r}
               className={this.getBubbleGridItemClasses(bubble)}
               key={bubble.id}
               heroConfig={HeroBubbleConfig[bubble.id]}
@@ -96,7 +109,7 @@ export default class BubbleGrid extends React.PureComponent {
               />
             </BubbleGridItem>
           ))}
-          
+
           <BubbleGridItem className='gapItem' />
         </ScrollContainer>
 
