@@ -20,7 +20,6 @@ export default class BookHero extends React.PureComponent {
           <IconGroup>
             <i className='fa fa-book' />
             <i className='fa fa-heart med a' />
-            <i className='fa fa-magic med b' />
             <i className='fa fa-quote-right small c' />
             <i className='fa fa-eye small d' />
           </IconGroup>

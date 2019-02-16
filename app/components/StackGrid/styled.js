@@ -18,6 +18,10 @@ export const StacksRoot = Flex.extend`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  ${screen.medium`
+    justify-content: space-around;
+  `}
 `
 
 export const StackRoot = Flex.extend`
@@ -32,6 +36,7 @@ export const StackRoot = Flex.extend`
 
   ${screen.medium`
     flex: 0 0 33%;
+    min-width: 140px;
   `}
   ${screen.mediumlarge`
     flex: 0 0 25%;

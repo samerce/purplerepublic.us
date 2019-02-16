@@ -70,7 +70,7 @@ export const IconGroup = Flex.extend`
     }
     &.d {
       top: 10px;
-      right: 320px;
+      right: 300px;
       transform: translate(50%, -50%) rotate(9deg);
     }
 
@@ -125,6 +125,7 @@ export const MailingListRoot = FlexColumn.extend`
 
   ${screen.medium`
     flex: 0 0 auto;
+    max-width: 100%;
   `}
 
   #mc_embed_signup {

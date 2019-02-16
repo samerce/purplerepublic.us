@@ -8,6 +8,7 @@ import {
   SCREEN_WIDTH_XL_PX,
   SRC_URL,
 } from '../../global/constants'
+import {screen} from '../../global/styled'
 
 const reveal = keyframes`
   0% {
@@ -35,10 +36,6 @@ export const Root = styled.div`
     transform: translate(0, 120%);
   }
 
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-    right: 10px;
-  }
-
   a {
     transition: all .5s ${EASE_OUT};
 
@@ -59,9 +56,13 @@ export const SocialIcon = styled.i`
   text-align: center;
   padding: 10px 20px;
 
-  @media(max-width: ${SCREEN_WIDTH_S_PX}) {
+  ${screen.medsmall`
     font-size: 30px;
-  }
+    padding: 10px 15px;
+  `}
+  ${screen.small`
+    padding: 12px;
+  `}
 
   &.i1 {
   }
@@ -71,25 +72,29 @@ export const SocialIcon = styled.i`
   }
   &.i4 {
     font-size: 40px;
-    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-      font-size: 24px;
-    }
+    ${screen.medsmall`
+      font-size: 30px;
+    `}
   }
   &.i5 {
     font-size: 40px;
-    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-     font-size: 30px;
-    }
+    ${screen.medsmall`
+      font-size: 30px;
+    `}
   }
   &.i6 {
     font-size: 40px;
-    @media(max-width: ${SCREEN_WIDTH_S_PX}) {
-      font-size: 22px;
-    }
+    ${screen.medsmall`
+      font-size: 30px;
+    `}
   }
   &.i9 {
     padding-top: 12px;
     font-size: 34px;
+
+    ${screen.medsmall`
+      font-size: 30px;
+    `}
   }
 `
 
@@ -106,11 +111,15 @@ export const SocialButtonsRoot = styled.div`
   background: ${p => p.theme.main};
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  box-shadow: ${p => p.theme.shadowHeavy};
-  border: 2px solid ${p => p.theme.veryLight};
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
+  border: 1px solid ${p => p.theme.veryLight};
   border-bottom: none;
-  transform: scale(.8);
-  transform-origin: center bottom;
+  padding: 5px 10px;
+
+  ${screen.medium`
+    width: 100%;
+    border-radius: 0;
+  `}
 
   &:hover {
     opacity: 1;
