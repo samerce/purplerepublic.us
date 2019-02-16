@@ -44,6 +44,7 @@ export default class BubbleButtonBuilder extends React.PureComponent {
         />
         <BubbleButton
           {...this.props}
+          disabled
           nucleus={nucleus}
           imageUrl={imageUrl}
           className='builder'

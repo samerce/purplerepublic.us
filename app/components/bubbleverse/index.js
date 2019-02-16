@@ -103,12 +103,14 @@ export default class Bubbleverse extends React.PureComponent {
   startUrlWatcher() {
     this.urlWatcher = setInterval(() => {
       const {bubbles, isBubbleBuilderOpen} = this.props
+      if (isBubbleBuilderOpen) return
+
       const {focusedBubble} = this
       const bubbleFromUrl = getBubbleFromUrl(bubbles)
       if (bubbleFromUrl && (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id)) {
         this.openBubble(bubbleFromUrl)
       }
-      if (!bubbleFromUrl && focusedBubble && !isBubbleBuilderOpen) {
+      if (!bubbleFromUrl && focusedBubble) {
         this.closeBubble()
       }
       window.prerenderReady = true

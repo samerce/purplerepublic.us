@@ -28,9 +28,8 @@ export default class PoetcardHero extends React.PureComponent {
           </ContentRoot>
 
           <ContentRoot>
-            <p>got a poetcard secret code?<br />
-            enter it here!</p>
-            <TextInput />
+            <p>got a poetcard secret code?</p>
+            <TextInput placeholder='enter it here!' />
           </ContentRoot>
         </HeroSection>
       </Root>

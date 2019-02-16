@@ -35,7 +35,7 @@ export default class StackGrid extends React.Component {
           {DimensionValues.map(this.renderStack)}
         </StacksRoot>
         <Blurb>
-          dive into us.<br />or for a quicker look,&nbsp;
+          dive into us.<br />or for a quick look,&nbsp;
           <span onClick={this.onClickExplore}>explore the overview</span>.
         </Blurb>
       </Root>
