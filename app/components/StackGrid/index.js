@@ -58,7 +58,7 @@ export default class StackGrid extends React.Component {
             src={getButtonImageUrl(s.previewImages[2])}
           />
         </CircleRoot>
-
+        
         <Title>{s.title}</Title>
       </StackRoot>
     )
@@ -66,15 +66,24 @@ export default class StackGrid extends React.Component {
 
   @autobind
   onClickStack(i, event) {
-    this.props.dispatch(openBubbleverse(DimensionTypes[i],{
+    this.props.dispatch(openBubbleverse(DimensionTypes[i], {
       x: event.clientX,
       y: event.clientY,
     }))
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'stack clicked',
+      eventLabel: DimensionTypes[i],
+    })
   }
 
   @autobind
   onClickExplore() {
     this.props.dispatch(toggleFutureTimeline())
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'explore clicked',
+    })
   }
 
 }

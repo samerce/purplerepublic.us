@@ -35,6 +35,10 @@ export default class YouTubeWidget extends React.PureComponent {
 
   @autobind
   openChannel() {
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'youtube clicked',
+    })
     openInNewTab(YOUTUBE_URL)
   }
 

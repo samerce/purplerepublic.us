@@ -24,6 +24,7 @@ export default class Video extends React.PureComponent {
       <YouTubeVideo
         videoId={id}
         onReady={this.onReady}
+        onStateChange={this.onStateChange}
         opts={this.state.videoConfig}
       />
     )
@@ -33,6 +34,13 @@ export default class Video extends React.PureComponent {
   onReady({target}) {
     const {onReady} = this.props
     onReady && onReady(target)
+  }
+
+  @autobind
+  onStateChange({data: playerState}) {
+    if (playerState === 1) { // "playing"
+      this.props.onPlay && this.props.onPlay()
+    }
   }
 
   onResize() {

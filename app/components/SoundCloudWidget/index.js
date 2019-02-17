@@ -28,6 +28,10 @@ export default class SoundCloudWidget extends React.PureComponent {
 
   @autobind
   openSoundCloud() {
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'soundcloud clicked',
+    })
     openInNewTab(SOUNDCLOUD_URL)
   }
 

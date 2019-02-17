@@ -26,7 +26,7 @@ export const Root = Flex.extend`
     transform: none;
     transition-delay: .2s;
   }
-  &.futureTimeline-willExit, &.futureTimeline-exit {
+  &.hire-willExit, &.hire-exit {
     display: flex;
     opacity: 0;
     transform: translate(0, -10px);
@@ -99,8 +99,8 @@ export const NavTextButton = Boto.extend`
   &.active {
     pointer-events: none;
     background: ${p => p.theme.shellyLight};
-    border-color: ${p => p.theme.shelly};
-    color: ${p => p.theme.shelly};
+    border-color: ${p => p.theme.shellyDark};
+    color: ${p => p.theme.shellyDark};
   }
 
   ${screen.medium`
@@ -252,7 +252,7 @@ export const BubbleImage = Flex.extend`
   transform: translate(100px, 0);
 
   .emphasis & {
-    border-color: ${p => p.theme.emphasis};
+    border-color: ${p => p.theme.tweet};
   }
 
   ${screen.medium`
@@ -294,11 +294,16 @@ export const BubbleRowTitle = FlexColumn.extend`
     font-size: 14px;
     color: ${p => p.theme.slightlyDark};
     text-transform: lowercase;
+
+    .emphasis & {
+      color: ${p => lighten(.3, p.theme.tweet)};
+    }
   }
 
   .emphasis & {
-    background: ${p => p.theme.emphasis};
-    border-color: ${p => p.theme.emphasis};
+    background: ${p => p.theme.tweet};
+    border-color: ${p => p.theme.tweet};
+    color: white;
   }
 
   ${screen.medium`
@@ -320,7 +325,7 @@ export const BubbleJuice = Flex.extend`
   flex: 0 0 100%;
 
   .emphasis & {
-    border-color: ${p => p.theme.emphasis};
+    border-color: ${p => p.theme.tweet};
   }
 
   ${screen.medium`
@@ -354,6 +359,12 @@ export const BubbleRowAction = Boto.extend`
   &:last-child {
     background: ${p => p.theme.shelly};
     border-color: ${p => p.theme.shellyLight};
+
+    &:hover {
+      background: white;
+      border-color: ${p => p.theme.shellyDark};
+      color: ${p => p.theme.shellyDark};
+    }
   }
 
   ${screen.medium`

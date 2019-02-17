@@ -7,10 +7,12 @@ export const S3_CDN_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
 export const SRC_URL = S3_CDN_URL
 
 export const YOUTUBE_URL = 'https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw'
+export const PATREON_URL = 'https://www.patreon.com/expressyourmess'
 export const INSTAGRAM_URL = 'https://www.instagram.com/expressyourmess'
 export const MEDIUM_URL = 'https://www.medium.com/the-purple-republic'
 export const EMAIL_URL = 'mailto:whynot@expressyourmess.com'
 export const SOUNDCLOUD_URL = 'https://soundcloud.com/expressyourmess'
+export const LAMPSHADE_TUMBLR_URL = 'http://ypsilampshade.tumblr.com/'
 
 export const EASE_OUT_SINE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
 export const EASE_IN_SINE = 'cubic-bezier(0.42, 0, 1, 1)';

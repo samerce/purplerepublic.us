@@ -35,6 +35,10 @@ export default class MediumWidget extends React.PureComponent {
 
   @autobind
   openArticle() {
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'medium clicked',
+    })
     openInNewTab(MEDIUM_URL)
   }
 

@@ -24,7 +24,7 @@ export default class BookHero extends React.PureComponent {
             <i className='fa fa-eye small d' />
           </IconGroup>
           <Blurb>
-            <strong>i pray to all the gods</strong>
+            <strong>perpetually unfinished</strong>
             <i>release: february 2019, everywhere books are sold</i>
             <span>a story about a schizophrenic drag queen attempting to get famous by becoming a pop star president addicted to poker and marijuana. a radiant ride through a world  without boundary. get on the magic carpet, bish. fear is a mind state. liberation depends on where you focus.</span>
           </Blurb>

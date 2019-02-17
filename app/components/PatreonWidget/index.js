@@ -15,7 +15,7 @@ import {openInNewTab} from '../../utils/nav'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
-import {SRC_URL} from '../../global/constants'
+import {SRC_URL, PATREON_URL} from '../../global/constants'
 
 @connect(d => ({}))
 export default class PatreonWidget extends React.PureComponent {
@@ -49,7 +49,11 @@ export default class PatreonWidget extends React.PureComponent {
 
   @autobind
   onClickButton() {
-    openInNewTab('https://www.patreon.com/expressyourmess')
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'patreon clicked',
+    })
+    openInNewTab(PATREON_URL)
   }
 
 }

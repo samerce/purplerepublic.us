@@ -36,6 +36,10 @@ export default class Announcements extends React.PureComponent {
 
   @autobind
   openEmail() {
+    ga('send', 'event', {
+      eventCategory: 'announcements',
+      eventAction: 'get-in-touch clicked',
+    })
     openInNewTab(EMAIL_URL)
   }
 

@@ -38,6 +38,10 @@ export default class PoetcardHero extends React.PureComponent {
 
   @autobind
   onClickGetPoetcards() {
+    ga('send', 'event', {
+      eventCategory: 'poetcard hero',
+      eventAction: 'get-poetcards clicked',
+    })
     window.location = '#start/bubble/buy-poetcards'
   }
 

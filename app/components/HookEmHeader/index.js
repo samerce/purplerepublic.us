@@ -31,6 +31,7 @@ export default class HookEmHeader extends React.Component {
         <VideoRoot>
           <Video
             id={'rmXjuF1GLK0'}
+            onPlay={this.onClickVideo}
             width={() => Math.min(1200, window.innerWidth - videoWidthPadding)}
           />
         </VideoRoot>
@@ -41,6 +42,14 @@ export default class HookEmHeader extends React.Component {
         </Blurb>
       </Root>
     )
+  }
+
+  onClickVideo() {
+    console.log('playing video')
+    ga('send', 'event', {
+      eventCategory: 'topnav',
+      eventAction: 'video clicked',
+    })
   }
 
 }

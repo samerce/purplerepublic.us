@@ -40,7 +40,9 @@ export default class Shop extends React.Component {
           <i className={'fa fa-' + iconId} />
         </IconBubble>
         <WordsRoot>
-          <ShopButton onClick={onClick} i={i} color={color}>
+          <ShopButton
+            onClick={() => this.onClickShopRow(onClick, buttonText)}
+            i={i} color={color}>
             {buttonText}
           </ShopButton>
           <ShopText i={i}>
@@ -49,6 +51,16 @@ export default class Shop extends React.Component {
         </WordsRoot>
       </ShopRow>
     )
+  }
+
+  onClickShopRow(onClick, buttonText) {
+    onClick()
+
+    ga('send', 'event', {
+      eventCategory: 'shop',
+      eventAction: 'shop button clicked',
+      eventLabel: buttonText,
+    })
   }
 
 }

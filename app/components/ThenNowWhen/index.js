@@ -85,16 +85,34 @@ export default class ThenNowWhen extends React.Component {
 
   @autobind
   togglePast() {
-    const {pastTimelineVisible, futureTimelineVisible, dispatch, show, hide} = this.props
+    const {
+      pastTimelineVisible, futureTimelineVisible, dispatch, show, hide
+    } = this.props
     if (futureTimelineVisible) this.toggleFuture()
     dispatch(togglePastTimeline())
+
+    if (!pastTimelineVisible) {
+      ga('send', 'event', {
+        eventCategory: 'topnav',
+        eventAction: 'shop clicked',
+      })
+    }
   }
 
   @autobind
   toggleFuture() {
-    const {futureTimelineVisible, pastTimelineVisible, dispatch, show, hide} = this.props
+    const {
+      futureTimelineVisible, pastTimelineVisible, dispatch, show, hide
+    } = this.props
     if (pastTimelineVisible) this.togglePast()
     dispatch(toggleFutureTimeline())
+
+    if (!futureTimelineVisible) {
+      ga('send', 'event', {
+        eventCategory: 'topnav',
+        eventAction: 'explore clicked',
+      })
+    }
   }
 
 }

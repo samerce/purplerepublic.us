@@ -71,6 +71,10 @@ export default class InstagramHero extends React.PureComponent {
 
   @autobind
   openInstagram() {
+    ga('send', 'event', {
+      eventCategory: 'corkboard',
+      eventAction: 'instagram clicked',
+    })
     openInNewTab(INSTAGRAM_URL)
   }
 

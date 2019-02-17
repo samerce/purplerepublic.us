@@ -60,26 +60,46 @@ export default class SupportUs extends React.PureComponent {
 
   @autobind
   onClickDonate() {
+    ga('send', 'event', {
+      eventCategory: 'dig us',
+      eventAction: 'donate clicked',
+    })
     document.getElementById('payPalLink').click()
   }
 
   @autobind
   onClickVolunteer() {
+    ga('send', 'event', {
+      eventCategory: 'dig us',
+      eventAction: 'volunteer clicked',
+    })
     openInNewTab('mailto:whynot@expressyourmess.com')
   }
 
   @autobind
   onClickShop() {
+    ga('send', 'event', {
+      eventCategory: 'dig us',
+      eventAction: 'shop clicked',
+    })
     this.props.dispatch(togglePastTimeline())
   }
 
   @autobind
   onClickRepresent() {
+    ga('send', 'event', {
+      eventCategory: 'dig us',
+      eventAction: 'represent clicked',
+    })
     openInNewTab('mailto:whynot@expressyourmess.com')
   }
 
   @autobind
   onClickInvest() {
+    ga('send', 'event', {
+      eventCategory: 'dig us',
+      eventAction: 'invest clicked',
+    })
     openInNewTab('mailto:whynot@expressyourmess.com')
   }
 
