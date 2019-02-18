@@ -1,5 +1,4 @@
 import React from 'react'
-import {findDOMNode} from 'react-dom'
 import BubbleGrid from '../bubbleGrid'
 import BubbleDetails from '../bubble/bubbleDetails'
 import Spinnie from '../spinnie'
@@ -26,9 +25,6 @@ import {
 } from './actions'
 
 import {SCREEN_WIDTH_M} from '../../global/constants'
-import {
-  BubbleComponents, BubbleType, BubbleButtonComponents
-} from '../bubble/config'
 import {DimensionTypes} from './config'
 
 const HalfBackgroundWidth = -(ExpandingBackgroundSize / 2)
@@ -37,7 +33,6 @@ const Mode = makeEnum([
   'visible',
   'arrange',
 ])
-
 const getBackgroundStyle = () => ({
   top: -(ExpandingBackgroundSize - window.innerHeight) / 2,
   left: window.innerWidth <= SCREEN_WIDTH_M? -(ExpandingBackgroundSize / 4) + 20 : 0,
@@ -285,14 +280,10 @@ function fetchBubbles() {
           if (bubble.id === 'shopArt') {
             bubble.type = 'words'
           }
-          if (bubble.id === 'buy-poetcards' || bubble.id === 'buy-postcards') {
+          if (bubble.id === 'buy-poetcards') {
             bubble.type = 'poetcards'
             bubble.buttonType = 'poetcards'
           }
-          if (bubble.buttonType) {
-            bubble.ButtonComponent = BubbleButtonComponents[bubble.buttonType]
-          }
-          bubble.Component = BubbleComponents[bubble.type]
           bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 160
         })
         resolve(bubbles)
