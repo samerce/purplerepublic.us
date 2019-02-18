@@ -79,7 +79,7 @@ injectGlobal`
     background: ${theme.main};
     z-index: 10;
     box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 30px;
-    right: 80px;
+    left: 10px;
     width: 140px;
     top: 200px;
     justify-content: center;

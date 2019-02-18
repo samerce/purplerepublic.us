@@ -45,7 +45,7 @@ export default class BubbleWords extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const {nucleus, editing} = this.props
     const {detailText, id} = nucleus
-    if (id !== prevProps.nucleus.id || (editing && !prevProps.editing)) {
+    if (id !== prevProps.nucleus.id || (editing !== prevProps.editing)) {
       this.setState({
         editorState: createEditorState(detailText),
         html: getHTML(detailText),

@@ -54,7 +54,8 @@ export default class BubbleGrid extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const {activeBubble, isBubbleBuilderOpen} = this.props
-    if (!isBubbleBuilderOpen && activeBubble && activeBubble !== prevProps.activeBubble) {
+    if ((!isBubbleBuilderOpen && activeBubble && activeBubble !== prevProps.activeBubble) ||
+    (!isBubbleBuilderOpen && prevProps.isBubbleBuilderOpen)) {
       findDOMNode(this.bubbleGridItems[activeBubble.id]).scrollIntoView({
         inline: 'center',
         behavior: 'smooth',
