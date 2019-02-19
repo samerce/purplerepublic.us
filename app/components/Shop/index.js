@@ -8,6 +8,7 @@ import {
 import {openInNewTab} from '../../utils/nav'
 import withTransitions from '../hocs/withTransitions'
 import {connect} from 'react-redux'
+import autobind from 'autobind-decorator'
 
 @connect(d => ({
   isVisible: d.get('timeline').get('pastTimelineVisible')
@@ -33,6 +34,7 @@ export default class Shop extends React.Component {
     )
   }
 
+  @autobind
   renderShopRow({iconId, buttonText, shopText, onClick, color}, i) {
     return (
       <ShopRow i={i} key={i}>

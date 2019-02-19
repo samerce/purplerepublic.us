@@ -8,6 +8,9 @@ import {
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
+import {openInNewTab} from '../../utils/nav'
+
+import {EMAIL_URL} from '../../global/constants'
 
 export default class Announcements extends React.PureComponent {
 
