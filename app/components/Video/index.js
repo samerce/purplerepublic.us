@@ -51,6 +51,9 @@ export default class Video extends React.PureComponent {
 
 function getVideoConfig({width, autoplay}) {
   if (typeof width === 'function') width = width()
+  if (window.innerWidth > (1.5 * window.innerHeight)) {
+    width = Math.min(width, 1024)
+  }
   return {
     height: width / (16/9),
     width,
