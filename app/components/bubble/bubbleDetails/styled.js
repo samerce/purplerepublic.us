@@ -28,7 +28,6 @@ export const Root = Flex.extend`
   width: 100%;
   flex: 1;
   justify-content: center;
-  overflow-y: scroll;
   padding: 0 50px;
 
   opacity: 0;
@@ -44,13 +43,13 @@ export const Root = Flex.extend`
   }
 `
 export const ContentRoot = Flex.extend`
-  border-radius: ${p => p.theme.borderRadiusBoto}px;
   flex: 1;
   height: 100%;
   width: 100%;
   flex-direction: column;
   position: relative;
   z-index: 70;
+  overflow-y: scroll;
 `
 
 export const Footer = Flex.extend`

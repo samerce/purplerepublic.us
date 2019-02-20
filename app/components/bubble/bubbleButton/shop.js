@@ -7,12 +7,12 @@ import {SRC_URL} from '../../../global/constants'
 export default class ShopBubbleButton extends React.PureComponent {
 
   render() {
-    const {onClick, nucleus} = this.props
+    const {onClick, nucleus, size} = this.props
     return (
       <div>
         <ImageBubbleButton
           onClick={onClick}
-          size={nucleus.size}
+          size={size}
           src={SRC_URL + 'commons/shop-art.jpg'}>
           <Icon className={'fa fa-shopping-bag'} />
         </ImageBubbleButton>

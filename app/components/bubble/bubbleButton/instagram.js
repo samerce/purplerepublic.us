@@ -11,12 +11,12 @@ export default class InstagramBubbleButton extends React.PureComponent {
 
   render() {
     const {
-      onClick, nucleus, activePostIndex, posts,
+      onClick, nucleus, activePostIndex, posts, size,
     } = this.props
     return (
       <ImageBubbleButton
         onClick={onClick}
-        size={nucleus.size}
+        size={size}
         src={posts.length > 0 &&
           posts[activePostIndex].image
         }>

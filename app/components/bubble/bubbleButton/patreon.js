@@ -9,11 +9,11 @@ import {connect} from 'react-redux'
 export default class PatreonBubbleButton extends React.PureComponent {
 
   render() {
-    const {onClick, nucleus, activeGratitude, heroConfig} = this.props
+    const {onClick, nucleus, activeGratitude, heroConfig, size} = this.props
     return (
       <ImageBubbleButton
         onClick={onClick}
-        size={nucleus.size}
+        size={size}
         src={heroConfig.gratitude[activeGratitude].image.src}>
         <Icon className={'fa fa-gratipay'} />
       </ImageBubbleButton>

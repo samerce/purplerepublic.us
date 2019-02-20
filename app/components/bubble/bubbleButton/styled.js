@@ -6,7 +6,6 @@ import {
   EASE,
   SCREEN_WIDTH_M_PX,
   SCREEN_WIDTH_M,
-  BubbleSize,
 } from '../../../global/constants'
 import {
   Icon as aIcon, BubbleButton, InlineBlock, screen, AbsoluteFlex, Flex,
@@ -54,8 +53,8 @@ export const ImageBubbleButton = BubbleButton.extend`
   background-size: cover;
   overflow: hidden;
   border-width: 2px;
-  width: ${BubbleSize}px;
-  height: ${BubbleSize}px;
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
 
   .active & {
     border: 1px solid ${p => p.theme.slightlyDark};

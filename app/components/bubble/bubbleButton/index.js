@@ -15,6 +15,7 @@ import {setActiveBubble} from '../../bubbleverse/actions'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'
 
+import resizable from '../../hocs/resizable'
 import {connect} from 'react-redux'
 
 const ScaleFocused = window.innerWidth <= SCREEN_WIDTH_M? .5 : .25
@@ -40,10 +41,12 @@ const Mode = makeEnum([
 
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
+const getBubbleSize = () => window.innerWidth <= SCREEN_WIDTH_M? 90 : 120
 
 @connect(d => ({
   activeBubble: d.get('bubbleverse').get('activeBubble'),
 }))
+@resizable()
 export default class BubbleButton extends React.Component {
 
   constructor(props) {
@@ -53,7 +56,12 @@ export default class BubbleButton extends React.Component {
     this.styles = {}
     this.state = {
       mode: Mode.defocused,
+      size: getBubbleSize(),
     }
+  }
+
+  onResize() {
+    this.setState({size: getBubbleSize()})
   }
 
   componentDidMount() {
@@ -92,12 +100,14 @@ export default class BubbleButton extends React.Component {
   }
 
   render() {
-    const {mode} = this.state
+    const {
+      mode, size,
+    } = this.state
     const {
       className, imageUrl, nucleus,
     } = this.props
     const {
-      id, size, title, type,
+      id, title, type,
       ButtonComponent,
     } = nucleus
     const heroConfig = HeroBubbleConfig[id]
@@ -111,11 +121,13 @@ export default class BubbleButton extends React.Component {
 
         {ButtonComponent?
           <ButtonComponent
+            size={size}
             nucleus={nucleus}
             onClick={this.onClick}
             heroConfig={heroConfig} />
         :
         <ImageBubbleButton
+          size={size}
           onClick={this.onClick}
           src={imageUrl || getButtonImageUrl(id)}>
             <Icon className={'fa fa-' + TypeToIcon[type]} />

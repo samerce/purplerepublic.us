@@ -143,7 +143,7 @@ export const CirclePaul = styled(CircleBill)`
 export const CircleSami = styled(CirclePaul)`
   width: 200px;
   height: 200px;
-  background: ${p => p.theme.slightlyDark};
+  background: ${p => p.theme.myrtle};
   transition-delay: .6s;
   .logo-breatheIn & {
     transition-duration: .8s;

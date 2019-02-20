@@ -131,7 +131,6 @@ injectGlobal`
 `
 
 export const BubbleComponentRoot = FlexColumn.extend`
-  overflow-y: scroll;
   height: 100%;
   position: relative;
   flex: 0 0 100%;
@@ -150,7 +149,6 @@ export const BubbleComponentRoot = FlexColumn.extend`
 
 export const VideoRoot = BubbleComponentRoot.extend`
   text-align: center;
-  overflow-y: scroll;
   align-items: center;
 `
 
@@ -163,7 +161,6 @@ export const VideoWrapper = Flex.extend`
 export const Description = ArticleText.extend`
   padding: 0 20px;
   font-size: 21px;
-  overflow-y: scroll;
   max-width: 780px;
 
   ${screen.medium`
@@ -277,30 +274,32 @@ export const QuantityRoot = styled.div`
   `}
 `
 
-export const PoetCardTotal = AbsoluteFlex.extend`
+export const PoetCardTotal = Boto.extend`
+  position: absolute;
   height: 60px;
   color: white;
   font-size: 38px;
   background: ${p => p.theme.main};
   position: fixed;
-  bottom: 217px;
+  top: 100%;
+  transform: translate(0, -241px);
   width: 100%;
   justify-content: center;
-  border-top: 1px solid ${p => p.theme.veryLight};
   z-index: 102;
   font-family: annie use your telescope;
-  transition: all .4s ${EASE_OUT};
   font-family: alice;
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid ${p => p.theme.veryLight};
 
   ${screen.medium`
-    width: 100%;
-    bottom: 147px;
     font-size: 30px;
     line-height: 58px;
   `}
 
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {
-    bottom: ${window.innerHeight - 160}px;
+    top: 90px;
+    transform: none;
     border-color: transparent;
     border-radius: 10px;
     box-shadow: ${p => p.theme.shadowMedium};
@@ -315,11 +314,9 @@ export const PoetCardTotal = AbsoluteFlex.extend`
 
   i {
     font-size: 28px;
-    color: white;
     position: absolute;
     right: 10px;
     padding: 16px 0;
-    transition: all .3s ${EASE_OUT};
   }
 `
 
@@ -408,6 +405,9 @@ export const CustomerInfoTitle = Flex.extend`
 `
 
 const InfoInput = TextInput.extend`
+  margin: 5px 0;
+  height: auto;
+  
   .poetcards-checkoutThanks & {
     border-color: transparent;
     pointer-events: none;

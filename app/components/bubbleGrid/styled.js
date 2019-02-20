@@ -19,7 +19,7 @@ const fullscreenGrid = keyframes`
 export const Root = Flex.extend`
   pointer-events: all;
   z-index: 7;
-  flex: 0 0 217px;
+  flex: 0 0 auto;
   position: relative;
   padding: 0 0 40px;
   box-shadow: -3px -3px 30px ${p => alpha(.5, p.theme.veryDark)};
@@ -75,7 +75,6 @@ export const ScrollContainer = Flex.extend`
   align-items: flex-start;
   transition: all .3s ${EASE_OUT};
   border-top: 1px solid ${p => p.theme.veryLight};
-  padding: 0 0 6px;
 
   .showAll & {
     flex-wrap: wrap;
@@ -87,11 +86,10 @@ export const ScrollContainer = Flex.extend`
 export const BubbleGridItem = Flex.extend`
   position: relative;
   pointer-events: none;
-  height: ${BubbleSize + 10}px;
-  flex: 0 0 ${BubbleSize + 10}px;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  margin: 0 5px;
+  padding: 10px;
   transition: all .5s ${EASE_OUT};
   border-bottom-right-radius: 80px;
   border-bottom-left-radius: 80px;
@@ -115,6 +113,7 @@ export const BubbleGridItem = Flex.extend`
     .showAll & {
       flex: 0 0 0;
       margin: 0;
+      padding: 0;
     }
   }
 `

@@ -65,7 +65,7 @@ export default class BubbleDetails extends React.PureComponent {
           </ComponentRoot>
 
           <Footer>
-            {actions.length && this.renderActions(actions)}
+            {!!actions.length && this.renderActions(actions)}
           </Footer>
         </ContentRoot>
 

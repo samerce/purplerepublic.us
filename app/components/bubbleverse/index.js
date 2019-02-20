@@ -284,7 +284,6 @@ function fetchBubbles() {
             bubble.type = 'poetcards'
             bubble.buttonType = 'poetcards'
           }
-          bubble.size = window.innerWidth <= SCREEN_WIDTH_M? 90 : 160
         })
         resolve(bubbles)
       }).catch(reject)
