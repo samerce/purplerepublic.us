@@ -109,6 +109,7 @@ export const CircleBill = styled.div`
   transition: all 2s ${EASE_OUT};
   box-shadow: ${p => p.theme.shadowVeryHeavy};
   background: ${p => p.theme.shelly};
+  border: 1px solid rgba(255, 255, 255, .2);
 
   .logo-intro & {
     transform: scale(1.8);
@@ -143,7 +144,7 @@ export const CirclePaul = styled(CircleBill)`
 export const CircleSami = styled(CirclePaul)`
   width: 200px;
   height: 200px;
-  background: ${p => p.theme.myrtle};
+  background: ${p => p.theme.pram};
   transition-delay: .6s;
   .logo-breatheIn & {
     transition-duration: .8s;
@@ -152,17 +153,29 @@ export const CircleSami = styled(CirclePaul)`
 
 export const Name = Flex.extend`
   font-size: 96px;
-  ${'' /* line-height: 22px; */}
   font-family: great vibes;
-  ${'' /* font-weight: 800; */}
-  color: ${p => lighten(.3, p.theme.veryLight)};
+  font-weight: 800;
+  color: ${p => p.theme.shelly};
   text-align: center;
   flex-direction: column;
   margin: 0 0 0 -7px;
+  text-shadow: 1px 1px white;
 
   div:first-child {
     height: 135px;
+
+    ${screen.large`
+      height: 140px;
+    `}
+    ${screen.medium`
+      height: 125px;
+    `}
   }
+
+  ${screen.large`
+    line-height: 129px;
+    font-size: 72px;
+  `}
   ${'' /* div:last-child {
     flex: 0 0 22px;
     font-family: im fell dw pica;

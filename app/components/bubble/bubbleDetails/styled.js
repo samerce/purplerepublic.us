@@ -102,7 +102,7 @@ export const Action = Boto.extend`
 export const BubbleOptions = Flex.extend`
   position: absolute;
   top: 10px;
-  right: -40px;
+  right: 0;
   width: 300px;
   border-radius: ${p => p.theme.borderRadiusBoto}px;
   flex-wrap: wrap;

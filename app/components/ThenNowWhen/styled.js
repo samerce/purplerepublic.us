@@ -43,7 +43,7 @@ const ButtonHeight = 80
 
 export const Button = Boto.extend`
   position: relative;
-  background: ${p => p.theme.main};
+  background: ${p => p.theme.tweet};
   height: ${ButtonHeight}px;
   flex: 0 0 350px;
   font-size: 36px;
@@ -52,6 +52,7 @@ export const Button = Boto.extend`
   font-size: 28px;
   box-shadow: ${p => p.theme.shadowMedium};
   pointer-events: all;
+  border-color: ${p => p.theme.tweetLight};
 
   &.right {
     text-align: right;
@@ -103,7 +104,7 @@ export const Button = Boto.extend`
     && {
       flex: 0 0 50px;
       width: 95%;
-      max-width: 330px;
+      max-width: 230px;
       margin: 0 0 5px !important;
       transform: none;
       align-items: center;

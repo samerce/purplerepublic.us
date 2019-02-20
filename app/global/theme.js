@@ -50,6 +50,7 @@ export default {
   tweet,
   tweetLight: lighten(.3, tweet),
   tweetDark: darken(.2, tweet),
+  pram: '#eee508',
   gradientVeryDarkButTransparent: `radial-gradient(
     circle at center,
     ${alpha(.17, purpleSlightlyDark)} 0%,

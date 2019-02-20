@@ -12,7 +12,7 @@ import {
   SCREEN_WIDTH_L_PX,
   SCREEN_WIDTH_XL_PX,
 } from './constants'
-import {darken, transparentize as trans} from 'polished'
+import {darken, lighten, transparentize as trans} from 'polished'
 
 const sizes = {
   small: SCREEN_WIDTH_S,
@@ -140,8 +140,11 @@ export const TextInput = styled.input`
   flex: 1 0 auto;
   height: 100%;
   border-bottom: 1px solid ${p => p.theme.veryLight};
-  opacity: .9;
   padding: 5px;
+
+  ::placeholder, ::-webkit-input-placeholder {
+    color: ${p => p.theme.veryLight};
+  }
 
   &:hover {
     opacity: 1;

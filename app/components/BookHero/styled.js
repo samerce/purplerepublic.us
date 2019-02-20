@@ -122,10 +122,15 @@ export const MailingListRoot = FlexColumn.extend`
   max-width: 740px;
   font-size: 24px;
   text-align: center;
+  border: 1px solid ${p => p.theme.veryLight};
+  background: ${p => p.theme.veryDark};
+  border-radius: 10px;
+  box-shadow: ${p => p.theme.shadowVeryHeavy};
+  padding: 20px;
 
   ${screen.medium`
     flex: 0 0 auto;
-    max-width: 100%;
+    width: 100%;
   `}
 
   #mc_embed_signup {
