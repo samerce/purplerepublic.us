@@ -51,8 +51,6 @@ export const vyingBuilder = () => `
   }
 `
 
-const whitePurple = 'rgba(255, 227, 251, 1)'
-
 export const Flex = styled.div`
   display: flex;
 `
@@ -491,7 +489,6 @@ export const CatchLine = styled(Header)`
 export const SweetTalk = styled.div`
   font-size: 24px;
   font-family: annie use your telescope;
-  color: ${whitePurple};
   text-align: center;
   margin-bottom: 35px;
   margin-top: -5px;

@@ -2,11 +2,12 @@ import React from 'react'
 import PayPalLink from '../../components/payPalLink'
 
 import {
-  Root, SocialButtonsRoot, SocialIcon,
+  Root, SocialButtonsRoot, SocialIcon, SocialButton,
 } from './styled'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import {cx} from '../../utils/style'
 
 import {
   SRC_URL, YOUTUBE_URL, INSTAGRAM_URL, MEDIUM_URL,
@@ -18,6 +19,7 @@ const ICON_URL = SRC_URL + 'icons/'
   dimension: d.get('bubbleverse').get('dimension'),
   timelineVisible: d.get('timeline').get('pastTimelineVisible') ||
     d.get('timeline').get('futureTimelineVisible'),
+  introMode: d.get('intro').get('mode'),
 }))
 export default class GetSocialWithUs extends React.Component {
 
@@ -26,39 +28,42 @@ export default class GetSocialWithUs extends React.Component {
   }
 
   render() {
-    const {dimension, timelineVisible} = this.props
-    const hidden = dimension || timelineVisible
+    const {dimension, timelineVisible, introMode} = this.props
+    const classes = cx({
+      hidden: dimension || timelineVisible,
+      [introMode]: true,
+    })
     return (
-      <Root id='socialButtonsRoot' className={hidden && 'hidden'}>
+      <Root id='socialButtonsRoot' className={classes}>
         <SocialButtonsRoot>
-          <a href={INSTAGRAM_URL} target='_blank'
+          <SocialButton href={INSTAGRAM_URL} target='_blank'
             onClick={this.onClick.bind(this, 'instagram')}>
             <SocialIcon className='fa fa-instagram i3' />
             <div className='tooltip'>instagram</div>
-          </a>
-          <a href='mailto:rise@purplerepublic.us' target='_blank' onClick={this.onClick.bind(this, 'email')}>
+          </SocialButton>
+          <SocialButton href='mailto:rise@purplerepublic.us' target='_blank' onClick={this.onClick.bind(this, 'email')}>
             <SocialIcon className='fa fa-envelope i4' />
             <div className='tooltip'>email</div>
-          </a>
-          <a href='https://www.facebook.com/purplerepublic' target='_blank' onClick={this.onClick.bind(this, 'facebook')}>
+          </SocialButton>
+          <SocialButton href='https://www.facebook.com/purplerepublic' target='_blank' onClick={this.onClick.bind(this, 'facebook')}>
             <SocialIcon className='fa fa-facebook-square i1' />
             <div className='tooltip'>facebook</div>
-          </a>
-          <a href={MEDIUM_URL} target='_blank'
+          </SocialButton>
+          <SocialButton href={MEDIUM_URL} target='_blank'
             onClick={this.onClick.bind(this, 'medium')}>
             <SocialIcon className='fa fa-medium i6' />
             <div className='tooltip'>medium</div>
-          </a>
-          <a href={YOUTUBE_URL} target='_blank'
+          </SocialButton>
+          <SocialButton href={YOUTUBE_URL} target='_blank'
             onClick={this.onClick.bind(this, 'youtube')}>
             <SocialIcon className='fa fa-youtube-square i5' />
             <div className='tooltip'>youtube</div>
-          </a>
-          <a onClick={() => this.payPalLink.click()} className='i11' onClick={this.onClick.bind(this, 'paypal')}>
+          </SocialButton>
+          <SocialButton onClick={() => this.payPalLink.click()} className='i11' onClick={this.onClick.bind(this, 'paypal')}>
             <SocialIcon className='fa fa-paypal i9' />
             <PayPalLink ref={r => this.payPalLink = r} />
             <div className='tooltip'>donate with paypal</div>
-          </a>
+          </SocialButton>
         </SocialButtonsRoot>
       </Root>
     )

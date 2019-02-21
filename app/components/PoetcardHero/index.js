@@ -8,12 +8,16 @@ import {
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
 
+@connect(d => ({
+  introMode: d.get('intro').get('mode'),
+}))
 export default class PoetcardHero extends React.PureComponent {
 
   render() {
     return (
-      <Root>
+      <Root className={this.props.introMode}>
         <SectionHeader>
           <hr />
           <div>poetcards</div>

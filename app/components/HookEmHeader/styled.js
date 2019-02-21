@@ -11,6 +11,14 @@ export const Root = Flex.extend`
   align-items: center;
   z-index: 2;
   margin: 40px 0 0;
+  transform: translate(0, -10px);
+  opacity: 0;
+
+  &.settle, &.chill {
+    transform: none;
+    opacity: 1;
+    transition: all 1s ${EASE_OUT} .6s;
+  }
 `
 
 export const Title  = Flex.extend`

@@ -18,6 +18,7 @@ import withTransitions from '../hocs/withTransitions'
 @connect(d => ({
   pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
   futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
+  introMode: d.get('intro').get('mode'),
 }))
 @withTransitions({prefix: 'timeline', exitDuration: 1000})
 export default class ThenNowWhen extends React.Component {
@@ -41,7 +42,7 @@ export default class ThenNowWhen extends React.Component {
   }
 
   render() {
-    const {pastTimelineVisible, futureTimelineVisible, className} = this.props
+    const {pastTimelineVisible, futureTimelineVisible, className, introMode} = this.props
     const leftClasses = cx({
       active: pastTimelineVisible,
     })
@@ -49,7 +50,7 @@ export default class ThenNowWhen extends React.Component {
       active: futureTimelineVisible,
     })
     return (
-      <Root className={className}>
+      <Root className={className + ' ' + introMode}>
         <Background />
         <CloseButton onClick={this.closeTimeline}>
           <i className='fa fa-close' />

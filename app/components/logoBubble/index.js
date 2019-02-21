@@ -6,25 +6,20 @@ import {
 import LogoSvg from './logoSvg'
 
 import {cx} from '../../utils/style'
-import {makeEnum} from '../../utils/lang'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
-
 import {
   togglePastTimeline, toggleFutureTimeline
 } from '../ThenNowWhen/actions'
+import {
+  IntroMode as Mode, setIntroMode
+} from '../../global/reducers/intro'
 
-const Mode = makeEnum([
-  'born',
-  'intro',
-  'breatheIn',
-  'breatheOut',
-  'hangin',
-])
-const DURATION_INTRO = 200
-const DURATION_BREATHE_IN = DURATION_INTRO + 3000
-const DURATION_HANGIN = DURATION_BREATHE_IN + 1500
+import theme from '../../global/theme'
 
+const DELAY_SPLASH = 200
+const DELAY_SETTLE = DELAY_SPLASH + 3000
+const DELAY_CHILL = DELAY_SETTLE + 200
 const DefaultTextStyle = {rotate: 0, scale: 0}
 const RotateConfig = {stiffness: 60, damping: 7}
 const ScaleConfig = {stiffness: 40, damping: 25}
@@ -32,20 +27,15 @@ const ScaleConfig = {stiffness: 40, damping: 25}
 @connect(d => ({
   pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
   futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
+  mode: d.get('intro').get('mode'),
 }))
 export default class LogoBubble extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      mode: Mode.born,
-    }
-  }
-
   componentDidMount() {
-    setTimeout(() => this.setState({mode: Mode.intro}), DURATION_INTRO)
-    setTimeout(() => this.setState({mode: Mode.breatheIn}), DURATION_BREATHE_IN)
-    setTimeout(() => this.setState({mode: Mode.hangin}), DURATION_HANGIN)
+    const {dispatch} = this.props
+    setTimeout(() => dispatch(setIntroMode(Mode.splash)), DELAY_SPLASH)
+    setTimeout(() => dispatch(setIntroMode(Mode.settle)), DELAY_SETTLE)
+    setTimeout(() => dispatch(setIntroMode(Mode.chill)), DELAY_CHILL)
   }
 
   shouldComponentUpdate() {
@@ -53,8 +43,9 @@ export default class LogoBubble extends React.Component {
   }
 
   render() {
-    const {mode} = this.state
-    const {pastTimelineVisible, futureTimelineVisible} = this.props
+    const {
+      mode, pastTimelineVisible, futureTimelineVisible
+    } = this.props
     const classes = cx({
       pastTimeline: pastTimelineVisible,
       futureTimeline: futureTimelineVisible,
@@ -71,13 +62,11 @@ export default class LogoBubble extends React.Component {
           defaultStyle={DefaultTextStyle}
           style={{
             rotate: spring(700, RotateConfig),
-            scale: spring(1.5, ScaleConfig),
+            scale: spring(1, ScaleConfig),
           }}>
           {m =>
             <LogoTextRoot>
-              <Name>
-                <div>Nomaya</div>
-              </Name>
+              <LogoSvg style={getSvgStyle(m.rotate, m.scale)} />
             </LogoTextRoot>
             }
         </Motion>
@@ -92,4 +81,12 @@ export default class LogoBubble extends React.Component {
     pastTimelineVisible && dispatch(togglePastTimeline())
   }
 
+}
+
+function getSvgStyle(rotate = -12, scale = 1) {
+  return {
+    fill: theme.shelly,
+    transform: `rotate(${rotate}deg) translate(0, 5px) scale(${scale})`,
+    height: 120,
+  }
 }

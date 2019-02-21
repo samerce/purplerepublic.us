@@ -33,9 +33,8 @@ export const ButtonRoot = Flex.extend`
     padding: 40px 0 0;
   `}
 
-  ${screen.medsmall`
-    flex-direction: column;
-    padding: 120px 0 0;
+  ${screen.small`
+    padding: 120px 10px 0;
   `}
 `
 
@@ -50,11 +49,22 @@ export const Button = Boto.extend`
   line-height: ${ButtonHeight - 5}px;
   padding: 0;
   font-size: 28px;
-  box-shadow: ${p => p.theme.shadowMedium};
+  box-shadow: ${p => p.theme.shadowHeavy};
   pointer-events: all;
   border-color: ${p => p.theme.tweetLight};
+  transform: scale(0, 1);
+
+  .settle & {
+    transition: all 1s ${EASE_OUT} .5s;
+    transform: none;
+  }
+
+  .chill & {
+    transform: none;
+  }
 
   &.right {
+    transform-origin: left center;
     text-align: right;
     i {
       line-height: 80px;
@@ -62,6 +72,7 @@ export const Button = Boto.extend`
   }
 
   &.left {
+    transform-origin: right center;
     text-align: left;
   }
 
@@ -84,7 +95,8 @@ export const Button = Boto.extend`
     && {
       font-size: 18px;
       height: 50px;
-      flex: 0 0 250px;
+      flex: 1;
+      max-width: 250px;
 
       &.right {
         margin-right: 20px;
@@ -100,19 +112,19 @@ export const Button = Boto.extend`
     }
   `}
 
-  ${screen.medsmall`
+  ${screen.small`
     && {
-      flex: 0 0 50px;
-      width: 95%;
+      flex: 1;
       max-width: 230px;
-      margin: 0 0 5px !important;
-      transform: none;
       align-items: center;
 
       span {
         flex: 0 0 auto;
       }
 
+      &.left, &.right {
+        margin: 0 5px;
+      }
       &.right {
         flex-direction: row-reverse;
         text-align: left;

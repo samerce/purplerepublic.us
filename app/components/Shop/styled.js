@@ -20,7 +20,7 @@ export const ContentRoot = CornerWorldContentRoot.extend`
   ${screen.large`
     padding-top: 150px;
   `}
-  ${screen.medsmall`
+  ${screen.small`
     padding-top: 270px;
   `}
 `

@@ -9,14 +9,18 @@ import {
 
 import autobind from 'autobind-decorator'
 import {openInNewTab} from '../../utils/nav'
+import {connect} from 'react-redux'
 
 import {EMAIL_URL} from '../../global/constants'
 
+@connect(d => ({
+  introMode: d.get('intro').get('mode'),
+}))
 export default class Announcements extends React.PureComponent {
 
   render() {
     return (
-      <Root>
+      <Root className={this.props.introMode}>
         <SectionHeader>
           <hr />
           <div>announcements</div>

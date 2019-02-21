@@ -19,6 +19,14 @@ export const Root = Flex.extend`
   padding: 20px 0 60px;
   justify-content: center;
   background: ${p => p.theme.veryDarkTransparent};
+  transform: translate(0, -10px);
+  opacity: 0;
+
+  &.settle, &.chill {
+    transform: none;
+    opacity: 1;
+    transition: all 1s ${EASE_OUT} .7s;
+  }
 `
 
 export const ContentRoot = FlexColumn.extend`

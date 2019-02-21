@@ -35,7 +35,7 @@ export const Root = Flex.extend`
   ${screen.large`
     margin: 140px 0 0;
   `}
-  ${screen.medsmall`
+  ${screen.small`
     margin: 250px 0 0;
   `}
 `

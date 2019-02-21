@@ -7,6 +7,8 @@ import {
 } from '../../global/constants'
 import {screen, Flex} from '../../global/styled'
 
+const DurationHangin = '1s'
+
 injectGlobal`
   .bubbleButton-logo-svg {
     fill: white;
@@ -24,9 +26,7 @@ injectGlobal`
 
 export const Root = styled.div`
   position: absolute;
-  top: 0;
   left: 50%;
-  transform: translate(-50%, 0);
   width: 200px;
   display: flex;
   justify-content: center;
@@ -34,18 +34,30 @@ export const Root = styled.div`
   z-index: 7;
   cursor: pointer;
   transition: all .5s ${EASE_OUT};
-  transition-property: left transform;
-  margin-top: 45px;
+  ${'' /* transition-property: left transform; */}
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
 
   ${screen.medium`
     width: 110px;
-    margin-top: -10px;
-  `}
-  ${screen.large`
-    margin-top: -5px;
   `}
 
-  /* &.logo-hangin {
+  &.logo-chill, &.logo-settle {
+    margin-top: 55px;
+    top: 0;
+    transform: translate(-50%, 0);
+    transition: all ${DurationHangin} ${EASE_OUT};
+
+    ${screen.large`
+      margin-top: 5px;
+    `}
+    ${screen.small`
+      margin: 0;
+    `}
+  }
+
+  /* &.logo-chill {
     transition: all 1s ${EASE_OUT};
     transform: translate(
       -${(window.innerWidth / 2) - 127}px,
@@ -54,7 +66,7 @@ export const Root = styled.div`
   }
 
   ${screen.medium`
-    &.logo-hangin {
+    &.logo-chill {
       transform: translate(
         -${(window.innerWidth / 2) - 70}px,
         -${(window.innerHeight / 2) - 70}px
@@ -63,29 +75,21 @@ export const Root = styled.div`
   `} */
 `
 
-export const LogoSVG = styled.object`
-  z-index: 3;
-
-  svg {
-    fill: white;
-  }
-`
-
 export const LogoTextRoot = styled.div`
   position: relative;
   z-index: 10;
-  .logo-breatheIn & {
-    transform: scale(0);
-    transition: all .7s ${EASE_IN};
-  }
-  .logo-hangin & {
+
+  .logo-chill &, .logo-settle & {
     transform: scale(.5);
-    transition: all 1.5s ${EASE_OUT};
+    transition: all ${DurationHangin} ${EASE_OUT};
   }
 
   ${screen.large`
-    .logo-hangin & {
-      transform: scale(.3);
+    .logo-splash &, .logo-birth & {
+      transform: scale(.85);
+    }
+    .logo-chill &&, .logo-settle && {
+      transform: scale(.25);
     }
   `}
 `
@@ -111,7 +115,7 @@ export const CircleBill = styled.div`
   background: ${p => p.theme.shelly};
   border: 1px solid rgba(255, 255, 255, .2);
 
-  .logo-intro & {
+  .logo-splash & {
     transform: scale(1.8);
     ${screen.large`
       transform: scale(1.2);
@@ -121,16 +125,17 @@ export const CircleBill = styled.div`
     transform: scale(0);
     transition: all 1s ${EASE_IN};
   }
-  .logo-hangin & {
+  .logo-chill &, .logo-settle & {
     transform: scale(.8);
-    transition: all 1.5s ${EASE_OUT};
+    transition: all ${DurationHangin} ${EASE_OUT};
+    transition-delay: 0;
     ${screen.large`
       transform: scale(.39);
     `}
   }
 `
 
-export const CirclePaul = styled(CircleBill)`
+export const CirclePaul = CircleBill.extend`
   width: 225px;
   height: 225px;
   background: ${p => p.theme.tweet};
@@ -141,7 +146,7 @@ export const CirclePaul = styled(CircleBill)`
   }
 `
 
-export const CircleSami = styled(CirclePaul)`
+export const CircleSami = CirclePaul.extend`
   width: 200px;
   height: 200px;
   background: ${p => p.theme.pram};

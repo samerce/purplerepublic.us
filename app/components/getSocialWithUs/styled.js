@@ -8,7 +8,9 @@ import {
   SCREEN_WIDTH_XL_PX,
   SRC_URL,
 } from '../../global/constants'
-import {screen} from '../../global/styled'
+import {
+  Flex, AbsoluteFlex, screen,
+} from '../../global/styled'
 
 const reveal = keyframes`
   0% {
@@ -21,19 +23,22 @@ const reveal = keyframes`
 
 const aColor = '#498359'
 
-export const Root = styled.div`
+export const Root = AbsoluteFlex.extend`
   position: absolute;
   bottom: 0;
   width: 100%;
-  display: flex;
   align-items: center;
   z-index: 6;
-  pointer-events: none;
   justify-content: center;
   transition: all 1s ${EASE_OUT};
 
-  &.hidden {
+  &.hidden, &.birth, &.splash {
     transform: translate(0, 120%);
+  }
+
+  &.settle {
+    transform: none;
+    transition: all 1s ${EASE_OUT} 1s;
   }
 
   a {
@@ -50,11 +55,19 @@ export const Root = styled.div`
   }
 `
 
+export const SocialButton = styled.a`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-decoration: none;
+`
+
 export const SocialIcon = styled.i`
-  font-size: 40px;
+  font-size: 30px;
   color: white;
   text-align: center;
-  padding: 10px 20px;
+  padding: 10px;
 
   ${screen.medsmall`
     font-size: 30px;
@@ -71,26 +84,13 @@ export const SocialIcon = styled.i`
   &.i3 {
   }
   &.i4 {
-    font-size: 40px;
-    ${screen.medsmall`
-      font-size: 30px;
-    `}
   }
   &.i5 {
-    font-size: 40px;
-    ${screen.medsmall`
-      font-size: 30px;
-    `}
   }
   &.i6 {
-    font-size: 40px;
-    ${screen.medsmall`
-      font-size: 30px;
-    `}
   }
   &.i9 {
     padding-top: 12px;
-    font-size: 34px;
 
     ${screen.medsmall`
       font-size: 30px;
@@ -98,23 +98,17 @@ export const SocialIcon = styled.i`
   }
 `
 
-export const SocialButtonsRoot = styled.div`
+export const SocialButtonsRoot = Flex.extend`
   z-index: 5;
-  display: flex;
-  pointer-events: all;
-  flex: 0 0 auto;
+  flex: 0 0 100%;
   cursor: pointer;
-  opacity: .9;
-  flex: 0 0 auto;
   justify-content: center;
   align-self: center;
-  background: ${p => p.theme.main};
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  background: ${p => p.theme.linearGradient(p.theme.slightlyLight)};
   box-shadow: ${p => p.theme.shadowVeryHeavy};
-  border: 1px solid ${p => p.theme.veryLight};
-  border-bottom: none;
+  ${'' /* border-top: 1px solid ${p => p.theme.veryLight}; */}
   padding: 5px 10px;
+  flex: 0 0 100%;
 
   ${screen.medium`
     width: 100%;
@@ -188,6 +182,7 @@ export const SocialButtonsRoot = styled.div`
       left: 50%;
       bottom: 103%;
       pointer-events: none;
+      border: 1px solid ${p => p.theme.veryLight};
     }
     &:hover .tooltip {
       opacity: 1;
@@ -198,7 +193,7 @@ export const SocialButtonsRoot = styled.div`
       width: 131px;
     }
     &.i11 .tooltip {
-      width: 135px;
+      width: 140px;
     }
     &.i8 .tooltip {
       width: 80px;
