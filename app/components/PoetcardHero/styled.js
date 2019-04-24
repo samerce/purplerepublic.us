@@ -17,7 +17,7 @@ export const Root = Flex.extend`
   &.settle, &.chill {
     transform: none;
     opacity: 1;
-    transition: all 1s ${EASE_OUT} .8s;
+    transition: all 1s ${EASE_OUT} .9s;
   }
 `
 
@@ -47,6 +47,10 @@ export const ContentRoot = FlexColumn.extend`
     flex: 0 0 100%;
     font-size: 22px;
   `}
+
+  hr {
+    border-color: ${p => p.theme.veryLight};
+  }
 `
 
 export const Button = Boto.extend`

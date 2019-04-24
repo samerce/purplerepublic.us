@@ -29,7 +29,9 @@ export default class Announcements extends React.PureComponent {
           <Row>
             <Blurb>
               <i className='fa fa-bullhorn' />
-              <div>calling all actors, dreamers, performers, artists, retail gurus, social media gurus, philosophers, revolutionaries, all around unicorns! we have an insane opportunity for two lucky ducks — holding ongoing casting calls/interviews until we find our magical creatures.</div>
+              <div>
+                it's up to us, friends. free thinking minds—led by open hearts and expansive spirits—are a threat to the system. it's time we take back our collective power. oppressors limit our imagination. convince us life will crash down without them. we're desperate for a greater destiny. a deeper dance with reality. what does your utopia look like?
+              </div>
             </Blurb>
           </Row>
 

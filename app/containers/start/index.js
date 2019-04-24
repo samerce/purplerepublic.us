@@ -10,6 +10,7 @@ import Bubbleverse from '../../components/bubbleverse'
 import PoetcardHero from '../../components/PoetcardHero'
 import BookHero from '../../components/BookHero'
 import Announcements from '../../components/Announcements'
+import CampaignHero from '../../components/CampaignHero'
 import Cast from '../../components/Cast'
 import SupportUs from '../../components/SupportUs'
 
@@ -68,8 +69,9 @@ export default class Start extends React.Component {
           <ThenNowWhen />
           <HookEmHeader />
           <Announcements />
+          <CampaignHero />
           <PoetcardHero />
-          <BookHero />
+          {/* <BookHero /> */}
           <LatestBoard />
           <Cast />
           <SupportUs />

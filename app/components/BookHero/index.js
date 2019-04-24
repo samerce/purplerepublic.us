@@ -7,11 +7,16 @@ import {
   SectionHeader, TextInput,
 } from '../../global/styled'
 
+import {connect} from 'react-redux'
+
+@connect(d => ({
+  introMode: d.get('intro').get('mode'),
+}))
 export default class BookHero extends React.PureComponent {
 
   render() {
     return (
-      <Root>
+      <Root className={this.props.introMode}>
         <SectionHeader>
           <hr />
           <div>upcoming book release</div>

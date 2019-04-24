@@ -22,6 +22,14 @@ export const Root = Flex.extend`
   justify-content: center;
   background: ${p => p.theme.veryDarkTransparent};
   position: relative;
+  transform: translate(0, -10px);
+  opacity: 0;
+
+  &.settle, &.chill {
+    transform: none;
+    opacity: 1;
+    transition: all 1s ${EASE_OUT} 1.1s;
+  }
 `
 
 export const ContentRoot = Flex.extend`

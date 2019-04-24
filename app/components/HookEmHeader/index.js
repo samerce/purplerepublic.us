@@ -35,15 +35,15 @@ export default class HookEmHeader extends React.Component {
       <Root className={this.props.introMode}>
         <VideoRoot>
           <Video
-            id={'rmXjuF1GLK0'}
+            id={'8xExiMisNsc'}
             onPlay={this.onClickVideo}
             width={() => Math.min(1200, window.innerWidth - videoWidthPadding)}
           />
         </VideoRoot>
 
         <Blurb>
-          <p>maybe the time is now. maybe we are the who. and the how.</p>
           <p>if not us, who? if not now, when?</p>
+          <p>there are 500,000 offices up for election. pick one and run. we'll help!</p>
         </Blurb>
       </Root>
     )

@@ -24,8 +24,13 @@ export default class PoetcardHero extends React.PureComponent {
         </SectionHeader>
         <HeroSection>
           <ContentRoot>
-            <p>want to join the revolution from your couch?<br />
-            write a poetcard to those who need to hear you most.</p>
+            <p>
+              darling, sweetie,<br />
+              want to join the revolution from your couch?
+              <hr />
+              our plan is to save the world with art. get into it!<br />
+              write a postcard to a friend who needs it most!
+            </p>
             <Button onClick={this.onClickGetPoetcards}>
               get poetcards
             </Button>
