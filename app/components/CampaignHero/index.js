@@ -29,9 +29,7 @@ export default class CampaignHero extends React.PureComponent {
           <Row>
             <Blurb>
               <div>
-                can we dare to envision a greater destiny? can we replace 'when's it coming' with 'it's already here"?<br /><br />
-
-                we have a planet full of absolutely fabulous people who have lost heart. who have boarded themselves up.<br /><br />
+                can we dare to envision a greater destiny? can we replace “when's it coming" with “it's already here"? we have a planet full of absolutely fabulous people who have lost heart. who have boarded themselves up.<br /><br />
 
                 it's time to make space for the good to come.<br />
                 it's time to move beyond fear.<br /><br />

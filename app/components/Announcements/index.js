@@ -30,7 +30,7 @@ export default class Announcements extends React.PureComponent {
             <Blurb>
               <i className='fa fa-bullhorn' />
               <div>
-                it's up to us, friends. free thinking minds—led by open hearts and expansive spirits—are a threat to the system. it's time we take back our collective power. oppressors limit our imagination. convince us life will crash down without them. we're desperate for a greater destiny. a deeper dance with reality. what does your utopia look like?
+                it's up to us, friends. free thinking minds—led by open hearts and expansive spirits—are a threat to the system. it's time we take back our collective power. oppressors limit our imagination, convincing us life will crash down without them. we're desperate for a greater destiny. a deeper dance with reality. what does your utopia look like?
               </div>
             </Blurb>
           </Row>

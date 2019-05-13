@@ -69,8 +69,8 @@ export default class Start extends React.Component {
           <ThenNowWhen />
           <HookEmHeader />
           <Announcements />
-          <CampaignHero />
           <PoetcardHero />
+          <CampaignHero />
           {/* <BookHero /> */}
           <LatestBoard />
           <Cast />

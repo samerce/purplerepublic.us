@@ -79,6 +79,7 @@ export const Blurb = BlurbText.extend`
   position: relative;
   text-align: left;
   padding: 20px 40px;
+  font-size: 22px;
 
   div {
     height: 100%;
