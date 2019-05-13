@@ -109,6 +109,7 @@ export default [
       {
         title: 'faerie brigade',
         status: 'needs funding',
+        className: 'emphasis',
         render: () => (
           <div>
             <p>bringing joy to the streets!</p>
@@ -131,6 +132,7 @@ export default [
       {
         title: 'manifesting the minority',
         status: 'needs funding',
+        className: 'emphasis',
         render: () => (
           <div>
             <p>it's time to get people of color, women, queers, and all minorities to flood positions of power in every corner of our society. from CEO to government office to university dean and beyond, we're taking over and directing our future with love.</p>

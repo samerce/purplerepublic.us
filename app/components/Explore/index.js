@@ -146,9 +146,9 @@ export default class FutureTimeline extends React.Component {
   }
 
   @autobind
-  renderBubbleRow({image, title, status, render, actions}, i) {
+  renderBubbleRow({image, title, status, render, actions, className = ''}, i) {
     return (
-      <BubbleRowRoot key={i} className={status === 'needs funding' && 'emphasis'}>
+      <BubbleRowRoot key={i} className={className}>
         <BubbleImage src={SRC_URL + 'commons/' + image + '.jpg'} />
 
         <BubbleRowContentRoot>
