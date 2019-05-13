@@ -10,6 +10,8 @@ import {
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
+import SecretCodeConfig from './secretCodeConfig'
+
 @connect(d => ({
   introMode: d.get('intro').get('mode'),
 }))
@@ -38,7 +40,10 @@ export default class PoetcardHero extends React.PureComponent {
 
           <ContentRoot>
             <p>got a poetcard secret code?</p>
-            <TextInput placeholder='enter it here!' />
+            <TextInput
+              onKeyPress={this.onKeyPressSecretCode}
+              placeholder='enter it here!'
+            />
           </ContentRoot>
         </HeroSection>
       </Root>
@@ -52,6 +57,21 @@ export default class PoetcardHero extends React.PureComponent {
       eventAction: 'get-poetcards clicked',
     })
     window.location = '#start/bubble/buy-poetcards'
+  }
+
+  @autobind
+  onKeyPressSecretCode({key, target}) {
+    if (key !== 'Enter') return
+
+    const code = target.value.toLowerCase().trim()
+    const handler = SecretCodeConfig[code]
+    if (!handler) {
+      // show message about invalid code
+    } else if (typeof handler === 'string') {
+      window.location = '#start/bubble/' + handler
+    } else {
+      handler()
+    }
   }
 
 }
