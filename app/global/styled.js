@@ -221,7 +221,8 @@ export const SectionHeader = Flex.extend`
   position: relative;
   justify-content: center;
   align-self: center;
-  margin: 0 0 40px;
+  margin: 0 0 20px;
+  width: 100%;
 
   div {
     background: ${p => p.theme.flikDark};

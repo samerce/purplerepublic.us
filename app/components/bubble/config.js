@@ -16,6 +16,7 @@ Object.keys(BubbleType).forEach(type => {
   BubbleComponents[type] = require('./bubbleItems/' + type).default
 })
 BubbleComponents.writing = BubbleComponents.words
+BubbleComponents.UnicornBubble = require('../UnicornBubble').default
 
 const BubbleButtonTypes = [
   'patreon',

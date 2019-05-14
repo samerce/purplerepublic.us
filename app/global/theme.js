@@ -28,6 +28,7 @@ export default {
   slightlyLight: purpleSlightlyLight,
   veryDark: purpleVeryDark,
   veryLight: purpleVeryLight,
+  semiWhite: lighten(.2, purpleVeryLight),
   shadowVeryHeavy: '3px 20px 40px ' + alpha(.7, purpleVeryDark),
   shadowHeavy: '3px 10px 20px ' + alpha(.7, purpleVeryDark),
   shadowMedium: '2px 5px 10px ' + alpha(.8, purpleVeryDark),
