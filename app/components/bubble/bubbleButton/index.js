@@ -41,7 +41,7 @@ const Mode = makeEnum([
 
 const DURATION_WILL_ENTER = 1800
 const DURATION_ENTER = DURATION_WILL_ENTER + 700
-const getBubbleSize = () => window.innerWidth <= SCREEN_WIDTH_M? 90 : 120
+const getBubbleSize = () => window.innerWidth <= SCREEN_WIDTH_M? 60 : 90
 
 @connect(d => ({
   activeBubble: d.get('bubbleverse').get('activeBubble'),

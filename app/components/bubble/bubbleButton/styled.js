@@ -109,21 +109,20 @@ export const Title = AbsoluteFlex.extend`
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  font-size: 20px;
+  font-size: 12px;
   background: ${p => alpha(.5, p.theme.veryDark)};
-  border-top: 2px solid ${p => p.theme.veryLight};
-  border-bottom: 2px solid ${p => p.theme.veryLight};
   width: 100%;
+  height: 100%;
   text-align: center;
   padding: 15px 5px;
-  font-family: annie use your telescope;
+  font-family: alice;
   transition-property: opacity, transform;
   transition-duration: .2s;
   transition-timing-function: ${EASE_OUT};
   transform: scale(1.05);
   opacity: 0;
   user-select: none;
-  line-height: 20px;
+  line-height: 16px;
 
   ${Root}:hover & {
     opacity: 1;

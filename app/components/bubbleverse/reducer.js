@@ -94,7 +94,7 @@ export default function bubbleverse(state = initialState, action) {
 
 function getBubblesByDimension(state, dimension) {
   return state.get('bubbles').filter(b => (
-    b.dimension.toLowerCase() === dimension.toLowerCase()
+    b.dimension.toLowerCase() === dimension.toLowerCase() && !b.id.includes('secret-')
   ))
 }
 

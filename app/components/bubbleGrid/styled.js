@@ -89,7 +89,7 @@ export const BubbleGridItem = Flex.extend`
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 10px 5px;
   transition: all .5s ${EASE_OUT};
   border-bottom-right-radius: 80px;
   border-bottom-left-radius: 80px;

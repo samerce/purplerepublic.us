@@ -27,10 +27,10 @@ export default class PoetcardHero extends React.PureComponent {
         <HeroSection>
           <ContentRoot>
             <p>
-              darling, sweetie,<br />
-              want to join the revolution from your couch?
+              darling, sweetie.<br />
+              wanna join the revolution from your couch?
               <hr />
-              our plan is to save the world with art. get into it!<br />
+              our plan is to save the world with art.<br />
               write a postcard to a friend who needs it most!
             </p>
             <Button onClick={this.onClickGetPoetcards}>
@@ -68,7 +68,7 @@ export default class PoetcardHero extends React.PureComponent {
     if (!handler) {
       // show message about invalid code
     } else if (typeof handler === 'string') {
-      window.location = '#start/bubble/' + handler
+      window.location = '#start/bubble/secret-' + handler
     } else {
       handler()
     }
