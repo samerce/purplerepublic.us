@@ -80,6 +80,13 @@ export const GetItButton = Boto.extend`
   position: relative;
   flex: 0 0 60px;
   width: 100%;
+  padding: 0;
+  margin: 0 0 15px;
+
+  .checkingOut & {
+    background: ${p => p.theme.veryDark};
+    pointer-events: none;
+  }
 `
 
 export const TotalText = Flex.extend`
@@ -88,14 +95,41 @@ export const TotalText = Flex.extend`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: 15px;
+  left: -1px;
+  border: 2px solid ${p => p.theme.veryLight};
+  border-radius: 13px;
+  padding: 10px 15px;
+  transition: all .3s ${EASE_OUT};
+
+  ${GetItButton}:hover & {
+    background: ${p => p.theme.slightlyDark}
+    border-color: ${p => p.theme.semiWhite};
+  }
+  .checkingOut & {
+    background: ${p => p.theme.veryDark};
+  }
 `
 
 export const GetItText = Flex.extend`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  right: 15px;
+  right: 45px;
+  transition: right .3s ${EASE_OUT};
+
+  .checkingOut & {
+    right: 20px;
+  }
+`
+
+export const CheckoutRoot = FlexColumn.extend`
+  flex: 0 0 0;
+  overflow: hidden;
+  transition: all .5s ${EASE_OUT};
+
+  .checkingOut & {
+    flex: 0 0 312px;
+  }
 `
 
 export const Image = styled.img`

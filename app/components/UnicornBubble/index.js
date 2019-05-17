@@ -1,11 +1,12 @@
 import React from 'react'
+import Checkout from '../Checkout'
 
 import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
   ArtOptionsRoot, ArtOption, H1, H2, Body, PickArtForm, Button,
   PoetcardPreviewRoot, ButtonGroup, Image, SizeOptionsRoot, SizeOption,
   PriceInput, ShippingLine, GetItText, TotalText, GetItButton, PriceRoot,
-  TotalRoot,
+  TotalRoot, CheckoutRoot,
 } from './styled'
 import {
   SectionHeader
@@ -29,17 +30,21 @@ const ArtOptions = [
 ]
 const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
 const pcsrc = id => SRC_URL + 'poetcards/' + id + '.jpg'
+const ShippingTotal = 5
 
 export default class UnicornBubble extends React.PureComponent {
 
   constructor(props) {
     super(props)
     this.state = {
-      total: 0,
+      total: ShippingTotal,
+      item: 'unicorn',
+      isCheckoutVisible: false,
     }
   }
 
   render() {
+    const {isCheckoutVisible} = this.state
     return (
       <Root>
         <PickArtRoot>
@@ -58,15 +63,15 @@ export default class UnicornBubble extends React.PureComponent {
           <Body>
             <p>wapow!</p>
             <p>the spell is cast!</p>
-            <p>choose any creature above for any price you want!</p>
+            <p>what you get: one 16 x 20 metallic print of any of the pieces above at any price you want!</p>
           </Body>
 
           <PickArtForm>
-            <SizeOptionsRoot>
+            {/* <SizeOptionsRoot>
               {SizeOptions.map(this.renderSizeOption)}
-            </SizeOptionsRoot>
+            </SizeOptionsRoot> */}
 
-            <TotalRoot>
+            <TotalRoot className={isCheckoutVisible && 'checkingOut'}>
               <PriceRoot>
                 <span>$</span>
                 <PriceInput
@@ -75,11 +80,16 @@ export default class UnicornBubble extends React.PureComponent {
                   placeholder={'pick your price!'}
                 />
               </PriceRoot>
-              <ShippingLine><div>+ $5 shipping</div></ShippingLine>
-              <GetItButton>
+              <ShippingLine><div>+ ${ShippingTotal} shipping</div></ShippingLine>
+              <GetItButton onClick={this.onClickGetIt}>
                 <TotalText>${this.state.total}</TotalText>
-                <GetItText>get it now!</GetItText>
+                <GetItText>
+                  {isCheckoutVisible? 'enter your deets' : 'get it now!'}
+                </GetItText>
               </GetItButton>
+              <CheckoutRoot>
+                <Checkout order={makeOrder(this.state)} />
+              </CheckoutRoot>
             </TotalRoot>
           </PickArtForm>
         </PickArtRoot>
@@ -108,7 +118,7 @@ export default class UnicornBubble extends React.PureComponent {
           <H2>help us save the world with art!</H2>
           <Body>
             <p>
-              express your mess is a nonprofit organization working to make <i>art</i> the reason we all wake up in the morning. art is love and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live peacefully and harmoniously with each other.
+              express your mess is a nonprofit organization working to make <i>art</i> the reason we all wake up in the morning. art is love and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live in harmony with each other.
             </p>
           </Body>
           <ButtonGroup>
@@ -147,6 +157,12 @@ export default class UnicornBubble extends React.PureComponent {
   }
 
   @autobind
+  onClickGetIt() {
+    if (this.state.isCheckoutVisible) return
+    this.setState({isCheckoutVisible: true})
+  }
+
+  @autobind
   openPoetcardsBubble() {
     window.location = '#start/bubble/buy-poetcards'
   }
@@ -159,8 +175,27 @@ export default class UnicornBubble extends React.PureComponent {
   @autobind
   onChangePrice() {
     const price = this.priceInput.value
-    const total = price? +price + 5 : 0
+    const total = price? +price + ShippingTotal : 0
     this.setState({total: total})
   }
 
+}
+
+function makeOrder(details) {
+  const itemPrice = details.total - ShippingTotal
+  return {
+    total: details.total,
+    subtotal: itemPrice,
+    shippingTotal: ShippingTotal,
+    description: 'pick your price faerie offering!',
+    items: [
+      {
+        name: details.item + ' 16 x 20 metallic print',
+        description: 'a gorgeous, shiny new print of original artwork',
+        price: itemPrice,
+        quantity: 1,
+        sku: details.item,
+      },
+    ],
+  }
 }
