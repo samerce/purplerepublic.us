@@ -76,7 +76,7 @@ export default class FutureTimeline extends React.Component {
   @autobind
   renderNavText(tab, index) {
     return (
-      <div>
+      <div key={index}>
         {tab.preText}
         <NavTextButton
           color={tab.color}

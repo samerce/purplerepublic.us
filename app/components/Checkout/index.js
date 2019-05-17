@@ -82,6 +82,7 @@ export default class Checkout extends React.PureComponent {
         onChange={e => this.onChangeInput(id, e)}
         value={this.state.shipping[id]}
         placeholder={id}
+        key={id}
       />
     )
   }

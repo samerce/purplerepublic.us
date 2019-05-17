@@ -23,7 +23,7 @@ export const ShippingRoot = FlexColumn.extend`
 `
 
 export const ShippingInput = TextInput.extend`
-
+  margin: 5px 0;
 `
 
 export const PayPalButtons = Flex.extend`

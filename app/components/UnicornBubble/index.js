@@ -13,7 +13,11 @@ import {
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
 import {openInNewTab} from '../../utils/nav'
+import {
+  togglePastTimeline, toggleFutureTimeline
+} from '../ThenNowWhen/actions'
 
 import {SRC_URL} from '../../global/constants'
 
@@ -32,6 +36,7 @@ const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
 const pcsrc = id => SRC_URL + 'poetcards/' + id + '.jpg'
 const ShippingTotal = 5
 
+@connect(d => ({}))
 export default class UnicornBubble extends React.PureComponent {
 
   constructor(props) {
@@ -102,9 +107,9 @@ export default class UnicornBubble extends React.PureComponent {
           <H1>like the poetcard you got?</H1>
           <H2>we have over 50 designs!</H2>
           <PoetcardPreviewRoot>
-            <Image src={pcsrc('sunrise folly')} />
-            <Image src={pcsrc('be your own therapy')} />
-            <Image src={pcsrc('ice cream poop')} />
+            <ClickableImage src={pcsrc('sunrise folly')} />
+            <ClickableImage src={pcsrc('be your own therapy')} />
+            <ClickableImage src={pcsrc('ice cream poop')} />
           </PoetcardPreviewRoot>
           <Button onClick={this.openPoetcardsBubble}>wow, show me more!</Button>
         </PoetcardsRoot>
@@ -122,8 +127,8 @@ export default class UnicornBubble extends React.PureComponent {
             </p>
           </Body>
           <ButtonGroup>
-            <Button>see how we make change</Button>
-            <Button>shop with us</Button>
+            <Button onClick={this.openExplore}>see how we make change</Button>
+            <Button onClick={this.openShop}>shop with us</Button>
             <Button onClick={this.openEmailTab}>contact us</Button>
           </ButtonGroup>
         </WhatRoot>
@@ -145,7 +150,7 @@ export default class UnicornBubble extends React.PureComponent {
   renderArtOption({id, title}) {
     return (
       <ArtOption key={id}>
-        <Image src={pcsrc(id)} />
+        <ClickableImage src={pcsrc(id)} />
         <div>{title}</div>
       </ArtOption>
     )
@@ -165,6 +170,18 @@ export default class UnicornBubble extends React.PureComponent {
   @autobind
   openPoetcardsBubble() {
     window.location = '#start/bubble/buy-poetcards'
+  }
+
+  @autobind
+  openExplore() {
+    window.location = '#start'
+    this.props.dispatch(toggleFutureTimeline())
+  }
+
+  @autobind
+  openShop() {
+    window.location = '#start'
+    this.props.dispatch(togglePastTimeline())
   }
 
   @autobind
@@ -198,4 +215,9 @@ function makeOrder(details) {
       },
     ],
   }
+}
+
+function ClickableImage(props) {
+  const onClick = () => openInNewTab(props.src)
+  return <Image src={props.src} onClick={onClick} />
 }

@@ -118,7 +118,7 @@ export const GetItText = Flex.extend`
   transition: right .3s ${EASE_OUT};
 
   .checkingOut & {
-    right: 20px;
+    right: 25px;
   }
 `
 
@@ -128,14 +128,27 @@ export const CheckoutRoot = FlexColumn.extend`
   transition: all .5s ${EASE_OUT};
 
   .checkingOut & {
-    flex: 0 0 312px;
+    flex: 0 0 372px;
   }
 `
 
 export const Image = styled.img`
   border-radius: 10px;
-  box-shadow: ${p => p.theme.shadowVeryHeavy};
+  box-shadow: ${p => p.theme.shadowHeavy};
   border: 1px solid ${p => alpha(.5, p.theme.veryLight)};
+  cursor: pointer;
+  transition: all .2s ${EASE_OUT};
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: ${p => p.theme.shadowVeryHeavy};
+    transition: all .5s ${EASE_OUT};
+  }
+  &:active {
+    transform: scale(.99);
+    box-shadow: ${p => p.theme.shadowMedium};
+    transition: all .5s ${EASE_OUT};
+  }
 `
 
 export const PoetcardsRoot = FlexColumn.extend`
