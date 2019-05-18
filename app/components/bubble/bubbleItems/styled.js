@@ -7,7 +7,7 @@ import {
 } from '../../../global/constants'
 import {
   screen,
-  ArticleText, Flex, FlexColumn, Boto, TextInput, AbsoluteFlex,
+  ArticleText, Flex, FlexColumn, Boto, TextInput, AbsoluteFlex, CloseButton,
 } from '../../../global/styled'
 import theme from '../../../global/theme'
 
@@ -156,6 +156,13 @@ export const VideoWrapper = Flex.extend`
   border: 1px solid ${p => p.theme.veryLight};
   border-radius: 10px;
   overflow: hidden;
+`
+
+export const VideoRemoveButton = CloseButton.extend`
+  position: absolute;
+  transform: none;
+  opacity: 1;
+  pointer-events: all;
 `
 
 export const Description = ArticleText.extend`
@@ -407,7 +414,7 @@ export const CustomerInfoTitle = Flex.extend`
 const InfoInput = TextInput.extend`
   margin: 5px 0;
   height: auto;
-  
+
   .poetcards-checkoutThanks & {
     border-color: transparent;
     pointer-events: none;

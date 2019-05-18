@@ -7,6 +7,7 @@ import {
   convertToRaw,
   convertFromHTML,
 } from 'draft-js'
+import Video from './video'
 
 import draftToHtml from 'draftjs-to-html'
 import autobind from 'autobind-decorator'
@@ -32,10 +33,7 @@ export default class BubbleWords extends React.PureComponent {
 
   constructor(props) {
     super(props)
-    this.state = {
-      editorState: createEditorState(props.nucleus.detailText),
-      html: getHTML(props.nucleus.detailText),
-    }
+    this.state = this.makeState(props.nucleus.detailText)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -46,15 +44,12 @@ export default class BubbleWords extends React.PureComponent {
     const {nucleus, editing} = this.props
     const {detailText, id} = nucleus
     if (id !== prevProps.nucleus.id || (editing !== prevProps.editing)) {
-      this.setState({
-        editorState: createEditorState(detailText),
-        html: getHTML(detailText),
-      })
+      this.setState(this.makeState(detailText))
     }
   }
 
   render() {
-    const {editorState, html, isFocused} = this.state
+    const {editorState, html, isFocused, decorators} = this.state
     const {placeholder, editing, className} = this.props
     let toolbarClassName = 'words-editor-toolbar'
     if (isFocused) toolbarClassName += ' visible'
@@ -67,6 +62,7 @@ export default class BubbleWords extends React.PureComponent {
               toolbarClassName={toolbarClassName}
               editorClassName='words-editor-textarea'
               editorState={editorState}
+              customDecorators={decorators}
               placeholder={placeholder || DefaultPlaceholder}
               onEditorStateChange={this.onEditorChange}
               onFocus={() => this.setState({isFocused: true})}
@@ -89,6 +85,65 @@ export default class BubbleWords extends React.PureComponent {
     this.props.dispatch(updateBuilderNucleus({
       detailText: convertToRaw(editorState.getCurrentContent()),
     }))
+  }
+
+  @autobind
+  removeDecoratorComponent(text) {
+    const contentState = this.state.editorState.getCurrentContent()
+    let blockMap = contentState.getBlockMap()
+    const blockMapJS = blockMap.toJS()
+    for (let key in blockMapJS) {
+      const block = blockMapJS[key]
+      if (block.text === text) {
+        blockMap = blockMap.filter(b => b.key !== key)
+      } else if (block.text.includes(text)) {
+        blockMap = blockMap.set(block.key, {
+          ...block,
+          text: block.text.replace(text, ''),
+        })
+      }
+    }
+
+    let editorState
+    if (!blockMap.size) {
+      editorState = EditorState.createEmpty()
+    } else {
+      const newContentState = contentState.set('blockMap', blockMap)
+      editorState = EditorState.createWithContent(newContentState)
+    }
+    this.setState({editorState})
+  }
+
+  @autobind
+  getDecorators() {
+    const props = {
+      remove: this.removeDecoratorComponent,
+      editing: this.props.editing,
+    }
+    return [
+      {
+        strategy: Video.matchingStrategy,
+        component: Video,
+        props,
+      },
+      // {
+      //   strategy: galleryDetectionStrategy,
+      //   component: Gallery,
+      // },
+      // {
+      //   strategy: audioDetectionStrategy,
+      //   component: Audio,
+      // },
+    ]
+  }
+
+  @autobind
+  makeState(detailText) {
+    return {
+      editorState: createEditorState(detailText),
+      html: getHTML(detailText),
+      decorators: this.getDecorators(),
+    }
   }
 
 }
