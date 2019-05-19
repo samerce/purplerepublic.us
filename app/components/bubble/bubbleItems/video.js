@@ -19,6 +19,7 @@ export default class BubbleVideo extends React.Component {
       start = matchedItems.index
       callback(start, start + matchedItems[0].length)
     }
+    YouTubeRegex.lastIndex = 0
   }
 
   constructor(props) {
@@ -26,6 +27,7 @@ export default class BubbleVideo extends React.Component {
     this.state = {
       videoId: YouTubeRegex.exec(props.decoratedText)[1]
     }
+    YouTubeRegex.lastIndex = 0
   }
 
   shouldComponentUpdate(nextProps, nextState) {
