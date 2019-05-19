@@ -99,9 +99,10 @@ export default class BubbleBuilder extends React.PureComponent {
             <div>pre-built component</div>
           </PropertiesSectionTitle>
           <PropertyInput
+            onKeyPress={this.onKeyPressComponentInput}
             placeholder='component name'
             onBlur={this.onBlurComponentInput}
-            ref={r => this.componentInput = r}
+            innerRef={r => this.componentInput = r}
           />
         </PropertiesSection>
 
@@ -133,6 +134,13 @@ export default class BubbleBuilder extends React.PureComponent {
   @autobind
   onBlurComponentInput() {
     this.onChangeNucleus({componentName: this.componentInput.value})
+  }
+
+  @autobind
+  onKeyPressComponentInput(e) {
+    if (e.key === 'Enter') {
+      e.target.blur()
+    }
   }
 
   @autobind
