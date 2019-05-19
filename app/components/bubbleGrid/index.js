@@ -13,7 +13,6 @@ import {MaskAbsoluteFillParent} from '../../global/styled'
 
 import {findDOMNode} from 'react-dom'
 import {makeEnum} from '../../utils/lang'
-import {HeroBubbleConfig} from '../bubble/config'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import {cx} from '../../utils/style'
@@ -93,7 +92,6 @@ export default class BubbleGrid extends React.PureComponent {
               ref={r => this.bubbleGridItems[bubble.id] = r}
               className={this.getBubbleGridItemClasses(bubble)}
               key={bubble.id}
-              heroConfig={HeroBubbleConfig[bubble.id]}
               size={bubble.size}>
 
               {mode === Mode.arrange &&

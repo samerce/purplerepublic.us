@@ -6,9 +6,10 @@ import {
   BubbleBuilderButtonTool,
   BubbleBuilderJourneyTool,
 } from '../bubbleBuilderTools'
+import Gallery from '../bubbleItems/gallery'
 
 import {
-  Root, PropertiesSection, PropertiesSectionTitle, PublishingMask,
+  Root, PropertiesSection, PropertiesSectionTitle, PublishingMask, PropertyInput,
 } from './styled'
 import {
   ToolBar, ToolBarItem,
@@ -27,11 +28,6 @@ import {BubbleType, BubbleComponents} from '../config'
 import {SRC_URL} from '../../../global/constants'
 
 const LOCAL_NUCLEUS_KEY = 'purple.republic.editingBubbleNucleus.'
-const FilterOptionList = [
-  BubbleType.gallery,
-  BubbleType.video,
-  BubbleType.words,
-]
 
 @connect(d => ({
   nucleus: d.get('bubbleverse').get('activeBubble'),
@@ -46,10 +42,6 @@ export default class BubbleBuilder extends React.PureComponent {
     super(props)
 
     this.timers = []
-    this.filterOptions = FilterOptionList.map(opt => ({
-      name: opt,
-      onClick: this.onSelectFilter.bind(this, opt)
-    }))
     this.state = getDefaultState()
   }
 
@@ -71,24 +63,12 @@ export default class BubbleBuilder extends React.PureComponent {
   render() {
     const {className, isBubbleBuilderOpen, nucleus} = this.props
     if (!isBubbleBuilderOpen) return null
-    const {renderCustomBuilderTools} = BubbleComponents[nucleus.type]
 
     return (
       <Root className={className}>
         <PublishingMask show={this.state.isPublishing}>
           <Spinnie show={true} />
         </PublishingMask>
-
-        <PropertiesSection className='first'>
-          <PropertiesSectionTitle>
-            <div>type</div>
-          </PropertiesSectionTitle>
-          <UnoSelectPill
-            className='typeSelectPill'
-            options={this.filterOptions}
-            selectedIndex={FilterOptionList.findIndex(o => o === nucleus.type)}
-          />
-        </PropertiesSection>
 
         <PropertiesSection>
           <PropertiesSectionTitle>
@@ -99,7 +79,7 @@ export default class BubbleBuilder extends React.PureComponent {
             verifyBubbleIdExists={this.verifyBubbleIdExists}
             onChangeNucleus={this.onChangeNucleus}
           />
-          {renderCustomBuilderTools && renderCustomBuilderTools(
+          {Gallery.renderCustomBuilderTools(
             nucleus,
             this.onChangeNucleus
           )}
@@ -112,6 +92,17 @@ export default class BubbleBuilder extends React.PureComponent {
           <BubbleBuilderButtonTool
             nucleus={nucleus}
             onChangeNucleus={this.onChangeNucleus} />
+        </PropertiesSection>
+
+        <PropertiesSection className='first'>
+          <PropertiesSectionTitle>
+            <div>pre-built component</div>
+          </PropertiesSectionTitle>
+          <PropertyInput
+            placeholder='component name'
+            onBlur={this.onBlurComponentInput}
+            ref={r => this.componentInput = r}
+          />
         </PropertiesSection>
 
         <ToolBar themeColor={theme.main} className='bubbleBuilderToolbar'>
@@ -140,9 +131,8 @@ export default class BubbleBuilder extends React.PureComponent {
   }
 
   @autobind
-  onSelectFilter(type) {
-    if (type === this.props.nucleus.type) return
-    this.onChangeNucleus({type})
+  onBlurComponentInput() {
+    this.onChangeNucleus({componentName: this.componentInput.value})
   }
 
   @autobind

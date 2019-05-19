@@ -1,6 +1,5 @@
 import React from 'react'
 import TimedTextBlurb from '../timedTextBlurb'
-import {HeroBubbleConfig} from '../bubble/config'
 
 import {
   Blurb, Image, Row, Button, Root,

@@ -6,10 +6,11 @@ import {
   convertFromRaw,
   convertToRaw,
   convertFromHTML,
+  CompositeDecorator,
 } from 'draft-js'
 import Video from './video'
+import Gallery from './gallery'
 
-import draftToHtml from 'draftjs-to-html'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
@@ -20,6 +21,7 @@ import {
 import {
   updateBuilderNucleus
 } from '../../bubbleverse/actions'
+import {cx} from '../../../utils/style'
 
 // HACK: had to remove node_modules/draft-js/node_modules/immutable
 // in order to get rid of thousands of warnings in console
@@ -49,30 +51,32 @@ export default class BubbleWords extends React.PureComponent {
   }
 
   render() {
-    const {editorState, html, isFocused, decorators} = this.state
-    const {placeholder, editing, className} = this.props
+    const {editorState, isFocused, decorators} = this.state
+    const {placeholder, editing, className, nucleus} = this.props
     let toolbarClassName = 'words-editor-toolbar'
     if (isFocused) toolbarClassName += ' visible'
+    const classes = cx({
+      [className]: 1,
+      wordsRoot: 1,
+      galleryFirst: nucleus.galleryPosition === 'top',
+    })
     return (
-      <BubbleComponentRoot className={className + ' wordsRoot'}>
+      <BubbleComponentRoot className={classes}>
         <Description>
-          {editing &&
-            <Editor
-              toolbar={ToolbarConfig}
-              toolbarClassName={toolbarClassName}
-              editorClassName='words-editor-textarea'
-              editorState={editorState}
-              customDecorators={decorators}
-              placeholder={placeholder || DefaultPlaceholder}
-              onEditorStateChange={this.onEditorChange}
-              onFocus={() => this.setState({isFocused: true})}
-              onBlur={() => this.setState({isFocused: false})}
-            />
-          }
-          {!editing && html &&
-            <div dangerouslySetInnerHTML={{__html: html}} />
-          }
+          <Editor
+            toolbar={ToolbarConfig}
+            toolbarClassName={toolbarClassName}
+            editorClassName='words-editor-textarea'
+            editorState={editorState}
+            customDecorators={decorators}
+            placeholder={placeholder || DefaultPlaceholder}
+            onEditorStateChange={this.onEditorChange}
+            onFocus={() => this.setState({isFocused: true})}
+            onBlur={() => this.setState({isFocused: false})}
+            readOnly={!editing}
+          />
         </Description>
+        {nucleus.images && <Gallery nucleus={this.props.nucleus} />}
       </BubbleComponentRoot>
     )
   }
@@ -85,6 +89,35 @@ export default class BubbleWords extends React.PureComponent {
     this.props.dispatch(updateBuilderNucleus({
       detailText: convertToRaw(editorState.getCurrentContent()),
     }))
+  }
+
+  @autobind
+  getDecorators() {
+    const props = {
+      remove: this.removeDecoratorComponent,
+      editing: this.props.editing,
+      nucleus: this.props.nucleus,
+    }
+    return [
+      {
+        strategy: Video.matchingStrategy,
+        component: Video,
+        props,
+      },
+      // {
+      //   strategy: audioDetectionStrategy,
+      //   component: Audio,
+      //   props,
+      // },
+    ]
+  }
+
+  @autobind
+  makeState(detailText) {
+    return {
+      editorState: createEditorState(detailText),
+      decorators: this.getDecorators(),
+    }
   }
 
   @autobind
@@ -114,38 +147,6 @@ export default class BubbleWords extends React.PureComponent {
     this.setState({editorState})
   }
 
-  @autobind
-  getDecorators() {
-    const props = {
-      remove: this.removeDecoratorComponent,
-      editing: this.props.editing,
-    }
-    return [
-      {
-        strategy: Video.matchingStrategy,
-        component: Video,
-        props,
-      },
-      // {
-      //   strategy: galleryDetectionStrategy,
-      //   component: Gallery,
-      // },
-      // {
-      //   strategy: audioDetectionStrategy,
-      //   component: Audio,
-      // },
-    ]
-  }
-
-  @autobind
-  makeState(detailText) {
-    return {
-      editorState: createEditorState(detailText),
-      html: getHTML(detailText),
-      decorators: this.getDecorators(),
-    }
-  }
-
 }
 
 function createEditorState(content) {
@@ -164,13 +165,6 @@ function createEditorState(content) {
     editorState = EditorState.createWithContent(contentState)
   }
   return editorState
-}
-
-function getHTML(content) {
-  if (content && content.entityMap) {
-    return draftToHtml(content)
-  }
-  return content
 }
 
 var ToolbarConfig = {
@@ -193,7 +187,7 @@ var ToolbarConfig = {
   fontFamily: {
     options: [
       'IM Fell DW Pica', 'Rancho', 'Life Savers', 'Crete Round', 'Quattrocento',
-      'Gloria Hallelujha', 'Goudy Bookletter 1911'
+      'Gloria Hallelujha', 'Goudy Bookletter 1911', 'Good Vibes'
     ],
   },
   link: {

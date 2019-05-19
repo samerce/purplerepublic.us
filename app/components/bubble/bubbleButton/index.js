@@ -10,7 +10,6 @@ import {getButtonImageUrl} from '../../../utils/bubbleverse'
 import _ from 'lodash'
 import fastdom from 'fastdom'
 import autobind from 'autobind-decorator'
-import {HeroBubbleConfig} from '../config'
 import {setActiveBubble} from '../../bubbleverse/actions'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'
@@ -110,7 +109,6 @@ export default class BubbleButton extends React.Component {
       id, title, type,
       ButtonComponent,
     } = nucleus
-    const heroConfig = HeroBubbleConfig[id]
 
     return (
       <Root
@@ -123,8 +121,7 @@ export default class BubbleButton extends React.Component {
           <ButtonComponent
             size={size}
             nucleus={nucleus}
-            onClick={this.onClick}
-            heroConfig={heroConfig} />
+            onClick={this.onClick} />
         :
         <ImageBubbleButton
           size={size}

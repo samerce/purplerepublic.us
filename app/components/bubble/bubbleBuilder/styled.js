@@ -9,7 +9,7 @@ import {
   SCREEN_WIDTH_S_PX,
 } from '../../../global/constants'
 import {
-  AbsoluteFlexFillParent, Flex, FlexColumn, MaskAbsoluteFillParent,
+  AbsoluteFlexFillParent, Flex, FlexColumn, MaskAbsoluteFillParent, TextInput,
 } from '../../../global/styled'
 
 export const PublishingMask = MaskAbsoluteFillParent.extend`
@@ -26,6 +26,7 @@ export const Root = AbsoluteFlexFillParent.extend`
   pointer-events: all;
   transform: translate(0, 200px);
   opacity: 0;
+  padding: 0 0 0 200px;
 
   &.bubbleBuilder-hide {
     display: none;
@@ -124,30 +125,10 @@ export const BubbleButtonSizeSlider = styled.input.attrs({
 export const PropertiesSection = FlexColumn.extend`
   flex: 1 0 auto;
   border-left: 1px solid ${p => p.theme.veryLight};
-  padding: 5px 10px 50px;
-  height: 100%;
+  padding: 10px;
+  height: 300px;
   justify-content: flex-start;
   text-align: center;
-
-  &.first {
-    margin-left: 200px;
-    flex: 0 0 340px;
-  }
-  .typeSelectPill {
-    position: relative;
-    top: initial;
-    left: initial;
-    transform: none;
-    height: 50px;
-    justify-content: space-between;
-
-    .selectOption {
-      font-size: 20px;
-    }
-  }
-  .nothin {
-    color: ${alpha(.3, 'white')};
-  }
 `
 
 export const PropertiesSectionTitle = Flex.extend`
@@ -160,4 +141,9 @@ export const PropertiesSectionTitle = Flex.extend`
   align-items: center;
   justify-content: center;
   margin: 0 0 5px;
+`
+
+export const PropertyInput = TextInput.extend`
+  flex: 0 0 41px;
+  font-size: 18px;
 `

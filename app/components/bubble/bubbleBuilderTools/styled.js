@@ -13,6 +13,8 @@ export const Root = Flex.extend`
   z-index: 8;
   pointer-events: all;
   margin: 10px 0;
+  flex: 0 0 auto;
+  height: 40px;
 
   input {
     font-size: 18px;

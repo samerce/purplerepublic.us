@@ -5,7 +5,7 @@ import {BubbleBuilderYouTubeTool} from '../bubbleBuilderTools'
 import autobind from 'autobind-decorator'
 
 import {
-  VideoRoot, VideoWrapper, VideoRemoveButton,
+  VideoRoot, VideoWrapper, RemoveButton,
 } from './styled'
 
 const YouTubeRegex = /^[https*:\/\/]*[www.]*youtube.com\/watch\?v=(.{11})/gm
@@ -39,9 +39,9 @@ export default class BubbleVideo extends React.Component {
       <VideoRoot>
 
         {editing &&
-          <VideoRemoveButton onClick={this.remove}>
+          <RemoveButton onClick={this.remove}>
             <i className='fa fa-close' />
-          </VideoRemoveButton>
+          </RemoveButton>
         }
         <VideoWrapper>
           {videoId &&
@@ -71,15 +71,6 @@ export default class BubbleVideo extends React.Component {
   @autobind
   onVideoReady(player) {
     this.player = player
-  }
-
-  static renderCustomBuilderTools(nucleus, onChangeNucleus) {
-    return (
-      <BubbleBuilderYouTubeTool
-        nucleus={nucleus}
-        onChangeNucleus={onChangeNucleus}
-      />
-    )
   }
 
 }

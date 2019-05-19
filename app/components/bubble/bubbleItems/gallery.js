@@ -2,12 +2,12 @@ import React from 'react'
 import EditingGallery from 'react-grid-gallery'
 import Gallery from 'react-image-gallery'
 import SelectPill from '../../unoSelectPill'
-import BubbleWriting from './words'
 import {Helmet} from 'react-helmet'
 
 import {
   GalleryRoot, EditPhotosRoot, Button, DeleteButton,
-  Hint, CaptionInput, BubbleComponentRoot
+  Hint, CaptionInput, BubbleComponentRoot, RemoveButton, BuilderButton,
+  GalleryPositionTitle, GalleryPositionRoot,
 } from './styled'
 import {FlexColumn, HiddenFileInput} from '../../../global/styled'
 import 'react-image-gallery/styles/css/image-gallery.css'
@@ -53,12 +53,20 @@ export default class BubbleGallery extends React.PureComponent {
     }
   }
 
+  @autobind
   getGalleryImages({images, id: bubbleId}) {
     if (!images || !images.length) return []
 
     let galleryImages = []
 
     images.forEach((img, index) => {
+      const localImage = this.state.images.find(stateImg => (
+        stateImg.id === img.id && stateImg.needsUpload
+      ))
+      if (localImage) {
+        galleryImages.push(localImage)
+        return
+      }
       const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
       galleryImages.push({
         src,
@@ -113,19 +121,11 @@ export default class BubbleGallery extends React.PureComponent {
     const shouldShowGallery = !!images.length && !shouldShowEditingGallery
 
     return (
-      <BubbleComponentRoot className={'galleryBubble-' + mode}>
+      <BubbleComponentRoot className={'gallery gallery-' + mode}>
         {!!images.length &&
           <Helmet>
             <meta property='og:image' content={images[0].src} />
           </Helmet>
-        }
-
-        {(editing || detailText) &&
-          <BubbleWriting
-            {...this.props}
-            className='galleryWriting'
-            placeholder='tell somebody bout yo gallery, hennie.'
-          />
         }
 
         {shouldShowGallery &&
@@ -373,6 +373,35 @@ export default class BubbleGallery extends React.PureComponent {
         ...images
       ],
     })
+  }
+
+  static renderCustomBuilderTools(nucleus, onChangeNucleus) {
+    if (!nucleus.images) {
+      const addGallery = () => {
+        onChangeNucleus({images: [], galleryPosition: 'bottom'})
+      }
+      return (
+        <BuilderButton onClick={addGallery}><div>add gallery</div></BuilderButton>
+      )
+    }
+    const positionSelectPillOptions = ['bottom', 'top'].map(opt => ({
+      name: opt,
+      onClick: () => onChangeNucleus({galleryPosition: opt}),
+    }))
+    const removeGallery = () => onChangeNucleus({
+      images: undefined,
+      galleryPosition: undefined
+    })
+    return (
+      <GalleryPositionRoot>
+        <GalleryPositionTitle>gallery position</GalleryPositionTitle>
+        <SelectPill
+          className='positionSelectPill'
+          options={positionSelectPillOptions}
+        />
+        <BuilderButton onClick={removeGallery}><div>remove gallery</div></BuilderButton>
+      </GalleryPositionRoot>
+    )
   }
 
 }

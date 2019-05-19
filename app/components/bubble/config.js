@@ -3,19 +3,13 @@ import {openInNewTab} from '../../utils/nav'
 import {SCREEN_WIDTH_M, SCREEN_WIDTH_S, SRC_URL} from '../../global/constants'
 
 export const BubbleType = makeEnum([
-  'gallery',
-  'video',
-  'words',
   'poetcards',
   'business',
-  // 'music',
 ])
-
 export const BubbleComponents = {}
 Object.keys(BubbleType).forEach(type => {
   BubbleComponents[type] = require('./bubbleItems/' + type).default
 })
-BubbleComponents.writing = BubbleComponents.words
 BubbleComponents.UnicornBubble = require('../UnicornBubble').default
 
 const BubbleButtonTypes = [
@@ -34,37 +28,11 @@ export const BubbleButtonActions = {
   OrderPoetcards: props => {},
   OpenLinkInPlace: props => window.location = props.url,
 }
-
 export const BubbleButtonActionList =
   Object.keys(BubbleButtonActions).reduce((list, k) => {
     list[k] = k
     return list
   }, {})
-
-export const HeroBubbleConfig = {
-  instagram: {
-    width: 540,
-  },
-  patreon: {
-    width: (window.innerWidth <= SCREEN_WIDTH_S)? 240 :
-      (window.innerWidth <= SCREEN_WIDTH_M)? 320 : 540,
-    leftSide: true,
-    gratitude: [
-      {
-        text: '<strong>this month\'s spotlight patron:</strong>\
-               jewnicorn dave and his mustachioed carrot!\
-               <br />want art for a cause? join the club.',
-        image: {
-          src: SRC_URL + 'bubbles/patreon/dave-carrot.jpg',
-          width: 122,
-        },
-      },
-    ]
-  }
-}
-Object.keys(HeroBubbleConfig).forEach(bid => {
-  HeroBubbleConfig[bid].Component = require('./hero/' + bid).default
-})
 
 export const Poetcards = [
   'front v2 tiny',

@@ -1,5 +1,6 @@
 import React from 'react'
 import Spinnie from '../../spinnie'
+import BubbleContent from '../bubbleItems/words'
 
 import {
   Root, ContentRoot, ActionsRoot, Action, BubbleEditButton, BubbleDeleteButton, NavButton, ComponentRoot,
@@ -46,8 +47,13 @@ export default class BubbleDetails extends React.PureComponent {
     const {
       editing, activeBubble,
     } = this.props
-    const {actions = []} = activeBubble || {}
-    const BubbleComponent = activeBubble && BubbleComponents[activeBubble.type]
+    if (!activeBubble) return null
+
+    const {actions = []} = activeBubble
+    let BubbleComponent = BubbleContent
+    if (activeBubble.componentName) {
+      BubbleComponent = BubbleComponents[activeBubble.componentName]
+    }
 
     return (
       <Root className={editing && 'editing'}>
@@ -59,9 +65,7 @@ export default class BubbleDetails extends React.PureComponent {
           {this.renderEditMenuButton()}
 
           <ComponentRoot>
-            {BubbleComponent &&
-              <BubbleComponent nucleus={activeBubble} />
-            }
+            <BubbleComponent nucleus={activeBubble} />
           </ComponentRoot>
 
           <Footer>

@@ -11,15 +11,11 @@ import {
 import {Icon, screen} from '../../global/styled'
 
 export const Root = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 50%;
   display: flex;
   padding: 5px;
   border-radius: 50px;
   border: 1px solid ${p => p.theme.veryLight};
   z-index: 40;
-  transform: translateX(-50%);
   background: ${p => p.theme.slightlyDark};
   height: 60px;
   box-shadow: ${p => p.theme.shadowMedium};
@@ -42,6 +38,8 @@ export const OptionRoot = styled.div`
   user-select: none;
   margin-left: ${p => p.breathe? '5px' : '0'};
   color: ${p => p.selected? p.theme.main : 'white'};
+  display: flex;
+  align-items: center;
 
   ${p => p.hidden? `
     width: 0;

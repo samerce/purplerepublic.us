@@ -139,6 +139,18 @@ export const BubbleComponentRoot = FlexColumn.extend`
 
   &.wordsRoot {
     padding: 0;
+    overflow: hidden;
+    justify-content: flex-start;
+
+    &.galleryFirst {
+      flex-direction: column-reverse;
+      justify-content: flex-end;
+    }
+  }
+  &.gallery {
+    width: 100%;
+    flex: 0 0 auto;
+    height: initial;
   }
 
   #ReactGridGallery {
@@ -158,7 +170,7 @@ export const VideoWrapper = Flex.extend`
   overflow: hidden;
 `
 
-export const VideoRemoveButton = CloseButton.extend`
+export const RemoveButton = CloseButton.extend`
   position: absolute;
   transform: none;
   opacity: 1;
@@ -192,10 +204,31 @@ export const EditPhotosRoot = FlexColumn.extend`
   }
 `
 
+export const GalleryPositionRoot = FlexColumn.extend`
+  align-items: center;
+  margin: 10px 0;
+
+  .selectOption {
+    font-size: 18px;
+  }
+`
+
+export const GalleryPositionTitle = Flex.extend`
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: playfair Display;
+  color: ${p => p.theme.veryLight};
+  margin: 0 0 10px;
+`
+
 export const Button = Boto.extend`
   font-size: 22px;
   padding: 15px 20px 10px;
   transform: translate(0, -10px);
+`
+
+export const BuilderButton = Boto.extend`
+  margin: 10px 0;
 `
 
 export const DeleteButton = Button.extend`
