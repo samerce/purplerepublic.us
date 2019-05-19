@@ -168,6 +168,7 @@ export const VideoWrapper = Flex.extend`
   border: 1px solid ${p => p.theme.veryLight};
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
 `
 
 export const RemoveButton = CloseButton.extend`
@@ -322,7 +323,7 @@ export const PoetCardTotal = Boto.extend`
   background: ${p => p.theme.main};
   position: fixed;
   top: 100%;
-  transform: translate(0, -241px);
+  transform: translate(0, -201px);
   width: 100%;
   justify-content: center;
   z-index: 102;
