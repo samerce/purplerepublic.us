@@ -275,18 +275,7 @@ function fetchBubbles() {
     fetch('/bubbleStageDirection.js', {
       cache: 'no-cache',
     }).then((responseRaw) => {
-      responseRaw.json().then(bubbles => {
-        bubbles.forEach(bubble => {
-          if (bubble.id === 'shopArt') {
-            bubble.type = 'words'
-          }
-          if (bubble.id === 'buy-poetcards') {
-            bubble.type = 'poetcards'
-            bubble.buttonType = 'poetcards'
-          }
-        })
-        resolve(bubbles)
-      }).catch(reject)
+      responseRaw.json().then(resolve).catch(reject)
     }).catch(reject)
   })
 

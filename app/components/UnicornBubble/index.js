@@ -1,5 +1,6 @@
 import React from 'react'
 import Checkout from '../Checkout'
+import MailingListForm from '../MailingListForm'
 
 import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
@@ -140,7 +141,7 @@ export default class UnicornBubble extends React.PureComponent {
           </SectionHeader>
           <H1>join our mailing list</H1>
           <H2>monthly updates on our mission + opportunities for you to get involved!</H2>
-
+          <MailingListForm />
         </MailingListRoot>
       </Root>
     )

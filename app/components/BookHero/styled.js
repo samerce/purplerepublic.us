@@ -5,16 +5,6 @@ import {
   Flex, FlexColumn, Boto, AbsoluteFlex, screen,
 } from '../../global/styled'
 
-injectGlobal`
-  #mc_embed_signup{
-    background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;
-  }
-  .mc_hidden_input {
-    position: absolute;
-    left: -5000px;
-  }
-`
-
 export const Root = Flex.extend`
   padding: 20px 0 40px;
   flex-wrap: wrap;
@@ -140,45 +130,6 @@ export const MailingListRoot = FlexColumn.extend`
     flex: 0 0 auto;
     width: 100%;
   `}
-
-  #mc_embed_signup {
-    background: transparent;
-  }
-
-  .email {
-    max-width: 100%;
-    width: 500px;
-    background: transparent;
-    padding: 10px;
-    font-size: 22px;
-    color: white;
-    border-bottom: 1px solid ${p => p.theme.veryLight};
-    text-align: center;
-    font-family: alice;
-    margin: 20px 0 10px;
-  }
-
-  #mc-embedded-subscribe {
-    background: ${p => p.theme.tweet};
-    font-family: alice;
-    font-size: 26px;
-    color: white;
-    border-radius: 10px;
-    width: 300px;
-    padding: 10px;
-    border: 1px solid ${p => p.theme.tweetLight};
-    cursor: pointer;
-    max-width: 100%;
-
-    &:hover {
-      background: white;
-      border-color: ${p => p.theme.tweet};
-      color: ${p => p.theme.tweet};
-    }
-  }
-  .hiddenInput {
-    visibility: hidden;
-  }
 `
 
 export const Header = Flex.extend`
