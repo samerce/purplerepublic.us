@@ -53,30 +53,33 @@ export default class BubbleWords extends React.PureComponent {
   render() {
     const {editorState, isFocused, decorators} = this.state
     const {placeholder, editing, className, nucleus} = this.props
+    const {images, detailText, galleryPosition} = nucleus
     let toolbarClassName = 'words-editor-toolbar'
     if (isFocused) toolbarClassName += ' visible'
     const classes = cx({
       [className]: 1,
       wordsRoot: 1,
-      galleryFirst: nucleus.galleryPosition === 'top',
+      galleryFirst: galleryPosition === 'top',
     })
     return (
       <BubbleComponentRoot className={classes}>
-        <Description>
-          <Editor
-            toolbar={ToolbarConfig}
-            toolbarClassName={toolbarClassName}
-            editorClassName='words-editor-textarea'
-            editorState={editorState}
-            customDecorators={decorators}
-            placeholder={placeholder || DefaultPlaceholder}
-            onEditorStateChange={this.onEditorChange}
-            onFocus={() => this.setState({isFocused: true})}
-            onBlur={() => this.setState({isFocused: false})}
-            readOnly={!editing}
-          />
-        </Description>
-        {nucleus.images && <Gallery nucleus={this.props.nucleus} />}
+        {detailText &&
+          <Description>
+            <Editor
+              toolbar={ToolbarConfig}
+              toolbarClassName={toolbarClassName}
+              editorClassName='words-editor-textarea'
+              editorState={editorState}
+              customDecorators={decorators}
+              placeholder={placeholder || DefaultPlaceholder}
+              onEditorStateChange={this.onEditorChange}
+              onFocus={() => this.setState({isFocused: true})}
+              onBlur={() => this.setState({isFocused: false})}
+              readOnly={!editing}
+            />
+          </Description>
+        }
+        {images && <Gallery nucleus={this.props.nucleus} />}
       </BubbleComponentRoot>
     )
   }

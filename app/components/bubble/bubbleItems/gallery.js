@@ -60,13 +60,16 @@ export default class BubbleGallery extends React.PureComponent {
     let galleryImages = []
 
     images.forEach((img, index) => {
-      const localImage = this.state.images.find(stateImg => (
-        stateImg.id === img.id && stateImg.needsUpload
-      ))
-      if (localImage) {
-        galleryImages.push(localImage)
-        return
+      if (this.state) {
+        const localImage = this.state.images.find(stateImg => (
+          stateImg.id === img.id && stateImg.needsUpload
+        ))
+        if (localImage) {
+          galleryImages.push(localImage)
+          return
+        }
       }
+
       const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
       galleryImages.push({
         src,
