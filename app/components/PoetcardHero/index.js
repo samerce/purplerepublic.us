@@ -60,10 +60,10 @@ export default class PoetcardHero extends React.PureComponent {
   }
 
   @autobind
-  onKeyPressSecretCode({key, target}) {
-    if (key !== 'Enter') return
+  onKeyPressSecretCode(e) {
+    if (e.key !== 'Enter') return
 
-    const code = target.value.toLowerCase().trim()
+    const code = e.target.value.toLowerCase().trim()
     const handler = SecretCodeConfig[code]
     if (!handler) {
       // show message about invalid code

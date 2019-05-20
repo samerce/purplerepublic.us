@@ -137,11 +137,13 @@ export const TextInput = styled.input`
   transition: all .3s ${EASE_OUT};
   flex: 1 0 auto;
   height: 100%;
-  border-bottom: 1px solid ${p => p.theme.veryLight};
-  padding: 5px;
+  border: 2px solid transparent;
+  border-bottom-color: ${p => p.theme.veryLight};
+  padding: 10px;
 
   ::placeholder, ::-webkit-input-placeholder {
-    color: ${p => p.theme.veryLight};
+    color: ${p => p.theme.semiWhite};
+    opacity: .7;
   }
 
   &:hover {
@@ -150,6 +152,8 @@ export const TextInput = styled.input`
 
   &:focus {
     opacity: 1;
+    outline: none;
+    border-color: ${p => p.theme.semiWhite};
   }
 `
 

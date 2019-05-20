@@ -1,4 +1,4 @@
 export default {
-  unicorn: 'buy-poetcards',
+  unicorn: 'unicorn',
   love: () => {},
 }

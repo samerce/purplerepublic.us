@@ -54,6 +54,7 @@ export default class Checkout extends React.PureComponent {
       },
       createOrder: this.createOrder,
       onApprove: this.onApprove,
+      onError: this.onError,
     }).render('#paypalButtons')
   }
 
@@ -105,13 +106,18 @@ export default class Checkout extends React.PureComponent {
   @autobind
   onApprove(data, actions) {
     return actions.order.capture().then(details => {
-      // Show a success message to your buyer
+      this.props.onSuccess()
       // https://developer.paypal.com/docs/api/orders/v2/#orders_get
       this.slackInput.post(
         JSON.stringify(details, null, 2) +
         '\n🎉——————————————🤩———————————————🎉'
       )
     })
+  }
+
+  @autobind
+  onError(err) {
+    this.props.onError()
   }
 
 }

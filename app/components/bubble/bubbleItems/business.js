@@ -77,7 +77,7 @@ export default class MindfulBusiness extends React.Component {
           }
 
           {o.features.map(feature => (
-            <Feature>
+            <Feature key={feature}>
               <i className='fa fa-check' />
               <FeatureText>
                 {feature}

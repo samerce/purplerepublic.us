@@ -6,8 +6,9 @@ import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
   ArtOptionsRoot, ArtOption, H1, H2, Body, PickArtForm, Button,
   PoetcardPreviewRoot, ButtonGroup, Image, SizeOptionsRoot, SizeOption,
-  PriceInput, ShippingLine, GetItText, TotalText, GetItButton, PriceRoot,
-  TotalRoot, CheckoutRoot,
+  PriceInput, ShippingRoot, GetItText, TotalText, GetItButton, PriceRoot,
+  TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
+  PlusSign,
 } from './styled'
 import {
   SectionHeader
@@ -16,12 +17,19 @@ import {
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {openInNewTab} from '../../utils/nav'
+import {makeEnum} from '../../utils/lang'
 import {
   togglePastTimeline, toggleFutureTimeline
 } from '../ThenNowWhen/actions'
 
 import {SRC_URL} from '../../global/constants'
 
+const Mode = makeEnum([
+  'waiting',
+  'offering',
+  'closing',
+  'thanking',
+])
 const ArtOptions = [
   {
     id: 'prance',
@@ -43,14 +51,15 @@ export default class UnicornBubble extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
+      mode: Mode.waiting,
       total: ShippingTotal,
+      pickYourPrice: undefined,
       item: 'unicorn',
-      isCheckoutVisible: false,
     }
   }
 
   render() {
-    const {isCheckoutVisible} = this.state
+    const {mode} = this.state
     return (
       <Root>
         <PickArtRoot>
@@ -77,25 +86,37 @@ export default class UnicornBubble extends React.PureComponent {
               {SizeOptions.map(this.renderSizeOption)}
             </SizeOptionsRoot> */}
 
-            <TotalRoot className={isCheckoutVisible && 'checkingOut'}>
-              <PriceRoot>
-                <span>$</span>
-                <PriceInput
-                  onChange={this.onChangePrice}
-                  innerRef={r => this.priceInput = r}
-                  placeholder={'pick your price!'}
-                />
-              </PriceRoot>
-              <ShippingLine><div>+ ${ShippingTotal} shipping</div></ShippingLine>
+            <TotalRoot className={'checkout-' + mode}>
+              <Itemization>
+                <ShippingRoot>
+                  <ShippingPrice>${ShippingTotal}</ShippingPrice>
+                  <ShippingByline>shipping</ShippingByline>
+                  <PlusSign className='fa fa-plus' />
+                </ShippingRoot>
+                <PriceRoot>
+                  <PriceInput
+                    onChange={this.onChangePrice}
+                    innerRef={r => this.priceInput = r}
+                    placeholder={'pick your price!'}
+                    value={this.state.pickYourPrice}
+                  />
+                </PriceRoot>
+              </Itemization>
               <GetItButton onClick={this.onClickGetIt}>
                 <TotalText>${this.state.total}</TotalText>
                 <GetItText>
-                  {isCheckoutVisible? 'enter your deets' : 'get it now!'}
+                  {mode === Mode.offering && 'get it now!'}
+                  {mode === Mode.closing && 'enter your deets'}
+                  {mode === Mode.thanking && 'thank you! ❤️'}
                 </GetItText>
+                <CheckoutRoot>
+                  <Checkout
+                    order={makeOrder(this.state)}
+                    onSuccess={this.onOrderSuccess}
+                    onError={this.onOrderError}
+                  />
+                </CheckoutRoot>
               </GetItButton>
-              <CheckoutRoot>
-                <Checkout order={makeOrder(this.state)} />
-              </CheckoutRoot>
             </TotalRoot>
           </PickArtForm>
         </PickArtRoot>
@@ -163,9 +184,44 @@ export default class UnicornBubble extends React.PureComponent {
   }
 
   @autobind
+  onChangePrice() {
+    const price = this.priceInput.value.replace(/[^0-9]*/g, '')
+    const total = price? +price + ShippingTotal : ShippingTotal
+
+    let {mode} = this.state
+    if (mode !== Mode.closing) {
+      mode = price.length? Mode.offering : Mode.waiting
+    }
+
+    const pyp = price.length?
+      '$' + +price.toLocaleString([], {currency: 'USD'}) : ''
+    this.setState({
+      mode,
+      total: total.toLocaleString([], {currency: 'USD'}),
+      pickYourPrice: pyp,
+    })
+  }
+
+  @autobind
   onClickGetIt() {
-    if (this.state.isCheckoutVisible) return
-    this.setState({isCheckoutVisible: true})
+    const {mode} = this.state
+    if (mode === Mode.closing || mode === Mode.thanking) return
+    this.setState({mode: Mode.closing})
+  }
+
+  @autobind
+  onOrderSuccess() {
+    this.setState({mode: Mode.thanking})
+  }
+
+  @autobind
+  onOrderError() {
+    alert("\
+      oH nO! :(\n\
+      there was a problem processing your paypal payment.\n\
+      you were not charged.\n\n\
+      please try again!\
+    ")
   }
 
   @autobind
@@ -188,13 +244,6 @@ export default class UnicornBubble extends React.PureComponent {
   @autobind
   openEmailTab() {
     openInNewTab('mailto:whynot@expressyourmess.com')
-  }
-
-  @autobind
-  onChangePrice() {
-    const price = this.priceInput.value
-    const total = price? +price + ShippingTotal : 0
-    this.setState({total: total})
   }
 
 }
