@@ -7,16 +7,9 @@ import autobind from 'autobind-decorator'
 import {
   VideoRoot, VideoWrapper, RemoveButton,
 } from './styled'
-import {
-  SCREEN_WIDTH_M
-} from '../../../global/constants'
 
 const YouTubeRegex = /^[https*:\/\/]*[www.]*youtube.com\/watch\?v=(.{11})/gm
-const getVideoWidth = () => {
-  if (window.innerWidth <= SCREEN_WIDTH_M) {
-    return window.innerWidth * .9
-  } else return Math.min(1920, window.innerWidth * .8)
-}
+const getVideoWidth = () => Math.min(780, window.innerWidth * .9)
 
 export default class BubbleVideo extends React.Component {
 

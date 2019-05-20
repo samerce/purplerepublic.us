@@ -77,6 +77,7 @@ export default class BubbleWords extends React.PureComponent {
               onFocus={() => this.setState({isFocused: true})}
               onBlur={() => this.setState({isFocused: false})}
               readOnly={!editing}
+              toolbarHidden={!editing}
             />
           </Description>
         }

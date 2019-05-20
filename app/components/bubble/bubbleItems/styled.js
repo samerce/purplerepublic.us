@@ -141,12 +141,14 @@ export const BubbleComponentRoot = FlexColumn.extend`
     overflow: hidden;
     justify-content: flex-start;
 
-    &:not(.editing) {
-      pointer-events: none;
-    }
     &.galleryFirst {
       flex-direction: column-reverse;
       justify-content: flex-end;
+    }
+    &:not(.editing) {
+      .rdw-link-decorator-icon {
+        display: none;
+      }
     }
   }
   &.gallery {
