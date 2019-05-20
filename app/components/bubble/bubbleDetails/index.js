@@ -1,4 +1,5 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
 import Spinnie from '../../spinnie'
 import BubbleContent from '../bubbleItems/words'
 
@@ -11,6 +12,7 @@ import {Description} from '../bubbleItems/styled'
 import {canShowEditingTools} from '../../../utils/nav'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import Hammer from 'hammerjs'
 
 import {onClickBubbleAction} from '../redux/actions'
 import {
@@ -40,6 +42,18 @@ export default class BubbleDetails extends React.PureComponent {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.activeBubble) {
+      this.hammer = new Hammer(findDOMNode(this.contentRoot))
+      this.hammer.on('swipeleft', this.onClickNext)
+      this.hammer.on('swiperight', this.onClickPrev)
+    } else if (this.hammer) {
+      this.hammer.off('swipeleft', this.onClickNext)
+      this.hammer.off('swiperight', this.onClickPrev)
+      this.hammer = null
+    }
+  }
+
   render() {
     const {
       isDeleting, bubbleOptionsVisible,
@@ -57,11 +71,7 @@ export default class BubbleDetails extends React.PureComponent {
 
     return (
       <Root className={editing && 'editing'}>
-        <NavButton onClick={this.onClickPrev}>
-          <i className='fa fa-chevron-circle-left' />
-        </NavButton>
-
-        <ContentRoot>
+        <ContentRoot innerRef={r => this.contentRoot = r}>
           {this.renderEditMenuButton()}
 
           <ComponentRoot>
@@ -72,10 +82,6 @@ export default class BubbleDetails extends React.PureComponent {
             {!!actions.length && this.renderActions(actions)}
           </Footer>
         </ContentRoot>
-
-        <NavButton onClick={this.onClickNext} className='right'>
-          <i className='fa fa-chevron-circle-right' />
-        </NavButton>
       </Root>
     )
   }

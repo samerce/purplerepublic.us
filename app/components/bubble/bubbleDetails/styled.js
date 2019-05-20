@@ -28,7 +28,6 @@ export const Root = Flex.extend`
   width: 100%;
   flex: 1;
   justify-content: center;
-  padding: 0 50px;
 
   opacity: 0;
   transform: scale(.99);
