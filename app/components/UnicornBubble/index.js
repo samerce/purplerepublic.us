@@ -8,10 +8,10 @@ import {
   PoetcardPreviewRoot, ButtonGroup, Image, SizeOptionsRoot, SizeOption,
   PriceInput, ShippingRoot, GetItText, TotalText, GetItButton, PriceRoot,
   TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
-  PlusSign,
+  PlusSign, SelectButton,
 } from './styled'
 import {
-  SectionHeader
+  SectionHeader,
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
@@ -25,7 +25,7 @@ import {
 import {SRC_URL} from '../../global/constants'
 
 const Mode = makeEnum([
-  'waiting',
+  'teasing',
   'offering',
   'closing',
   'thanking',
@@ -51,10 +51,10 @@ export default class UnicornBubble extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      mode: Mode.waiting,
+      mode: Mode.thanking,
       total: ShippingTotal,
       pickYourPrice: undefined,
-      item: 'unicorn',
+      pickedArt: ArtOptions[1],
     }
   }
 
@@ -68,7 +68,7 @@ export default class UnicornBubble extends React.PureComponent {
           </H1>
           <H2>
             their powers have combined to offer you a chance to help save the world with art.
-            will you take it?
+            <br />will you take it?
           </H2>
 
           <ArtOptionsRoot>
@@ -107,7 +107,13 @@ export default class UnicornBubble extends React.PureComponent {
                 <GetItText>
                   {mode === Mode.offering && 'get it now!'}
                   {mode === Mode.closing && 'enter your deets'}
-                  {mode === Mode.thanking && 'thank you! ❤️'}
+                  {mode === Mode.thanking &&
+                    <div>
+                      ❤️ | thank you!<br/>
+                      💌 | check your email for details.<br/>
+                      🙏 | namaste, fellow creature.
+                    </div>
+                  }
                 </GetItText>
                 <CheckoutRoot>
                   <Checkout
@@ -169,11 +175,17 @@ export default class UnicornBubble extends React.PureComponent {
   }
 
   @autobind
-  renderArtOption({id, title}) {
+  renderArtOption(art) {
+    const selected = art.id === this.state.pickedArt.id
     return (
-      <ArtOption key={id}>
-        <ClickableImage src={pcsrc(id)} />
-        <div>{title}</div>
+      <ArtOption
+        key={art.id}
+        className={selected && 'selected'}>
+        <ClickableImage src={pcsrc(art.id)} />
+        <div>{art.title}</div>
+        <SelectButton onClick={() => this.onClickArtOption(art)}>
+          {selected? 'picked' : 'pick'}
+        </SelectButton>
       </ArtOption>
     )
   }
@@ -184,21 +196,25 @@ export default class UnicornBubble extends React.PureComponent {
   }
 
   @autobind
+  onClickArtOption(art) {
+    this.setState({pickedArt: art})
+  }
+
+  @autobind
   onChangePrice() {
     const price = this.priceInput.value.replace(/[^0-9]*/g, '')
     const total = price? +price + ShippingTotal : ShippingTotal
 
     let {mode} = this.state
     if (mode !== Mode.closing) {
-      mode = price.length? Mode.offering : Mode.waiting
+      mode = price.length? Mode.offering : Mode.teasing
     }
 
-    const pyp = price.length?
-      '$' + +price.toLocaleString([], {currency: 'USD'}) : ''
     this.setState({
       mode,
       total: total.toLocaleString([], {currency: 'USD'}),
-      pickYourPrice: pyp,
+      pickYourPrice: price.length?
+        '$' + +price.toLocaleString([], {currency: 'USD'}) : '',
     })
   }
 
@@ -257,11 +273,11 @@ function makeOrder(details) {
     description: 'pick your price faerie offering!',
     items: [
       {
-        name: details.item + ' 16 x 20 metallic print',
+        name: details.pickedArt.id + ' 16 x 20 metallic print',
         description: 'a gorgeous, shiny new print of original artwork',
         price: itemPrice,
         quantity: 1,
-        sku: details.item,
+        sku: details.pickedArt.id,
       },
     ],
   }

@@ -65,7 +65,7 @@ export const Root = Flex.extend`
   }
 
   ${screen.medium`
-    flex: 0 0 147px;
+    flex: 0 0 110px;
   `}
 `
 

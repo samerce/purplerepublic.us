@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto, FlexColumn, TextInput,
+  Flex, Boto, FlexColumn, TextInput, screen,
 } from '../../global/styled'
 
 export const Root = FlexColumn.extend`
@@ -15,21 +15,36 @@ export const PickArtRoot = FlexColumn.extend`
 
 `
 
-export const PickArtForm = FlexColumn.extend`
-  flex-wrap: wrap;
-  align-items: center;
-`
-
 export const ArtOptionsRoot = Flex.extend`
   justify-content: space-around;
   width: 100%;
-  margin: 20px 0 40px;
+  margin: 20px 0;
 `
 
 export const ArtOption = styled.div`
   flex: 0 0 30%;
+  align-items: center;
+
   img {
     width: 100%;
+    border: 5px solid transparent;
+    transition: all .3s ${EASE_OUT};
+  }
+
+  &.selected img {
+    border-color: ${p => p.theme.semiWhite};
+  }
+`
+
+export const SelectButton = Boto.extend`
+  max-width: 100px;
+  margin: 15px auto;
+
+  .selected &, .selected &:hover {
+    background: ${p => p.theme.veryLight};
+    color: ${p => p.theme.veryDark};
+    border-color: ${p => p.theme.veryDark};
+    cursor: default;
   }
 `
 
@@ -45,9 +60,14 @@ export const SizeOption = Boto.extend`
   margin: 0 10px;
 `
 
+export const PickArtForm = FlexColumn.extend`
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px 0 0;
+`
+
 export const TotalRoot = FlexColumn.extend`
   width: 250px;
-  margin: 20px 0 0;
 `
 
 export const Itemization = FlexColumn.extend`
@@ -135,10 +155,10 @@ export const PriceInput = TextInput.extend`
 
 export const GetItButton = Boto.extend`
   position: relative;
-  flex: 1;
+  flex: 0 0 0;
   flex-direction: column;
   align-items: center;
-  padding: 22px 0 10px;
+  padding: 22px 0 0;
   width: 80%;
   align-self: center;
   transform: translate(0, -100%);
@@ -150,6 +170,7 @@ export const GetItButton = Boto.extend`
   .checkout-offering &, .checkout-closing &, .checkout-thanking & {
     opacity: 1;
     transform: translate(0, -12px);
+    flex: 0 0 180px;
   }
 
   .checkout-closing &, .checkout-closing &:hover {
@@ -159,10 +180,26 @@ export const GetItButton = Boto.extend`
     border-color: ${p => p.theme.veryLight};
     padding: 22px 0 20px;
     cursor: default;
+    flex: 0 0 603px;
+
+    ${screen.medium`
+      width: ${window.innerWidth - 100}px;
+      flex: 0 0 626px;
+    `}
   }
   .checkout-thanking & {
     background: ${p => p.theme.veryDark};
     pointer-events: none;
+    flex: 0 0 159px;
+    padding: 20px 20px 15px;
+    width: 395px;
+    text-align: left;
+
+    ${screen.medium`
+      width: ${window.innerWidth - 100}px;
+      font-size: 18px;
+      flex: 0 0 125px;
+    `}
   }
 `
 
@@ -266,14 +303,24 @@ export const MailingListRoot = FlexColumn.extend`
 export const H1 = Flex.extend`
   font-size: 48px;
   color: ${p => p.theme.semiWhite};
-  ${'' /* text-transform: uppercase; */}
   font-family: great vibes;
+  text-align: center;
+
+  ${screen.medium`
+    font-size: 36px;
+    padding: 5px;
+  `}
 `
 
 export const H2 = Flex.extend`
   font-size: 24px;
   color: ${p => p.theme.veryLight};
   margin: 0 0 15px;
+  text-align: center;
+
+  ${screen.medium`
+    font-size: 19px;
+  `}
 `
 
 export const Body = FlexColumn.extend`
@@ -291,6 +338,12 @@ export const Button = Boto.extend`
   max-width: 400px;
   flex: 1;
   margin: 0 10px;
+
+  ${screen.medium`
+    max-width: unset;
+    margin: 8px 0;
+    flex: 100%;
+  `}
 `
 
 export const ButtonGroup = Flex.extend`
@@ -299,4 +352,8 @@ export const ButtonGroup = Flex.extend`
   margin: 20px 0 0;
   padding: 0 100px;
   flex-wrap: wrap;
+
+  ${screen.medium`
+    padding: 0;
+  `}
 `

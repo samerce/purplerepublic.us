@@ -135,13 +135,15 @@ export const BubbleComponentRoot = FlexColumn.extend`
   position: relative;
   flex: 0 0 100%;
   align-items: center;
-  padding: 20px 0 0;
+  padding: 20px;
 
   &.wordsRoot {
-    padding: 0;
     overflow: hidden;
     justify-content: flex-start;
 
+    &:not(.editing) {
+      pointer-events: none;
+    }
     &.galleryFirst {
       flex-direction: column-reverse;
       justify-content: flex-end;
@@ -159,7 +161,7 @@ export const BubbleComponentRoot = FlexColumn.extend`
   }
 `
 
-export const VideoRoot = BubbleComponentRoot.extend`
+export const VideoRoot = FlexColumn.extend`
   text-align: center;
   align-items: center;
 `
@@ -179,7 +181,6 @@ export const RemoveButton = CloseButton.extend`
 `
 
 export const Description = ArticleText.extend`
-  padding: 0 20px;
   font-size: 21px;
   max-width: 780px;
 
@@ -336,6 +337,7 @@ export const PoetCardTotal = Boto.extend`
   ${screen.medium`
     font-size: 30px;
     line-height: 58px;
+    transform: translate(0, -171px);
   `}
 
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {

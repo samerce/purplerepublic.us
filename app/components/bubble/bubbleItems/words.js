@@ -60,6 +60,7 @@ export default class BubbleWords extends React.PureComponent {
       [className]: 1,
       wordsRoot: 1,
       galleryFirst: galleryPosition === 'top',
+      editing,
     })
     return (
       <BubbleComponentRoot className={classes}>
