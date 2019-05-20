@@ -22,7 +22,7 @@ export const ArtOptionsRoot = Flex.extend`
 `
 
 export const ArtOption = styled.div`
-  flex: 0 0 30%;
+  flex: 0 0 25%;
   align-items: center;
 
   img {
@@ -36,16 +36,16 @@ export const ArtOption = styled.div`
   }
 `
 
-export const SelectButton = Boto.extend`
-  max-width: 100px;
+export const SeeButton = Boto.extend`
+  max-width: 200px;
   margin: 15px auto;
 
-  .selected &, .selected &:hover {
+  ${'' /* .selected &, .selected &:hover {
     background: ${p => p.theme.veryLight};
     color: ${p => p.theme.veryDark};
     border-color: ${p => p.theme.veryDark};
     cursor: default;
-  }
+  } */}
 `
 
 export const SizeOptionsRoot = Flex.extend`

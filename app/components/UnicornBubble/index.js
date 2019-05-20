@@ -8,7 +8,7 @@ import {
   PoetcardPreviewRoot, ButtonGroup, Image, SizeOptionsRoot, SizeOption,
   PriceInput, ShippingRoot, GetItText, TotalText, GetItButton, PriceRoot,
   TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
-  PlusSign, SelectButton,
+  PlusSign, SeeButton,
 } from './styled'
 import {
   SectionHeader,
@@ -51,7 +51,7 @@ export default class UnicornBubble extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      mode: Mode.thanking,
+      mode: Mode.teasing,
       total: ShippingTotal,
       pickYourPrice: undefined,
       pickedArt: ArtOptions[1],
@@ -181,11 +181,14 @@ export default class UnicornBubble extends React.PureComponent {
       <ArtOption
         key={art.id}
         className={selected && 'selected'}>
-        <ClickableImage src={pcsrc(art.id)} />
+        <Image
+          src={pcsrc(art.id)}
+          onClick={() => this.onClickArtOption(art)}
+        />
         <div>{art.title}</div>
-        <SelectButton onClick={() => this.onClickArtOption(art)}>
-          {selected? 'picked' : 'pick'}
-        </SelectButton>
+        <SeeButton onClick={() => openInNewTab(pcsrc(art.id))}>
+          see bigger
+        </SeeButton>
       </ArtOption>
     )
   }
