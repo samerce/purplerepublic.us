@@ -163,7 +163,7 @@ function getOrderDetails(order, shipping) {
       },
       note_to_payer: 'thanks for supporting the love revolution!',
       custom_id: Date.now(),
-      soft_descriptor: 'expressyourmess', // appears on credit card statements
+      soft_descriptor: order.ccStatementText || 'artloverevolution',
       //invoice_id: '12345',
     }],
   }
