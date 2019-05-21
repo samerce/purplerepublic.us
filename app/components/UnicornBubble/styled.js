@@ -9,6 +9,66 @@ export const Root = FlexColumn.extend`
   width: 100%;
 `
 
+export const H1 = Flex.extend`
+  font-size: 48px;
+  color: ${p => p.theme.semiWhite};
+  font-family: great vibes;
+  text-align: center;
+
+  ${screen.medium`
+    font-size: 36px;
+    padding: 5px;
+  `}
+`
+
+export const H2 = Flex.extend`
+  font-size: 24px;
+  color: ${p => p.theme.veryLight};
+  margin: 0 0 15px;
+  text-align: center;
+
+  ${screen.medium`
+    font-size: 19px;
+    padding: 0 10px;
+  `}
+`
+
+export const Body = FlexColumn.extend`
+  font-size: 20px;
+  color: ${p => p.theme.slightlyDark};
+  background: ${p => p.theme.veryLight};
+  border-radius: 10px;
+  border: 1px solid ${p => p.theme.slightlyDark};
+  padding: 0 20px;
+  max-width: 780px;
+  box-shadow: ${p => p.theme.shadowMedium};
+  margin: 0 20px;
+`
+
+export const Button = Boto.extend`
+  max-width: 400px;
+  flex: 1;
+  margin: 0 10px;
+
+  ${screen.medium`
+    max-width: unset;
+    margin: 8px 20px;
+    flex: 100%;
+  `}
+`
+
+export const ButtonGroup = Flex.extend`
+  justify-content: space-around;
+  width: 100%;
+  margin: 20px 0 0;
+  padding: 0 100px;
+  flex-wrap: wrap;
+
+  ${screen.medium`
+    padding: 0;
+  `}
+`
+
 export const PickArtRoot = FlexColumn.extend`
   align-items: center;
   margin: 20px 0 40px;
@@ -19,11 +79,17 @@ export const ArtOptionsRoot = Flex.extend`
   justify-content: space-around;
   width: 100%;
   margin: 20px 0;
+  flex-wrap: wrap;
+
+  ${screen.medium`
+    padding: 0 20px;
+  `}
 `
 
 export const ArtOption = styled.div`
   flex: 0 0 25%;
   align-items: center;
+  position: relative;
 
   img {
     width: 100%;
@@ -34,11 +100,36 @@ export const ArtOption = styled.div`
   &.selected img {
     border-color: ${p => p.theme.semiWhite};
   }
+
+  ${screen.medium`
+    flex: 100%;
+
+    &:nth-child(1) {
+      order: 1;
+    }
+  `}
+`
+
+export const ArtTitle = Flex.extend`
+  text-align: center;
+  color: ${p => p.theme.veryDark};
+  background: ${p => p.theme.veryLight};
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid ${p => p.theme.veryDark};
+  margin: 10px 50px 0;
+  justify-content: center;
 `
 
 export const SeeButton = Boto.extend`
   max-width: 200px;
-  margin: 15px auto;
+  margin: 10px auto 20px;
+
+  ${screen.medium`
+    max-width: 150px;
+    font-size: 18px;
+  `}
 
   ${'' /* .selected &, .selected &:hover {
     background: ${p => p.theme.veryLight};
@@ -94,23 +185,33 @@ export const Itemization = FlexColumn.extend`
   }
 `
 
+export const ItemName = Body.extend`
+  margin: 0;
+  align-items: center;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 5px 0;
+  border: 0;
+  box-shadow: none;
+`
+
 export const ShippingRoot = FlexColumn.extend`
   flex: 1;
   color: ${p => p.theme.veryLight};
   font-size: 28px;
   font-family: alice;
   background: ${p => p.theme.veryDark};
-  border-bottom: 1px solid ${p => p.theme.veryLight};
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   width: 100%;
   align-items: center;
-  padding: 0 0 20px;
   position: relative;
+  padding: 20px 0 10px;
 `
 
 export const ShippingPrice = Flex.extend`
   color: ${p => p.theme.semiWhite};
+  line-height: 28px;
 `
 
 export const ShippingByline = Flex.extend`
@@ -128,7 +229,7 @@ export const PlusSign = styled.i`
   border-radius: 100%;
   border: 1px solid ${p => p.theme.veryDark};
   position: absolute;
-  top: 100%;
+  top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -136,15 +237,14 @@ export const PlusSign = styled.i`
 
 export const PriceRoot = FlexColumn.extend`
   flex: 1;
+  position: relative;
 `
 
 export const PriceInput = TextInput.extend`
   flex: 1;
   margin: 0;
   width: 100%;
-  padding: 20px 0 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  padding: 20px 0;
   font-size: 28px;
   color: ${p => p.theme.semiWhite};
 
@@ -153,7 +253,7 @@ export const PriceInput = TextInput.extend`
   }
 `
 
-export const GetItButton = Boto.extend`
+export const CheckoutWidget = Boto.extend`
   position: relative;
   flex: 0 0 0;
   flex-direction: column;
@@ -174,10 +274,10 @@ export const GetItButton = Boto.extend`
   }
 
   .checkout-closing &, .checkout-closing &:hover {
-    background: ${p => p.theme.veryDark};
+    background: ${p => p.theme.main};
+    border-color: ${p => p.theme.veryLight};
     width: 150%;
     color: ${p => p.theme.veryLight};
-    border-color: ${p => p.theme.veryLight};
     padding: 22px 0 20px;
     cursor: default;
     flex: 0 0 603px;
@@ -188,7 +288,8 @@ export const GetItButton = Boto.extend`
     `}
   }
   .checkout-thanking & {
-    background: ${p => p.theme.veryDark};
+    background: ${p => p.theme.veryLight};
+    color: ${p => p.theme.veryDark};
     pointer-events: none;
     flex: 0 0 159px;
     padding: 20px 20px 15px;
@@ -216,9 +317,9 @@ export const TotalText = Flex.extend`
   background: ${p => p.theme.slightlyDark};
   font-size: 28px;
 
-  ${GetItButton}:hover &, .checkout-closing & {
-    background: ${p => p.theme.main};
-    border-color: ${p => p.theme.semiWhite};
+  ${CheckoutWidget}:hover &, .checkout-closing & {
+    background: ${p => p.theme.veryDark};
+    border-color: ${p => p.theme.veryLight};
     color: ${p => p.theme.semiWhite};
   }
   .checkout-thanking & {
@@ -232,6 +333,11 @@ export const TotalText = Flex.extend`
 export const GetItText = Flex.extend`
   transition: right .3s ${EASE_OUT};
   flex: 1;
+
+  .checkout-closing & {
+    color: ${p => p.theme.veryLight};
+    font-size: 28px;
+  }
 `
 
 export const CheckoutRoot = FlexColumn.extend`
@@ -282,9 +388,15 @@ export const PoetcardPreviewRoot = Flex.extend`
   align-items: center;
   justify-content: space-around;
   margin: 0 0 20px;
+  flex-wrap: wrap;
 
   img {
     max-width: 30%;
+
+    ${screen.medium`
+      max-width: 90%;
+      margin: 10px 0;
+    `}
   }
 `
 
@@ -298,62 +410,4 @@ export const MailingListRoot = FlexColumn.extend`
   align-items: center;
   margin: 0 0 40px;
 
-`
-
-export const H1 = Flex.extend`
-  font-size: 48px;
-  color: ${p => p.theme.semiWhite};
-  font-family: great vibes;
-  text-align: center;
-
-  ${screen.medium`
-    font-size: 36px;
-    padding: 5px;
-  `}
-`
-
-export const H2 = Flex.extend`
-  font-size: 24px;
-  color: ${p => p.theme.veryLight};
-  margin: 0 0 15px;
-  text-align: center;
-
-  ${screen.medium`
-    font-size: 19px;
-  `}
-`
-
-export const Body = FlexColumn.extend`
-  font-size: 20px;
-  color: ${p => p.theme.slightlyDark};
-  background: ${p => p.theme.veryLight};
-  border-radius: 10px;
-  border: 1px solid ${p => p.theme.slightlyDark};
-  padding: 0 20px;
-  max-width: 780px;
-  box-shadow: ${p => p.theme.shadowMedium};
-`
-
-export const Button = Boto.extend`
-  max-width: 400px;
-  flex: 1;
-  margin: 0 10px;
-
-  ${screen.medium`
-    max-width: unset;
-    margin: 8px 0;
-    flex: 100%;
-  `}
-`
-
-export const ButtonGroup = Flex.extend`
-  justify-content: space-around;
-  width: 100%;
-  margin: 20px 0 0;
-  padding: 0 100px;
-  flex-wrap: wrap;
-
-  ${screen.medium`
-    padding: 0;
-  `}
 `

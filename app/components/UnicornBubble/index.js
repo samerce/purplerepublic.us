@@ -6,9 +6,9 @@ import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
   ArtOptionsRoot, ArtOption, H1, H2, Body, PickArtForm, Button,
   PoetcardPreviewRoot, ButtonGroup, Image, SizeOptionsRoot, SizeOption,
-  PriceInput, ShippingRoot, GetItText, TotalText, GetItButton, PriceRoot,
+  PriceInput, ShippingRoot, GetItText, TotalText, CheckoutWidget, PriceRoot,
   TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
-  PlusSign, SeeButton,
+  PlusSign, SeeButton, ArtTitle, ItemName,
 } from './styled'
 import {
   SectionHeader,
@@ -33,12 +33,18 @@ const Mode = makeEnum([
 const ArtOptions = [
   {
     id: 'prance',
+    title: 'sunrose the unicorn',
+    cheeky: 'sunrose nuzzles you.',
   },
   {
     id: 'train hoppin charlie',
+    title: 'charlie the hippie',
+    cheeky: 'charlie gives you a wink.',
   },
   {
     id: 'the flight home',
+    title: 'sol the bird',
+    cheeky: 'sol lands on your head.',
   },
 ]
 const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
@@ -59,7 +65,7 @@ export default class UnicornBubble extends React.PureComponent {
   }
 
   render() {
-    const {mode} = this.state
+    const {mode, total, pickYourPrice, pickedArt} = this.state
     return (
       <Root>
         <PickArtRoot>
@@ -67,7 +73,7 @@ export default class UnicornBubble extends React.PureComponent {
             a unicorn, a hippie & a bird landed on your roof!
           </H1>
           <H2>
-            their powers have combined to offer you a chance to help save the world with art.
+            they have pooled their power to offer you a chance to help save the world with art.
             <br />will you take it?
           </H2>
 
@@ -76,9 +82,7 @@ export default class UnicornBubble extends React.PureComponent {
           </ArtOptionsRoot>
 
           <Body>
-            <p>wapow!</p>
-            <p>the spell is cast!</p>
-            <p>what you get: one 16 x 20 metallic print of any of the pieces above at any price you want!</p>
+            <p>the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. pick one of these beautiful creatures above & pick your price below to have a gorgeous <strong>16x20 metallic print</strong> carried by stork straight to your door!</p>
           </Body>
 
           <PickArtForm>
@@ -88,28 +92,32 @@ export default class UnicornBubble extends React.PureComponent {
 
             <TotalRoot className={'checkout-' + mode}>
               <Itemization>
-                <ShippingRoot>
-                  <ShippingPrice>${ShippingTotal}</ShippingPrice>
-                  <ShippingByline>shipping</ShippingByline>
-                  <PlusSign className='fa fa-plus' />
-                </ShippingRoot>
+                <ItemName>
+                  {pickedArt.title}
+                </ItemName>
                 <PriceRoot>
                   <PriceInput
                     onChange={this.onChangePrice}
                     innerRef={r => this.priceInput = r}
                     placeholder={'pick your price!'}
-                    value={this.state.pickYourPrice}
+                    value={pickYourPrice}
                   />
                 </PriceRoot>
+                <ShippingRoot>
+                  <ShippingPrice>${ShippingTotal}</ShippingPrice>
+                  <ShippingByline>shipping</ShippingByline>
+                  <PlusSign className='fa fa-plus' />
+                </ShippingRoot>
               </Itemization>
-              <GetItButton onClick={this.onClickGetIt}>
-                <TotalText>${this.state.total}</TotalText>
+              <CheckoutWidget onClick={this.onClickGetIt}>
+                <TotalText>${total}</TotalText>
                 <GetItText>
-                  {mode === Mode.offering && 'get it now!'}
+                  {mode === Mode.offering && 'buy it now!'}
                   {mode === Mode.closing && 'enter your deets'}
                   {mode === Mode.thanking &&
                     <div>
                       ❤️ | thank you!<br/>
+                      💋 | {pickedArt.cheeky}<br/>
                       💌 | check your email for details.<br/>
                       🙏 | namaste, fellow creature.
                     </div>
@@ -122,7 +130,7 @@ export default class UnicornBubble extends React.PureComponent {
                     onError={this.onOrderError}
                   />
                 </CheckoutRoot>
-              </GetItButton>
+              </CheckoutWidget>
             </TotalRoot>
           </PickArtForm>
         </PickArtRoot>
@@ -151,7 +159,7 @@ export default class UnicornBubble extends React.PureComponent {
           <H2>help us save the world with art!</H2>
           <Body>
             <p>
-              express your mess is a nonprofit organization working to make <i>art</i> the reason we all wake up in the morning. art is love and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live in harmony with each other.
+              express your mess is a nonprofit organization working to make <i>art</i> the reason we all wake up in the morning. art is the practice of loving life and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live in harmony with each other—to enjoy living!
             </p>
           </Body>
           <ButtonGroup>
@@ -185,7 +193,9 @@ export default class UnicornBubble extends React.PureComponent {
           src={pcsrc(art.id)}
           onClick={() => this.onClickArtOption(art)}
         />
-        <div>{art.title}</div>
+        <ArtTitle onClick={() => this.onClickArtOption(art)}>
+          {art.title}
+        </ArtTitle>
         <SeeButton onClick={() => openInNewTab(pcsrc(art.id))}>
           see bigger
         </SeeButton>
@@ -276,7 +286,7 @@ function makeOrder(details) {
     description: 'pick your price faerie offering!',
     items: [
       {
-        name: details.pickedArt.id + ' 16 x 20 metallic print',
+        name: details.pickedArt.title + ' — 16 x 20 metallic print',
         description: 'a gorgeous, shiny new print of original artwork',
         price: itemPrice,
         quantity: 1,
