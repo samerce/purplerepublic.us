@@ -52,7 +52,7 @@ export default class BubbleDetails extends React.PureComponent {
       this.hammer.off('swiperight', this.onClickPrev)
       this.hammer = null
     }
-    if (this.props.activeBubble !== prevProps.activeBubble) {
+    if (this.props.activeBubble !== prevProps.activeBubble && this.contentRoot) {
       findDOMNode(this.contentRoot).scrollTop = 0
     }
   }
