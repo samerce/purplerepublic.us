@@ -42,6 +42,10 @@ export const CloseButton = aCloseButton.extend`
   .bubbleverse-show &, .bubbleverse-enter & {
     ${CloseButtonActiveStyles}
   }
+
+  ${screen.medsmall`
+    top: 10px;
+  `}
 `
 
 export const Background = ExpandingBackground.extend`
@@ -91,7 +95,8 @@ export const Header = Flex.extend`
   ${screen.medsmall`
     flex-direction: column;
     padding: 5px 0;
-    flex: 0 0 105px;
+    flex: 0 0 83px;
+    height: 83px;
   `}
 `
 
@@ -102,6 +107,7 @@ export const BubbleHeader = AbsoluteFlex.extend`
 
   ${screen.medsmall`
     position: relative;
+    transform: translate(0, -36px);
   `}
 `
 
@@ -116,6 +122,7 @@ export const Title = styled.input`
 
   ${screen.medsmall`
     font-size: 24px;
+    padding-top: 15px;
   `}
 
   ${p => p.editing && `
@@ -150,7 +157,7 @@ export const Dimension = Flex.extend`
     font-size: 16px;
     border-bottom: 1px solid;
     margin: 0 0 5px;
-    width: 90%;
+    width: 100%;
     align-self: flex-start;
   `}
 `

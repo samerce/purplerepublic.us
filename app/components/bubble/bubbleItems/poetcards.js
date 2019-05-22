@@ -80,7 +80,9 @@ export default class PoetcardsBubble extends React.PureComponent {
             your purchase supports our <a href='#start/explore'>non-profit programs</a>.
           </p>
           <p>
-            so join the love revolution — help us spread the magic!<br/>
+            so join the love revolution — help us spread the magic!
+          </p>
+          <p>
             namaste, friend.
           </p>
         </Body>

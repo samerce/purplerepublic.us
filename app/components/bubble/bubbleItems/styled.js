@@ -158,10 +158,14 @@ export const BubbleComponentRoot = FlexColumn.extend`
   }
 
   .poetcardBody {
-    margin-bottom: 10px;
+    margin: 0 0 10px;
   }
   .psBody {
-    margin-bottom: 30px;
+    margin: 0 0 30px;
+
+    ${screen.medsmall`
+      font-size: 16px;
+    `}
   }
 
   #ReactGridGallery {
