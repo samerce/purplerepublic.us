@@ -211,6 +211,11 @@ export default class UnicornBubble extends React.PureComponent {
   @autobind
   onClickArtOption(art) {
     this.setState({pickedArt: art})
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'art option clicked',
+    })
   }
 
   @autobind
@@ -229,6 +234,11 @@ export default class UnicornBubble extends React.PureComponent {
       pickYourPrice: price.length?
         '$' + +price.toLocaleString([], {currency: 'USD'}) : '',
     })
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'price changed',
+    })
   }
 
   @autobind
@@ -236,6 +246,11 @@ export default class UnicornBubble extends React.PureComponent {
     const {mode} = this.state
     if (mode === Mode.closing || mode === Mode.thanking) return
     this.setState({mode: Mode.closing})
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'buy button clicked',
+    })
   }
 
   @autobind
@@ -256,23 +271,43 @@ export default class UnicornBubble extends React.PureComponent {
   @autobind
   openPoetcardsBubble() {
     window.location = '#start/bubble/buy-poetcards'
+    
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'poetcards button clicked',
+    })
   }
 
   @autobind
   openExplore() {
     window.location = '#start'
     this.props.dispatch(toggleFutureTimeline())
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'explore clicked',
+    })
   }
 
   @autobind
   openShop() {
     window.location = '#start'
     this.props.dispatch(togglePastTimeline())
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'shop clicked',
+    })
   }
 
   @autobind
   openEmailTab() {
     openInNewTab('mailto:whynot@expressyourmess.com')
+
+    ga('send', 'event', {
+      eventCategory: 'unicorn code page',
+      eventAction: 'email clicked',
+    })
   }
 
 }

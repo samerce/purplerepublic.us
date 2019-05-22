@@ -90,6 +90,10 @@ export default class Checkout extends React.PureComponent {
 
   @autobind
   onChangeInput(id, {target}) {
+    ga('send', 'event', {
+      eventCategory: 'checkout',
+      eventAction: 'shipping info entered',
+    })
     this.setState({
       shipping: {
         ...this.state.shipping,
@@ -100,6 +104,10 @@ export default class Checkout extends React.PureComponent {
 
   @autobind
   createOrder(data, actions) {
+    ga('send', 'event', {
+      eventCategory: 'checkout',
+      eventAction: 'paypal button clicked',
+    })
     return actions.order.create(getOrderDetails(this.props.order, this.state.shipping))
   }
 
@@ -118,6 +126,10 @@ export default class Checkout extends React.PureComponent {
   @autobind
   onError(err) {
     this.props.onError()
+    ga('send', 'event', {
+      eventCategory: 'checkout',
+      eventAction: 'payment error: ' + err,
+    })
   }
 
 }
