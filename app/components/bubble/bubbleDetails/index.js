@@ -12,7 +12,7 @@ import {Description} from '../bubbleItems/styled'
 import {canShowEditingTools} from '../../../utils/nav'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import Hammer from 'hammerjs'
+import Touch from 'zingtouch'
 
 import {onClickBubbleAction} from '../redux/actions'
 import {
@@ -30,6 +30,12 @@ export default class BubbleDetails extends React.PureComponent {
 
   constructor(props) {
     super(props)
+
+    this.gestureHandler = Touch.Region(document.body)
+    this.swipeGesture = new Touch.Swipe({
+      escapeVelocity: .1,
+    })
+
     this.state = {
       isDeleting: false,
       bubbleOptionsVisible: false,
@@ -44,14 +50,12 @@ export default class BubbleDetails extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.activeBubble) {
-      this.hammer = new Hammer(findDOMNode(this.contentRoot))
-      this.hammer.on('swipeleft', this.onClickNext)
-      this.hammer.on('swiperight', this.onClickPrev)
-    } else if (this.hammer) {
-      this.hammer.off('swipeleft', this.onClickNext)
-      this.hammer.off('swiperight', this.onClickPrev)
-      this.hammer = null
+      this.contentRootDom = findDOMNode(this.contentRoot)
+      this.gestureHandler.bind(this.contentRootDom, this.swipeGesture, this.onSwipe)
+    } else if (this.contentRootDom) {
+      this.gestureHandler.unbind(this.contentRootDom)
     }
+
     if (this.props.activeBubble !== prevProps.activeBubble && this.contentRoot) {
       findDOMNode(this.contentRoot).scrollTop = 0
     }
@@ -179,6 +183,18 @@ export default class BubbleDetails extends React.PureComponent {
   editBubble() {
     this.setState({bubbleOptionsVisible: false})
     this.props.dispatch(openBubbleBuilder(true))
+  }
+
+  @autobind
+  onSwipe(e) {
+    if (!e.detail.data.length) return
+
+    const angle = e.detail.data[0].currentDirection
+    if (angle < 45 || angle > 305) {
+      this.onClickPrev()
+    } if (angle > 135 && angle < 235) {
+      this.onClickNext()
+    }
   }
 
 }
