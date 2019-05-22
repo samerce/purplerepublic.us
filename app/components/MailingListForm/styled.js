@@ -26,6 +26,9 @@ export const Root = Flex.extend`
     flex-direction: column;
     align-items: center;
   }
+  #mc-embedded-subscribe-form {
+    width: 100%;
+  }
   #mc-embedded-subscribe {
     background: ${p => p.theme.tweet};
     font-family: alice;

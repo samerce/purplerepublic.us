@@ -20,6 +20,7 @@ export const Root = AbsoluteFlexFillParent.extend`
 
 export const ScrollContainer = AbsoluteFlexFillParent.extend`
   overflow-y: scroll;
+  overflow-x: hidden;
   flex-wrap: wrap;
   align-items: flex-start;
   padding: 0 0 80px;
