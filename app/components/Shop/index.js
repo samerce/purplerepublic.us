@@ -78,7 +78,6 @@ export default class Shop extends React.Component {
 
   @autobind
   toggle() {
-    console.log('dispatching shop toggle')
     this.props.dispatch(togglePastTimeline())
   }
 

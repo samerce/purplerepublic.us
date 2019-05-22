@@ -225,7 +225,6 @@ export default class FutureTimeline extends React.Component {
 
   @autobind
   toggle() {
-    console.log('dispatching explore toggle')
     this.props.dispatch(toggleFutureTimeline())
   }
 
