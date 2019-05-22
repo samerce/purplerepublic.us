@@ -25,7 +25,7 @@ export const ButtonGroup = Flex.extend`
   justify-content: space-around;
   width: 100%;
   max-width: 780px;
-  margin: 20px 0 0;
+  margin: 20px 0;
   flex-wrap: wrap;
 
   ${screen.medium`

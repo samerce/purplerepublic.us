@@ -165,6 +165,12 @@ export default class UnicornBubble extends React.PureComponent {
             <Button onClick={this.openShop}>shop with us</Button>
             <Button onClick={this.openEmailTab}>contact us</Button>
           </ButtonGroup>
+          <H1>browse our art!</H1>
+          <Body>
+            <p>
+              click through the bubbles at the bottom of the screen to explore all the art we've created over the past few years: from writing, to photoshoots, to videos, to music, and more!
+            </p>
+          </Body>
         </WhatRoot>
 
         <MailingListRoot>

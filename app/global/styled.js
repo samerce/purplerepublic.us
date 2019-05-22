@@ -82,7 +82,7 @@ export const H1 = Flex.extend`
   font-family: great vibes;
   text-align: center;
   align-self: center;
-  max-width: 800px;
+  max-width: 850px;
 
   ${screen.medium`
     font-size: 36px;
@@ -96,7 +96,7 @@ export const H2 = Flex.extend`
   margin: 0 0 30px;
   text-align: center;
   align-self: center;
-  max-width: 800px;
+  max-width: 850px;
 
   ${screen.medium`
     font-size: 19px;
