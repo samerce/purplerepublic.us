@@ -11,7 +11,7 @@ import {
   screen, Flex, Boto, FlexColumn, BlurbText, BeggingButton,
 } from '../../global/styled'
 
-export const Root = Flex.extend`
+export const Root = FlexColumn.extend`
   margin: 40px 0 0;
   flex: 0 0 100%;
   width: 100%;

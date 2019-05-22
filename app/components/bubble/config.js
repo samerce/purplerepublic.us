@@ -87,5 +87,5 @@ export const Poetcards = [
   'cosmic diversity',
   'dali dreams',
   // 'ideals',
-  // 'dressin pretty',
+  'dressin pretty',
 ]

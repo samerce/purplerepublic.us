@@ -8,14 +8,17 @@ import {
   SCREEN_WIDTH_M,
 } from '../../global/constants'
 import {
-  Flex,
+  FlexColumn,
 } from '../../global/styled'
 
-export const Root = Flex.extend`
+export const Root = FlexColumn.extend`
+  padding: 20px;
+  max-width: 550px;
+
   &#mc_embed_signup {
-    background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;
+    clear:left;
+    width:100%;
     justify-content: center;
-    background: transparent;
   }
   .mc_hidden_input {
     position: absolute;
@@ -36,7 +39,8 @@ export const Root = Flex.extend`
     color: white;
     border-radius: 10px;
     width: 300px;
-    padding: 10px;
+    padding: 20px 10px 10px;
+    transform: translate(0, -10px);
     border: 1px solid ${p => p.theme.tweetLight};
     cursor: pointer;
     max-width: 100%;
@@ -50,16 +54,15 @@ export const Root = Flex.extend`
   .email {
     max-width: 100%;
     width: 500px;
-    background: transparent;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 20px;
     font-size: 22px;
     color: white;
-    border-bottom: 1px solid ${p => p.theme.veryLight};
-    text-align: center;
-    font-family: alice;
-    margin: 20px 0 10px;
+    border-color: ${p => p.theme.veryLight};
+    z-index: 1;
   }
   .hiddenInput {
     visibility: hidden;
+    height: 0;
   }
 `

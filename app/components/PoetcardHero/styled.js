@@ -2,15 +2,17 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto, AbsoluteFlex, FlexColumn, screen,
+  Flex, Boto, AbsoluteFlex, FlexColumn, screen, Body as aBody, TextInput as aTextInput,
+  Form,
 } from '../../global/styled'
 
-export const Root = Flex.extend`
+export const Root = FlexColumn.extend`
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
+  align-items: center;
   background: ${p => p.theme.veryDarkTransparent};
-  padding: 0 0 60px 0;
+  padding: 0 0 40px 0;
   transform: translate(0, -10px);
   opacity: 0;
 
@@ -21,40 +23,51 @@ export const Root = Flex.extend`
   }
 `
 
-export const HeroSection = Flex.extend`
-  flex: 0 0 100%;
+export const ImageGroup = Flex.extend`
   align-items: center;
   justify-content: space-around;
+  margin: 30px 0;
   flex-wrap: wrap;
-  padding: 0 10px;
+
+   & > * {
+     max-width: 40%;
+   }
 `
 
-export const ContentRoot = FlexColumn.extend`
-  flex: 0 0 48%;
-  background: ${p => p.theme.veryDark};
-  border: 1px solid ${p => p.theme.veryLight};
-  border-radius: 10px;
-  padding: 0 20px 20px;
-  max-width: 540px;
-  align-items: center;
-  justify-content: center;
+export const Body = aBody.extend`
   font-size: 24px;
-  color: ${p => p.theme.veryLight};
   text-align: center;
+  align-items: center;
+  z-index: 1;
 
   ${screen.medium`
     margin: 10px 0;
     flex: 0 0 100%;
     font-size: 22px;
   `}
+`
 
-  hr {
-    border-color: ${p => p.theme.veryLight};
+export const SecretCodeForm = Form.extend`
+  font-size: 24px;
+  text-align: center;
+  align-items: center;
+  padding-top: 10px;
+  transform: translate(0, -10px);
+
+  p {
+    margin-bottom: 10px;
   }
 `
 
 export const Button = Boto.extend`
-  font-size: 20px;
   background: ${p => p.theme.shelly};
   border-color: ${p => p.theme.shellyLight};
+  width: 80%;
+  max-width: 270px;
+  font-size: 26px;
+  margin: 0 0 20px;
+`
+
+export const TextInput = aTextInput.extend`
+  margin: 0 0 20px;
 `

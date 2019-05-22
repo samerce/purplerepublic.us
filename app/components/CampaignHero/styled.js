@@ -11,7 +11,7 @@ import {
   screen, Flex, Boto, FlexColumn, BlurbText, BeggingButton,
 } from '../../global/styled'
 
-export const Root = Flex.extend`
+export const Root = FlexColumn.extend`
   flex: 0 0 100%;
   width: 100%;
   flex-wrap: wrap;
@@ -36,56 +36,6 @@ export const ContentRoot = FlexColumn.extend`
 
   ${screen.medium`
     margin: 60px 0 0;
-  `}
-`
-
-export const Row = Flex.extend`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-
-  i {
-    position: absolute;
-    top: 10px;
-    left: -110px;
-    flex: 0 0 110px;
-    width: 110px;
-    height: 110px;
-    font-size: 80px;
-    color: ${p => p.theme.myrtle};
-    transform: translate(30px, -55px) rotate(-9deg);
-    background: ${p => p.theme.myrtleLight};
-    border: 1px solid ${p => p.theme.myrtle};
-    box-shadow: ${p => p.theme.shadowMedium};
-    border-radius: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-
-    ${screen.mediumlarge`
-      left: 50%;
-      transform: translate(-50%, -100px) rotate(-9deg);
-    `}
-  }
-`
-
-export const Blurb = BlurbText.extend`
-  flex: 1 0 100px;
-  max-width: 820px;
-  opacity: 1;
-  transform: none;
-  margin: 0;
-  position: relative;
-  text-align: left;
-  padding: 20px 40px;
-
-  div {
-    height: 100%;
-    width: 100%;
-  }
-
-  ${screen.medium`
-    padding: 20px;
   `}
 `
 

@@ -76,6 +76,50 @@ export const InlineBlock = styled.div`
   display: inline-block;
 `
 
+export const H1 = Flex.extend`
+  font-size: 48px;
+  color: ${p => p.theme.semiWhite};
+  font-family: great vibes;
+  text-align: center;
+  align-self: center;
+
+  ${screen.medium`
+    font-size: 36px;
+    padding: 5px;
+  `}
+`
+
+export const H2 = Flex.extend`
+  font-size: 26px;
+  color: ${p => p.theme.veryLight};
+  margin: 0 0 30px;
+  text-align: center;
+  align-self: center;
+
+  ${screen.medium`
+    font-size: 19px;
+    padding: 0 10px;
+  `}
+`
+
+export const Body = FlexColumn.extend`
+  font-size: 20px;
+  color: ${p => p.theme.slightlyDark};
+  background: ${p => p.theme.veryLight};
+  border-radius: 10px;
+  border: 1px solid ${p => p.theme.slightlyDark};
+  padding: 0 20px;
+  max-width: 780px;
+  box-shadow: ${p => p.theme.shadowMedium};
+  margin: 0 20px;
+`
+
+export const Form = Body.extend`
+  background: ${p => p.theme.veryDark};
+  color: ${p => p.theme.veryLight};
+  border: 1px solid ${p => p.theme.veryLight};
+`
+
 const DefaultIconSize = 24
 export const Icon = styled.i`
   font-size: ${DefaultIconSize}px;
@@ -140,10 +184,11 @@ export const TextInput = styled.input`
   border: 2px solid transparent;
   border-bottom-color: ${p => p.theme.veryLight};
   padding: 10px;
+  background: ${p => p.theme.veryDark};
 
   ::placeholder, ::-webkit-input-placeholder {
-    color: ${p => p.theme.semiWhite};
-    opacity: .7;
+    color: white;
+    opacity: .8;
   }
 
   &:hover {
@@ -154,6 +199,25 @@ export const TextInput = styled.input`
     opacity: 1;
     outline: none;
     border-color: ${p => p.theme.semiWhite};
+  }
+`
+
+export const Image = styled.img`
+  border-radius: 10px;
+  box-shadow: ${p => p.theme.shadowHeavy};
+  border: 1px solid ${p => trans(.5, p.theme.veryLight)};
+  cursor: pointer;
+  transition: all .2s ${EASE_OUT};
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: ${p => p.theme.shadowVeryHeavy};
+    transition: all .5s ${EASE_OUT};
+  }
+  &:active {
+    transform: scale(.99);
+    box-shadow: ${p => p.theme.shadowMedium};
+    transition: all .5s ${EASE_OUT};
   }
 `
 
