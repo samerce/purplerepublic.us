@@ -27,6 +27,10 @@ export const Root = FlexColumn.extend`
     opacity: 1;
     transition: all 1s ${EASE_OUT} .7s;
   }
+
+  .body {
+    position: relative;
+  }
 `
 
 export const ContentRoot = FlexColumn.extend`
@@ -44,10 +48,11 @@ export const Row = Flex.extend`
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin: 0 0 30px;
 
   i {
     position: absolute;
-    top: 10px;
+    top: -20px;
     left: -110px;
     flex: 0 0 110px;
     width: 110px;
@@ -68,27 +73,6 @@ export const Row = Flex.extend`
       transform: translate(-50%, -100px) rotate(-9deg);
     `}
   }
-`
-
-export const Blurb = BlurbText.extend`
-  flex: 1 0 100px;
-  max-width: 820px;
-  opacity: 1;
-  transform: none;
-  margin: 0;
-  position: relative;
-  text-align: left;
-  padding: 20px 40px;
-  font-size: 22px;
-
-  div {
-    height: 100%;
-    width: 100%;
-  }
-
-  ${screen.medium`
-    padding: 20px;
-  `}
 `
 
 export const Button = BeggingButton.extend`

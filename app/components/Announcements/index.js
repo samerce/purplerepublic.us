@@ -1,11 +1,12 @@
 import React from 'react'
 import {SectionHeader} from '../tinySpells'
+import MailingListForm from '../MailingListForm'
 
 import {
   Blurb, Root, Row, Button, ContentRoot,
 } from './styled'
 import {
-  H1, H2,
+  H1, H2, Body,
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
@@ -27,17 +28,20 @@ export default class Announcements extends React.PureComponent {
         <H2>it's time we take back our collective power</H2>
         <ContentRoot>
           <Row>
-            <Blurb>
+            <Body className='body'>
               <i className='fa fa-bullhorn' />
-              <div>
+              <p>
                 free thinking minds—led by open hearts and expansive spirits—are a threat to the system. oppressors limit our imagination, convincing us life will crash down without them. we're desperate for a greater destiny. a deeper dance with reality. what does your utopia look like?
-              </div>
-            </Blurb>
+              </p>
+              <p>
+                we're creating space, support & permission to explore your nature outside of what is considered “normal” and “accepted” — tools to help you find vulnerable expression for whatever you discover on your journey into the unexplored territories of your heart and mind.
+              </p>
+            </Body>
           </Row>
 
-          <Button onClick={this.openEmail}>
-            <div>get in touch</div>
-          </Button>
+          <H1>join the mailing list</H1>
+          <H2>stay abreast of our latest efforts & get involved with our mission</H2>
+          <MailingListForm />
         </ContentRoot>
       </Root>
     )
