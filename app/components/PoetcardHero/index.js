@@ -42,14 +42,14 @@ export default class PoetcardHero extends React.PureComponent {
           <ClickableImage src={pcUrl('be your own therapy')} />
           <ClickableImage src={pcUrl('ice cream poop')} />
         </ImageGroup>
-
+        
         <Body className='mainBody'>
           <p>
             darling, sweetie.<br />
             wanna join the love revolution from your couch?
           </p>
           <Button onClick={this.onClickGetPoetcards}>
-            get poetcards
+            check out all 50
           </Button>
         </Body>
 

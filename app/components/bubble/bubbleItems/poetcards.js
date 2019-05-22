@@ -8,6 +8,9 @@ import {
   InstructionEmphasis, ActionButtons, ExitAction, ContinueAction, CustomerInfoTitle,
   CheckoutTitle, CopiedMsg, ThanksRoot, ThanksMsg,
 } from './styled'
+import {
+  H1, H2, Body,
+} from '../../../global/styled'
 
 import autobind from 'autobind-decorator'
 import {openInNewTab} from '../../../utils/nav'
@@ -67,23 +70,26 @@ export default class PoetcardsBubble extends React.PureComponent {
     const totalQuantity = this.getTotalQuantity()
     return (
       <Root className={'poetcards-' + mode}>
-        {detailText?
-          <Intro>{detailText}</Intro>
-        :
-        <Intro>
-          art with a message — our poetcards are used as postcards, greeting cards, birthday cards, and just beautiful original artwork ready to frame and hang!
-          <br /><br />
+        <H1>art with a message</H1>
+        <H2>our poetcards are used as postcards, greeting cards, birthday cards, and just beautiful original artwork ready to frame and hang!</H2>
 
-          go ahead, scroll through. choose your favorites, enter quantities, and place your order today.<br /><br />
-
-          join the love revolution — help us spread the magic!<br /><br />
-
-          namaste, friend.<br /><br />
-
-          p.s. ordering is easier on larger screens.<br/>
-          p.p.s. click the images for full screen views.
-        </Intro>
-        }
+        <Body className='poetcardBody'>
+          <p>
+            go ahead, scroll through.<br/>
+            choose your favorites, enter quantities, and place your order.<br/>
+            your purchase supports our <a href='#start/explore'>non-profit programs</a>.
+          </p>
+          <p>
+            so join the love revolution — help us spread the magic!<br/>
+            namaste, friend.
+          </p>
+        </Body>
+        <Body className='psBody'>
+          <p>
+            🖥 | ordering is easier on larger screens.<br/>
+            👇🏽 | click the images for full screen views.
+          </p>
+        </Body>
 
         <img src={SRC_URL + 'poetcards/price-sheet.jpg'} className='price-sheet' />
 

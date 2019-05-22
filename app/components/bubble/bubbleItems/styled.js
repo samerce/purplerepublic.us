@@ -157,9 +157,20 @@ export const BubbleComponentRoot = FlexColumn.extend`
     height: initial;
   }
 
+  .poetcardBody {
+    margin-bottom: 10px;
+  }
+  .psBody {
+    margin-bottom: 30px;
+  }
+
   #ReactGridGallery {
     height: 100%;
     width: 100%;
+  }
+
+  a {
+    color: ${p => p.theme.semiWhite};
   }
 `
 
@@ -365,12 +376,13 @@ export const PoetCardTotal = Boto.extend`
   }
 `
 
-export const Intro = Flex.extend`
+export const Intro = FlexColumn.extend`
   color: white;
   padding: 10px 0;
   font-size: 22px;
   flex: 0 0 auto;
   max-width: 740px;
+  margin: 0 0 20px;
 
   ${screen.medium`
     font-size: 18px;
