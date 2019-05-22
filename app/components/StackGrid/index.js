@@ -11,7 +11,6 @@ import {connect} from 'react-redux'
 import {getButtonImageUrl} from '../../utils/bubbleverse'
 import {Dimensions} from '../bubbleverse/config'
 import {openBubbleverse} from '../bubbleverse/actions'
-import {toggleFutureTimeline} from '../ThenNowWhen/actions'
 
 const randomOffset = (range) => Math.round(Math.random() * range)
 const DimensionTypes = Object.keys(Dimensions)
@@ -58,7 +57,7 @@ export default class StackGrid extends React.Component {
             src={getButtonImageUrl(s.previewImages[2])}
           />
         </CircleRoot>
-        
+
         <Title>{s.title}</Title>
       </StackRoot>
     )
@@ -79,7 +78,7 @@ export default class StackGrid extends React.Component {
 
   @autobind
   onClickExplore() {
-    this.props.dispatch(toggleFutureTimeline())
+    window.location = '#start/explore'
     ga('send', 'event', {
       eventCategory: 'corkboard',
       eventAction: 'explore clicked',

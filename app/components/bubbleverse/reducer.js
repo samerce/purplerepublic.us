@@ -22,7 +22,7 @@ export default function bubbleverse(state = initialState, action) {
       const {dimension} = action
       const visibleBubbles = getBubblesByDimension(state, dimension)
       if (!state.get('isBubbleBuilderOpen')) {
-        state = state.set('activeBubble', visibleBubbles[0])
+        window.location = '#start/bubble/' + visibleBubbles[0].id
       }
       return state
         .set('mouseLocation', action.mouseLocation)
@@ -51,9 +51,11 @@ export default function bubbleverse(state = initialState, action) {
       }
       return state
     case BubbleverseGoToNextBubble:
-      return state.set('activeBubble', getNextActiveBubble(state))
+      window.location = '#start/bubble/' + getNextActiveBubble(state).id
+      return state
     case BubbleverseGoToPrevBubble:
-      return state.set('activeBubble', getPrevActiveBubble(state))
+      window.location = '#start/bubble/' + getPrevActiveBubble(state).id
+      return state
     case BubbleverseToggleFullscreenBubbleGrid:
       return state.set('isBubbleGridFullscreen', !state.get('isBubbleGridFullscreen'))
     case BubbleverseBubbleBuilderOpen:

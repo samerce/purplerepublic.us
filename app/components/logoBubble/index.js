@@ -9,9 +9,6 @@ import {cx} from '../../utils/style'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import {
-  togglePastTimeline, toggleFutureTimeline
-} from '../ThenNowWhen/actions'
-import {
   IntroMode as Mode, setIntroMode
 } from '../../global/reducers/intro'
 
@@ -51,7 +48,7 @@ export default class LogoBubble extends React.Component {
       futureTimeline: futureTimelineVisible,
     })
     return (
-      <Root className={`logo-${mode} ${classes}`} onClick={this.toggleTimeline}>
+      <Root className={`logo-${mode} ${classes}`} onClick={this.goHome}>
         <CircleRoot>
           <CircleBill />
           <CirclePaul />
@@ -75,10 +72,8 @@ export default class LogoBubble extends React.Component {
   }
 
   @autobind
-  toggleTimeline() {
-    const {dispatch, pastTimelineVisible, futureTimelineVisible} = this.props
-    futureTimelineVisible && dispatch(toggleFutureTimeline())
-    pastTimelineVisible && dispatch(togglePastTimeline())
+  goHome() {
+    window.location = '#start'
   }
 
 }

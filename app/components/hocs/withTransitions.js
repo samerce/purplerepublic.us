@@ -43,6 +43,9 @@ function withTransitions(args) { return Component => {
 
     @autobind
     show(callback) {
+      if (this.mode === Mode.show) return
+      this.clearTimeouts()
+
       const {willEnterDuration = 1, enterDuration = 500} = this.args
       this.setState({mode: Mode.willEnter})
       this.timeouts.push(
@@ -58,6 +61,9 @@ function withTransitions(args) { return Component => {
 
     @autobind
     hide(callback) {
+      if (this.mode === Mode.hide) return
+      this.clearTimeouts()
+
       const {willExitDuration = 1, exitDuration = 500} = this.args
       this.setState({mode: Mode.willExit})
       this.timeouts.push(
@@ -69,6 +75,11 @@ function withTransitions(args) { return Component => {
           callback && callback()
         }, willExitDuration + exitDuration)
       )
+    }
+
+    clearTimeouts() {
+      this.timeouts.forEach(clearTimeout)
+      this.timeouts = []
     }
   }
 }}

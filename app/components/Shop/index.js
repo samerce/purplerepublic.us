@@ -9,12 +9,23 @@ import {openInNewTab} from '../../utils/nav'
 import withTransitions from '../hocs/withTransitions'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
+import {togglePastTimeline} from '../ThenNowWhen/actions'
+import {addHashHandler} from '../../containers/App/actions'
 
 @connect(d => ({
   isVisible: d.get('timeline').get('pastTimelineVisible')
 }))
 @withTransitions({prefix: 'shop'})
 export default class Shop extends React.Component {
+
+  componentDidMount() {
+    this.props.dispatch(addHashHandler({
+      trigger: '#start/shop',
+      onEnter: this.toggle,
+      onChange: () => {},
+      onExit: this.toggle,
+    }))
+  }
 
   componentWillReceiveProps(nextProps) {
     const {isVisible, show, hide} = this.props
@@ -63,6 +74,12 @@ export default class Shop extends React.Component {
       eventAction: 'shop button clicked',
       eventLabel: buttonText,
     })
+  }
+
+  @autobind
+  toggle() {
+    console.log('dispatching shop toggle')
+    this.props.dispatch(togglePastTimeline())
   }
 
 }

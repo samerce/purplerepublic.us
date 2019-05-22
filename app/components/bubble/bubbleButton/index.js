@@ -10,7 +10,6 @@ import {getButtonImageUrl} from '../../../utils/bubbleverse'
 import _ from 'lodash'
 import fastdom from 'fastdom'
 import autobind from 'autobind-decorator'
-import {setActiveBubble} from '../../bubbleverse/actions'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'
 
@@ -137,9 +136,9 @@ export default class BubbleButton extends React.Component {
 
   @autobind
   onClick() {
-    const {dispatch, nucleus, disabled} = this.props
+    const {nucleus, disabled} = this.props
     if (disabled) return
-    requestAnimationFrame(() => dispatch(setActiveBubble(nucleus)))
+    requestAnimationFrame(() => window.location = '#start/bubble/' + nucleus.id)
   }
 
   focusIt() {

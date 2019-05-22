@@ -22,6 +22,10 @@ import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {getButtonImageUrl} from '../../utils/bubbleverse'
 import {openBubbleverse} from '../bubbleverse/actions'
+import {
+  toggleFutureTimeline
+} from '../ThenNowWhen/actions'
+import {addHashHandler} from '../../containers/App/actions'
 
 import Tabs from './config'
 import {SRC_URL, SCREEN_WIDTH_M} from '../../global/constants'
@@ -42,6 +46,13 @@ export default class FutureTimeline extends React.Component {
   componentDidMount() {
     this.tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'))
     window.addEventListener('MDCTabBar:activated', this.onTabActivated)
+
+    this.props.dispatch(addHashHandler({
+      trigger: '#start/explore',
+      onEnter: this.toggle,
+      onChange: () => {},
+      onExit: this.toggle,
+    }))
   }
 
   componentWillUnmount() {
@@ -210,6 +221,12 @@ export default class FutureTimeline extends React.Component {
       eventAction: 'dive clicked',
       eventLabel: tab.title,
     })
+  }
+
+  @autobind
+  toggle() {
+    console.log('dispatching explore toggle')
+    this.props.dispatch(toggleFutureTimeline())
   }
 
 }

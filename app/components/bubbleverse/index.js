@@ -23,6 +23,7 @@ import {connect} from 'react-redux'
 import {
   closeBubbleverse, setBubbles, setActiveBubble, updateBuilderNucleus, openBubbleverse,
 } from './actions'
+import {addHashHandler} from '../../containers/App/actions'
 
 import {SCREEN_WIDTH_M} from '../../global/constants'
 import {DimensionTypes} from './config'
@@ -75,24 +76,19 @@ export default class Bubbleverse extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.timeouts.push(
-      setTimeout(this.startUrlWatcher, 400),
-    )
+    this.props.dispatch(addHashHandler({
+      trigger: '#start/bubble',
+      onEnter: this.openBubbleverse,
+      onChange: this.openBubbleverse,
+      onExit: this.closeBubbleverse,
+    }))
+    window.prerenderReady = true
   }
 
   componentWillReceiveProps(nextProps) {
-    const {dimension, show, hide, activeBubble} = this.props
+    const {dimension, show, hide} = this.props
     if (nextProps.dimension !== dimension) {
       nextProps.dimension? show() : hide()
-    }
-
-    const {activeBubble: nextActiveBubble} = nextProps
-    if (nextActiveBubble) {
-      if (!activeBubble || activeBubble.id !== nextActiveBubble.id) {
-        this.onBubbleOpened(nextActiveBubble)
-      }
-    } else if (activeBubble) {
-      this.onBubbleClosed()
     }
 
     if (this.props.isBubbleBuilderOpen && !nextProps.isBubbleBuilderOpen) {
@@ -101,27 +97,6 @@ export default class Bubbleverse extends React.PureComponent {
         subtitle: null,
       })
     }
-  }
-
-  @autobind
-  startUrlWatcher() {
-    this.urlWatcher = setInterval(() => {
-      const {bubbles, isBubbleBuilderOpen} = this.props
-      if (isBubbleBuilderOpen) return
-
-      const {focusedBubble} = this
-      const bubbleFromUrl = getBubbleFromUrl(bubbles)
-      if (bubbleFromUrl && (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id)) {
-        this.openBubble(bubbleFromUrl)
-      }
-      if (!bubbleFromUrl && focusedBubble) {
-        this.closeBubble()
-      }
-      if (!bubbleFromUrl && !focusedBubble && window.location.hash.includes('bubble')) {
-        window.location = '#start'
-      }
-      window.prerenderReady = true
-    }, 250)
   }
 
   componentWillUnmount() {
@@ -220,52 +195,43 @@ export default class Bubbleverse extends React.PureComponent {
 
   @autobind
   onClickClose() {
-    this.props.dispatch(closeBubbleverse())
+    window.location = '#start'
   }
 
   @autobind
-  onBubbleOpened(focusedBubble) {
-    ga('send', 'event', {
-      eventCategory: 'bubbles',
-      eventAction: 'bubble opened',
-      eventLabel: focusedBubble.id,
-    })
-
-    // const backgroundStyle = {}
-    // const {mouseLocation} = this.props
-    // if (mouseLocation) {
-    //   backgroundStyle.left = HalfBackgroundWidth + mouseLocation.x
-    //   backgroundStyle.top = HalfBackgroundHeight + mouseLocation.y
-    //   console.log(backgroundStyle, HalfBackgroundWidth, HalfBackgroundHeight, mouseLocation)
-    // }
-
-    window.location.hash = '#start/bubble/' + focusedBubble.id
-    this.focusedBubble = focusedBubble
-    // this.setState({
-    //   backgroundStyle,
-    // })
+  openBubbleverse() {
+    const bubbleFromUrl = getBubbleFromUrl(this.props.bubbles)
+    const {focusedBubble} = this
+    if (bubbleFromUrl) {
+      if (!focusedBubble || bubbleFromUrl.id !== focusedBubble.id) {
+        this.openBubble(bubbleFromUrl)
+      }
+    } else {
+      window.location = '#start'
+    }
   }
 
   @autobind
-  onBubbleClosed() {
+  closeBubbleverse() {
     ga('send', 'event', {
       eventCategory: 'bubbles',
       eventAction: 'bubble closed',
       eventLabel: this.focusedBubble.id,
     })
 
-    window.location.hash = '#start'
+    this.props.dispatch(closeBubbleverse())
     this.focusedBubble = null
   }
 
-  @autobind
-  openBubble(bubbleId) {
-    this.props.dispatch(setActiveBubble(bubbleId))
-  }
+  openBubble(bubble) {
+    this.props.dispatch(setActiveBubble(bubble))
+    this.focusedBubble = bubble
 
-  @autobind
-  closeBubble() {
-    this.props.dispatch(closeBubbleverse())
+    ga('send', 'event', {
+      eventCategory: 'bubbles',
+      eventAction: 'bubble opened',
+      eventLabel: bubble.id,
+    })
   }
 
 }

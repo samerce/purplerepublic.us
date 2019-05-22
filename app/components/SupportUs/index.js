@@ -10,7 +10,6 @@ import {
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {openInNewTab} from '../../utils/nav'
-import {togglePastTimeline} from '../ThenNowWhen/actions'
 import {getRandomColor} from '../../global/theme'
 
 @connect(d => ({}))
@@ -82,7 +81,7 @@ export default class SupportUs extends React.PureComponent {
       eventCategory: 'dig us',
       eventAction: 'shop clicked',
     })
-    this.props.dispatch(togglePastTimeline())
+    window.location = '#start/shop'
   }
 
   @autobind

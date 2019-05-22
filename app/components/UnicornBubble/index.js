@@ -19,9 +19,6 @@ import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {openInNewTab} from '../../utils/nav'
 import {makeEnum} from '../../utils/lang'
-import {
-  togglePastTimeline, toggleFutureTimeline
-} from '../ThenNowWhen/actions'
 import {pcUrl} from '../../utils/url'
 
 import {SRC_URL} from '../../global/constants'
@@ -83,7 +80,7 @@ export default class UnicornBubble extends React.PureComponent {
           </ArtOptionsRoot>
 
           <Body>
-            <p>the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. pick one of these beautiful creatures above & pick your price below to have a gorgeous <strong>16x20 metallic print</strong> carried by stork straight to your door!</p>
+            <p>the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. pick one of these beautiful creatures above & pick your price below to have a gorgeous <strong>11x14 metallic print</strong> carried by stork straight to your door!</p>
           </Body>
 
           <PickArtForm>
@@ -281,8 +278,7 @@ export default class UnicornBubble extends React.PureComponent {
 
   @autobind
   openExplore() {
-    window.location = '#start'
-    this.props.dispatch(toggleFutureTimeline())
+    window.location = '#start/explore'
 
     ga('send', 'event', {
       eventCategory: 'unicorn code page',
@@ -292,8 +288,7 @@ export default class UnicornBubble extends React.PureComponent {
 
   @autobind
   openShop() {
-    window.location = '#start'
-    this.props.dispatch(togglePastTimeline())
+    window.location = '#start/shop'
 
     ga('send', 'event', {
       eventCategory: 'unicorn code page',
@@ -322,7 +317,7 @@ function makeOrder(details) {
     description: 'pick your price faerie offering!',
     items: [
       {
-        name: details.pickedArt.title + ' — 16 x 20 metallic print',
+        name: details.pickedArt.title + ' — 11 x 14 metallic print',
         description: 'a gorgeous, shiny new print of original artwork',
         price: itemPrice,
         quantity: 1,

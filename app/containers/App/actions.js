@@ -17,6 +17,7 @@
 
 export const REQUEST_ROUTE_PRELOAD = 'route.requestPreload'
 export const CLEAR_PRELOAD_ROUTE = 'route.clearPreloadRoute'
+export const ADD_HASH_HANDLER = 'route.addHashHandler'
 
 export function requestRoutePreload(preloadRoute) {
   return {
@@ -31,12 +32,12 @@ export function clearPreloadRoute() {
   }
 }
 
-
-
-
-
-
-
+export function addHashHandler(handler) {
+  return {
+    handler,
+    type: ADD_HASH_HANDLER,
+  }
+}
 
 
 import {

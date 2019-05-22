@@ -35,6 +35,7 @@ import {Root, RouteRoot} from './styles'
 import {cx} from '../../utils/style'
 
 import {clearPreloadRoute} from '../App/actions'
+import autobind from 'autobind-decorator'
 
 const router = {
   // '#intro': Intro,
@@ -49,6 +50,7 @@ const router = {
 
 @connect(d => ({
   preloadRoute: d.get('app').get('preloadRoute'),
+  hashHandlers: d.get('app').get('hashHandlers'),
 }))
 export default class PurpleRouter extends React.PureComponent {
 
@@ -68,6 +70,9 @@ export default class PurpleRouter extends React.PureComponent {
     if (pathname && pathname.length > 1) {
       window.location = '/#start/bubble/' + pathname.substr(1)
     }
+
+    setTimeout(() => setInterval(this.runHashHandlers, 250), 3500)
+
     window.onhashchange = () => {
       const activeRoute = getCurrentRoute()
       const {preloadRoute} = this.props
@@ -125,6 +130,35 @@ export default class PurpleRouter extends React.PureComponent {
     return cx({
       enter: route === this.state.activeRoute,
     })
+  }
+
+  @autobind
+  runHashHandlers() {
+    const {lastHash = ''} = this
+    const {hash: currentHash} = window.location
+    if (lastHash === currentHash) return
+
+    let onEnter, onExit
+    this.props.hashHandlers.forEach(handler => {
+      const {trigger} = handler
+      if (lastHash.includes(trigger)) {
+        if (currentHash.includes(trigger)) {
+          handler.onChange()
+        } else {
+          onExit = handler.onExit
+        }
+      } else if (currentHash.includes(trigger)) {
+        onEnter = handler.onEnter
+      }
+    })
+
+    if (onExit) {
+      onExit()
+      if (onEnter) {
+        setTimeout(onEnter, 250)
+      }
+    } else if (onEnter) onEnter()
+    this.lastHash = currentHash
   }
 
 }

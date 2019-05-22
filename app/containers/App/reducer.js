@@ -3,7 +3,8 @@ import { fromJS } from 'immutable'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import {
   REQUEST_ROUTE_PRELOAD,
-  CLEAR_PRELOAD_ROUTE
+  CLEAR_PRELOAD_ROUTE,
+  ADD_HASH_HANDLER,
 } from './actions'
 
 const initialState = fromJS({
@@ -12,6 +13,7 @@ const initialState = fromJS({
     preloadRoute: null,
   },
   preloadRoute: null,
+  hashHandlers: [],
 })
 
 export default function appReducer(state = initialState, action) {
@@ -26,6 +28,8 @@ export default function appReducer(state = initialState, action) {
           locationBeforeTransitions: action.payload,
         }
       })
+    case ADD_HASH_HANDLER:
+      return state.set('hashHandlers', state.get('hashHandlers').push(action.handler))
     default:
       return state
   }

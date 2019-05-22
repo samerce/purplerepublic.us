@@ -7,10 +7,6 @@ import {
   Root, Button, Background, ButtonRoot, CloseButton,
 } from './styled'
 
-import {
-  togglePastTimeline, toggleFutureTimeline
-} from './actions'
-
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import withTransitions from '../hocs/withTransitions'
@@ -57,12 +53,12 @@ export default class ThenNowWhen extends React.Component {
         </CloseButton>
 
         <ButtonRoot>
-          <Button className={'left ' + leftClasses} onClick={this.togglePast}>
+          <Button className={'left ' + leftClasses} onClick={this.onClickShop}>
             <i className='fa fa-shopping-bag' />
             <span>shop</span>
           </Button>
 
-          <Button className={'right ' + rightClasses} onClick={this.toggleFuture}>
+          <Button className={'right ' + rightClasses} onClick={this.onClickExplore}>
             <span>explore</span>
             <i className='fa fa-grav' />
           </Button>
@@ -76,44 +72,27 @@ export default class ThenNowWhen extends React.Component {
 
   @autobind
   closeTimeline() {
-    const {pastTimelineVisible, futureTimelineVisible} = this.props
-    if (pastTimelineVisible) {
-      this.togglePast()
-    } else if (futureTimelineVisible) {
-      this.toggleFuture()
-    }
+    window.location = '#start'
   }
 
   @autobind
-  togglePast() {
-    const {
-      pastTimelineVisible, futureTimelineVisible, dispatch, show, hide
-    } = this.props
-    if (futureTimelineVisible) this.toggleFuture()
-    dispatch(togglePastTimeline())
+  onClickShop() {
+    window.location = '#start/shop'
 
-    if (!pastTimelineVisible) {
-      ga('send', 'event', {
-        eventCategory: 'topnav',
-        eventAction: 'shop clicked',
-      })
-    }
+    ga('send', 'event', {
+      eventCategory: 'topnav',
+      eventAction: 'shop clicked',
+    })
   }
 
   @autobind
-  toggleFuture() {
-    const {
-      futureTimelineVisible, pastTimelineVisible, dispatch, show, hide
-    } = this.props
-    if (pastTimelineVisible) this.togglePast()
-    dispatch(toggleFutureTimeline())
+  onClickExplore() {
+    window.location = '#start/explore'
 
-    if (!futureTimelineVisible) {
-      ga('send', 'event', {
-        eventCategory: 'topnav',
-        eventAction: 'explore clicked',
-      })
-    }
+    ga('send', 'event', {
+      eventCategory: 'topnav',
+      eventAction: 'explore clicked',
+    })
   }
 
 }
