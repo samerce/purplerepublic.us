@@ -51,6 +51,7 @@ export const Body = aBody.extend`
   z-index: 1;
   background: ${p => p.theme.myrtleLight};
   color: ${p => p.theme.myrtleDark};
+  margin-bottom: 0;
 
   ${screen.medium`
     margin: 10px 20px 0;
