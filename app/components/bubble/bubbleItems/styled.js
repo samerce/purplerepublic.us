@@ -354,7 +354,7 @@ export const PoetCardTotal = Boto.extend`
   ${screen.medium`
     font-size: 30px;
     line-height: 58px;
-    transform: translate(0, -171px);
+    transform: translate(0, -131px);
   `}
 
   .poetcards-checkoutInfo &, .poetcards-checkoutPayment &, .poetcards-checkoutThanks & {

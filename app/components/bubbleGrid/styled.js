@@ -67,6 +67,11 @@ export const Root = Flex.extend`
   ${screen.medium`
     flex: 0 0 110px;
   `}
+
+  ${screen.medsmall`
+    padding: 0;
+    flex: 0 0 auto;
+  `}
 `
 
 export const ScrollContainer = Flex.extend`
@@ -81,6 +86,7 @@ export const ScrollContainer = Flex.extend`
     border: none;
     padding: 0 15px;
   }
+
 `
 
 export const BubbleGridItem = Flex.extend`
@@ -176,4 +182,25 @@ export const ShowAllButton = Boto.extend`
     color: ${p => p.theme.veryLight};
     transform: scale(1.2);
   }
+
+  ${screen.medsmall`
+    width: 90px;
+    right: 0;
+    height: 100%;
+    font-size: 16px;
+    margin-bottom: -1px;
+    box-shadow: 3px 10px 20px ${p => alpha(.2, p.theme.veryDark)};
+    border-left: 1px solid ${p => p.theme.veryLight};
+    background: ${p => p.theme.main}
+
+    .showAll & {
+      width: 100%;
+      height: 71px;
+      transition: width .3s ${EASE_OUT};
+    }
+    &:hover {
+      background: white;
+      transform: none;
+    }
+  `}
 `

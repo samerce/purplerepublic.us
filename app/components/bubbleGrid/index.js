@@ -118,7 +118,7 @@ export default class BubbleGrid extends React.PureComponent {
         {!isBubbleBuilderOpen &&
           <ShowAllButton onClick={this.onClickShowAll}>
             <div>
-              {isBubbleGridFullscreen? 'hide all' : 'show all'}
+              {isBubbleGridFullscreen? 'hide all' : 'see all'}
             </div>
           </ShowAllButton>
         }
