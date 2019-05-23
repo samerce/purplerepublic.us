@@ -5,7 +5,7 @@ import {
 
 const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
 
-export default class SlackInput extends React.Component {
+export default class SlackInput extends React.PureComponent {
 
   constructor() {
     super()

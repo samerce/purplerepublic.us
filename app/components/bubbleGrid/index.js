@@ -47,10 +47,6 @@ export default class BubbleGrid extends React.PureComponent {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props || nextState !== this.state
-  }
-
   componentDidUpdate(prevProps) {
     const {activeBubble, isBubbleBuilderOpen} = this.props
     if ((!isBubbleBuilderOpen && activeBubble && activeBubble !== prevProps.activeBubble) ||

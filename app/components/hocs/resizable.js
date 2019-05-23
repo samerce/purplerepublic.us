@@ -1,7 +1,7 @@
 import React from 'react'
 
 function resizable() { return Component => {
-  return class extends React.Component {
+  return class extends React.PureComponent {
 
     componentDidMount() {
       this.onResize = _.throttle(() => {

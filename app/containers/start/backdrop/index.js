@@ -18,7 +18,7 @@ function getBackgroundSize() {
 }
 
 @resizable()
-export default class Backdrop extends React.Component {
+export default class Backdrop extends React.PureComponent {
 
   constructor(props) {
     super(props)
@@ -30,10 +30,6 @@ export default class Backdrop extends React.Component {
 
   onResize() {
     this.setState({backgroundSize: getBackgroundSize()})
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState !== this.state
   }
 
   render() {

@@ -9,6 +9,10 @@ export default class PayPalLink extends React.Component {
     this.link.click()
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   render() {
     return (
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" className='paypal-link'>

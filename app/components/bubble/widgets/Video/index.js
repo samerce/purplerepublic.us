@@ -10,7 +10,7 @@ import autobind from 'autobind-decorator'
 const YouTubeRegex = /^[https*:\/\/]*[www.]*youtube.com\/watch\?v=(.{11})/gm
 const getVideoWidth = () => Math.min(780, window.innerWidth * .9)
 
-export default class VideoWidget extends React.Component {
+export default class VideoWidget extends React.PureComponent {
 
   constructor(props) {
     super(props)
@@ -18,10 +18,6 @@ export default class VideoWidget extends React.Component {
       videoId: YouTubeRegex.exec(props.decoratedText)[1]
     }
     YouTubeRegex.lastIndex = 0
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props
   }
 
   render() {

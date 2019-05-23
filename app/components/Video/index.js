@@ -14,10 +14,6 @@ export default class Video extends React.PureComponent {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState !== this.state || nextProps !== this.props
-  }
-
   render() {
     const {id} = this.props
     return (

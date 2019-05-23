@@ -38,10 +38,6 @@ export default class BubbleContentGeneric extends React.PureComponent {
     this.state = this.makeState(props.nucleus.detailText)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props || nextState !== this.state
-  }
-
   componentDidUpdate(prevProps) {
     const {nucleus, editing} = this.props
     const {detailText, id} = nucleus

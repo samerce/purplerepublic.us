@@ -38,7 +38,7 @@ const getBubbleSize = () => window.innerWidth <= SCREEN_WIDTH_M? 60 : 90
   activeBubble: d.get('bubbleverse').get('activeBubble'),
 }))
 @resizable()
-export default class BubbleButton extends React.Component {
+export default class BubbleButton extends React.PureComponent {
 
   constructor(props) {
     super(props)
@@ -84,10 +84,6 @@ export default class BubbleButton extends React.Component {
 
   componentWillUnmount() {
     this.timers.forEach(clearTimeout)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props || nextState !== this.state
   }
 
   render() {
