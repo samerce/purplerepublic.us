@@ -26,9 +26,7 @@ import {findDOMNode} from 'react-dom'
 const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aabc072b'
 
 // import why from 'why-did-you-update'
-// if (process.env.NODE_ENV !== 'production') {
-//   why(React)
-// }
+// why(React)
 
 @connect(d => ({
   isLogoWorldVisible: d.get('topNav').get('isExploreOpen') || d.get('topNav').get('isShopOpen'),
@@ -36,7 +34,7 @@ const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aa
 export default class Start extends React.Component {
 
   componentWillMount() {
-    if (canShowEditingTools()) {
+    if (process.env.NODE_ENV === 'production' && canShowEditingTools()) {
       const passcode = prompt('passcode, madam?') || ''
       if (!passcode.length || sha256(passcode) !== editPasscode) {
         alert('no entry fo yew.')
