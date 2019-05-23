@@ -256,7 +256,7 @@ export const CheckoutWidget = Boto.extend`
 
     ${screen.medium`
       width: ${window.innerWidth - 100}px;
-      flex: 0 0 626px;
+      flex: 0 0 636px;
     `}
   }
   .checkout-thanking & {
