@@ -5,8 +5,8 @@ import {
   BubbleBuilderNameTool,
   BubbleBuilderButtonTool,
   BubbleBuilderJourneyTool,
-} from '../bubbleBuilderTools'
-import Gallery from '../bubbleItems/gallery'
+} from '../builderTools'
+import Gallery from '../widgets/Gallery'
 
 import {
   Root, PropertiesSection, PropertiesSectionTitle, PublishingMask, PropertyInput,

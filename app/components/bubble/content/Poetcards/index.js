@@ -1,8 +1,8 @@
 import React from 'react'
-import SlackInput from '../../../containers/Politics/SlackInput'
+import SlackInput from '../../../../containers/Politics/SlackInput'
 
 import {
-  BubbleComponentRoot as Root, PoetCardRow, QuantityInput, PoetCardTotal, Intro,
+  Root, PoetCardRow, QuantityInput, PoetCardTotal, Intro,
   ImageRoot, QuantityRoot, Checkout, CustomerInfo, Name, Email, Address,
   PaymentInstructions, InstructionRow, InstructionNumber, Instructions,
   InstructionEmphasis, ActionButtons, ExitAction, ContinueAction, CustomerInfoTitle,
@@ -10,17 +10,17 @@ import {
 } from './styled'
 import {
   H1, H2, Body,
-} from '../../../global/styled'
+} from '../../../../global/styled'
 
 import autobind from 'autobind-decorator'
-import {openInNewTab} from '../../../utils/nav'
-import {makeEnum} from '../../../utils/lang'
+import {openInNewTab} from '../../../../utils/nav'
+import {makeEnum} from '../../../../utils/lang'
 import ClipboardJS from 'clipboard'
 import {connect} from 'react-redux'
-import {togglePoetcardCheckout} from '../redux/actions'
+import {togglePoetcardCheckout} from '../../redux/actions'
 
-import {SRC_URL} from '../../../global/constants'
-import {Poetcards} from '../config'
+import {SRC_URL} from '../../../../global/constants'
+import Poetcards from './config'
 
 const Clipboard = new ClipboardJS('.copiable')
 const Mode = makeEnum([

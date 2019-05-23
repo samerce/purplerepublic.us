@@ -4,115 +4,27 @@ import {
   EASE_OUT,
   EASE_IN,
   EASE,
-} from '../../../global/constants'
+} from '../../../../global/constants'
+import {
+  BubbleComponentRoot,
+} from '../styled'
 import {
   screen,
   ArticleText, Flex, FlexColumn, Boto, TextInput, AbsoluteFlex, CloseButton,
-} from '../../../global/styled'
-import theme from '../../../global/theme'
+} from '../../../../global/styled'
+import theme from '../../../../global/theme'
 
-injectGlobal`
-
-  .gallerySelectPill.gallerySelectPill {
-    position: relative;
-    transform: none;
-    top: 0;
-    left: 0;
+export const Root = BubbleComponentRoot.extend`
+  .poetcardBody {
+    margin: 0 0 10px;
   }
-  #lightboxBackdrop button span {
-      color: white;
-  }
-  .bubbleShopText {
-    transition: all .01s linear .2s;
-    pointer-events: none;
-    font-family: annie use your telescope;
-    font-size: 62px;
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    color: white;
-    top: 0;
-    user-select: none;
-    text-shadow: 1px 1px rgba(0,0,0,.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+  .psBody {
+    margin: 0 0 30px;
 
-    .focused & {
-      transition-delay: 0s;
-      opacity: 0;
-    }
-
-    span {
-      font-size: 22px;
-    }
-
-    .poetcardText {
-      font-size: 40px;
-    }
-
-    .shopText {
-      line-height: 40px;
-    }
-    .bubble-willFocus &, .bubble-focused &, .bubble-willDefocus & {
-      opacity: 0;
-      transition: none;
-    }
-    ${screen.medium`
-      font-size: 36px;
-      .shopText {
-        line-height: 16px;
-      }
-      .poetcardText {
-        font-size: 22px;
-      }
-      span {
-        display: none;
-      }
+    ${screen.medsmall`
+      font-size: 16px;
     `}
   }
-
-  .words-editor-toolbar {
-    color: ${theme.slightlyDark};
-    border: 1px solid ${theme.veryLight};
-    background: ${theme.main};
-    z-index: 10;
-    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 30px;
-    left: 10px;
-    width: 140px;
-    top: 200px;
-    justify-content: center;
-    border-radius: 10px;
-    position: fixed;
-    opacity: 0;
-    pointer-events: none;
-    transition: all .5s ${EASE_OUT};
-
-    &.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
-  }
-  .words-editor-textarea {
-    color: white;
-    min-width: 360px;
-  }
-  .rdw-option-wrapper, .rdw-dropdown-wrapper {
-    border: 1px solid ${theme.slightlyDark};
-    color: black;
-    border-radius: 5px;
-  }
-  .rdw-dropdown-selectedtext {
-    color: black;
-  }
-  .rdw-text-align-dropdown {
-    margin-bottom: 5px;
-  }
-  div.galleryWriting, div.videoWriting {
-    padding: 0;
-  }
-
   .poetcards-slack {
     overflow: hidden;
     visibility: hidden;
@@ -128,152 +40,6 @@ injectGlobal`
       width: 100%;
     `}
   }
-`
-
-export const BubbleComponentRoot = FlexColumn.extend`
-  height: 100%;
-  position: relative;
-  flex: 0 0 100%;
-  align-items: center;
-  padding: 20px 0;
-
-  &.wordsRoot {
-    overflow: hidden;
-    justify-content: flex-start;
-
-    &.galleryFirst {
-      flex-direction: column-reverse;
-      justify-content: flex-end;
-    }
-    &:not(.editing) {
-      .rdw-link-decorator-icon {
-        display: none;
-      }
-    }
-  }
-  &.gallery {
-    width: 100%;
-    flex: 0 0 auto;
-    height: initial;
-  }
-
-  .poetcardBody {
-    margin: 0 0 10px;
-  }
-  .psBody {
-    margin: 0 0 30px;
-
-    ${screen.medsmall`
-      font-size: 16px;
-    `}
-  }
-
-  #ReactGridGallery {
-    height: 100%;
-    width: 100%;
-  }
-
-  a {
-    color: ${p => p.theme.semiWhite};
-  }
-`
-
-export const VideoRoot = FlexColumn.extend`
-  text-align: center;
-  align-items: center;
-`
-
-export const VideoWrapper = Flex.extend`
-  border: 1px solid ${p => p.theme.veryLight};
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
-`
-
-export const RemoveButton = CloseButton.extend`
-  position: absolute;
-  transform: none;
-  opacity: 1;
-  pointer-events: all;
-`
-
-export const Description = ArticleText.extend`
-  font-size: 21px;
-  max-width: 780px;
-
-  ${screen.medium`
-    padding: 0;
-    font-size: 18px;
-  `}
-`
-
-export const EditPhotosRoot = FlexColumn.extend`
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 90px;
-  right: 10px;
-
-  .gallerySelectPill {
-    height: 50px;
-
-    .selectOption {
-      font-size: 20px;
-    }
-  }
-`
-
-export const GalleryPositionRoot = FlexColumn.extend`
-  align-items: center;
-  margin: 10px 0;
-
-  .selectOption {
-    font-size: 18px;
-  }
-`
-
-export const GalleryPositionTitle = Flex.extend`
-  font-size: 14px;
-  text-transform: uppercase;
-  font-family: playfair Display;
-  color: ${p => p.theme.veryLight};
-  margin: 0 0 10px;
-`
-
-export const Button = Boto.extend`
-  font-size: 22px;
-  padding: 15px 20px 10px;
-  transform: translate(0, -10px);
-`
-
-export const BuilderButton = Boto.extend`
-  margin: 10px 0;
-`
-
-export const DeleteButton = Button.extend`
-  opacity: ${p => p.disabled? .5 : 1};
-  pointer-events: ${p => p.disabled? 'none' : 'all'};
-`
-
-export const Hint = Button.extend`
-  font-size: 18px;
-  color: ${p => p.theme.veryLight};
-  background: ${p => p.theme.veryDark};
-  border: 1px solid ${p => p.theme.veryLight};
-  pointer-events: none;
-`
-
-export const CaptionInput = TextInput.extend`
-  position: absolute;
-  bottom: 15px;
-  left: 0;
-  z-index: 6;
-  height: 40px;
-  width: 80%;
-  text-align: left;
-  padding: 5px 10px 5px 20px;
-  font-size: 20px;
-  background: rgba(0,0,0,.5);
 `
 
 const PoetCardHeight = 400

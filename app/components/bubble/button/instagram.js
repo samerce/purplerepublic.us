@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {ImageBubbleButton, Icon} from './styled'
+import {ImageBubbleButton} from './styled'
 import {connect} from 'react-redux'
 
 @connect(d => ({
@@ -20,7 +20,6 @@ export default class InstagramBubbleButton extends React.PureComponent {
         src={posts.length > 0 &&
           posts[activePostIndex].image
         }>
-        <Icon className={'fa fa-instagram'} />
       </ImageBubbleButton>
     )
   }

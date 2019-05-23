@@ -45,6 +45,57 @@ export const Root = InlineBlock.extend`
   &.bubble-enter {
     transition: all 1s ${EASE_OUT};
   }
+
+  .bubbleShopText {
+    transition: all .01s linear .2s;
+    pointer-events: none;
+    font-family: annie use your telescope;
+    font-size: 62px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    color: white;
+    top: 0;
+    user-select: none;
+    text-shadow: 1px 1px rgba(0,0,0,.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    .focused & {
+      transition-delay: 0s;
+      opacity: 0;
+    }
+
+    span {
+      font-size: 22px;
+    }
+
+    .poetcardText {
+      font-size: 40px;
+    }
+
+    .shopText {
+      line-height: 40px;
+    }
+    .bubble-willFocus &, .bubble-focused &, .bubble-willDefocus & {
+      opacity: 0;
+      transition: none;
+    }
+    ${screen.medium`
+      font-size: 36px;
+      .shopText {
+        line-height: 16px;
+      }
+      .poetcardText {
+        font-size: 22px;
+      }
+      span {
+        display: none;
+      }
+    `}
+  }
 `
 
 export const ImageBubbleButton = BubbleButton.extend`

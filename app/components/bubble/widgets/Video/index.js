@@ -1,27 +1,16 @@
 import React from 'react'
-import Video from '../../Video'
-import {BubbleBuilderYouTubeTool} from '../bubbleBuilderTools'
-
-import autobind from 'autobind-decorator'
+import Video from '../../../Video'
 
 import {
-  VideoRoot, VideoWrapper, RemoveButton,
+  Root, VideoWrapper, RemoveButton,
 } from './styled'
+
+import autobind from 'autobind-decorator'
 
 const YouTubeRegex = /^[https*:\/\/]*[www.]*youtube.com\/watch\?v=(.{11})/gm
 const getVideoWidth = () => Math.min(780, window.innerWidth * .9)
 
-export default class BubbleVideo extends React.Component {
-
-  static matchingStrategy(contentBlock, callback, contentState) {
-    const text = contentBlock.getText()
-    let matchedItems, start
-    while ((matchedItems = YouTubeRegex.exec(text)) !== null) {
-      start = matchedItems.index
-      callback(start, start + matchedItems[0].length)
-    }
-    YouTubeRegex.lastIndex = 0
-  }
+export default class VideoWidget extends React.Component {
 
   constructor(props) {
     super(props)
@@ -36,27 +25,26 @@ export default class BubbleVideo extends React.Component {
   }
 
   render() {
-    const {editing, remove, decoratedText} = this.props
+    const {editing, remove} = this.props
     const {videoId} = this.state
     return (
-      <VideoRoot>
-
+      <Root>
         {editing &&
           <RemoveButton onClick={this.remove}>
             <i className='fa fa-close' />
           </RemoveButton>
         }
+
         <VideoWrapper>
           {videoId &&
             <Video
               id={videoId}
-              onReady={this.onVideoReady}
+              onReady={this.onReady}
               width={getVideoWidth()}
             />
           }
         </VideoWrapper>
-
-      </VideoRoot>
+      </Root>
     )
   }
 
@@ -72,8 +60,18 @@ export default class BubbleVideo extends React.Component {
   }
 
   @autobind
-  onVideoReady(player) {
+  onReady(player) {
     this.player = player
+  }
+
+  static matchingStrategy(contentBlock, callback, contentState) {
+    const text = contentBlock.getText()
+    let matchedItems, start
+    while ((matchedItems = YouTubeRegex.exec(text)) !== null) {
+      start = matchedItems.index
+      callback(start, start + matchedItems[0].length)
+    }
+    YouTubeRegex.lastIndex = 0
   }
 
 }

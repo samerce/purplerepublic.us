@@ -1,7 +1,7 @@
 import React from 'react'
-import Checkout from '../Checkout'
-import MailingListForm from '../MailingListForm'
-import {ClickableImage} from '../tinySpells'
+import Checkout from '../../../Checkout'
+import MailingListForm from '../../../MailingListForm'
+import {ClickableImage} from '../../../tinySpells'
 
 import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
@@ -13,15 +13,15 @@ import {
 } from './styled'
 import {
   SectionHeader, Image, Body, H1, H2,
-} from '../../global/styled'
+} from '../../../../global/styled'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import {openInNewTab} from '../../utils/nav'
-import {makeEnum} from '../../utils/lang'
-import {pcUrl} from '../../utils/url'
+import {openInNewTab} from '../../../../utils/nav'
+import {makeEnum} from '../../../../utils/lang'
+import {pcUrl} from '../../../../utils/url'
 
-import {SRC_URL} from '../../global/constants'
+import {SRC_URL} from '../../../../global/constants'
 
 const Mode = makeEnum([
   'teasing',
@@ -50,7 +50,7 @@ const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
 const ShippingTotal = 5
 
 @connect(d => ({}))
-export default class UnicornBubble extends React.PureComponent {
+export default class UnicornSecret extends React.PureComponent {
 
   constructor(props) {
     super(props)

@@ -1,6 +1,6 @@
 import React from 'react'
 import BubbleGrid from '../bubbleGrid'
-import BubbleDetails from '../bubble/bubbleDetails'
+import BubbleDetails from '../bubble/details'
 import Spinnie from '../spinnie'
 import {Helmet} from 'react-helmet'
 

@@ -1,8 +1,8 @@
 import React from 'react'
-import BubbleButton from '../bubble/bubbleButton'
-import BubbleButtonBuilder from '../bubble/bubbleButton/builder'
-import BubbleEditingPanel from '../bubble/bubbleBuilder'
-import {BubbleArrangeButton} from '../bubble/bubbleBuilderButton'
+import BubbleButton from '../bubble/button'
+import BubbleButtonBuilder from '../bubble/button/builder'
+import BubbleEditingPanel from '../bubble/builder'
+import {BubbleArrangeButton} from '../bubble/builderButton'
 import Spinnie from '../spinnie'
 
 import {

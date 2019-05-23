@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {ImageBubbleButton, Icon} from './styled'
+import {ImageBubbleButton} from './styled'
 import {getButtonImageUrl} from '../../../utils/bubbleverse'
 
 export default class ShopBubbleButton extends React.PureComponent {
@@ -13,7 +13,6 @@ export default class ShopBubbleButton extends React.PureComponent {
           onClick={onClick}
           size={size}
           src={getButtonImageUrl(nucleus.id)}>
-          <Icon className={'fa fa-shopping-bag'} />
         </ImageBubbleButton>
         <div className='bubbleShopText'>
           <div className='poetcardText'>poetcards<br /></div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import {MDCTabBar} from '@material/tab-bar'
-import Business from '../bubble/bubbleItems/business'
+import Business from '../bubble/content/Business'
 import Gallery from 'react-image-gallery'
 
 import '@material/tab-bar/dist/mdc.tab-bar.css'

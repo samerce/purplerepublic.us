@@ -20,10 +20,4 @@ export const Dimensions = {
     previewImages: ['senateWin', 'lampshade', 'takingUpCollection'],
   },
 }
-
 export const DimensionTypes = makeEnum(Object.keys(Dimensions))
-
-const BDBubbles = [
-  'twinkle', 'jamaica', 'magic', 'beauty', 'queen',
-  'buy-postcards',
-]

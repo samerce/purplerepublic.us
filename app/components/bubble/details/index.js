@@ -1,13 +1,11 @@
 import React from 'react'
 import {findDOMNode} from 'react-dom'
 import Spinnie from '../../spinnie'
-import BubbleContent from '../bubbleItems/words'
 
 import {
   Root, ContentRoot, ActionsRoot, Action, BubbleEditButton, BubbleDeleteButton, NavButton, ComponentRoot,
   BubbleOptions, Header, Footer, Mask
 } from './styled'
-import {Description} from '../bubbleItems/styled'
 
 import {canShowEditingTools} from '../../../utils/nav'
 import autobind from 'autobind-decorator'
@@ -70,7 +68,7 @@ export default class BubbleDetails extends React.PureComponent {
     if (!activeBubble) return null
 
     const {actions = []} = activeBubble
-    let BubbleComponent = BubbleContent
+    let BubbleComponent = BubbleComponents.Generic
     if (activeBubble.componentName) {
       BubbleComponent = BubbleComponents[activeBubble.componentName]
     }

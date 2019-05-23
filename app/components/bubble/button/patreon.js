@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {ImageBubbleButton, Icon} from './styled'
+import {ImageBubbleButton} from './styled'
 import {connect} from 'react-redux'
 
 @connect(d => ({
@@ -15,7 +15,6 @@ export default class PatreonBubbleButton extends React.PureComponent {
         onClick={onClick}
         size={size}
         src={heroConfig.gratitude[activeGratitude].image.src}>
-        <Icon className={'fa fa-gratipay'} />
       </ImageBubbleButton>
     )
   }

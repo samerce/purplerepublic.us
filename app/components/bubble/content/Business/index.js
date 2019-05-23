@@ -5,7 +5,7 @@ import {
   BuildingOption, SectionRoot, WildOption, SectionHeader,
   BuildingOptionHeader, BuildingOptionList, Feature, FeatureText,
   PreviousFeatures, BuildingButton, BuildingOptionsGroup, ButtonGroup,
-} from './styled/business'
+} from './styled'
 
 import autobind from 'autobind-decorator'
 

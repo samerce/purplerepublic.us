@@ -1,6 +1,6 @@
 import React from 'react'
 import TimedTextBlurb from '../timedTextBlurb'
-import {ImageBubbleButton} from '../bubble/bubbleButton/styled'
+import {ImageBubbleButton} from '../bubble/button/styled'
 
 import {
   Root, Image, CaptionRoot, ImageHeight, Button, Row, Gap,

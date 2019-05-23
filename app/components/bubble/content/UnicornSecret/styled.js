@@ -1,9 +1,9 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
+import {EASE_OUT, EASE_IN, EASE} from '../../../../global/constants'
 import {
   Flex, Boto, FlexColumn, TextInput, screen, Body,
-} from '../../global/styled'
+} from '../../../../global/styled'
 
 export const Root = FlexColumn.extend`
   width: 100%;

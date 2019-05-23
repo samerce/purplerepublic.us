@@ -8,20 +8,20 @@ import {
   convertFromHTML,
   CompositeDecorator,
 } from 'draft-js'
-import Video from './video'
-import Gallery from './gallery'
+import Video from '../../widgets/Video'
+import Gallery from '../../widgets/Gallery'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
 import {
-  Description, BubbleComponentRoot
+  Description, Root,
 } from './styled'
 
 import {
   updateBuilderNucleus
-} from '../../bubbleverse/actions'
-import {cx} from '../../../utils/style'
+} from '../../../bubbleverse/actions'
+import {cx} from '../../../../utils/style'
 
 // HACK: had to remove node_modules/draft-js/node_modules/immutable
 // in order to get rid of thousands of warnings in console
@@ -31,7 +31,7 @@ const DefaultPlaceholder = 'fill me up with something alluring, dahling.'
 @connect(d => ({
   editing: d.get('bubbleverse').get('isBubbleBuilderOpen'),
 }))
-export default class BubbleWords extends React.PureComponent {
+export default class BubbleContentGeneric extends React.PureComponent {
 
   constructor(props) {
     super(props)
@@ -57,13 +57,12 @@ export default class BubbleWords extends React.PureComponent {
     let toolbarClassName = 'words-editor-toolbar'
     if (isFocused) toolbarClassName += ' visible'
     const classes = cx({
-      [className]: 1,
-      wordsRoot: 1,
+      [className]: true,
       galleryFirst: galleryPosition === 'top',
       editing,
     })
     return (
-      <BubbleComponentRoot className={classes}>
+      <Root className={classes}>
         {detailText &&
           <Description>
             <Editor
@@ -82,7 +81,7 @@ export default class BubbleWords extends React.PureComponent {
           </Description>
         }
         {images && <Gallery nucleus={this.props.nucleus} />}
-      </BubbleComponentRoot>
+      </Root>
     )
   }
 

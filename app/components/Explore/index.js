@@ -1,7 +1,7 @@
 import React from 'react'
 import {MDCTabBar} from '@material/tab-bar'
 import Gallery from 'react-image-gallery'
-import Business from '../bubble/bubbleItems/business'
+import Business from '../bubble/content/Business'
 
 import '@material/tab-bar/dist/mdc.tab-bar.css'
 import '@material/tab-scroller/dist/mdc.tab-scroller.css'

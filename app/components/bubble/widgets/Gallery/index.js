@@ -1,23 +1,25 @@
 import React from 'react'
 import EditingGallery from 'react-grid-gallery'
 import Gallery from 'react-image-gallery'
-import SelectPill from '../../unoSelectPill'
+import SelectPill from '../../../unoSelectPill'
 import {Helmet} from 'react-helmet'
 
 import {
-  GalleryRoot, EditPhotosRoot, Button, DeleteButton,
+  Root, EditPhotosRoot, Button, DeleteButton,
   Hint, CaptionInput, BubbleComponentRoot, RemoveButton, BuilderButton,
   GalleryPositionTitle, GalleryPositionRoot,
 } from './styled'
-import {FlexColumn, HiddenFileInput} from '../../../global/styled'
+import {
+  FlexColumn, HiddenFileInput
+} from '../../../../global/styled'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
-import {SRC_URL} from '../../../global/constants'
-import {makeEnum} from '../../../utils/lang'
-import {makeQueryString} from '../../../utils/request'
+import {SRC_URL} from '../../../../global/constants'
+import {makeEnum} from '../../../../utils/lang'
+import {makeQueryString} from '../../../../utils/request'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import {updateBuilderNucleus} from '../../bubbleverse/actions'
+import {updateBuilderNucleus} from '../../../bubbleverse/actions'
 
 const GalleryBaseKey = 'bubbles/galleryImages/'
 const GalleryBaseUrl = SRC_URL + GalleryBaseKey
@@ -124,7 +126,7 @@ export default class BubbleGallery extends React.PureComponent {
     const shouldShowGallery = !!images.length && !shouldShowEditingGallery
 
     return (
-      <BubbleComponentRoot className={'gallery gallery-' + mode}>
+      <Root className={'gallery gallery-' + mode}>
         {!!images.length &&
           <Helmet>
             <meta property='og:image' content={images[0].src} />
@@ -177,7 +179,7 @@ export default class BubbleGallery extends React.PureComponent {
             />
           </EditPhotosRoot>
         }
-      </BubbleComponentRoot>
+      </Root>
     )
   }
 
