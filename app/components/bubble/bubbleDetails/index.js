@@ -49,7 +49,7 @@ export default class BubbleDetails extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.activeBubble) {
       this.contentRootDom = findDOMNode(this.contentRoot)
-      this.gestureHandler = Touch.Region(this.contentRootDom)
+      this.gestureHandler = Touch.Region(this.contentRootDom, false, false)
       this.gestureHandler.bind(this.contentRootDom, this.swipeGesture, this.onSwipe)
     } else if (this.contentRootDom) {
       this.gestureHandler.unbind(this.contentRootDom)

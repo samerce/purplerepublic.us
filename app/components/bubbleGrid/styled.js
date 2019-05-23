@@ -87,6 +87,9 @@ export const ScrollContainer = Flex.extend`
     padding: 0 15px;
   }
 
+  ${screen.medsmall`
+    margin-right: 90px;
+  `}
 `
 
 export const BubbleGridItem = Flex.extend`
@@ -188,9 +191,9 @@ export const ShowAllButton = Boto.extend`
     right: 0;
     height: 100%;
     font-size: 16px;
-    margin-bottom: -1px;
     box-shadow: 3px 10px 20px ${p => alpha(.2, p.theme.veryDark)};
     border-left: 1px solid ${p => p.theme.veryLight};
+    border-top: 1px solid ${p => p.theme.veryLight};
     background: ${p => p.theme.main}
 
     .showAll & {
