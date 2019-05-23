@@ -113,7 +113,7 @@ export const Body = FlexColumn.extend`
   padding: 0 20px;
   max-width: 780px;
   box-shadow: ${p => p.theme.shadowMedium};
-  margin: 0 20px;
+  margin: 20px;
 `
 
 export const Form = Body.extend`

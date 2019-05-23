@@ -159,7 +159,7 @@ export default class UnicornBubble extends React.PureComponent {
           <H2>help us save the world with art!</H2>
           <Body>
             <p>
-              express your mess is a nonprofit organization working to make <i>art</i> the reason we all wake up in the morning. art is the practice of loving life and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live in harmony with each other—to enjoy living!
+              express your mess is a not-for-profit network working to make <i>art</i> the reason we all wake up in the morning. art is the practice of loving life and it's time to move towards a heart-forward society. unrestrained competition is hindering the very reason we chose to create civilization in the first place—to live in harmony with each other—to enjoy living!
             </p>
           </Body>
           <ButtonGroup>

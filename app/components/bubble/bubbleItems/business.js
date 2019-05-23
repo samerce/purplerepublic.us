@@ -143,7 +143,7 @@ var BuildingOptions = [
     features: [
       'conferences',
       'workshops',
-      'nonprofit programs',
+      'not-for-profit programs',
       'leadership training',
       'experimental education',
       'makerspace',

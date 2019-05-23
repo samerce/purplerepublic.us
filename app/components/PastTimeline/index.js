@@ -69,7 +69,7 @@ var TimelineItems = [
   },
   {
     title: 'cookies for cambodia',
-    subtitle: 'a nonprofit aiding the impoverished',
+    subtitle: 'a non-profit aiding the impoverished',
   },
   {
     title: 'trailer trekkin',

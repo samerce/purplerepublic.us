@@ -24,7 +24,7 @@ export default class SupportUs extends React.PureComponent {
         </SectionHeader>
         <ContentRoot>
           <Blurb>
-            <p>join us! shop our art. donate to our nonprofit. become a patron. host an event. contribute ideas and art. volunteer your time. launch a local chapter.</p>
+            <p>join us! shop our art. donate to our not-for-profit programs. become a patron. host an event. contribute ideas and art. volunteer your time. launch a local chapter.</p>
 
             <p>looking to make a big difference? interested in putting your money where your heart and mind are? invest in the paradigm! open an eym in your city or help us open more across the nation.</p>
 
