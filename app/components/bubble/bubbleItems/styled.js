@@ -135,7 +135,7 @@ export const BubbleComponentRoot = FlexColumn.extend`
   position: relative;
   flex: 0 0 100%;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0;
 
   &.wordsRoot {
     overflow: hidden;

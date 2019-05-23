@@ -41,11 +41,18 @@ export const Root = AbsoluteFlexFillParent.extend`
   }
 
   .bubbleBuilderToolbar {
-    position: fixed;
+    width: 190px;
+    flex-direction: column;
+    position: relative;
+    left: unset;
+    flex: 0 0 190px;
+    right: 0;
     z-index: 50;
     pointer-events: all;
+    margin: 0;
+
     & > * {
-      padding: 10px;
+      padding: 10px 0;
       font-size: 26px;
     }
   }

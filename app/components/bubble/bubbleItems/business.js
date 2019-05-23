@@ -4,7 +4,7 @@ import {
   Root, OptionBubble, OptionContent, OptionButton, OptionText,
   BuildingOption, SectionRoot, WildOption, SectionHeader,
   BuildingOptionHeader, BuildingOptionList, Feature, FeatureText,
-  PreviousFeatures, BuildingButton,
+  PreviousFeatures, BuildingButton, BuildingOptionsGroup, ButtonGroup,
 } from './styled/business'
 
 import autobind from 'autobind-decorator'
@@ -23,20 +23,24 @@ export default class MindfulBusiness extends React.Component {
           {WildOptions.map(this.renderWildOption)}
         </SectionRoot>
 
-        <SectionRoot>
+        <SectionRoot className='buildingSection'>
           <SectionHeader>
             <hr />
             <div>in a building</div>
           </SectionHeader>
 
-          {BuildingOptions.map(this.renderBuildingOption)}
+          <BuildingOptionsGroup>
+            {BuildingOptions.map(this.renderBuildingOption)}
+          </BuildingOptionsGroup>
 
-          <BuildingButton>
-            <div>open a shop solo</div>
-          </BuildingButton>
-          <BuildingButton>
-            <div>open a shop with our help</div>
-          </BuildingButton>
+          <ButtonGroup>
+            <BuildingButton>
+              <div>open a shop solo</div>
+            </BuildingButton>
+            <BuildingButton>
+              <div>open a shop with our help</div>
+            </BuildingButton>
+          </ButtonGroup>
         </SectionRoot>
       </Root>
     )
@@ -45,10 +49,6 @@ export default class MindfulBusiness extends React.Component {
   renderWildOption(o, i) {
     return (
       <WildOption key={i}>
-        <OptionBubble>
-          <i className={'fa fa-' + o.icon} />
-        </OptionBubble>
-
         <OptionContent>
           <OptionButton onClick={() => this.onClickWildOption(i)}>
             {o.buttonText}
