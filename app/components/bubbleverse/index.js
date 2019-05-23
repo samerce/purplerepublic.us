@@ -216,7 +216,7 @@ export default class Bubbleverse extends React.PureComponent {
     ga('send', 'event', {
       eventCategory: 'bubbles',
       eventAction: 'bubble closed',
-      eventLabel: this.focusedBubble.id,
+      eventLabel: this.focusedBubble && this.focusedBubble.id,
     })
 
     this.props.dispatch(closeBubbleverse())
