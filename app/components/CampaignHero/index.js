@@ -5,7 +5,7 @@ import {
   Blurb, Root, Row, Button, ContentRoot,
 } from './styled'
 import {
-  Body,
+  Body, H1,
 } from '../../global/styled'
 
 import autobind from 'autobind-decorator'
@@ -23,27 +23,26 @@ export default class CampaignHero extends React.PureComponent {
     return (
       <Root className={this.props.introMode}>
         <SectionHeader text='purple 2020' />
-        <ContentRoot>
-          <Body>
-            <p>
-              can we dare to envision a greater destiny? can we replace “when's it coming" with “it's already here"? we have a planet full of absolutely fabulous people who have lost heart. who have boarded themselves up.
-            </p>
-            <p>
-              it's time to make space for the good to come.<br />
-              it's time to move beyond fear.
-            </p>
-            <p>
-              what do you see? what's inside of you? what wants out? we can let each other know we are here. together. part of something bigger. first we must imagine. tend to your dreamscape.
-            </p>
-            <p>
-              what reality do we wish to be a part of?
-            </p>
-          </Body>
+        <H1>can we dare to envision a greater destiny?</H1>
+        <Body className='body'>
+          <p>
+            we have a planet full of absolutely fabulous people who have lost heart. who have boarded themselves up.
+          </p>
+          <p>
+            it's time to make space for the good to come.<br />
+            it's time to move beyond fear.
+          </p>
+          <p>
+            what do you see? what's inside of you? what wants out? we can let each other know we are here. together. part of something bigger. first we must imagine. tend to your dreamscape.
+          </p>
+          <p>
+            what reality do we wish to be a part of?
+          </p>
+        </Body>
 
-          <Button onClick={this.openEmail}>
-            <div>get involved</div>
-          </Button>
-        </ContentRoot>
+        <Button onClick={this.openEmail}>
+          <div>get involved</div>
+        </Button>
       </Root>
     )
   }

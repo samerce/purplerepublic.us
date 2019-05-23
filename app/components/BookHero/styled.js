@@ -41,6 +41,15 @@ export const Root = FlexColumn.extend`
       color: ${p => p.theme.shellyLight};
       background: ${p => p.theme.shelly};
     }
+
+    ${screen.medsmall`
+      margin-top: 50px;
+
+      i {
+        left: 50%;
+        transform: rotate(-15deg) translate(-50%, 5px);
+      }
+    `}
   }
 
   .mailingListForm {

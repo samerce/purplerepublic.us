@@ -207,7 +207,7 @@ export const TextInput = styled.input`
 export const Image = styled.img`
   border-radius: 10px;
   box-shadow: ${p => p.theme.shadowHeavy};
-  border: 1px solid ${p => trans(.5, p.theme.veryLight)};
+  border: 2px solid ${p => trans(.5, p.theme.veryLight)};
   cursor: pointer;
   transition: all .2s ${EASE_OUT};
 

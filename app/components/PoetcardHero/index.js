@@ -42,7 +42,7 @@ export default class PoetcardHero extends React.PureComponent {
           <ClickableImage src={pcUrl('be your own therapy')} />
           <ClickableImage src={pcUrl('ice cream poop')} />
         </ImageGroup>
-        
+
         <Body className='mainBody'>
           <p>
             darling, sweetie.<br />
@@ -53,7 +53,7 @@ export default class PoetcardHero extends React.PureComponent {
           </Button>
         </Body>
 
-        <SecretCodeForm className='secretCodeBody'>
+        <SecretCodeForm>
           <p>got a poetcard secret code?</p>
           <TextInput
             onKeyPress={this.onKeyPressSecretCode}

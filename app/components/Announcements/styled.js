@@ -30,6 +30,9 @@ export const Root = FlexColumn.extend`
 
   .body {
     position: relative;
+    margin: 0 5px;
+    background: ${p => p.theme.flikLight};
+    color: ${p => p.theme.flikDark};
   }
 `
 
@@ -70,7 +73,10 @@ export const Row = Flex.extend`
 
     ${screen.mediumlarge`
       left: 50%;
-      transform: translate(-50%, -100px) rotate(-9deg);
+      width: 90px;
+      height: 90px;
+      font-size: 50px;
+      transform: translate(-50%, -55px) rotate(-9deg);
     `}
   }
 `

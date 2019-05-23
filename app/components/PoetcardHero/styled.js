@@ -32,6 +32,16 @@ export const ImageGroup = Flex.extend`
    & > * {
      max-width: 40%;
    }
+
+   ${screen.medsmall`
+     flex-direction: column;
+     margin: 0 0 15px;
+
+     & > * {
+       margin: 15px 0;
+       max-width: 90%;
+     }
+   `}
 `
 
 export const Body = aBody.extend`
@@ -39,9 +49,11 @@ export const Body = aBody.extend`
   text-align: center;
   align-items: center;
   z-index: 1;
+  background: ${p => p.theme.myrtleLight};
+  color: ${p => p.theme.myrtleDark};
 
   ${screen.medium`
-    margin: 10px 0;
+    margin: 10px 20px 0;
     flex: 0 0 100%;
     font-size: 22px;
   `}
@@ -53,6 +65,7 @@ export const SecretCodeForm = Form.extend`
   align-items: center;
   padding-top: 10px;
   transform: translate(0, -10px);
+  margin: 0 0 15px;
 
   p {
     margin-bottom: 10px;
@@ -60,8 +73,8 @@ export const SecretCodeForm = Form.extend`
 `
 
 export const Button = Boto.extend`
-  background: ${p => p.theme.shelly};
-  border-color: ${p => p.theme.shellyLight};
+  background: ${p => p.theme.flik};
+  border-color: ${p => p.theme.flikLight};
   width: 80%;
   max-width: 270px;
   font-size: 26px;

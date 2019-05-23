@@ -15,8 +15,9 @@ export const Root = FlexColumn.extend`
   flex: 0 0 100%;
   width: 100%;
   flex-wrap: wrap;
-  padding: 20px 0 60px;
+  padding: 0 0 40px;
   justify-content: center;
+  align-items: center;
   background: ${p => p.theme.veryDarkTransparent};
   transform: translate(0, -10px);
   opacity: 0;
@@ -26,17 +27,11 @@ export const Root = FlexColumn.extend`
     opacity: 1;
     transition: all 1s ${EASE_OUT} .8s;
   }
-`
 
-export const ContentRoot = FlexColumn.extend`
-  padding: 0 15px;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-
-  ${screen.medium`
-    margin: 60px 0 0;
-  `}
+  .body {
+    background: ${p => p.theme.daliLight};
+    color: ${p => p.theme.daliDark};
+  }
 `
 
 export const Button = BeggingButton.extend`

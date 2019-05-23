@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, screen
+  Flex, screen, Body,
 } from '../../global/styled'
 
 export const Root = Flex.extend`
@@ -29,19 +29,11 @@ export const Title  = Flex.extend`
   padding: 0 0 0 10px;
 `
 
-export const Blurb = styled.div`
+export const Blurb = Body.extend`
   flex: 1 0 auto;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  background: ${p => alpha(.2, p.theme.veryDark)};
-  box-shadow: ${p => p.theme.shadowMedium};
-  border: 1px solid ${p => p.theme.veryLight};
-  color: ${p => p.theme.veryLight};
+  margin-top: -10px;
+  padding: 10px 20px 0;
   font-size: 24px;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  margin-top: -3px;
   max-width: 1080px;
   text-align: center;
 
