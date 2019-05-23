@@ -64,7 +64,7 @@ export default class Start extends React.Component {
     return (
       <Root>
         <Backdrop />
-        <ScrollContainer ref={r => this.scrollContainerRef = r}>
+        <ScrollContainer ref={r => this.scrollContainerRef = r} id='startRoot'>
           <Logo />
           <ThenNowWhen />
           <HookEmHeader />

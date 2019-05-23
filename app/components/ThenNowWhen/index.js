@@ -73,6 +73,7 @@ export default class ThenNowWhen extends React.Component {
   @autobind
   closeTimeline() {
     window.location = '#start'
+    document.getElementById('startRoot').scrollTop = 0
   }
 
   @autobind

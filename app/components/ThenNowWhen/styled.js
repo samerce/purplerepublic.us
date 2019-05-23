@@ -184,4 +184,12 @@ export const CloseButton = aCloseButton.extend`
     ${CloseButtonActiveStyles}
     transition-delay: .2s;
   }
+
+  ${screen.medsmall`
+    bottom: 0;
+    top: unset;
+    width: 100%;
+    border-radius: 0;
+    left: 0;
+  `}
 `
