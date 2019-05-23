@@ -17,8 +17,8 @@ const ICON_URL = SRC_URL + 'icons/'
 
 @connect(d => ({
   dimension: d.get('bubbleverse').get('dimension'),
-  timelineVisible: d.get('timeline').get('pastTimelineVisible') ||
-    d.get('timeline').get('futureTimelineVisible'),
+  isTopNavOpen: d.get('topNav').get('isShopOpen') ||
+    d.get('topNav').get('isExploreOpen'),
   introMode: d.get('intro').get('mode'),
 }))
 export default class GetSocialWithUs extends React.Component {
@@ -28,9 +28,9 @@ export default class GetSocialWithUs extends React.Component {
   }
 
   render() {
-    const {dimension, timelineVisible, introMode} = this.props
+    const {dimension, isTopNavOpen, introMode} = this.props
     const classes = cx({
-      hidden: dimension || timelineVisible,
+      hidden: dimension || isTopNavOpen,
       [introMode]: true,
     })
     return (

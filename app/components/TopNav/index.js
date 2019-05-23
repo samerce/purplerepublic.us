@@ -12,25 +12,25 @@ import autobind from 'autobind-decorator'
 import withTransitions from '../hocs/withTransitions'
 
 @connect(d => ({
-  pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
-  futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
+  isShopOpen: d.get('topNav').get('isShopOpen'),
+  isExploreOpen: d.get('topNav').get('isExploreOpen'),
   introMode: d.get('intro').get('mode'),
 }))
-@withTransitions({prefix: 'timeline', exitDuration: 1000})
-export default class ThenNowWhen extends React.Component {
+@withTransitions({prefix: 'topNav', exitDuration: 1000})
+export default class TopNav extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    const {pastTimelineVisible, futureTimelineVisible, show, hide} = this.props
-    if (nextProps.pastTimelineVisible !== pastTimelineVisible) {
-      if (pastTimelineVisible) {
-        if (!nextProps.futureTimelineVisible) {
+    const {isShopOpen, isExploreOpen, show, hide} = this.props
+    if (nextProps.isShopOpen !== isShopOpen) {
+      if (isShopOpen) {
+        if (!nextProps.isExploreOpen) {
           hide()
         }
       } else show()
     }
-    if (nextProps.futureTimelineVisible !== futureTimelineVisible) {
-      if (futureTimelineVisible) {
-        if (!nextProps.pastTimelineVisible) {
+    if (nextProps.isExploreOpen !== isExploreOpen) {
+      if (isExploreOpen) {
+        if (!nextProps.isShopOpen) {
           hide()
         }
       } else show()
@@ -38,17 +38,17 @@ export default class ThenNowWhen extends React.Component {
   }
 
   render() {
-    const {pastTimelineVisible, futureTimelineVisible, className, introMode} = this.props
+    const {isShopOpen, isExploreOpen, className, introMode} = this.props
     const leftClasses = cx({
-      active: pastTimelineVisible,
+      active: isShopOpen,
     })
     const rightClasses = cx({
-      active: futureTimelineVisible,
+      active: isExploreOpen,
     })
     return (
       <Root className={className + ' ' + introMode}>
         <Background />
-        <CloseButton onClick={this.closeTimeline}>
+        <CloseButton onClick={this.closeTopNav}>
           <i className='fa fa-close' />
         </CloseButton>
 
@@ -71,7 +71,7 @@ export default class ThenNowWhen extends React.Component {
   }
 
   @autobind
-  closeTimeline() {
+  closeTopNav() {
     window.location = '#start'
     document.getElementById('startRoot').scrollTop = 0
   }

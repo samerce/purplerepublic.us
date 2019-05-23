@@ -22,8 +22,8 @@ const RotateConfig = {stiffness: 60, damping: 7}
 const ScaleConfig = {stiffness: 40, damping: 25}
 
 @connect(d => ({
-  pastTimelineVisible: d.get('timeline').get('pastTimelineVisible'),
-  futureTimelineVisible: d.get('timeline').get('futureTimelineVisible'),
+  isShopOpen: d.get('topNav').get('isShopOpen'),
+  isExploreOpen: d.get('topNav').get('isExploreOpen'),
   mode: d.get('intro').get('mode'),
 }))
 export default class LogoBubble extends React.Component {
@@ -40,15 +40,9 @@ export default class LogoBubble extends React.Component {
   }
 
   render() {
-    const {
-      mode, pastTimelineVisible, futureTimelineVisible
-    } = this.props
-    const classes = cx({
-      pastTimeline: pastTimelineVisible,
-      futureTimeline: futureTimelineVisible,
-    })
+    const {mode} = this.props
     return (
-      <Root className={`logo-${mode} ${classes}`} onClick={this.goHome}>
+      <Root className={`logo-${mode}`} onClick={this.goHome}>
         <CircleRoot>
           <CircleBill />
           <CirclePaul />

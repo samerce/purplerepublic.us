@@ -13,7 +13,7 @@ export const Root = Flex.extend`
   z-index: 6;
   pointer-events: none;
 
-  &.timeline-enter, &.timeline-show {
+  &.topNav-enter, &.topNav-show {
     pointer-events: all;
   }
 `
@@ -25,7 +25,7 @@ export const ButtonRoot = Flex.extend`
   justify-content: center;
   transition: all .5s ${EASE_OUT};
 
-  .timeline-show &, .timeline-enter & {
+  .topNav-show &, .topNav-enter & {
     z-index: 2;
   }
 
@@ -153,10 +153,10 @@ export const Button = Boto.extend`
     `}
   }
 
-  .timeline-exit &, .timeline-willExit & {
+  .topNav-exit &, .topNav-willExit & {
     transition-delay: .3s;
   }
-  .timeline-exit &, .timeline-hide & {
+  .topNav-exit &, .topNav-hide & {
     z-index: 3;
   }
 `
@@ -166,12 +166,12 @@ export const Background = ExpandingBackground.extend`
   left: 0;
   z-index: 1;
 
-  .timeline-show &, .timeline-enter &, .timeline-willExit & {
+  .topNav-show &, .topNav-enter &, .topNav-willExit & {
     transform: scale(3);
     opacity: 1;
     transition: all 2s ${EASE_OUT};
   }
-  .timeline-exit & {
+  .topNav-exit & {
     transition-delay: .2s;
     transition-duration: .5s;
   }
@@ -180,7 +180,7 @@ export const Background = ExpandingBackground.extend`
 export const CloseButton = aCloseButton.extend`
   z-index: 8;
 
-  .timeline-show &, .timeline-enter & {
+  .topNav-show &, .topNav-enter & {
     ${CloseButtonActiveStyles}
     transition-delay: .2s;
   }

@@ -9,11 +9,11 @@ import {openInNewTab} from '../../utils/nav'
 import withTransitions from '../hocs/withTransitions'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
-import {togglePastTimeline} from '../ThenNowWhen/actions'
+import {toggleShop} from '../TopNav/actions'
 import {addHashHandler} from '../../containers/App/actions'
 
 @connect(d => ({
-  isVisible: d.get('timeline').get('pastTimelineVisible')
+  isVisible: d.get('topNav').get('isShopOpen')
 }))
 @withTransitions({prefix: 'shop'})
 export default class Shop extends React.Component {
@@ -78,7 +78,7 @@ export default class Shop extends React.Component {
 
   @autobind
   toggle() {
-    this.props.dispatch(togglePastTimeline())
+    this.props.dispatch(toggleShop())
   }
 
 }

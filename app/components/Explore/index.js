@@ -23,18 +23,18 @@ import {connect} from 'react-redux'
 import {getButtonImageUrl} from '../../utils/bubbleverse'
 import {openBubbleverse} from '../bubbleverse/actions'
 import {
-  toggleFutureTimeline
-} from '../ThenNowWhen/actions'
+  toggleExplore
+} from '../TopNav/actions'
 import {addHashHandler} from '../../containers/App/actions'
 
 import Tabs from './config'
 import {SRC_URL, SCREEN_WIDTH_M} from '../../global/constants'
 
 @connect(d => ({
-  isVisible: d.get('timeline').get('futureTimelineVisible')
+  isVisible: d.get('topNav').get('isExploreOpen')
 }))
 @withTransitions({prefix: 'hire'})
-export default class FutureTimeline extends React.Component {
+export default class Explore extends React.Component {
 
   constructor(props) {
     super(props)
@@ -225,7 +225,7 @@ export default class FutureTimeline extends React.Component {
 
   @autobind
   toggle() {
-    this.props.dispatch(toggleFutureTimeline())
+    this.props.dispatch(toggleExplore())
   }
 
 }

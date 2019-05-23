@@ -2,7 +2,7 @@ import React from 'react'
 import Backdrop from './backdrop'
 import Logo from '../../components/logoBubble'
 import HookEmHeader from '../../components/HookEmHeader'
-import ThenNowWhen from '../../components/ThenNowWhen'
+import TopNav from '../../components/TopNav'
 import StackGrid from '../../components/StackGrid'
 import LatestBoard from '../../components/LatestBoard'
 import GetSocialWithUs from '../../components/getSocialWithUs'
@@ -31,7 +31,7 @@ const editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aa
 // }
 
 @connect(d => ({
-  isLogoWorldVisible: d.get('timeline').get('futureTimelineVisible') || d.get('timeline').get('pastTimelineVisible'),
+  isLogoWorldVisible: d.get('topNav').get('isExploreOpen') || d.get('topNav').get('isShopOpen'),
 }))
 export default class Start extends React.Component {
 
@@ -66,7 +66,7 @@ export default class Start extends React.Component {
         <Backdrop />
         <ScrollContainer ref={r => this.scrollContainerRef = r} id='startRoot'>
           <Logo />
-          <ThenNowWhen />
+          <TopNav />
           <HookEmHeader />
           <Announcements />
           <PoetcardHero />
