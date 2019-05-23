@@ -78,12 +78,13 @@ export const InlineBlock = styled.div`
 
 export const H1 = styled.h1`
   font-size: 48px;
+  line-height: 38px;
   color: ${p => p.theme.semiWhite};
   font-family: great vibes;
   text-align: center;
   align-self: center;
   padding: 0 20px;
-  margin: 0;
+  margin: 0 0 10px;
   font-weight: normal;
 
   ${screen.medium`
