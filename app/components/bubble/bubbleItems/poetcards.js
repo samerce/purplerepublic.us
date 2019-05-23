@@ -77,7 +77,7 @@ export default class PoetcardsBubble extends React.PureComponent {
           <p>
             go ahead, scroll through.<br/>
             choose your favorites, enter quantities, and place your order.<br/>
-            your purchase supports our <a href='#start/explore'>non-profit programs</a>.
+            your purchase supports our <a href='#start/explore'>not-for-profit programs</a>.
           </p>
           <p>
             so join the love revolution — help us spread the magic!

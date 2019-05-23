@@ -2,7 +2,7 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 
 import {
-  Root, Icon, ImageBubbleButton, Title,
+  Root, ImageBubbleButton, Title,
 } from './styled'
 
 import {makeEnum} from '../../../utils/lang'
@@ -19,13 +19,6 @@ import {connect} from 'react-redux'
 const ScaleFocused = window.innerWidth <= SCREEN_WIDTH_M? .5 : .25
 const xCenter = window.innerWidth / 2
 const yCenter = window.innerHeight / 2
-
-const TypeToIcon = {
-  video: 'youtube-play',
-  writing: 'book',
-  gallery: 'camera-retro',
-  words: 'book',
-}
 
 const Mode = makeEnum([
   'willEnter',
@@ -126,8 +119,7 @@ export default class BubbleButton extends React.Component {
           size={size}
           onClick={this.onClick}
           src={imageUrl || getButtonImageUrl(id)}>
-            <Icon className={'fa fa-' + TypeToIcon[type]} />
-            <Title><div>{title}</div></Title>
+          <Title><div>{title}</div></Title>
           </ImageBubbleButton>
         }
       </Root>

@@ -8,7 +8,7 @@ import {
   SCREEN_WIDTH_M,
 } from '../../../global/constants'
 import {
-  Icon as aIcon, BubbleButton, InlineBlock, screen, AbsoluteFlex, Flex,
+  BubbleButton, InlineBlock, screen, AbsoluteFlex, Flex,
 } from '../../../global/styled'
 
 export const Root = InlineBlock.extend`
@@ -78,31 +78,6 @@ export const ImageBubbleButton = BubbleButton.extend`
     transform: scale(.9);
     box-shadow: ${p => p.theme.shadowLight};
   }
-`
-
-export const Icon = aIcon.extend`
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  pointer-events: none;
-  transition-duration: .5s;
-  background: ${p => p.theme.veryLight};
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  font-size: 18px;
-  color: ${p => p.theme.slightlyDark};
-
-  ${screen.medium`
-    font-size: 12px;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-  `}
 `
 
 export const Title = AbsoluteFlex.extend`
