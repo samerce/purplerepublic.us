@@ -76,31 +76,31 @@ export const InlineBlock = styled.div`
   display: inline-block;
 `
 
-export const H1 = Flex.extend`
+export const H1 = styled.h1`
   font-size: 48px;
   color: ${p => p.theme.semiWhite};
   font-family: great vibes;
   text-align: center;
   align-self: center;
-  max-width: 850px;
+  padding: 0 20px;
+  margin: 0;
+  font-weight: normal;
 
   ${screen.medium`
-    font-size: 36px;
-    padding: 5px;
+    font-size: 34px;
   `}
 `
 
-export const H2 = Flex.extend`
+export const H2 = styled.h2`
   font-size: 26px;
   color: ${p => p.theme.veryLight};
   margin: 0 0 30px;
   text-align: center;
   align-self: center;
-  max-width: 850px;
+  padding: 0 20px;
 
   ${screen.medium`
-    font-size: 19px;
-    padding: 0 10px;
+    font-size: 21px;
   `}
 `
 

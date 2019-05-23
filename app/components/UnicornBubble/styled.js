@@ -42,7 +42,7 @@ export const PickArtRoot = FlexColumn.extend`
 export const ArtOptionsRoot = Flex.extend`
   justify-content: space-around;
   width: 100%;
-  margin: 20px 0;
+  margin: 40px 0 0;
   flex-wrap: wrap;
 
   ${screen.medium`
@@ -357,6 +357,10 @@ export const WhatRoot = FlexColumn.extend`
   align-items: center;
   margin: 0 0 40px;
 
+  .browseArtBody {
+    background: ${p => p.theme.daliLight};
+    color: ${p => p.theme.daliDark};
+  }
 `
 
 export const MailingListRoot = FlexColumn.extend`

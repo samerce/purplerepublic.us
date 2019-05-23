@@ -2,8 +2,11 @@ import React from 'react'
 
 import {
   Root, StackRoot, CircleAmy, CircleSue, CirclePat, Title, CircleRoot,
-  Blurb, StacksRoot,
+  Blurb, StackGroup,
 } from './styled'
+import {
+  H1, H2,
+} from '../../global/styled'
 
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
@@ -30,13 +33,14 @@ export default class StackGrid extends React.Component {
   render() {
     return (
       <Root>
-        <StacksRoot>
+        <H1>dive into us</H1>
+        <H2>
+          plunge into the dimensions below or&nbsp;
+          <a href='#start/explore'>explore the overview</a>
+        </H2>
+        <StackGroup>
           {DimensionValues.map(this.renderStack)}
-        </StacksRoot>
-        <Blurb>
-          dive into us.<br />or for a quick look,&nbsp;
-          <span onClick={this.onClickExplore}>explore the overview</span>.
-        </Blurb>
+        </StackGroup>
       </Root>
     )
   }

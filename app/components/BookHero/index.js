@@ -21,7 +21,7 @@ export default class BookHero extends React.PureComponent {
       <Root className={this.props.introMode}>
         <SectionHeader text='upcoming book release' />
         <H1>perpetually unfinished</H1>
-        <H2>look out for it in late 2019, everywhere books are sold!</H2>
+        <H2>coming late 2019, everywhere books are sold!</H2>
 
         <Body className='body'>
           <i className='fa fa-book' />

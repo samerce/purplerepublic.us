@@ -75,15 +75,15 @@ export default class UnicornBubble extends React.PureComponent {
             <br />will you take it?
           </H2>
 
+          <Body>
+            <p>
+              the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. <strong>pick one</strong> of these beautiful creatures then <strong>pick your price</strong> to have a gorgeous <strong>11 x 14 metallic print</strong> carried by stork straight to your door!
+            </p>
+          </Body>
+
           <ArtOptionsRoot>
             {ArtOptions.map(this.renderArtOption)}
           </ArtOptionsRoot>
-
-          <Body>
-            <p>
-              the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. pick one of these beautiful creatures above & pick your price below to have a gorgeous <strong>11 x 14 metallic print</strong> carried by stork straight to your door!
-            </p>
-          </Body>
 
           <PickArtForm>
             {/* <SizeOptionsRoot>
@@ -168,7 +168,7 @@ export default class UnicornBubble extends React.PureComponent {
             <Button onClick={this.openEmailTab}>contact us</Button>
           </ButtonGroup>
           <H1>browse our art!</H1>
-          <Body>
+          <Body className='browseArtBody'>
             <p>
               click through the bubbles at the bottom of the screen to explore all the art we've created over the past few years: from writing, to photoshoots, to videos, to music, and more!
             </p>

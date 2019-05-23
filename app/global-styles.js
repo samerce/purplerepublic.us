@@ -60,6 +60,10 @@ injectGlobal`
     font-family: 'IM Fell DW Pica', 'Open Sans', 'Helvetica Neue', Helvetica, serif;
   }
 
+  a {
+    color: ${theme.semiWhite};
+  }
+
   #app {
     height: 100%;
     min-height: 100%;

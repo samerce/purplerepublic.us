@@ -75,8 +75,8 @@ export const SecretCodeForm = Form.extend`
 export const Button = Boto.extend`
   background: ${p => p.theme.flik};
   border-color: ${p => p.theme.flikLight};
-  width: 80%;
-  max-width: 270px;
+  width: 100%;
+  max-width: 310px;
   font-size: 26px;
   margin: 0 0 20px;
 `

@@ -49,7 +49,7 @@ export default class PoetcardHero extends React.PureComponent {
             wanna join the love revolution from your couch?
           </p>
           <Button onClick={this.onClickGetPoetcards}>
-            check out all 50!
+            browse all 50 designs!
           </Button>
         </Body>
 

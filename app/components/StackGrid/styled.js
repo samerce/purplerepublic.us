@@ -2,19 +2,20 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto, screen,
+  Flex, Boto, screen, FlexColumn,
 } from '../../global/styled'
 
-export const Root = Flex.extend`
+export const Root = FlexColumn.extend`
   flex: 0 0 100%;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 0 0 40px;
+  margin: 0 0 70px;
 `
 
-export const StacksRoot = Flex.extend`
-  flex: 0 0 100%;
+export const StackGroup = Flex.extend`
+  width: 100%;
+  flex: 0 0 auto;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
