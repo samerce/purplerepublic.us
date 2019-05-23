@@ -71,9 +71,9 @@ export const Root = BubbleComponentRoot.extend`
 export const Description = ArticleText.extend`
   font-size: 21px;
   max-width: 780px;
+  padding: 0 20px;
 
   ${screen.medium`
-    padding: 0;
-    font-size: 18px;
+    font-size: 20px;
   `}
 `
