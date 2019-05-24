@@ -8,7 +8,7 @@ import {openInNewTab} from '../../utils/nav'
 
 export function ClickableImage(props) {
   const onClick = () => openInNewTab(props.src)
-  return <Image src={props.src} onClick={onClick} />
+  return <Image src={props.src} onClick={onClick} className={props.className} />
 }
 
 export function SectionHeader(props) {

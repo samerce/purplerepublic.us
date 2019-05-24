@@ -209,21 +209,24 @@ export const TextInput = styled.input`
 `
 
 export const Image = styled.img`
-  border-radius: 10px;
-  box-shadow: ${p => p.theme.shadowHeavy};
-  border: 2px solid ${p => trans(.5, p.theme.veryLight)};
   cursor: pointer;
   transition: all .2s ${EASE_OUT};
 
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: ${p => p.theme.shadowVeryHeavy};
-    transition: all .5s ${EASE_OUT};
-  }
-  &:active {
-    transform: scale(.99);
-    box-shadow: ${p => p.theme.shadowMedium};
-    transition: all .5s ${EASE_OUT};
+  &:not(.basic) {
+    border-radius: 10px;
+    box-shadow: ${p => p.theme.shadowHeavy};
+    border: 2px solid ${p => trans(.5, p.theme.veryLight)};
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: ${p => p.theme.shadowVeryHeavy};
+      transition: all .5s ${EASE_OUT};
+    }
+    &:active {
+      transform: scale(.99);
+      box-shadow: ${p => p.theme.shadowMedium};
+      transition: all .5s ${EASE_OUT};
+    }
   }
 `
 
