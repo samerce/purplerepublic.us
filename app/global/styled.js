@@ -13,6 +13,7 @@ import {
   SCREEN_WIDTH_XL_PX,
 } from './constants'
 import {darken, lighten, transparentize as trans} from 'polished'
+import theme from './theme'
 
 const sizes = {
   small: SCREEN_WIDTH_S,
@@ -79,13 +80,14 @@ export const InlineBlock = styled.div`
 export const H1 = styled.h1`
   font-size: 48px;
   line-height: 38px;
-  color: ${p => p.theme.semiWhite};
+  color: ${theme.semiWhite};
   font-family: great vibes;
   text-align: center;
   align-self: center;
   padding: 0 20px;
-  margin: 0 0 10px;
+  margin: 15px 0 10px;
   font-weight: normal;
+  text-shadow: 1px 1px ${theme.veryDark};
 
   ${screen.medium`
     font-size: 34px;
@@ -94,11 +96,12 @@ export const H1 = styled.h1`
 
 export const H2 = styled.h2`
   font-size: 26px;
-  color: ${p => p.theme.veryLight};
+  color: ${theme.veryLight};
   margin: 0 0 30px;
   text-align: center;
   align-self: center;
   padding: 0 20px;
+  text-shadow: 1px 1px ${theme.veryDark};
 
   ${screen.medium`
     font-size: 21px;

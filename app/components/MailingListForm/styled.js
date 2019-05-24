@@ -12,7 +12,7 @@ import {
 } from '../../global/styled'
 
 export const Root = FlexColumn.extend`
-  padding: 20px;
+  padding: 0 20px;
   max-width: 550px;
 
   &#mc_embed_signup {

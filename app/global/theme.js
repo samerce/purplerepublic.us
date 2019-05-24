@@ -65,5 +65,5 @@ export default {
     ${purpleVeryDark} 100%
   )`,
   linearGradient: c => `linear-gradient(to bottom, transparent 0%, ${c} 100%)`,
-  veryDarkTransparent: alpha(.5, purpleVeryDark),
+  veryDarkTransparent: alpha(.4, purpleVeryDark),
 }

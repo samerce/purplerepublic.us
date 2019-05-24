@@ -5,13 +5,14 @@ import {
   Flex, Boto, AbsoluteFlex, FlexColumn, screen, Body as aBody, TextInput as aTextInput,
   Form,
 } from '../../global/styled'
+import theme from '../../global/theme'
 
 export const Root = FlexColumn.extend`
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.veryDarkTransparent};
+  background: ${theme.veryDarkTransparent};
   padding: 0 0 40px 0;
   transform: translate(0, -10px);
   opacity: 0;
@@ -49,8 +50,8 @@ export const Body = aBody.extend`
   text-align: center;
   align-items: center;
   z-index: 1;
-  background: ${p => p.theme.myrtleLight};
-  color: ${p => p.theme.myrtleDark};
+  background: ${theme.daliLight};
+  color: ${theme.daliDark};
   margin-bottom: 0;
 
   ${screen.medium`
@@ -74,8 +75,6 @@ export const SecretCodeForm = Form.extend`
 `
 
 export const Button = Boto.extend`
-  background: ${p => p.theme.flik};
-  border-color: ${p => p.theme.flikLight};
   width: 100%;
   max-width: 310px;
   font-size: 26px;

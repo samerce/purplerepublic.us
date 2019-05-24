@@ -4,13 +4,14 @@ import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
   Flex, FlexColumn, Boto, AbsoluteFlex, screen, Form,
 } from '../../global/styled'
+import theme from '../../global/theme'
 
 export const Root = FlexColumn.extend`
   padding: 20px 0 40px;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-  background: ${p => p.theme.veryDarkTransparent};
+  background: ${theme.veryDarkTransparent};
   position: relative;
   transform: translate(0, -10px);
   opacity: 0;
@@ -25,6 +26,8 @@ export const Root = FlexColumn.extend`
   .body {
     margin: 0 20px 40px;
     position: relative;
+    background: ${theme.flikLight};
+    color: ${theme.flikDark};
 
     i {
       position: absolute;
@@ -37,9 +40,9 @@ export const Root = FlexColumn.extend`
       width: 90px;
       height: 90px;
       text-align: center;
-      box-shadow: ${p => p.theme.shadowHeavy};
-      color: ${p => p.theme.shellyLight};
-      background: ${p => p.theme.shelly};
+      box-shadow: ${theme.shadowHeavy};
+      color: ${theme.shellyLight};
+      background: ${theme.shelly};
     }
 
     ${screen.medsmall`

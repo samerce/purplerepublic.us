@@ -53,7 +53,6 @@ export const Root = BubbleComponentRoot.extend`
   }
   .words-editor-textarea {
     color: white;
-    min-width: 360px;
   }
   .rdw-option-wrapper, .rdw-dropdown-wrapper {
     border: 1px solid ${theme.slightlyDark};

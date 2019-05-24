@@ -15,7 +15,7 @@ const AppWrapper = styled.div`
 const pageMeta = [
   {
     name: 'description',
-    content: 'purple republic presents curated roots: (sm)art. isness with purpose. performance. politics. play.'
+    content: 'express your mess presents curated roots: (sm)art. isness with purpose. performance. politics. play.'
   },
 ]
 

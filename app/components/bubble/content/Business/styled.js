@@ -10,6 +10,8 @@ import {
 } from '../styled'
 
 export const Root = BubbleComponentRoot.extend`
+  padding-top: 20px;
+  width: 100%;
 `
 
 export const SectionRoot = Flex.extend`
@@ -25,7 +27,7 @@ export const SectionRoot = Flex.extend`
 `
 
 export const SectionHeader = aSectionHeader.extend`
-  margin: 0 0 60px;
+  margin: 0 0 40px;
   flex: 0 0 auto;
 `
 
@@ -71,6 +73,10 @@ export const BuildingOptionsGroup = Flex.extend`
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+
+  ${screen.medium`
+    flex-direction: column;
+  `}
 `
 
 export const BuildingOption = FlexColumn.extend`
@@ -83,7 +89,7 @@ export const BuildingOption = FlexColumn.extend`
   color: ${p => p.theme.daliDark};
   cursor: pointer;
   transition: all .3s ${EASE_OUT};
-  max-width: 300px;
+  max-width: 310px;
 
   &:hover {
     background: ${p => p.theme.veryLight};
@@ -91,8 +97,9 @@ export const BuildingOption = FlexColumn.extend`
     border-color: ${p => p.theme.veryDark};
   }
 
-  ${screen.medsmall`
+  ${screen.medium`
     margin: 20px 0;
+    width: 100%;
   `}
 `
 

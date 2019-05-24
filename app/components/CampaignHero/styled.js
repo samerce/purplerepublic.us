@@ -10,6 +10,7 @@ import {
 import {
   screen, Flex, Boto, FlexColumn, BlurbText, BeggingButton,
 } from '../../global/styled'
+import theme from '../../global/theme'
 
 export const Root = FlexColumn.extend`
   flex: 0 0 100%;
@@ -18,7 +19,7 @@ export const Root = FlexColumn.extend`
   padding: 0 0 40px;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.veryDarkTransparent};
+  background: ${theme.veryDarkTransparent};
   transform: translate(0, -10px);
   opacity: 0;
 
@@ -29,15 +30,13 @@ export const Root = FlexColumn.extend`
   }
 
   .body {
-    background: ${p => p.theme.daliLight};
-    color: ${p => p.theme.daliDark};
   }
 `
 
 export const Button = BeggingButton.extend`
   transform: rotate(2deg);
-  background: ${p => p.theme.myrtle};
-  border-color: ${p => p.theme.myrtleLight};
+  background: ${theme.myrtle};
+  border-color: ${theme.myrtleLight};
 
   ${screen.mediumlarge`
     transform: translate(0, -30px) rotate(2deg);
