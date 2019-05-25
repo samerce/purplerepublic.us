@@ -14,15 +14,13 @@ import {
 } from '../../../../global/styled'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
-import {SRC_URL} from '../../../../global/constants'
+import {SRC_URL, GalleryBaseKey} from '../../../../global/constants'
 import {makeEnum} from '../../../../utils/lang'
 import {makeQueryString} from '../../../../utils/request'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 import {updateBuilderNucleus} from '../../../bubbleverse/actions'
-
-const GalleryBaseKey = 'bubbles/galleryImages/'
-const GalleryBaseUrl = SRC_URL + GalleryBaseKey
+import {galleryImageUrl} from '../../../../utils/url'
 
 const Mode = makeEnum([
   'show',
@@ -35,7 +33,7 @@ const Mode = makeEnum([
   activeBubble: d.get('bubbleverse').get('activeBubble'),
   editing: d.get('bubbleverse').get('isBubbleBuilderOpen'),
   lastPublishedBubble: d.get('bubbleverse').get('lastPublishedBubble'),
-}))
+}), null, null, {withRef: true})
 export default class BubbleGallery extends React.PureComponent {
 
   constructor(props) {
@@ -72,7 +70,7 @@ export default class BubbleGallery extends React.PureComponent {
         }
       }
 
-      const src = GalleryBaseUrl + bubbleId + `/${img.id}.jpg`
+      const src = galleryImageUrl(bubbleId, img.id)
       galleryImages.push({
         src,
         description: img.caption,
@@ -365,6 +363,8 @@ export default class BubbleGallery extends React.PureComponent {
   }
 
   setImages(images) {
+    this.localImages = images
+
     const nucleusImages = images.map(img => ({
       id: img.id,
       width: img.thumbnailWidth,

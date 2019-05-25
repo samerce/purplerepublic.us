@@ -32,3 +32,6 @@ export const SCREEN_WIDTH_S_PX = SCREEN_WIDTH_S + 'px'
 export const SCREEN_WIDTH_M_PX = SCREEN_WIDTH_M + 'px'
 export const SCREEN_WIDTH_L_PX = SCREEN_WIDTH_L + 'px'
 export const SCREEN_WIDTH_XL_PX = SCREEN_WIDTH_XL + 'px'
+
+export const GalleryBaseKey = 'bubbles/galleryImages/'
+export const GalleryBaseUrl = SRC_URL + GalleryBaseKey

@@ -79,7 +79,7 @@ export default class BubbleDetails extends React.PureComponent {
           {this.renderEditMenuButton()}
 
           <ComponentRoot>
-            <BubbleComponent nucleus={activeBubble} />
+            <BubbleComponent nucleus={activeBubble} editing={editing} />
           </ComponentRoot>
 
           <Footer>

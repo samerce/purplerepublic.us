@@ -5,12 +5,14 @@ import Generic from './content/Generic'
 import Poetcards from './content/Poetcards'
 import Business from './content/Business'
 import UnicornSecret from './content/UnicornSecret'
+import ArtSplash from './content/ArtSplash'
 
 export const BubbleComponents = {
   Generic,
   Poetcards,
   Business,
   UnicornSecret,
+  ArtSplash,
 }
 export const BubbleType = makeEnum(Object.keys(BubbleComponents))
 

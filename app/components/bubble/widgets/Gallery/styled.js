@@ -12,6 +12,8 @@ import {
 import theme from '../../../../global/theme'
 
 export const Root = BubbleComponentRoot.extend`
+  width: 100%;
+  
   #lightboxBackdrop button span {
       color: white;
   }
