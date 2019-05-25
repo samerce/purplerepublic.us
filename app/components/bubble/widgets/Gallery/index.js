@@ -357,7 +357,8 @@ export default class BubbleGallery extends React.PureComponent {
       },
       body: makeQueryString({
         data: img.src,
-        id: GalleryBaseKey + `${this.props.id}/${img.id}`
+        id: GalleryBaseKey + `${this.props.nucleus.id}/${img.id}`,
+
       }),
     })
   }

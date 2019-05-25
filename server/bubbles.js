@@ -150,7 +150,7 @@ function uploadJPEG(imageData, key, metadata = {}) {
   	    	reject(err)
   	    } else {
   	    	console.log("successfully uploaded image to S3", data)
-          resetCache(['/' + fullKey])
+          // resetCache(['/' + fullKey])
   	    	resolve(data)
   	    }
   	})

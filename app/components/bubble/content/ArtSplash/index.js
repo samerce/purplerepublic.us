@@ -17,7 +17,7 @@ export default class ArtSplash extends React.PureComponent {
     return (
       <Root>
         {images.map(img => (
-          <div>
+          <div key={img.id}>
             <ClickableImage
               className='basic'
               src={this.getImageSrc(id, img.id)}
@@ -36,7 +36,7 @@ export default class ArtSplash extends React.PureComponent {
 
   getImageSrc(bubbleId, imgId) {
     let src
-    if (this.props.editing) {
+    if (this.props.editing && this.gallery && this.gallery.localImages) {
       const image = this.gallery.localImages.find(img => img.id === imgId)
       if (image) src = image.src
     }
