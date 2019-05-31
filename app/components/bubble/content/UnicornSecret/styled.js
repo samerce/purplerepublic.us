@@ -33,6 +33,58 @@ export const ButtonGroup = Flex.extend`
   `}
 `
 
+export const AffirmationRoot = styled.div`
+  text-align: center;
+  padding: 20px 0 0;
+
+  & > * {
+    display: inline-block;
+    pointer-events: none;
+    border: none;
+    transition: all 2s ${EASE_OUT};
+  }
+
+  &.show {
+    .you {
+      transform: rotate(-20deg);
+    }
+    .are {
+      transform: rotate(10deg);
+      transition-delay: .5s;
+    }
+    .awesome {
+      transform: none;
+      transition-delay: 1.5s;
+    }
+  }
+
+  .you {
+    transform: rotate(960deg) scale(0);
+  }
+  .are {
+    transform: rotate(-1024deg) scale(0);
+  }
+  .you, .are {
+    width: 25%;
+
+    ${screen.large`
+      width: 35%;
+    `}
+  }
+  .awesome {
+    display: block;
+    width: 50%;
+    margin: -10% auto 0;
+    z-index: 1;
+    position: relative;
+    transform: scale(0);
+
+    ${screen.large`
+      width: 90%;
+    `}
+  }
+`
+
 export const PickArtRoot = FlexColumn.extend`
   align-items: center;
   margin: 20px 0 40px;

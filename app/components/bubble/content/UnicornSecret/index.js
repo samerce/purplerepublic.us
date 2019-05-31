@@ -1,7 +1,7 @@
 import React from 'react'
 import Checkout from '../../../Checkout'
 import MailingListForm from '../../../MailingListForm'
-import {ClickableImage} from '../../../tinySpells'
+import {ClickableImage, SectionHeader} from '../../../tinySpells'
 
 import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
@@ -9,10 +9,10 @@ import {
   PoetcardPreviewRoot, ButtonGroup, SizeOptionsRoot, SizeOption,
   PriceInput, ShippingRoot, GetItText, TotalText, CheckoutWidget, PriceRoot,
   TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
-  PlusSign, SeeButton, ArtTitle, ItemName,
+  PlusSign, SeeButton, ArtTitle, ItemName, AffirmationRoot,
 } from './styled'
 import {
-  SectionHeader, Image, Body, H1, H2,
+  Image, Body, H1, H2,
 } from '../../../../global/styled'
 
 import autobind from 'autobind-decorator'
@@ -48,6 +48,7 @@ const ArtOptions = [
 ]
 const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
 const ShippingTotal = 5
+const SecretCodeUrl = SRC_URL + 'secretCodePages/'
 
 @connect(d => ({}))
 export default class UnicornSecret extends React.PureComponent {
@@ -62,11 +63,22 @@ export default class UnicornSecret extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    setTimeout(() => this.setState({mounted: true}), 1000)
+  }
+
   render() {
-    const {mode, total, pickYourPrice, pickedArt} = this.state
+    const {mode, total, pickYourPrice, pickedArt, mounted} = this.state
     return (
       <Root>
+        <AffirmationRoot className={mounted && 'show'}>
+          <Image src={SecretCodeUrl + 'you.png'} className='you basic' />
+          <Image src={SecretCodeUrl + 'are.png'} className='are basic' />
+          <Image src={SecretCodeUrl + 'awesome.png'} className='awesome basic' />
+        </AffirmationRoot>
+
         <PickArtRoot>
+          <SectionHeader text='oh look!' />
           <H1>
             a unicorn, a hippie & a bird landed on your roof!
           </H1>
@@ -136,10 +148,7 @@ export default class UnicornSecret extends React.PureComponent {
         </PickArtRoot>
 
         <PoetcardsRoot>
-          <SectionHeader>
-            <hr />
-            <div>poetcards</div>
-          </SectionHeader>
+          <SectionHeader text='poetcards' />
           <H1>like the poetcard you got?</H1>
           <H2>we have over 50 designs!</H2>
           <PoetcardPreviewRoot>
@@ -151,10 +160,7 @@ export default class UnicornSecret extends React.PureComponent {
         </PoetcardsRoot>
 
         <WhatRoot>
-          <SectionHeader>
-            <hr />
-            <div>what is this?</div>
-          </SectionHeader>
+          <SectionHeader text='what is this?' />
           <H1>this is the love revolution</H1>
           <H2>help us save the world with art!</H2>
           <Body>
@@ -176,10 +182,7 @@ export default class UnicornSecret extends React.PureComponent {
         </WhatRoot>
 
         <MailingListRoot>
-          <SectionHeader>
-            <hr />
-            <div>join us!</div>
-          </SectionHeader>
+          <SectionHeader text='join us!' />
           <H1>join our mailing list</H1>
           <H2>monthly updates on our mission + opportunities for you to get involved!</H2>
           <MailingListForm />
