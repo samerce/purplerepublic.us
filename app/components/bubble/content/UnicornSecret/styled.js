@@ -4,6 +4,7 @@ import {EASE_OUT, EASE_IN, EASE} from '../../../../global/constants'
 import {
   Flex, Boto, FlexColumn, TextInput, screen, Body,
 } from '../../../../global/styled'
+import theme from '../../../../global/theme'
 
 export const Root = FlexColumn.extend`
   width: 100%;
@@ -83,6 +84,66 @@ export const AffirmationRoot = styled.div`
       width: 90%;
     `}
   }
+`
+
+export const GiftRoot = Flex.extend`
+  padding: 0 20px;
+  margin: 0 0 30px;
+  align-items: center;
+  justify-content: center;
+
+  ${screen.medsmall`
+    flex-direction: column;
+  `}
+`
+
+export const GiftContent = FlexColumn.extend`
+  justify-content: center;
+  align-items: center;
+
+  ${Body} {
+    margin-left:  -10px;
+    margin-bottom: 0;
+    padding-left: 30px;
+    z-index: 1;
+  }
+
+  ${screen.medsmall`
+    ${Body} {
+      padding: 10px 20px 0;
+      margin: -10px 0 0;
+    }
+  `}
+`
+
+export const Gift = Flex.extend`
+  border-radius: 10px;
+  border: 1px solid ${theme.veryLight};
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;overflow: hidden;
+  box-shadow: ${theme.shadowHeavy};
+  margin: -2px 0 20px;
+
+  ${screen.medsmall`
+    margin-bottom: 0;
+  `}
+`
+
+export const GiftImageRoot = styled.div`
+  flex: 0 0 25%;
+  z-index: 2;
+
+  img {
+    width: 100%;
+  }
+
+  ${screen.large`
+    flex: 0 0 33%;
+  `}
+
+  ${screen.medsmall`
+    width: 60%;
+  `}
 `
 
 export const PickArtRoot = FlexColumn.extend`

@@ -2,6 +2,7 @@ import React from 'react'
 import Checkout from '../../../Checkout'
 import MailingListForm from '../../../MailingListForm'
 import {ClickableImage, SectionHeader} from '../../../tinySpells'
+import Video from '../../../Video'
 
 import {
   Root, PickArtRoot, PoetcardsRoot, WhatRoot, MailingListRoot,
@@ -9,7 +10,8 @@ import {
   PoetcardPreviewRoot, ButtonGroup, SizeOptionsRoot, SizeOption,
   PriceInput, ShippingRoot, GetItText, TotalText, CheckoutWidget, PriceRoot,
   TotalRoot, CheckoutRoot, Itemization, ShippingPrice, ShippingByline,
-  PlusSign, SeeButton, ArtTitle, ItemName, AffirmationRoot,
+  PlusSign, SeeButton, ArtTitle, ItemName, AffirmationRoot, GiftRoot, Gift, GiftContent,
+  GiftImageRoot,
 } from './styled'
 import {
   Image, Body, H1, H2,
@@ -21,7 +23,9 @@ import {openInNewTab} from '../../../../utils/nav'
 import {makeEnum} from '../../../../utils/lang'
 import {pcUrl} from '../../../../utils/url'
 
-import {SRC_URL} from '../../../../global/constants'
+import {
+  SRC_URL, SCREEN_WIDTH_L, SCREEN_WIDTH_MS
+} from '../../../../global/constants'
 
 const Mode = makeEnum([
   'teasing',
@@ -29,23 +33,6 @@ const Mode = makeEnum([
   'closing',
   'thanking',
 ])
-const ArtOptions = [
-  {
-    id: 'prance',
-    title: 'sunrose the unicorn',
-    cheeky: 'sunrose nuzzles you.',
-  },
-  {
-    id: 'train hoppin charlie',
-    title: 'charlie the hippie',
-    cheeky: 'charlie gives you a wink.',
-  },
-  {
-    id: 'the flight home',
-    title: 'sol the bird',
-    cheeky: 'sol lands on your head.',
-  },
-]
 const SizeOptions = ['4 x 6 postcard', '5 x 7', '8 x 10', '11 x 14', '16 x 20']
 const ShippingTotal = 5
 const SecretCodeUrl = SRC_URL + 'secretCodePages/'
@@ -83,15 +70,16 @@ export default class UnicornSecret extends React.PureComponent {
             a unicorn, a hippie & a bird landed on your roof!
           </H1>
           <H2>
-            they have pooled their power to offer you a chance to help save the world with art.
-            <br />will you take it?
+            and they come bearing gifts...
           </H2>
 
-          <Body>
-            <p>
-              the narcissism of this motley crew is absolutely spectacular: their gift to you is a print of one of their mugs at whatever price you want. <strong>pick one</strong> of these beautiful creatures then <strong>pick your price</strong> to have a gorgeous <strong>11 x 14 metallic print</strong> carried by stork straight to your door!
-            </p>
-          </Body>
+          {ArtOptions.map(this.renderGift)}
+
+          <SectionHeader text='wanna take me home?' />
+          <H1>let's be friends forever!</H1>
+          <H2>
+            pick your price below to have a gorgeous 11 x 14 metallic print of one of your new friends carried by stork straight to your door!
+          </H2>
 
           <ArtOptionsRoot>
             {ArtOptions.map(this.renderArtOption)}
@@ -209,6 +197,23 @@ export default class UnicornSecret extends React.PureComponent {
           see bigger
         </SeeButton>
       </ArtOption>
+    )
+  }
+
+  @autobind
+  renderGift(gift) {
+    return (
+      <GiftRoot key={gift.id}>
+        <GiftImageRoot>
+          <ClickableImage src={pcUrl(gift.id)} />
+        </GiftImageRoot>
+        <GiftContent>
+          <Body>
+            {gift.renderContent()}
+          </Body>
+          {gift.renderGift()}
+          </GiftContent>
+      </GiftRoot>
     )
   }
 
@@ -336,4 +341,66 @@ function makeOrder(details) {
       },
     ],
   }
+}
+
+var ArtOptions = [
+  {
+    id: 'prance',
+    title: 'sunrose the unicorn',
+    cheeky: 'sunrose nuzzles you.',
+    renderContent: () => (
+      <p>
+        <strong>meet sunrose.</strong><br/>
+        she's a restless little unicorn. she dances wherever she is—the coffeeshop, the club, the bathroom... “there's no room for self-doubt when you let your body (and mind) be free!”<br/>
+        <strong>enjoy this gift from the twerking unicorn.</strong>
+      </p>
+    ),
+    renderGift: () => (
+      <Gift width={getVideoWidth()}>
+        <Video id='BdHK_r9RXTc' width={getVideoWidth} />
+      </Gift>
+    ),
+  },
+  {
+    id: 'train hoppin charlie',
+    title: 'charlie the hippie',
+    cheeky: 'charlie gives you a wink.',
+    renderContent: () => (
+      <p>
+        <strong>meet charlie.</strong><br/>
+        he spends life hopping trains in europe and when i met him he said to me, “look, if they catch you, you just get off, explore the town, and hop on the next one.”<br/>
+        <strong>enjoy this gift from the train-hoppin' hippie.</strong>
+      </p>
+    ),
+    renderGift: () => (
+      <Gift width={getVideoWidth()}>
+        <Video id='a1eXSvl5rn8' width={getVideoWidth} />
+      </Gift>
+    ),
+  },
+  {
+    id: 'the flight home',
+    title: 'sol the bird',
+    cheeky: 'sol lands on your head.',
+    renderContent: () => (
+      <p>
+        <strong>meet sol.</strong><br/>
+        she is a bit of an odd bird. always BKAWK!ing and causing a scene. she loves to shake things up and keep things fresh. there's no conforming here!<br/>
+        <strong>enjoy this gift from the most unique bird.</strong>
+      </p>
+    ),
+    renderGift: () => (
+      <Gift width={getVideoWidth()}>
+        <Video id='-DO_GgchYPA' width={getVideoWidth} />
+      </Gift>
+    ),
+  },
+]
+
+function getVideoWidth() {
+  if (window.innerWidth <= SCREEN_WIDTH_MS) {
+    return 300
+  } else if (window.innerWidth <= SCREEN_WIDTH_L) {
+    return 400
+  } else return 600
 }
