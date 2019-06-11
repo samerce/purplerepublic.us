@@ -10,6 +10,7 @@ import {
 import {
   screen, Flex, Boto, FlexColumn, BlurbText, BeggingButton,
 } from '../../global/styled'
+import theme from '../../global/theme'
 
 export const Root = FlexColumn.extend`
   margin: 40px 0 0;
@@ -25,7 +26,7 @@ export const Root = FlexColumn.extend`
   &.settle, &.chill {
     transform: none;
     opacity: 1;
-    transition: all 1s ${EASE_OUT} .7s;
+    transition: all 1s ${EASE_OUT} .8s;
   }
 
   .body {
@@ -33,6 +34,15 @@ export const Root = FlexColumn.extend`
     margin: 0 5px;
     background: ${p => p.theme.flikLight};
     color: ${p => p.theme.flikDark};
+  }
+
+  @keyframes noticeme {
+   0% {
+     margin-left: 0;
+   }
+   100% {
+    margin-left: 7px;
+   }
   }
 `
 
@@ -78,6 +88,40 @@ export const Row = Flex.extend`
       font-size: 50px;
       transform: translate(-50%, -55px) rotate(-9deg);
     `}
+
+    & > * {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      border-radius: 40px;
+      animation-name: noticeme;
+      animation-duration: .5s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      animation-timing-function: ${EASE_OUT};
+    }
+
+    .screech1 {
+      width: 30px;
+      height: 2px;
+      transform: translate(0, 20px) rotate(-20deg);
+      animation-delay: ${Math.random() * .2}s;
+      background: ${theme.pramLight};
+    }
+    .screech2 {
+      width: 40px;
+      height: 2px;
+      transform: translate(0, 40px) rotate(-2deg);
+      animation-delay: ${Math.random() * .2}s;
+      background: ${theme.tweetLight};
+    }
+    .screech3 {
+      width: 30px;
+      height: 2px;
+      transform: translate(0, 60px) rotate(10deg);
+      animation-delay: ${Math.random() * .2}s;
+      background: ${theme.pramLight};
+    }
   }
 `
 

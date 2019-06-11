@@ -29,7 +29,11 @@ export default class Announcements extends React.PureComponent {
         <ContentRoot>
           <Row>
             <Body className='body'>
-              <i className='fa fa-bullhorn' />
+              <i className='fa fa-bullhorn'>
+                <div className='screech1' />
+                <div className='screech2' />
+                <div className='screech3' />
+              </i>
               <p>
                 free thinking minds—led by open hearts and expansive spirits—are a threat to the system. oppressors limit our imagination, convincing us life will crash down without them. we're desperate for a greater destiny. a deeper dance with reality. what does your utopia look like?
               </p>
@@ -40,7 +44,7 @@ export default class Announcements extends React.PureComponent {
           </Row>
 
           <H1>join the mailing list</H1>
-          <H2>stay abreast of our latest efforts & get involved with our mission</H2>
+          <H2>follow our latest shenanigans & get involved with our mission</H2>
           <MailingListForm />
         </ContentRoot>
       </Root>

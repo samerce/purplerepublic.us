@@ -17,7 +17,7 @@ export const Root = Flex.extend`
   &.settle, &.chill {
     transform: none;
     opacity: 1;
-    transition: all 1s ${EASE_OUT} .6s;
+    transition: all 1s ${EASE_OUT} .7s;
   }
 `
 

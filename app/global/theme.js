@@ -12,6 +12,7 @@ const dali = '#542263'
 const myrtle = '#71201b'
 const shelly = '#721e77'
 const tweet = '#c34d30'//'#cfb405'
+const pram = '#eee508'
 
 export const getRandomColor = () => {
   const rand = Math.random()
@@ -51,7 +52,9 @@ export default {
   tweet,
   tweetLight: lighten(.3, tweet),
   tweetDark: darken(.2, tweet),
-  pram: '#eee508',
+  pram,
+  pramLight: lighten(.3, pram),
+  pramDark: darken(.2, pram),
   gradientVeryDarkButTransparent: `radial-gradient(
     circle at center,
     ${alpha(.17, purpleSlightlyDark)} 0%,
