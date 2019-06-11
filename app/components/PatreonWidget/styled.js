@@ -28,6 +28,9 @@ export const Blurb = BlurbText.extend`
   flex: 1 0 400px;
   padding: 20px 15px;
   padding-left: 40px;
+  box-shadow:
+    inset 2px 2px 20px rgba(0,0,0,.3),
+    inset -2px -2px 20px rgba(0,0,0,.3);
 
   span.bold {
     display: inline;

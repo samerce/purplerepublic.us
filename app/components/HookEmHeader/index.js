@@ -33,24 +33,27 @@ export default class HookEmHeader extends React.Component {
     const videoWidthPadding = (window.innerWidth <= SCREEN_WIDTH_M)? 35 : 120
     return (
       <Root className={this.props.introMode}>
+        <Blurb>
+          <p>
+            hi there!<br/>
+            <span className='love'>love. art. think.</span><br/>
+            <span className='breathe'>breathe. be. repeat.</span><br/>
+            <span className='welcome'>welcome home ! 💜</span>
+          </p>
+        </Blurb>
+
         <VideoRoot>
           <Video
-            id={'8xExiMisNsc'}
+            id='4guEZMQyA3E'
             onPlay={this.onClickVideo}
             width={() => Math.min(1200, window.innerWidth - videoWidthPadding)}
           />
         </VideoRoot>
-
-        <Blurb>
-          <p>if not us, who? if not now, when?</p>
-          <p>there are 500,000 offices up for election. pick one and run. we'll help!</p>
-        </Blurb>
       </Root>
     )
   }
 
   onClickVideo() {
-    console.log('playing video')
     ga('send', 'event', {
       eventCategory: 'topnav',
       eventAction: 'video clicked',

@@ -1,7 +1,7 @@
 import {darken, lighten, transparentize as alpha} from 'polished'
 
-// #512287 #334ac7 #238386 #1b316b
-const main = '#1b316b'
+// #512287 #334ac7 #238386 #1b316b, #f9690c
+const main = '#069648'
 const purpleVeryDark = darken(.2, main)
 const purpleSlightlyDark = darken(.05, main)
 const purpleVeryLight = lighten(.35, main)

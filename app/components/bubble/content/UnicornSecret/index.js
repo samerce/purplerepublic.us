@@ -78,9 +78,9 @@ export default class UnicornSecret extends React.PureComponent {
           <SectionHeader text='wanna take me home?' />
           <H1>let's be friends forever!</H1>
           <H2>
-            pick your price below to have a gorgeous 11 x 14 metallic print of one of your new friends carried by stork straight to your door!
+            choose one of your new friends, then pick your price below to have a gorgeous 11 x 14 metallic print carried by stork straight to your door!
           </H2>
-
+          
           <ArtOptionsRoot>
             {ArtOptions.map(this.renderArtOption)}
           </ArtOptionsRoot>

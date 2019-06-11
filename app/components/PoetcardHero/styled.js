@@ -53,6 +53,7 @@ export const Body = aBody.extend`
   background: ${theme.daliLight};
   color: ${theme.daliDark};
   margin-bottom: 0;
+  border-color: ${theme.daliDark};
 
   ${screen.medium`
     margin: 10px 20px 0;

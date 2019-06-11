@@ -32,7 +32,7 @@ export const Title  = Flex.extend`
 export const Blurb = Body.extend`
   flex: 1 0 auto;
   margin-top: -10px;
-  padding: 10px 20px 0;
+  padding: 20px 40px 10px;
   font-size: 24px;
   max-width: 1080px;
   text-align: center;
@@ -46,6 +46,19 @@ export const Blurb = Body.extend`
   ${screen.medsmall`
     font-size: 20px;
   `}
+
+  .love {
+    font-family: life savers;
+    font-weight: bold;
+  }
+  .breathe {
+    font-family: great vibes;
+    font-size: 26px;
+  }
+  .welcome {
+    font-family: annie use your telescope;
+    text-transform: uppercase;
+  }
 `
 
 export const VideoRoot = Flex.extend`

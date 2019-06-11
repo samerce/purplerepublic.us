@@ -18,6 +18,9 @@ export const Blurb = BlurbText.extend`
   transform: none;
   text-align: justify;
   position: relative;
+  box-shadow:
+    inset 2px 2px 20px rgba(0,0,0,.3),
+    inset -2px -2px 20px rgba(0,0,0,.3);
 
   ${screen.medium`
     width: 95%;

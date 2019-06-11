@@ -65,7 +65,7 @@ export const CaptionRoot = Flex.extend`
   transition: all .5s ${EASE_OUT};
   box-shadow:
     inset 2px 2px 20px rgba(0,0,0,.3),
-    inset -2px -2px 20px rgba(0,0,0,.3);;
+    inset -2px -2px 20px rgba(0,0,0,.3);
   color: ${p => p.theme.veryLight};
   overflow: hidden;
 
