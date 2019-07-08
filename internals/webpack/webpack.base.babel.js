@@ -79,6 +79,7 @@ module.exports = (options) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        SLACK_WEBHOOK_URL: JSON.stringify(process.env.SLACK_WEBHOOK_URL),
       },
     }),
     new webpack.NamedModulesPlugin(),

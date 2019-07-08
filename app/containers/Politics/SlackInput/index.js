@@ -3,12 +3,7 @@ import {
   Input,
 } from './styled'
 
-let SlackWebhookUrl
-try {
-  SlackWebhookUrl = require('../../../../slack.config')
-} catch (e) {
-  SlackWebhookUrl = process.env.SLACK_WEBHOOK_URL
-}
+const SlackWebhookUrl = process.env.SLACK_WEBHOOK_URL
 
 export default class SlackInput extends React.PureComponent {
 
