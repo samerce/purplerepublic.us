@@ -13,8 +13,6 @@ import {
 } from './styled'
 import SlackInput from '../SlackInput'
 
-const SLACK_CHANNEL_URL = 'https://hooks.slack.com/services/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'
-
 export default class Awakening extends React.Component {
 
   constructor() {

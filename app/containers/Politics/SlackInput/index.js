@@ -3,7 +3,12 @@ import {
   Input,
 } from './styled'
 
-const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
+let SlackWebhookUrl
+try {
+  SlackWebhookUrl = require('../../../../slack.config')
+} catch (e) {
+  SlackWebhookUrl = process.env.SLACK_WEBHOOK_URL
+}
 
 export default class SlackInput extends React.PureComponent {
 
@@ -57,7 +62,7 @@ export default class SlackInput extends React.PureComponent {
     target.blur()
     this.setState({input: '', isSending: true})
 
-    fetch(SLACK_WEBHOOK_URL, {
+    fetch(SlackWebhookUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
