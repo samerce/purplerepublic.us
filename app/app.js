@@ -51,5 +51,7 @@ if (process.env.NODE_ENV === 'production' && !canShowEditingTools() && !isInside
   require('offline-plugin/runtime').install(); // eslint-disable-line global-require
 } else {
   // disable analytics for development
-  window.ga = () => undefined
+  window.ga = () => {}
+  // disable hotjar for development
+  window.hj = () => {}
 }
