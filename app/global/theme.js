@@ -1,7 +1,7 @@
 import {darken, lighten, transparentize as alpha} from 'polished'
 
-// #512287 #334ac7 #238386 #1b316b, #f9690c
-const main = '#069648'
+// #512287 #334ac7 #238386 #1b316b, #f9690c, #069648
+const main = '#542263'
 const purpleVeryDark = darken(.2, main)
 const purpleSlightlyDark = darken(.05, main)
 const purpleVeryLight = lighten(.35, main)
@@ -34,7 +34,7 @@ export default {
   shadowHeavy: '3px 10px 20px ' + alpha(.7, purpleVeryDark),
   shadowMedium: '2px 5px 10px ' + alpha(.8, purpleVeryDark),
   shadowLight: '2px 2px 8px ' + alpha(.9, purpleVeryDark),
-  borderRadiusBoto: 15,
+  borderRadiusBoto: 30,
   emphasis: '#d64f31',
   shelly,
   shellyLight: lighten(.3, shelly),

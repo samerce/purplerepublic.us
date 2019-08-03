@@ -12,8 +12,6 @@ import {
   AbsoluteFlexFillParent,
 } from '../../global/styled'
 
-const aColor = '#956C95'
-
 export const Root = AbsoluteFlexFillParent.extend`
   position: fixed;
 `
