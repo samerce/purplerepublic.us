@@ -1,5 +1,7 @@
 import React from 'react'
 
+import _ from 'lodash'
+
 function resizable() { return Component => {
   return class extends React.PureComponent {
 

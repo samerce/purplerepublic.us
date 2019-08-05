@@ -3,7 +3,7 @@ export default {
     peers: {
       top: 'maypole',
       bottomLeft: 'river',
-      bottomRight: 'white',
+      bottomRight: 'pride',
     },
   },
   maypole: {
@@ -16,7 +16,7 @@ export default {
 
     },
   },
-  white: {
+  pride: {
     peers: {
 
     },

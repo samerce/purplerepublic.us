@@ -2,72 +2,87 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, H1, H2, FlexColumn, Boto,
+  Flex, H1, H2, FlexColumn, Boto, screen,
 } from '../../global/styled'
 import theme from '../../global/theme'
 
 const GifWidth = 960
 const GifHeight = 540
-const GifScaleCenter = .3
+const GifScaleCenter = .4
 
 export const Root = Flex.extend`
+  overflow: hidden;
+  position: relative;
+
   &.spot-center {
-    height: 100%;
     width: 100%;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 15px;
   }
   &.spot-top {
+    justify-content: center;
+    width: 100%;
     align-items: flex-start;
     justify-content: center;
-  }
-
-  &.spot-top {
-    .gif {
-      transform: translate(0, -${GifHeight / 2}px);
-    }
-  }
-
-  &.spot-bottomLeft {
-    .gif {
-      transform: translate(-40px, 0);
-    }
-  }
-
-  &.spot-bottomRight {
-    .gif {
-      transform: translate(110px, 40px);
-    }
   }
 `
 
 export const GifRoot = Flex.extend`
-  max-width: ${GifWidth}px;
-  max-height: ${GifHeight}px;
   position: relative;
 
-  .spot-center & {
-    max-width: ${GifWidth * GifScaleCenter}px;
-    max-height: ${GifHeight * GifScaleCenter}px;
+  .spot-top & {
+    position: absolute;
+    left: 0;
+    top: ${p => p.top}px;
+    transform: rotate(-45deg);
+    height: ${p => p.height}px;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+
+    .gif {
+      transform: rotate(-45deg) translate(50%, -${p => p.yOffset}px);
+      transform-origin: right bottom;
+
+      ${screen.large`
+        transform: rotate(-45deg) translate(50%, 0);
+      `}
+
+      img {
+        position: relative;
+        transform: translate(-50%, 0);
+        left: 50%;
+      }
+    }
+  }
+  .spot-center & .gif {
+    width: ${p => p.width}px;
+    max-width: ${GifWidth}px;
+  }
+  .spot-bottomLeft & .gif, .spot-bottomRight & .gif {
+    height: 100%;
+
+    img {
+      width: unset;
+    }
+  }
+  .spot-bottomRight & .gif {
+    transform: translate(-50%, 0);
   }
 `
 
 export const DiveInButton = Boto.extend`
   position: absolute;
-  top: ${(GifHeight / 2) * GifScaleCenter}px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: .5;
 
   display: none;
   .mode-seduction .spot-center & {
     display: flex;
-  }
-
-  &:hover {
-    opacity: 1;
+    font-size: 42px;
   }
 `
 
@@ -86,7 +101,7 @@ export const TemptationRoot = FlexColumn.extend`
 
   display: none;
   .spot-center & {
-    display: flex;
+    ${'' /* display: flex; */}
   }
 `
 

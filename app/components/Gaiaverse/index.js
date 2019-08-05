@@ -17,8 +17,11 @@ export default class Gaiaverse extends React.PureComponent {
     return (
       <Root className={'mode-' + mode}>
         <Portal spot='top' />
+        <img src='plain.png' className='border borderLeft' />
+        <img src='plain.png' className='border borderRight' />
         <Portal spot='center' />
         <Portal spot='bottomLeft' />
+        <img src='plain.png' className='border borderBottom' />
         <Portal spot='bottomRight' />
         {/* <img src='./river.png' className='anim' /> */}
       </Root>

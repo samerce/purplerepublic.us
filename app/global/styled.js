@@ -166,16 +166,19 @@ export const Boto = Flex.extend`
   align-items: center;
   justify-content: center;
   user-select: none;
-  color: white;
-  background: ${p => p.theme.main};
-  border-radius: ${p => p.theme.borderRadiusBoto}px;
-  padding: 10px 20px;
-  border: 1px solid ${p => p.theme.veryLight};
+  color: ${lighten(.1, theme.semiWhite)};
+  background: ${trans(.7, theme.veryLight)};
+  border-radius: ${theme.borderRadiusBoto}px;
+  padding: 10px 30px;
+  border: 1px solid ${trans(.5, theme.veryLight)};
+  box-shadow: 0px 0px 50px ${theme.veryDark};
+  text-shadow: 1px 1px ${theme.veryDark};
 
   &:hover {
-    background: white;
-    color: ${p => p.theme.slightlyDark};
-    border-color: ${p => p.theme.slightlyDark};
+    background: ${trans(.3, theme.slightlyLight)};
+    color: ${theme.semiWhite};
+    border-color: ${theme.main};
+    box-shadow: 0px 0px 20px ${theme.veryDark};
   }
 `
 
