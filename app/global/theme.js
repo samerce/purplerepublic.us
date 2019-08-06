@@ -13,6 +13,7 @@ const myrtle = '#71201b'
 const shelly = '#721e77'
 const tweet = '#c34d30'//'#cfb405'
 const pram = '#eee508'
+const hopi = '#f616c4'
 
 export const getRandomColor = () => {
   const rand = Math.random()
@@ -55,6 +56,9 @@ export default {
   pram,
   pramLight: lighten(.3, pram),
   pramDark: darken(.2, pram),
+  hopi,
+  hopiLight: lighten(.3, hopi),
+  hopiDark: darken(.2, hopi),
   gradientVeryDarkButTransparent: `radial-gradient(
     circle at center,
     ${alpha(.17, purpleSlightlyDark)} 0%,

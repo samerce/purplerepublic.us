@@ -157,6 +157,10 @@ export const BubbleButton = Flex.extend`
   }
 `
 
+const buttonColorMain = theme.hopi
+const buttonColorLight = theme.hopiLight
+const buttonColorDark = theme.hopiDark
+const buttonColorWhite = lighten(.2, buttonColorLight)
 export const Boto = Flex.extend`
   font-size: 20px;
   font-family: alice; /*alice, annie use your telescope;*/
@@ -166,19 +170,26 @@ export const Boto = Flex.extend`
   align-items: center;
   justify-content: center;
   user-select: none;
-  color: ${lighten(.1, theme.semiWhite)};
-  background: ${trans(.7, theme.veryLight)};
+  color: ${buttonColorMain};/*${lighten(.1, theme.semiWhite)};*/
+  background: ${buttonColorWhite};/*${trans(.2, theme.semiWhite)};*/
   border-radius: ${theme.borderRadiusBoto}px;
   padding: 10px 30px;
-  border: 1px solid ${trans(.5, theme.veryLight)};
-  box-shadow: 0px 0px 50px ${theme.veryDark};
-  text-shadow: 1px 1px ${theme.veryDark};
+  border: 2px solid white;
+  box-shadow:
+    0 0 10px ${buttonColorWhite},
+    0 0 20px ${buttonColorWhite},
+    0 0 30px ${p => p.color || buttonColorMain},
+    0 0 40px ${p => p.color || buttonColorMain};
+  ${'' /* text-shadow: 1px 1px ${buttonColorDark}; */}
 
   &:hover {
-    background: ${trans(.3, theme.slightlyLight)};
-    color: ${theme.semiWhite};
-    border-color: ${theme.main};
-    box-shadow: 0px 0px 20px ${theme.veryDark};
+    background: ${buttonColorLight};
+    color: ${buttonColorMain};
+    border-color: ${buttonColorMain};
+    box-shadow:
+    0 0 10px ${buttonColorLight},
+    0 0 20px ${p => p.color || buttonColorLight};
+    ${'' /* text-shadow: 1px 1px ${buttonColorLight}; */}
   }
 `
 
