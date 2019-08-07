@@ -10,19 +10,25 @@ const Portals = {
   maypole: {
     title: '5th dimension',
     peers: {
-
+      top: 'jellyfish',
+      bottomLeft: 'river',
+      bottomRight: 'pride',
     },
   },
   river: {
     title: 'body-ish',
     peers: {
-
+      top: 'jellyfish',
+      bottomLeft: 'maypole',
+      bottomRight: 'pride',
     },
   },
   pride: {
     title: 'solitude',
     peers: {
-
+      top: 'jellyfish',
+      bottomLeft: 'river',
+      bottomRight: 'maypole',
     },
   },
 }

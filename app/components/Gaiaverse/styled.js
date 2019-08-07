@@ -4,7 +4,7 @@ import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
   Flex, AbsoluteFlexFillParent, AbsoluteFlex,
 } from '../../global/styled'
-import {DiveDuration} from './constants'
+import {TransitionDuration} from './constants'
 
 export const Root = Flex.extend`
   width: 100%;
@@ -50,6 +50,7 @@ export const BordersRoot = Flex.extend`
   transition: transform .5s ${EASE_OUT};
   pointer-events: none;
   z-index: 20;
+  transform: translate(0, ${p => p.top}px);
 
   .border {
     position: absolute;
@@ -96,7 +97,7 @@ export const Orb = AbsoluteFlexFillParent.extend`
 
     .mode-willDive &, .mode-inTheDeep & {
       transform: scale(2);
-      transition-duration: ${DiveDuration}ms;
+      transition-duration: ${TransitionDuration}ms;
     }
     .mode-willSeduce & {
       transition-delay: .2s;

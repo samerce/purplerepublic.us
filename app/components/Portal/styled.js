@@ -1,10 +1,14 @@
 import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE,
+  SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_MMS, SCREEN_WIDTH_S,
+} from '../../global/constants'
 import {
   Flex, H1, H2, FlexColumn, Boto, screen, ArticleText,
 } from '../../global/styled'
 import theme from '../../global/theme'
+import {TransitionDuration} from '../Gaiaverse/constants'
 
 const GifWidth = 960
 const GifHeight = 540
@@ -14,7 +18,8 @@ export const Root = Flex.extend`
   overflow: hidden;
   position: relative;
   flex: 0 0 50%;
-  transition: transform 1s ${EASE_OUT};
+  transition: transform 1s, filter ${TransitionDuration}ms;
+  transition-timing-function: ${EASE_OUT};
   pointer-events: none;
 
   &.spot-center {
@@ -43,6 +48,11 @@ export const Root = Flex.extend`
   &.spot-bottomRight {
     transform-origin: left center;
   }
+
+  ${'' /* .mode-willChangePortal & {
+    filter: blur(30px) invert(100%) saturate(100%);
+    transition: filter ${TransitionDuration}ms ${EASE_OUT};
+  } */}
 
   ${'' /* .mode-willDive &, .mode-inTheDeep &, .mode-willSeduce & {
     &.spot-top {
@@ -144,7 +154,7 @@ export const Button = Boto.extend`
   position: absolute;
   pointer-events: all;
 
-  &.dive {
+  &.title {
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
@@ -154,7 +164,7 @@ export const Button = Boto.extend`
     }
     .spot-top & {
       top: 20%;
-      transform: translate(-50%, 0);
+      transform: translate(50%, 0);
     }
     .spot-center & {
       font-size: 42px;
@@ -245,3 +255,11 @@ export const InTheDeepRoot = ArticleText.extend`
     transition-delay: .5s;
   }
 `
+
+export function getTopFudge() {
+  const {innerWidth: screenWidth} = window
+  return (screenWidth <= SCREEN_WIDTH_MMS)? 270 :
+    (screenWidth <= SCREEN_WIDTH_MS)? 162 :
+    (screenWidth <= SCREEN_WIDTH_M)? 54 :
+    0
+}

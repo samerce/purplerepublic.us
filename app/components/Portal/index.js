@@ -2,7 +2,8 @@ import React from 'react'
 import MaskedGif from '../MaskedGif'
 
 import {
-  Root, Title, TemptationRoot, GifRoot, Button, InTheDeepRoot
+  Root, Title, TemptationRoot, GifRoot, Button, InTheDeepRoot,
+  getTopFudge,
 } from './styled'
 import {
   H2,
@@ -34,7 +35,7 @@ export default class Portal extends React.PureComponent {
   onResize() {
     this.setState({
       styles: getStyles(),
-      contentPaddingTop: getContentPaddingTop()
+      contentPaddingTop: getContentPaddingTop(),
     })
   }
 
@@ -54,7 +55,7 @@ export default class Portal extends React.PureComponent {
           />
         </GifRoot>
 
-        <Button className='dive' onClick={this.onClickDive}>
+        <Button className='title' onClick={this.onClickTitle}>
           {title}
         </Button>
         <Button className='close' onClick={this.onClickClose}>
@@ -109,19 +110,30 @@ export default class Portal extends React.PureComponent {
           conveying beauty. being beauty. witnessing beauty.<br/>
           in conclusion - all business schools should be immediately closed down for spiritual renovations.<br/>
         </InTheDeepRoot>
-
       </Root>
     )
   }
 
   @autobind
-  onClickDive() {
-    window.location = '#/portal/' + this.getPortal().id + '/egg'
+  onClickTitle() {
+    if (this.props.spot === 'center') {
+      this.diveIntoPortal()
+    } else {
+      this.openPortal()
+    }
   }
 
   @autobind
   onClickClose() {
+    this.openPortal()
+  }
+
+  openPortal() {
     window.location = '#/portal/' + this.getPortal().id
+  }
+
+  diveIntoPortal() {
+    window.location = '#/portal/' + this.getPortal().id + '/quark'
   }
 
   getPortal() {
@@ -137,7 +149,7 @@ function getStyles() {
   const bisectHalfSq = Math.pow(Math.sqrt(widthSq + widthSq) / 2, 2)
   return {
     top: {
-      top: -Math.sqrt(widthSq - bisectHalfSq),
+      top: -Math.sqrt(widthSq - bisectHalfSq) + getTopFudge(),
       height: innerWidth,
       yOffset: innerHeight / 4,
     },
