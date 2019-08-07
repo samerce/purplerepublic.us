@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable'
 import {
-  GaiaverseActivatePortal,
+  GaiaverseActivatePortal, GaiaverseDive
 } from './actions'
 import PortalConfig from './config'
 
@@ -8,7 +8,6 @@ import {makeEnum} from '../../utils/lang'
 
 const Mode = makeEnum([
   'seduction',
-  'transition',
   'inTheDeep',
 ])
 
@@ -18,10 +17,19 @@ let initialState = fromJS({
 })
 initialState = initialState.set('portals', getPortals('jellyfish'))
 
-export default function bubbleverse(state = initialState, action) {
+export default function gaiaverse(state = initialState, action) {
   switch (action.type) {
     case GaiaverseActivatePortal:
-      return state.set('portals', getPortals(action.portalId))
+      const centerPortal = state.get('portals').center
+      if (centerPortal && action.portalId === centerPortal.id &&
+          state.get('mode') === Mode.seduction) {
+        return state
+      }
+      return state
+        .set('portals', getPortals(action.portalId))
+        .set('mode', Mode.seduction)
+    case GaiaverseDive:
+      return state.set('mode', Mode.inTheDeep)
     default:
       return state
   }

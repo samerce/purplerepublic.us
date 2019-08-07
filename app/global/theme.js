@@ -35,7 +35,7 @@ export default {
   shadowHeavy: '3px 10px 20px ' + alpha(.7, purpleVeryDark),
   shadowMedium: '2px 5px 10px ' + alpha(.8, purpleVeryDark),
   shadowLight: '2px 2px 8px ' + alpha(.9, purpleVeryDark),
-  borderRadiusBoto: 60,
+  borderRadiusBoto: 70,
   emphasis: '#d64f31',
   shelly,
   shellyLight: lighten(.3, shelly),

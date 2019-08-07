@@ -178,8 +178,8 @@ export const Boto = Flex.extend`
   box-shadow:
     0 0 10px ${buttonColorWhite},
     0 0 20px ${buttonColorWhite},
-    0 0 30px ${p => p.color || buttonColorMain},
-    0 0 40px ${p => p.color || buttonColorMain};
+    0 0 30px ${buttonColorMain},
+    0 0 40px ${buttonColorMain};
   ${'' /* text-shadow: 1px 1px ${buttonColorDark}; */}
 
   &:hover {
@@ -188,7 +188,7 @@ export const Boto = Flex.extend`
     border-color: ${buttonColorMain};
     box-shadow:
     0 0 10px ${buttonColorLight},
-    0 0 20px ${p => p.color || buttonColorLight};
+    0 0 20px ${buttonColorLight};
     ${'' /* text-shadow: 1px 1px ${buttonColorLight}; */}
   }
 `

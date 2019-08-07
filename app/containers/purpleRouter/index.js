@@ -39,7 +39,7 @@ import autobind from 'autobind-decorator'
 
 const router = {
   // '#intro': Intro,
-  '#start': Start,
+  '#': Start,
   '#hello': Hello,
   '#quote': Quote,
   '#letsfocus': QuarkArt,
@@ -68,7 +68,7 @@ export default class PurpleRouter extends React.PureComponent {
   componentDidMount() {
     const {pathname} = window.location
     if (pathname && pathname.length > 1) {
-      window.location = '/#start/bubble/' + pathname.substr(1)
+      window.location = '/#/portal/' + pathname.substr(1)
     }
 
     setTimeout(() => setInterval(this.runHashHandlers, 250), 3500)
@@ -141,13 +141,13 @@ export default class PurpleRouter extends React.PureComponent {
     let onEnter, onExit
     this.props.hashHandlers.forEach(handler => {
       const {trigger} = handler
-      if (lastHash.includes(trigger)) {
-        if (currentHash.includes(trigger)) {
+      if (lastHash.match(trigger)) {
+        if (currentHash.match(trigger)) {
           handler.onChange()
         } else {
           onExit = handler.onExit
         }
-      } else if (currentHash.includes(trigger)) {
+      } else if (currentHash.match(trigger)) {
         onEnter = handler.onEnter
       }
     })
