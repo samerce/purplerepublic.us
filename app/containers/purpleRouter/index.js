@@ -71,7 +71,7 @@ export default class PurpleRouter extends React.PureComponent {
       window.location = '/#/portal/' + pathname.substr(1)
     }
 
-    setTimeout(() => setInterval(this.runHashHandlers, 250), 3500)
+    setInterval(this.runHashHandlers, 100)
 
     window.onhashchange = () => {
       const activeRoute = getCurrentRoute()

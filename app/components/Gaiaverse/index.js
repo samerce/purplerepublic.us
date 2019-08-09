@@ -14,8 +14,9 @@ import autobind from 'autobind-decorator'
 import {dive, activatePortal} from './actions'
 import Portals from './config'
 import resizable from '../hocs/resizable'
+import {Mode} from './reducer'
 
-const Mode = makeEnum([
+const View = makeEnum([
   'willChangePortal',
   'seduction',
   'willDive',
@@ -24,7 +25,7 @@ const Mode = makeEnum([
 ])
 
 @connect(d => ({
-  view: d.get('gaiaverse').get('mode'),
+  mode: d.get('gaiaverse').get('mode'),
   portals: d.get('gaiaverse').get('portals'),
 }))
 @resizable()
@@ -34,35 +35,28 @@ export default class Gaiaverse extends React.PureComponent {
     super()
     this.orbSize = getOrbSize()
     this.state = {
-      mode: Mode.seduction,
+      view: View.seduction,
     }
   }
 
   componentDidMount() {
     this.props.dispatch(addHashHandler({
       trigger: '#/portal/',
-      onEnter: this.openPortal,
-      onChange: this.openPortal,
+      onEnter: this.onPortalChange,
+      onChange: this.onPortalChange,
       onExit: () => {},
     }))
-    this.props.dispatch(addHashHandler({
-      trigger: /#\/portal\/.*\/quark/,
-      onEnter: this.diveIntoPortal,
-      onChange: () => {},
-      onExit: this.openPortal,
-    }))
-
     this.openPortal()
   }
 
   componentWillReceiveProps(nextProps) {
-    const {view: thisView, portals: thisPortals} = this.props
-    const {view: nextView, portals: nextPortals} = nextProps
-    if (nextView !== thisView || thisPortals !== nextPortals) {
-      const transition = Transitions[thisView][nextView]
-      this.setState({mode: transition.modes[0]})
+    const {mode: thisMode, portals: thisPortals} = this.props
+    const {mode: nextMode, portals: nextPortals} = nextProps
+    if (nextMode !== thisMode || thisPortals !== nextPortals) {
+      const transition = Transitions[thisMode][nextMode]
+      this.setState({view: transition.views[0]})
       setTimeout(() => {
-        requestAnimationFrame(() => this.setState({mode: transition.modes[1]}))
+        requestAnimationFrame(() => this.setState({view: transition.views[1]}))
       }, transition.duration)
     }
   }
@@ -72,9 +66,9 @@ export default class Gaiaverse extends React.PureComponent {
   }
 
   render() {
-    const {mode} = this.state
+    const {view} = this.state
     return (
-      <Root className={'mode-' + mode}>
+      <Root className={'mode-' + view}>
         <Orb size={this.orbSize} />
 
         <Portal spot='top' />
@@ -83,19 +77,39 @@ export default class Gaiaverse extends React.PureComponent {
         <Portal spot='bottomRight' />
 
         <BordersRoot top={getTopFudge()}>
-          <img src='plain.png' className='border borderLeft' />
-          <img src='plain.png' className='border borderRight' />
-          <img src='plain.png' className='border borderBottom' />
+          <div className='border borderLeft'>
+            <img src='plain.png' />
+          </div>
+          <div className='border borderRight'>
+            <img src='plain.png' />
+          </div>
+          <div className='border borderBottom'>
+            <img src='plain.png' />
+          </div>
         </BordersRoot>
       </Root>
     )
   }
 
   @autobind
+  onPortalChange() {
+    if (window.location.hash.includes('quark')) {
+      if (this.props.mode !== Mode.inTheDeep) {
+        this.diveIntoPortal()
+      }
+    } else {
+      this.openPortal()
+    }
+  }
+
+  @autobind
   openPortal() {
+    const {portals, dispatch} = this.props
     const portal = getPortalFromUrl()
     if (portal) {
-      this.props.dispatch(activatePortal(portal.id))
+      if (!portals.center || portal !== portals.center.id) {
+        dispatch(activatePortal(portal.id))
+      }
     } else {
       window.location = '#/portal/' + Object.keys(Portals)[0]
     }
@@ -126,17 +140,17 @@ export function getPortalFromUrl() {
 var Transitions = {
   seduction: {
     seduction: {
-      modes: ['willChangePortal', 'seduction'],
+      views: ['willChangePortal', 'seduction'],
       duration: 0,
     },
     inTheDeep: {
-      modes: ['willDive', 'inTheDeep'],
+      views: ['willDive', 'inTheDeep'],
       duration: TransitionDuration - 800,
     },
   },
   inTheDeep: {
     seduction: {
-      modes: ['willSeduce', 'seduction'],
+      views: ['willSeduce', 'seduction'],
       duration: TransitionDuration - 800,
     },
   },

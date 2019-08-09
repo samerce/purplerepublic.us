@@ -1,5 +1,5 @@
 const Portals = {
-  jellyfish: {
+  tribalfish: {
     title: '108',
     peers: {
       top: 'maypole',
@@ -10,15 +10,15 @@ const Portals = {
   maypole: {
     title: '5th dimension',
     peers: {
-      top: 'jellyfish',
+      top: 'tribalfish',
       bottomLeft: 'river',
       bottomRight: 'pride',
     },
   },
   river: {
-    title: 'body-ish',
+    title: 'bodyish',
     peers: {
-      top: 'jellyfish',
+      top: 'tribalfish',
       bottomLeft: 'maypole',
       bottomRight: 'pride',
     },
@@ -26,7 +26,7 @@ const Portals = {
   pride: {
     title: 'solitude',
     peers: {
-      top: 'jellyfish',
+      top: 'tribalfish',
       bottomLeft: 'river',
       bottomRight: 'maypole',
     },

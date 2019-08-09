@@ -2,11 +2,11 @@ import {fromJS} from 'immutable'
 import {
   GaiaverseActivatePortal, GaiaverseDive
 } from './actions'
-import PortalConfig from './config'
+import Portals from './config'
 
 import {makeEnum} from '../../utils/lang'
 
-const Mode = makeEnum([
+export const Mode = makeEnum([
   'seduction',
   'inTheDeep',
 ])
@@ -15,7 +15,6 @@ let initialState = fromJS({
   portals: {},
   mode: Mode.seduction,
 })
-initialState = initialState.set('portals', getPortals('jellyfish'))
 
 export default function gaiaverse(state = initialState, action) {
   switch (action.type) {
@@ -36,12 +35,12 @@ export default function gaiaverse(state = initialState, action) {
 }
 
 function getPortals(centerPortalId) {
-  const center = PortalConfig[centerPortalId]
+  const center = Portals[centerPortalId]
   center.id = centerPortalId
 
   const peers = {}
   for (let spot in center.peers) {
-    peers[spot] = PortalConfig[center.peers[spot]]
+    peers[spot] = Portals[center.peers[spot]]
     peers[spot].id = center.peers[spot]
   }
 

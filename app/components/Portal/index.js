@@ -3,11 +3,12 @@ import MaskedGif from '../MaskedGif'
 
 import {
   Root, Title, TemptationRoot, GifRoot, Button, InTheDeepRoot,
-  getTopFudge,
+  getTopFudge,ChallengeRoot,
 } from './styled'
 import {
   H2,
 } from '../../global/styled'
+import {SCREEN_WIDTH_M} from '../../global/constants'
 
 import {connect} from 'react-redux'
 import resizable from '../hocs/resizable'
@@ -42,7 +43,10 @@ export default class Portal extends React.PureComponent {
   render() {
     const {styles, contentPaddingTop} = this.state
     const {spot} = this.props
-    const {id, title} = this.getPortal()
+    const portal = this.getPortal()
+    if (!portal) return null
+
+    const {id, title} = portal
     const style = styles[spot] || {}
     return (
       <Root className={'spot-' + spot}>
@@ -55,7 +59,7 @@ export default class Portal extends React.PureComponent {
           />
         </GifRoot>
 
-        <Button className='title' onClick={this.onClickTitle}>
+        <Button className='title' onClick={this.onClickTitle} delay={Math.random() * 1}>
           {title}
         </Button>
         <Button className='close' onClick={this.onClickClose}>
@@ -109,6 +113,8 @@ export default class Portal extends React.PureComponent {
           benevolent coexistence, boys.<br/>
           conveying beauty. being beauty. witnessing beauty.<br/>
           in conclusion - all business schools should be immediately closed down for spiritual renovations.<br/>
+
+          <ChallengeRoot>i dare you</ChallengeRoot>
         </InTheDeepRoot>
       </Root>
     )
@@ -138,7 +144,7 @@ export default class Portal extends React.PureComponent {
 
   getPortal() {
     const {spot, portals} = this.props
-    return portals[spot]
+    return portals[spot] || {}
   }
 
 }
@@ -147,6 +153,7 @@ function getStyles() {
   const {innerWidth, innerHeight} = window
   const widthSq = Math.pow(innerWidth, 2)
   const bisectHalfSq = Math.pow(Math.sqrt(widthSq + widthSq) / 2, 2)
+  const centerScaleFactor = (innerWidth <= SCREEN_WIDTH_M)? .7 : .4
   return {
     top: {
       top: -Math.sqrt(widthSq - bisectHalfSq) + getTopFudge(),
@@ -154,7 +161,7 @@ function getStyles() {
       yOffset: innerHeight / 4,
     },
     center: {
-      width: innerWidth * .4,
+      width: innerWidth * centerScaleFactor,
     },
   }
 }

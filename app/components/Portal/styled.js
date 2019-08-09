@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, {injectGlobal, css} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT, EASE_IN, EASE,
@@ -108,6 +108,25 @@ export const GifRoot = Flex.extend`
     width: 100%;
     justify-content: center;
 
+    @keyframes spin {
+      80% {
+        transform: translate(-50%, -50%);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(720deg);
+      }
+      ${'' /* 100% {
+        transform: translate(-50%, -50%);
+      } */}
+    }
+
+    .mode-seduction & {
+      animation-name: spin;
+      animation-duration: 10s;
+      animation-timing-function: ${EASE};
+      animation-iteration-count: infinite;
+    }
+
     .gif {
       width: ${p => p.width}px;
       max-width: ${GifWidth}px;
@@ -150,6 +169,14 @@ export const GifRoot = Flex.extend`
 `
 
 const ColorInTheDeep = alpha(.1, theme.semiWhite)
+const HeaderInTheDeep = css`
+  font-size: 72px;
+  pointer-events: none;
+  background: ${ColorInTheDeep};
+  border-color: transparent;
+  text-shadow: 1px 1px ${lighten(.2, theme.semiWhite)};
+  padding: 0px 90px 0 60px;
+`
 export const Button = Boto.extend`
   position: absolute;
   pointer-events: all;
@@ -158,6 +185,7 @@ export const Button = Boto.extend`
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+    flex-wrap: wrap;
 
     .spot-bottomLeft &, .spot-bottomRight & {
       top: 75%;
@@ -167,7 +195,7 @@ export const Button = Boto.extend`
       transform: translate(50%, 0);
     }
     .spot-center & {
-      font-size: 42px;
+      font-size: 32px;
     }
 
     .mode-willDive .spot-center &,
@@ -177,17 +205,11 @@ export const Button = Boto.extend`
     }
     .mode-inTheDeep .spot-center & {
       display: flex;
-      font-size: 72px;
       top: 158px; /* calc */
       right: -50px;
       transform: none;
-
-      pointer-events: none;
       transition-duration: .5s;
-      background: ${ColorInTheDeep};
-      border-color: transparent;
-      text-shadow: 1px 1px ${lighten(.2, theme.semiWhite)};
-      padding: 0px 90px 0 60px;
+      ${HeaderInTheDeep}
     }
   }
 
@@ -216,6 +238,44 @@ export const Button = Boto.extend`
       animation-delay: .5s;
     }
   }
+
+  ${screen.medium`
+    font-size: 14px;
+
+    .spot-center &.title {
+      font-size: 22px;
+      .mode-inTheDeep & {
+        top: 90px;
+        font-size: 42px;
+      }
+    }
+  `}
+  ${screen.medsmall`
+    .mode-inTheDeep .spot-center &.title {
+      top: 60px;
+      font-size: 28px;
+    }
+  `}
+
+  @keyframes seduce {
+    60% {
+      filter: contrast(200%) brightness(100%) saturate(100%);
+    }
+    80% {
+      filter: brightness(300%) saturate(100%) contrast(100%);
+    }
+    100% {
+      filter: saturate(400%) brightness(100%) contrast(100%);
+    }
+  }
+
+  .mode-seduction & {
+    animation-name: seduce;
+    animation-duration: 5s;
+    animation-timing-function: ${EASE_OUT};
+    animation-iteration-count: infinite;
+    animation-delay: ${p => p.delay || 0}s;
+  }
 `
 
 export const TemptationRoot = FlexColumn.extend`
@@ -236,6 +296,7 @@ export const Title = H1.extend`
 `
 
 export const InTheDeepRoot = ArticleText.extend`
+  flex-direction: column;
   display: none;
   opacity: 0;
   transform: translate(0, -10px);
@@ -254,6 +315,12 @@ export const InTheDeepRoot = ArticleText.extend`
     transform: none;
     transition-delay: .5s;
   }
+`
+
+export const ChallengeRoot = Flex.extend`
+  ${HeaderInTheDeep}
+  font-family: alice;
+  align-self: flex-end;
 `
 
 export function getTopFudge() {

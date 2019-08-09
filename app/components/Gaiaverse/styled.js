@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, AbsoluteFlexFillParent, AbsoluteFlex,
+  Flex, AbsoluteFlexFillParent, AbsoluteFlex, screen,
 } from '../../global/styled'
 import {TransitionDuration} from './constants'
 
@@ -31,15 +31,14 @@ export const Root = Flex.extend`
   }
 
   @keyframes hueShift {
-    50% {
-      filter: saturate(400%) hue-rotate(720deg);
+    0% {
+      filter: saturate(100%) hue-rotate(-15deg);
+      transform: scale(.89) translate(0, 5px);
     }
-  }
-
-  .anim {
-    width: 1280px;
-    padding: 20px;
-    animation: hueShift 2s alternate infinite;
+    100% {
+      filter: saturate(400%) hue-rotate(-25deg);
+      transform: scale(.9) translate(0, 5px);
+    }
   }
 `
 
@@ -54,29 +53,52 @@ export const BordersRoot = Flex.extend`
 
   .border {
     position: absolute;
-    animation: hueShift 5s alternate infinite;
+    img {
+      animation-name: hueShift;
+      animation-duration: .7s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
   }
   .borderBottom {
     height: 50%;
     bottom: -1px;
     left: 50%;
     transform: translate(-50%, 0);
+
+    ${screen.medsmall`
+      bottom: 90px;
+    `}
+    ${screen.small`
+      bottom: 216px;
+    `}
   }
   .borderLeft, .borderRight {
     display: initial;
     position: absolute;
     bottom: 0;
     z-index: 2;
+    img {
+      animation-delay: .05s;
+    }
   }
   .borderLeft {
     left: 0;
     transform-origin: left top;
-    transform: rotate(-45deg) translate(80px, -180px);
+    transform: rotate(-45deg) translate(10px, -180px);
+
+    ${screen.medsmall`
+      transform: rotate(-45deg) translate(80px, -440px);
+    `}
   }
   .borderRight {
     right: 0;
     transform-origin: right top;
-    transform: rotate(45deg) translate(-80px, -180px);
+    transform: rotate(45deg) translate(-10px, -180px);
+
+    ${screen.medsmall`
+      transform: rotate(45deg) translate(-80px, -440px);
+    `}
   }
 `
 

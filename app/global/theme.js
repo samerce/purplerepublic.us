@@ -13,7 +13,7 @@ const myrtle = '#71201b'
 const shelly = '#721e77'
 const tweet = '#c34d30'//'#cfb405'
 const pram = '#eee508'
-const hopi = '#f616c4'
+const hopi = '#d50cab'
 
 export const getRandomColor = () => {
   const rand = Math.random()
