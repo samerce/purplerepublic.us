@@ -1,1 +1,1 @@
-export const TransitionDuration = 1000
+export const TransitionDuration = 1500

@@ -170,9 +170,11 @@ export const GifRoot = Flex.extend`
       top: 15px;
       left: 0;
       transform: none;
+      transition-duration: ${TransitionDuration}ms;
 
       .gif {
         width: 70%;
+        transition-duration: ${TransitionDuration}ms;
       }
     }
   }
@@ -239,7 +241,7 @@ export const Button = Boto.extend`
       top: 158px; /* calc */
       right: -50px;
       transform: none;
-      transition-duration: .5s;
+      transition-duration: ${TransitionDuration}ms;
       ${HeaderInTheDeep}
     }
   }

@@ -2,11 +2,14 @@ import React from 'react'
 
 import {
   Root, SunRoot, Sun, RaysRoot, TimerRoot, MoonRoot, Moon,
-  EarthRoot,
+  EarthRoot, CloseText,
 } from './styled'
 
 import resizable from '../hocs/resizable'
 import {connect} from 'react-redux'
+import autobind from 'autobind-decorator'
+
+import {Mode as View} from '../Gaiaverse/reducer'
 
 @connect(d => ({
   view: d.get('gaiaverse').get('mode'),
@@ -45,12 +48,13 @@ export default class AstrologicalToggle extends React.PureComponent {
     const {view} = this.props
     return (
       <Root className={'view-' + view}>
-        <SunRoot>
+        <SunRoot onClick={this.onClickSun}>
           <Sun {...styles.sun} />
           <RaysRoot>
 
           </RaysRoot>
           <TimerRoot>{time}</TimerRoot>
+          <CloseText>close</CloseText>
         </SunRoot>
 
         <MoonRoot>
@@ -62,6 +66,17 @@ export default class AstrologicalToggle extends React.PureComponent {
         </EarthRoot>
       </Root>
     )
+  }
+
+  @autobind
+  onClickSun() {
+    if (this.props.view === View.inTheDeep) {
+      this.exitPortalDive()
+    }
+  }
+
+  exitPortalDive() {
+    window.location = window.location.hash.replace('/quark', '')
   }
 
 }

@@ -119,7 +119,7 @@ export const Orb = AbsoluteFlexFillParent.extend`
 
     .mode-willDive &, .mode-inTheDeep & {
       transform: scale(2);
-      transition-duration: ${TransitionDuration}ms;
+      transition-duration: ${TransitionDuration * (3/4)}ms;
     }
     .mode-willSeduce & {
       transition-delay: .2s;

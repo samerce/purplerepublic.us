@@ -145,7 +145,7 @@ var Transitions = {
     },
     inTheDeep: {
       views: ['willDive', 'inTheDeep'],
-      duration: TransitionDuration - 800,
+      duration: 0,
     },
   },
   inTheDeep: {

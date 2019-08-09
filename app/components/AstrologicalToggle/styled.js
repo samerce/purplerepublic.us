@@ -5,13 +5,15 @@ import {
   Flex,
 } from '../../global/styled'
 import theme from '../../global/theme'
+import {TransitionDuration} from '../Gaiaverse/constants'
 
+const RootHeight = 60
 export const Root = Flex.extend`
   position: fixed;
   bottom: 0;
-  height: 60px;
+  height: ${RootHeight}px;
   width: 100%;
-  z-index: 25;
+  z-index: 35;
 `
 
 const CelestialBodyRoot = Flex.extend`
@@ -32,6 +34,7 @@ const CelestialBody = Flex.extend`
   width: ${p => p.size}px;
   height: ${p => p.size}px;
   border-radius: 100%;
+  transition: all 1s ${EASE_OUT};
 `
 
 export const Sun = CelestialBody.extend`
@@ -52,6 +55,15 @@ export const Sun = CelestialBody.extend`
     0 0 110px #FF7519,
     0 0 120px #FF7519
   ;
+
+  .view-inTheDeep & {
+    top: ${RootHeight}px;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    transition-delay: .1s;
+    transition-duration: ${TransitionDuration}ms;
+  }
 `
 
 export const RaysRoot = Flex.extend`
@@ -65,9 +77,27 @@ export const TimerRoot = Flex.extend`
   color: ${theme.hopi};
   opacity: 0;
   pointer-events: none;
+  transition: all .5s ${EASE_OUT};
 
   .view-seduction & {
     opacity: 1;
+    transition-timing-function: ${EASE_IN};
+  }
+`
+
+export const CloseText = Flex.extend`
+  font-family: alice;
+  font-size: 24px;
+  color: ${theme.hopi};
+  opacity: 0;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  transition: all 1s ${EASE_OUT};
+
+  .view-inTheDeep & {
+    opacity: 1;
+    transition-timing-function: ${EASE_IN};
   }
 `
 
@@ -96,6 +126,11 @@ export const Moon = CelestialBody.extend`
   ;
   transform: scale(.5);
   transform-origin: left center;
+
+  .view-inTheDeep & {
+    opacity: 0;
+    pointer-events: none;
+  }
 `
 
 export const EarthRoot = CelestialBodyRoot.extend`

@@ -72,9 +72,6 @@ export default class Portal extends React.PureComponent {
         <Button className='title' onClick={this.onClickPortal} delay={Math.random() * 1}>
           {title}
         </Button>
-        <Button className='close' onClick={this.onClickClose}>
-          close
-        </Button>
 
         <TemptationRoot>
           <H2>the beginning was the end all along.</H2>

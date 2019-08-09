@@ -61,7 +61,7 @@ const Portals = {
       bottomRight: 'pride',
     },
     position: {
-      yOffset: '200px',
+      yOffset: '-20px',
     }
   },
 }
