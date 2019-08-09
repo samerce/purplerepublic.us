@@ -25,41 +25,51 @@ const MASK_ROOT_URL = SRC_URL + 'portals/borders/'
 @resizable()
 export default class Portal extends React.PureComponent {
 
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
-      styles: getStyles(),
+      styles: getStyles(props),
       contentPaddingTop: getContentPaddingTop(),
     }
   }
 
+  @autobind
   onResize() {
     this.setState({
-      styles: getStyles(),
+      styles: getStyles(this.props),
       contentPaddingTop: getContentPaddingTop(),
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (getPortal(this.props) !== getPortal(prevProps)) {
+      this.onResize()
+    }
   }
 
   render() {
     const {styles, contentPaddingTop} = this.state
     const {spot} = this.props
-    const portal = this.getPortal()
+    const portal = getPortal(this.props)
     if (!portal) return null
 
     const {id, title} = portal
     const style = styles[spot] || {}
     return (
       <Root className={'spot-' + spot}>
-        <GifRoot {...style}>
+        <GifRoot {...style} onClick={this.onClickPortal}>
           <MaskedGif
             className='gif'
             gif={GIF_ROOT_URL + id + '.gif'}
             mask={MASK_ROOT_URL + id + '.png'}
             isMasked={spot !== 'center'}
           />
+          <div className='gif still'>
+            <img src={GIF_ROOT_URL + id + '.jpg'} />
+          </div>
         </GifRoot>
 
-        <Button className='title' onClick={this.onClickTitle} delay={Math.random() * 1}>
+        <Button className='title' onClick={this.onClickPortal} delay={Math.random() * 1}>
           {title}
         </Button>
         <Button className='close' onClick={this.onClickClose}>
@@ -115,13 +125,17 @@ export default class Portal extends React.PureComponent {
           in conclusion - all business schools should be immediately closed down for spiritual renovations.<br/>
 
           <ChallengeRoot>i dare you</ChallengeRoot>
+          <br/><br/>
+          <li>sit on a public bench for an hour. stare straight out and don't move a muscle.</li>
+          <li>spend at least three hours without your phone.<br/></li>
+          <li>run into a department store and yell at the top of your lungs what scares you the most in life right now.</li>
         </InTheDeepRoot>
       </Root>
     )
   }
 
   @autobind
-  onClickTitle() {
+  onClickPortal() {
     if (this.props.spot === 'center') {
       this.diveIntoPortal()
     } else {
@@ -135,34 +149,58 @@ export default class Portal extends React.PureComponent {
   }
 
   openPortal() {
-    window.location = '#/portal/' + this.getPortal().id
+    window.location = '#/portal/' + getPortal(this.props).id
   }
 
   diveIntoPortal() {
-    window.location = '#/portal/' + this.getPortal().id + '/quark'
-  }
-
-  getPortal() {
-    const {spot, portals} = this.props
-    return portals[spot] || {}
+    window.location = '#/portal/' + getPortal(this.props).id + '/quark'
   }
 
 }
 
-function getStyles() {
-  const {innerWidth, innerHeight} = window
-  const widthSq = Math.pow(innerWidth, 2)
-  const bisectHalfSq = Math.pow(Math.sqrt(widthSq + widthSq) / 2, 2)
-  const centerScaleFactor = (innerWidth <= SCREEN_WIDTH_M)? .7 : .4
+function getPortal(props) {
+  const {spot, portals} = props
+  return portals[spot] || {}
+}
+
+function getStyles(props) {
+  const portal = getPortal(props)
   return {
-    top: {
-      top: -Math.sqrt(widthSq - bisectHalfSq) + getTopFudge(),
-      height: innerWidth,
-      yOffset: innerHeight / 4,
-    },
-    center: {
-      width: innerWidth * centerScaleFactor,
-    },
+    top: getTopStyles(portal),
+    center: getCenterStyles(),
+    bottomRight: getBottomStyles(portal),
+    bottomLeft: getBottomStyles(portal),
+  }
+}
+
+function getTopStyles({position = {}}) {
+  const {innerWidth: topSize, innerHeight: screenHeight} = window
+  const sizeSq = Math.pow(topSize, 2)
+  const bisectHalfSq = Math.pow(Math.sqrt(sizeSq + sizeSq) / 2, 2)
+  return {
+    top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(),
+    size: topSize,
+    yOffset: screenHeight / 4,
+    xOffsetImg: position.xOffset || 0,
+    yOffsetImg: position.yOffset || 0,
+  }
+}
+
+function getCenterStyles() {
+  const {innerWidth: screenWidth} = window
+  const centerScaleFactor = (screenWidth <= SCREEN_WIDTH_M)? .7 : .4
+  return {
+    width: screenWidth * centerScaleFactor,
+  }
+}
+
+function getBottomStyles({position = {}}) {
+  const height = window.innerHeight
+  return {
+    height,
+    width: height * (16 / 9),
+    xOffsetImg: position.xOffset || 0,
+    yOffsetImg: position.yOffset || 0,
   }
 }
 

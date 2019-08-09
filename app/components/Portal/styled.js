@@ -75,18 +75,49 @@ export const Root = Flex.extend`
 export const GifRoot = Flex.extend`
   position: absolute;
   transition: all .5s ${EASE_OUT};
+  pointer-events: all;
+  cursor: pointer !important;
+
+  .gif {
+    visibility: hidden;
+
+    img {
+      transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
+    }
+  }
+  .gif.still {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: visible;
+  }
+  .spot-top &, .spot-bottomLeft &, .spot-bottomRight & {
+    &:hover {
+      .gif {
+        visibility: visible;
+      }
+      .gif.still {
+        visibility: hidden;
+      }
+    }
+  }
 
   .spot-top & {
     position: absolute;
     left: 0;
     top: ${p => p.top}px;
     transform: rotate(-45deg);
-    height: ${p => p.height}px;
-    width: 100%;
+    height: ${p => p.size}px;
+    width: ${p => p.size}px;
     overflow: hidden;
     justify-content: center;
 
     .gif {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
       transform: rotate(-45deg) translate(50%, -${p => p.yOffset}px);
       transform-origin: right bottom;
 
@@ -95,9 +126,8 @@ export const GifRoot = Flex.extend`
       `}
 
       img {
-        position: relative;
-        transform: translate(-50%, 0);
-        left: 50%;
+        height: initial;
+        width: 100%;
       }
     }
   }
@@ -105,7 +135,6 @@ export const GifRoot = Flex.extend`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
     justify-content: center;
 
     @keyframes spin {
@@ -131,6 +160,11 @@ export const GifRoot = Flex.extend`
       width: ${p => p.width}px;
       max-width: ${GifWidth}px;
       transition: all .5s ${EASE_OUT};
+      visibility: visible;
+
+      &.still {
+        display: none;
+      }
     }
     .mode-inTheDeep & {
       top: 15px;
@@ -149,12 +183,9 @@ export const GifRoot = Flex.extend`
       height: 100%;
     }
     img {
-      width: unset;
+      height: ${p => p.height}px;
+      width: ${p => p.width}px;
     }
-  }
-  .spot-bottomRight & .gif {
-    position: relative;
-    left: -25%;
   }
 
   .mode-inTheDeep :not(.spot-center) & {
@@ -270,11 +301,11 @@ export const Button = Boto.extend`
   }
 
   .mode-seduction & {
-    animation-name: seduce;
+    ${'' /* animation-name: seduce;
     animation-duration: 5s;
     animation-timing-function: ${EASE_OUT};
     animation-iteration-count: infinite;
-    animation-delay: ${p => p.delay || 0}s;
+    animation-delay: ${p => p.delay || 0}s; */}
   }
 `
 
@@ -317,10 +348,13 @@ export const InTheDeepRoot = ArticleText.extend`
   }
 `
 
-export const ChallengeRoot = Flex.extend`
+export const ChallengeRoot = Boto.extend`
   ${HeaderInTheDeep}
   font-family: alice;
   align-self: flex-end;
+  transform: translate(120px, 0);
+  pointer-events: none;
+  margin-top: 80px;
 `
 
 export function getTopFudge() {

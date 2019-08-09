@@ -2,9 +2,9 @@ const Portals = {
   tribalfish: {
     title: '108',
     peers: {
-      top: 'maypole',
-      bottomLeft: 'river',
-      bottomRight: 'pride',
+      top: 'jojo',
+      bottomLeft: 'towardthesun',
+      bottomRight: 'alyssa',
     },
   },
   maypole: {
@@ -19,7 +19,7 @@ const Portals = {
     title: 'bodyish',
     peers: {
       top: 'tribalfish',
-      bottomLeft: 'maypole',
+      bottomLeft: 'towardthesun',
       bottomRight: 'pride',
     },
   },
@@ -28,8 +28,41 @@ const Portals = {
     peers: {
       top: 'tribalfish',
       bottomLeft: 'river',
-      bottomRight: 'maypole',
+      bottomRight: 'alyssa',
     },
+  },
+  alyssa: {
+    title: 'awakening',
+    peers: {
+      top: 'river',
+      bottomLeft: 'tribalfish',
+      bottomRight: 'pride',
+    },
+    position: {
+      xOffset: '-330px',
+    },
+  },
+  towardthesun: {
+    title: 'trust',
+    peers: {
+      top: 'river',
+      bottomLeft: 'jojo',
+      bottomRight: 'pride',
+    },
+    position: {
+      xOffset: '-420px',
+    }
+  },
+  jojo: {
+    title: 'isness',
+    peers: {
+      top: 'river',
+      bottomLeft: 'tribalfish',
+      bottomRight: 'pride',
+    },
+    position: {
+      yOffset: '200px',
+    }
   },
 }
 
