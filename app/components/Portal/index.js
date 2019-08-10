@@ -45,16 +45,16 @@ export default class Portal extends React.PureComponent {
   }
 
   render() {
-    const {styles, contentPaddingTop} = this.state
+    const {styles} = this.state
     const {spot} = this.props
     const portal = getPortal(this.props)
     if (!portal) return null
 
     const {id, title} = portal
-    const style = styles[spot] || {}
+    const gifStyle = styles[spot] || {}
     return (
       <Root className={'spot-' + spot}>
-        <GifRoot {...style} onClick={this.onClickPortal}>
+        <GifRoot {...gifStyle} onClick={this.onClickPortal}>
           <MaskedGif
             className='gif'
             gif={GIF_ROOT_URL + id + '.gif'}
@@ -74,7 +74,7 @@ export default class Portal extends React.PureComponent {
           <H2>the beginning was the end all along.</H2>
         </TemptationRoot>
 
-        <InTheDeepRoot paddingTop={contentPaddingTop}>
+        <InTheDeepRoot paddingTop={styles.contentPaddingTop}>
           this is the place. this is the time. now.<br/>
           this life is for you.<br/>
           to tinker away your blinks.<br/>
@@ -159,12 +159,13 @@ function getPortal(props) {
 
 function getStyles(props) {
   const portal = getPortal(props)
+  const centerStyles = getCenterStyles()
   return {
     top: getTopStyles(portal),
-    center: getCenterStyles(),
+    center: centerStyles,
     bottomRight: getBottomStyles(portal),
     bottomLeft: getBottomStyles(portal),
-    contentPaddingTop: (9 * .7 * window.innerWidth) / 16,
+    contentPaddingTop: centerStyles.maskHeight + 50,
   }
 }
 
@@ -183,11 +184,11 @@ function getTopStyles({position = {}}) {
 
 function getCenterStyles() {
   const {innerWidth: screenWidth} = window
-  const centerScaleFactor = (screenWidth <= SCREEN_WIDTH_M)? .7 : .5
-  const gifWidth = screenWidth * centerScaleFactor
+  const scaleFactor = (screenWidth <= SCREEN_WIDTH_M)? .7 : .5
+  const gifWidth = screenWidth * scaleFactor
   const gifHeight = gifWidth * (9/16)
-  const maskWidth = MaskWidth * centerScaleFactor
-  const maskHeight = MaskHeight * centerScaleFactor
+  const maskWidth = MaskWidth * scaleFactor
+  const maskHeight = MaskHeight * scaleFactor
   return {
     gifWidth,
     gifHeight,

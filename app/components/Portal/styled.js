@@ -79,6 +79,7 @@ export const GifRoot = Flex.extend`
   cursor: pointer !important;
 
   .gif {
+    position: relative;
     visibility: hidden;
 
     img {
@@ -168,26 +169,28 @@ export const GifRoot = Flex.extend`
       max-width: ${GifWidth}px;
       transition: all .5s ${EASE_OUT};
       visibility: visible;
+      transform-origin: center top;
 
       .mask {
         top: ${p => p.maskTop}px;
         left: ${p => p.maskLeft}px;
         width: ${p => p.maskWidth}px;
         height: ${p => p.maskHeight}px;
+        transition: all ${TransitionDuration}ms ${EASE_OUT};
       }
 
       &.still {
-        display: none;
+        visibility: hidden;
       }
     }
     .mode-inTheDeep & {
-      top: 15px;
-      left: 0;
-      transform: none;
+      top: 85px;
+      left: 50%;
+      transform: translate(-50%, 0);
       transition-duration: ${TransitionDuration}ms;
 
       .gif {
-        width: 70%;
+        transform: scale(1.3);
         transition-duration: ${TransitionDuration}ms;
       }
     }
@@ -205,7 +208,7 @@ export const GifRoot = Flex.extend`
   }
 
   .mode-inTheDeep :not(.spot-center) & {
-    display: none;
+    visibility: hidden;
   }
 
   ${'' /* .mode-inTheDeep .spot-center &,
@@ -344,7 +347,7 @@ export const Title = H1.extend`
 
 export const InTheDeepRoot = ArticleText.extend`
   flex-direction: column;
-  display: none;
+  visibility: hidden;
   opacity: 0;
   transform: translate(0, -10px);
   transition: all .5s ${EASE_OUT};
@@ -355,7 +358,7 @@ export const InTheDeepRoot = ArticleText.extend`
   padding: ${p => p.paddingTop + 40}px 15px 100px;
 
   .mode-inTheDeep .spot-center &, .mode-willDive .spot-center & {
-    display: flex;
+    visibility: visible;
   }
   .mode-inTheDeep .spot-center & {
     opacity: 1;
