@@ -118,11 +118,6 @@ export default class Portal extends React.PureComponent {
           conveying beauty. being beauty. witnessing beauty.<br/>
           in conclusion - all business schools should be immediately closed down for spiritual renovations.<br/>
 
-          <ChallengeRoot>i dare you</ChallengeRoot>
-          <br/><br/>
-          <li>sit on a public bench for an hour. stare straight out and don't move a muscle.</li>
-          <li>spend at least three hours without your phone.<br/></li>
-          <li>run into a department store and yell at the top of your lungs what scares you the most in life right now.</li>
         </InTheDeepRoot>
       </Root>
     )
@@ -177,7 +172,7 @@ function getTopStyles({position = {}}) {
     top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(),
     size: topSize,
     yOffset: screenHeight / 4,
-    xOffsetImg: position.xOffset || 0,
+    xOffsetImg: 0,
     yOffsetImg: position.yOffset || 0,
   }
 }
@@ -205,6 +200,6 @@ function getBottomStyles({position = {}}) {
     height,
     width: height * (16 / 9),
     xOffsetImg: position.xOffset || 0,
-    yOffsetImg: position.yOffset || 0,
+    yOffsetImg: 0,
   }
 }

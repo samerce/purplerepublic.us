@@ -6,6 +6,9 @@ const Portals = {
       bottomLeft: 'towardthesun',
       bottomRight: 'alyssa',
     },
+    position: {
+      xOffset: '-360px',
+    },
   },
   maypole: {
     title: '5th dimension',
@@ -29,6 +32,9 @@ const Portals = {
       top: 'underwater',
       bottomLeft: 'river',
       bottomRight: 'alyssa',
+    },
+    position: {
+      xOffset: '-460px',
     },
   },
   alyssa: {
@@ -62,7 +68,8 @@ const Portals = {
     },
     position: {
       yOffset: '-20px',
-    }
+      xOffset: '-490px',
+    },
   },
 }
 

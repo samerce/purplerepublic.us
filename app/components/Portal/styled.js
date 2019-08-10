@@ -81,10 +81,6 @@ export const GifRoot = Flex.extend`
   .gif {
     position: relative;
     visibility: hidden;
-
-    img {
-      transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
-    }
   }
   .gif.still {
     position: absolute;
@@ -94,6 +90,7 @@ export const GifRoot = Flex.extend`
     height: 100%;
     visibility: visible;
   }
+
   .spot-top &, .spot-bottomLeft &, .spot-bottomRight & {
     &:hover {
       .gif {
@@ -102,6 +99,10 @@ export const GifRoot = Flex.extend`
       .gif.still {
         visibility: hidden;
       }
+    }
+
+    .gif img {
+      transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
     }
   }
 
@@ -218,13 +219,13 @@ export const GifRoot = Flex.extend`
   } */}
 `
 
-const ColorInTheDeep = alpha(.1, theme.semiWhite)
+const ColorInTheDeep = alpha(.2, lighten(.1, theme.hopiLight))
 const HeaderInTheDeep = css`
   font-size: 72px;
   pointer-events: none;
   background: ${ColorInTheDeep};
   border-color: transparent;
-  text-shadow: 1px 1px ${lighten(.2, theme.semiWhite)};
+  text-shadow: 1px 1px ${lighten(.2, theme.hopiLight)};
   padding: 0px 90px 0 60px;
 `
 export const Button = Boto.extend`
@@ -371,7 +372,6 @@ export const ChallengeRoot = Boto.extend`
   ${HeaderInTheDeep}
   font-family: alice;
   align-self: flex-end;
-  transform: translate(120px, 0);
   pointer-events: none;
   margin-top: 80px;
 `
