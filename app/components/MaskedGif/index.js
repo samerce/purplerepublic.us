@@ -7,6 +7,9 @@ import {
 require('gifler')
 import autobind from 'autobind-decorator'
 
+const MaskWidth = 1172
+const MaskHeight = 659
+
 export default class MaskedGif extends React.PureComponent {
 
   constructor(props) {
@@ -17,22 +20,40 @@ export default class MaskedGif extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
-    // this.mask = document.createElement('img');
-    // this.mask.crossOrigin = 'anonymous'
-    // this.mask.src = this.props.mask
-    // this.mask.onload = () => {
-      // gifler(this.props.gif).frames(`#${this.canvasId}`, this.onDrawFrame)
-    // }
-  }
+  // componentDidMount() {
+  //   if (this.props.isMasked) {
+  //     this.mask = document.createElement('img');
+  //     this.mask.crossOrigin = 'anonymous'
+  //     this.mask.src = this.props.mask
+  //     this.mask.onload = () => this.loadGif(this.props.gif)
+  //   }
+  // }
+  //
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.isMasked && nextProps.gif !== this.props.gif) {
+  //     this.root.removeChild(document.getElementById(this.canvasId))
+  //     const canvas = document.createElement('canvas')
+  //     canvas.id = this.canvasId
+  //     this.root.appendChild(canvas)
+  //     this.loadGif(nextProps.gif)
+  //   }
+  // }
 
   render() {
+    const {className, isMasked, gif, mask} = this.props
     return (
-      <Root innerRef={r => this.root = r} className={this.props.className}>
-        {/* <canvas id={this.canvasId} /> */}
-        <img src={this.props.gif} />
+      <Root innerRef={r => this.root = r} className={className}>
+        {isMasked &&
+          <img src={mask} className='mask' />
+        }
+        <img src={gif} />
       </Root>
     )
+  }
+
+  @autobind
+  loadGif(gif) {
+    gifler(gif).frames(`#${this.canvasId}`, this.onDrawFrame)
   }
 
   @autobind
@@ -41,24 +62,27 @@ export default class MaskedGif extends React.PureComponent {
 
     const {canvas} = ctx
     const {offsetWidth: parentWidth, offsetHeight: parentHeight} = this.root
+    let gifStartX = 0
+    let gifStartY = 0
 
-    canvas.width  = parentWidth
-    canvas.height = parentHeight
+    if (this.props.isMasked) {
+      canvas.width  = MaskWidth
+      canvas.height = MaskHeight
+      ctx.drawImage(this.mask, 0, 0, MaskWidth, MaskHeight)
+      ctx.globalCompositeOperation = 'source-atop'
+
+      gifStartX = (MaskWidth - frame.width) / 2
+      gifStartY = (MaskHeight - frame.height) / 2
+    } else {
+      canvas.width = parentWidth
+      canvas.height = parentHeight
+    }
 
     ctx.shadowBlur = 50
     ctx.shadowColor = 'black'
     ctx.shadowOffsetX = 10;
     ctx.shadowOffsetY = 10;
-    // if (this.props.isMasked) {
-    //   ctx.drawImage(this.mask, 0, 0, parentWidth, parentHeight)
-    //   ctx.globalCompositeOperation = 'source-atop'
-    // }
-
-    const {width: gifWidth, height: gifHeight} = frame
-    const offsetX = (parentWidth - gifWidth) / 2
-    const drawWidth = gifWidth - (parentWidth - gifWidth) / 2
-
-    ctx.drawImage(frame.buffer, 0, 0, frame.width, frame.height)
+    ctx.drawImage(frame.buffer, gifStartX, gifStartY, frame.width, frame.height)
   }
 
   @autobind

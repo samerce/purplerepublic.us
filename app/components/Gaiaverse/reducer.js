@@ -16,7 +16,7 @@ let initialState = fromJS({
   mode: Mode.seduction,
 })
 
-export default function gaiaverse(state = initialState, action) {
+export default function gaiaverseReducer(state = initialState, action) {
   switch (action.type) {
     case GaiaverseActivatePortal:
       const centerPortal = state.get('portals').center

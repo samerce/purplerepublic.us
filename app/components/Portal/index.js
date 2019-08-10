@@ -9,6 +9,7 @@ import {
   H2,
 } from '../../global/styled'
 import {SCREEN_WIDTH_M} from '../../global/constants'
+import {MaskWidth, MaskHeight} from '../MaskedGif/styled'
 
 import {connect} from 'react-redux'
 import resizable from '../hocs/resizable'
@@ -29,21 +30,17 @@ export default class Portal extends React.PureComponent {
     super()
     this.state = {
       styles: getStyles(props),
-      contentPaddingTop: getContentPaddingTop(),
     }
   }
 
   @autobind
   onResize() {
-    this.setState({
-      styles: getStyles(this.props),
-      contentPaddingTop: getContentPaddingTop(),
-    })
+    this.setState({styles: getStyles(this.props)})
   }
 
-  componentDidUpdate(prevProps) {
-    if (getPortal(this.props) !== getPortal(prevProps)) {
-      this.onResize()
+  componentWillReceiveProps(nextProps) {
+    if (getPortal(this.props) !== getPortal(nextProps)) {
+      this.setState({styles: getStyles(nextProps)})
     }
   }
 
@@ -61,8 +58,8 @@ export default class Portal extends React.PureComponent {
           <MaskedGif
             className='gif'
             gif={GIF_ROOT_URL + id + '.gif'}
-            mask={MASK_ROOT_URL + id + '.png'}
-            isMasked={spot !== 'center'}
+            mask={GIF_ROOT_URL + 'faerieborder.png'}
+            isMasked={spot === 'center'}
           />
           <div className='gif still'>
             <img src={GIF_ROOT_URL + id + '.jpg'} />
@@ -167,6 +164,7 @@ function getStyles(props) {
     center: getCenterStyles(),
     bottomRight: getBottomStyles(portal),
     bottomLeft: getBottomStyles(portal),
+    contentPaddingTop: (9 * .7 * window.innerWidth) / 16,
   }
 }
 
@@ -185,9 +183,18 @@ function getTopStyles({position = {}}) {
 
 function getCenterStyles() {
   const {innerWidth: screenWidth} = window
-  const centerScaleFactor = (screenWidth <= SCREEN_WIDTH_M)? .7 : .4
+  const centerScaleFactor = (screenWidth <= SCREEN_WIDTH_M)? .7 : .5
+  const gifWidth = screenWidth * centerScaleFactor
+  const gifHeight = gifWidth * (9/16)
+  const maskWidth = MaskWidth * centerScaleFactor
+  const maskHeight = MaskHeight * centerScaleFactor
   return {
-    width: screenWidth * centerScaleFactor,
+    gifWidth,
+    gifHeight,
+    maskWidth,
+    maskHeight,
+    maskTop: -(maskHeight - gifHeight) / 2 - 10,
+    maskLeft: -(maskWidth - gifWidth) / 2 - 5,
   }
 }
 
@@ -199,8 +206,4 @@ function getBottomStyles({position = {}}) {
     xOffsetImg: position.xOffset || 0,
     yOffsetImg: position.yOffset || 0,
   }
-}
-
-function getContentPaddingTop() {
-  return (9 * .7 * window.innerWidth) / 16
 }

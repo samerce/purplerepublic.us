@@ -1,5 +1,5 @@
 const Portals = {
-  tribalfish: {
+  underwater: {
     title: '108',
     peers: {
       top: 'jojo',
@@ -10,7 +10,7 @@ const Portals = {
   maypole: {
     title: '5th dimension',
     peers: {
-      top: 'tribalfish',
+      top: 'underwater',
       bottomLeft: 'river',
       bottomRight: 'pride',
     },
@@ -18,7 +18,7 @@ const Portals = {
   river: {
     title: 'bodyish',
     peers: {
-      top: 'tribalfish',
+      top: 'underwater',
       bottomLeft: 'towardthesun',
       bottomRight: 'pride',
     },
@@ -26,7 +26,7 @@ const Portals = {
   pride: {
     title: 'solitude',
     peers: {
-      top: 'tribalfish',
+      top: 'underwater',
       bottomLeft: 'river',
       bottomRight: 'alyssa',
     },
@@ -35,7 +35,7 @@ const Portals = {
     title: 'awakening',
     peers: {
       top: 'river',
-      bottomLeft: 'tribalfish',
+      bottomLeft: 'underwater',
       bottomRight: 'pride',
     },
     position: {
@@ -57,7 +57,7 @@ const Portals = {
     title: 'isness',
     peers: {
       top: 'river',
-      bottomLeft: 'tribalfish',
+      bottomLeft: 'underwater',
       bottomRight: 'pride',
     },
     position: {

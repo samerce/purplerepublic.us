@@ -137,12 +137,18 @@ export const GifRoot = Flex.extend`
     transform: translate(-50%, -50%);
     justify-content: center;
 
-    @keyframes spin {
+    @keyframes ham {
       80% {
         transform: translate(-50%, -50%);
       }
+      85% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(-5deg);
+      }
+      95% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(4deg);
+      }
       100% {
-        transform: translate(-50%, -50%) rotate(720deg);
+        transform: translate(-50%, -50%) scale(1.3) rotate(-2deg);
       }
       ${'' /* 100% {
         transform: translate(-50%, -50%);
@@ -150,17 +156,25 @@ export const GifRoot = Flex.extend`
     }
 
     .mode-seduction & {
-      animation-name: spin;
+      animation-name: ham;
       animation-duration: 10s;
       animation-timing-function: ${EASE};
       animation-iteration-count: infinite;
+      animation-direction: alternate;
     }
 
     .gif {
-      width: ${p => p.width}px;
+      width: ${p => p.gifWidth}px;
       max-width: ${GifWidth}px;
       transition: all .5s ${EASE_OUT};
       visibility: visible;
+
+      .mask {
+        top: ${p => p.maskTop}px;
+        left: ${p => p.maskLeft}px;
+        width: ${p => p.maskWidth}px;
+        height: ${p => p.maskHeight}px;
+      }
 
       &.still {
         display: none;

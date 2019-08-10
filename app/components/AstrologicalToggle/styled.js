@@ -25,6 +25,20 @@ const CelestialBodyRoot = Flex.extend`
 
 export const SunRoot = CelestialBodyRoot.extend`
   flex: 1 0 auto;
+
+  .view-seduction & {
+    @keyframes pulse {
+      100% {
+        filter: hue-rotate(-25deg);
+        transform: scale(1.05);
+      }
+    }
+
+    animation-name: pulse;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
 `
 
 const CelestialBody = Flex.extend`
@@ -63,6 +77,7 @@ export const Sun = CelestialBody.extend`
     height: 200px;
     transition-delay: .1s;
     transition-duration: ${TransitionDuration}ms;
+    cursor: pointer;
   }
 `
 
@@ -94,6 +109,7 @@ export const CloseText = Flex.extend`
   top: 5px;
   left: 15px;
   transition: all 1s ${EASE_OUT};
+  pointer-events: none;
 
   .view-inTheDeep & {
     opacity: 1;

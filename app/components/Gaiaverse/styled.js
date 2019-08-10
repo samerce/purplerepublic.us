@@ -32,12 +32,12 @@ export const Root = Flex.extend`
 
   @keyframes hueShift {
     0% {
-      filter: saturate(100%) hue-rotate(-15deg);
-      transform: scale(.89) translate(0, 5px);
+      filter: saturate(400%) hue-rotate(-25deg);
+      transform: scale(.9) translate(0, 5px);  
     }
     100% {
-      filter: saturate(400%) hue-rotate(-25deg);
-      transform: scale(.9) translate(0, 5px);
+      filter: saturate(100%) hue-rotate(-15deg);
+      transform: scale(.89) translate(0, 5px);
     }
   }
 `

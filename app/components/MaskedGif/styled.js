@@ -5,13 +5,24 @@ import {
   Flex,
 } from '../../global/styled'
 
+export const MaskWidth = 1523
+export const MaskHeight = 854
+
 export const Root = styled.div`
   width: 100%;
-  height: 100%;
 
   img {
     width: 100%;
-    height: 100%;
   }
-
+  canvas {
+    width: 100%;
+  }
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: ${MaskWidth}px;
+    height: ${MaskHeight}px;
+    pointer-events: none;
+  }
 `
