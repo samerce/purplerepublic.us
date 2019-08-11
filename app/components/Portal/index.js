@@ -1,5 +1,7 @@
 import React from 'react'
 import MaskedGif from '../MaskedGif'
+import WordRolodex from '../WordRolodex'
+import FloatingMousePal from '../FloatingMousePal'
 
 import {
   Root, Title, TemptationRoot, GifRoot, Button, InTheDeepRoot,
@@ -74,13 +76,18 @@ export default class Portal extends React.PureComponent {
           <H2>the beginning was the end all along.</H2>
         </TemptationRoot>
 
+        <FloatingMousePal>🧚🏽‍</FloatingMousePal>
+
         <InTheDeepRoot paddingTop={styles.contentPaddingTop}>
           this is the place. this is the time. now.<br/>
           this life is for you.<br/>
           to tinker away your blinks.<br/>
           toy with your knobs.<br/>
-          nothing else matters.<br/>
-          not money, not memories, not lovers, not children, not health, not trump.<br/>
+          nothing else matters.
+          <WordRolodex
+            className='wordRolodex'
+            words={['not money.', 'not memories.', 'not lovers.', 'not children.', 'not health.', 'not trump.']}
+          /><br/>
           ditch the need to be rich and behold what riches present themselves before you.<br/>
           exiting the world of acquisitions requires acquiring freedom, which doesn't cost.<br/>
           purposely seek out things of low monetary value; spirit lives there.<br/>
@@ -91,7 +98,12 @@ export default class Portal extends React.PureComponent {
           all change is birthed in freedom.<br/>
           fear or freedom. that's it.<br/><br/>
 
-          fear, fear, fear, fear, fear, fear, fear. is the only enemy.<br/>
+          <div className='fear'>
+            <FloatingMousePal className='floater' offsets={{top: -120}}>
+              <img src={GIF_ROOT_URL + 'towardthesun.gif'} />
+            </FloatingMousePal>
+            fear, fear, fear, fear, fear, fear, fear.
+          </div> is the only enemy.<br/>
           root it out.<br/>
           then you, too, can make freaky as fuck drama with your few moments on this planet.<br/>
           the only other choice is fearfully regurgitating pre-chewed food into other sleeping mouths.<br/>

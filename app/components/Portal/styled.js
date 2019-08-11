@@ -357,6 +357,7 @@ export const InTheDeepRoot = ArticleText.extend`
   max-width: 780px;
   margin: 0 auto;
   padding: ${p => p.paddingTop + 40}px 15px 100px;
+  text-shadow: 0 0 10px ${alpha(.5, lighten(.2, theme.hopiLight))};
 
   .mode-inTheDeep .spot-center &, .mode-willDive .spot-center & {
     visibility: visible;
@@ -365,6 +366,30 @@ export const InTheDeepRoot = ArticleText.extend`
     opacity: 1;
     transform: none;
     transition-delay: .5s;
+  }
+
+  .wordRolodex {
+    display: inline-block;
+    color: ${theme.hopiLight};
+    transform: translate(8px, 8px);
+  }
+  .fear {
+    display: inline;
+    text-shadow: 0 0 15px ${theme.hopi};
+    cursor: pointer;
+    
+    .floater {
+      visibility: hidden;
+      img {
+        width: 200px;
+      }
+    }
+
+    &:hover {
+      .floater {
+        visibility: visible;
+      }
+    }
   }
 `
 
