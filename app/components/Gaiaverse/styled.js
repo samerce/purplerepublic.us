@@ -5,6 +5,7 @@ import {
   Flex, AbsoluteFlexFillParent, AbsoluteFlex, screen,
 } from '../../global/styled'
 import {TransitionDuration} from './constants'
+import {SRC_URL} from '../../global/constants'
 
 export const Root = Flex.extend`
   width: 100%;
@@ -33,12 +34,32 @@ export const Root = Flex.extend`
   @keyframes hueShift {
     0% {
       filter: saturate(400%) hue-rotate(-25deg);
-      transform: scale(.9) translate(0, 5px);  
+      transform: scale(.9) translate(0, 5px);
     }
     100% {
       filter: saturate(100%) hue-rotate(-15deg);
       transform: scale(.89) translate(0, 5px);
     }
+  }
+`
+
+export const Backdrop = AbsoluteFlexFillParent.extend`
+  background: url("${SRC_URL + 'commons/constellation.jpg'}");
+  opacity: 0;
+  z-index: 30;
+  pointer-events: none;
+  visibility: hidden;
+  transform: scale(.7);
+  transition: all 1s ${EASE_OUT};
+  border-radius: 100%;
+
+  .mode-inTheDeep &, .mode-willDive & {
+    visibility: visible;
+  }
+  .mode-inTheDeep & {
+    transform: none;
+    opacity: .1;
+    border-radius: 0;
   }
 `
 

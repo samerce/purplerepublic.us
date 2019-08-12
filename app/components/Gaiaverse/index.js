@@ -2,7 +2,7 @@ import React from 'react'
 import Portal from '../Portal'
 
 import {
-  Root, BordersRoot,Orb,
+  Root, BordersRoot,Orb, Backdrop,
 } from './styled'
 import {getTopFudge} from '../Portal/styled'
 
@@ -70,6 +70,7 @@ export default class Gaiaverse extends React.PureComponent {
     return (
       <Root className={'mode-' + view}>
         <Orb size={this.orbSize} />
+        <Backdrop />
 
         <Portal spot='top' />
         <Portal spot='center' />

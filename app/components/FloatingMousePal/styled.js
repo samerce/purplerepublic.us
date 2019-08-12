@@ -21,7 +21,6 @@ export const Root = Flex.extend`
 
   animation-name: comein;
   animation-duration: 1s;
-  animation-delay: 3s;
   animation-timing-function: ${EASE_OUT};
   animation-iteration-count: 1;
   animation-fill-mode: both;

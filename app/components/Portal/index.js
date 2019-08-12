@@ -2,10 +2,11 @@ import React from 'react'
 import MaskedGif from '../MaskedGif'
 import WordRolodex from '../WordRolodex'
 import FloatingMousePal from '../FloatingMousePal'
+import TalkingBubbles from '../TalkingBubbles'
 
 import {
   Root, Title, TemptationRoot, GifRoot, Button, InTheDeepRoot,
-  getTopFudge,ChallengeRoot,
+  getTopFudge,ChallengeRoot, FaerieRoot
 } from './styled'
 import {
   H2,
@@ -32,12 +33,19 @@ export default class Portal extends React.PureComponent {
     super()
     this.state = {
       styles: getStyles(props),
+      showFaerie: false,
     }
+    setTimeout(() => this.setState({showFaerie: true}), 3000)
+    setTimeout(() => this.setState({showFaerie: false}), 13000)
   }
 
   @autobind
   onResize() {
     this.setState({styles: getStyles(this.props)})
+  }
+
+  componentDidMount() {
+    this.faerie.className = this.faerie.className + ' ping'
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +55,7 @@ export default class Portal extends React.PureComponent {
   }
 
   render() {
-    const {styles} = this.state
+    const {styles, showFaerie} = this.state
     const {spot} = this.props
     const portal = getPortal(this.props)
     if (!portal) return null
@@ -76,7 +84,9 @@ export default class Portal extends React.PureComponent {
           <H2>the beginning was the end all along.</H2>
         </TemptationRoot>
 
-        <FloatingMousePal>🧚🏽‍</FloatingMousePal>
+        <FaerieRoot innerRef={r => this.faerie = r}>
+          🧚<TalkingBubbles show={showFaerie} phrase="you are here now!" />
+        ‍</FaerieRoot>
 
         <InTheDeepRoot paddingTop={styles.contentPaddingTop}>
           this is the place. this is the time. now.<br/>
