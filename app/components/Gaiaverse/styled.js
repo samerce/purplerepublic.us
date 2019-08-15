@@ -6,11 +6,12 @@ import {
 } from '../../global/styled'
 import {TransitionDuration} from './constants'
 import {SRC_URL} from '../../global/constants'
+import theme from '../../global/theme'
 
 export const Root = Flex.extend`
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, #4771a3 0%, #77779d 40%, #b998b3 65%, #e7a8b1 85%, #fdefb0 100%);
+  background: ${theme.gradientSunset};
 
   & > * {
     height: 100%;

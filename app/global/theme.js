@@ -73,4 +73,5 @@ export default {
   )`,
   linearGradient: c => `linear-gradient(to bottom, transparent 0%, ${c} 100%)`,
   veryDarkTransparent: alpha(.4, purpleVeryDark),
+  gradientSunset: 'linear-gradient(to bottom, #4771a3 0%, #77779d 40%, #b998b3 65%, #e7a8b1 85%, #fdefb0 100%)',
 }

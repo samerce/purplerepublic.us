@@ -2,6 +2,7 @@ import React from 'react'
 import Countdown from '../../components/Countdown'
 import AstrologicalToggle from '../../components/AstrologicalToggle'
 import Gaiaverse from '../../components/Gaiaverse'
+import Intro from '../../components/Intro'
 
 import {
   Root,
@@ -34,6 +35,7 @@ export default class Start extends React.PureComponent {
   render() {
     return (
       <Root>
+        <Intro />
         <Countdown />
         <Gaiaverse />
         <AstrologicalToggle />

@@ -99,7 +99,7 @@ export default class Portal extends React.PureComponent {
             words={['not money.', 'not memories.', 'not lovers.', 'not children.', 'not health.', 'not trump.']}
           /><br/>
           ditch the need to be rich and behold what riches present themselves before you.<br/>
-          exiting the world of acquisitions requires acquiring freedom, which doesn't cost.<br/>
+          exiting the world of acquisitions requires acquiring freedom, which doesn't cost and costs everything.<br/>
           purposely seek out things of low monetary value; spirit lives there.<br/>
           legacy and possession are fear's sentiment; weaponry to keep you in shackles.<br/>
           life is movement. settle and you're dead.<br/>
