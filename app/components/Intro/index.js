@@ -1,58 +1,82 @@
 import React from 'react'
 
 import {
-  Root, Text, Mangina, Queer, AwareRoot, StillHereRoot, Button, HideDuration,
+  Root, Mangina, Queer, AwareRoot, StillHereRoot, Button, HideDuration,
+  Loading, Fuck, Patriarchy, ContinueRoot
 } from './styled'
-import {
-  FlexColumn
-} from '../../global/styled'
 
-import resizable from '../hocs/resizable'
-import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 
 import {SRC_URL} from '../../global/constants'
 
-@connect(d => ({
-  view: d.get('gaiaverse').get('mode'),
-}))
-@resizable()
 export default class Intro extends React.PureComponent {
 
   constructor() {
     super()
+    this.loadedImages = 0
     this.state = {
       sceneIndex: 0,
+      imagesLoaded: false,
+      loaderDone: false,
     }
   }
 
-  onResize() {
-  }
-
   componentDidMount() {
-    const currentScene = Scenes[this.state.sceneIndex]
-    setTimeout(this.advanceScene, currentScene.duration)
+    setTimeout(() => {
+      this.setState({loaderDone: true})
+      if (this.state.imagesLoaded) {
+        this.advanceScene()
+      }
+    }, 1500)
   }
 
   @autobind
   advanceScene() {
     const nextSceneIndex = this.state.sceneIndex + 1
-    const nextScene = Scenes[nextSceneIndex]
+    const nextSceneDuration = SceneDurations[nextSceneIndex]
 
     this.setState({sceneIndex: nextSceneIndex})
 
-    if (nextScene.duration) {
-      setTimeout(this.advanceScene, nextScene.duration)
+    if (nextSceneDuration) {
+      setTimeout(this.advanceScene, nextSceneDuration)
     }
   }
 
   render() {
     const {sceneIndex, view} = this.state
     return (
-      <Root className={view}>
-        {Scenes[sceneIndex].render(this)}
+      <Root className={view + ' scene-' + sceneIndex}>
+        <Loading><i className='fa fa-superpowers' /></Loading>
+        <Fuck>fuck</Fuck>
+        <Patriarchy>patriarchy</Patriarchy>
+        <Mangina>
+          <img src={SRC_URL + 'commons/mangina.jpg'}
+            onLoad={this.onImageLoad} />
+        </Mangina>
+        <Queer>
+          <img src={SRC_URL + 'commons/queerforever.gif'}
+            onLoad={this.onImageLoad} />
+        </Queer>
+        <ContinueRoot>
+          <AwareRoot><span>a</span>war<span>e</span></AwareRoot>
+          <StillHereRoot>
+            <div>still with us?</div>
+            <Button onClick={this.close}>fuck yeah!</Button>
+          </StillHereRoot>
+        </ContinueRoot>
       </Root>
     )
+  }
+
+  @autobind
+  onImageLoad(image) {
+    this.loadedImages++
+    if (this.loadedImages == 2) {
+      this.setState({imagesLoaded: true})
+      if (this.state.loaderDone) {
+        this.advanceScene()
+      }
+    }
   }
 
   @autobind
@@ -63,32 +87,10 @@ export default class Intro extends React.PureComponent {
 
 }
 
-var Scenes = [
-  {
-    render: () => <Text>fuck</Text>,
-    duration: 1000,
-  },
-  {
-    render: () => <Text>patriarchy</Text>,
-    duration: 1000,
-  },
-  {
-    render: () => <Mangina><img src={SRC_URL + 'commons/mangina.jpg'} /></Mangina>,
-    duration: 2000,
-  },
-  {
-    render: () => <Queer><img src={SRC_URL + 'commons/queerforever.gif'} /></Queer>,
-    duration: 2000,
-  },
-  {
-    render: (props) => (
-      <FlexColumn>
-        <AwareRoot><span>a</span>war<span>e</span></AwareRoot>
-        <StillHereRoot>
-          <Text>still with us?</Text>
-          <Button onClick={props.close}>fuck yeah!</Button>
-        </StillHereRoot>
-      </FlexColumn>
-    ),
-  },
+var SceneDurations = [
+  null,
+  1000,
+  1000,
+  2000,
+  2000,
 ]

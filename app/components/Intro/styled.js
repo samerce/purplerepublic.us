@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex, Boto,
+  Flex, Boto, FlexColumn, AbsoluteFlexFillParent, screen,
 } from '../../global/styled'
 import theme from '../../global/theme'
 
@@ -16,6 +16,12 @@ export const Root = Flex.extend`
   justify-content: center;
   align-items: center;
   z-index: 500;
+  font-size: 108px;
+  color: black;
+
+  ${screen.medsmall`
+    font-size: 54px;
+  `}
 
   @keyframes reveal {
     100% {
@@ -37,20 +43,74 @@ export const Root = Flex.extend`
   }
 `
 
-export const Text = Flex.extend`
-  font-size: 108px;
-  color: black;
+const Parent = AbsoluteFlexFillParent.extend`
   text-align: center;
   align-items: center;
   justify-content: center;
 `
 
+export const Loading = Parent.extend`
+  z-index: 100;
+  background: white;
+  visibility: hidden;
+
+  .scene-0 & {
+    visibility: visible;
+  }
+
+  i {
+    @keyframes spin {
+      100% {
+        transform: rotate(720deg) scale(2);
+        filter: hue-rotate(10deg);
+      }
+    }
+
+    font-size: 42px;
+    color: ${theme.hopi};
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: spin;
+    animation-timing-function: ${EASE_OUT};
+  }
+`
+
+export const Fuck = Parent.extend`
+  visibility: hidden;
+  .scene-1 & {
+    visibility: visible;
+  }
+`
+
+export const Patriarchy = Parent.extend`
+  visibility: hidden;
+  .scene-2 & {
+    visibility: visible;
+  }
+`
+
+export const ContinueRoot = Parent.extend`
+  visibility: hidden;
+  flex-direction: column;
+
+  .scene-5 & {
+    visibility: visible;
+  }
+`
+
 const ManginaColor = '#3E4C50'
-export const Mangina = Flex.extend`
+export const Mangina = Parent.extend`
   height: 100%;
   width: 100%;
   justify-content: center;
   background: ${ManginaColor};
+  visibility: hidden;
+  z-index: 200;
+
+  .scene-3 & {
+    visibility: visible;
+  }
 
   img {
     height: 100%;
@@ -62,11 +122,17 @@ export const Mangina = Flex.extend`
 `
 
 const QueerColor = '#DFA948'
-export const Queer = Flex.extend`
+export const Queer = Parent.extend`
   width: 100%;
   height: 100%;
   background: ${QueerColor};
   align-items: center;
+  visibility: hidden;
+  z-index: 300;
+
+  .scene-4 & {
+    visibility: visible;
+  }
 
   img {
     width: 100%;
@@ -77,34 +143,42 @@ export const Queer = Flex.extend`
   }
 `
 
-export const AwareRoot = Text.extend`
+export const AwareRoot = Flex.extend`
   transform: scale(0);
   opacity: 0;
   filter: blur(10px);
-  animation-name: reveal;
   animation-duration: 1s;
   animation-fill-mode: both;
   animation-timing-function: ${EASE_OUT};
+
+  .scene-5 & {
+    animation-name: reveal;
+  }
 
   span {
     transform: scale(0);
     opacity: 0;
     filter: blur(10px);
-    animation-name: reveal;
     animation-duration: 3s;
     animation-fill-mode: both;
     animation-timing-function: ${EASE_OUT};
     animation-delay: 1s;
+
+    .scene-5 & {
+      animation-name: reveal;
+    }
   }
 `
 
-export const StillHereRoot = Text.extend`
+export const StillHereRoot = Flex.extend`
   flex-direction: column;
   transform: scale(.9) translate(0, 50px);
   opacity: 0;
   filter: blur(10px);
 
-  animation-name: reveal;
+  .scene-5 & {
+    animation-name: reveal;
+  }
   animation-duration: 2s;
   animation-fill-mode: both;
   animation-timing-function: ${EASE_OUT};

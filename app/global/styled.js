@@ -2,6 +2,7 @@ import styled, {injectGlobal, css} from 'styled-components'
 import {
   EASE, EASE_OUT,
   SCREEN_WIDTH_S,
+  SCREEN_WIDTH_MMS,
   SCREEN_WIDTH_MS,
   SCREEN_WIDTH_M,
   SCREEN_WIDTH_ML,
@@ -17,6 +18,7 @@ import theme from './theme'
 
 const sizes = {
   small: SCREEN_WIDTH_S,
+  medmedsmall: SCREEN_WIDTH_MMS,
   medsmall: SCREEN_WIDTH_MS,
   medium: SCREEN_WIDTH_M,
   mediumlarge: SCREEN_WIDTH_ML,
