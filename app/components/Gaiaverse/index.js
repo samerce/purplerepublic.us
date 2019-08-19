@@ -1,5 +1,6 @@
 import React from 'react'
 import Portal from '../Portal'
+import Borders from './Borders'
 
 import {
   Root, BordersRoot,Orb, Backdrop,
@@ -36,6 +37,7 @@ export default class Gaiaverse extends React.PureComponent {
     this.orbSize = getOrbSize()
     this.state = {
       view: View.seduction,
+      borderTop: getTopFudge(),
     }
   }
 
@@ -62,11 +64,12 @@ export default class Gaiaverse extends React.PureComponent {
   }
 
   onResize() {
-    this.forceUpdate()
+    this.orbSize = getOrbSize()
+    this.setState({borderTop: getTopFudge()})
   }
 
   render() {
-    const {view} = this.state
+    const {view, borderTop} = this.state
     return (
       <Root className={'mode-' + view}>
         <Orb size={this.orbSize} />
@@ -77,17 +80,7 @@ export default class Gaiaverse extends React.PureComponent {
         <Portal spot='bottomLeft' />
         <Portal spot='bottomRight' />
 
-        <BordersRoot top={getTopFudge()}>
-          <div className='border borderLeft'>
-            <img src='plain.png' />
-          </div>
-          <div className='border borderRight'>
-            <img src='plain.png' />
-          </div>
-          <div className='border borderBottom'>
-            <img src='plain.png' />
-          </div>
-        </BordersRoot>
+        <Borders top={borderTop} />
       </Root>
     )
   }

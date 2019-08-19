@@ -16,6 +16,10 @@ export default class FloatingMousePal extends React.PureComponent {
     window.addEventListener('mousemove', this.onMouseMove)
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   render() {
     return (
       <Root

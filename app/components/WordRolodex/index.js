@@ -19,6 +19,10 @@ export default class WordRolodex extends React.PureComponent {
     this.prepNextRoll(this.wordRefs[1])
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   render() {
     return (
       <Root className={this.props.className || ''}>

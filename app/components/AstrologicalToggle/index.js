@@ -21,26 +21,18 @@ export default class AstrologicalToggle extends React.PureComponent {
     super()
     this.state = {
       styles: getStyles(),
-      time: '105:54:27',
-      seconds: 27,
     }
   }
 
   onResize() {
+    const styles = getStyles()
+    if (styles.sun.size === this.state.styles.sun.size &&
+        styles.moon.size === this.state.styles.moon.size) {
+      return
+    }
     this.setState({
-      styles: getStyles(),
+      styles,
     })
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      let {seconds} = this.state
-      seconds--
-      this.setState({
-        time: '105:54:' + (-1 * (seconds % 27)),
-        seconds,
-      })
-    }, 1000)
   }
 
   render() {
@@ -53,7 +45,7 @@ export default class AstrologicalToggle extends React.PureComponent {
           <RaysRoot>
 
           </RaysRoot>
-          <TimerRoot>{time}</TimerRoot>
+          <Timer />
           <CloseText>close</CloseText>
         </SunRoot>
 
@@ -90,4 +82,31 @@ function getStyles() {
       size: window.innerWidth,
     },
   }
+}
+
+class Timer extends React.PureComponent {
+
+  constructor() {
+    super()
+    this.state = {
+      time: '105:54:27',
+      seconds: 27,
+    }
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      let {seconds} = this.state
+      seconds--
+      this.setState({
+        time: '105:54:' + (-1 * (seconds % 27)),
+        seconds,
+      })
+    }, 1000)
+  }
+
+  render() {
+    return <TimerRoot>{this.state.time}</TimerRoot>
+  }
+
 }

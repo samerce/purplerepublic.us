@@ -20,6 +20,9 @@ export default function gaiaverseReducer(state = initialState, action) {
   switch (action.type) {
     case GaiaverseActivatePortal:
       const centerPortal = state.get('portals').center
+      if (state.get('mode') === Mode.inTheDeep) {
+        return state.set('mode', Mode.seduction)
+      }
       if (centerPortal && action.portalId === centerPortal.id &&
           state.get('mode') === Mode.seduction) {
         return state
