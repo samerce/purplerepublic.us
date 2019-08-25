@@ -28,6 +28,7 @@ export const Root = Flex.extend`
     align-items: center;
     justify-content: flex-start;
     padding: 15px;
+    padding-top: ${p => p.paddingTop || 0}px;
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -343,76 +344,9 @@ export const Button = Boto.extend`
   }
 `
 
-export const TemptationRoot = FlexColumn.extend`
-  align-self: center;
-  text-align: center;
-  width: 100%;
-  align-items: center;
-
-  display: none;
-  .spot-center & {
-    ${'' /* display: flex; */}
-  }
-`
-
 export const Title = H1.extend`
   font-size: 108px;
   width: 100%;
-`
-
-export const InTheDeepRoot = ArticleText.extend`
-  flex-direction: column;
-  visibility: hidden;
-  opacity: 0;
-  transform: translate(0, -10px);
-  transition: all .5s ${EASE_OUT};
-  font-size: 21px;
-  line-height: 1.58;
-  max-width: 780px;
-  margin: 0 auto;
-  padding: ${p => p.paddingTop + 40}px 15px 100px;
-  text-shadow: 0 0 10px ${alpha(.5, lighten(.2, theme.hopiLight))};
-
-  .mode-inTheDeep .spot-center &, .mode-willDive .spot-center & {
-    visibility: visible;
-  }
-  .mode-inTheDeep .spot-center & {
-    opacity: 1;
-    transform: none;
-    transition-delay: .5s;
-  }
-
-  .wordRolodex {
-    display: inline-block;
-    color: ${theme.hopiLight};
-    transform: translate(8px, 8px);
-  }
-  .fear {
-    display: inline;
-    text-shadow: 0 0 15px ${theme.hopi};
-    cursor: pointer;
-
-    .floater {
-      visibility: hidden;
-      img {
-        width: 200px;
-      }
-    }
-
-    &:hover {
-      .floater {
-        visibility: visible;
-      }
-    }
-  }
-`
-
-export const ChallengeRoot = Boto.extend`
-  ${HeaderInTheDeep}
-  font-family: alice;
-  align-self: flex-end;
-  pointer-events: none;
-  margin-top: 80px;
 `
 
 export function getTopFudge() {

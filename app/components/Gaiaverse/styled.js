@@ -59,7 +59,7 @@ export const Backdrop = AbsoluteFlexFillParent.extend`
   }
   .mode-inTheDeep & {
     transform: none;
-    opacity: .1;
+    opacity: .03;
     border-radius: 0;
   }
 `
