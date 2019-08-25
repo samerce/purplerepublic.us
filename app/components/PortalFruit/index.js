@@ -1,21 +1,25 @@
 import React from 'react'
 import WordRolodex from '../WordRolodex'
 import FloatingMousePal from '../FloatingMousePal'
+import TalkingBubbles from '../TalkingBubbles'
 
 import {
   Root, FaerieRoot
 } from './styled'
-import {SRC_URL} from '../../global/constants'
 
 import {connect} from 'react-redux'
 import resizable from '../hocs/resizable'
 import autobind from 'autobind-decorator'
 import laganja from '../hocs/laganja'
 
+import {SRC_URL} from '../../global/constants'
+import {Mode as View} from '../Gaiaverse/reducer'
+
 const GIF_ROOT_URL = SRC_URL + 'portals/gifs/'
 
 @connect(d => ({
   portals: d.get('gaiaverse').get('portals'),
+  view: d.get('gaiaverse').get('mode'),
 }))
 @laganja()
 @resizable()
@@ -23,12 +27,11 @@ export default class Portal extends React.PureComponent {
 
   constructor(props) {
     super()
-
-    props.initMoments()
-
-    // this.state = {
-    //   styles: getStyles(props),
-    // }
+    this.laganja = props.laganja
+    this.state = {
+      // styles: getStyles(props),
+      showFaerie: false,
+    }
   }
 
   @autobind
@@ -36,18 +39,40 @@ export default class Portal extends React.PureComponent {
     // this.setState({styles: getStyles(this.props)})
   }
 
+  componentDidMount() {
+    this.laganja.start([
+      {
+        activate: lg => {
+          // lg.timer(3000, () => this.setState({showFaerie: true}))
+          // lg.timer(13000, () => this.setState({showFaerie: false}))
+          lg.scrollListener(scroll => {
+            this.setState({showFaerie: scroll > 500 && scroll < 700})
+          })
+        }
+      }
+    ])
+  }
+
   componentWillReceiveProps(nextProps) {
-    // if (getPortal(this.props) !== getPortal(nextProps)) {
-    //   this.setState({styles: getStyles(nextProps)})
-    // }
+    if (getPortal(this.props) !== getPortal(nextProps)) {
+      // this.setState({styles: getStyles(nextProps)})
+      this.laganja.start([])
+    }
+    if (this.props.view === View.inTheDeep && nextProps.view !== View.inTheDeep) {
+      this.laganja.stop()
+    }
   }
 
   render() {
     const portal = getPortal(this.props)
     if (!portal) return null
 
+    const {showFaerie} = this.state
     return (
       <Root>
+        <FaerieRoot className={showFaerie && 'show'}>
+          🧚<TalkingBubbles delay={1} show={showFaerie} phrase="you are here now!" />
+        ‍</FaerieRoot>
         this is the place. this is the time. now.<br/>
         this life is for you.<br/>
         to tinker away your blinks.<br/>
@@ -105,6 +130,5 @@ export default class Portal extends React.PureComponent {
 }
 
 function getPortal(props) {
-  const {spot, portals} = props
-  return portals[spot] || {}
+  return props.portals.center || {}
 }

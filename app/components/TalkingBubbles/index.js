@@ -31,11 +31,11 @@ export default class TalkingBubbles extends React.PureComponent {
 
   render() {
     const {view} = this.state
-    const {phrase, className} = this.props
+    const {phrase, className, delay} = this.props
     return (
       <Root className={(className || '') + ' view-' + view}>
         {phrase.split(' ').map((word, i) => (
-          <WordBubble key={word + i} index={i}>
+          <WordBubble key={word + i} index={i} delay={delay}>
             {word}
           </WordBubble>
         ))}

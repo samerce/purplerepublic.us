@@ -29,19 +29,12 @@ export default class Portal extends React.PureComponent {
     super()
     this.state = {
       styles: getStyles(props),
-      showFaerie: false,
     }
-    setTimeout(() => this.setState({showFaerie: true}), 3000)
-    setTimeout(() => this.setState({showFaerie: false}), 13000)
   }
 
   @autobind
   onResize() {
     this.setState({styles: getStyles(this.props)})
-  }
-
-  componentDidMount() {
-    this.faerie.className = this.faerie.className + ' ping'
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,15 +44,16 @@ export default class Portal extends React.PureComponent {
   }
 
   render() {
-    const {styles, showFaerie} = this.state
-    const {spot} = this.props
     const portal = getPortal(this.props)
     if (!portal) return null
 
+    const {spot} = this.props
+    const {styles} = this.state
     const {id, title} = portal
     const gifStyle = styles[spot] || {}
     return (
-      <Root className={'spot-' + spot} paddingTop={gifStyle.contentPaddingTop}>
+      <Root id={spot === 'center'? 'laganjaScrollRoot' : ''} className={'spot-' + spot}
+        paddingTop={gifStyle.contentPaddingTop}>
         <GifRoot {...gifStyle} className={'spot-' + spot} onClick={this.onClickPortal}>
           <MaskedGif
             className={'gif spot-' + spot}
@@ -77,10 +71,6 @@ export default class Portal extends React.PureComponent {
           onClick={this.onClickPortal} delay={Math.random()}>
           {title}
         </Button>
-
-        <FaerieRoot innerRef={r => this.faerie = r}>
-          🧚<TalkingBubbles show={showFaerie} phrase="you are here now!" />
-        ‍</FaerieRoot>
 
         {spot === 'center' &&
           <PortalFruit />

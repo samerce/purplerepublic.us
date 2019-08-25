@@ -53,3 +53,51 @@ export const Root = styled.div`
     }
   }
 `
+
+export const FaerieRoot = Flex.extend`
+  position: fixed;
+  text-shadow: 0 0 10px ${theme.hopiLight}, 0 0 40px rgba(0,0,0,.5);
+  top: 50%;
+  left: 35px;
+  font-size: 28px;
+  transform: scale(0) translate(-200px, -80px);
+  transform-origin: left center;
+  pointer-events: none;
+  transition: all 1s ${EASE_OUT} .5s;
+  opacity: 0;
+
+  @keyframes ping {
+    100% {
+      filter: hue-rotate(-15deg);
+      transform: scale(1.02);
+    }
+  }
+
+  &.ping {
+    transform: scale(1);
+    opacity: 1;
+    animation-name: ping;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  @keyframes comein {
+    100% {
+      transform: none;
+    }
+  }
+
+  &.show {
+    transform: none;
+    opacity: 1;
+    transition-duration: 1s;
+    transition-delay: 0;
+  }
+
+  animation-duration: 1s;
+  animation-timing-function: ${EASE_OUT};
+  animation-iteration-count: 1;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+`

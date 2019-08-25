@@ -73,46 +73,6 @@ export const Root = Flex.extend`
   } */}
 `
 
-export const FaerieRoot = Flex.extend`
-  position: fixed;
-  text-shadow: 0 0 10px ${theme.hopiLight}, 0 0 40px rgba(0,0,0,.5);
-  top: 50%;
-  left: 50%;
-  font-size: 28px;
-  transform: scale(0);
-  transform-origin: left center;
-  pointer-events: none;
-
-  @keyframes ping {
-    100% {
-      filter: hue-rotate(-15deg);
-      transform: scale(1.02);
-    }
-  }
-
-  &.ping {
-    transform: scale(1);
-    opacity: 1;
-    animation-name: ping;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-
-  @keyframes comein {
-    100% {
-      transform: none;
-    }
-  }
-
-  animation-name: comein;
-  animation-duration: 1s;
-  animation-timing-function: ${EASE_OUT};
-  animation-iteration-count: 1;
-  animation-delay: 1s;
-  animation-fill-mode: both;
-`
-
 export const GifRoot = Flex.extend`
   position: absolute;
   transition: all .5s ${EASE_OUT};
@@ -253,6 +213,9 @@ export const GifRoot = Flex.extend`
 
   .mode-inTheDeep &:not(.spot-center) {
     visibility: hidden;
+  }
+  .mode-willDive &:not(.spot-center) {
+    pointer-events: none;
   }
 
   ${'' /* .mode-inTheDeep .spot-center &,

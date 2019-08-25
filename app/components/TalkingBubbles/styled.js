@@ -7,6 +7,7 @@ import {
 import theme from '../../global/theme'
 
 export const Root = Flex.extend`
+  margin: 0 0 0 5px;
 `
 
 export const WordBubble = Flex.extend`
@@ -17,6 +18,7 @@ export const WordBubble = Flex.extend`
   box-shadow: ${theme.shadowHeavy};
   text-shadow: 0 0 10px ${theme.hopiLight}, 1px 1px ${alpha(.5, theme.hopiLight)};
   pointer-events: none;
+  margin: 0 -5px;
 
   @keyframes show {
     100% {
@@ -41,7 +43,7 @@ export const WordBubble = Flex.extend`
     animation-fill-mode: both;
     animation-timing-function: ${EASE_OUT};
     animation-iteration-count: 1;
-    animation-delay: ${p => p.index * .5}s;
+    animation-delay: ${p => (p.index * .5) + p.delay}s;
   }
   .view-hide & {
     opacity: 1;
