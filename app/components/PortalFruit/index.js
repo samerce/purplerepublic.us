@@ -40,26 +40,22 @@ export default class Portal extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.laganja.start([
-      {
-        activate: lg => {
-          // lg.timer(3000, () => this.setState({showFaerie: true}))
-          // lg.timer(13000, () => this.setState({showFaerie: false}))
-          lg.scrollListener(scroll => {
-            this.setState({showFaerie: scroll > 850 && scroll < 1000})
-          })
-          lg.scrollListener(scroll => {
-            this.setState({showNamaste: scroll > 1350})
-          })
-        }
-      }
-    ])
+    this.laganja.start(lg => {
+      // lg.timer(3000, () => this.setState({showFaerie: true}))
+      // lg.timer(13000, () => this.setState({showFaerie: false}))
+      lg.scrollListener(scroll => {
+        this.setState({showFaerie: scroll > 800 && scroll < 1000})
+      })
+      lg.scrollListener(scroll => {
+        this.setState({showNamaste: scroll > 1350})
+      })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     if (getPortal(this.props) !== getPortal(nextProps)) {
       // this.setState({styles: getStyles(nextProps)})
-      this.laganja.start([])
+      // this.laganja.start()
     }
     if (this.props.view === View.inTheDeep && nextProps.view !== View.inTheDeep) {
       this.laganja.stop()

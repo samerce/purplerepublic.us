@@ -26,10 +26,10 @@ function laganja() { return Component => {
     }
 
     @autobind
-    start(strands) {
+    start(dna) {
       this.stop()
       this.initScrollListener()
-      strands.forEach(dna => dna.activate(this))
+      dna(this)
     }
 
     @autobind
