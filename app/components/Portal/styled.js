@@ -131,7 +131,7 @@ export const GifRoot = Flex.extend`
     visibility: visible;
   }
 
-  .spot-top &, .spot-bottomLeft &, .spot-bottomRight & {
+  &:not(.spot-center) {
     &:hover {
       .gif {
         visibility: visible;
@@ -141,12 +141,12 @@ export const GifRoot = Flex.extend`
       }
     }
 
-    .gif img {
+    img {
       transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
     }
   }
 
-  .spot-top & {
+  &.spot-top {
     position: absolute;
     left: 0;
     top: ${p => p.top}px;
@@ -155,25 +155,46 @@ export const GifRoot = Flex.extend`
     width: ${p => p.size}px;
     overflow: hidden;
     justify-content: center;
+  }
 
-    .gif {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      transform: rotate(-45deg) translate(50%, -${p => p.yOffset}px);
-      transform-origin: right bottom;
+  .spot-top.gif {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transform: rotate(-45deg) translate(50%, -${p => p.yOffset}px);
+    transform-origin: right bottom;
 
-      ${screen.large`
-        transform: rotate(-45deg) translate(50%, 0);
-      `}
+    ${screen.large`
+      transform: rotate(-45deg) translate(50%, 0);
+    `}
 
-      img {
-        height: initial;
-        width: 100%;
-      }
+    img {
+      height: initial;
+      width: 100%;
     }
   }
-  .spot-center & {
+
+  .spot-center.gif {
+    width: ${p => p.gifWidth}px;
+    max-width: ${GifWidth}px;
+    transition: all .5s ${EASE_OUT};
+    visibility: visible;
+    transform-origin: center top;
+
+    .mask {
+      top: ${p => p.maskTop}px;
+      left: ${p => p.maskLeft}px;
+      width: ${p => p.maskWidth}px;
+      height: ${p => p.maskHeight}px;
+      transition: all ${TransitionDuration}ms ${EASE_OUT};
+    }
+
+    &.still {
+      visibility: hidden;
+    }
+  }
+
+  &.spot-center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -205,25 +226,6 @@ export const GifRoot = Flex.extend`
       animation-direction: alternate;
     }
 
-    .gif {
-      width: ${p => p.gifWidth}px;
-      max-width: ${GifWidth}px;
-      transition: all .5s ${EASE_OUT};
-      visibility: visible;
-      transform-origin: center top;
-
-      .mask {
-        top: ${p => p.maskTop}px;
-        left: ${p => p.maskLeft}px;
-        width: ${p => p.maskWidth}px;
-        height: ${p => p.maskHeight}px;
-        transition: all ${TransitionDuration}ms ${EASE_OUT};
-      }
-
-      &.still {
-        visibility: hidden;
-      }
-    }
     .mode-inTheDeep & {
       top: 85px;
       left: 50%;
@@ -236,7 +238,7 @@ export const GifRoot = Flex.extend`
       }
     }
   }
-  .spot-bottomLeft &, .spot-bottomRight & {
+  &.spot-bottomLeft, &.spot-bottomRight {
     height: 100%;
 
     .gif {
@@ -248,7 +250,7 @@ export const GifRoot = Flex.extend`
     }
   }
 
-  .mode-inTheDeep :not(.spot-center) & {
+  .mode-inTheDeep &:not(.spot-center) {
     visibility: hidden;
   }
 
@@ -271,30 +273,28 @@ const HeaderInTheDeep = css`
 export const Button = Boto.extend`
   position: absolute;
   pointer-events: all;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  flex-wrap: wrap;
 
-  &.title {
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    flex-wrap: wrap;
+  &.spot-bottomLeft, &.spot-bottomRight {
+    top: 75%;
+  }
+  &.spot-top {
+    top: 20%;
+    transform: translate(50%, 0);
+  }
+  &.spot-center {
+    font-size: 32px;
+  }
 
-    .spot-bottomLeft &, .spot-bottomRight & {
-      top: 75%;
-    }
-    .spot-top & {
-      top: 20%;
-      transform: translate(50%, 0);
-    }
-    .spot-center & {
-      font-size: 32px;
-    }
-
-    .mode-willDive .spot-center &,
-    .mode-willSeduce .spot-center & {
+    .mode-willDive &.spot-center,
+    .mode-willSeduce &.spot-center {
       display: flex;
       pointer-events: none;
     }
-    .mode-inTheDeep .spot-center & {
+    .mode-inTheDeep &.spot-center {
       display: flex;
       top: 158px; /* calc */
       right: -50px;
@@ -304,36 +304,10 @@ export const Button = Boto.extend`
     }
   }
 
-  &.close {
-    position: fixed;
-    left: -50px;
-    bottom: -100px;
-    padding: 20px 30px 20px 50px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-
-    @keyframes reveal {
-      100% {
-        bottom: -10px;
-        left: -40px;
-      }
-    }
-
-    .mode-willDive .spot-center & {
-      display: flex;
-    }
-    .mode-inTheDeep .spot-center & {
-      display: flex;
-      animation: reveal .5s ${EASE_OUT};
-      animation-fill-mode: forwards;
-      animation-delay: .5s;
-    }
-  }
-
   ${screen.medium`
     font-size: 14px;
 
-    .spot-center &.title {
+    &.spot-center {
       font-size: 22px;
       .mode-inTheDeep & {
         top: 90px;
@@ -342,7 +316,7 @@ export const Button = Boto.extend`
     }
   `}
   ${screen.medsmall`
-    .mode-inTheDeep .spot-center &.title {
+    .mode-inTheDeep &.spot-center {
       top: 60px;
       font-size: 28px;
     }

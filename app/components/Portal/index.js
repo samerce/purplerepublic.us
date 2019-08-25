@@ -64,25 +64,23 @@ export default class Portal extends React.PureComponent {
     const gifStyle = styles[spot] || {}
     return (
       <Root className={'spot-' + spot}>
-        <GifRoot {...gifStyle} onClick={this.onClickPortal}>
+        <GifRoot {...gifStyle} className={'spot-' + spot} onClick={this.onClickPortal}>
           <MaskedGif
-            className='gif'
+            className={'gif spot-' + spot}
             gif={GIF_ROOT_URL + id + '.gif'}
             mask={GIF_ROOT_URL + 'faerieborder.png'}
             isMasked={spot === 'center'}
           />
-          <div className='gif still'>
+          <div className={'gif still spot-' + spot}>
             <img src={GIF_ROOT_URL + id + '.jpg'} />
           </div>
         </GifRoot>
 
-        <Button className='title' onClick={this.onClickPortal} delay={Math.random() * 1}>
+        <Button
+          className={'spot-' + spot}
+          onClick={this.onClickPortal} delay={Math.random() * 1}>
           {title}
         </Button>
-
-        <TemptationRoot>
-          <H2>the beginning was the end all along.</H2>
-        </TemptationRoot>
 
         <FaerieRoot innerRef={r => this.faerie = r}>
           🧚<TalkingBubbles show={showFaerie} phrase="you are here now!" />
