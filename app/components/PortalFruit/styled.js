@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex,
+  Flex, AbsoluteFlexFillParent
 } from '../../global/styled'
 import theme from '../../global/theme'
 
@@ -88,11 +88,13 @@ export const FaerieRoot = Flex.extend`
     }
   }
 
+  filter: blur(20px);
   &.show {
     transform: none;
     opacity: 1;
     transition-duration: 1s;
     transition-delay: 0;
+    filter: none;
   }
 
   animation-duration: 1s;
@@ -100,4 +102,24 @@ export const FaerieRoot = Flex.extend`
   animation-iteration-count: 1;
   animation-delay: 1s;
   animation-fill-mode: both;
+`
+
+export const NamasteRoot = AbsoluteFlexFillParent.extend`
+  position: fixed;
+  align-items: center;
+  pointer-events: none;
+  img {
+    height: 100%;
+    transform: translate(-15%, 0);
+  }
+
+  visibility: hidden;
+  filter: blur(20px);
+  opacity: 0;
+  transition: all 1s ${EASE_OUT};
+  &.show {
+    visibility: visible;
+    filter: none;
+    opacity: 1;
+  }
 `

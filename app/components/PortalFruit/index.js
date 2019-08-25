@@ -4,7 +4,7 @@ import FloatingMousePal from '../FloatingMousePal'
 import TalkingBubbles from '../TalkingBubbles'
 
 import {
-  Root, FaerieRoot
+  Root, FaerieRoot, NamasteRoot,
 } from './styled'
 
 import {connect} from 'react-redux'
@@ -46,7 +46,10 @@ export default class Portal extends React.PureComponent {
           // lg.timer(3000, () => this.setState({showFaerie: true}))
           // lg.timer(13000, () => this.setState({showFaerie: false}))
           lg.scrollListener(scroll => {
-            this.setState({showFaerie: scroll > 500 && scroll < 700})
+            this.setState({showFaerie: scroll > 850 && scroll < 1000})
+          })
+          lg.scrollListener(scroll => {
+            this.setState({showNamaste: scroll > 1350})
           })
         }
       }
@@ -67,9 +70,12 @@ export default class Portal extends React.PureComponent {
     const portal = getPortal(this.props)
     if (!portal) return null
 
-    const {showFaerie} = this.state
+    const {showFaerie, showNamaste} = this.state
     return (
       <Root>
+        <NamasteRoot className={showNamaste && 'show'}>
+          <img src={GIF_ROOT_URL + 'namastehehe.gif'} />
+        </NamasteRoot>
         <FaerieRoot className={showFaerie && 'show'}>
           🧚<TalkingBubbles delay={1} show={showFaerie} phrase="you are here now!" />
         ‍</FaerieRoot>

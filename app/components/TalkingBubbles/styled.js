@@ -19,15 +19,18 @@ export const WordBubble = Flex.extend`
   text-shadow: 0 0 10px ${theme.hopiLight}, 1px 1px ${alpha(.5, theme.hopiLight)};
   pointer-events: none;
   margin: 0 -5px;
+  filter: blur(100px);
 
   @keyframes show {
     100% {
       transform: none;
       opacity: 1;
+      filter: none;
     }
   }
   @keyframes hide {
     100% {
+      filter: blur(100px);
       transform: scale(0);
       opacity: 0;
     }
@@ -48,6 +51,7 @@ export const WordBubble = Flex.extend`
   .view-hide & {
     opacity: 1;
     transform: none;
+    filter: none;
     transform-origin: center center;
     animation-name: hide;
     animation-duration: .5s;
