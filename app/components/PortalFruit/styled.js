@@ -39,8 +39,27 @@ export const Root = styled.div`
     text-shadow: 0 0 15px ${theme.hopi};
     cursor: pointer;
 
+    @keyframes show {
+      100% {
+        filter: none;
+        transform: none;
+        opacity: 1;
+      }
+    }
+
     .floater {
       visibility: hidden;
+      box-shadow: ${theme.shadowVeryHeavy}, black 112px 92px 20px inset;
+      border-radius: 100%;
+      overflow: hidden;
+      border: 1px solid ${theme.hopiLight};
+      transform-origin: left bottom;
+      filter: blur(20px);
+      transform: scale(0);
+      opacity: 0;
+      transition: visibility .1s linear 1s,
+        filter .5s ${EASE_OUT}, transform .5s ${EASE_OUT}, opacity .5s ${EASE_OUT};
+
       img {
         width: 200px;
       }
@@ -49,6 +68,11 @@ export const Root = styled.div`
     &:hover {
       .floater {
         visibility: visible;
+        transition: none;
+        animation-name: show;
+        animation-fill-mode: both;
+        animation-duration: .5s;
+        animation-timing-function: ${EASE_OUT};
       }
     }
   }

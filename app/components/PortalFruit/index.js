@@ -47,7 +47,7 @@ export default class Portal extends React.PureComponent {
         this.setState({showFaerie: scroll > 800 && scroll < 1000})
       })
       lg.scrollListener(scroll => {
-        this.setState({showNamaste: scroll > 1350})
+        this.setState({showNamaste: scroll > 1390})
       })
     })
   }
@@ -96,7 +96,7 @@ export default class Portal extends React.PureComponent {
 
         <div className='fear'>
           <FloatingMousePal className='floater' offsets={{top: -120}}>
-            <img src={GIF_ROOT_URL + 'towardthesun.gif'} />
+            <img src={GIF_ROOT_URL + 'alyssa.gif'} />
           </FloatingMousePal>
           fear, fear, fear, fear, fear, fear, fear.
         </div> is the only enemy.<br/>

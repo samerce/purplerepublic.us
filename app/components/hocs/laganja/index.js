@@ -42,7 +42,15 @@ function laganja() { return Component => {
 
     @autobind
     timer(time, action) {
-      this.timers.push(setTimeout(action, time))
+      const timer = setTimeout(action, time)
+      this.timers.push(timer)
+      return timer
+    }
+
+    @autobind
+    timerOff(timer) {
+      this.timers = this.timers.filter(t => t !== timer)
+      clearTimeout(timer)
     }
 
     @autobind
