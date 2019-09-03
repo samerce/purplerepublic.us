@@ -1,6 +1,6 @@
 import React from 'react'
 import WordRolodex from '../WordRolodex'
-import FloatingMousePal from '../FloatingMousePal'
+import FloatingMousePal from '../FloatingMousePal/index.coffee'
 import TalkingBubbles from '../TalkingBubbles'
 
 import {

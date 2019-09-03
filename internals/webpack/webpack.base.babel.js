@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const coffee = require('coffee-loader');
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -12,7 +13,18 @@ module.exports = (options) => ({
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
   module: {
-    loaders: [{
+    loaders: [
+      {
+        test: /\.coffee$/,
+        loader: ['babel-loader', 'coffee-loader'],
+        exclude: /node_modules/
+        // query: {
+        //   transpile: {
+        //     presets: ['babel-react-preset-hmre']
+        //   }
+        // }
+      },
+      {
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel-loader',
       exclude: /node_modules/,
