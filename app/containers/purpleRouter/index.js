@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import Spinner from '../../components/spinnie'
 
 import Intro from '../intro'
-import Start from '../start'
+import Start from '../start/index.coffee'
 
 const QuarkArt = Loadable({
   loader: () => import('../quarkart'),

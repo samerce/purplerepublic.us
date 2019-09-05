@@ -241,11 +241,52 @@ export const Button = Boto.extend`
   right: 50%;
   transform: translate(50%, -50%);
   flex-wrap: wrap;
+  background: none;
+  color: white;
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 0 1px ${theme.hopiDark},
+               0 0 10px white,
+               0 0 20px white,
+               0 0 30px ${theme.hopi},
+               0 0 40px ${theme.hopi};
+  text-transform: uppercase;
+  font-size: 52px;
+  letter-spacing: 1px;
+  pointer-events: none;
+
+  @keyframes titleFloat {
+    40% {
+      filter: hue-rotate(20deg) drop-shadow(0);
+    }
+    70% {
+      filter: drop-shadow(3px) hue-rotate(0);
+    }
+    100% {
+      opacity: .5;
+    }
+  }
+
+  div {
+    position: absolute;
+    transform: translate(${p => p.delay * 10}px, ${p => p.delay * -20}px);
+    font-size: 62px;
+    opacity: .3;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px white,
+                 0 0 30px white,
+                 0 0 50px ${theme.hopi},
+                 0 0 70px ${theme.hopi};
+    animation-name: titleFloat;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
 
   &.spot-bottomLeft, &.spot-bottomRight {
     top: 75%;
   }
-  &.spot-top {
+  &&.spot-top {
     top: 20%;
     transform: translate(50%, 0);
   }

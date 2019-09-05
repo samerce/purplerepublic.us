@@ -70,6 +70,7 @@ export default class Portal extends React.PureComponent {
           className={'spot-' + spot}
           onClick={this.onClickPortal} delay={Math.random()}>
           {title}
+          <div>{title}</div>
         </Button>
 
         {spot === 'center' &&
