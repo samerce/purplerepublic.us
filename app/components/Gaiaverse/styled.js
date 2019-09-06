@@ -11,6 +11,7 @@ import theme from '../../global/theme'
 export const Root = Flex.extend`
   width: 100%;
   height: 100%;
+  flex: 1 0 auto;
   background: ${theme.gradientSunset};
 
   & > * {

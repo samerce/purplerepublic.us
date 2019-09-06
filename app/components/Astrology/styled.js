@@ -101,12 +101,12 @@ export const TimerRoot = Flex.extend`
   position: relative;
   z-index: 20;
   font-size: 36px;
-  color: ${theme.hopi};
+  color: #fae789;
   opacity: 0;
   pointer-events: none;
   transition: all .5s ${EASE_OUT};
-  font-family: life savers;
-  font-weight: bold;
+  font-family: nova mono;
+  text-shadow: 0 0 #f79115, 1px 1px 2px #fbd416;
 
   .view-seduction & {
     opacity: 1;

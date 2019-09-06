@@ -19,6 +19,6 @@ export default class Timer extends React.PureComponent
 
   getTimeLeft: ->
     standardTime = moment(@endTime - moment()).format 'DD:HH:mm:ss'
-    parts = standardTime.split(':')
+    parts = standardTime.split ':'
     hoursLeft = (parts[0] * 24) + +parts[1]
     "#{hoursLeft}:#{parts[2]}:#{parts[3]}"
