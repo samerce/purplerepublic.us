@@ -2,6 +2,7 @@ import React from 'react'
 import Astrology from '../../components/Astrology/index.coffee'
 import Gaiaverse from '../../components/Gaiaverse'
 import Intro from '../../components/Intro'
+import Fruit from '../../components/Fruit/index.coffee'
 
 import {
   Root,
@@ -31,4 +32,5 @@ export default class Start extends React.PureComponent
       <Intro />
       <Gaiaverse />
       <Astrology />
+      <Fruit />
     </Root>

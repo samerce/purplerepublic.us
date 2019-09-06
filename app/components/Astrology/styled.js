@@ -10,22 +10,34 @@ import {TransitionDuration} from '../Gaiaverse/constants'
 const RootHeight = 60
 export const Root = Flex.extend`
   position: fixed;
-  bottom: 0;
-  height: ${RootHeight}px;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
   z-index: 35;
+  pointer-events: none;
+
+  #universeBackdropCanvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const CelestialBodyRoot = Flex.extend`
-  position: relative;
+  position: absolute;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  height: 25vmin;
+  width: 25vmin;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  pointer-events: all;
 `
 
 export const SunRoot = CelestialBodyRoot.extend`
-  flex: 1 0 auto;
-
   .view-seduction & {
     @keyframes pulse {
       100% {
@@ -34,19 +46,19 @@ export const SunRoot = CelestialBodyRoot.extend`
       }
     }
 
-    animation-name: pulse;
+    ${'' /* animation-name: pulse;
     animation-duration: 10s;
     animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation-direction: alternate; */}
   }
 `
 
 const CelestialBody = Flex.extend`
   position: absolute;
-  top: -10px;
+  top: 0;
   left: 0;
-  width: ${p => p.size}px;
-  height: ${p => p.size}px;
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
   transition: all 1s ${EASE_OUT};
 `
@@ -70,7 +82,7 @@ export const Sun = CelestialBody.extend`
     0 0 120px #FF7519
   ;
 
-  .view-inTheDeep & {
+  ${'' /* .view-inTheDeep & {
     top: ${RootHeight}px;
     transform: translate(-50%, -50%);
     width: 200px;
@@ -78,7 +90,7 @@ export const Sun = CelestialBody.extend`
     transition-delay: .1s;
     transition-duration: ${TransitionDuration}ms;
     cursor: pointer;
-  }
+  } */}
 `
 
 export const RaysRoot = Flex.extend`
@@ -88,11 +100,13 @@ export const RaysRoot = Flex.extend`
 export const TimerRoot = Flex.extend`
   position: relative;
   z-index: 20;
-  font-size: 32px;
+  font-size: 36px;
   color: ${theme.hopi};
   opacity: 0;
   pointer-events: none;
   transition: all .5s ${EASE_OUT};
+  font-family: life savers;
+  font-weight: bold;
 
   .view-seduction & {
     opacity: 1;
@@ -149,6 +163,6 @@ export const Moon = CelestialBody.extend`
   }
 `
 
-export const EarthRoot = CelestialBodyRoot.extend`
+export const EyeRoot = CelestialBodyRoot.extend`
   flex: 0 0 auto;
 `

@@ -1,5 +1,5 @@
 import React from 'react'
-import Portal from '../Portal'
+import Portal from '../Portal/index.coffee'
 import Borders from './Borders'
 
 import {
@@ -34,10 +34,10 @@ export default class Gaiaverse extends React.PureComponent {
 
   constructor() {
     super()
-    this.orbSize = getOrbSize()
     this.state = {
       view: View.seduction,
       borderTop: getTopFudge(),
+      orbSize: getOrbSize(),
     }
   }
 
@@ -64,19 +64,20 @@ export default class Gaiaverse extends React.PureComponent {
   }
 
   onResize() {
-    this.orbSize = getOrbSize()
-    this.setState({borderTop: getTopFudge()})
+    this.setState({
+      borderTop: getTopFudge(),
+      orbSize: getOrbSize(),
+    })
   }
 
   render() {
-    const {view, borderTop} = this.state
+    const {view, borderTop, orbSize} = this.state
     return (
       <Root className={'mode-' + view}>
-        <Orb size={this.orbSize} />
+        <Orb size={orbSize} />
         <Backdrop />
 
         <Portal spot='top' />
-        <Portal spot='center' />
         <Portal spot='bottomLeft' />
         <Portal spot='bottomRight' />
 
