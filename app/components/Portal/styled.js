@@ -269,7 +269,6 @@ export const Button = Boto.extend`
 
   div {
     position: absolute;
-    transform: translate(${p => p.delay * 10}px, ${p => p.delay * -20}px);
     font-size: 62px;
     opacity: .3;
     letter-spacing: 2px;
@@ -281,6 +280,15 @@ export const Button = Boto.extend`
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+  }
+  &.spot-bottomLeft div {
+    transform: translate(-20px, -20px);
+  }
+  &.spot-bottomRight div {
+    transform: translate(20px, -20px);
+  }
+  &.spot-top div {
+    transform: translate(0, -20px);
   }
 
   &.spot-bottomLeft, &.spot-bottomRight {
