@@ -2,7 +2,7 @@ import styled, {injectGlobal} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
-  Flex,
+  Flex, AbsoluteFlex,
 } from '../../global/styled'
 import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
@@ -95,6 +95,13 @@ export const Sun = CelestialBody.extend`
 
 export const RaysRoot = Flex.extend`
 
+`
+
+export const Triangle = AbsoluteFlex.extend`
+  border-bottom: 130px solid ${alpha(.9, '#f79115')};
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  transform: translate(0, -10px);
 `
 
 export const TimerRoot = Flex.extend`

@@ -4,7 +4,7 @@ import UniverseBackdrop from './UniverseBackdrop.coffee'
 
 import {
   Root, SunRoot, Sun, RaysRoot, MoonRoot, Moon,
-  EyeRoot, CloseText,
+  EyeRoot, CloseText, Triangle,
 } from './styled'
 
 import resizable from '../hocs/resizable'
@@ -37,6 +37,7 @@ export default connect((d) =>
       <UniverseBackdrop />
       <SunRoot onClick={@onClickSun}>
         <Sun {...styles.sun} />
+        <Triangle />
         <RaysRoot>
 
         </RaysRoot>
