@@ -1,22 +1,24 @@
 import React from 'react'
 import Timer from './Timer.coffee'
-import UniverseBackdrop from './UniverseBackdrop.coffee'
+import Cosmos from './Cosmos.coffee'
 
 import {
   Root, SunRoot, Sun, RaysRoot, MoonRoot, Moon,
-  EyeRoot, CloseText, Triangle,
+  EyeRoot, CloseText, Triangle, Eye, Huh, HuhRoot,
 } from './styled'
 
 import resizable from '../hocs/resizable'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 
-import {Mode as View} from '../Gaiaverse/reducer'
+import {View} from '../../containers/start/reducer.coffee'
+import {setStartView} from '../../containers/start/actions.coffee'
 
 SunEndTime = new Date('9/11/2019 00:00')
 
 export default connect((d) =>
-  view: d.get('gaiaverse').get('mode')
+  view: d.get('start').get('view'),
+  energy: d.get('start').get('energy'),
 ) resizable() class Astrology extends React.PureComponent
 
   constructor: ->
@@ -32,9 +34,10 @@ export default connect((d) =>
 
   render: =>
     {styles, time} = @state
-    {view} = @props
-    <Root className={'view-' + view}>
-      <UniverseBackdrop />
+    {view, energy} = @props
+    <Root className={energy + ' ' + view}>
+      <Cosmos />
+
       <SunRoot onClick={@onClickSun}>
         <Sun {...styles.sun} />
         <Triangle />
@@ -50,12 +53,20 @@ export default connect((d) =>
       </MoonRoot>
 
       <EyeRoot>
-
+        <Eye className='fa fa-eye' />
       </EyeRoot>
+
+      <HuhRoot>
+        <Huh>?</Huh>
+      </HuhRoot>
     </Root>
 
   onClickSun: =>
-    @exitPortalDive() if @props.view is View.inTheDeep
+    {dispatch, view} = @props
+    if view is View.cosmos
+      dispatch setStartView(View.triangle, 'sun')
+    if view is View.triangle
+      dispatch setStartView(View.quark)
 
   exitPortalDive: =>
     window.location = window.location.hash.replace('/quark', '')

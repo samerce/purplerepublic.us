@@ -16,6 +16,7 @@ import bubbleverseReducer from 'components/bubbleverse/reducer'
 import bubblesReducer from 'components/bubble/redux/reducer'
 import introReducer from 'global/reducers/intro'
 import gaiaverseReducer from 'components/Gaiaverse/reducer'
+import startReducer from 'containers/start/reducer.coffee'
 
 export default function createReducer(asyncReducers) {
   return combineReducers({
@@ -29,6 +30,7 @@ export default function createReducer(asyncReducers) {
     bubbles: bubblesReducer,
     intro: introReducer,
     gaiaverse: gaiaverseReducer,
+    start: startReducer,
     ...asyncReducers,
   })
 }
