@@ -6,5 +6,5 @@ import {
 } from '../../global/styled'
 
 export const Root = Flex.extend`
-  z-index: 200;
+  z-index: 500;
 `

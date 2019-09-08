@@ -15,6 +15,7 @@ import {View} from '../../containers/start/reducer.coffee'
 import {setStartView} from '../../containers/start/actions.coffee'
 
 SunEndTime = new Date('9/11/2019 00:00')
+MoonEndTime = new Date('9/29/2019 00:00')
 
 export default connect((d) =>
   view: d.get('start').get('view'),
@@ -50,6 +51,7 @@ export default connect((d) =>
 
       <MoonRoot>
         <Moon {...styles.moon} />
+        <Timer endTime={MoonEndTime} />
       </MoonRoot>
 
       <EyeRoot>
@@ -64,12 +66,9 @@ export default connect((d) =>
   onClickSun: =>
     {dispatch, view} = @props
     if view is View.cosmos
-      dispatch setStartView(View.triangle, 'sun')
+      window.location = '#/sun'
     if view is View.triangle
-      dispatch setStartView(View.quark)
-
-  exitPortalDive: =>
-    window.location = window.location.hash.replace('/quark', '')
+      window.location = '#/sun/nucleus'
 
   getStyles: ->
     sun:

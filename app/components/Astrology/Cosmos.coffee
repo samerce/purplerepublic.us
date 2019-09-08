@@ -25,4 +25,4 @@ export default connect((d) ->
     </CosmosRoot>
 
   onClick: =>
-    @props.dispatch setStartView(View.cosmos)
+    window.location = '#/' unless @props.view is View.cosmos

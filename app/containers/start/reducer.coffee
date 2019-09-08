@@ -13,6 +13,8 @@ export View = makeEnum [
 initialState = fromJS {
   view: View.triangle,
   energy: 'sun',
+  quark: '',
+  portal: '',
 }
 
 export default (state = initialState, action) ->
@@ -20,4 +22,5 @@ export default (state = initialState, action) ->
     when StartSetView
       state = state.set 'view', action.view
       state.set 'energy', action.energy
+      state.set 'quark', action.quark
     else state

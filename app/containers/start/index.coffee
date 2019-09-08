@@ -8,15 +8,21 @@ import {
   Root,
 } from './styled'
 
+import {setStartView} from './actions.coffee'
 import {canShowEditingTools} from '../../utils/nav'
 import sha256 from 'tiny-sha256'
+import {connect} from 'react-redux'
+import {addHashHandler} from '../App/actions'
+import {View} from './reducer.coffee'
 
 editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aabc072b'
 
 import why from 'why-did-you-update'
 why React
 
-export default class Start extends React.PureComponent
+export default connect((d) ->
+  view: d.get('start').get('view'),
+) class Start extends React.PureComponent
 
   componentWillMount: =>
     if process.env.NODE_ENV is 'production' and canShowEditingTools()
@@ -24,6 +30,14 @@ export default class Start extends React.PureComponent
       if !passcode.length or sha256(passcode) isnt editPasscode
         alert('no entry fo yew.')
         window.location.href = window.location.href.replace('edit.', '')
+
+  componentDidMount: =>
+    @props.dispatch addHashHandler {
+      trigger: '#/',
+      onEnter: @onHashChange,
+      onChange: @onHashChange,
+      onExit: ->,
+    }
 
   shouldComponentUpdate: -> false
 
@@ -34,3 +48,17 @@ export default class Start extends React.PureComponent
       <Astrology />
       <Fruit />
     </Root>
+
+  onHashChange: =>
+    {hash} = window.location
+    hashParts = hash.split '/'
+    return unless hashParts.length > 1
+
+    if not hashParts[1]
+      @props.dispatch setStartView(View.cosmos)
+    else
+      energy = hashParts[1]
+      if hashParts.length is 2
+        @props.dispatch setStartView(View.triangle, {energy})
+      else
+        @props.dispatch setStartView(View.quark, {quark: hashParts[3], energy})

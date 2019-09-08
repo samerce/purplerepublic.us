@@ -1,6 +1,7 @@
 export StartSetView = 'start.setView'
 
-export setStartView = (view, energy = '') ->
+export setStartView = (view, props) -> {
+  ...props,
   type: StartSetView,
   view: view,
-  energy: energy,
+}

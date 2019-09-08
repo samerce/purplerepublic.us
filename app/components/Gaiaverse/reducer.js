@@ -12,7 +12,7 @@ export const Mode = makeEnum([
 ])
 
 let initialState = fromJS({
-  portals: {},
+  portals: Portals,
   mode: Mode.seduction,
 })
 

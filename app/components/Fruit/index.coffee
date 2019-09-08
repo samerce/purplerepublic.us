@@ -6,23 +6,26 @@ import {
 } from './styled'
 
 import {connect} from 'react-redux'
-import {Mode as View} from '../Gaiaverse/reducer'
+import {View} from '../../containers/start/reducer.coffee'
 
 # FruitIdToComponent =
 #   alyssa: require('./Now/index.coffee').default,
 
 export default connect((d) =>
   portals: d.get('gaiaverse').get('portals'),
-  view: d.get('gaiaverse').get('mode'),
+  view: d.get('start').get('view'),
+  quark: d.get('start').get('quark'),
 ) class Fruit extends React.PureComponent
 
   shouldComponentUpdate: (nextProps) =>
-    @props.view isnt View.inTheDeep and nextProps.view is View.inTheDeep
+    (@props.view is View.quark or nextProps.view is View.quark) and
+    @props.view isnt nextProps.view
 
   render: =>
     portal = @getPortal(@props)
-    return null if !portal
+    {view} = @props
+    return null if !portal or view isnt View.quark
     # Component = FruitIdToComponent.alyssa #[portal.id]
     <Now id='laganjaScrollRoot' />
 
-  getPortal: (props) -> props.portals.center || {}
+  getPortal: => @props.portals?[@props.quark]

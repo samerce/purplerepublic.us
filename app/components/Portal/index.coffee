@@ -20,6 +20,7 @@ MASK_ROOT_URL = SRC_URL + 'portals/borders/'
 
 export default connect((d) =>
   portals: d.get('gaiaverse').get('portals'),
+  energy: d.get('start').get('energy'),
 ) resizable() class Portal extends React.PureComponent
 
   constructor: (props) ->
@@ -37,8 +38,8 @@ export default connect((d) =>
   shouldComponentUpdate: (nextProps) =>
     @getPortal(@props) isnt @getPortal(nextProps)
 
-  getPortal: (props) ->
-    {spot, portals} = props
+  getPortal: (props) =>
+    {spot, portals} = props || @props
     portals[spot] or {}
 
   render: =>
@@ -52,7 +53,7 @@ export default connect((d) =>
     <Root id={'laganjaScrollRoot' if spot is 'center'}
       className={'spot-' + spot}
       paddingTop={gifStyle.contentPaddingTop}>
-      <GifRoot {...gifStyle} className={'spot-' + spot} onClick={this.onClickPortal}>
+      <GifRoot {...gifStyle} className={'spot-' + spot} onClick={@onClickPortal}>
         <MaskedGif
           className={'gif spot-' + spot}
           gif={GIF_ROOT_URL + id + '.gif'}
@@ -72,16 +73,10 @@ export default connect((d) =>
     </Root>
 
   onClickPortal: =>
-    if @props.spot is 'center' then @diveIntoPortal()
-    else @openPortal()
+    portal = @getPortal()
+    window.location = "#/#{@props.energy}/#{portal.id}"
 
-  onClickClose: => @openPortal()
-
-  openPortal: =>
-    window.location = '#/portal/' + @getPortal(@props).id
-
-  diveIntoPortal: =>
-    window.location = '#/portal/' + @getPortal(@props).id + '/quark'
+  onClickClose: => window.location = "#/#{@props.energy}"
 
   getStyles: (props) ->
     portal = @getPortal(props)
