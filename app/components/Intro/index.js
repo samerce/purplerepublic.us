@@ -82,6 +82,7 @@ export default class Intro extends React.PureComponent {
   @autobind
   close() {
     this.setState({view: 'hiding'})
+    document.body.requestFullscreen()
     setTimeout(() => this.setState({view: 'hidden'}), HideDuration)
   }
 
