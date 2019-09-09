@@ -105,8 +105,10 @@ const CelestialBodyRoot = Flex.extend`
   position: absolute;
   align-items: center;
   justify-content: center;
-  height: 25vmin;
-  width: 25vmin;
+  height: 50vmin;
+  width: 50vmin;
+  max-width: 300px;
+  max-height: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(.5);
@@ -123,6 +125,15 @@ const CelestialBodyRoot = Flex.extend`
   .triangle & {
   }
 `
+const CelestialBody = Flex.extend`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  transition: all 1s ${EASE_OUT};
+`
 
 export const SunRoot = CelestialBodyRoot.extend`
   z-index: 10;
@@ -137,16 +148,6 @@ export const SunRoot = CelestialBodyRoot.extend`
   .quark.sun & {
     ${CelestialBodyTriangleEnter}
   }
-`
-
-const CelestialBody = Flex.extend`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  transition: all 1s ${EASE_OUT};
 `
 
 export const Sun = CelestialBody.extend`
@@ -271,8 +272,10 @@ export const CloseText = Flex.extend`
 const MoonSize = 15
 export const MoonRoot = CelestialBodyRoot.extend`
   flex: 0 0 auto;
-  width: ${MoonSize}vw;
-  height: ${MoonSize}vw;
+  width: 40vmin;
+  height: 40vmin;
+  max-width: 200px;
+  max-height: 200px;
 
   .cosmos & {
     left: 36%;

@@ -142,6 +142,11 @@ export const GifRoot = Flex.extend`
     img {
       height: initial;
       width: 100%;
+
+      ${screen.medium`
+        height: 100%;
+        width: initial;
+      `}
     }
   }
 
@@ -268,6 +273,10 @@ export const Button = Boto.extend`
   pointer-events: none;
   ${HeaderTextShadow}
 
+  ${screen.medium`
+    font-size: 24px;
+  `}
+
   @keyframes titleFloat {
     40% {
       filter: hue-rotate(20deg) drop-shadow(0);
@@ -282,7 +291,7 @@ export const Button = Boto.extend`
 
   div {
     position: absolute;
-    font-size: 62px;
+    font-size: 130%;
     opacity: .3;
     letter-spacing: 2px;
     text-shadow: 0 0 10px white,
@@ -329,24 +338,6 @@ export const Button = Boto.extend`
       ${HeaderInTheDeep}
     }
   }
-
-  ${screen.medium`
-    font-size: 14px;
-
-    &.spot-center {
-      font-size: 22px;
-      .mode-inTheDeep & {
-        top: 90px;
-        font-size: 42px;
-      }
-    }
-  `}
-  ${screen.medsmall`
-    .mode-inTheDeep &.spot-center {
-      top: 60px;
-      font-size: 28px;
-    }
-  `}
 
   @keyframes seduce {
     60% {
@@ -410,7 +401,7 @@ export const ScrollTempt = styled.i`
 
 export function getTopFudge() {
   const {innerWidth: screenWidth} = window
-  return (screenWidth <= SCREEN_WIDTH_MMS)? 270 :
+  return (screenWidth <= SCREEN_WIDTH_MMS)? 170 :
     (screenWidth <= SCREEN_WIDTH_MS)? 162 :
     (screenWidth <= SCREEN_WIDTH_M)? 54 :
     0

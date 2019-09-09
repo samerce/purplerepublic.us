@@ -10,9 +10,7 @@ import {
 import resizable from '../hocs/resizable'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
-
 import {View} from '../../containers/start/reducer.coffee'
-import {setStartView} from '../../containers/start/actions.coffee'
 
 SunEndTime = new Date('9/11/2019 00:00')
 MoonEndTime = new Date('9/29/2019 00:00')
@@ -21,39 +19,24 @@ export default connect((d) =>
   view: d.get('start').get('view'),
   energy: d.get('start').get('energy'),
   anchor: d.get('start').get('anchor'),
-) resizable() class Astrology extends React.PureComponent
-
-  constructor: ->
-    super()
-    @state =
-      styles: @getStyles(),
-
-  onResize: =>
-    styles = @getStyles()
-    return if styles.sun.size is @state.styles.sun.size and
-              styles.moon.size is @state.styles.moon.size
-    @setState {styles}
+) class Astrology extends React.PureComponent
 
   render: =>
-    {styles, time} = @state
     {view, energy, anchor} = @props
-    stateClasses = "#{energy} #{view} anchor-#{anchor}"
-    <Root className={stateClasses}>
+    classes = "#{energy} #{view} anchor-#{anchor}"
+    <Root className={classes}>
       <Cosmos />
 
       <SunRoot onClick={@onClickSun}>
-        <Sun {...styles.sun} className={stateClasses} />
-        <Triangle className={stateClasses} />
-        <RaysRoot>
-
-        </RaysRoot>
-        <Timer endTime={SunEndTime} className={stateClasses} />
-        <CloseText className={stateClasses}>close</CloseText>
+        <Sun className={classes} />
+        <Triangle className={classes} />
+        <Timer endTime={SunEndTime} className={classes} />
+        <CloseText className={classes}>close</CloseText>
       </SunRoot>
 
       <MoonRoot>
-        <Moon {...styles.moon} />
-        <Timer endTime={MoonEndTime} className={stateClasses + ' moonTimer'} />
+        <Moon />
+        <Timer endTime={MoonEndTime} className={classes + ' moonTimer'} />
       </MoonRoot>
 
       <EyeRoot>
@@ -71,9 +54,3 @@ export default connect((d) =>
       window.location = '#/sun'
     if view is View.triangle
       window.location = '#/sun/nucleus'
-
-  getStyles: ->
-    sun:
-      size: window.innerWidth,
-    moon:
-      size: window.innerWidth,

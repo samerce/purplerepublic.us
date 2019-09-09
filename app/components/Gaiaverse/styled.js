@@ -115,7 +115,7 @@ export const BordersRoot = Flex.extend`
     transform: translate(-50%, 0);
 
     ${screen.medsmall`
-      bottom: 90px;
+      bottom: 40px;
     `}
     ${screen.small`
       bottom: 216px;
@@ -136,7 +136,7 @@ export const BordersRoot = Flex.extend`
     transform: rotate(-45deg) translate(150px, -180px);
 
     ${screen.medsmall`
-      transform: rotate(-45deg) translate(80px, -440px);
+      transform: rotate(-45deg) translate(-50px, -440px);
     `}
   }
   .borderRight {
@@ -145,7 +145,7 @@ export const BordersRoot = Flex.extend`
     transform: rotate(45deg) translate(-150px, -180px);
 
     ${screen.medsmall`
-      transform: rotate(45deg) translate(-80px, -440px);
+      transform: rotate(45deg) translate(50px, -440px);
     `}
   }
 `

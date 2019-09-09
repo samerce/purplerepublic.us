@@ -17,7 +17,7 @@ export const Root = AbsoluteFlexFillParent.extend`
   transform: scale(.95);
   opacity: 0;
   transition: all .5s ${EASE_OUT};
-  padding: 100% 0 0;
+  padding: 100vh 0 0;
 
   &.quark {
     opacity: 1;
