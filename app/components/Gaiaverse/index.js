@@ -3,7 +3,7 @@ import Portal from '../Portal/index.coffee'
 import Borders from './Borders'
 
 import {
-  Root, BordersRoot,Orb, Backdrop,
+  Root, Orb, Backdrop,
 } from './styled'
 import {getTopFudge} from '../Portal/styled'
 
@@ -16,6 +16,7 @@ import {dive, activatePortal} from './actions'
 import Portals from './config'
 import resizable from '../hocs/resizable'
 import {Mode} from './reducer'
+import {cx} from '../../utils/style'
 
 const View = makeEnum([
   'willChangePortal',
@@ -28,6 +29,8 @@ const View = makeEnum([
 @connect(d => ({
   mode: d.get('gaiaverse').get('mode'),
   portals: d.get('gaiaverse').get('portals'),
+  view: d.get('start').get('view'),
+  energy: d.get('start').get('energy'),
 }))
 @resizable()
 export default class Gaiaverse extends React.PureComponent {
@@ -39,16 +42,6 @@ export default class Gaiaverse extends React.PureComponent {
       borderTop: getTopFudge(),
       orbSize: getOrbSize(),
     }
-  }
-
-  componentDidMount() {
-    this.props.dispatch(addHashHandler({
-      trigger: '#/portal/',
-      onEnter: this.onPortalChange,
-      onChange: this.onPortalChange,
-      onExit: () => {},
-    }))
-    this.openPortal()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,9 +64,14 @@ export default class Gaiaverse extends React.PureComponent {
   }
 
   render() {
-    const {view, borderTop, orbSize} = this.state
+    const {borderTop, orbSize} = this.state
+    const {view, energy} = this.props
+    const classes = cx({
+      [view]: 1,
+      [energy]: 1,
+    })
     return (
-      <Root className={'mode-' + view}>
+      <Root className={classes}>
         <Orb size={orbSize} />
         <Backdrop />
 
@@ -81,38 +79,9 @@ export default class Gaiaverse extends React.PureComponent {
         <Portal spot='bottomLeft' />
         <Portal spot='bottomRight' />
 
-        <Borders top={borderTop} />
+        <Borders top={borderTop} className={classes} />
       </Root>
     )
-  }
-
-  @autobind
-  onPortalChange() {
-    if (window.location.hash.includes('quark')) {
-      if (this.props.mode !== Mode.inTheDeep) {
-        this.diveIntoPortal()
-      }
-    } else {
-      this.openPortal()
-    }
-  }
-
-  @autobind
-  openPortal() {
-    const {portals, dispatch} = this.props
-    const portal = getPortalFromUrl()
-    if (portal) {
-      if (!portals.center || portal !== portals.center.id) {
-        dispatch(activatePortal(portal.id))
-      }
-    } else {
-      window.location = '#/portal/' + Object.keys(Portals)[0]
-    }
-  }
-
-  @autobind
-  diveIntoPortal() {
-    this.props.dispatch(dive())
   }
 
 }
@@ -121,15 +90,6 @@ function getOrbSize() {
   const {innerWidth: width, innerHeight: height} = window
   if (width > height) return width
   else return height
-}
-
-export function getPortalFromUrl() {
-  const {hash} = window.location
-  const hashParts = hash.split('/')
-  if (hashParts.length > 1 && hashParts[1] === 'portal') {
-    let portalId = hashParts[2] || ''
-    return Portals[portalId]
-  }
 }
 
 var Transitions = {

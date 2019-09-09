@@ -4,12 +4,14 @@ import MaskedGif from '../MaskedGif'
 import TalkingBubbles from '../TalkingBubbles'
 
 import {
-  Root, Title, GifRoot, Button, getTopFudge, FaerieRoot
+  Root, Title, GifRoot, Button, getTopFudge, FaerieRoot, ScrollTempt
 } from './styled'
 import {MaskWidth, MaskHeight} from '../MaskedGif/styled'
 
 import {connect} from 'react-redux'
 import resizable from '../hocs/resizable'
+import {cx} from '../../utils/style'
+import {View} from '../../containers/start/reducer.coffee'
 
 import {
   SRC_URL, SCREEN_WIDTH_M
@@ -21,6 +23,9 @@ MASK_ROOT_URL = SRC_URL + 'portals/borders/'
 export default connect((d) =>
   portals: d.get('gaiaverse').get('portals'),
   energy: d.get('start').get('energy'),
+  view: d.get('start').get('view'),
+  quark: d.get('start').get('quark'),
+  fruitScrolled: d.get('start').get('fruitScrolled')
 ) resizable() class Portal extends React.PureComponent
 
   constructor: (props) ->
@@ -32,51 +37,62 @@ export default connect((d) =>
     @setState styles: @getStyles(@props)
 
   componentWillReceiveProps: (nextProps) =>
-    if @getPortal(@props) isnt @getPortal(nextProps)
+    if @getPortal() isnt @getPortal(nextProps)
       @setState styles: @getStyles(nextProps)
 
-  shouldComponentUpdate: (nextProps) =>
-    @getPortal(@props) isnt @getPortal(nextProps)
-
-  getPortal: (props) =>
-    {spot, portals} = props || @props
-    portals[spot] or {}
+  # shouldComponentUpdate: (nextProps) =>
+  #   @getPortal(@props) isnt @getPortal(nextProps) or
+  #   @props.energy isnt nextProps.energy or
+  #   @props.view isnt nextProps.view
+  #   @props.fruitScrolled isnt nextProps.fruitScrolled
 
   render: =>
     portal = @getPortal(@props)
     return null if !portal
 
-    {spot} = @props
+    {spot, energy, view, quark, fruitScrolled} = @props
     {styles} = @state
     {id, title} = portal
     gifStyle = styles[spot] or {}
-    <Root id={'laganjaScrollRoot' if spot is 'center'}
-      className={'spot-' + spot}
+    classes = cx {
+      ['spot-' + spot]: yes,
+      [energy]: yes,
+      [view]: yes,
+      hidden: (view is View.quark) and (quark isnt id),
+      scrolled: fruitScrolled,
+    }
+    <Root
+      className={classes}
       paddingTop={gifStyle.contentPaddingTop}>
-      <GifRoot {...gifStyle} className={'spot-' + spot} onClick={@onClickPortal}>
+      <GifRoot {...gifStyle} className={classes} onClick={@onClickPortal}>
         <MaskedGif
-          className={'gif spot-' + spot}
+          className={'gif ' + classes}
           gif={GIF_ROOT_URL + id + '.gif'}
           mask={GIF_ROOT_URL + 'faerieborder.png'}
           isMasked={spot is 'center'}
         />
-        <div className={'gif still spot-' + spot}>
+        <div className={'gif still ' + classes}>
           <img src={GIF_ROOT_URL + id + '.jpg'} />
         </div>
       </GifRoot>
 
       <Button
-        className={'spot-' + spot} delay={Math.random()}>
+        className={classes} delay={Math.random()}>
         {title}
         <div>{title}</div>
       </Button>
+      <ScrollTempt
+        className={'fa fa-arrow-circle-o-down ' + classes}
+      />
     </Root>
 
-  onClickPortal: =>
-    portal = @getPortal()
-    window.location = "#/#{@props.energy}/#{portal.id}"
+  onClickPortal: => window.location = "#/#{@props.energy}/#{@getPortal().id}"
 
   onClickClose: => window.location = "#/#{@props.energy}"
+
+  getPortal: (props) =>
+    {spot, portals} = props || @props
+    portals[spot] or {}
 
   getStyles: (props) ->
     portal = @getPortal(props)

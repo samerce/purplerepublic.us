@@ -7,27 +7,15 @@ import {
 import theme from '../../../global/theme'
 
 export const Root = styled.div`
-  color: white;
+  color: ${lighten(.1, theme.hopiLight)};
   flex-direction: column;
-  visibility: hidden;
-  opacity: 0;
-  transform: translate(0, -10px);
   transition: all .5s ${EASE_OUT};
   font-size: 21px;
   line-height: 1.58;
   max-width: 780px;
   margin: 0 auto;
-  padding: 0 15px 100px;
+  padding: 20px 20px 100px;
   text-shadow: 0 0 10px ${alpha(.5, lighten(.2, theme.hopiLight))};
-
-  .mode-inTheDeep .spot-center &, .mode-willDive .spot-center & {
-    visibility: visible;
-  }
-  .mode-inTheDeep .spot-center & {
-    opacity: 1;
-    transform: none;
-    transition-delay: .5s;
-  }
 
   .wordRolodex {
     display: inline-block;

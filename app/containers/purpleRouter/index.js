@@ -66,10 +66,10 @@ export default class PurpleRouter extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {pathname} = window.location
-    if (pathname && pathname.length > 1) {
-      window.location = '/#/portal/' + pathname.substr(1)
-    }
+    // const {pathname} = window.location
+    // if (pathname && pathname.length > 1) {
+    //   window.location = '/#/portal/' + pathname.substr(1)
+    // }
 
     setInterval(this.runHashHandlers, 100)
 

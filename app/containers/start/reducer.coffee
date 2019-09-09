@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable'
 import {
-  StartSetView,
+  StartSetView, StartSetFruitScrolled,
 } from './actions.coffee'
 
 import {makeEnum} from '../../utils/lang'
@@ -20,7 +20,10 @@ initialState = fromJS {
 export default (state = initialState, action) ->
   switch action.type
     when StartSetView
-      state = state.set 'view', action.view
-      state.set 'energy', action.energy
-      state.set 'quark', action.quark
+      state.set 'view', action.view
+           .set 'energy', action.energy
+           .set 'quark', action.quark
+           .set 'anchor', action.anchor
+    when StartSetFruitScrolled
+      state.set 'fruitScrolled', action.scrolled
     else state

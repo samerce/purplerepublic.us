@@ -1,7 +1,7 @@
 import styled, {injectGlobal, css} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
-  EASE_OUT, EASE_IN, EASE,
+  EASE_OUT, EASE_IN, EASE, EASE_SINE,
   SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_MMS, SCREEN_WIDTH_S,
 } from '../../global/constants'
 import {
@@ -18,25 +18,32 @@ export const Root = Flex.extend`
   overflow: hidden;
   position: relative;
   flex: 0 0 50%;
-  transition: transform 1s, filter ${TransitionDuration}ms;
+  transition: transform 1s, filter ${TransitionDuration}ms, flex 1s;
   transition-timing-function: ${EASE_OUT};
   pointer-events: none;
 
-  &.spot-center {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 15px;
-    padding-top: ${p => p.paddingTop || 0}px;
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  &.quark {
+    &.hidden {
+      &.spot-top {
+        transform: translate(0, -100%);
+      }
+      &.spot-bottomRight {
+        flex: 0 0 0;
+      }
+      &.spot-bottomLeft {
+        flex: 0 0 0;
+      }
+    }
+    &:not(.hidden) {
+      flex: 0 0 100%;
 
-    .mode-inTheDeep & {
-      pointer-events: all;
+      &.scrolled {
+        filter: blur(70px) brightness(.7);
+        pointer-events: none;
+      }
     }
   }
+
   &.spot-top {
     justify-content: center;
     width: 100%;
@@ -79,6 +86,11 @@ export const GifRoot = Flex.extend`
   pointer-events: all;
   cursor: pointer !important;
 
+  &.quark.spot-top:not(.hidden) {
+    overflow: visible;
+    transform: scale(2) rotate(45deg) translate(-20px, -20px);
+  }
+
   .gif {
     position: relative;
     visibility: hidden;
@@ -92,19 +104,17 @@ export const GifRoot = Flex.extend`
     visibility: visible;
   }
 
-  &:not(.spot-center) {
-    &:hover {
-      .gif {
-        visibility: visible;
-      }
-      .gif.still {
-        visibility: hidden;
-      }
+  &:hover, &.quark:not(.hidden):not(.scrolled) {
+    .gif {
+      visibility: visible;
     }
+    .gif.still {
+      visibility: hidden;
+    }
+  }
 
-    img {
-      transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
-    }
+  img {
+    transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
   }
 
   &.spot-top {
@@ -226,6 +236,13 @@ export const GifRoot = Flex.extend`
 `
 
 const ColorInTheDeep = alpha(.2, lighten(.1, theme.hopiLight))
+const HeaderTextShadow = css`
+  text-shadow: 0 0 1px ${theme.hopiDark},
+               0 0 10px white,
+               0 0 20px white,
+               0 0 30px ${theme.hopi},
+               0 0 40px ${theme.hopi};
+`
 const HeaderInTheDeep = css`
   font-size: 72px;
   pointer-events: none;
@@ -245,15 +262,11 @@ export const Button = Boto.extend`
   color: white;
   border: none;
   box-shadow: none;
-  text-shadow: 0 0 1px ${theme.hopiDark},
-               0 0 10px white,
-               0 0 20px white,
-               0 0 30px ${theme.hopi},
-               0 0 40px ${theme.hopi};
   text-transform: uppercase;
   font-size: 52px;
   letter-spacing: 1px;
   pointer-events: none;
+  ${HeaderTextShadow}
 
   @keyframes titleFloat {
     40% {
@@ -359,6 +372,40 @@ export const Button = Boto.extend`
 export const Title = H1.extend`
   font-size: 108px;
   width: 100%;
+`
+
+export const ScrollTempt = styled.i`
+  position: absolute;
+  bottom: 20px;
+  color: white;
+  font-size: 54px;
+  left: 50%;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(.98) translate(-50%, 0);
+  transition: all .5s ${EASE_OUT};
+  ${HeaderTextShadow}
+
+  &.spot-top {
+    bottom: 60%;
+  }
+
+  &.quark {
+    opacity: 1;
+    filter: none;
+    transform: translate(-50%, 0);
+    transition: all 1s ${EASE_SINE};
+
+    @keyframes teaseDown {
+      100% {
+        transform: translate(-50%, 10px) scale(1.01);
+      }
+    }
+    animation-name: teaseDown;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
 `
 
 export function getTopFudge() {

@@ -46,7 +46,7 @@ export const WordBubble = Flex.extend`
     animation-fill-mode: both;
     animation-timing-function: ${EASE_OUT};
     animation-iteration-count: 1;
-    animation-delay: ${p => (p.index * .5) + p.delay}s;
+    animation-delay: ${p => (p.index * .2) + p.delay}s;
   }
   .view-hide & {
     opacity: 1;

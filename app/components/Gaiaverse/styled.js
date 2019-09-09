@@ -74,14 +74,39 @@ export const BordersRoot = Flex.extend`
   z-index: 20;
   transform: translate(0, ${p => p.top}px);
 
+  &.quark {
+    transform: scale(0);
+  }
+  &.triangle {
+    transition-delay: .5s;
+  }
+
   .border {
     position: absolute;
     img {
       animation-name: hueShift;
       animation-duration: .7s;
       animation-iteration-count: infinite;
-      animation-direction: alternate;
+      animation-timing-function: linear;
     }
+    width: 10px;
+    height: 710px;
+    box-shadow: 0 0 10px #FFE460, 0 0 20px #e7a8b1, 0 0 30px #b998b3,
+                0 0 40px #77779d, 0 0 50px #4771a3;
+    background: radial-gradient(circle at center, #FF7519 0%, #FFE460 40%, #fbf3ce 85%);
+
+    @keyframes ooze {
+      50% {
+        filter: saturate(400%) hue-rotate(360deg);
+        box-shadow: 0 0 20px #FFE460, 0 0 30px #e7a8b1, 0 0 40px #b998b3,
+                    0 0 50px #77779d, 0 0 60px #4771a3;
+      }
+    }
+
+    animation-name: ooze;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
   }
   .borderBottom {
     height: 50%;
@@ -108,7 +133,7 @@ export const BordersRoot = Flex.extend`
   .borderLeft {
     left: 0;
     transform-origin: left top;
-    transform: rotate(-45deg) translate(10px, -180px);
+    transform: rotate(-45deg) translate(150px, -180px);
 
     ${screen.medsmall`
       transform: rotate(-45deg) translate(80px, -440px);
@@ -117,7 +142,7 @@ export const BordersRoot = Flex.extend`
   .borderRight {
     right: 0;
     transform-origin: right top;
-    transform: rotate(45deg) translate(-10px, -180px);
+    transform: rotate(45deg) translate(-150px, -180px);
 
     ${screen.medsmall`
       transform: rotate(45deg) translate(-80px, -440px);

@@ -40,7 +40,7 @@ export default connect((d) =>
           showFaerie: scroll > 800 && scroll < 1000
       lg.scrollListener (scroll) =>
         @setState
-          showNamaste: scroll > 1390
+          showNamaste: scroll > 1840
 
   componentWillReceiveProps: (nextProps) =>
     # if @getPortal(@props) isnt @getPortal(nextProps)
@@ -56,7 +56,7 @@ export default connect((d) =>
     return null if !portal
     {showFaerie, showNamaste} = @state
 
-    <Root>
+    <Root className={@props.className}>
       <NamasteRoot className={'show' if showNamaste}>
         <img src={GIF_ROOT_URL + 'namastehehe.gif'} />
       </NamasteRoot>

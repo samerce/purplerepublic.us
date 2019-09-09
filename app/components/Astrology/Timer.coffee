@@ -13,7 +13,7 @@ export default class Timer extends React.PureComponent
 
   componentDidMount: => setInterval @updateTime, 1000
 
-  render: => <TimerRoot>{@state.timeLeft}</TimerRoot>
+  render: => <TimerRoot className={@props.className}>{@state.timeLeft}</TimerRoot>
 
   updateTime: => @setState timeLeft: @getTimeLeft()
 

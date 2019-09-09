@@ -22,22 +22,22 @@ why React
 
 export default connect((d) ->
   view: d.get('start').get('view'),
+  portals: d.get('gaiaverse').get('portals'),
 ) class Start extends React.PureComponent
 
   componentWillMount: =>
-    if process.env.NODE_ENV is 'production' and canShowEditingTools()
-      passcode = prompt('passcode, madam?') or ''
-      if !passcode.length or sha256(passcode) isnt editPasscode
-        alert('no entry fo yew.')
-        window.location.href = window.location.href.replace('edit.', '')
-
-  componentDidMount: =>
     @props.dispatch addHashHandler {
       trigger: '#/',
       onEnter: @onHashChange,
       onChange: @onHashChange,
       onExit: ->,
     }
+
+    if process.env.NODE_ENV is 'production' and canShowEditingTools()
+      passcode = prompt('passcode, madam?') or ''
+      if !passcode.length or sha256(passcode) isnt editPasscode
+        alert('no entry fo yew.')
+        window.location.href = window.location.href.replace('edit.', '')
 
   shouldComponentUpdate: -> false
 
@@ -61,4 +61,15 @@ export default connect((d) ->
       if hashParts.length is 2
         @props.dispatch setStartView(View.triangle, {energy})
       else
-        @props.dispatch setStartView(View.quark, {quark: hashParts[3], energy})
+        quark = hashParts[2]
+        @props.dispatch setStartView(View.quark, {
+          quark: quark,
+          energy: energy,
+          anchor: @findAnchor(quark),
+        })
+
+  findAnchor: (quark) =>
+    anchor = ''
+    for spot, portal of @props.portals
+      anchor = spot if portal.id is quark
+    anchor

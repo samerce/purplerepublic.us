@@ -12,9 +12,10 @@ export const Mode = makeEnum([
 ])
 
 let initialState = fromJS({
-  portals: Portals,
+  portals: {},
   mode: Mode.seduction,
 })
+initialState = initialState.set('portals', getPortals('underwater'))
 
 export default function gaiaverseReducer(state = initialState, action) {
   switch (action.type) {

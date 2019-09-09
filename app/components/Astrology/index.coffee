@@ -20,6 +20,7 @@ MoonEndTime = new Date('9/29/2019 00:00')
 export default connect((d) =>
   view: d.get('start').get('view'),
   energy: d.get('start').get('energy'),
+  anchor: d.get('start').get('anchor'),
 ) resizable() class Astrology extends React.PureComponent
 
   constructor: ->
@@ -35,23 +36,24 @@ export default connect((d) =>
 
   render: =>
     {styles, time} = @state
-    {view, energy} = @props
-    <Root className={energy + ' ' + view}>
+    {view, energy, anchor} = @props
+    stateClasses = "#{energy} #{view} anchor-#{anchor}"
+    <Root className={stateClasses}>
       <Cosmos />
 
       <SunRoot onClick={@onClickSun}>
-        <Sun {...styles.sun} />
-        <Triangle />
+        <Sun {...styles.sun} className={stateClasses} />
+        <Triangle className={stateClasses} />
         <RaysRoot>
 
         </RaysRoot>
-        <Timer endTime={SunEndTime} />
-        <CloseText>close</CloseText>
+        <Timer endTime={SunEndTime} className={stateClasses} />
+        <CloseText className={stateClasses}>close</CloseText>
       </SunRoot>
 
       <MoonRoot>
         <Moon {...styles.moon} />
-        <Timer endTime={MoonEndTime} />
+        <Timer endTime={MoonEndTime} className={stateClasses + ' moonTimer'} />
       </MoonRoot>
 
       <EyeRoot>
@@ -65,7 +67,7 @@ export default connect((d) =>
 
   onClickSun: =>
     {dispatch, view} = @props
-    if view is View.cosmos
+    if view is View.cosmos or view is View.quark
       window.location = '#/sun'
     if view is View.triangle
       window.location = '#/sun/nucleus'
