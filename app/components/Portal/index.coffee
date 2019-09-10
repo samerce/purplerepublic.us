@@ -76,8 +76,7 @@ export default connect((d) =>
         </div>
       </GifRoot>
 
-      <Button
-        className={classes} delay={Math.random()}>
+      <Button className={classes}>
         {title}
         <div>{title}</div>
       </Button>

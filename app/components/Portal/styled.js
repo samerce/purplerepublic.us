@@ -323,41 +323,6 @@ export const Button = Boto.extend`
   &.spot-center {
     font-size: 32px;
   }
-
-    .mode-willDive &.spot-center,
-    .mode-willSeduce &.spot-center {
-      display: flex;
-      pointer-events: none;
-    }
-    .mode-inTheDeep &.spot-center {
-      display: flex;
-      top: 158px; /* calc */
-      right: -50px;
-      transform: none;
-      transition-duration: ${TransitionDuration}ms;
-      ${HeaderInTheDeep}
-    }
-  }
-
-  @keyframes seduce {
-    60% {
-      filter: contrast(200%) brightness(100%) saturate(100%);
-    }
-    80% {
-      filter: brightness(300%) saturate(100%) contrast(100%);
-    }
-    100% {
-      filter: saturate(400%) brightness(100%) contrast(100%);
-    }
-  }
-
-  .mode-seduction & {
-    ${'' /* animation-name: seduce;
-    animation-duration: 5s;
-    animation-timing-function: ${EASE_OUT};
-    animation-iteration-count: infinite;
-    animation-delay: ${p => p.delay || 0}s; */}
-  }
 `
 
 export const Title = H1.extend`
