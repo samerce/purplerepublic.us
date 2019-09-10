@@ -26,6 +26,9 @@ const upload = multer({
 // for crawlers/bots
 app.use(require('prerender-node').set('protocol', 'https'))
 
+// gzip to shrink size
+app.use(require('compression')())
+
 // for file uploads
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
