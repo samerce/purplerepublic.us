@@ -56,7 +56,7 @@ export const CosmosRoot = styled.div`
     transition-duration: 1s;
     transition-timing-function: ${EASE_SINE};
   }
-  &.quark {
+  &.quark, &.intro {
     transform: scale(0);
     filter: blur(10px);
     pointer-events: none;

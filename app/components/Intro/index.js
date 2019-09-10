@@ -6,9 +6,13 @@ import {
 } from './styled'
 
 import autobind from 'autobind-decorator'
+import {connect} from 'react-redux'
+import {View} from '../../containers/start/reducer.coffee'
+import {setStartView} from '../../containers/start/actions.coffee'
 
 import {SRC_URL} from '../../global/constants'
 
+@connect(d => ({}))
 export default class Intro extends React.PureComponent {
 
   constructor() {
@@ -22,12 +26,16 @@ export default class Intro extends React.PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({loaderDone: true})
-      if (this.state.imagesLoaded) {
-        this.advanceScene()
-      }
-    }, 1500)
+    if (window.location.hash.length > 2) {
+      this.hide()
+    } else {
+      setTimeout(() => {
+        this.setState({loaderDone: true})
+        if (this.state.imagesLoaded) {
+          this.advanceScene()
+        }
+      }, 1500)
+    }
   }
 
   @autobind
@@ -61,7 +69,7 @@ export default class Intro extends React.PureComponent {
           <AwareRoot><span>a</span>war<span>e</span></AwareRoot>
           <StillHereRoot>
             <div>still with us?</div>
-            <Button onClick={this.close}>fuck yeah!</Button>
+            <Button onClick={this.close}>yes!</Button>
           </StillHereRoot>
         </ContinueRoot>
       </Root>
@@ -82,8 +90,14 @@ export default class Intro extends React.PureComponent {
   @autobind
   close() {
     this.setState({view: 'hiding'})
-    document.body.requestFullscreen()
-    setTimeout(() => this.setState({view: 'hidden'}), HideDuration)
+    setTimeout(this.hide, HideDuration)
+  }
+
+  @autobind
+  hide() {
+    this.setState({view: 'hidden'})
+    this.props.dispatch(setStartView(View.triangle, {energy: 'sun'}))
+    document.body.requestFullscreen().catch(() => {})
   }
 
 }

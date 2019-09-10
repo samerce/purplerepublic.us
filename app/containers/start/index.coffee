@@ -50,19 +50,22 @@ export default connect((d) ->
     </Root>
 
   onHashChange: =>
+    {view, dispatch} = @props
     {hash} = window.location
     hashParts = hash.split '/'
+
     return unless hashParts.length > 1
+    return if view is View.intro
 
     if not hashParts[1]
-      @props.dispatch setStartView(View.cosmos)
+      dispatch setStartView(View.cosmos)
     else
       energy = hashParts[1]
       if hashParts.length is 2
-        @props.dispatch setStartView(View.triangle, {energy})
+        dispatch setStartView(View.triangle, {energy})
       else
         quark = hashParts[2]
-        @props.dispatch setStartView(View.quark, {
+        dispatch setStartView(View.quark, {
           quark: quark,
           energy: energy,
           anchor: @findAnchor(quark),

@@ -6,12 +6,13 @@ import {
 import {makeEnum} from '../../utils/lang'
 
 export View = makeEnum [
+  'intro',
   'cosmos',
   'triangle',
   'quark',
 ]
 initialState = fromJS {
-  view: View.triangle,
+  view: View.intro,
   energy: 'sun',
   quark: '',
   portal: '',

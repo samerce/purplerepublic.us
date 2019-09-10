@@ -186,5 +186,5 @@ export const StillHereRoot = Flex.extend`
 `
 
 export const Button = Boto.extend`
-
+  margin-top: 20px;
 `
