@@ -32,17 +32,6 @@ export const Root = Flex.extend`
       z-index: 30;
     }
   }
-
-  @keyframes hueShift {
-    0% {
-      filter: saturate(400%) hue-rotate(-25deg);
-      transform: scale(.9) translate(0, 5px);
-    }
-    100% {
-      filter: saturate(100%) hue-rotate(-15deg);
-      transform: scale(.89) translate(0, 5px);
-    }
-  }
 `
 
 export const Backdrop = AbsoluteFlexFillParent.extend`
@@ -54,15 +43,6 @@ export const Backdrop = AbsoluteFlexFillParent.extend`
   transform: scale(.7);
   transition: all 1s ${EASE_OUT};
   border-radius: 100%;
-
-  .mode-inTheDeep &, .mode-willDive & {
-    visibility: visible;
-  }
-  .mode-inTheDeep & {
-    transform: none;
-    opacity: .03;
-    border-radius: 0;
-  }
 `
 
 export const BordersRoot = Flex.extend`
@@ -148,30 +128,4 @@ export const BordersRoot = Flex.extend`
       transform: rotate(45deg) translate(50px, -440px);
     `}
   }
-`
-
-export const Orb = AbsoluteFlexFillParent.extend`
-  justify-content: center;
-  align-items: center;
-  z-index: 25;
-  pointer-events: none;
-
-  &:after {
-    content: ' ';
-    height: ${p => p.size}px;
-    width: ${p => p.size}px;
-    background: radial-gradient(circle at center, #4771a3 0%, #77779d 30%, #b998b3 55%, #e7a8b1 75%, #fdefb0 85%, transparent 100%);
-    transform: scale(0);
-    transition: transform .5s ${EASE_OUT};
-    border-radius: 100%;
-
-    .mode-willDive &, .mode-inTheDeep & {
-      transform: scale(2);
-      transition-duration: ${TransitionDuration * (3/4)}ms;
-    }
-    .mode-willSeduce & {
-      transition-delay: .2s;
-    }
-  }
-
 `

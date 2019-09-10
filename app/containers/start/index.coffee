@@ -1,6 +1,6 @@
 import React from 'react'
 import Astrology from '../../components/Astrology/index.coffee'
-import Gaiaverse from '../../components/Gaiaverse'
+import Gaiaverse from '../../components/Gaiaverse/index.coffee'
 import Intro from '../../components/Intro'
 import Fruit from '../../components/Fruit/index.coffee'
 
