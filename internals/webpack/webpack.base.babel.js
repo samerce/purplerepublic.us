@@ -5,34 +5,61 @@
 const path = require('path');
 const webpack = require('webpack');
 const coffee = require('coffee-loader');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+
+const getBabelOptions = (options = {}) => ({
+  cacheDirectory: true,
+  plugins: (options.plugins || []).concat([
+    [
+      '@babel/plugin-proposal-decorators',
+       {
+         legacy: true
+       }
+    ],
+    '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-syntax-export-default-from',
+  ]),
+  presets: (options.presets || []).concat([
+    '@babel/preset-env',
+    '@babel/preset-react',
+  ]),
+})
 
 module.exports = (options) => ({
+  mode: process.env.NODE_ENV || 'development',
   entry: options.entry,
-  output: Object.assign({ // Compile into js/build.js
+  output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.coffee$/,
-        loader: ['babel-loader', 'coffee-loader'],
-        exclude: /node_modules/
-        // query: {
-        //   transpile: {
-        //     presets: ['babel-react-preset-hmre']
-        //   }
-        // }
+        loader: [
+          {
+            loader: 'babel-loader',
+            options: Object.assign(
+              options.babelQuery || {},
+              getBabelOptions(options.babelQuery)
+            ),
+          },
+          'coffee-loader',
+        ],
+        exclude: [
+          path.resolve(process.cwd(), 'node_modules')
+        ],
       },
       {
-      test: /\.js$/, // Transform all .js files required somewhere with Babel
+      test: /\.js$/,
       loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: Object.assign(options.babelQuery ||  {}, {
-        plugins: ((options.babelQuery || {}).plugins || []).concat([
-          'transform-decorators-legacy',
-        ])
-      }),
+      exclude: [
+        path.resolve(process.cwd(), 'node_modules')
+      ],
+      options: Object.assign(
+        options.babelQuery || {},
+        getBabelOptions(options.babelQuery)
+      ),
     }, {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.
@@ -43,6 +70,20 @@ module.exports = (options) => ({
       include: /node_modules/,
       loaders: ['style-loader', 'css-loader'],
     }, {
+      type: 'javascript/auto',
+      test: /\.(json|html)$/,
+      exclude: [
+        path.resolve(process.cwd(), 'node_modules')
+      ],
+      loader: 'html-loader',
+    }, {
+      test: /\.(mp4|webm)$/,
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+      },
+    },
+    {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
       loader: 'file-loader',
     }, {
@@ -62,20 +103,8 @@ module.exports = (options) => ({
           },
         },
       ],
-    }, {
-      test: /\.html$/,
-      loader: 'html-loader',
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader',
-    }, {
-      test: /\.(mp4|webm)$/,
-      loader: 'url-loader',
-      query: {
-        limit: 10000,
-      },
-    }],
-  },
+    },
+  ]},
   plugins: options.plugins.concat([
     new webpack.ProvidePlugin({
       // make fetch available
@@ -95,10 +124,12 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    new MomentLocalesPlugin(),
   ]),
   resolve: {
     alias: {
-      wavesurfer: require.resolve('wavesurfer.js')
+      wavesurfer: require.resolve('wavesurfer.js'),
+      moment$: path.resolve(process.cwd(), 'node_modules/moment/moment.js'),
     },
     modules: ['app', 'node_modules'],
     extensions: [
@@ -116,6 +147,10 @@ module.exports = (options) => ({
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
   node: {
+    console: true,
     fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   },
+  optimization: options.optimization || {},
 });

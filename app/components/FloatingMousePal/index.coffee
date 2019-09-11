@@ -4,14 +4,14 @@ import {
   Root,
 } from './styled'
 
-export default class FloatingMousePal extends React.PureComponent
+export default class FloatingMousePal extends React.Component
   @props:
     offsets: {}
 
   componentDidMount: =>
     window.addEventListener('mousemove', @onMouseMove)
 
-  shouldComponentUpdate: -> false
+  shouldComponentUpdate: -> no
 
   render: =>
     <Root

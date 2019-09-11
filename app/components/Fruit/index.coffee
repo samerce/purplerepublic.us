@@ -17,7 +17,7 @@ export default connect((d) =>
   portals: d.get('gaiaverse').get('portals'),
   view: d.get('start').get('view'),
   quark: d.get('start').get('quark'),
-) class Fruit extends React.PureComponent
+) class Fruit extends React.Component
 
   shouldComponentUpdate: (nextProps) =>
     (@props.view is View.quark or nextProps.view is View.quark) and
@@ -30,8 +30,8 @@ export default connect((d) =>
         @props.dispatch setFruitScrolled(yes)
       else @props.dispatch setFruitScrolled(no)
 
-  componentWillReceiveProps: (nextProps) =>
-    if nextProps.view is View.quark and @props.view isnt View.quark
+  componentDidUpdate: (prevProps) =>
+    if prevProps.view isnt View.quark and @props.view is View.quark
       @scroller.scrollTop = 0
 
   render: =>

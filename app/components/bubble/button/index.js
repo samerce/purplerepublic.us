@@ -8,7 +8,6 @@ import {
 import {makeEnum} from '../../../utils/lang'
 import {getButtonImageUrl} from '../../../utils/bubbleverse'
 import _ from 'lodash'
-import fastdom from 'fastdom'
 import autobind from 'autobind-decorator'
 
 import {SCREEN_WIDTH_M} from '../../../global/constants'

@@ -23,10 +23,11 @@ why React
 export default connect((d) ->
   view: d.get('start').get('view'),
   portals: d.get('gaiaverse').get('portals'),
-) class Start extends React.PureComponent
+) class Start extends React.Component
 
-  componentWillMount: =>
-    @props.dispatch addHashHandler {
+  constructor: (props) ->
+    super(props)
+    props.dispatch addHashHandler {
       trigger: '#/',
       onEnter: @onHashChange,
       onChange: @onHashChange,
@@ -39,7 +40,8 @@ export default connect((d) ->
         alert('no entry fo yew.')
         window.location.href = window.location.href.replace('edit.', '')
 
-  shouldComponentUpdate: -> false
+
+  shouldComponentUpdate: -> no
 
   render: ->
     <Root>

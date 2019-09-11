@@ -6,9 +6,9 @@ import {
   Root, Backdrop,
 } from './styled'
 
-export default class Gaiaverse extends React.PureComponent
+export default class Gaiaverse extends React.Component
 
-  shouldComponentUpdate: -> false
+  shouldComponentUpdate: -> no
 
   render: =>
     <Root>

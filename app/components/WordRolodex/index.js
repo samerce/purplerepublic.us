@@ -6,7 +6,7 @@ import {
 
 import autobind from 'autobind-decorator'
 
-export default class WordRolodex extends React.PureComponent {
+export default class WordRolodex extends React.Component {
 
   constructor() {
     super()
