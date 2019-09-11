@@ -57,7 +57,7 @@ module.exports = require('./webpack.base.babel')({
   devtool: 'inline-source-map',
 
   performance: {
-    hints: 'warning',
+    hints: false,
   },
 });
 
