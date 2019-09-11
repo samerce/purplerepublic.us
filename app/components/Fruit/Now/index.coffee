@@ -12,13 +12,12 @@ import resizable from '../../hocs/resizable'
 import laganja from '../../hocs/laganja'
 
 import {SRC_URL} from '../../../global/constants'
-import {Mode as View} from '../../Gaiaverse/reducer'
+import {View} from '../../../containers/start/reducer.coffee'
 
 GIF_ROOT_URL = SRC_URL + 'portals/gifs/'
 
 export default connect((d) =>
-  portals: d.get('gaiaverse').get('portals'),
-  view: d.get('gaiaverse').get('mode'),
+  view: d.get('start').get('view'),
 ) laganja() resizable() class Portal extends React.PureComponent
 
   constructor: (props) ->
@@ -31,7 +30,13 @@ export default connect((d) =>
   onResize: =>
     # this.setState({styles: getStyles(this.props)})
 
-  componentDidMount: =>
+  componentDidUpdate: (prevProps) =>
+    if prevProps.view is View.quark and @props.view isnt View.quark
+      @laganja.stop()
+    else if prevProps.view isnt View.quark and @props.view is View.quark
+      @startLaganja()
+
+  startLaganja: () =>
     @laganja.start (lg) =>
       # lg.timer(3000, () => this.setState({showFaerie: true}))
       # lg.timer(13000, () => this.setState({showFaerie: false}))
@@ -42,20 +47,8 @@ export default connect((d) =>
         @setState
           showNamaste: scroll > 1840
 
-  componentWillReceiveProps: (nextProps) =>
-    # if @getPortal(@props) isnt @getPortal(nextProps)
-    #   this.setState({styles: getStyles(nextProps)})
-    #   this.laganja.start()
-    if @props.view is View.inTheDeep and nextProps.view isnt View.inTheDeep
-      @laganja.stop()
-
-  getPortal: (props) -> props.portals.center || {}
-
   render: =>
-    portal = @getPortal(@props)
-    return null if !portal
     {showFaerie, showNamaste} = @state
-
     <Root className={@props.className}>
       <NamasteRoot className={'show' if showNamaste}>
         <img src={GIF_ROOT_URL + 'namastehehe.gif'} />

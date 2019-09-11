@@ -34,9 +34,9 @@ export default connect((d) =>
       @props.dispatch setFruitScrolled(yes)
     else @props.dispatch setFruitScrolled(no)
 
-  # componentDidUpdate: (prevProps) =>
-  #   if prevProps.view isnt View.quark and @props.view is View.quark
-  #     @scroller.scrollTop = 0
+  componentDidUpdate: (prevProps) =>
+    if prevProps.view isnt View.quark and @props.view is View.quark
+      requestAnimationFrame () => @scroller.scrollTop = 0
 
   render: =>
     {view, quark} = @props
