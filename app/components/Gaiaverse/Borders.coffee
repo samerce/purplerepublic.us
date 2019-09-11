@@ -11,15 +11,10 @@ export default connect((d) -> {
   energy: d.get('start').get('energy'),
 }) resizable() class Borders extends React.PureComponent
 
-  constructor: (props) ->
-    super(props)
-    @state = borderTop: getTopFudge()
-
-  onResize: =>
-    @setState borderTop: getTopFudge()
+  onResize: => @forceUpdate()
 
   render: =>
-    {borderTop} = @state
+    borderTop = getTopFudge(window.innerWidth)
     {energy, view} = @props
     <BordersRoot top={borderTop} className={"#{energy} #{view}"}>
       <div className='border borderLeft' />

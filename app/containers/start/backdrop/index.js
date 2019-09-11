@@ -6,7 +6,6 @@ import {
   Foreground, Background,
 } from './styled'
 
-import _ from 'lodash'
 import resizable from '../../../components/hocs/resizable'
 
 import {SRC_URL} from '../../../global/constants'

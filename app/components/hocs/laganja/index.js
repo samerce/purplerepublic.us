@@ -1,7 +1,7 @@
 import React from 'react'
 
 import autobind from 'autobind-decorator'
-import _ from 'lodash'
+import {throttle} from 'lodash'
 
 function laganja() { return Component => {
   return class extends React.PureComponent {
@@ -67,7 +67,7 @@ function laganja() { return Component => {
 
     initScrollListener() {
       this.scrollNode = document.getElementById('laganjaScrollRoot')
-      this.onScrollThrottled = _.throttle(this.onScroll, 100)
+      this.onScrollThrottled = throttle(this.onScroll, 100)
       this.scrollNode.addEventListener('scroll', this.onScrollThrottled)
     }
 

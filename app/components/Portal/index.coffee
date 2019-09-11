@@ -61,22 +61,22 @@ export default connect((d) =>
       paddingTop={gifStyle.contentPaddingTop}>
       <GifRoot {...gifStyle} className={classes} onClick={@onClickPortal}>
         <MaskedGif
-          className={'gif ' + classes}
+          className={'gif spot-' + spot}
           gif={GIF_ROOT_URL + id + '.gif'}
           mask={GIF_ROOT_URL + 'faerieborder.png'}
           isMasked={spot is 'center'}
         />
-        <div className={'gif still ' + classes}>
+        <div className={'gif still spot-' + spot}>
           <img src={GIF_ROOT_URL + id + '.jpg'} />
         </div>
       </GifRoot>
 
-      <Button className={classes}>
+      <Button className={'spot-' + spot}>
         {title}
         <div>{title}</div>
       </Button>
       <ScrollTempt
-        className={'fa fa-arrow-circle-o-down ' + classes}
+        className={"fa fa-arrow-circle-o-down spot-#{spot} #{view}"}
       />
     </Root>
 
@@ -101,7 +101,7 @@ getTopStyles = ({position = {}}) ->
   sizeSq = Math.pow(topSize, 2)
   bisectHalfSq = Math.pow(Math.sqrt(sizeSq + sizeSq) / 2, 2)
   {
-    top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(),
+    top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(innerWidth),
     size: topSize,
     yOffset: screenHeight / 4,
     xOffsetImg: 0,

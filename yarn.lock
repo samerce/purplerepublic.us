@@ -50,7 +50,7 @@
     "@babel/helper-explode-assignable-expression" "^7.1.0"
     "@babel/types" "^7.0.0"
 
-"@babel/helper-builder-react-jsx@^7.3.0":
+"@babel/helper-builder-react-jsx@^7.0.0", "@babel/helper-builder-react-jsx@^7.3.0":
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@babel/helper-builder-react-jsx/-/helper-builder-react-jsx-7.3.0.tgz#a1ac95a5d2b3e88ae5e54846bf462eeb81b318a4"
   dependencies:
@@ -481,10 +481,24 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
+"@babel/plugin-transform-react-constant-elements@^7.6.0":
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-constant-elements/-/plugin-transform-react-constant-elements-7.6.0.tgz#13b8434fb817d30feebd811256eb402c9a245c9e"
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.0.0"
+    "@babel/helper-plugin-utils" "^7.0.0"
+
 "@babel/plugin-transform-react-display-name@^7.0.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-display-name/-/plugin-transform-react-display-name-7.2.0.tgz#ebfaed87834ce8dc4279609a4f0c324c156e3eb0"
   dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+
+"@babel/plugin-transform-react-inline-elements@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-inline-elements/-/plugin-transform-react-inline-elements-7.2.0.tgz#3e36e7c47f1c21f52b2b0090d5cd83ceb19a4770"
+  dependencies:
+    "@babel/helper-builder-react-jsx" "^7.0.0"
     "@babel/helper-plugin-utils" "^7.0.0"
 
 "@babel/plugin-transform-react-jsx-self@^7.0.0":

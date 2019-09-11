@@ -23,27 +23,28 @@ export default connect((d) =>
 
   render: =>
     {view, energy, anchor} = @props
-    classes = "#{energy} #{view} anchor-#{anchor}"
-    <Root className={classes}>
+    power = " #{energy} #{view} "
+    anchor = " anchor-#{anchor} "
+    <Root className={power + anchor}>
       <Cosmos />
 
-      <SunRoot onClick={@onClickSun}>
-        <Sun className={classes} />
-        <Triangle className={classes} />
-        <Timer endTime={SunEndTime} className={classes} />
-        <CloseText className={classes}>close</CloseText>
+      <SunRoot onClick={@onClickSun} className={power}>
+        <Sun className={view} />
+        <Triangle />
+        <Timer endTime={SunEndTime} className={view} />
+        <CloseText className={power + anchor}>close</CloseText>
       </SunRoot>
 
-      <MoonRoot>
+      <MoonRoot className={power}>
         <Moon />
-        <Timer endTime={MoonEndTime} className={classes + ' moonTimer'} />
+        <Timer endTime={MoonEndTime} className={view + ' moonTimer'} />
       </MoonRoot>
 
-      <EyeRoot>
+      <EyeRoot className={power}>
         <Eye className='fa fa-eye' />
       </EyeRoot>
 
-      <HuhRoot>
+      <HuhRoot className={power}>
         <Huh>?</Huh>
       </HuhRoot>
     </Root>

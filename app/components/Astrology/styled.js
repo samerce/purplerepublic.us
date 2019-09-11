@@ -118,11 +118,11 @@ const CelestialBodyRoot = Flex.extend`
   opacity: 0;
   filter: blur(10px);
 
-  .cosmos & {
+  &.cosmos {
     ${CelestialBodyTriangleEnter}
     transition-delay: .2s;
   }
-  .triangle & {
+  &.triangle {
   }
 `
 const CelestialBody = Flex.extend`
@@ -138,14 +138,14 @@ const CelestialBody = Flex.extend`
 export const SunRoot = CelestialBodyRoot.extend`
   z-index: 10;
 
-  .cosmos & {
+  &.cosmos {
     top: 20%;
     left: 60%;
   }
-  .triangle.sun & {
+  &.triangle.sun {
     ${CelestialBodyTriangleEnter}
   }
-  .quark.sun & {
+  &.quark.sun {
     ${CelestialBodyTriangleEnter}
   }
 `
@@ -194,16 +194,6 @@ export const Sun = CelestialBody.extend`
     animation-direction: alternate;
     animation-timing-function: ${EASE_SINE};
   }
-
-  ${'' /* .view-inTheDeep & {
-    top: ${RootHeight}px;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    transition-delay: .1s;
-    transition-duration: ${TransitionDuration}ms;
-    cursor: pointer;
-  } */}
 `
 
 export const RaysRoot = Flex.extend`
@@ -277,11 +267,11 @@ export const MoonRoot = CelestialBodyRoot.extend`
   max-width: 200px;
   max-height: 200px;
 
-  .cosmos & {
+  &.cosmos {
     left: 36%;
     top: 54%;
   }
-  .triangle.moon & {
+  &.triangle.moon {
     ${CelestialBodyTriangleEnter}
   }
 
@@ -316,7 +306,7 @@ export const EyeRoot = CelestialBodyRoot.extend`
     left: 66%;
     top: 62%;
   }
-  .triangle.thirdeye & {
+  &.triangle.thirdeye {
     ${CelestialBodyTriangleEnter}
   }
 `
@@ -338,7 +328,7 @@ export const Eye = styled.i`
 `
 
 export const HuhRoot = CelestialBodyRoot.extend`
-  .cosmos & {
+  &.cosmos {
     left: 50%;
     top: 90%;
   }

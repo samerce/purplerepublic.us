@@ -9,6 +9,7 @@ import {
 } from '../../global/styled'
 import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
+import memoize from 'memoize-one'
 
 const GifWidth = 960
 const GifHeight = 540
@@ -56,28 +57,6 @@ export const Root = Flex.extend`
   &.spot-bottomRight {
     transform-origin: left center;
   }
-
-  ${'' /* .mode-willChangePortal & {
-    filter: blur(30px) invert(100%) saturate(100%);
-    transition: filter ${TransitionDuration}ms ${EASE_OUT};
-  } */}
-
-  ${'' /* .mode-willDive &, .mode-inTheDeep &, .mode-willSeduce & {
-    &.spot-top {
-      transform: scale(0);
-    }
-    &.spot-bottomLeft {
-      transform: scale(0);
-    }
-    &.spot-bottomRight {
-      transform: scale(0);
-    }
-  }
-  .mode-inTheDeep & {
-    &:not(.spot-center) {
-      display: none;
-    }
-  } */}
 `
 
 export const GifRoot = Flex.extend`
@@ -175,44 +154,6 @@ export const GifRoot = Flex.extend`
     left: 50%;
     transform: translate(-50%, -50%);
     justify-content: center;
-
-    @keyframes ham {
-      80% {
-        transform: translate(-50%, -50%);
-      }
-      85% {
-        transform: translate(-50%, -50%) scale(1.2) rotate(-5deg);
-      }
-      95% {
-        transform: translate(-50%, -50%) scale(1.2) rotate(4deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(1.3) rotate(-2deg);
-      }
-      ${'' /* 100% {
-        transform: translate(-50%, -50%);
-      } */}
-    }
-
-    .mode-seduction & {
-      animation-name: ham;
-      animation-duration: 10s;
-      animation-timing-function: ${EASE};
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-    }
-
-    .mode-inTheDeep & {
-      top: 85px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      transition-duration: ${TransitionDuration}ms;
-
-      .gif {
-        transform: scale(1.3);
-        transition-duration: ${TransitionDuration}ms;
-      }
-    }
   }
   &.spot-bottomLeft, &.spot-bottomRight {
     height: 100%;
@@ -225,19 +166,6 @@ export const GifRoot = Flex.extend`
       width: ${p => p.width}px;
     }
   }
-
-  .mode-inTheDeep &:not(.spot-center) {
-    visibility: hidden;
-  }
-  .mode-willDive &:not(.spot-center) {
-    pointer-events: none;
-  }
-
-  ${'' /* .mode-inTheDeep .spot-center &,
-  .mode-willSeduce .spot-center & {
-    transform: scale(.6) translate(0, 50%);
-    bottom: 20px;
-  } */}
 `
 
 const ColorInTheDeep = alpha(.2, lighten(.1, theme.hopiLight))
@@ -364,10 +292,9 @@ export const ScrollTempt = styled.i`
   }
 `
 
-export function getTopFudge() {
-  const {innerWidth: screenWidth} = window
+export const getTopFudge = memoize((screenWidth) => {
   return (screenWidth <= SCREEN_WIDTH_MMS)? 170 :
     (screenWidth <= SCREEN_WIDTH_MS)? 162 :
     (screenWidth <= SCREEN_WIDTH_M)? 54 :
     0
-}
+})

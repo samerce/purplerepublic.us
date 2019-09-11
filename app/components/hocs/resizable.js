@@ -1,12 +1,12 @@
 import React from 'react'
 
-import _ from 'lodash'
+import {throttle} from 'lodash'
 
 function resizable() { return Component => {
   return class extends React.PureComponent {
 
     componentDidMount() {
-      this.onResize = _.throttle(() => {
+      this.onResize = throttle(() => {
         this.component.onResize()
       }, 100)
       window.addEventListener('resize', this.onResize)

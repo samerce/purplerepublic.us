@@ -18,6 +18,8 @@ const getBabelOptions = (options = {}) => ({
     ],
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-export-default-from',
+    '@babel/plugin-transform-react-inline-elements',
+    '@babel/plugin-transform-react-constant-elements',
   ]),
   presets: (options.presets || []).concat([
     '@babel/preset-env',
