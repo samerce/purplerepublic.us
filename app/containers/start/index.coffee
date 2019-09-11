@@ -17,8 +17,8 @@ import {View} from './reducer.coffee'
 
 editPasscode = 'd3ef743cf28c7bf034bb6ca97c19028049c8bf135aa89974d62b62b8aabc072b'
 
-import why from 'why-did-you-update'
-why React
+# import why from 'why-did-you-update'
+# why React
 
 export default connect((d) ->
   view: d.get('start').get('view'),
