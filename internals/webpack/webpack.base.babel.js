@@ -20,6 +20,15 @@ const getBabelOptions = (options = {}) => ({
     '@babel/plugin-syntax-export-default-from',
     '@babel/plugin-transform-react-inline-elements',
     '@babel/plugin-transform-react-constant-elements',
+    [
+      'babel-plugin-styled-components',
+      {
+        minify: process.env.NODE_ENV === 'production',
+        transpileTemplateLiterals: process.env.NODE_ENV === 'production',
+        displayName: process.env.NODE_ENV === 'development',
+        fileName: process.env.NODE_ENV === 'development',
+      }
+    ],
   ]),
   presets: (options.presets || []).concat([
     '@babel/preset-env',
