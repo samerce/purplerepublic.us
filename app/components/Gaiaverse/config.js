@@ -4,7 +4,7 @@ const Portals = {
     peers: {
       top: 'jojo',
       bottomLeft: 'towardthesun',
-      bottomRight: 'alyssa',
+      bottomRight: 'fishypop',
     },
     position: {
       xOffset: '-360px',
@@ -31,13 +31,13 @@ const Portals = {
     peers: {
       top: 'underwater',
       bottomLeft: 'river',
-      bottomRight: 'alyssa',
+      bottomRight: 'fishypop',
     },
     position: {
       xOffset: '-460px',
     },
   },
-  alyssa: {
+  fishypop: {
     title: 'awakening',
     peers: {
       top: 'river',
