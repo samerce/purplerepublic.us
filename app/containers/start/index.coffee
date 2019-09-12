@@ -40,7 +40,6 @@ export default connect((d) ->
         alert('no entry fo yew.')
         window.location.href = window.location.href.replace('edit.', '')
 
-
   shouldComponentUpdate: -> no
 
   render: ->
@@ -74,7 +73,7 @@ export default connect((d) ->
         })
 
   findAnchor: (quark) =>
-    anchor = ''
+    anchor
     for spot, portal of @props.portals
       anchor = spot if portal.id is quark
     anchor

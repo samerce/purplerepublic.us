@@ -2,7 +2,6 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 
 import styled, {ThemeProvider} from 'styled-components'
-import {Content} from './styled'
 import theme from '../../global/theme'
 import {SRC_URL} from '../../global/constants'
 
@@ -35,9 +34,7 @@ export function App(props) {
       </Helmet>
 
       <ThemeProvider theme={theme}>
-        <Content>
-          <PurpleRouter />
-        </Content>
+        <PurpleRouter />
       </ThemeProvider>
     </AppWrapper>
   );

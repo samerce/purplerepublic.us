@@ -52,6 +52,7 @@ export default class Intro extends React.PureComponent {
 
   render() {
     const {sceneIndex, view} = this.state
+    if (view === 'hidden') return null
     return (
       <Root className={view + ' scene-' + sceneIndex}>
         <Loading><i className='fa fa-superpowers' /></Loading>
@@ -95,9 +96,9 @@ export default class Intro extends React.PureComponent {
 
   @autobind
   hide() {
-    this.setState({view: 'hidden'})
     this.props.dispatch(setStartView(View.triangle, {energy: 'sun'}))
     document.body.requestFullscreen().catch(() => {})
+    this.setState({view: 'hidden'})
   }
 
 }
