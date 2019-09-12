@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
@@ -17,36 +17,7 @@ if (window.innerWidth <= SCREEN_WIDTH_S) {
   CircleScale = 1.7
 }
 
-injectGlobal`
-  @keyframes shootingStar {
-    0% {
-      transform: translate(500%, 500%);
-      opacity: 1;
-    }
-
-    95% {
-      opacity: 0;
-    }
-
-    100% {
-      transform: translate(-60%, -60%);
-      opacity: 0;
-    }
-  }
-
-  @keyframes showBackdrop {
-    0% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(${CircleScale});
-    }
-  }
-`
-
-export const Root = AbsoluteFlexFillParent.extend`
+export const Root = styled(AbsoluteFlexFillParent)`
   justify-content: center;
   align-items: center;
   pointer-events: none;
@@ -87,8 +58,18 @@ export const Background = styled.div`
   opacity: 0;
   transform: scale(0);
   z-index: 1;
-
   transition: all 4s ${EASE_OUT};
+
+  @keyframes showBackdrop {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(${CircleScale});
+    }
+  }
   animation-name: showBackdrop;
   animation-delay: .1s;
   animation-duration: 4s;
@@ -111,25 +92,41 @@ export const Background = styled.div`
   }
 `
 
-export const ShootingStars = AbsoluteFlexFillParent.extend`
+export const ShootingStars = styled(AbsoluteFlexFillParent)`
   z-index: 4;
   pointer-events: none;
 `
 
-export const StarRoot = AbsoluteFlexFillParent.extend`
+export const StarRoot = styled(AbsoluteFlexFillParent)`
   transform: rotate(-145deg);
 `
 
 export const StarWithTrail = styled.div`
   width: 200px;
   background: linear-gradient(to left, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%);
-  animation-name: shootingStar;
-  animation-iteration-count: infinite;
-  animation-timing-function: ${EASE_IN_SINE};
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(500%, 500%);
+
+  @keyframes shootingStar {
+    0% {
+      transform: translate(500%, 500%);
+      opacity: 1;
+    }
+
+    95% {
+      opacity: 0;
+    }
+
+    100% {
+      transform: translate(-60%, -60%);
+      opacity: 0;
+    }
+  }
+  animation-name: shootingStar;
+  animation-iteration-count: infinite;
+  animation-timing-function: ${EASE_IN_SINE};
 `
 
 export const Star = styled.div`

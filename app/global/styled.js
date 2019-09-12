@@ -1,4 +1,4 @@
-import styled, {injectGlobal, css} from 'styled-components'
+import styled, {css} from 'styled-components'
 import {
   EASE, EASE_OUT,
   SCREEN_WIDTH_S,
@@ -58,15 +58,15 @@ export const Flex = styled.div`
   display: flex;
 `
 
-export const FlexColumn = Flex.extend`
+export const FlexColumn = styled(Flex)`
   flex-direction: column;
 `
 
-export const AbsoluteFlex = Flex.extend`
+export const AbsoluteFlex = styled(Flex)`
   position: absolute;
 `
 
-export const AbsoluteFlexFillParent = AbsoluteFlex.extend`
+export const AbsoluteFlexFillParent = styled(AbsoluteFlex)`
   top: 0;
   left: 0;
   width: 100%;
@@ -110,7 +110,7 @@ export const H2 = styled.h2`
   `}
 `
 
-export const Body = FlexColumn.extend`
+export const Body = styled(FlexColumn)`
   font-size: 20px;
   color: ${p => p.theme.slightlyDark};
   background: ${p => p.theme.veryLight};
@@ -122,7 +122,7 @@ export const Body = FlexColumn.extend`
   margin: 20px;
 `
 
-export const Form = Body.extend`
+export const Form = styled(Body)`
   background: ${p => p.theme.veryDark};
   color: ${p => p.theme.veryLight};
   border: 1px solid ${p => p.theme.veryLight};
@@ -136,7 +136,7 @@ export const Icon = styled.i`
   transition: all .3s ${EASE_OUT};
 `
 
-export const BubbleButton = Flex.extend`
+export const BubbleButton = styled(Flex)`
   position: relative;
   border-radius: 100%;
   border: 1px solid ${p => p.theme.veryLight};
@@ -163,7 +163,7 @@ const buttonColorMain = theme.hopi
 const buttonColorLight = theme.hopiLight
 const buttonColorDark = theme.hopiDark
 const buttonColorWhite = lighten(.2, buttonColorLight)
-export const Boto = Flex.extend`
+export const Boto = styled(Flex)`
   font-size: 20px;
   font-family: alice; /*alice, annie use your telescope;*/
   text-align: center;
@@ -284,7 +284,7 @@ export const MaskAbsoluteFillParent = styled.div`
   }
 `
 
-export const CloseButton = Boto.extend`
+export const CloseButton = styled(Boto)`
   position: fixed;
   top: 15px;
   right: 15px;
@@ -309,7 +309,7 @@ export const CloseButtonActiveStyles = css`
   pointer-events: all;
 `
 
-export const SectionHeader = Flex.extend`
+export const SectionHeader = styled(Flex)`
   flex: 1 0 100%;
   position: relative;
   justify-content: center;
@@ -342,7 +342,7 @@ export const SectionHeader = Flex.extend`
 `
 
 export const ExpandingBackgroundSize = Math.max(window.innerWidth, window.innerHeight)
-export const ExpandingBackground = Flex.extend`
+export const ExpandingBackground = styled(Flex)`
   background: ${p => p.theme.gradientVeryDark};
   box-shadow: ${p => p.theme.shadowMedium};
   position: fixed;
@@ -375,7 +375,7 @@ export const ExpandingBackgroundLeftActiveStyles = css`
   transition: all 1s ${EASE_OUT};
 `
 
-export const BlurbBubble = Flex.extend`
+export const BlurbBubble = styled(Flex)`
   position: relative;
   flex: 0 0 200px;
   height: 200px;
@@ -400,12 +400,12 @@ export const BlurbBubble = Flex.extend`
   transition: all .5s ${EASE_OUT};
 `
 
-export const BlurbContent = Flex.extend`
+export const BlurbContent = styled(Flex)`
   flex-direction: column;
   align-items: center;
 `
 
-export const BlurbButton = Boto.extend`
+export const BlurbButton = styled(Boto)`
   flex: 0 0 80px;
   width: 100%;
   box-shadow: ${p => p.theme.shadowMedium};
@@ -417,7 +417,7 @@ export const BlurbButton = Boto.extend`
   transition: all .5s ${EASE_OUT};
 `
 
-export const BlurbText = Flex.extend`
+export const BlurbText = styled(Flex)`
   border-radius: 10px;
   border: 1px solid ${p => p.theme.veryLight};
   box-shadow: ${p => p.theme.shadowMedium};
@@ -436,7 +436,7 @@ export const BlurbText = Flex.extend`
   transition: all .5s ${EASE_OUT};
 `
 
-export const WidgetRoot = FlexColumn.extend`
+export const WidgetRoot = styled(FlexColumn)`
   z-index: 0;
   align-items: center;
   justify-content: center;
@@ -445,7 +445,7 @@ export const WidgetRoot = FlexColumn.extend`
   position: relative;
 `
 
-export const BeggingButton = Boto.extend`
+export const BeggingButton = styled(Boto)`
   flex: 0 0 50px;
   width: 200px;
   font-size: 20px;
@@ -456,7 +456,7 @@ export const BeggingButton = Boto.extend`
   box-shadow: ${p => p.theme.shadowHeavy};
 `
 
-export const CornerWorldRoot = AbsoluteFlexFillParent.extend`
+export const CornerWorldRoot = styled(AbsoluteFlexFillParent)`
   z-index: 6;
   pointer-events: none;
   justify-content: center;
@@ -467,7 +467,7 @@ export const CornerWorldRootActiveStyles = css`
   pointer-events: all;
 `
 
-export const CornerWorldContentRoot = Flex.extend`
+export const CornerWorldContentRoot = styled(Flex)`
   position: relative;
   max-width: 740px;
   flex: 0 1 100%;
@@ -478,7 +478,7 @@ export const CornerWorldContentRoot = Flex.extend`
   align-self: flex-start;
 `
 
-export const CornerEntryButton = Boto.extend`
+export const CornerEntryButton = styled(Boto)`
   position: absolute;
   top: 0;
   right: 0;
@@ -682,18 +682,5 @@ export const ToolBarItem = styled.div`
   @media (max-width: ${SCREEN_WIDTH_M_PX}) {
     font-size: 24px;
     padding: 10px;
-  }
-`
-
-injectGlobal`
-  .blurb {
-    margin: 0 20px;
-    background: rgba(87, 5, 76, .5);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
-  }
-  a {
-    color: white;
   }
 `

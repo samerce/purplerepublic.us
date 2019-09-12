@@ -6,30 +6,30 @@ import Spinner from '../../components/spinnie'
 import Intro from '../intro'
 import Start from '../start/index.coffee'
 
-const QuarkArt = Loadable({
-  loader: () => import('../quarkart'),
-  loading: Spinner,
-})
-const BitByBit = Loadable({
-  loader: () => import('../bitbybit'),
-  loading: Spinner,
-})
-const Hello = Loadable({
-  loader: () => import('../hello'),
-  loading: Spinner,
-})
-const Quote = Loadable({
-  loader: () => import('../quote'),
-  loading: Spinner,
-})
-const Video = Loadable({
-  loader: () => import('../video'),
-  loading: Spinner,
-})
-const Outro = Loadable({
-  loader: () => import('../outro'),
-  loading: Spinner,
-})
+// const QuarkArt = Loadable({
+//   loader: () => import('../quarkart'),
+//   loading: Spinner,
+// })
+// const BitByBit = Loadable({
+//   loader: () => import('../bitbybit'),
+//   loading: Spinner,
+// })
+// const Hello = Loadable({
+//   loader: () => import('../hello'),
+//   loading: Spinner,
+// })
+// const Quote = Loadable({
+//   loader: () => import('../quote'),
+//   loading: Spinner,
+// })
+// const Video = Loadable({
+//   loader: () => import('../video'),
+//   loading: Spinner,
+// })
+// const Outro = Loadable({
+//   loader: () => import('../outro'),
+//   loading: Spinner,
+// })
 
 import {Root, RouteRoot} from './styles'
 import {cx} from '../../utils/style'
@@ -40,12 +40,12 @@ import autobind from 'autobind-decorator'
 const router = {
   // '#intro': Intro,
   '#': Start,
-  '#hello': Hello,
-  '#quote': Quote,
-  '#letsfocus': QuarkArt,
-  '#letswrite': BitByBit,
-  '#letsimprov': Video,
-  '#outro': Outro,
+  // '#hello': Hello,
+  // '#quote': Quote,
+  // '#letsfocus': QuarkArt,
+  // '#letswrite': BitByBit,
+  // '#letsimprov': Video,
+  // '#outro': Outro,
 }
 
 @connect(d => ({
@@ -120,7 +120,7 @@ export default class PurpleRouter extends React.PureComponent {
   renderRoute(route) {
     const RouteComponent = router[route]
     return (
-      <RouteRoot className={this.routeCx(route)}>
+      <RouteRoot className={this.routeCx(route)} key={route}>
         <RouteComponent isPreloading={route !== this.state.activeRoute} />
       </RouteRoot>
     )

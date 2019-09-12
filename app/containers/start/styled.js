@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha} from 'polished'
 import {
   EASE_IN_SINE, EASE_OUT, EASE_IN, EASE,
@@ -12,11 +12,11 @@ import {
   AbsoluteFlexFillParent,
 } from '../../global/styled'
 
-export const Root = AbsoluteFlexFillParent.extend`
+export const Root = styled(AbsoluteFlexFillParent)`
   position: fixed;
 `
 
-export const ScrollContainer = AbsoluteFlexFillParent.extend`
+export const ScrollContainer = styled(AbsoluteFlexFillParent)`
   overflow-y: scroll;
   overflow-x: hidden;
   flex-wrap: wrap;

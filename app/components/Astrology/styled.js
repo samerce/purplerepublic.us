@@ -1,4 +1,4 @@
-import styled, {injectGlobal, css} from 'styled-components'
+import styled, {css} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE, EASE_SINE} from '../../global/constants'
 import {
@@ -8,7 +8,7 @@ import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
 
 const RootHeight = 60
-export const Root = Flex.extend`
+export const Root = styled(Flex)`
   position: fixed;
   top: 0;
   left: 0;
@@ -63,7 +63,7 @@ export const CosmosRoot = styled.div`
   }
 `
 
-export const CosmosSkin = Flex.extend`
+export const CosmosSkin = styled(Flex)`
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center,
@@ -101,7 +101,7 @@ const CelestialBodyTriangleEnter = css`
   transform: translate(-50%, -50%);
   transition-duration: 1s;
 `
-const CelestialBodyRoot = Flex.extend`
+const CelestialBodyRoot = styled(Flex)`
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -125,7 +125,7 @@ const CelestialBodyRoot = Flex.extend`
   &.triangle {
   }
 `
-const CelestialBody = Flex.extend`
+const CelestialBody = styled(Flex)`
   position: absolute;
   top: 0;
   left: 0;
@@ -135,7 +135,7 @@ const CelestialBody = Flex.extend`
   transition: all 1s ${EASE_OUT};
 `
 
-export const SunRoot = CelestialBodyRoot.extend`
+export const SunRoot = styled(CelestialBodyRoot)`
   z-index: 10;
 
   &.cosmos {
@@ -150,7 +150,7 @@ export const SunRoot = CelestialBodyRoot.extend`
   }
 `
 
-export const Sun = CelestialBody.extend`
+export const Sun = styled(CelestialBody)`
   background: radial-gradient(
     circle at center, white 20%, #fbf3ce 100%
   );
@@ -196,11 +196,11 @@ export const Sun = CelestialBody.extend`
   }
 `
 
-export const RaysRoot = Flex.extend`
+export const RaysRoot = styled(Flex)`
 
 `
 
-export const Triangle = AbsoluteFlex.extend`
+export const Triangle = styled(AbsoluteFlex)`
   border-bottom: 130px solid ${alpha(.9, '#f79115')};
   border-left: 80px solid transparent;
   border-right: 80px solid transparent;
@@ -208,7 +208,7 @@ export const Triangle = AbsoluteFlex.extend`
   pointer-events: none;
 `
 
-export const TimerRoot = Flex.extend`
+export const TimerRoot = styled(Flex)`
   position: relative;
   z-index: 20;
   font-size: 36px;
@@ -228,7 +228,7 @@ export const TimerRoot = Flex.extend`
   }
 `
 
-export const CloseText = Flex.extend`
+export const CloseText = styled(Flex)`
   font-family: alice;
   font-size: 24px;
   color: ${theme.hopi};
@@ -260,7 +260,7 @@ export const CloseText = Flex.extend`
 `
 
 const MoonSize = 15
-export const MoonRoot = CelestialBodyRoot.extend`
+export const MoonRoot = styled(CelestialBodyRoot)`
   flex: 0 0 auto;
   width: 40vmin;
   height: 40vmin;
@@ -282,7 +282,7 @@ export const MoonRoot = CelestialBodyRoot.extend`
   }
 `
 
-export const Moon = CelestialBody.extend`
+export const Moon = styled(CelestialBody)`
   width: 100%;
   height: 100%;
   background: radial-gradient(
@@ -301,7 +301,7 @@ export const Moon = CelestialBody.extend`
   ;
 `
 
-export const EyeRoot = CelestialBodyRoot.extend`
+export const EyeRoot = styled(CelestialBodyRoot)`
   .cosmos & {
     left: 66%;
     top: 62%;
@@ -327,14 +327,14 @@ export const Eye = styled.i`
   ;
 `
 
-export const HuhRoot = CelestialBodyRoot.extend`
+export const HuhRoot = styled(CelestialBodyRoot)`
   &.cosmos {
     left: 50%;
     top: 90%;
   }
 `
 
-export const Huh = Flex.extend`
+export const Huh = styled(Flex)`
   color: white;
   font-size: 10vw;
   font-family: milonga;

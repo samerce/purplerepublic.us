@@ -42,7 +42,7 @@ export default class MaskedGif extends React.PureComponent {
   render() {
     const {className, isMasked, gif, mask} = this.props
     return (
-      <Root innerRef={r => this.root = r} className={className}>
+      <Root ref={r => this.root = r} className={className}>
         {isMasked &&
           <img src={mask} className='mask' />
         }

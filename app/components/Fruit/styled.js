@@ -1,11 +1,11 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE, EASE_SINE} from '../../global/constants'
 import {
   AbsoluteFlexFillParent,
 } from '../../global/styled'
 
-export const Root = AbsoluteFlexFillParent.extend`
+export const Root = styled(AbsoluteFlexFillParent)`
   display: block;
   z-index: 500;
   overflow-y: scroll;

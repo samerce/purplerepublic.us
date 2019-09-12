@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
@@ -6,7 +6,7 @@ import {
 } from '../../global/styled'
 import theme from '../../global/theme'
 
-export const Root = Flex.extend`
+export const Root = styled(Flex)`
   position: fixed;
   font-size: 32px;
   transform-origin: left center;

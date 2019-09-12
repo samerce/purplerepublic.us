@@ -2,6 +2,7 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 
 import styled, {ThemeProvider} from 'styled-components'
+import GlobalStyle from '../../global-styles'
 import theme from '../../global/theme'
 import {SRC_URL} from '../../global/constants'
 
@@ -33,6 +34,7 @@ export function App(props) {
         />
       </Helmet>
 
+      <GlobalStyle />
       <ThemeProvider theme={theme}>
         <PurpleRouter />
       </ThemeProvider>

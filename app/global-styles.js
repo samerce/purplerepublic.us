@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT} from './global/constants'
 import theme from './global/theme'
@@ -9,38 +9,7 @@ const getRand = range => `${getRandInt(range)}px`
 
 const aColor = '#956C95'
 
-let jiggleIndex = 0
-export const makeJiggler = () => {
-  const name = 'jiggle' + jiggleIndex
-  injectGlobal`
-    @keyframes ${name} {
-      0% {
-        transform: translate(${getRand(6)}, ${getRand(5)});
-      }
-
-      25% {
-        transform: translate(${getRand(-6)}, ${getRand(-4)});
-      }
-
-      50% {
-        transform: translate(${getRand(4)}, ${getRand(-6)});
-      }
-
-      75% {
-        transform: translate(${getRand(-6)}, ${getRand(2)});
-      }
-
-      100% {
-        transform: translate(${getRand(5)}, ${getRand(-5)});
-      }
-    }
-  `
-  jiggleIndex++
-  return name
-}
-
-/* eslint no-unused-expressions: 0 */
-injectGlobal`
+export default createGlobalStyle`
   html,
   body {
     height: 100%;
@@ -78,6 +47,14 @@ injectGlobal`
 
   input {
     transition: all .3s ${EASE_OUT};
+  }
+
+  .blurb {
+    margin: 0 20px;
+    background: rgba(87, 5, 76, .5);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px 1px 15px rgba(87, 5, 76, .5);
   }
 
   .route {

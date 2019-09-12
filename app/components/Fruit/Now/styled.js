@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../../global/constants'
 import {
@@ -66,7 +66,7 @@ export const Root = styled.div`
   }
 `
 
-export const FaerieRoot = Flex.extend`
+export const FaerieRoot = styled(Flex)`
   position: fixed;
   text-shadow: 0 0 10px ${theme.hopiLight}, 0 0 40px rgba(0,0,0,.5);
   top: 50%;
@@ -116,7 +116,7 @@ export const FaerieRoot = Flex.extend`
   animation-fill-mode: both;
 `
 
-export const NamasteRoot = AbsoluteFlexFillParent.extend`
+export const NamasteRoot = styled(AbsoluteFlexFillParent)`
   position: fixed;
   align-items: center;
   pointer-events: none;

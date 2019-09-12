@@ -26,8 +26,8 @@ export default class WordRolodex extends React.Component {
   render() {
     return (
       <Root className={this.props.className || ''}>
-        <Word innerRef={r => this.wordRefs[0] = r} id='present' />
-        <Word innerRef={r => this.wordRefs[1] = r} id='future' />
+        <Word ref={r => this.wordRefs[0] = r} id='present' key='present' />
+        <Word ref={r => this.wordRefs[1] = r} id='future' key='future' />
       </Root>
     )
   }

@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
@@ -8,7 +8,7 @@ import {TransitionDuration} from './constants'
 import {SRC_URL} from '../../global/constants'
 import theme from '../../global/theme'
 
-export const Root = Flex.extend`
+export const Root = styled(Flex)`
   width: 100%;
   height: 100%;
   flex: 1 0 auto;
@@ -34,7 +34,7 @@ export const Root = Flex.extend`
   }
 `
 
-export const Backdrop = AbsoluteFlexFillParent.extend`
+export const Backdrop = styled(AbsoluteFlexFillParent)`
   background: url("${SRC_URL + 'commons/constellation.jpg'}");
   opacity: 0;
   z-index: 30;
@@ -45,7 +45,7 @@ export const Backdrop = AbsoluteFlexFillParent.extend`
   border-radius: 100%;
 `
 
-export const BordersRoot = Flex.extend`
+export const BordersRoot = styled(Flex)`
   position: absolute;
   width: 100%;
   height: 100%;

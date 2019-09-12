@@ -1,32 +1,8 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 
 const aColor = '#498359'
-
-injectGlobal`
-  @keyframes spinning {
-    0% {
-      transform: rotate(180deg) scale(1.5);
-    }
-    50% {
-      transform: rotate(270deg) scale(.9);
-    }
-    100% {
-      transform: rotate(360deg) scale(1.5);
-    }
-  }
-
-  @keyframes blinking {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: .3;
-    }
-  }
-`
 
 export const Root = styled.span`
     position: absolute;
@@ -45,6 +21,28 @@ export const Root = styled.span`
     transform: scale(2);
     transition: all 1s ${EASE_OUT};
     pointer-events: none;
+
+    @keyframes spinning {
+      0% {
+        transform: rotate(180deg) scale(1.5);
+      }
+      50% {
+        transform: rotate(270deg) scale(.9);
+      }
+      100% {
+        transform: rotate(360deg) scale(1.5);
+      }
+    }
+
+    @keyframes blinking {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: .3;
+      }
+    }
 
     &.show {
       opacity: 1;

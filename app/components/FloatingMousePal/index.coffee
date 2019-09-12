@@ -15,7 +15,7 @@ export default class FloatingMousePal extends React.Component
 
   render: =>
     <Root
-      innerRef={(r) => @root = r}
+      ref={(r) => @root = r}
       className={@props.className || ''}>
       {@props.children}
     </Root>

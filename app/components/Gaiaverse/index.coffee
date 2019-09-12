@@ -14,9 +14,9 @@ export default class Gaiaverse extends React.Component
     <Root>
       <Backdrop />
 
-      <Portal spot='top' />
-      <Portal spot='bottomLeft' />
-      <Portal spot='bottomRight' />
+      <Portal spot='top' key='top' />
+      <Portal spot='bottomLeft' key='bottomLeft' />
+      <Portal spot='bottomRight' key='bottomRight' />
 
       <Borders />
     </Root>

@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
 import {
@@ -8,7 +8,7 @@ import theme from '../../global/theme'
 
 export const HideDuration = 2000
 
-export const Root = Flex.extend`
+export const Root = styled(Flex)`
   position: fixed;
   height: 100%;
   width: 100%;
@@ -43,13 +43,13 @@ export const Root = Flex.extend`
   }
 `
 
-const Parent = AbsoluteFlexFillParent.extend`
+const Parent = styled(AbsoluteFlexFillParent)`
   text-align: center;
   align-items: center;
   justify-content: center;
 `
 
-export const Loading = Parent.extend`
+export const Loading = styled(Parent)`
   z-index: 100;
   background: white;
   visibility: hidden;
@@ -76,21 +76,21 @@ export const Loading = Parent.extend`
   }
 `
 
-export const Fuck = Parent.extend`
+export const Fuck = styled(Parent)`
   visibility: hidden;
   .scene-1 & {
     visibility: visible;
   }
 `
 
-export const Patriarchy = Parent.extend`
+export const Patriarchy = styled(Parent)`
   visibility: hidden;
   .scene-2 & {
     visibility: visible;
   }
 `
 
-export const ContinueRoot = Parent.extend`
+export const ContinueRoot = styled(Parent)`
   visibility: hidden;
   flex-direction: column;
 
@@ -100,7 +100,7 @@ export const ContinueRoot = Parent.extend`
 `
 
 const ManginaColor = '#3E4C50'
-export const Mangina = Parent.extend`
+export const Mangina = styled(Parent)`
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -122,7 +122,7 @@ export const Mangina = Parent.extend`
 `
 
 const QueerColor = '#DFA948'
-export const Queer = Parent.extend`
+export const Queer = styled(Parent)`
   width: 100%;
   height: 100%;
   background: ${QueerColor};
@@ -143,7 +143,7 @@ export const Queer = Parent.extend`
   }
 `
 
-export const AwareRoot = Flex.extend`
+export const AwareRoot = styled(Flex)`
   transform: scale(0);
   opacity: 0;
   filter: blur(10px);
@@ -170,7 +170,7 @@ export const AwareRoot = Flex.extend`
   }
 `
 
-export const StillHereRoot = Flex.extend`
+export const StillHereRoot = styled(Flex)`
   flex-direction: column;
   transform: scale(.9) translate(0, 50px);
   opacity: 0;
@@ -185,6 +185,6 @@ export const StillHereRoot = Flex.extend`
   animation-delay: 3s;
 `
 
-export const Button = Boto.extend`
+export const Button = styled(Boto)`
   margin-top: 20px;
 `

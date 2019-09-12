@@ -1,4 +1,4 @@
-import styled, {injectGlobal, css} from 'styled-components'
+import styled, {css} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT, EASE_IN, EASE, EASE_SINE,
@@ -15,7 +15,7 @@ const GifWidth = 960
 const GifHeight = 540
 const GifScaleCenter = .4
 
-export const Root = Flex.extend`
+export const Root = styled(Flex)`
   overflow: hidden;
   position: relative;
   flex: 0 0 50%;
@@ -59,7 +59,7 @@ export const Root = Flex.extend`
   }
 `
 
-export const GifRoot = Flex.extend`
+export const GifRoot = styled(Flex)`
   position: absolute;
   transition: all .5s ${EASE_OUT};
   pointer-events: all;
@@ -184,7 +184,7 @@ const HeaderInTheDeep = css`
   text-shadow: 1px 1px ${lighten(.2, theme.hopiLight)};
   padding: 0px 90px 0 60px;
 `
-export const Button = Boto.extend`
+export const Button = styled(Boto)`
   position: absolute;
   pointer-events: all;
   top: 50%;
@@ -253,7 +253,7 @@ export const Button = Boto.extend`
   }
 `
 
-export const Title = H1.extend`
+export const Title = styled(H1)`
   font-size: 108px;
   width: 100%;
 `
