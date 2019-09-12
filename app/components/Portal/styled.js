@@ -19,11 +19,11 @@ export const Root = styled(Flex)`
   overflow: hidden;
   position: relative;
   flex: 0 0 50%;
-  transition: transform 1s, filter ${TransitionDuration}ms, flex 1s;
-  transition-timing-function: ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
   pointer-events: none;
 
   &.quark {
+    transition: all .5s ${EASE_SINE};
     &.hidden {
       &.spot-top {
         transform: translate(0, -100%);
@@ -64,10 +64,13 @@ export const GifRoot = styled(Flex)`
   transition: all .5s ${EASE_OUT};
   pointer-events: all;
   cursor: pointer !important;
+  transition: all .5s ${EASE_OUT};
 
   &.quark.spot-top:not(.hidden) {
     overflow: visible;
     transform: scale(2) rotate(45deg) translate(-20px, -20px);
+    transition-duration: .5s;
+    transition-timing-function: ${EASE_SINE};
   }
 
   .gif {
