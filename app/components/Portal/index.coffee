@@ -1,5 +1,4 @@
 import React from 'react'
-import PortalFruit from '../PortalFruit'
 import MaskedGif from '../MaskedGif'
 import TalkingBubbles from '../TalkingBubbles'
 

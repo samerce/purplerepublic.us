@@ -3,7 +3,7 @@ const Portals = {
     title: '108',
     peers: {
       top: 'jojo',
-      bottomLeft: 'towardthesun',
+      bottomLeft: 'bloom',
       bottomRight: 'fishypop',
     },
     position: {
@@ -22,7 +22,7 @@ const Portals = {
     title: 'bodyish',
     peers: {
       top: 'underwater',
-      bottomLeft: 'towardthesun',
+      bottomLeft: 'bloom',
       bottomRight: 'pride',
     },
   },
@@ -48,7 +48,7 @@ const Portals = {
       xOffset: '-330px',
     },
   },
-  towardthesun: {
+  bloom: {
     title: 'trust',
     peers: {
       top: 'river',

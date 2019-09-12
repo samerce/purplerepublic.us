@@ -19,6 +19,11 @@ export default class WordRolodex extends React.Component {
     this.prepNextRoll(this.wordRefs[1])
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.presentTimer)
+    clearTimeout(this.prepTimer)
+  }
+
   shouldComponentUpdate() {
     return false
   }
@@ -39,7 +44,7 @@ export default class WordRolodex extends React.Component {
 
   presentUpdate(wordRef) {
     wordRef.id = 'past'
-    setTimeout(() => this.prepNextRoll(wordRef), WordRollDuration)
+    this.presentTimer = setTimeout(() => this.prepNextRoll(wordRef), WordRollDuration)
   }
 
   futureUpdate(wordRef) {
@@ -54,7 +59,7 @@ export default class WordRolodex extends React.Component {
     wordRef.innerHTML = words[this.index]
     wordRef.id = 'future'
 
-    setTimeout(this.update, 700)
+    this.prepTimer = setTimeout(this.update, 700)
   }
 
 }

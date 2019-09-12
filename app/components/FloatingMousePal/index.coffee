@@ -9,7 +9,10 @@ export default class FloatingMousePal extends React.Component
     offsets: {}
 
   componentDidMount: =>
-    window.addEventListener('mousemove', @onMouseMove)
+    window.addEventListener 'mousemove', @onMouseMove
+
+  componentWillUnmount: =>
+    window.removeEventListener 'mousemove', @onMouseMove
 
   shouldComponentUpdate: -> no
 

@@ -77,7 +77,7 @@ export default connect((d) =>
 
       <div className='fear'>
         <FloatingMousePal className='floater' offsets={{top: -120}}>
-          <img src={GIF_ROOT_URL + 'alyssa.gif'} />
+          <img src={GIF_ROOT_URL + 'fishypop.gif'} />
         </FloatingMousePal>
         fear, fear, fear, fear, fear, fear, fear.
       </div> is the only enemy.<br/>
