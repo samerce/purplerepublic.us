@@ -5,7 +5,8 @@ import {
   SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_MMS, SCREEN_WIDTH_S,
 } from '../../global/constants'
 import {
-  Flex, H1, H2, FlexColumn, Boto, screen, ArticleText,
+  Flex, H1, H2, FlexColumn, Boto, screen, ArticleText, AbsoluteFlexFillParent,
+  AbsoluteFlex,
 } from '../../global/styled'
 import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
@@ -14,63 +15,105 @@ import memoize from 'memoize-one'
 const GifWidth = 960
 const GifHeight = 540
 const GifScaleCenter = .4
+const TransitionOut = `all .5s ${EASE_OUT}`
+const TransitionIn = `all .5s ${EASE_SINE}`
+const TextShadow = css`
+  text-shadow: 0 0 1px ${theme.hopiDark},
+               0 0 10px white,
+               0 0 20px white,
+               0 0 30px ${theme.hopi},
+               0 0 40px ${theme.hopi};
+`
 
-export const Root = styled(Flex)`
+export const Root = styled(AbsoluteFlexFillParent)`
   overflow: hidden;
-  position: relative;
-  flex: 0 0 50%;
-  transition: all .5s ${EASE_OUT};
+  transition: ${TransitionOut};
   pointer-events: none;
 
+  &.spot-top {
+    display: block;
+    z-index: 3;
+    top: ${p => p.top}px;
+    transform: rotate(-45deg);
+    height: ${p => p.size}px;
+    width: ${p => p.size}px;
+    overflow: hidden;
+  }
+  &.spot-bottomLeft {
+    transform-origin: right center;
+    transform: translate(-50%, 0);
+    z-index: 2;
+  }
+  &.spot-bottomRight {
+    transform-origin: left center;
+    transform: translate(50%, 0);
+  }
+
   &.quark {
-    transition: all .5s ${EASE_SINE};
+    transition: ${TransitionIn};
     &.hidden {
-      &.spot-top {
-        transform: translate(0, -100%);
-      }
       &.spot-bottomRight {
-        flex: 0 0 0;
+        transform: translate(100%, 0);
       }
       &.spot-bottomLeft {
-        flex: 0 0 0;
+        transform: translate(-100%, 0);
       }
     }
     &:not(.hidden) {
-      flex: 0 0 100%;
-
+      &:not(.spot-top) {
+        transform: none;
+      }
+      &.spot-top {
+        overflow: visible;
+      }
       &.scrolled {
         filter: blur(70px) brightness(.7);
         pointer-events: none;
       }
     }
   }
+`
 
-  &.spot-top {
-    justify-content: center;
-    width: 100%;
-    align-items: flex-start;
-    justify-content: center;
-  }
+export const ContentRoot = styled(AbsoluteFlexFillParent)`
+  transition: ${TransitionOut};
+
   &.spot-bottomLeft {
-    transform-origin: right center;
+    transform: translate(25%, 0);
   }
   &.spot-bottomRight {
-    transform-origin: left center;
+    transform: translate(-25%, 0);
+  }
+  &.spot-top {
+    display: block;
+    left: 0;
+    bottom: 0;
+    transform: rotate(45deg) translate(0, ${p => p.topOffset}px);
+
+    &.hidden {
+      transform: rotate(45deg) translate(0, -100%);
+    }
+  }
+  &.quark:not(.hidden) {
+    transition: ${TransitionIn};
+
+    &.spot-top {
+      transform: rotate(45deg) translate(0, 50%);
+    }
+    &:not(.spot-top) {
+      transform: none;
+    }
   }
 `
 
-export const GifRoot = styled(Flex)`
-  position: absolute;
-  transition: all .5s ${EASE_OUT};
+export const GifRoot = styled(AbsoluteFlex)`
   pointer-events: all;
   cursor: pointer !important;
-  transition: all .5s ${EASE_OUT};
+  transition: ${TransitionOut};
+  bottom: 0;
 
   &.quark.spot-top:not(.hidden) {
-    overflow: visible;
-    transform: scale(2) rotate(45deg) translate(-20px, -20px);
-    transition-duration: .5s;
-    transition-timing-function: ${EASE_SINE};
+    transform: scale(2);
+    transition: ${TransitionIn};
   }
 
   .gif {
@@ -99,26 +142,14 @@ export const GifRoot = styled(Flex)`
     transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
   }
 
-  &.spot-top {
-    position: absolute;
-    left: 0;
-    top: ${p => p.top}px;
-    transform: rotate(-45deg);
-    height: ${p => p.size}px;
-    width: ${p => p.size}px;
-    overflow: hidden;
-    justify-content: center;
-  }
-
   .spot-top.gif {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    transform: rotate(-45deg) translate(50%, -${p => p.yOffset}px);
+    ${'' /* transform: translate(0, -${p => p.yOffset}px); */}
     transform-origin: right bottom;
 
     ${screen.large`
-      transform: rotate(-45deg) translate(50%, 0);
     `}
 
     img {
@@ -132,31 +163,8 @@ export const GifRoot = styled(Flex)`
     }
   }
 
-  .spot-center.gif {
-    width: ${p => p.gifWidth}px;
-    max-width: ${GifWidth}px;
-    transition: all .5s ${EASE_OUT};
-    visibility: visible;
-    transform-origin: center top;
-
-    .mask {
-      top: ${p => p.maskTop}px;
-      left: ${p => p.maskLeft}px;
-      width: ${p => p.maskWidth}px;
-      height: ${p => p.maskHeight}px;
-      transition: all ${TransitionDuration}ms ${EASE_OUT};
-    }
-
-    &.still {
-      visibility: hidden;
-    }
-  }
-
-  &.spot-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
+  &.spot-top img {
+    width: ${p => p.size}px;
   }
   &.spot-bottomLeft, &.spot-bottomRight {
     height: 100%;
@@ -171,26 +179,9 @@ export const GifRoot = styled(Flex)`
   }
 `
 
-const ColorInTheDeep = alpha(.2, lighten(.1, theme.hopiLight))
-const HeaderTextShadow = css`
-  text-shadow: 0 0 1px ${theme.hopiDark},
-               0 0 10px white,
-               0 0 20px white,
-               0 0 30px ${theme.hopi},
-               0 0 40px ${theme.hopi};
-`
-const HeaderInTheDeep = css`
-  font-size: 72px;
-  pointer-events: none;
-  background: ${ColorInTheDeep};
-  border-color: transparent;
-  text-shadow: 1px 1px ${lighten(.2, theme.hopiLight)};
-  padding: 0px 90px 0 60px;
-`
-export const Button = styled(Boto)`
+export const Title = styled(AbsoluteFlex)`
   position: absolute;
   pointer-events: all;
-  top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
   flex-wrap: wrap;
@@ -202,23 +193,11 @@ export const Button = styled(Boto)`
   font-size: 52px;
   letter-spacing: 1px;
   pointer-events: none;
-  ${HeaderTextShadow}
+  ${TextShadow}
 
   ${screen.medium`
     font-size: 24px;
   `}
-
-  @keyframes titleFloat {
-    40% {
-      filter: hue-rotate(20deg) drop-shadow(0);
-    }
-    70% {
-      filter: drop-shadow(3px) hue-rotate(0);
-    }
-    100% {
-      opacity: .5;
-    }
-  }
 
   div {
     position: absolute;
@@ -229,10 +208,27 @@ export const Button = styled(Boto)`
                  0 0 30px white,
                  0 0 50px ${theme.hopi},
                  0 0 70px ${theme.hopi};
+
+    @keyframes titleFloat {
+     100% {
+       opacity: .5;
+     }
+    }
     animation-name: titleFloat;
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+  }
+  &.spot-bottomRight, &.spot-bottomLeft {
+    top: 75%;
+  }
+  &.spot-top {
+    bottom: 20%;
+    transform: translate(50%, 0);
+
+    div {
+      transform: translate(0, -20px);
+    }
   }
   &.spot-bottomLeft div {
     transform: translate(-20px, -20px);
@@ -240,25 +236,6 @@ export const Button = styled(Boto)`
   &.spot-bottomRight div {
     transform: translate(20px, -20px);
   }
-  &.spot-top div {
-    transform: translate(0, -20px);
-  }
-
-  &.spot-bottomLeft, &.spot-bottomRight {
-    top: 75%;
-  }
-  &&.spot-top {
-    top: 20%;
-    transform: translate(50%, 0);
-  }
-  &.spot-center {
-    font-size: 32px;
-  }
-`
-
-export const Title = styled(H1)`
-  font-size: 108px;
-  width: 100%;
 `
 
 export const ScrollTempt = styled.i`
@@ -271,11 +248,7 @@ export const ScrollTempt = styled.i`
   filter: blur(10px);
   transform: scale(.98) translate(-50%, 0);
   transition: all .5s ${EASE_OUT};
-  ${HeaderTextShadow}
-
-  &.spot-top {
-    bottom: 60%;
-  }
+  ${TextShadow}
 
   &.quark {
     opacity: 1;

@@ -26,10 +26,10 @@ export const Root = styled(Flex)`
 
   &.quark {
     &.anchor-bottomLeft {
-      transform: translate(50%, -50%);
+      transform: translate(50%, 50%);
     }
     &.anchor-bottomRight {
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 50%);
     }
     &.anchor-top {
       transform: translate(0, calc(50% + 30px)) scale(.8);
@@ -244,11 +244,11 @@ export const CloseText = styled(Flex)`
     transition-delay: .3s;
 
     &.anchor-bottomLeft {
-      top: calc(60% + 5px);
+      top: calc(20% + 5px);
       left: 40px;
     }
     &.anchor-bottomRight {
-      top: calc(60% + 5px);
+      top: calc(20% + 5px);
       right: 40px;
     }
     &.anchor-top {

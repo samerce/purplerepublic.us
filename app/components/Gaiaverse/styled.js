@@ -13,25 +13,6 @@ export const Root = styled(Flex)`
   height: 100%;
   flex: 1 0 auto;
   background: ${theme.gradientSunset};
-
-  & > * {
-    height: 100%;
-
-    &.spot-top {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 10;
-
-      & > * {
-        transform: rotate(45deg);
-      }
-    }
-    &.spot-center {
-      position: absolute;
-      z-index: 30;
-    }
-  }
 `
 
 export const Backdrop = styled(AbsoluteFlexFillParent)`
