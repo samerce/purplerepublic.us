@@ -204,6 +204,7 @@ export const Title = styled(AbsoluteFlex)`
     font-size: 130%;
     opacity: .3;
     letter-spacing: 2px;
+    transform: translate(-10%, -20px);
     text-shadow: 0 0 10px white,
                  0 0 30px white,
                  0 0 50px ${theme.hopi},
@@ -225,16 +226,6 @@ export const Title = styled(AbsoluteFlex)`
   &.spot-top {
     bottom: 20%;
     transform: translate(50%, 0);
-
-    div {
-      transform: translate(0, -20px);
-    }
-  }
-  &.spot-bottomLeft div {
-    transform: translate(-20px, -20px);
-  }
-  &.spot-bottomRight div {
-    transform: translate(20px, -20px);
   }
 `
 
@@ -268,9 +259,10 @@ export const ScrollTempt = styled.i`
   }
 `
 
-export const getTopFudge = memoize((screenWidth) => {
+const getTopFudgeImpl = memoize((screenWidth) => {
   return (screenWidth <= SCREEN_WIDTH_MMS)? 170 :
     (screenWidth <= SCREEN_WIDTH_MS)? 162 :
     (screenWidth <= SCREEN_WIDTH_M)? 54 :
     0
 })
+export const getTopFudge = () => getTopFudgeImpl(window.innerWidth)

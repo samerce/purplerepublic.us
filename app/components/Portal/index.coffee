@@ -89,8 +89,8 @@ getTopStyles = ({position = {}}) ->
   sizeSq = Math.pow(size, 2)
   bisectHalfSq = Math.pow(Math.sqrt(sizeSq + sizeSq) / 2, 2)
   {
-    top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(innerWidth),
-    topOffset: size / 8,
+    top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge(),
+    topOffset: size / 7,
     size,
     yOffset: screenHeight / 4,
     xOffsetImg: 0,

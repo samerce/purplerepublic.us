@@ -14,7 +14,7 @@ export default connect((d) -> {
   onResize: => @forceUpdate()
 
   render: =>
-    borderTop = getTopFudge(window.innerWidth)
+    borderTop = getTopFudge()
     {energy, view} = @props
     <BordersRoot top={borderTop} className={"#{energy} #{view}"}>
       <div className='border borderLeft' />

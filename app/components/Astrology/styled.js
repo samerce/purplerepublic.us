@@ -8,6 +8,8 @@ import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
 
 const RootHeight = 60
+const TransitionOut = `transition: all .5s ${EASE_OUT};`
+const TransitionIn = `transition: all .5s ${EASE_SINE};`
 export const Root = styled(Flex)`
   position: fixed;
   top: 0;
@@ -16,7 +18,7 @@ export const Root = styled(Flex)`
   height: 100%;
   z-index: 650;
   pointer-events: none;
-  transition: all .5s ${EASE_OUT};
+  ${TransitionOut}
 
   #universeBackdropCanvas {
     position: absolute;
@@ -25,6 +27,7 @@ export const Root = styled(Flex)`
   }
 
   &.quark {
+    ${TransitionIn}
     &.anchor-bottomLeft {
       transform: translate(50%, 50%);
     }
@@ -33,9 +36,7 @@ export const Root = styled(Flex)`
     }
     &.anchor-top {
       transform: translate(0, calc(50% + 30px)) scale(.8);
-      margin: 0 0 -30px;
     }
-    transition: all .5s ${EASE_SINE};
   }
 `
 
@@ -47,19 +48,17 @@ export const CosmosRoot = styled.div`
   margin: -${CosmosSize / 2}px 0 0 -${CosmosSize / 2}px;
   width: ${CosmosSize}px;
   height: ${CosmosSize}px;
-  transition: all .5s ${EASE_OUT};
   cursor: pointer;
+  ${TransitionOut}
 
   &.cosmos {
     transform: scale(30);
-    top: 50%;
-    transition-duration: 1s;
-    transition-timing-function: ${EASE_SINE};
+    ${TransitionIn}
   }
   &.quark, &.intro {
     transform: scale(0);
-    filter: blur(10px);
     pointer-events: none;
+    ${TransitionIn}
   }
 `
 
@@ -72,7 +71,7 @@ export const CosmosSkin = styled(Flex)`
   border-radius: 100%;
   box-shadow: 0 0 10px #fdefb0, 0 0 20px #e7a8b1, 0 0 30px #b998b3,
               0 0 40px #77779d, 0 0 50px #4771a3;
-  filter: saturate(200%) hue-rotate(0);
+  ${'' /* filter: saturate(200%) hue-rotate(0); */}
   pointer-events: all;
 
   @keyframes ooze {
@@ -84,7 +83,7 @@ export const CosmosSkin = styled(Flex)`
     }
   }
 
-  animation-name: ooze;
+  ${'' /* animation-name: ooze; */}
   animation-duration: 5s;
   animation-timing-function: ${EASE_SINE};
   animation-iteration-count: infinite;
@@ -97,9 +96,8 @@ export const CosmosSkin = styled(Flex)`
 
 const CelestialBodyTriangleEnter = css`
   opacity: 1;
-  filter: none;
   transform: translate(-50%, -50%);
-  transition-duration: 1s;
+  transition-duration: .5s;
 `
 const CelestialBodyRoot = styled(Flex)`
   position: absolute;
@@ -114,15 +112,12 @@ const CelestialBodyRoot = styled(Flex)`
   transform: translate(-50%, -50%) scale(.5);
   cursor: pointer;
   pointer-events: all;
-  transition: all .7s ${EASE_OUT};
+  transition: all .5s ${EASE_OUT};
   opacity: 0;
-  filter: blur(10px);
 
   &.cosmos {
     ${CelestialBodyTriangleEnter}
     transition-delay: .2s;
-  }
-  &.triangle {
   }
 `
 const CelestialBody = styled(Flex)`
@@ -139,8 +134,7 @@ export const SunRoot = styled(CelestialBodyRoot)`
   z-index: 10;
 
   &.cosmos {
-    top: 20%;
-    left: 60%;
+    transform: translate(-50%, -100%);
   }
   &.triangle.sun {
     ${CelestialBodyTriangleEnter}
@@ -156,44 +150,15 @@ export const Sun = styled(CelestialBody)`
   );
   box-shadow:
     0 0 10px #fbf3ce,
-    0 0 20px #fbf3ce,
     0 0 30px #fbf3ce,
     0 0 40px #FFE460,
-    0 0 50px #FFE460,
     0 0 60px #FFE460,
     0 0 70px #FFE460,
     0 0 80px #FF7519,
-    0 0 90px #FF7519,
     0 0 100px #FF7519,
     0 0 110px #FF7519,
     0 0 120px #FF7519
   ;
-
-  &.cosmos, &.triangle {
-    @keyframes pulse {
-      100% {
-        box-shadow:
-          0 0 20px #fbf3ce,
-          0 0 30px #fbf3ce,
-          0 0 40px #fbf3ce,
-          0 0 50px #FFE460,
-          0 0 60px #FFE460,
-          0 0 70px #FFE460,
-          0 0 80px #FFE460,
-          0 0 90px #FF7519,
-          0 0 100px #FF7519,
-          0 0 110px #FF7519,
-          0 0 120px #FF7519,
-          0 0 130px #FF7519
-        ;
-      }
-    }
-    animation-name: pulse;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-timing-function: ${EASE_SINE};
-  }
 `
 
 export const RaysRoot = styled(Flex)`
@@ -228,33 +193,29 @@ export const TimerRoot = styled(Flex)`
   }
 `
 
-export const CloseText = styled(Flex)`
+export const CloseText = styled(AbsoluteFlex)`
+  top: 0;
+  left: 0;
   font-family: alice;
   font-size: 24px;
   color: ${theme.hopi};
   opacity: 0;
-  position: absolute;
-  top: 0;
   pointer-events: none;
-  transition: opacity 1s ${EASE_OUT};
+  ${TransitionOut}
 
   &.quark {
     opacity: 1;
-    transition-timing-function: ${EASE_SINE};
+    ${TransitionIn}
     transition-delay: .3s;
 
     &.anchor-bottomLeft {
-      top: calc(20% + 5px);
-      left: 40px;
+      transform: translate(40px, 70px);
     }
     &.anchor-bottomRight {
-      top: calc(20% + 5px);
-      right: 40px;
+      transform: translate(200px, 70px);
     }
     &.anchor-top {
-      top: 30px;
-      left: 50%;
-      transform: translate(-50%, 0);
+      transform: translate(125px, 30px);
     }
   }
 `
@@ -268,8 +229,7 @@ export const MoonRoot = styled(CelestialBodyRoot)`
   max-height: 200px;
 
   &.cosmos {
-    left: 36%;
-    top: 54%;
+    transform: translate(-100%, 50%);
   }
   &.triangle.moon {
     ${CelestialBodyTriangleEnter}
@@ -290,12 +250,9 @@ export const Moon = styled(CelestialBody)`
   );
   box-shadow:
     0 0 10px #eaedf4,
-    0 0 20px #e6eaf1,
     0 0 30px #e6eaf1,
     0 0 40px #D4D9E2,
-    0 0 50px #D4D9E2,
     0 0 60px #D4D9E2,
-    0 0 70px #6FCAEA,
     0 0 80px #6FCAEA,
     0 0 90px #6FCAEA
   ;
@@ -303,8 +260,7 @@ export const Moon = styled(CelestialBody)`
 
 export const EyeRoot = styled(CelestialBodyRoot)`
   .cosmos & {
-    left: 66%;
-    top: 62%;
+    transform: translate(40%, 30%);
   }
   &.triangle.thirdeye {
     ${CelestialBodyTriangleEnter}
@@ -313,15 +269,12 @@ export const EyeRoot = styled(CelestialBodyRoot)`
 
 export const Eye = styled.i`
   color: white;
-  font-size: 30vw;
+  font-size: 140px;
   text-shadow:
     0 0 10px #f7faf6,
-    0 0 20px #f7faf6,
     0 0 30px #cefabf,
     0 0 40px #cefabf,
-    0 0 50px #cefabf,
     0 0 60px #95f773,
-    0 0 70px #95f773,
     0 0 80px #95f773,
     0 0 90px #95f773
   ;
@@ -329,8 +282,7 @@ export const Eye = styled.i`
 
 export const HuhRoot = styled(CelestialBodyRoot)`
   &.cosmos {
-    left: 50%;
-    top: 90%;
+    transform: translate(-50%, 90%);
   }
 `
 
@@ -340,11 +292,8 @@ export const Huh = styled(Flex)`
   font-family: milonga;
   text-shadow:
     0 0 10px #fcfaeb,
-    0 0 20px #fcfaeb,
-    0 0 30px #fbf3b9,
     0 0 40px #fbf3b9,
     0 0 50px #fbf3b9,
-    0 0 60px #fae868,
     0 0 70px #fae868,
     0 0 80px #fae868,
     0 0 90px #fae868

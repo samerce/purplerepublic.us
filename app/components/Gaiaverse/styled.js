@@ -26,20 +26,18 @@ export const Backdrop = styled(AbsoluteFlexFillParent)`
   border-radius: 100%;
 `
 
-export const BordersRoot = styled(Flex)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: transform .5s ${EASE_OUT};
+export const BordersRoot = styled(AbsoluteFlexFillParent)`
+  transition: all .5s ${EASE_OUT};
   pointer-events: none;
   z-index: 20;
   transform: translate(0, ${p => p.top}px);
 
   &.quark {
-    transform: scale(0);
+    ${'' /* transform: scale(0) translate(0, ${p => p.top}px); */}
+    opacity: 0;
   }
   &.triangle {
-    transition-delay: .5s;
+    transition-delay: .2s;
   }
 
   .border {
@@ -64,7 +62,7 @@ export const BordersRoot = styled(Flex)`
       }
     }
 
-    animation-name: ooze;
+    ${'' /* animation-name: ooze; */}
     animation-duration: 5s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
