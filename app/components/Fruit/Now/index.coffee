@@ -32,11 +32,12 @@ export default connect((d) =>
 
   componentDidUpdate: (prevProps) =>
     if prevProps.view is View.quark and @props.view isnt View.quark
-      @laganja.stop()
+      @stopLaganja()
     else if prevProps.view isnt View.quark and @props.view is View.quark
       @startLaganja()
 
   startLaganja: () =>
+    @rolodex.start()
     @laganja.start (lg) =>
       # lg.timer(3000, () => this.setState({showFaerie: true}))
       # lg.timer(13000, () => this.setState({showFaerie: false}))
@@ -46,6 +47,12 @@ export default connect((d) =>
       lg.scrollListener (scroll) =>
         @setState
           showNamaste: scroll > 1840
+
+  stopLaganja: () =>
+    @rolodex.stop()
+    @laganja.stop()
+
+  setRolodex: (r) => @rolodex = r
 
   render: =>
     {showFaerie, showNamaste} = @state
@@ -62,6 +69,8 @@ export default connect((d) =>
       toy with your knobs.<br/>
       nothing else matters.
       <WordRolodex
+        ref={@setRolodex}
+        isPlaying={no}
         className='wordRolodex'
         words={['not money.', 'not memories.', 'not lovers.', 'not children.', 'not health.', 'not trump.']}
       /><br/>

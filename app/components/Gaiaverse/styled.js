@@ -52,7 +52,7 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
     height: 710px;
     box-shadow: 0 0 10px #FFE460;
     border: 1px solid ${alpha(.4, '#FFE460')};
-    background: radial-gradient(circle at 50% 100%, ${lighten(.1, '#FF7519')} 0%, #FFE460 40%, #fbf3ce 85%);
+    background: radial-gradient(circle at 50% 100%, #FF7519 0%, #FFE460 40%, #fbf3ce 85%);
 
     @keyframes ooze {
       50% {
@@ -72,7 +72,7 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
     bottom: -1px;
     left: 50%;
     transform: translate(-50%, 0);
-    background: radial-gradient(circle at 50% 100%, #fbf3ce 0%, #FFE460 40%, ${lighten(.1, '#FF7519')} 85%);
+    background: radial-gradient(circle at 50% 100%, #fbf3ce 0%, #FFE460 40%, #FF7519 85%);
 
     ${screen.medsmall`
       bottom: 40px;

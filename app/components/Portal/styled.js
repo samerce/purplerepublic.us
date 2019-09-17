@@ -17,7 +17,7 @@ const GifHeight = 540
 const GifScaleCenter = .4
 const TransitionOut = `all .5s ${EASE_OUT}`
 const TransitionIn = `all .5s ${EASE_SINE}`
-const TextShadow = css`
+export const TextShadow = css`
   text-shadow: 0 0 1px ${theme.hopiDark},
                0 0 10px white,
                0 0 20px white,
@@ -129,7 +129,7 @@ export const GifRoot = styled(AbsoluteFlex)`
     visibility: visible;
   }
 
-  &:hover, &.quark:not(.hidden):not(.scrolled) {
+  &:hover, &.quark:not(.hidden):not(.scrolled), &.seducing {
     .gif {
       visibility: visible;
     }
@@ -180,15 +180,11 @@ export const GifRoot = styled(AbsoluteFlex)`
 `
 
 export const Title = styled(AbsoluteFlex)`
-  position: absolute;
   pointer-events: all;
   right: 50%;
   transform: translate(50%, -50%);
   flex-wrap: wrap;
-  background: none;
   color: white;
-  border: none;
-  box-shadow: none;
   text-transform: uppercase;
   font-size: 52px;
   letter-spacing: 1px;
@@ -226,36 +222,6 @@ export const Title = styled(AbsoluteFlex)`
   &.spot-top {
     bottom: 20%;
     transform: translate(50%, 0);
-  }
-`
-
-export const ScrollTempt = styled.i`
-  position: absolute;
-  bottom: 20px;
-  color: white;
-  font-size: 54px;
-  left: 50%;
-  opacity: 0;
-  filter: blur(10px);
-  transform: scale(.98) translate(-50%, 0);
-  transition: all .5s ${EASE_OUT};
-  ${TextShadow}
-
-  &.quark {
-    opacity: 1;
-    filter: none;
-    transform: translate(-50%, 0);
-    transition: all 1s ${EASE_SINE};
-
-    @keyframes teaseDown {
-      100% {
-        transform: translate(-50%, 10px) scale(1.01);
-      }
-    }
-    animation-name: teaseDown;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
   }
 `
 

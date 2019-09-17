@@ -8,6 +8,10 @@ import autobind from 'autobind-decorator'
 
 export default class WordRolodex extends React.Component {
 
+  static defaultProps = {
+    isPlaying: true,
+  }
+
   constructor() {
     super()
     this.wordRefs = []
@@ -15,13 +19,13 @@ export default class WordRolodex extends React.Component {
   }
 
   componentDidMount() {
-    this.wordRefs[0].innerHTML = this.props.words[this.index]
-    this.prepNextRoll(this.wordRefs[1])
+    if (this.props.isPlaying) {
+      this.start()
+    }
   }
 
   componentWillUnmount() {
-    clearTimeout(this.presentTimer)
-    clearTimeout(this.prepTimer)
+    this.stop()
   }
 
   shouldComponentUpdate() {
@@ -35,6 +39,18 @@ export default class WordRolodex extends React.Component {
         <Word ref={r => this.wordRefs[1] = r} id='future' key='future' />
       </Root>
     )
+  }
+
+  @autobind
+  start() {
+    this.wordRefs[0].innerHTML = this.props.words[this.index]
+    this.prepNextRoll(this.wordRefs[1])
+  }
+
+  @autobind
+  stop() {
+    clearTimeout(this.presentTimer)
+    clearTimeout(this.prepTimer)
   }
 
   @autobind

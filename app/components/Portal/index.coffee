@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  Root, Title, GifRoot, getTopFudge, FaerieRoot, ScrollTempt,
+  Root, Title, GifRoot, getTopFudge, FaerieRoot,
   ContentRoot,
 } from './styled'
 import {MaskWidth, MaskHeight} from '../MaskedGif/styled'
@@ -13,9 +13,10 @@ import {View} from '../../containers/start/reducer.coffee'
 import memoize from 'memoize-one'
 
 import {
-  SRC_URL, SCREEN_WIDTH_M
+  SRC_URL, SCREEN_WIDTH_M, SCREEN_WIDTH_L
 } from '../../global/constants'
 
+export ScreenWidthForSeduction = SCREEN_WIDTH_L
 GIF_ROOT_URL = SRC_URL + 'portals/gifs/'
 getTopStyles
 getBottomStyles
@@ -28,6 +29,10 @@ export default connect((d) =>
   fruitScrolled: d.get('start').get('fruitScrolled')
 ) resizable() class Portal extends React.Component
 
+  state = {
+    seducing: no,
+  }
+
   onResize: => @forceUpdate()
 
   shouldComponentUpdate: (nextProps) =>
@@ -37,7 +42,7 @@ export default connect((d) =>
 
   render: =>
     portal = @getPortal()
-    {spot, energy, view, quark, fruitScrolled} = @props
+    {spot, energy, view, quark, fruitScrolled, seduceSpot} = @props
     {innerWidth, innerHeight} = window
     styles = @getStyles(portal, innerWidth, innerHeight)
     {id, title} = portal
@@ -48,6 +53,7 @@ export default connect((d) =>
       [view]: yes,
       hidden: (view is View.quark) and (quark isnt id),
       scrolled: fruitScrolled,
+      seducing: (seduceSpot is spot) and (innerWidth <= ScreenWidthForSeduction),
     }
     <Root
       className={classes} {...style}>
@@ -63,9 +69,7 @@ export default connect((d) =>
           {title}
           <div>{title}</div>
         </Title>
-        <ScrollTempt
-          className={"fa fa-arrow-circle-o-down spot-#{spot} #{view}"}
-        />
+
       </ContentRoot>
     </Root>
 
@@ -73,7 +77,7 @@ export default connect((d) =>
 
   onClickClose: => window.location = "#/#{@props.energy}"
 
-  getPortal: () => @props.portals[@props.spot]
+  getPortal: => @props.portals[@props.spot]
 
   getStyles: memoize (portal, screenHeight, screenWidth) =>
     {

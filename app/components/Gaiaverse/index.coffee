@@ -1,22 +1,37 @@
 import React from 'react'
-import Portal from '../Portal/index.coffee'
+import Portal, {ScreenWidthForSeduction} from '../Portal/index.coffee'
 import Borders from './Borders.coffee'
 
 import {
   Root, Backdrop,
 } from './styled'
 
-export default class Gaiaverse extends React.Component
+Spots = ['top', 'bottomLeft', 'bottomRight']
 
-  shouldComponentUpdate: -> no
+export default class Gaiaverse extends React.PureComponent
+
+  constructor: (props) ->
+    super(props)
+    @state = {
+      seduceSpotIndex: 0,
+    }
+
+  componentDidMount: () =>
+    if window.innerWidth <= ScreenWidthForSeduction
+      @interval(3000, () =>
+        @setState seduceSpotIndex: (@state.seduceSpotIndex + 1) % Spots.length
+      )
+
+  interval: (time, fn) -> setInterval(fn, time)
 
   render: =>
+    {seduceSpotIndex} = @state
     <Root>
       <Backdrop />
 
-      <Portal spot='top' key='top' />
-      <Portal spot='bottomLeft' key='bottomLeft' />
-      <Portal spot='bottomRight' key='bottomRight' />
+      {Spots.map((spot) =>
+        <Portal spot={spot} key={spot} seduceSpot={Spots[seduceSpotIndex]} />
+      )}
 
       <Borders />
     </Root>
