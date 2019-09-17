@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE} from '../../../global/constants'
 import {
-  Flex, AbsoluteFlexFillParent
+  Flex, AbsoluteFlexFillParent, screen,
 } from '../../../global/styled'
 import theme from '../../../global/theme'
 
@@ -16,6 +16,10 @@ export const Root = styled.div`
   margin: 0 auto;
   padding: 20px 20px 100px;
   text-shadow: 0 0 10px ${alpha(.5, lighten(.2, theme.hopiLight))};
+
+  ${screen.medmedsmall`
+    font-size: 18px;
+  `}
 
   .wordRolodex {
     display: inline-block;
