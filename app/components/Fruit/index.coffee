@@ -50,9 +50,9 @@ export default connect((d) =>
     <Root className={view} id='laganjaScrollRoot'>
       <ScrollTempt
         onClick={@onClickScrollTempt}
-        className={"fa fa-arrow-circle-o-down #{view} #{scrolled and 'scrolled'}"}
-      />
-      <Now id='laganjaScrollRoot' />
+        className={"#{view} #{scrolled and 'scrolled'}"}
+      >⎏</ScrollTempt>
+      <Now />
     </Root>
 
   onClickScrollTempt: -> document.getElementById'laganjaScrollRoot'.scroll {

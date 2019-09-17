@@ -43,6 +43,7 @@ export const ScrollTempt = styled.i`
   transition: all .5s ${EASE_OUT};
   pointer-events: none;
   cursor: pointer;
+  font-style: normal;
   ${TextShadow}
 
   &.quark:not(.scrolled) {
