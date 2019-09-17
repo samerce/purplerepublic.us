@@ -65,21 +65,18 @@ export const CosmosRoot = styled.div`
 export const CosmosSkin = styled(Flex)`
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center,
-    #4771a3 0%, #77779d 20%, #b998b3 45%, #e7a8b1 65%, #fdefb0 90%
+  background: radial-gradient(circle at center bottom,
+    #4771a3 0%, #77779d 40%, #FF7519 75%, #FFE460 85%, #fdefb0 95%
   );
   border-radius: 100%;
-  box-shadow: 0 0 10px #fdefb0, 0 0 20px #e7a8b1, 0 0 30px #b998b3,
-              0 0 40px #77779d, 0 0 50px #4771a3;
+  box-shadow: 0 0 10px #fdefb0, 0 0 20px #FFE460, 0 0 40px ${alpha(.3, '#152232')};
   ${'' /* filter: saturate(200%) hue-rotate(0); */}
   pointer-events: all;
+  transform: none;
 
   @keyframes ooze {
-    50% {
-      filter: saturate(400%) hue-rotate(360deg);
-      box-shadow: 0 0 20px #fdefb0, 0 0 30px #e7a8b1, 0 0 40px #b998b3,
-                  0 0 50px #77779d, 0 0 60px #4771a3;
-      transform: scale(1.1);
+    100% {
+      transform: scale(1.1) rotate(180deg);
     }
   }
 
@@ -97,7 +94,7 @@ export const CosmosSkin = styled(Flex)`
 const CelestialBodyTriangleEnter = css`
   opacity: 1;
   transform: translate(-50%, -50%);
-  transition-duration: .5s;
+  transition-duration: 1s;
 `
 const CelestialBodyRoot = styled(Flex)`
   position: absolute;
@@ -150,14 +147,14 @@ export const Sun = styled(CelestialBody)`
   );
   box-shadow:
     0 0 10px #fbf3ce,
-    0 0 30px #fbf3ce,
+    0 0 20px #fbf3ce,
+    0 0 30px #FFE460,
     0 0 40px #FFE460,
-    0 0 60px #FFE460,
-    0 0 70px #FFE460,
+    0 0 50px #FFE460,
+    0 0 60px #FF7519,
+    0 0 70px #FF7519,
     0 0 80px #FF7519,
-    0 0 100px #FF7519,
-    0 0 110px #FF7519,
-    0 0 120px #FF7519
+    0 0 90px #FF7519
   ;
 `
 
@@ -250,11 +247,11 @@ export const Moon = styled(CelestialBody)`
   );
   box-shadow:
     0 0 10px #eaedf4,
-    0 0 30px #e6eaf1,
+    0 0 20px #e6eaf1,
+    0 0 30px #D4D9E2,
     0 0 40px #D4D9E2,
-    0 0 60px #D4D9E2,
-    0 0 80px #6FCAEA,
-    0 0 90px #6FCAEA
+    0 0 50px #6FCAEA,
+    0 0 60px #6FCAEA
   ;
 `
 
@@ -272,11 +269,11 @@ export const Eye = styled.i`
   font-size: 140px;
   text-shadow:
     0 0 10px #f7faf6,
+    0 0 20px #cefabf,
     0 0 30px #cefabf,
-    0 0 40px #cefabf,
-    0 0 60px #95f773,
-    0 0 80px #95f773,
-    0 0 90px #95f773
+    0 0 40px #95f773,
+    0 0 50px #95f773,
+    0 0 60px #95f773
   ;
 `
 
@@ -292,10 +289,10 @@ export const Huh = styled(Flex)`
   font-family: milonga;
   text-shadow:
     0 0 10px #fcfaeb,
-    0 0 40px #fbf3b9,
-    0 0 50px #fbf3b9,
-    0 0 70px #fae868,
-    0 0 80px #fae868,
-    0 0 90px #fae868
+    0 0 20px #fbf3b9,
+    0 0 30px #fbf3b9,
+    0 0 40px #fae868,
+    0 0 50px #fae868,
+    0 0 60px #fae868
   ;
 `

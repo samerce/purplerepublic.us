@@ -50,9 +50,9 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
     }
     width: 10px;
     height: 710px;
-    box-shadow: 0 0 10px #FFE460, 0 0 20px #e7a8b1, 0 0 30px #b998b3,
-                0 0 40px #77779d, 0 0 50px #4771a3;
-    background: radial-gradient(circle at center, #FF7519 0%, #FFE460 40%, #fbf3ce 85%);
+    box-shadow: 0 0 10px #FFE460;
+    border: 1px solid ${alpha(.4, '#FFE460')};
+    background: radial-gradient(circle at 50% 100%, ${lighten(.1, '#FF7519')} 0%, #FFE460 40%, #fbf3ce 85%);
 
     @keyframes ooze {
       50% {
@@ -72,6 +72,7 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
     bottom: -1px;
     left: 50%;
     transform: translate(-50%, 0);
+    background: radial-gradient(circle at 50% 100%, #fbf3ce 0%, #FFE460 40%, ${lighten(.1, '#FF7519')} 85%);
 
     ${screen.medsmall`
       bottom: 40px;
