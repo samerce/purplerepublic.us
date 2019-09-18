@@ -33,9 +33,9 @@ export const Root = styled(AbsoluteFlexFillParent)`
 export const ScrollTempt = styled.i`
   position: fixed;
   z-index: 600;
-  bottom: 20px;
+  bottom: 40px;
   color: white;
-  font-size: 54px;
+  font-size: 48px;
   left: 50%;
   opacity: 0;
   filter: blur(10px);

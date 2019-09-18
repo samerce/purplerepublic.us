@@ -9,14 +9,17 @@ import {getTopFudge} from '../Portal/styled'
 export default connect((d) -> {
   view: d.get('start').get('view'),
   energy: d.get('start').get('energy'),
-}) resizable() class Borders extends React.PureComponent
+}) resizable() class Borders extends React.Component
 
   onResize: => @forceUpdate()
 
   render: =>
-    borderTop = getTopFudge()
     {energy, view} = @props
-    <BordersRoot top={borderTop} className={"#{energy} #{view}"}>
+    <BordersRoot
+      top={getTopFudge()}
+      className={"#{energy} #{view}"}
+      screenHeight={window.innerHeight}
+      screenWidth={window.innerWidth}>
       <div className='border borderLeft' />
       <div className='border borderRight' />
       <div className='border borderBottom' />

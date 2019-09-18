@@ -29,13 +29,13 @@ export const Root = styled(Flex)`
   &.quark {
     ${TransitionIn}
     &.anchor-bottomLeft {
-      transform: translate(50%, 50%);
+      transform: translate(50%, 50%) scale(.8);
     }
     &.anchor-bottomRight {
-      transform: translate(-50%, 50%);
+      transform: translate(-50%, 50%) scale(.8);
     }
     &.anchor-top {
-      transform: translate(0, calc(50% + 30px)) scale(.8);
+      transform: translate(0, calc(-50% - 30px)) scale(.8);
     }
   }
 `
@@ -51,6 +51,9 @@ export const CosmosRoot = styled.div`
   cursor: pointer;
   ${TransitionOut}
 
+  &.triangle {
+    transition-delay: .2s;
+  }
   &.cosmos {
     transform: scale(30);
     ${TransitionIn}
@@ -69,7 +72,7 @@ export const CosmosSkin = styled(Flex)`
     #4771a3 0%, #77779d 40%, #FF7519 75%, #FFE460 85%, #fdefb0 95%
   );
   border-radius: 100%;
-  ${'' /* box-shadow: 0 0 10px #fdefb0, 0 0 20px #FFE460, 0 0 40px ${alpha(.3, '#152232')}; */}
+  box-shadow: 0 0 10px #fdefb0, 0 0 20px #FFE460, 0 0 40px ${alpha(.3, '#152232')};
   ${'' /* filter: saturate(200%) hue-rotate(0); */}
   pointer-events: all;
   transform: none;
@@ -91,29 +94,24 @@ export const CosmosSkin = styled(Flex)`
   }
 `
 
-const CelestialBodyTriangleEnter = css`
+const CelestialBodyEnter = css`
   opacity: 1;
   transform: translate(-50%, -50%);
   transition-duration: 1s;
 `
-const CelestialBodyRoot = styled(Flex)`
-  position: absolute;
+const CelestialBodyRoot = styled(AbsoluteFlex)`
   align-items: center;
   justify-content: center;
-  height: 50vmin;
-  width: 50vmin;
-  max-width: 300px;
-  max-height: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(.5);
   cursor: pointer;
   pointer-events: all;
-  transition: all .5s ${EASE_OUT};
   opacity: 0;
+  ${TransitionOut}
 
   &.cosmos {
-    ${CelestialBodyTriangleEnter}
+    ${CelestialBodyEnter}
     transition-delay: .2s;
   }
 `
@@ -129,15 +127,17 @@ const CelestialBody = styled(Flex)`
 
 export const SunRoot = styled(CelestialBodyRoot)`
   z-index: 10;
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
 
   &.cosmos {
     transform: translate(-50%, -100%);
   }
   &.triangle.sun {
-    ${CelestialBodyTriangleEnter}
+    ${CelestialBodyEnter}
   }
   &.quark.sun {
-    ${CelestialBodyTriangleEnter}
+    ${CelestialBodyEnter}
   }
 `
 
@@ -145,21 +145,14 @@ export const Sun = styled(CelestialBody)`
   background: radial-gradient(
     circle at center, white 20%, #fbf3ce 100%
   );
-  ${'' /* box-shadow:
+  box-shadow:
     0 0 10px #fbf3ce,
-    0 0 20px #fbf3ce,
-    0 0 30px #FFE460,
     0 0 40px #FFE460,
     0 0 50px #FFE460,
-    0 0 60px #FF7519,
     0 0 70px #FF7519,
     0 0 80px #FF7519,
     0 0 90px #FF7519
-  ; */}
-`
-
-export const RaysRoot = styled(Flex)`
-
+  ;
 `
 
 export const Triangle = styled(AbsoluteFlex)`
@@ -199,20 +192,31 @@ export const CloseText = styled(AbsoluteFlex)`
   opacity: 0;
   pointer-events: none;
   ${TransitionOut}
+  transition-property: opacity;
 
   &.quark {
     opacity: 1;
     ${TransitionIn}
     transition-delay: .3s;
+    transition-property: opacity;
 
     &.anchor-bottomLeft {
-      transform: translate(40px, 70px);
+      transform: translate(
+        ${p => p.parentSize * .17}px,
+        ${p => p.parentSize * .21}px
+      );
     }
     &.anchor-bottomRight {
-      transform: translate(200px, 70px);
+      transform: translate(
+        ${p => p.parentSize * .60}px,
+        ${p => p.parentSize * .22}px
+      );
     }
     &.anchor-top {
-      transform: translate(125px, 30px);
+      transform: translate(
+        ${p => (p.parentSize * .5) - 30}px,
+        ${p => p.parentSize * .73}px
+      );
     }
   }
 `
@@ -229,7 +233,7 @@ export const MoonRoot = styled(CelestialBodyRoot)`
     transform: translate(-100%, 50%);
   }
   &.triangle.moon {
-    ${CelestialBodyTriangleEnter}
+    ${CelestialBodyEnter}
   }
 
   .moonTimer {
@@ -245,14 +249,11 @@ export const Moon = styled(CelestialBody)`
   background: radial-gradient(
     circle at center, #e6eaf1 20%, #D4D9E2 100%
   );
-  ${'' /* box-shadow:
+  box-shadow:
     0 0 10px #eaedf4,
-    0 0 20px #e6eaf1,
-    0 0 30px #D4D9E2,
     0 0 40px #D4D9E2,
-    0 0 50px #6FCAEA,
     0 0 60px #6FCAEA
-  ; */}
+  ;
 `
 
 export const EyeRoot = styled(CelestialBodyRoot)`
@@ -260,21 +261,19 @@ export const EyeRoot = styled(CelestialBodyRoot)`
     transform: translate(40%, 30%);
   }
   &.triangle.thirdeye {
-    ${CelestialBodyTriangleEnter}
+    ${CelestialBodyEnter}
   }
 `
 
 export const Eye = styled.i`
   color: white;
   font-size: 140px;
-  ${'' /* text-shadow:
+  text-shadow:
     0 0 10px #f7faf6,
-    0 0 20px #cefabf,
     0 0 30px #cefabf,
-    0 0 40px #95f773,
     0 0 50px #95f773,
     0 0 60px #95f773
-  ; */}
+  ;
 `
 
 export const HuhRoot = styled(CelestialBodyRoot)`
@@ -287,12 +286,10 @@ export const Huh = styled(Flex)`
   color: white;
   font-size: 10vw;
   font-family: milonga;
-  ${'' /* text-shadow:
+  text-shadow:
     0 0 10px #fcfaeb,
-    0 0 20px #fbf3b9,
     0 0 30px #fbf3b9,
     0 0 40px #fae868,
-    0 0 50px #fae868,
     0 0 60px #fae868
-  ; */}
+  ;
 `

@@ -1,13 +1,18 @@
 import styled from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
-import {EASE_OUT, EASE_IN, EASE} from '../../global/constants'
+import {
+  EASE_OUT, EASE_IN, EASE, EASE_SINE, SCREEN_WIDTH_XXXL
+} from '../../global/constants'
 import {
   Flex, AbsoluteFlexFillParent, AbsoluteFlex, screen,
 } from '../../global/styled'
 import {TransitionDuration} from './constants'
 import {SRC_URL} from '../../global/constants'
 import theme from '../../global/theme'
+import memoize from 'memoize-one'
 
+const TransitionOut = `transition: all .5s ${EASE_OUT};`
+const TransitionIn = `transition: all .5s ${EASE_SINE};`
 export const Root = styled(Flex)`
   width: 100%;
   height: 100%;
@@ -26,15 +31,18 @@ export const Backdrop = styled(AbsoluteFlexFillParent)`
   border-radius: 100%;
 `
 
+const getBorderHeight = memoize((p) => Math.sqrt(
+  Math.pow((p.screenHeight / 2), 2) + Math.pow((p.screenWidth / 2), 2)
+) - (p.top / 2))
 export const BordersRoot = styled(AbsoluteFlexFillParent)`
-  transition: all .5s ${EASE_OUT};
+  ${TransitionOut}
   pointer-events: none;
   z-index: 20;
   transform: translate(0, ${p => p.top}px);
 
   &.quark {
-    ${'' /* transform: scale(0) translate(0, ${p => p.top}px); */}
     opacity: 0;
+    {TransitionIn}
   }
   &.triangle {
     transition-delay: .2s;
@@ -49,7 +57,7 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
       animation-timing-function: linear;
     }
     width: 10px;
-    height: 710px;
+    height: ${p => p.screenHeight * .6}px;
     box-shadow: 0 0 10px #FFE460;
     border: 1px solid ${alpha(.4, '#FFE460')};
     background: radial-gradient(circle at 50% 100%, #FF7519 0%, #FFE460 40%, #fbf3ce 85%);
@@ -69,23 +77,22 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
   }
   .borderBottom {
     height: 50%;
-    bottom: -1px;
+    bottom: ${p => p.top}px;
     left: 50%;
     transform: translate(-50%, 0);
     background: radial-gradient(circle at 50% 100%, #fbf3ce 0%, #FFE460 40%, #FF7519 85%);
-
-    ${screen.medsmall`
-      bottom: 40px;
-    `}
-    ${screen.small`
-      bottom: 216px;
-    `}
   }
   .borderLeft, .borderRight {
-    display: initial;
     position: absolute;
-    bottom: 0;
+    top: 0;
+    display: block;
     z-index: 2;
+    height: ${getBorderHeight}px;
+
+    @media (min-width: ${SCREEN_WIDTH_XXXL}px) {
+      height: ${p => getBorderHeight(p) - (p.screenHeight / 8)}px;
+    }
+
     img {
       animation-delay: .05s;
     }
@@ -93,19 +100,11 @@ export const BordersRoot = styled(AbsoluteFlexFillParent)`
   .borderLeft {
     left: 0;
     transform-origin: left top;
-    transform: rotate(-45deg) translate(150px, -180px);
-
-    ${screen.medsmall`
-      transform: rotate(-45deg) translate(-50px, -440px);
-    `}
+    transform: rotate(-45deg) translate(0, -10px);
   }
   .borderRight {
     right: 0;
     transform-origin: right top;
-    transform: rotate(45deg) translate(-150px, -180px);
-
-    ${screen.medsmall`
-      transform: rotate(45deg) translate(50px, -440px);
-    `}
+    transform: rotate(45deg) translate(0, -10px);
   }
 `

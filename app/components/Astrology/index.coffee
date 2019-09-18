@@ -11,28 +11,35 @@ import resizable from '../hocs/resizable'
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import {View} from '../../containers/start/reducer.coffee'
+import memoize from 'memoize-one'
 
 SunEndTime = new Date('9/11/2019 00:00')
 MoonEndTime = new Date('9/29/2019 00:00')
+SunSize = 300
 
 export default connect((d) =>
   view: d.get('start').get('view'),
   energy: d.get('start').get('energy'),
   anchor: d.get('start').get('anchor'),
-) class Astrology extends React.PureComponent
+) resizable() class Astrology extends React.PureComponent
+
+  onResize: => @forceUpdate()
 
   render: =>
     {view, energy, anchor} = @props
     power = " #{energy} #{view} "
     anchor = " anchor-#{anchor} "
+    styles = @getStyles(window.innerWidth)
     <Root className={power + anchor}>
       <Cosmos />
 
-      <SunRoot onClick={@onClickSun} className={power}>
+      <SunRoot onClick={@onClickSun} className={power} {...styles}>
         <Sun className={view} />
         <Triangle />
         <Timer endTime={SunEndTime} className={view} />
-        <CloseText className={power + anchor}>close</CloseText>
+        <CloseText className={power + anchor} parentSize={styles.size}>
+          close
+        </CloseText>
       </SunRoot>
 
       <MoonRoot className={power}>
@@ -55,3 +62,9 @@ export default connect((d) =>
       window.location = '#/sun'
     if view is View.triangle
       window.location = '#/sun/nucleus'
+
+  getStyles: memoize (screenWidth) =>
+    size = Math.min((screenWidth * .5), 300)
+    {
+      size
+    }

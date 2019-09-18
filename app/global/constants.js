@@ -28,6 +28,8 @@ export const SCREEN_WIDTH_M = 768
 export const SCREEN_WIDTH_ML = 924
 export const SCREEN_WIDTH_L = 1024
 export const SCREEN_WIDTH_XL = 1366
+export const SCREEN_WIDTH_XXL = 1440
+export const SCREEN_WIDTH_XXXL = 2156
 
 export const SCREEN_WIDTH_S_PX = SCREEN_WIDTH_S + 'px'
 export const SCREEN_WIDTH_M_PX = SCREEN_WIDTH_M + 'px'

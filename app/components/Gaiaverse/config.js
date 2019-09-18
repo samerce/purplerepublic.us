@@ -56,7 +56,7 @@ const Portals = {
       bottomRight: 'pride',
     },
     position: {
-      xOffset: '-420px',
+      xOffset: '-220px',
     }
   },
   jojo: {

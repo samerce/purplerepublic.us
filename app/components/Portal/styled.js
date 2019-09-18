@@ -3,6 +3,7 @@ import {transparentize as alpha, darken, lighten} from 'polished'
 import {
   EASE_OUT, EASE_IN, EASE, EASE_SINE,
   SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_MMS, SCREEN_WIDTH_S,
+  SCREEN_WIDTH_XXL
 } from '../../global/constants'
 import {
   Flex, H1, H2, FlexColumn, Boto, screen, ArticleText, AbsoluteFlexFillParent,
@@ -34,6 +35,7 @@ export const Root = styled(AbsoluteFlexFillParent)`
     display: block;
     z-index: 3;
     top: ${p => p.top}px;
+    left: ${p => p.left}px;
     transform: rotate(-45deg);
     height: ${p => p.size}px;
     width: ${p => p.size}px;
@@ -50,13 +52,22 @@ export const Root = styled(AbsoluteFlexFillParent)`
   }
 
   &.quark {
-    transition: ${TransitionIn};
+    transition: transform .5s, filter .5s, overflow .1s linear .2s;
+    transition-timing-function: ${EASE_SINE};
     &.hidden {
       &.spot-bottomRight {
         transform: translate(100%, 0);
       }
       &.spot-bottomLeft {
         transform: translate(-100%, 0);
+      }
+      &.spotTopIsActive {
+        &.spot-bottomLeft {
+          transform: translate(-50%, 100%);
+        }
+        &.spot-bottomRight {
+          transform: translate(50%, 100%);
+        }
       }
     }
     &:not(.hidden) {
@@ -110,13 +121,16 @@ export const GifRoot = styled(AbsoluteFlex)`
   cursor: pointer !important;
   transition: ${TransitionOut};
   bottom: 0;
+  width: 100%;
+  transform-origin: center top;
 
   &.quark.spot-top:not(.hidden) {
-    transform: scale(2);
+    transform: scale(2) translate(0, -25%);
     transition: ${TransitionIn};
   }
 
   .gif {
+    width: 100%;
     position: relative;
     visibility: hidden;
   }
@@ -138,9 +152,13 @@ export const GifRoot = styled(AbsoluteFlex)`
     }
   }
 
-  img {
-    transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
-  }
+  ${screen.large`
+    &:not(.quark) {
+      img {
+        transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
+      }
+    }
+  `}
 
   .spot-top.gif {
     display: flex;
@@ -222,13 +240,14 @@ export const Title = styled(AbsoluteFlex)`
   &.spot-top {
     bottom: 20%;
     transform: translate(50%, 0);
+
+    ${screen.medsmall`
+      bottom: 30%;
+    `}
   }
 `
 
-const getTopFudgeImpl = memoize((screenWidth) => {
-  return (screenWidth <= SCREEN_WIDTH_MMS)? 170 :
-    (screenWidth <= SCREEN_WIDTH_MS)? 162 :
-    (screenWidth <= SCREEN_WIDTH_M)? 54 :
-    0
-})
-export const getTopFudge = () => getTopFudgeImpl(window.innerWidth)
+const getTopFudgeImpl = memoize((screenWidth, screenHeight) => (
+  -(screenWidth - screenHeight) / 3
+))
+export const getTopFudge = () => getTopFudgeImpl(window.innerWidth, window.innerHeight)
