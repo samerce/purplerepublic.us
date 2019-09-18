@@ -57,7 +57,7 @@ const Portals = {
     },
     position: {
       xOffset: '-220px',
-    }
+    },
   },
   jojo: {
     title: 'isness',
@@ -67,7 +67,7 @@ const Portals = {
       bottomRight: 'pride',
     },
     position: {
-      yOffset: '-20px',
+      yOffset: '90px',
       xOffset: '-490px',
     },
   },

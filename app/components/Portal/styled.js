@@ -158,6 +158,11 @@ export const GifRoot = styled(AbsoluteFlex)`
         transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
       }
     }
+    &.quark:not(.spot-top) {
+      img {
+        transform: translate(-25%);
+      }
+    }
   `}
 
   .spot-top.gif {
