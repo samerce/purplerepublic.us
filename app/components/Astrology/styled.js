@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 import {transparentize as alpha, darken, lighten} from 'polished'
 import {EASE_OUT, EASE_IN, EASE, EASE_SINE} from '../../global/constants'
 import {
-  Flex, AbsoluteFlex, AbsoluteFlexFillParent
+  Flex, AbsoluteFlex, AbsoluteFlexFillParent, screen,
 } from '../../global/styled'
 import theme from '../../global/theme'
 import {TransitionDuration} from '../Gaiaverse/constants'
@@ -131,7 +131,10 @@ export const SunRoot = styled(CelestialBodyRoot)`
   height: ${p => p.size}px;
 
   &.cosmos {
-    transform: translate(-50%, -100%);
+    transform: translate(
+      ${p => -(p.size / 2) + 54}px,
+      ${p => -(p.screenHeight / 2) + 108}px
+    );
   }
   &.triangle.sun {
     ${CelestialBodyEnter}
@@ -139,6 +142,11 @@ export const SunRoot = styled(CelestialBodyRoot)`
   &.quark.sun {
     ${CelestialBodyEnter}
   }
+  ${screen.medsmall`
+    .sunTimer {
+      font-size: 20px;
+    }
+  `}
 `
 
 export const Sun = styled(CelestialBody)`
@@ -229,8 +237,16 @@ export const MoonRoot = styled(CelestialBodyRoot)`
   max-width: 200px;
   max-height: 200px;
 
+  ${screen.medsmall`
+    max-width: 100px;
+    max-height: 100px;
+  `}
+
   &.cosmos {
-    transform: translate(-100%, 50%);
+    transform: translate(
+      ${p => -(p.screenWidth / 2) + ((p.screenWidth / 2) * .2)}px,
+      -54px
+    );
   }
   &.triangle.moon {
     ${CelestialBodyEnter}
@@ -240,6 +256,10 @@ export const MoonRoot = styled(CelestialBodyRoot)`
     font-size: 22px;
     color: #b7cff9;
     text-shadow: 0 0 #357dfb, 1px 1px 2px #b7cff9;
+
+    ${screen.medsmall`
+      font-size: 18px;
+    `}
   }
 `
 
@@ -258,7 +278,10 @@ export const Moon = styled(CelestialBody)`
 
 export const EyeRoot = styled(CelestialBodyRoot)`
   .cosmos & {
-    transform: translate(40%, 30%);
+    transform: translate(
+      ${p => (p.screenWidth / 8) - 27}px,
+      108px
+    );
   }
   &.triangle.thirdeye {
     ${CelestialBodyEnter}
@@ -274,17 +297,21 @@ export const Eye = styled.i`
     0 0 50px #95f773,
     0 0 60px #95f773
   ;
+  ${screen.medsmall`
+    font-size: 108px;
+  `}
 `
 
+const HuhSize = 54
 export const HuhRoot = styled(CelestialBodyRoot)`
   &.cosmos {
-    transform: translate(-50%, 90%);
+    transform: translate(-50%, ${p => (p.screenHeight / 2) - HuhSize - 40}px);
   }
 `
 
 export const Huh = styled(Flex)`
   color: white;
-  font-size: 10vw;
+  font-size: ${HuhSize}px;
   font-family: milonga;
   text-shadow:
     0 0 10px #fcfaeb,

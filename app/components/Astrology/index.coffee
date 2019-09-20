@@ -12,10 +12,10 @@ import {connect} from 'react-redux'
 import autobind from 'autobind-decorator'
 import {View} from '../../containers/start/reducer.coffee'
 import memoize from 'memoize-one'
+import {SCREEN_WIDTH_MS} from '../../global/constants'
 
 SunEndTime = new Date('9/11/2019 00:00')
 MoonEndTime = new Date('9/29/2019 00:00')
-SunSize = 300
 
 export default connect((d) =>
   view: d.get('start').get('view'),
@@ -33,25 +33,32 @@ export default connect((d) =>
     <Root className={power + anchor}>
       <Cosmos />
 
-      <SunRoot onClick={@onClickSun} className={power} {...styles}>
+      <SunRoot onClick={@onClickSun} className={power} {...styles}
+        screenHeight={window.innerHeight}>
         <Sun className={view} />
         <Triangle />
-        <Timer endTime={SunEndTime} className={view} />
+        <Timer endTime={SunEndTime} className={view + ' sunTimer'} />
         <CloseText className={power + anchor} parentSize={styles.size}>
           close
         </CloseText>
       </SunRoot>
 
-      <MoonRoot className={power}>
+      <MoonRoot
+        className={power}
+        screenWidth={window.innerWidth}>
         <Moon />
         <Timer endTime={MoonEndTime} className={view + ' moonTimer'} />
       </MoonRoot>
 
-      <EyeRoot className={power}>
+      <EyeRoot
+        className={power}
+        screenWidth={window.innerWidth}>
         <Eye className='fa fa-eye' />
       </EyeRoot>
 
-      <HuhRoot className={power}>
+      <HuhRoot
+        className={power}
+        screenHeight={window.innerHeight}>
         <Huh>?</Huh>
       </HuhRoot>
     </Root>
@@ -64,7 +71,7 @@ export default connect((d) =>
       window.location = '#/sun/nucleus'
 
   getStyles: memoize (screenWidth) =>
-    size = Math.min((screenWidth * .5), 300)
+    MaxWidth = if screenWidth > SCREEN_WIDTH_MS then 300 else 150
     {
-      size
+      size: Math.min((screenWidth * .5), MaxWidth)
     }
