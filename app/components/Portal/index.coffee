@@ -13,12 +13,12 @@ import {View} from '../../containers/start/reducer.coffee'
 import memoize from 'memoize-one'
 
 import {
-  SRC_URL, SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_L, SCREEN_WIDTH_ML
+  SRC_URL, CDN_URL, SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_L, SCREEN_WIDTH_ML
 } from '../../global/constants'
 
 export ScreenWidthForSeduction = SCREEN_WIDTH_ML
 IMG_ROOT_URL = SRC_URL + 'portals/stills/'
-VID_ROOT_URL = SRC_URL + 'portals/videos/'
+VID_ROOT_URL = CDN_URL + 'portals/videos/'
 getTopStyles
 getBottomStyles
 
