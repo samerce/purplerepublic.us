@@ -132,34 +132,17 @@ export const GifRoot = styled(AbsoluteFlex)`
   .gif {
     width: 100%;
     position: relative;
-    visibility: hidden;
-  }
-  .gif.still {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    visibility: visible;
-  }
-
-  &:hover, &.quark:not(.hidden):not(.scrolled), &.seducing {
-    .gif {
-      visibility: visible;
-    }
-    .gif.still {
-      visibility: hidden;
-    }
+    ${'' /* visibility: hidden; */}
   }
 
   ${screen.large`
     &:not(.quark) {
-      img {
+      .gift {
         transform: translate(${p => p.xOffsetImg}, ${p => p.yOffsetImg});
       }
     }
     &.quark:not(.spot-top) {
-      img {
+      .gift {
         transform: translate(-25%);
       }
     }
@@ -172,10 +155,7 @@ export const GifRoot = styled(AbsoluteFlex)`
     ${'' /* transform: translate(0, -${p => p.yOffset}px); */}
     transform-origin: right bottom;
 
-    ${screen.large`
-    `}
-
-    img {
+    .gift {
       height: initial;
       width: 100%;
 
@@ -186,7 +166,7 @@ export const GifRoot = styled(AbsoluteFlex)`
     }
   }
 
-  &.spot-top img {
+  &.spot-top .gift {
     width: ${p => p.size}px;
   }
   &.spot-bottomLeft, &.spot-bottomRight {
@@ -195,7 +175,7 @@ export const GifRoot = styled(AbsoluteFlex)`
     .gif {
       height: 100%;
     }
-    img {
+    .gift {
       height: ${p => p.height}px;
       width: ${p => p.width}px;
     }

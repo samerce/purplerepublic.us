@@ -4,7 +4,8 @@ export const ACTIVE_NAV_LINK_DURATION = 5000; // ms
 export const GOOGLE_URL = 'https://storage.googleapis.com/purple-republic/'
 export const S3_URL = 'https://s3.amazonaws.com/purplerepublic.us/'
 export const S3_CDN_URL = 'https://d3sclm0qnx89jv.cloudfront.net/'
-export const SRC_URL = S3_CDN_URL
+export const IMG_OPT_URL = 'https://res.cloudinary.com/eym/image/fetch/q_auto/'
+export const SRC_URL = IMG_OPT_URL + S3_CDN_URL
 
 export const YOUTUBE_URL = 'https://www.youtube.com/channel/UCne9Pv9CARxNz8rNMaDm7Dw'
 export const PATREON_URL = 'https://www.patreon.com/expressyourmess'

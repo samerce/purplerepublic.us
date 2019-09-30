@@ -13,11 +13,12 @@ import {View} from '../../containers/start/reducer.coffee'
 import memoize from 'memoize-one'
 
 import {
-  SRC_URL, SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_L
+  SRC_URL, SCREEN_WIDTH_M, SCREEN_WIDTH_MS, SCREEN_WIDTH_L, SCREEN_WIDTH_ML
 } from '../../global/constants'
 
-export ScreenWidthForSeduction = SCREEN_WIDTH_L
-GIF_ROOT_URL = SRC_URL + 'portals/gifs/'
+export ScreenWidthForSeduction = SCREEN_WIDTH_ML
+IMG_ROOT_URL = SRC_URL + 'portals/stills/'
+VID_ROOT_URL = SRC_URL + 'portals/videos/'
 getTopStyles
 getBottomStyles
 
@@ -33,6 +34,8 @@ export default connect((d) =>
     seducing: no,
   }
 
+  componentDidMount: => @handleScroll()
+  componentDidUpdate: => @handleScroll()
   onResize: => @forceUpdate()
 
   shouldComponentUpdate: (nextProps) =>
@@ -58,13 +61,14 @@ export default connect((d) =>
     }
     <Root
       className={classes} {...style}>
-      <ContentRoot className={classes} {...style}>
+      <ContentRoot className={classes} {...style}
+        onMouseEnter={@onMouseEnter} onMouseLeave={@onMouseLeave}>
         <GifRoot {...style} className={classes} onClick={@onClickPortal}>
           <div className={'gif spot-' + spot}>
-            <img src={GIF_ROOT_URL + id + '.gif'} />
-          </div>
-          <div className={'gif still spot-' + spot}>
-            <img src={GIF_ROOT_URL + id + '.jpg'} />
+            <video className='gift' loop={1} playsinline={1}
+              ref={(r) => @video = r}
+              src={VID_ROOT_URL + id + '.mp4'}
+            />
           </div>
         </GifRoot>
 
@@ -76,9 +80,23 @@ export default connect((d) =>
       </ContentRoot>
     </Root>
 
-  onClickPortal: => window.location = "#/#{@props.energy}/#{@getPortal().id}"
+  onClickPortal: =>
+    window.location = "#/#{@props.energy}/#{@getPortal().id}"
+    @video.play()
 
-  onClickClose: => window.location = "#/#{@props.energy}"
+  onClickClose: =>
+    window.location = "#/#{@props.energy}"
+    @video.pause()
+
+  handleScroll: =>
+    return unless @props.quark is @getPortal().id
+    if @props.fruitScrolled
+      @video.pause()
+    else setTimeout((=> @video.play()), 500)
+
+  onMouseEnter: => @video.play()
+
+  onMouseLeave: => @video.pause()
 
   getPortal: => @props.portals[@props.spot]
 
@@ -104,7 +122,7 @@ getTopStyles = ({position = {}}) ->
   {
     left,
     top: -Math.sqrt(sizeSq - bisectHalfSq) + getTopFudge() + myTopFudge,
-    topOffset: size / 5,
+    topOffset: if screenWidth > SCREEN_WIDTH_MS then (size / 6) else (size / 5),
     size,
     yOffset: screenHeight / 4,
     xOffsetImg: 0,
