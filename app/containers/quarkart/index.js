@@ -82,21 +82,21 @@ export default class QuarkArt extends React.PureComponent {
       this.cropper.img.src = this.props.motherImageUrl + '?' + new Date().getTime()
     })
 
-    fetch('/quarkArt.list?maxObjects=5', {
-      method: 'GET',
-    }).then((responseRaw) => {
-      if (!responseRaw) return
+    // fetch('/quarkArt.list?maxObjects=5', {
+    //   method: 'GET',
+    // }).then((responseRaw) => {
+    //   if (!responseRaw) return
 
-      responseRaw.json().then(response => {
-        const galleryItems = []
-        for (let item in response.items) {
-          galleryItems.push(item)
-        }
-        this.setState({galleryItems: response.items})
-      })
-    }).catch(e => {
-      console.warning('quark art list fetch failed', e)
-    })
+    //   responseRaw.json().then(response => {
+    //     const galleryItems = []
+    //     for (let item in response.items) {
+    //       galleryItems.push(item)
+    //     }
+    //     this.setState({galleryItems: response.items})
+    //   })
+    // }).catch(e => {
+    //   console.warning('quark art list fetch failed', e)
+    // })
   }
 
   componentDidUpdate(prevProps) {
