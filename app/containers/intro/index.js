@@ -172,7 +172,7 @@ export default class Intro extends React.Component {
             democracy is stale so we’re here to give her a facelift.<br />
             <br />
             less rich white guys in ugly suits<br />
-            more powerful women, fabulous drag queens, and vital people of color<br />
+            more powerful women, fabulous drag queens, and diverse people of color<br />
             <br />
             sound too good to be true? we don’t think so.<br />
             welcome to the revolution, baby !
